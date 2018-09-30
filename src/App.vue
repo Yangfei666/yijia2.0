@@ -91,6 +91,18 @@ body {
 .el-button--text{
   color:#00bc71;
 }
+.el-input{
+  height:35px;
+}
+.el-button{
+  height:35px;
+}
+.el-range-editor{
+  height:35px;
+}
+.el-select{
+  height:35px;
+}
 .el-tag .el-icon-close:hover {
     background-color: #00bc71;
     color: #fff;
