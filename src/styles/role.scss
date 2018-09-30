@@ -1,0 +1,258 @@
+.practice-main {
+    height: 112px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .breadcrumb {
+      margin: 17px 20px auto;
+    }
+    .weber {
+      margin: 17px 20px auto;
+      height: 45px;
+      display: flex;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+      }
+      .search {
+        width: 261px;
+        border: 1px solid #e8e8e8;
+        height: 32px;
+        margin: 5px 35px auto;
+        display: flex;
+        border-radius: 16px;
+        .search-input {
+          width: 100%;
+          border-radius: 16px;
+          border: none;
+          text-indent: 10px;
+          color: #8c8c8c;
+          font-size: 14px;
+        }
+        .search-icon {
+          margin-top: 8px;
+          margin-right: 13px;
+        }
+      }
+    }
+  }
+  .practice-list {
+    width: 97%;
+    height: 550px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .quanbu {
+      display: block;
+      height: 60px;
+      .search-form {
+        height: 45px;
+        display: flex;
+        float: left;
+        margin: 15px 0px auto;
+        .el-button--primary {
+          background-color: #00bc71;
+          border-color: #00bc71;
+        }
+      }
+      .el-input__inner {
+        height: 37px;
+      }
+      .el-input {
+        height: 37px;
+      }
+    }
+    .quanbu2 {
+      display: inherit;
+      float: left;
+      height: 60px;
+      margin-left: -70px;
+      .search-form2 {
+        display: flex;
+        margin: 15px 0px auto;
+        float: left;
+        height: 45px;
+        .el-button--primary {
+          background-color: #00bc71;
+          border-color: #00bc71;
+        }
+      }
+      .corry {
+        height: 37px;
+        line-height: 37px;
+        float: left;
+        margin-top: 15px;
+        .corry-out {
+          color: #00bc71;
+          font-size: 14px;
+        }
+      }
+    }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-size: 16px;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-size: 16px;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+    .practice-table {
+      .el-button--text {
+        color: #00bc71;
+      }
+      .block {
+        float: right;
+        margin-top: 10px;
+        .el-pagination {
+          padding: 15px 5px;
+          float: right;
+          margin-right: 40px;
+          .el-pager li.active {
+            color: #00bc71;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 25% !important;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 14px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 992px) and (max-width: 1280px) {
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 23% !important;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 15px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1280px) and (max-width: 1440px) {
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20% !important;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1440px) and (max-width: 1920px) {
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20% !important;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 17px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+  }
