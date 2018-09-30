@@ -1,0 +1,692 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 100px!important;
+                    }
+                    .el-radio-group{
+                        width: 106px!important;
+                        margin-left: -10px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                            display: flex;
+                            width: 50%!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 155px!important;
+                    }
+                    .el-radio-group{
+                        width: 110px!important;
+                        margin-left: -10px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 330px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 330px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:992px)and (max-width: 1024px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 126px!important;
+                    }
+                    .el-radio-group{
+                        width: 130px!important;
+                        margin-left: -10px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                            display: flex;
+                            width: 50%!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 187px!important;
+                    }
+                    .el-radio-group{
+                        width: 187px!important;
+                        margin-left: -25px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 460px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 537px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1024px)and (max-width: 1280px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 126px!important;
+                    }
+                    .el-radio-group{
+                        width: 130px!important;
+                        margin-left: -10px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                            display: flex;
+                            width: 50%!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 187px!important;
+                    }
+                    .el-radio-group{
+                        width: 187px!important;
+                        margin-left: -25px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 460px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                        .from-date3{
+                       display: flex;
+                       width: 100%!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 537px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1280px)and (max-width: 1366px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 190px!important;
+                    }
+                    .el-radio-group{
+                        width: 190px!important;
+                        margin-left: -40px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                            display: flex;
+                            width: 50%!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 230px!important;
+                    }
+                    .el-radio-group{
+                        width: 190px!important;
+                        margin-left: -30px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223px!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 500px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 537px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1366px)and (max-width: 1440px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 190px!important;
+                    }
+                    .el-radio-group{
+                        width: 190px!important;
+                        margin-left: -40px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                        .from-date3{
+                            display: flex;
+                            width: 50%!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 230px!important;
+                    }
+                    .el-radio-group{
+                        width: 190px!important;
+                        margin-left: -30px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223px!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 540px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 600px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1440px)and (max-width: 1680px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 210px!important;
+                    }
+                    .el-radio-group{
+                        width: 210px!important;
+                        margin-left: -40px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                          display: flex;
+                          justify-content: space-between;
+                        .from-date3{
+                            display: flex;
+                            width: 290px!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 154px!important;
+                    }
+                    .el-radio-group{
+                        width: 145px!important;
+                        margin-left: -25px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223px!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 540px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 600px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1680px)and (max-width: 1920px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 265px!important;
+                    }
+                    .el-radio-group{
+                        width: 210px!important;
+                        margin-left: -40px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                          display: flex;
+                          justify-content: space-between;
+                        .from-date3{
+                            display: flex;
+                            width: 265px!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 154px!important;
+                    }
+                    .el-radio-group{
+                        width: 145px!important;
+                        margin-left: -25px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 280px!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 800px!important;
+                        text-align: left!important;
+                    }
+                  }
+                  .from-date-border4{
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 710px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}

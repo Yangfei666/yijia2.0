@@ -1,0 +1,610 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 60px;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-input__inner {
+              height: 37px;
+              width: 113px!important;
+            }
+            .el-input {
+              height: 37px;
+              font-size: 14px!important;
+              width: 113px!important;
+            }
+            .el-select{
+              height: 37px;
+              width: 248px !important;
+            }
+            .el-range-editor{
+              height: 37px;
+              width: 248px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 248px !important;
+                padding-right: 0px !important;
+            }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+        }
+        .practice-center {
+          height: 80px;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 32%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 12px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 12px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 4px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 60%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 12px!important;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 60px;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-input__inner {
+              height: 37px;
+              width: 207px!important;
+            }
+            .el-input {
+              height: 37px;
+              font-size: 14px!important;
+              width: 207px!important;
+            }
+            .el-select{
+              height: 37px;
+              width: 200px !important;
+            }
+            .el-range-editor{
+              height: 37px;
+              width: 210px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 210px !important;
+                padding-right: 0px !important;
+            }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+        }
+        .practice-center {
+          height: 80px;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 30%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 4px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px!important;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 60px;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-input__inner {
+              height: 37px;
+              width: 255px!important;
+            }
+            .el-input {
+              height: 37px;
+              font-size: 14px!important;
+              width: 255px!important;
+            }
+            .el-select{
+              height: 37px;
+              width: 192px !important;
+            }
+            .el-range-editor{
+              height: 37px;
+              width: 180px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 180px !important;
+                padding-right: 0px !important;
+            }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+        }
+        .practice-center {
+          height: 80px;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 25%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 4px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px!important;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1440px)and (max-width: 1920px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 60px;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-input__inner {
+              height: 37px;
+              width: 305px!important;
+            }
+            .el-input {
+              height: 37px;
+              font-size: 14px!important;
+              width: 305px!important;
+            }
+            .el-select{
+              height: 37px;
+              width: 240px !important;
+            }
+            .el-range-editor{
+              height: 37px;
+              width: 240px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 240px !important;
+                padding-right: 0px !important;
+            }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+        }
+        .practice-center {
+          height: 80px;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 22%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 4px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px!important;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .practice-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .quanbu {
+        display: block;
+        height: 60px;
+        .search-form {
+          height: 45px;
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-button--primary {
+            background-color: #00bc71;
+            border-color: #00bc71;
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-input__inner {
+            height: 37px;
+            width: 305px!important;
+          }
+          .el-input {
+            height: 37px;
+            font-size: 14px!important;
+            width: 305px!important;
+          }
+          .el-select{
+            height: 37px;
+            width: 335px !important;
+          }
+          .el-range-editor{
+            height: 37px;
+            width: 335px !important;
+          }
+          .el-range-editor.el-input__inner{
+              font-size: 12px!important;
+              width: 335px !important;
+              padding-right: 0px !important;
+          }
+        }
+        .corry {
+          height: 37px;
+          line-height: 37px;
+          float: left;
+          margin-top: 15px;
+          .corry-out {
+            color: #00bc71;
+            font-size: 14px;
+          }
+        }
+      }
+      .practice-center {
+        height: 80px;
+        .purple {
+          height: 80px;
+          display: flex;
+          justify-content: flex-start;
+          .add {
+            border: 1px solid #00bc71;
+            width: 22%!important;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 0px;
+            margin-top: 20px;
+            .add-p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 17px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 9px;
+            }
+            p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 17px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 4px;
+            }
+          }
+        }
+        .purple2 {
+          height: 80px;
+          display: flex;
+          justify-content: flex-end;
+          .search {
+            width: 50%!important;
+            border: 1px solid #e8e8e8;
+            height: 32px;
+            display: flex;
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-right: 20px;
+            .search-input {
+              width: 100%;
+              border-radius: 16px;
+              border: none;
+              text-indent: 10px;
+              color: #8c8c8c;
+              font-size: 14px!important;
+            }
+            .search-icon {
+              margin-top: 8px;
+              margin-right: 13px;
+            }
+          }
+        }
+      }
+    }
+}

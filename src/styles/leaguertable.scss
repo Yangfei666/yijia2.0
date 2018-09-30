@@ -1,0 +1,626 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 100%!important;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-range-editor{
+                height: 37px;
+                width: 265px !important;
+              }
+              .el-range-editor.el-input__inner{
+                  font-size: 12px!important;
+                  width: 265px !important;
+                  padding-right: 0px !important;
+              }
+              .el-input {
+                height: 37px;
+                width: 124px !important;
+              }
+              .el-select{
+                height: 37px;
+                width: 245px !important;
+              }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+          .el-input--suffix .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+          }
+        }
+        .practice-center {
+          height: 80px;
+          margin-top: 1%!important;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 28%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 2px;
+              margin-top: 20px;
+              margin-left: 20px;
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 14px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+              }
+              .add-p {
+                color: #00bc71;
+                margin-top: 9px;
+              }
+              .add-b {
+                color: #00bc71;
+                margin-top: -3px;
+                font-size: 14px!important;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 100%!important;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-range-editor{
+                height: 37px;
+                width: 220px !important;
+              }
+              .el-range-editor.el-input__inner{
+                  font-size: 12px!important;
+                  width: 220px !important;
+              }
+              .el-input__inner {
+                height: 37px;
+                padding-right: 0px !important;
+                width:135px !important;
+              }
+              .el-input {
+                height: 37px;
+                width: 135px !important;
+              }
+              .el-select{
+                height: 37px;
+                width: 177px !important;
+              }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+          .el-input--suffix .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+          }
+        }
+        .practice-center {
+          height: 80px;
+          margin-top: 1%!important;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 26%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 2px;
+              margin-top: 20px;
+              margin-left: 20px;
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+              }
+              .add-p {
+                color: #00bc71;
+                margin-top: 9px;
+              }
+              .add-b {
+                color: #00bc71;
+                margin-top: -3px;
+                font-size: 15px!important;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 100%!important;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-range-editor{
+                height: 37px;
+                width: 250px !important;
+              }
+              .el-range-editor.el-input__inner{
+                  font-size: 12px!important;
+                  width: 250px !important;
+              }
+              .el-input__inner {
+                height: 37px;
+                padding-right: 0px !important;
+                width:172px !important;
+              }
+              .el-input {
+                height: 37px;
+                width: 172px !important;
+              }
+              .el-select{
+                height: 37px;
+                width: 210px !important;
+              }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+          .el-input--suffix .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+          }
+        }
+        .practice-center {
+          height: 80px;
+          margin-top: 1%!important;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 21%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 2px;
+              margin-top: 20px;
+              margin-left: 20px;
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+              }
+              .add-p {
+                color: #00bc71;
+                margin-top: 9px;
+              }
+              .add-b {
+                color: #00bc71;
+                margin-top: -3px;
+                font-size: 15px!important;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 50%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1440px)and (max-width: 1920px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .quanbu {
+          display: block;
+          height: 100%!important;
+          .search-form {
+            height: 45px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-button--primary {
+              background-color: #00bc71;
+              border-color: #00bc71;
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-button+.el-button{
+              height: 35px;
+              line-height: 1px;
+            }
+            .el-range-editor{
+                height: 37px;
+                width: 290px !important;
+              }
+              .el-range-editor.el-input__inner{
+                  font-size: 12px!important;
+                  width: 290px !important;
+              }
+              .el-input__inner {
+                height: 37px;
+                padding-right: 0px !important;
+                width: 210px !important;
+              }
+              .el-input {
+                height: 37px;
+                width: 210px !important;
+              }
+              .el-select{
+                height: 37px;
+                width: 250px !important;
+              }
+          }
+          .corry {
+            height: 37px;
+            line-height: 37px;
+            float: left;
+            margin-top: 15px;
+            .corry-out {
+              color: #00bc71;
+              font-size: 14px;
+            }
+          }
+          .el-input--suffix .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+          }
+        }
+        .practice-center {
+          height: 80px;
+          margin-top: 1%!important;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            .add {
+              border: 1px solid #00bc71;
+              width: 20%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 2px;
+              margin-top: 20px;
+              margin-left: 20px;
+              p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+              }
+              .add-p {
+                color: #00bc71;
+                margin-top: 9px;
+              }
+              .add-b {
+                color: #00bc71;
+                margin-top: -3px;
+                font-size: 16px!important;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            .search {
+              width: 38%!important;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 15px!important;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .practice-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .quanbu {
+        display: block;
+        height: 100%!important;
+        .search-form {
+          height: 45px;
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-button--primary {
+            background-color: #00bc71;
+            border-color: #00bc71;
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-range-editor{
+              height: 37px;
+              width: 300px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 300px !important;
+            }
+            .el-input__inner {
+              height: 37px;
+              padding-right: 0px !important;
+              width: 195px !important;
+            }
+            .el-input {
+              height: 37px;
+              width: 195px !important;
+            }
+            .el-select{
+              height: 37px;
+              width: 195px !important;
+            }
+        }
+        .corry {
+          height: 37px;
+          line-height: 37px;
+          float: left;
+          margin-top: 15px;
+          .corry-out {
+            color: #00bc71;
+            font-size: 14px;
+          }
+        }
+        .el-input--suffix .el-input__inner {
+          height: 37px;
+          padding-right: 0px !important;
+        }
+      }
+      .practice-center {
+        height: 80px;
+        margin-top: 1%!important;
+        .purple {
+          height: 80px;
+          display: flex;
+          justify-content: flex-start;
+          .add {
+            border: 1px solid #00bc71;
+            width: 20%!important;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 2px;
+            margin-top: 20px;
+            margin-left: 20px;
+            p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+            }
+            .add-p {
+              color: #00bc71;
+              margin-top: 9px;
+            }
+            .add-b {
+              color: #00bc71;
+              margin-top: -3px;
+              font-size: 18px!important;
+            }
+          }
+        }
+        .purple2 {
+          height: 80px;
+          display: flex;
+          justify-content: flex-end;
+          .search {
+            width: 38%!important;
+            border: 1px solid #e8e8e8;
+            height: 32px;
+            display: flex;
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-right: 20px;
+            .search-input {
+              width: 100%;
+              border-radius: 16px;
+              border: none;
+              text-indent: 10px;
+              color: #8c8c8c;
+              font-size: 15px!important;
+            }
+            .search-icon {
+              margin-top: 8px;
+              margin-right: 13px;
+            }
+          }
+        }
+      }
+    }
+}

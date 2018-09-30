@@ -1,0 +1,200 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but{
+            position: absolute;
+            top: 2.5%!important;
+            z-index:2;
+            color:#262626;
+            right: 84%!important;
+            .goback{
+                font-size: 14px;
+            }
+        }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 250px!important;
+            }
+            .el-select{
+                width: 250px!important;
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but{
+            position: absolute;
+            top: 2.5%!important;
+            z-index:2;
+            color:#262626;
+            right: 84%!important;
+            .goback{
+                font-size: 14px;
+            }
+        }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 210px!important;
+            }
+            .el-select{
+                width: 220px!important;
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but{
+            position: absolute;
+            top: 2.5%!important;
+            z-index:2;
+            color:#262626;
+            right: 84%!important;
+            .goback{
+                font-size: 14px;
+            }
+        }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 200px!important;
+            }
+            .el-select{
+                width: 200px!important;
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1440px)and (max-width: 1920px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but{
+            position: absolute;
+            top: 2.5%!important;
+            z-index:2;
+            color:#262626;
+            right: 84%!important;
+            .goback{
+                font-size: 14px;
+            }
+        }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 250px!important;
+            }
+            .el-select{
+                width: 250px!important;
+            }
+          }
+        }
+      }
+}
