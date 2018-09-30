@@ -1,0 +1,420 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .practice-center {
+          height: 80px;
+          display: flex;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            width: 50%;
+            .add {
+              border: 1px solid #00bc71;
+              width: 33%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              margin-left: 20px;
+              .p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 14px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 14px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            width: 37%!important;
+            .search {
+              width: 44%;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+            .purple-name{
+                margin-top: 17px;
+            }
+            .purple-but{
+                margin-top: 17px;
+                .el-button--primary{
+                      height: 35px;
+                      line-height: 11px;
+                }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .practice-center {
+          height: 80px;
+          display: flex;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            width: 50%;
+            .add {
+              border: 1px solid #00bc71;
+              width: 30%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              margin-left: 20px;
+              .p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 14px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 14px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            width: 37%!important;
+            .search {
+              width: 44%;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+            .purple-name{
+                margin-top: 17px;
+            }
+            .purple-but{
+                margin-top: 17px;
+                .el-button--primary{
+                      height: 35px;
+                      line-height: 11px;
+                }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .practice-center {
+          height: 80px;
+          display: flex;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            width: 50%;
+            .add {
+              border: 1px solid #00bc71;
+              width: 25%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              margin-left: 20px;
+              .p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 15px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            width: 46%!important;
+            .search {
+              width: 44%;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+            .purple-name{
+                margin-top: 17px;
+            }
+            .purple-but{
+                margin-top: 17px;
+                .el-button--primary{
+                      height: 35px;
+                      line-height: 11px;
+                }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1440px)and (max-width: 1920px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .practice-center {
+          height: 80px;
+          display: flex;
+          .purple {
+            height: 80px;
+            display: flex;
+            justify-content: flex-start;
+            width: 50%;
+            .add {
+              border: 1px solid #00bc71;
+              width: 23%!important;
+              height: 35px;
+              border-radius: 4px;
+              line-height: 0px;
+              margin-top: 20px;
+              margin-left: 20px;
+              .p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+              .add-p {
+                color: #00bc71;
+                font-family: PingFang-SC-Regular;
+                font-size: 16px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                line-height: 9px;
+              }
+            }
+          }
+          .purple2 {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            width: 50%!important;
+            .search {
+              width: 44%;
+              border: 1px solid #e8e8e8;
+              height: 32px;
+              display: flex;
+              border-radius: 16px;
+              margin-top: 20px;
+              margin-right: 20px;
+              .search-input {
+                width: 100%;
+                border-radius: 16px;
+                border: none;
+                text-indent: 10px;
+                color: #8c8c8c;
+                font-size: 14px;
+              }
+              .search-icon {
+                margin-top: 8px;
+                margin-right: 13px;
+              }
+            }
+            .purple-name{
+                margin-top: 17px;
+            }
+            .purple-but{
+                margin-top: 17px;
+                .el-button--primary{
+                      height: 35px;
+                      line-height: 11px;
+                }
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .practice-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .practice-center {
+        height: 80px;
+        display: flex;
+        .purple {
+          height: 80px;
+          display: flex;
+          justify-content: flex-start;
+          width: 50%;
+          .add {
+            border: 1px solid #00bc71;
+            width: 23%!important;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 0px;
+            margin-top: 20px;
+            margin-left: 20px;
+            .p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 17px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 9px;
+            }
+            .add-p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 17px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 9px;
+            }
+          }
+        }
+        .purple2 {
+          height: 80px;
+          display: flex;
+          justify-content: center;
+          width: 50%!important;
+          .search {
+            width: 44%;
+            border: 1px solid #e8e8e8;
+            height: 32px;
+            display: flex;
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-right: 20px;
+            .search-input {
+              width: 100%;
+              border-radius: 16px;
+              border: none;
+              text-indent: 10px;
+              color: #8c8c8c;
+              font-size: 14px;
+            }
+            .search-icon {
+              margin-top: 8px;
+              margin-right: 13px;
+            }
+          }
+          .purple-name{
+              margin-top: 17px;
+          }
+          .purple-but{
+              margin-top: 17px;
+              .el-button--primary{
+                    height: 35px;
+                    line-height: 11px;
+              }
+          }
+        }
+      }
+    }
+}

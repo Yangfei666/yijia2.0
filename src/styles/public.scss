@@ -1,0 +1,184 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+    line-height: 40px!important;
+    padding: 0 10px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: -10px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 160px!important;
+    height: 150px;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 12px!important;
+  }
+}
+@media screen and (min-width: 992px)and (max-width: 1024px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+    line-height: 40px!important;
+    padding: 0 15px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: -5px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 180px!important;
+    height: 150px;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1024px)and (max-width: 1280px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+      line-height: 40px!important;
+      padding: 0 14px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: -4px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 230px!important;
+    height: 150px;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1280px)and (max-width: 1366px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+     line-height: 40px!important;
+      padding: 0 21px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: 8px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 250px!important;
+    height: 150px;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1366px)and (max-width: 1440px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+    line-height: 40px!important;
+      padding: 0 22px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: 3px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 260px!important;
+    height: 150px;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1440px)and (max-width: 1680px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+    line-height: 40px!important;
+      padding: 0 24px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: 5px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 280px!important;
+    height: 160px!important;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+    .el-tabs__nav {
+    margin-left: 0px !important;
+  }
+  .el-tabs__item{
+    line-height: 40px!important;
+      padding: 0 27px!important;
+  }
+  .el-tabs__active-bar{
+    position: absolute;
+    bottom: 5px!important;
+    left: 12px!important;
+    height: 2px;
+    width: 34px!important;
+  }
+  .el-upload-dragger {
+    width: 330px!important;
+    height: 170px!important;
+  }
+  .el-radio-button--medium .el-radio-button__inner{
+    padding: 10px 20px!important;
+  }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .el-tabs__nav {
+  margin-left: 0px !important;
+}
+.el-tabs__item{
+  line-height: 40px!important;
+    padding: 0 27px!important;
+}
+.el-tabs__active-bar{
+  position: absolute;
+  bottom: 5px!important;
+  left: 12px!important;
+  height: 2px;
+  width: 34px!important;
+}
+.el-upload-dragger {
+  width: 340px!important;
+  height: 170px!important;
+}
+.el-radio-button--medium .el-radio-button__inner{
+  padding: 10px 20px!important;
+}
+}

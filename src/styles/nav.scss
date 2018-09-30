@@ -1,0 +1,292 @@
+@media screen and (min-width: 768px)and (max-width: 1024px){
+  .main-head{
+    width: 97%;
+    margin: 20px auto;
+    height: 180px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    .border{
+        width:1px;
+        height: 40%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top:28%;
+        border-radius: 5px;
+    }
+    .head-one{
+        width: 16%;
+        height: 100%;
+        .one-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .one-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 14px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .one-p:hover{
+            color: #00bc71;
+        }
+    }
+    .head-one:hover{
+         transform:scale(1.1);
+    }
+    .head-two{
+        width: 16%;
+        height: 100%;
+        .two-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .two-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 14px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .two-p:hover{
+            color: #00bc71;
+        }
+    }
+      .head-two:hover{
+         transform:scale(1.1);
+    }
+  }
+}
+@media screen and (min-width: 1024px)and (max-width: 1366px){
+  .main-head{
+    width: 97%;
+    margin: 20px auto;
+    height: 180px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    .border{
+        width:1px;
+        height: 40%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top:28%;
+        border-radius: 5px;
+    }
+    .head-one{
+        width: 16%;
+        height: 100%;
+        .one-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .one-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 16px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .one-p:hover{
+            color: #00bc71;
+        }
+    }
+    .head-one:hover{
+         transform:scale(1.1);
+    }
+    .head-two{
+        width: 16%;
+        height: 100%;
+        .two-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .two-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 16px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .two-p:hover{
+            color: #00bc71;
+        }
+    }
+      .head-two:hover{
+         transform:scale(1.1);
+    }
+  }
+}
+@media screen and (min-width: 1366px)and(max-width:1440px){
+  .main-head{
+    width: 97%;
+    margin: 20px auto;
+    height: 180px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    .border{
+        width:1px;
+        height: 40%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top:28%;
+        border-radius: 5px;
+    }
+    .head-one{
+        width: 16%;
+        height: 100%;
+        .one-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .one-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 18px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .one-p:hover{
+            color: #00bc71;
+        }
+    }
+    .head-one:hover{
+         transform:scale(1.1);
+    }
+    .head-two{
+        width: 16%;
+        height: 100%;
+        .two-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .two-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 18px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .two-p:hover{
+            color: #00bc71;
+        }
+    }
+      .head-two:hover{
+         transform:scale(1.1);
+    }
+  }
+}
+@media screen and (min-width: 1680px)and(max-width: 1920px){
+  .main-head{
+    width: 97%;
+    margin: 20px auto;
+    height: 180px;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    .border{
+        width:1px;
+        height: 40%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top:28%;
+        border-radius: 5px;
+    }
+    .head-one{
+        width: 16%;
+        height: 100%;
+        .one-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .one-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 20px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .one-p:hover{
+            color: #00bc71;
+        }
+    }
+    .head-one:hover{
+         transform:scale(1.1);
+    }
+    .head-two{
+        width: 16%;
+        height: 100%;
+        .two-img{
+            width: 80px;
+            height: 80px;
+            display: initial;
+            margin-top: 25px;
+        }
+        .two-p{
+            font-family: PingFang-SC-Regular;
+            font-size: 20px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 12px;
+            letter-spacing: 0px;
+            color: #8c8c8c;
+            text-align: center;
+        }
+        .two-p:hover{
+            color: #00bc71;
+        }
+    }
+      .head-two:hover{
+         transform:scale(1.1);
+    }
+  }
+}
