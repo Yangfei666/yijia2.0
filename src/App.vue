@@ -94,6 +94,20 @@ body {
 .el-input{
   height:35px;
 }
+.el-date-editor{
+   height:35px;
+}
+.el-input--prefix .el-input__inner{
+  height:35px;
+  line-height:35px;
+}
+.el-input--suffix .el-input__inner{
+  height:35px;
+  line-height:35px;
+}
+.el-input__icon{
+  line-height:35px;
+}
 .el-button{
   height:35px;
 }
@@ -146,8 +160,8 @@ body {
 }
 .el-button--primary:hover{
     color: #fff;
-    background-color: #EDFAF5;
-    border-color: #EDFAF5;
+    background-color: #00bc71;
+    border-color: #00bc71;
 }
 .el-radio-button__inner:hover{
   color:#00bc71;
@@ -169,6 +183,12 @@ body {
 }
 .el-pagination__sizes .el-input .el-input__inner:hover{
     border-color: #00bc71;
+}
+.el-pagination button:hover{color:#00bc71}
+.el-select .el-input__inner:focus{border-color:#00bc71}
+.el-input .el-input__inner{
+  height:35px;
+  line-height:35px;
 }
 .el-input .el-input__inner:hover{
   color:#00bc71;
@@ -195,6 +215,23 @@ border-radius:3px
     border-color: #EDFAF5;
     outline: 0;
 }
+.el-button.is-plain:focus,.el-button.is-plain:hover{background:#fff;border-color:#00bc71;color:#00bc71}
+.el-button.is-active,.el-button.is-plain:active{color:#00bc71;border-color:#00bc71}
+.el-button--primary{color:#fff;background-color:#00bc71;border-color:#00bc71}
+.el-button--primary:focus,.el-button--primary:hover{background:#00bc71;border-color:#00bc71;color:#fff}
+.el-button--primary.is-active,.el-button--primary:active{background:#00bc71;border-color:#00bc71;color:#fff}
+.el-button--primary.is-disabled,
+.el-button--primary.is-disabled:active,
+.el-button--primary.is-disabled:focus,
+.el-button--primary.is-disabled:hover{color:#fff;background-color:#00bc71;border-color:#EDFAF5}
+.el-button--primary.is-plain{color:#00bc71;background:#00bc71;border-color:#EDFAF5}
+.el-button--primary.is-plain:focus,
+.el-button--primary.is-plain:hover{background:#00bc71;border-color:#00bc71;color:#fff}
+.el-button--primary.is-plain:active{background:#00bc71;border-color:#00bc71;color:#fff;outline:0}
+.el-button--primary.is-plain.is-disabled,
+.el-button--primary.is-plain.is-disabled:active,
+.el-button--primary.is-plain.is-disabled:focus,
+.el-button--primary.is-plain.is-disabled:hover{color:#00bc71;background-color:#EDFAF5;border-color:#EDFAF5}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

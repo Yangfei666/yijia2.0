@@ -8,7 +8,9 @@
             <li class="tea" v-for="(i,index) in arr" @click="middle(i)" :key="index">
               <template>
                 <div class="swiper-main">
+                  <div class="dimback">
                   <img class="Img" :src="i.Img" />
+                  </div>
                   <p class="time">{{i.time}}</p>
                   <p class="name">{{i.name}}</p>
                 </div>
@@ -169,6 +171,8 @@ export default {
     width: 93%;
     height: 260px;
     background-color: #fff;
+    .swiper-wrapper{
+      width: 100%;
     .swiper-slide {
       padding-top: 0px;
       padding-left: 0px;
@@ -188,11 +192,19 @@ export default {
           height: 55%;
           position: absolute;
           top: 0px;
-          .Img {
+          .dimback{
+            background: #000;
+            border-radius: 4px;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            .Img {
             width: 100%;
             height: 100%;
-            opacity: 0.9;
+            opacity:0.3; 
+            filter: alpha(opacity=30);
             border-radius: 4px;
+            }
           }
           .time {
             color: #fff;
@@ -315,51 +327,32 @@ export default {
         transform: rotateY(0deg) translateZ(500px);
         -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
         box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-        transform: rotateX(34deg);
-        width: 15.77%;
-      }
-      .tea:nth-child(1):hover {
-        transform: scale(1);
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.09);
+        transform: rotateX(24deg);
+        width: 16.2%;
       }
       .tea:nth-child(2) {
         transform: rotateY(0deg) translateZ(500px);
-        width: 17.41%;
+        width: 16.2%;
         box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
         transform: rotateX(24deg);
-      }
-      .tea:nth-child(2):hover {
-        transform: scale(1);
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.09);
       }
       .tea:nth-child(3) {
         transform: rotateY(0deg) translatez(500px);
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-      }
-      .tea:nth-child(3):hover {
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.08);
       }
       .tea:nth-child(4) {
         transform: rotateY(0deg) translateZ(500px);
-        width: 17.41%;
+        width: 16.2%;
         box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
         transform: rotateX(24deg);
       }
-      .tea:nth-child(4):hover {
-        transform: scale(1);
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.09);
-      }
       .tea:nth-child(5) {
         transform: rotateY(0deg) translateZ(500px);
-        -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+        width: 16.2%;
         box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-        transform: rotateX(34deg);
-        width: 15.77%;
+        transform: rotateX(24deg);
       }
-      .tea:nth-child(5):hover {
-        transform: scale(1);
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.09);
-      }
+     }
     }
   }
 }
@@ -371,13 +364,14 @@ export default {
     width: 20%;
     float: left;
     position: relative;
-    height: 95px;
+    height: 91px;
     .circle {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: #00bc71;
       margin: 12px auto;
+      margin-top: 20px;
     }
     span {
       font-size: 20px;
@@ -390,11 +384,11 @@ export default {
       overflow: hidden;
       position: absolute;
       &.top {
-        border-width: 15px;
+        border-width: 12px;
         border-style: solid dashed dashed;
         border-color: transparent transparent #e9eef3 transparent;
-        left: 44%;
-        top: 65%;
+        left: 45%;
+        top: 75%;
       }
     }
   }
