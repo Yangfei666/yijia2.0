@@ -152,7 +152,7 @@ export default {
           tel: "16845654464",
           goclass: "Angel",
           room: "综合瑜伽教室",
-        },
+        }
       ],
       experience: [
         {
@@ -390,7 +390,7 @@ export default {
   .main-list {
     width: 97%;
     margin: 20px auto;
-    height: 100%;
+    height:100%;
     background-color: #ffffff;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
     border-radius: 4px;
