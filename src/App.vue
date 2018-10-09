@@ -62,13 +62,6 @@ body {
 .el-table__body tr.hover-row>td{
   background-color: #EDFAF5;
 }
-.el-upload-dragger .el-icon-upload {
-  font-size: 50px;
-  color: #00bc71;
-  margin: 30px 0px 15px;
-  line-height: 50px;
-  border-radius: 10px;
-}
 .el-checkbox__input.is-checked+.el-checkbox__label{
   color: #00bc71;
 }

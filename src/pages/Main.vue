@@ -254,7 +254,7 @@ export default {
     .main-right {
       width: 60%;
       position: absolute;
-      right: 2%;
+      right: 0;
       z-index: 2;
       .block {
         // width: 30%;

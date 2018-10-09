@@ -14,12 +14,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 160px!important;
+    width: 135px!important;
     height: 150px;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 40px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 40px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 12px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 12px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 12px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 12px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 12px!important;
+}
 }
 @media screen and (min-width: 992px)and (max-width: 1024px){
     .el-tabs__nav {
@@ -37,12 +64,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 180px!important;
+    width: 160px!important;
     height: 150px;
+  }
+   .el-upload-dragger .el-icon-upload {
+    font-size: 40px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 40px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 12px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 12px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 12px!important;
+}
 }
 @media screen and (min-width: 1024px)and (max-width: 1280px){
     .el-tabs__nav {
@@ -60,12 +114,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 230px!important;
+    width: 180px!important;
     height: 150px;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 40px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 40px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 12px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 12px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 12px!important;
+}
 }
 @media screen and (min-width: 1280px)and (max-width: 1366px){
     .el-tabs__nav {
@@ -83,12 +164,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 250px!important;
+    width: 200px!important;
     height: 150px;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 40px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 40px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 13px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 13px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 13px!important;
+}
 }
 @media screen and (min-width: 1366px)and (max-width: 1440px){
     .el-tabs__nav {
@@ -106,12 +214,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 260px!important;
+    width: 230px!important;
     height: 150px;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 45px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 45px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 13px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 13px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 13px!important;
+}
 }
 @media screen and (min-width: 1440px)and (max-width: 1680px){
     .el-tabs__nav {
@@ -129,12 +264,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 280px!important;
+    width: 260px!important;
     height: 160px!important;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 45px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 45px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 14px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 14px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 14px!important;
+}
 }
 @media screen and (min-width: 1680px)and (max-width: 1920px){
     .el-tabs__nav {
@@ -152,12 +314,39 @@
     width: 34px!important;
   }
   .el-upload-dragger {
-    width: 330px!important;
+    width: 300px!important;
     height: 170px!important;
+  }
+  .el-upload-dragger .el-icon-upload {
+    font-size: 50px!important;
+    color: #00bc71;
+    margin: 30px 0px 15px;
+    line-height: 50px!important;
+    border-radius: 10px;
   }
   .el-radio-button--medium .el-radio-button__inner{
     padding: 10px 20px!important;
   }
+  .el-range-editor .el-range-input{
+    font-size: 14px!important;
+}
+  .el-date-editor .el-range-separator{
+    padding: 0 5px;
+    line-height: 29px!important;
+    width: 5%;
+    color: #303133;
+    font-size: 14px!important;
+}
+.el-date-editor .el-range__icon{
+    font-size: 14px!important;
+    margin-left: -5px;
+    color: #c0c4cc;
+    float: left;
+    line-height: 26px!important;
+}
+.el-input .el-input__inner{
+  font-size: 14px!important;
+}
 }
 @media screen and (min-width: 1920px)and (max-width: 2048px){
   .el-tabs__nav {
@@ -178,7 +367,34 @@
   width: 340px!important;
   height: 170px!important;
 }
+.el-upload-dragger .el-icon-upload {
+  font-size: 50px!important;
+  color: #00bc71;
+  margin: 30px 0px 15px;
+  line-height: 50px!important;
+  border-radius: 10px;
+}
 .el-radio-button--medium .el-radio-button__inner{
   padding: 10px 20px!important;
+}
+.el-range-editor .el-range-input{
+  font-size: 14px!important;
+}
+.el-date-editor .el-range-separator{
+  padding: 0 5px;
+  line-height: 29px!important;
+  width: 5%;
+  color: #303133;
+  font-size: 14px!important;
+}
+.el-date-editor .el-range__icon{
+  font-size: 14px!important;
+  margin-left: -5px;
+  color: #c0c4cc;
+  float: left;
+  line-height: 26px!important;
+}
+.el-input .el-input__inner{
+font-size: 14px!important;
 }
 }
