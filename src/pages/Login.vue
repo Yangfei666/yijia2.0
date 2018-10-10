@@ -15,15 +15,17 @@
       <el-option label="门店二" value="two"></el-option>
     </el-select>
     </el-form-item>
-    <div class="identifybox">
     <el-form-item prop="verifycode" class="identifyform">
+      <div class="identifybox">
       <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput"></el-input>
-      <img src="../assets/xiazai.jpg" alt="验证码" title="点击换一张" />
-    </el-form-item>
+      <el-col :span="24">
+        <img src="../assets/xiazai.jpg" alt="验证码" title="点击换一张" />
+      </el-col>
       </div>
+    </el-form-item>
     <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
     <el-form-item class="form-main">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="logining" >登录</el-button>
+      <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="logining" >登录</el-button>
     </el-form-item>
   </el-form>
     </div>
@@ -31,8 +33,12 @@
 </template>
 <script>
 import {requestLogin} from '../api/api';
+import waves from '@/directive/waves/index.js' // 水波纹指令
 export default {
   name: 'Login',
+  directives: {
+    waves
+  },
   data () {
     return {
       logining: false,
@@ -92,7 +98,7 @@ export default {
     },
 }
 </script>
-<style lang="scss">
- @import '../styles/login.scss';
+<style lang="scss" scoped>
+ @import '@/styles/login.scss';
 </style>
 
