@@ -19,7 +19,7 @@
     <div class="practice-list">
       <div class="practice-center">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <div class="purple">
               <div class="add">
                 <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加体验卷</el-button>

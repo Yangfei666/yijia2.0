@@ -157,7 +157,7 @@
         justify-content: flex-start;
         .add {
           border: 1px solid #00bc71;
-          width: 25% !important;
+          width: 32% !important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;
@@ -184,7 +184,7 @@
         justify-content: flex-start;
         .add {
           border: 1px solid #00bc71;
-          width: 23% !important;
+          width: 25% !important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;
@@ -211,7 +211,7 @@
         justify-content: flex-start;
         .add {
           border: 1px solid #00bc71;
-          width: 20% !important;
+          width: 23% !important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;
@@ -239,6 +239,33 @@
         .add {
           border: 1px solid #00bc71;
           width: 20% !important;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 17px !important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1920px) and (max-width: 2048px) {
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 18% !important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;

@@ -15,7 +15,7 @@ import VueProgressBar from 'vue-progressbar'
 import Mock from './mock'
 import axios from 'axios';
 Vue.prototype.$axios=axios;
-// Mock.init()
+Mock.init()
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueProgressBar)

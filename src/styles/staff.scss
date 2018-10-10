@@ -12,7 +12,7 @@
         border-radius: 4px;
         line-height: 0px;
         margin-top: 20px;
-        margin-left: 20px;
+        margin-left: 10px!important;
         .p {
           color: #00bc71;
           font-family: PingFang-SC-Regular;
@@ -20,7 +20,7 @@
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0px;
-           line-height: 9px;
+          line-height: 9px;
         }
         .add-p {
            color: #00bc71;
@@ -39,7 +39,7 @@
         border-radius: 4px;
         line-height: 0px;
         margin-top: 20px;
-        margin-left: 20px;
+        margin-left: 10px!important;
         .p {
           color: #ff2366;
           font-family: PingFang-SC-Regular;
@@ -77,6 +77,7 @@
       }
       .purple-name{
           margin-top: 17px;
+          width: 67%!important;
           .el-select{
             width: 100px!important;
           }
@@ -108,7 +109,7 @@
             border-radius: 4px;
             line-height: 0px;
             margin-top: 20px;
-            margin-left: 20px;
+            margin-left: 10px!important;
             .p {
               color: #00bc71;
               font-family: PingFang-SC-Regular;
@@ -135,7 +136,7 @@
             border-radius: 4px;
             line-height: 0px;
             margin-top: 20px;
-            margin-left: 20px;
+            margin-left: 10px!important;
             .p {
               color: #ff2366;
               font-family: PingFang-SC-Regular;
@@ -173,6 +174,7 @@
           }
           .purple-name{
               margin-top: 17px;
+              width: 74%!important;
               .el-select{
                 width: 135px!important;
               }
@@ -198,12 +200,12 @@
               justify-content: flex-start;
               .add {
                 border: 1px solid #00bc71;
-                width: 25%!important;
+                width: 20%!important;
                 height: 35px;
                 border-radius: 4px;
                 line-height: 0px;
                 margin-top: 20px;
-                margin-left: 20px;
+                margin-left: 15px!important;
                 .p {
                   color: #00bc71;
                   font-family: PingFang-SC-Regular;
@@ -225,12 +227,12 @@
               }
               .add2{
                 border: 1px solid #ff2366;
-                width: 25%!important;
+                width: 20%!important;
                 height: 35px;
                 border-radius: 4px;
                 line-height: 0px;
                 margin-top: 20px;
-                margin-left: 20px;
+                margin-left: 15px!important;
                 .p {
                   color: #ff2366;
                   font-family: PingFang-SC-Regular;
@@ -387,7 +389,7 @@
               justify-content: flex-start;
               .add {
               border: 1px solid #00bc71;
-              width: 25%!important;
+              width: 23%!important;
               height: 35px;
               border-radius: 4px;
               line-height: 0px;
@@ -414,7 +416,7 @@
               }
               .add2{
               border: 1px solid #ff2366;
-              width: 25%!important;
+              width: 23%!important;
               height: 35px;
               border-radius: 4px;
               line-height: 0px;
