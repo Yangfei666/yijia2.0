@@ -4,10 +4,10 @@
     <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">E+欢迎你</h3>
     <el-form-item prop="username" class="form-item">
-      <el-input type="text" class="input" v-model="account.username" auto-complete="off" placeholder="用户名"></el-input>
+      <el-input type="text" class="input" autofocus="autofocus" v-model="account.username" auto-complete="off" placeholder="用户名"></el-input>
     </el-form-item>
     <el-form-item prop="pwd" class="form-item">
-      <el-input type="password" class="input" v-model="account.pwd" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" class="input" auto-complete="off" v-model="account.pwd" placeholder="密码"></el-input>
     </el-form-item>
     <el-form-item prop="door" class="form-item2">
       <el-select v-model="account.door" placeholder="请选择">
@@ -33,6 +33,7 @@
 </template>
 <script>
 import {requestLogin} from '../api/api';
+import {isvalidPhone} from '../api/isvalidPhone';
 import waves from '@/directive/waves/index.js' // 水波纹指令
 export default {
   name: 'Login',
@@ -40,6 +41,28 @@ export default {
     waves
   },
   data () {
+    var validateAccount = (rules,value,callback) => {
+      if(!value){
+        callback(new Error('请输入账号'));
+      }else if(!isvalidPhone(value)){
+        callback(new Error('请输入正确的手机号'))
+      }else{
+        if(this.account.username !== ''){
+          this.account.username = value;
+        }
+        callback();
+      }
+    };
+    var validatePwd = (rules, value,callback) => {
+      if(value === ''){
+        callback(new Error('请输入密码'));
+      }else{
+        if(this.account.pwd !== ''){
+          this.account.pwd = value;
+        }
+        callback();
+      }
+    };
     return {
       logining: false,
       checked: false,
@@ -51,16 +74,15 @@ export default {
         },
         rules: {
           username: [
-            {required: true, message: '请输入用户名', trigger: 'blur'},
-            {pattern:/^[A-Za-z0-9]+$/, message: '用户名只能为字母和数字'}
+            {required: true, validator: validateAccount, trigger: 'blur'}
           ],
           pwd: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            { min: 5, message: '密码长度最长为5位', trigger: 'blur' }
+            {required: true,validator: validatePwd, trigger: 'blur'},
+            { min: 5, message: '密码长度为5个字符'}
           ],
           verifycode:[
             {required: true, message: '请输入验证码', trigger: 'blur'},
-          ]
+          ],
         },
       };
   },
@@ -84,13 +106,18 @@ export default {
                 this.$router.push({ path: '/home/main' });
               }else{
                 this.$message({
-                  message: msg,
+                  showClose: true,
+                  message: '登录失败',
                   type: 'error'
                 });
               }
             });
           } else {
-           console.log('....');
+            this.$message({
+              showClose: true,
+              message: '请检查输入是否有误',
+              type: 'error'
+            });
             return false;
           }
         });
