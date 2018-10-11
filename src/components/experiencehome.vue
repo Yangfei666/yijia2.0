@@ -17,7 +17,7 @@
             <span class="weber-span">体验客户·小李子<img src="../assets/51.png"/></span>
             <p class="weber-p">会籍顾问:刘淑芹<span class="weber-pp">电话:12345678901</span></p>
             </el-col>
-            <el-col :span="12" class="weber-right">
+            <el-col :span="14" class="weber-right">
               <div class="right-span">
                 <router-link to="/Customer/experiencehome/information" class="link">综合信息 </router-link>
               </div>
@@ -230,7 +230,7 @@ export default {
         font-weight: normal;
         font-stretch: normal;
         color: #595959;
-        margin-right: 7px!important;
+        margin-right: 4px!important;
         margin-top: 16px;
         .link{
             text-decoration: none;

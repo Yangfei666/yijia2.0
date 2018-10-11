@@ -19,6 +19,7 @@
               border-color: #00bc71;
               height: 35px;
               line-height: 1px;
+              margin-left: -26px!important;
             }
             .el-button+.el-button{
               height: 35px;
@@ -35,15 +36,15 @@
             }
             .el-select{
               height: 37px;
-              width: 120px !important;
+              width: 115px !important;
             }
             .el-range-editor{
               height: 37px;
-              width: 166px !important;
+              width: 160px !important;
             }
             .el-range-editor.el-input__inner{
                 font-size: 12px!important;
-                width: 166px !important;
+                width: 160px !important;
                 padding-right: 0px !important;
             }
           }
@@ -141,6 +142,7 @@
               border-color: #00bc71;
               height: 35px;
               line-height: 1px;
+              margin-left: -10px!important;
             }
             .el-button+.el-button{
               height: 35px;
@@ -263,6 +265,7 @@
               border-color: #00bc71;
               height: 35px;
               line-height: 1px;
+              margin-left: -10px!important;
             }
             .el-button+.el-button{
               height: 35px;
@@ -385,6 +388,7 @@
               border-color: #00bc71;
               height: 35px;
               line-height: 1px;
+              margin-left: -10px!important;
             }
             .el-button+.el-button{
               height: 35px;
@@ -485,4 +489,127 @@
           }
         }
       }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .practice-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .quanbu {
+        display: block;
+        height: 60px;
+        .search-form {
+          height: 45px;
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-button--primary {
+            background-color: #00bc71;
+            border-color: #00bc71;
+            height: 35px;
+            line-height: 1px;
+            margin-left: -10px!important;
+          }
+          .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-input__inner {
+            height: 37px;
+            width: 320px!important;
+          }
+          .el-input {
+            height: 37px;
+            font-size: 14px!important;
+            width: 320px!important;
+          }
+          .el-select{
+            height: 37px;
+            width: 320px !important;
+          }
+          .el-range-editor{
+            height: 37px;
+            width: 320px !important;
+          }
+          .el-range-editor.el-input__inner{
+              font-size: 12px!important;
+              width: 320px !important;
+              padding-right: 0px !important;
+          }
+        }
+        .corry {
+          height: 37px;
+          line-height: 37px;
+          float: left;
+          margin-top: 15px;
+          .corry-out {
+            color: #00bc71;
+            font-size: 14px;
+          }
+        }
+      }
+      .practice-center {
+        height: 80px;
+        .purple {
+          height: 80px;
+          display: flex;
+          justify-content: flex-start;
+          .add {
+            border: 1px solid #00bc71;
+            width: 21%!important;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 0px;
+            margin-top: 20px;
+            .add-p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 9px;
+            }
+            p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              line-height: 4px;
+            }
+          }
+        }
+        .purple2 {
+          height: 80px;
+          display: flex;
+          justify-content: flex-end;
+          .search {
+            width: 50%!important;
+            border: 1px solid #e8e8e8;
+            height: 32px;
+            display: flex;
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-right: 20px;
+            .search-input {
+              width: 100%;
+              border-radius: 16px;
+              border: none;
+              text-indent: 10px;
+              color: #8c8c8c;
+              font-size: 14px!important;
+            }
+            .search-icon {
+              margin-top: 8px;
+              margin-right: 13px;
+            }
+          }
+        }
+      }
+    }
 }

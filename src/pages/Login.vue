@@ -18,7 +18,7 @@
     <el-form-item prop="verifycode" class="identifyform">
       <div class="identifybox">
       <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput"></el-input>
-      <el-col :span="24">
+      <el-col :span="22">
         <img src="../assets/xiazai.jpg" alt="验证码" title="点击换一张" />
       </el-col>
       </div>
@@ -43,7 +43,7 @@ export default {
   data () {
     var validateAccount = (rules,value,callback) => {
       if(!value){
-        callback(new Error('请输入账号'));
+        callback(new Error('请输入用户名'));
       }else if(!isvalidPhone(value)){
         callback(new Error('请输入正确的手机号'))
       }else{
@@ -92,13 +92,13 @@ export default {
           if (valid) {
             this.logining = true;
             var loginParams = {
-                 username: this.account.username,
-                 password: this.account.pwd,
-                 verifycode:this.account.verifycode
+                 tel: "18550105300",
+                 pwd:"123456",
+                //  verifycode:this.account.verifycode
                  };
             requestLogin(loginParams).then(data => {
               this.logining = false;
-              let { msg, code, token } = data;
+              let { msg, errorCode, token } = data;
               if(code == '200'){
                 //登录成功
                 sessionStorage.setItem('access-token', token);
@@ -115,7 +115,7 @@ export default {
           } else {
             this.$message({
               showClose: true,
-              message: '请检查输入是否有误',
+              message: '格式错误',
               type: 'error'
             });
             return false;
@@ -125,7 +125,7 @@ export default {
     },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
  @import '@/styles/login.scss';
 </style>
 

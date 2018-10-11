@@ -3,15 +3,16 @@
     margin-left: 0px !important;
   }
   .el-tabs__item{
-    line-height: 40px!important;
+    line-height: 35px!important;
     padding: 0 10px!important;
   }
   .el-tabs__active-bar{
     position: absolute;
-    bottom: 5px!important;
-    left: -10px!important;
+    bottom: 2px!important;
+    left: 0px!important;
     height: 2px;
-    width: 34px!important;
+    width: 28px!important;
+    background-color: #00bc71;
   }
   .el-upload-dragger {
     width: 135px!important;

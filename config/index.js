@@ -3,19 +3,19 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+const target = 'http://192.168.2.111/'
 module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-          '/api': {  //使用"/api"来代替"http://192.168.2.111"
-        target: 'http://192.168.2.111/', //源地址
-        changeOrigin: true, //改变源
-        pathRewrite: {
-          '^/api': '/' //路径重写
-          }
+      '/pc': {
+        target: target,
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': '/' //路径重写
+        // }
       }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

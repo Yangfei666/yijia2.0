@@ -329,18 +329,18 @@ let router = new Router({
 })
 
 // 访问之前，检查是否登录了
-router.beforeEach((to, from, next) => {
-    if (to.path.startsWith('/login')) {
-        window.sessionStorage.removeItem('access-token')
-        next()
-    } else {
-        let token = window.sessionStorage.getItem('access-token')
-        if (!token) {
-            next({ path: '/login' })
-        } else {
-            next()
-        }
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (to.path.startsWith('/login')) {
+//         window.sessionStorage.removeItem('access-token')
+//         next()
+//     } else {
+//         let token = window.sessionStorage.getItem('access-token')
+//         if (!token) {
+//             next({ path: '/login' })
+//         } else {
+//             next()
+//         }
+//     }
+// })
 
 export default router

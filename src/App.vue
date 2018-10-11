@@ -28,7 +28,7 @@ body {
   margin-left: 50px;
 }
 .el-tabs__item {
-  line-height: 40px;
+  line-height: 35px;
 }
 .el-textarea__inner {
   height: 110px;
