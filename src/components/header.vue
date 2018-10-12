@@ -18,8 +18,8 @@
             <div class="grid-content bg-purple-light">
                 <div class="inner">
                     <el-col :span="16" class="inner-select" style="display: flex;justify-content: flex-end;">
-                        <el-select v-model="value" placeholder="请选择" style="width:140px">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" style="width:100%;height:100%"></el-option>
+                        <el-select v-model="value" placeholder="切换门店" style="width:140px">
+                            <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
                         </el-select>
                     </el-col>
                     <el-col :span="8">
@@ -55,22 +55,7 @@
                 applyimg2: require('@/assets/classify.png'), //图片地址
                 sysUserName: "Angle",
                 sysUserAvatar: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
-                options: [{
-                value: '选项1',
-                label: '观云瑜伽'
-                }, {
-                value: '选项2',
-                label: '观云瑜伽'
-                }, {
-                value: '选项3',
-                label: '观云瑜伽'
-                }, {
-                value: '选项4',
-                label: '观云瑜伽'
-                }, {
-                value: '选项5',
-                label: '观云瑜伽'
-                }],
+                options: JSON.parse(sessionStorage.getItem("clubList")),
                 value: ''
             };
         },

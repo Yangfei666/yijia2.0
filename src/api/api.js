@@ -1,5 +1,17 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.timeout = 2500;
+axios.defaults.withCredentials = true;// 携带cookie
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
-export const requestLogin = params => { return axios.post('/login', params).then(res => res.data) }
+
+export const requestLogin = (url, params, method, baseURL, responseType) => {
+  return axios({
+    method: method ? method : 'post', //方法
+    url: url, //地址
+    data: params, // 参数,
+    headers: { 'token': sessionStorage.getItem('access-token') },
+    baseURL: baseURL === false ? '' : '/api',
+    responseType: responseType ? responseType : 'json'
+  }).then(res => res.data);
+}
