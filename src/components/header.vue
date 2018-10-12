@@ -17,15 +17,18 @@
         <el-col :span="12">
             <div class="grid-content bg-purple-light">
                 <div class="inner">
-                    <el-col :span="16" class="inner-select" style="display: flex;justify-content: flex-end;">
-                        <el-select v-model="value" @change="changeValue" placeholder="切换门店" style="width:140px">
+                    <el-col :span="16" v-if="user.sign == 'super'" class="inner-select" style="display: flex;justify-content: flex-end;">
+                        <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:140px">
                             <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
                         </el-select>
                     </el-col>
+                    <el-col :span="16" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
+                        {{value.Hsxx_Name}}
+                    </el-col>
                     <el-col :span="8">
                     <div class="userinfo-inner">
-                        <img :src="sysUserAvatar" />
-                        <span class="name">{{sysUserName}}</span>
+                        <img :src="user.Photo" />
+                        <span class="name">{{user.YGXX_NAME}}</span>
                         <span class="tuichu">
                                 <el-dropdown trigger="click">
                                     <i class="el-icon-arrow-down el-icon-setting"></i>
@@ -45,7 +48,7 @@
     </div>
 </template>
 <script>
-    import { request } from "../api/api";
+    import { requestLogin } from "../api/api";
     export default {
         data() {
             return {
@@ -56,16 +59,22 @@
                 applyimg2: require('@/assets/classify.png'), //图片地址
                 sysUserName: "Angle",
                 sysUserAvatar: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
-                options: JSON.parse(sessionStorage.getItem("clubList")),
-                value: ''
+                options:JSON.parse(sessionStorage.getItem("clubList")),
+                user:JSON.parse(sessionStorage.getItem("userInfo")),
+                club:JSON.parse(sessionStorage.getItem("club"))
             };
         },
         methods: {
             // 切换门店
             changeValue () {
-                request('/againGetToken/'+this.Value).then(data => {
-                    sessionStorage.setItem("access-token", data.token);//换成新门店的token
-                    sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存新门店
+                console.log(this.club.Hsxx_Hsid);
+                requestLogin('/againGetToken/'+this.club.Hsxx_Hsid).then(data => {
+                    sessionStorage.setItem("access-token", data);//换成新门店的token
+                    this.options.forEach(item => {
+                        if (item.Hsxx_Hsid == this.account.door) {
+                            sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
+                        }
+                    });
                     this.$router.push({ path: "/home/main" });
                 }).catch(error => {
                     if (error.response) {

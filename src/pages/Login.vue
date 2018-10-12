@@ -72,8 +72,10 @@ export default {
             .then(data => {
               console.log(data);
               this.logining = false;
+              data.user.sign = data.sign;
               sessionStorage.setItem("userInfo", JSON.stringify(data.user)); //缓存用户信息
               sessionStorage.setItem("access-token", data.token); //缓存token
+              console.log(JSON.parse(sessionStorage.getItem("userInfo")));
               if (data.sign == "super") {
                 this.clubList = data.club;
                 this.isAdmin = !this.isAdmin;
@@ -84,9 +86,10 @@ export default {
               }
             })
             .catch(error => {
+              this.logining = false;
               if (error.response) {
                 this.$message({
-                  message: "登录失败,请稍候再试",
+                  message: "登录失败,请检查帐号,密码或验证码是否正确",
                   type: "error"
                 });
               }
@@ -99,9 +102,12 @@ export default {
     },
     confirmClub () {
       requestLogin('/againGetToken/'+this.account.door).then(data => {
-        console.log(data);
-        sessionStorage.setItem("access-token", data.token);//换成有权限的token
-        sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
+        sessionStorage.setItem("access-token", data);//换成有权限的token
+        this.clubList.forEach(item => {
+          if (item.Hsxx_Hsid == this.account.door) {
+            sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
+          }
+        });
         this.$router.push({ path: "/home/main" });
       }).catch(error => {
         if (error.response) {
