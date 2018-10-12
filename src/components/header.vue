@@ -45,7 +45,7 @@
     </div>
 </template>
 <script>
-    import { request } from "../api/api";
+    import { requestLogin } from "../api/api";
     export default {
         data() {
             return {
@@ -63,7 +63,7 @@
         methods: {
             // 切换门店
             changeValue () {
-                request('/againGetToken/'+this.Value).then(data => {
+                requestLogin('/againGetToken/'+this.Value).then(data => {
                     sessionStorage.setItem("access-token", data.token);//换成新门店的token
                     sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存新门店
                     this.$router.push({ path: "/home/main" });
