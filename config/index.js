@@ -14,7 +14,7 @@ module.exports = {
         target: target,
         changeOrigin: true,
         // pathRewrite: {
-        //   '^/api': '/' //路径重写
+        //   '^/api': '/' 
         // }
       }
     },
