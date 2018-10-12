@@ -18,7 +18,7 @@
             <div class="grid-content bg-purple-light">
                 <div class="inner">
                     <el-col :span="16" class="inner-select" style="display: flex;justify-content: flex-end;">
-                        <el-select v-model="value" placeholder="切换门店" style="width:140px">
+                        <el-select v-model="value" @change="changeValue" placeholder="切换门店" style="width:140px">
                             <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
                         </el-select>
                     </el-col>
@@ -45,6 +45,7 @@
     </div>
 </template>
 <script>
+    import { request } from "../api/api";
     export default {
         data() {
             return {
@@ -60,6 +61,21 @@
             };
         },
         methods: {
+            // 切换门店
+            changeValue () {
+                request('/againGetToken/'+this.Value).then(data => {
+                    sessionStorage.setItem("access-token", data.token);//换成新门店的token
+                    sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存新门店
+                    this.$router.push({ path: "/home/main" });
+                }).catch(error => {
+                    if (error.response) {
+                        this.$message({
+                            message: "对不起,切换门店失败",
+                            type: "error"
+                        });
+                    }
+                })
+            },
             //退出登录
             logout: function() {
                 var _this = this;

@@ -45,7 +45,7 @@ export default {
       account: {
         username: "18550105300",
         pwd: "123456",
-        verifycode: "1111",
+        verifycode: "",
         door: ""
       },
       rules: {
@@ -70,6 +70,7 @@ export default {
           };
           requestLogin('/getToken', loginParams)
             .then(data => {
+              console.log(data);
               this.logining = false;
               sessionStorage.setItem("userInfo", JSON.stringify(data.user)); //缓存用户信息
               sessionStorage.setItem("access-token", data.token); //缓存token
@@ -78,6 +79,7 @@ export default {
                 this.isAdmin = !this.isAdmin;
                 sessionStorage.setItem("clubList", JSON.stringify(data.club)); //缓存名下门店
               } else {
+                sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
                 this.$router.push({ path: "/home/main" });
               }
             })
@@ -97,7 +99,9 @@ export default {
     },
     confirmClub () {
       requestLogin('/againGetToken/'+this.account.door).then(data => {
-        sessionStorage.setItem("access-token", data.token);
+        console.log(data);
+        sessionStorage.setItem("access-token", data.token);//换成有权限的token
+        sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
         this.$router.push({ path: "/home/main" });
       }).catch(error => {
         if (error.response) {
