@@ -37,7 +37,7 @@
                                     </el-dropdown-menu>
                                 </el-dropdown>
                             </span>
-                    </div>
+                        </div>
                     </el-col>
                 </div>
             </div>
@@ -55,7 +55,7 @@ import { requestLogin } from "../api/api";
                 applyimg: require('@/assets/apply.png'), //图片地址
                 applyimg2: require('@/assets/classify.png'), //图片地址
                 sysUserName: "Angle",
-                sysUserAvatar: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+                sysUserAvatar: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
                 options: JSON.parse(sessionStorage.getItem("clubList")),
                 value: ''
             };

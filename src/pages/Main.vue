@@ -147,7 +147,7 @@ export default {
       visible2: false,
       trainer:[
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           trainer: "王小虎",
           tel: "16845654464",
           goclass: "Angel",
@@ -156,7 +156,7 @@ export default {
       ],
       experience: [
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           tyj: "大众2222",
@@ -164,7 +164,7 @@ export default {
           fkfs: "大众点评"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           tyj: "大众2222",
@@ -172,7 +172,7 @@ export default {
           fkfs: "大众点评"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           tyj: "大众2222",
@@ -180,7 +180,7 @@ export default {
           fkfs: "大众点评"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           tyj: "大众2222",
@@ -190,35 +190,35 @@ export default {
       ],
       leaguer: [
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           card: "123456",
           hjgw: "Angle"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           card: "123456",
           hjgw: "Angle"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           card: "123456",
           hjgw: "Angle"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           card: "123456",
           hjgw: "Angle"
         },
         {
-          img: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+          img: "https://img2.woyaogexing.com/2018/10/15/379fc83f5460f0ec!400x400_big.jpg",
           name: "王小虎",
           tel: "16845654464",
           card: "123456",
