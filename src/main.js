@@ -12,7 +12,7 @@ import '@/assets/iconfont.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css';
 import VueProgressBar from 'vue-progressbar'
-import Mock from './mock'
+// import Mock from './mock'
 import axios from 'axios';
 Vue.prototype.$axios=axios;
 // Mock.init()
