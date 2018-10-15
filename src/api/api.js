@@ -13,4 +13,10 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
       baseURL: baseURL === false ? '' : '/api',
       responseType: responseType ? responseType : 'json'
     }).then(res => res.data);
+
+
+
+
+
+    
   }  
