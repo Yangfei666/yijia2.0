@@ -40,7 +40,7 @@
       <div class="tea-weber">
         <div class="weber-main">
           <div class="circle"></div>
-          <span style="font-size:16px">09:00</span>
+          <span style="font-size:18px">09:00</span>
         </div>
         <div class="weber-main">
           <div class="circle"></div>
@@ -57,7 +57,7 @@
         </div>
         <div class="weber-main">
           <div class="circle"></div>
-          <span style="font-size:16px">09:00</span>
+          <span style="font-size:18px">09:00</span>
         </div>
       </div>
     </el-col>
@@ -242,10 +242,11 @@ export default {
         }
       }
       .box {
-        height: 4px;
+        height: 3px;
         background: #fff;
-        position: relative;
+        position: absolute;
         top: 54%;
+        width: 100%;
       }
       .bai {
         width: 30%;
@@ -340,36 +341,6 @@ export default {
         }
       }
     }
-    //   .swiper-slide:nth-child(1) {
-    //   transform: rotateY(0deg) translateZ(500px);
-    //   -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    //   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    //   transform: rotateX(24deg);
-    //   // width: 16.2%;
-    // }
-    // .swiper-slide:nth-child(2) {
-    //   transform: rotateY(0deg) translateZ(500px);
-    //   // width: 16.2%;
-    //   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    //   transform: rotateX(24deg);
-    // }
-    // .swiper-slide:nth-child(3) {
-    //   transform: rotateY(0deg) translatez(500px);
-    //   box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.08);
-    //   transform: scale(1.1);
-    // }
-    // .swiper-slide:nth-child(4) {
-    //   transform: rotateY(0deg) translateZ(500px);
-    //   width: 16.2%;
-    //   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    //   transform: rotateX(24deg);
-    // }
-    // .swiper-slide:nth-child(5) {
-    //   transform: rotateY(0deg) translateZ(500px);
-    //   width: 16.2%;
-    //   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-    //   transform: rotateX(24deg);
-    // }
   }
 }
 .tea-weber {
