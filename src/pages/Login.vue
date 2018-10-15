@@ -1,4 +1,4 @@
-<template>    
+<template>
    <div class="mian">
     <div class="login-mian">
     <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
@@ -105,13 +105,17 @@ export default {
     confirmClub () {
       requestLogin('/againGetToken/'+this.account.door).then(data => {
         this.logining = true;
-        sessionStorage.setItem("access-token", data.token);//换成有权限的token
-        sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
+        sessionStorage.setItem("access-token", data);//换成有权限的token
+        this.clubList.forEach(item => {
+          if (item.Hsxx_Hsid == this.account.door) {
+            sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
+          }
+        });
         this.$router.push({ path: "/home/main" });
       }).catch(error => {
         this.logining = false;
         if (error.response) {
-          this.$message({
+        this.$message({
             message: "请选择所属门店",
             type: "error"
           });
