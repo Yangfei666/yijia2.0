@@ -86,7 +86,7 @@ export default {
     background: #fff;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
     border-radius: 4px;
-    .infor-head{
+        .infor-head{
         height: 50px;
         display: flex;
         line-height: 50px;
@@ -130,5 +130,175 @@ export default {
             line-height: 1px;
         }
     }
+}
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .health{
+    width: 97%;
+    height: 600px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .health-from{
+        width: 83%;
+        margin: 30px auto;
+        .from-date{
+            position: relative;
+            .textarea{
+                color: #00bc71;
+                position: absolute;
+                top: 75px;
+                right: 20px;
+            }
+        }
+        .el-button--primary{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-textarea{
+                width: 375px!important;
+        }
+    }
+}
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .health{
+    width: 97%;
+    height: 600px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .health-from{
+        width: 83%;
+        margin: 30px auto;
+        .from-date{
+            position: relative;
+            .textarea{
+                color: #00bc71;
+                position: absolute;
+                top: 75px;
+                right: 20px;
+            }
+        }
+        .el-button--primary{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-textarea{
+                width:510px!important;
+        }
+    }
+}
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .health{
+    width: 97%;
+    height: 600px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .health-from{
+        width: 83%;
+        margin: 30px auto;
+        .from-date{
+            position: relative;
+            .textarea{
+                color: #00bc71;
+                position: absolute;
+                top: 75px;
+                right: 20px;
+            }
+        }
+        .el-button--primary{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-textarea{
+                width:550px!important;
+        }
+    }
+}
+}
+@media screen and (min-width: 1440px)and (max-width: 1920px){
+    .health{
+    width: 97%;
+    height: 600px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .health-from{
+        width: 83%;
+        margin: 30px auto;
+        .from-date{
+            position: relative;
+            .textarea{
+                color: #00bc71;
+                position: absolute;
+                top: 75px;
+                right: 20px;
+            }
+        }
+        .el-button--primary{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-textarea{
+                width:600px!important;
+        }
+    }
+}
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+    .health{
+    width: 97%;
+    height: 600px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .health-from{
+        width: 83%;
+        margin: 30px auto;
+        .from-date{
+            position: relative;
+            .textarea{
+                color: #00bc71;
+                position: absolute;
+                top: 75px;
+                right: 20px;
+            }
+        }
+        .el-button--primary{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+        }
+        .el-textarea{
+                width:650px!important;
+        }
+    }
+}
 }
 </style>

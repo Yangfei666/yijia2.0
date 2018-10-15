@@ -17,7 +17,7 @@
                 <el-col :span="24">
                  <el-form-item label="所属门店:">
                      <el-col :span="24">
-                    <el-select v-model="formInline.region" placeholder="请选择" style="width:260px;margin-top: 3px;">
+                    <el-select v-model="formInline.region" class="select" placeholder="请选择" style="width:260px">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
@@ -34,9 +34,9 @@
     <div class="group-main">
         <div class="group-head">
             <div class="group-right">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:140px;line-height:40px"></el-date-picker>
-                <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:250px;margin-top:4px"></el-date-picker>
-                <el-select v-model="value" placeholder="请选择" style="width:140px;margin-top:-1px">
+                <el-date-picker v-model="value1" type="date" placeholder="选择日期" style="width:140px;"></el-date-picker>
+                <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:250px;margin-top:5px"></el-date-picker>
+                <el-select v-model="value" placeholder="请选择" style="width:140px">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
             </div>

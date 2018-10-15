@@ -21,20 +21,20 @@
                     <div class="search-form" v-show="isShow">
                         <el-form-item label="剩余次数:">
                             <el-col :span="12">
-                                <el-input v-model="formInline.numsmall" placeholder="输入最小值" clearable style="width:100px;font-size:12px"></el-input>
+                                <el-input v-model="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
                             </el-col>
                             <el-col :span="1">
-                                <el-input v-model="formInline.numbig" placeholder="输入最大值" clearable style="width:100px;font-size:12px"></el-input>
+                                <el-input v-model="formInline.numbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
                             </el-col>
                         </el-form-item>
                     </div>
                     <div class="search-form" v-show="isShow">
                         <el-form-item label="剩余金额:">
                             <el-col :span="12">
-                                <el-input v-model="formInline.fundsmall" placeholder="输入最小值" clearable style="width:100px;font-size:12px"></el-input>
+                                <el-input v-model="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
                             </el-col>
                             <el-col :span="1">
-                                <el-input v-model="formInline.fundbig" placeholder="输入最大值" clearable style="width:100px;font-size:12px"></el-input>
+                                <el-input v-model="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
                             </el-col>
                         </el-form-item>
                     </div>
@@ -99,12 +99,12 @@
                         </div>
                         <div class="add">
                             <router-link to="/Customer/memberfollowup" style="text-decoration:none;">
-                                <p>会员跟进</p>
+                                <el-button type="text" class="add-b">会员跟进</el-button>
                             </router-link>
                         </div>
                         <div class="add">
                             <router-link to="/Customer/membershiphome" style="text-decoration:none;">
-                                <p>会员主页</p>
+                                <el-button type="text" class="add-b">会员主页</el-button>
                             </router-link>
                         </div>
                     </div>
@@ -405,7 +405,7 @@ export default {
         }
         .add-b {
           color: #00bc71;
-          margin-top: -3px;
+          margin-top: -4px;
           font-size: 16px;
         }
       }

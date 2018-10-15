@@ -40,7 +40,7 @@
                                     </el-dropdown-menu>
                                 </el-dropdown>
                             </span>
-                    </div>
+                        </div>
                     </el-col>
                 </div>
             </div>
@@ -48,7 +48,7 @@
     </div>
 </template>
 <script>
-    import { requestLogin } from "../api/api";
+import { requestLogin } from "../api/api";
     export default {
         data() {
             return {

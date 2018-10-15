@@ -77,12 +77,12 @@
                         </div>
                         <div class="add">
                             <router-link to="/Customer/tastefollowup" style="text-decoration:none;">
-                                <p>客户跟进</p>
+                                <el-button type="text" class="add-p">客户跟进</el-button>
                             </router-link>
                         </div>
                         <div class="add">
                             <router-link to="/Customer/experiencehome" style="text-decoration:none;">
-                                <p>体验客户主页</p>
+                                <el-button type="text" class="add-p">体验客户主页</el-button>
                             </router-link>
                         </div>
                     </div>

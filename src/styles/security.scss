@@ -30,7 +30,7 @@
                 left: 0px;
             }
             .cardseed{
-              margin: 7% 4.5% auto !important;
+              margin: 20px 11px auto !important;
               display: flex;
               justify-content: space-between;
               height: 50px;
@@ -75,6 +75,7 @@
               .cardplace{
                 display: grid;
                 text-align: left;
+                margin-top: 0px!important;
                 .place1{
                 color: #e6e6e6;
                 font-family: PingFang-SC-Medium;
@@ -105,7 +106,7 @@
                 .status2{
                   color: #ffffff;
                   font-family: PingFang-SC-Medium;
-                font-size: 18px!important;
+                font-size: 16px!important;
                 font-weight: normal;
                 font-stretch: normal;
                 text-align: center;
@@ -115,7 +116,7 @@
           }
         }
         .box4{
-            width: 1px;
+            width: 2px;
             height: 50%;
             background: #e8e8e8;
             float: left;
@@ -317,7 +318,7 @@
           }
         }
         .box4{
-            width: 1px;
+            width: 2px;
             height: 50%;
             background: #e8e8e8;
             float: left;
@@ -519,7 +520,7 @@
           }
         }
         .box4{
-            width: 1px;
+            width: 2px;
             height: 50%;
             background: #e8e8e8;
             float: left;
@@ -567,7 +568,7 @@
                     margin-top: 20px;
                     span{
                       font-family: PingFang-SC-Light;
-                      font-size: 14px!important;
+                      font-size: 13px!important;
                       font-weight: normal;
                       font-stretch: normal;
                       letter-spacing: 0px;
@@ -576,14 +577,14 @@
                     }
                     p{
                       font-family: PingFang-SC-Regular;
-                      font-size: 28px!important;
+                      font-size: 26px!important;
                       font-weight: normal;
                       font-stretch: normal;
                       letter-spacing: 0px;
                       color: #272727;
                       .ci{
                         font-family: PingFang-SC-Medium;
-                        font-size: 14px!important;
+                        font-size: 13px!important;
                         font-weight: normal;
                         font-stretch: normal;
                         letter-spacing: 0px;
@@ -721,7 +722,7 @@
           }
         }
         .box4{
-            width: 1px;
+            width: 2px;
             height: 50%;
             background: #e8e8e8;
             float: left;
@@ -752,7 +753,7 @@
               }
               .chart-span{
                     font-family: PingFang-SC-Light;
-                    font-size: 16px!important;
+                    font-size: 14px!important;
                     font-weight: normal;
                     font-stretch: normal;
                     line-height: 33px;
@@ -769,7 +770,7 @@
                     margin-top: 20px;
                     span{
                       font-family: PingFang-SC-Light;
-                      font-size: 18px!important;
+                      font-size: 14px!important;
                       font-weight: normal;
                       font-stretch: normal;
                       letter-spacing: 0px;
@@ -778,14 +779,14 @@
                     }
                     p{
                       font-family: PingFang-SC-Regular;
-                      font-size: 30px!important;
+                      font-size: 26px!important;
                       font-weight: normal;
                       font-stretch: normal;
                       letter-spacing: 0px;
                       color: #272727;
                       .ci{
                         font-family: PingFang-SC-Medium;
-                        font-size: 16px!important;
+                        font-size: 14px!important;
                         font-weight: normal;
                         font-stretch: normal;
                         letter-spacing: 0px;
@@ -807,4 +808,206 @@
           }
         }
       }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .cardone{
+      height: 300px;
+      margin: 0 auto;
+      .one-left{
+        height: 300px;
+        .card-left{
+          width: 80%!important;
+          height: 85%!important;
+          background-color: #161d24;
+          border-radius: 10px;
+          margin: 5% 10% auto!important;
+          position: relative;
+          .LeftRound{/*左半圆*/
+              width: 15px;
+              border-radius: 20px 0px 0px 20px;
+              background: #fff;
+              height: 20px;
+              position: absolute;
+              right: 0px;
+              top: 58px;
+          }
+          .RightRound{/*右半圆*/
+              width: 15px;
+              border-radius: 0px 20px 20px 0px;
+              height: 20px;
+              position: absolute;
+              background: #fff;
+              top: 58px;
+              left: 0px;
+          }
+          .cardseed{
+            margin: 3.5% 4.2% auto !important;
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            line-height: 40px;
+            border-bottom: 2px dotted #fff;
+            .seed1{
+              font-family: PingFang-SC-Medium;
+              font-size: 20px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              color: #fff;
+              padding-left: 2%!important;
+            }
+          }
+          .carddate{
+             height: 60px;
+            line-height: 15px;
+            margin: 3% 6.5% auto!important;
+            text-align: left;
+            .date1{
+              font-family: PingFang-SC-Medium;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              color: #fff;
+            }
+            .date2{
+              font-family: PingFang-SC-Medium;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              color: #fff;
+            }
+          }
+          .cardfoot{
+             height: 70px;
+            margin: 5.5% 6.5% auto!important;
+            display: flex;
+            justify-content: space-between;
+            .cardplace{
+              display: grid;
+              text-align: left;
+              margin-top: 0px!important;
+              .place1{
+              color: #e6e6e6;
+              font-family: PingFang-SC-Medium;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              }
+              .place2{
+              color: #ffffff;
+              font-family: PingFang-SC-Medium;
+              font-size: 20px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              }
+            }
+            .cardstatus{
+              display: grid;
+              text-align: right;
+              .status1{
+                color: #e6e6e6;
+                font-family: PingFang-SC-Medium;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              text-align: center;
+              }
+              .status2{
+                color: #ffffff;
+                font-family: PingFang-SC-Medium;
+              font-size: 20px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              text-align: center;
+              }
+            }
+          }
+        }
+      }
+      .box4{
+          width: 2px;
+          height: 50%;
+          background: #e8e8e8;
+          float: left;
+          position: relative;
+          top: 23%;
+          border-radius: 5px;
+          left: 2%;
+      }
+      .one-right{
+        height: 300px;
+        display: flex;
+        .chart-bottom{
+          display: inline-block;
+          .chart-left{
+            height: 40px;
+            margin-top: 85px;
+            .box{
+              width: 25px!important;
+              height: 5px;
+              background: #56e79e;
+              display: inline-block;
+            }
+            .box2{
+              width: 25px!important;
+              height: 5px;
+              background: #161D24;
+              display: inline-block;
+            }
+            .chart-span{
+                  font-family: PingFang-SC-Light;
+                  font-size: 16px!important;
+                  font-weight: normal;
+                  font-stretch: normal;
+                  line-height: 33px;
+                  letter-spacing: 0px;
+                  color: #262626;
+            }
+          }
+          .chart-top{
+                height: 85px;
+                display: inline-flex;
+                width: 100%;
+                line-height:15px;
+                .box-top{
+                  margin-top: 20px;
+                  span{
+                    font-family: PingFang-SC-Light;
+                    font-size: 14px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #b3b3b3;
+                    margin-left: 5px!important;
+                  }
+                  p{
+                    font-family: PingFang-SC-Regular;
+                    font-size: 30px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #272727;
+                    .ci{
+                      font-family: PingFang-SC-Medium;
+                      font-size: 14px!important;
+                      font-weight: normal;
+                      font-stretch: normal;
+                      letter-spacing: 0px;
+                      color: #8c8c8c;
+                    }
+                  }
+                }
+                .box3{
+                    width:2px;
+                    height: 50%;
+                    background: #e8e8e8;
+                    float: right;
+                    position: relative;
+                    top:35%;
+                    border-radius: 5px;
+                    padding-left: 1px;
+                }
+             }
+        }
+      }
+    }
 }

@@ -1,175 +1,234 @@
 <template>
-<div>
-<el-row>
-    <el-col :span="24">
-    <div class="practice-main">
-        <el-col :span="23" class="breadcrumb">
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>课程管理</el-breadcrumb-item>
-            <el-breadcrumb-item>课程科目管理</el-breadcrumb-item>
-        </el-breadcrumb>
-        </el-col>
-        <el-col :span="23" class="weber">
-            <span class="weber-span">课程科目管理</span>
-        </el-col>
-    </div>
-    </el-col>
-</el-row>
-<div class="practice-list">
-    <div class="practice-center">
+    <div>
+        <el-row>
+            <el-col :span="24">
+                <div class="practice-main">
+                    <el-col :span="23" class="breadcrumb">
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
+                            <el-breadcrumb-item>课程管理</el-breadcrumb-item>
+                            <el-breadcrumb-item>课程科目管理</el-breadcrumb-item>
+                        </el-breadcrumb>
+                    </el-col>
+                    <el-col :span="23" class="weber">
+                        <span class="weber-span">课程科目管理</span>
+                    </el-col>
+                </div>
+            </el-col>
+        </el-row>
+        <div class="practice-list">
+            <div class="practice-center">
                 <div class="purple">
                     <div class="add">
                         <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程科目</el-button>
-                         <template>
-                        <el-dialog title="添加课程科目" :append-to-body="true" :visible.sync="dialogFormVisible">
-                        <AddCoursesubjects></AddCoursesubjects>
-                        </el-dialog>
+                        <template>
+                            <el-dialog title="添加课程科目" :append-to-body="true" :visible.sync="dialogFormVisible">
+                                <!--添加课程科目-->
+                                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                                    <el-form-item label="课程科目:" prop="classname" :label-width="formLabelWidth">
+                                        <el-col :span="22">
+                                            <el-input v-model="ruleForm.classname" placeholder="请输入"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                    <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
+                                        <el-col :span="22">
+                                            <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                    <el-form-item label="热度:" prop="heat" :label-width="formLabelWidth">
+                                        <el-col :span="22">
+                                            <el-radio v-model="ruleForm.heat" label="精品">精品</el-radio>
+                                            <el-radio v-model="ruleForm.heat" label="普通">普通</el-radio>
+                                        </el-col>
+                                    </el-form-item>
+                                    <el-form-item label="状态:" prop="start" :label-width="formLabelWidth">
+                                        <el-col :span="22">
+                                            <el-radio v-model="ruleForm.start" label="启用">启用</el-radio>
+                                            <el-radio v-model="ruleForm.start" label="禁用">禁用</el-radio>
+                                        </el-col>
+                                    </el-form-item>
+                                    <el-form-item label="课程封面:" prop="cover" :label-width="formLabelWidth">
+                                        <el-col :span="22">
+                                            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" v-model="ruleForm.cover" :before-upload="beforeAvatarUpload">
+                                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                            </el-upload>
+                                        </el-col>
+                                    </el-form-item>
+                                    <el-form-item class="dialog-footer">
+                                        <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                                            <el-button @click="resetForm('ruleForm')">重置</el-button>
+                                            <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-form>
+                            </el-dialog>
                         </template>
                     </div>
                     <div class="add">
-                       <el-button type="text" class="p" @click="changeInfo">修改课程科目</el-button>
-                       <template>
-                        <el-dialog title="修改课程科目" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                        <EditCoursesubjects :currentSelectRow="currentSelectRow"></EditCoursesubjects>
-                        </el-dialog>
+                        <el-button type="text" class="p" @click="changeInfo">修改课程科目</el-button>
+                        <template>
+                            <el-dialog title="修改课程科目" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                                <EditCoursesubjects :currentSelectRow="currentSelectRow"></EditCoursesubjects>
+                            </el-dialog>
                         </template>
                     </div>
                 </div>
                 <div class="purple2">
                     <el-form ref="form" :model="form" label-width="90px">
                         <el-col :span="23" class="purple-name">
-                    <el-form-item label="课程名称:">
-                         <el-col :span="24">
-                        <el-input v-model="form.name" placeholder="请输入"></el-input>
+                            <el-form-item label="课程名称:">
+                                <el-col :span="24">
+                                    <el-input v-model="form.name" placeholder="请输入"></el-input>
+                                </el-col>
+                            </el-form-item>
                         </el-col>
-                    </el-form-item>
-                    </el-col>
-                    <el-col :span="1" class="purple-but">
-                    <el-form-item label-width="25px">
-                        <el-col :span="24">
-                       <el-button type="primary" @click="onSubmit">查询</el-button>
+                        <el-col :span="1" class="purple-but">
+                            <el-form-item label-width="25px">
+                                <el-col :span="24">
+                                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                                </el-col>
+                            </el-form-item>
                         </el-col>
-                    </el-form-item>
-                    </el-col>
                     </el-form>
                 </div>
-    </div>
-    <div class="practice-table">
-        <el-row>
-            <el-col :span="24">
-                <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
-                    <el-table-column align="center" prop="radio" fixed width="80px">
-                    <template slot-scope="scope">
-                         <el-radio-group v-model="radio">
-                            <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                        </el-radio-group>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="name" align="left" label="课程名称"></el-table-column>
-                    <el-table-column prop="heat" align="left" label="热度"></el-table-column>
-                    <el-table-column prop="status" align="left" label="状态"></el-table-column>
-                    <el-table-column prop="desc" align="left" label="备注"></el-table-column>
-                </el-table>
-                <div class="block">
-                    <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    background
-                    :page-sizes="[10, 20, 30, 40]"
-                    :page-size="pagesize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="tableData.length">
-                    </el-pagination>
-                </div>
-            </el-col>
-           </el-row>
+            </div>
+            <div class="practice-table">
+                <el-row>
+                    <el-col :span="24">
+                        <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+                            <el-table-column align="center" prop="radio" fixed width="80px">
+                                <template slot-scope="scope">
+                                    <el-radio-group v-model="radio">
+                                        <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
+                                    </el-radio-group>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="name" align="left" label="课程名称"></el-table-column>
+                            <el-table-column prop="heat" align="left" label="热度"></el-table-column>
+                            <el-table-column prop="status" align="left" label="状态"></el-table-column>
+                            <el-table-column prop="desc" align="left" label="备注"></el-table-column>
+                        </el-table>
+                        <div class="block">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                            </el-pagination>
+                        </div>
+                    </el-col>
+                </el-row>
             </div>
         </div>
     </div>
 </template>
 <script>
 import EditCoursesubjects from "@/components/editCoursesubjects";
-import AddCoursesubjects from "@/components/addCoursesubjects";
 export default {
-    name:'course',
-     components: {
-      EditCoursesubjects,
-      AddCoursesubjects
+  name: "course",
+  components: {
+    EditCoursesubjects
   },
   data() {
     return {
-        currentSelectRow: "",
+      imageUrl: "",
+      formLabelWidth: "130px",
+      currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
-      currentPage:1,
-      pagesize:10,
-      radio:true,
-      form: {
-          name:'',
+      currentPage: 1,
+      pagesize: 10,
+      radio: true,
+      ruleForm: {
+          classname:'',//课程名称
+          price: '',//价格
+          heat:'',//热度
+          start:'',//状态
+          cover: '',//课程封面
         },
-      tableData:[{
-          index:0,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:1,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:2,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:3,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:4,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:5,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      },{
-          index:6,
-          name:'空中瑜伽',
-          heat:'精品',
-          status:'启用',
-          desc:'无',
-          price:'200.00'
-      }]
+        rules: {
+         classname:[
+            {required: true, message: '请输入课程名称', trigger: 'blur' }
+          ],
+          heat: [
+            { required: true, message: '请选择热度', trigger: 'change' }
+          ],
+          start: [
+            { required: true, message: '请选择状态', trigger: 'change' }
+          ],
+          cover:[
+            {required: true, message: '请选择课程封面', trigger: 'change'}
+          ],
+        },
+      form: {
+        name: ""
+      },
+      tableData: [
+        {
+          index: 0,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 1,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 2,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 3,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 4,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 5,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        },
+        {
+          index: 6,
+          name: "空中瑜伽",
+          heat: "精品",
+          status: "启用",
+          desc: "无",
+          price: "200.00"
+        }
+      ]
     };
   },
-  methods:{
-      radiochange(row) {
+  methods: {
+    radiochange(row) {
       console.log(`当前: ${row}`);
     },
-      handleClick3(row){
-          console.log(row);
-          alert('点击了');
-      },
-      handleSizeChange(size) {
+    handleClick3(row) {
+      console.log(row);
+      alert("点击了");
+    },
+    handleSizeChange(size) {
       console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
@@ -178,39 +237,66 @@ export default {
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
-       this.radio=row.index;
+      this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-      // if(row.radio == true){
-      //   this.radio = true;
-      // }else{
-      //   this.radio = false;
-      // }
     },
-    changeInfo() {//先选择列表
+    changeInfo() {
+      //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-         this.$alert('请先选择列表', '提示信息', {
-          confirmButtonText: '确定',
+        this.$alert("请先选择列表", "提示信息", {
+          confirmButtonText: "确定",
           callback: action => {
             this.$message({
-              type: 'info',
+              type: "info",
               message: `请先选择列表`
             });
           }
         });
       }
     },
-        onSubmit() {
-        console.log('submit!');
+    onSubmit() {
+      console.log("submit!");
+    },
+    submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
   }
 };
 </script>
+<style lang="scss">
+ @import '@/styles/dialog.scss';
+</style>
 <style lang="scss" scoped>
-@import '@/styles/course.scss';
+@import "@/styles/course.scss";
 .practice-main {
   height: 112px;
   background: #fff;
@@ -260,52 +346,52 @@ export default {
   background: #fff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
-  .quanbu{
+  .quanbu {
     display: block;
-    height:60px;
-  .search-form{
+    height: 60px;
+    .search-form {
       height: 45px;
-    display: flex;
-    float: left;
-     margin: 15px 0px auto;
-        .el-button--primary{
-            background-color: #00bc71;
-            border-color: #00bc71;
-        }
-  }
-  .el-input__inner{
+      display: flex;
+      float: left;
+      margin: 15px 0px auto;
+      .el-button--primary {
+        background-color: #00bc71;
+        border-color: #00bc71;
+      }
+    }
+    .el-input__inner {
       height: 37px;
-  }
-  .el-input{
+    }
+    .el-input {
       height: 37px;
+    }
   }
-}
-.quanbu2{
+  .quanbu2 {
     display: inherit;
     float: left;
     height: 60px;
     margin-left: -70px;
-      .search-form2{
-    display: flex;
-    margin: 15px 0px auto;
-    float: left;
-    height: 45px;
-        .el-button--primary{
-            background-color: #00bc71;
-            border-color: #00bc71;
-        }
-  }
-      .corry {
-    height: 37px;
-    line-height: 37px;
-    float: left;
-    margin-top: 15px;
-    .corry-out {
-      color: #00bc71;
-      font-size: 14px;
+    .search-form2 {
+      display: flex;
+      margin: 15px 0px auto;
+      float: left;
+      height: 45px;
+      .el-button--primary {
+        background-color: #00bc71;
+        border-color: #00bc71;
+      }
+    }
+    .corry {
+      height: 37px;
+      line-height: 37px;
+      float: left;
+      margin-top: 15px;
+      .corry-out {
+        color: #00bc71;
+        font-size: 14px;
+      }
     }
   }
-}
   .practice-center {
     height: 80px;
     display: flex;
@@ -343,7 +429,7 @@ export default {
           line-height: 9px;
         }
       }
-      .add2{
+      .add2 {
         border: 1px solid #ff2366;
         width: 20%;
         height: 35px;
@@ -389,34 +475,34 @@ export default {
           margin-right: 13px;
         }
       }
-      .purple-name{
-          margin-top: 17px;
+      .purple-name {
+        margin-top: 17px;
       }
-      .purple-but{
-          margin-top: 17px;
-          .el-button--primary{
-                height: 35px;
-                line-height: 11px;
-          }
+      .purple-but {
+        margin-top: 17px;
+        .el-button--primary {
+          height: 35px;
+          line-height: 11px;
+        }
       }
     }
   }
   .practice-table {
-      .el-button--text{
-          color: #00BC71;
+    .el-button--text {
+      color: #00bc71;
+    }
+    .block {
+      float: right;
+      margin-top: 10px;
+      .el-pagination {
+        padding: 15px 5px;
+        float: right;
+        margin-right: 40px;
+        .el-pager li.active {
+          color: #00bc71;
+        }
       }
-      .block{
-          float: right;
-          margin-top: 10px;
-          .el-pagination{
-              padding: 15px 5px;
-              float: right;
-              margin-right: 40px;
-              .el-pager li.active {
-                color: #00BC71;
-            }
-          }
-      }
+    }
   }
 }
 </style>
