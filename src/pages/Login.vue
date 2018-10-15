@@ -1,4 +1,4 @@
-<template>    
+<template>
    <div class="mian">
     <div class="login-mian">
     <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
@@ -72,7 +72,7 @@ export default {
             .then(data => {
               console.log(data);
               this.logining = false;
-              data.user.sign = data.sign;
+              // data.user.sign = data.sign;
               sessionStorage.setItem("userInfo", JSON.stringify(data.user)); //缓存用户信息
               sessionStorage.setItem("access-token", data.token); //缓存token
               console.log(JSON.parse(sessionStorage.getItem("userInfo")));

@@ -17,13 +17,13 @@
         <el-col :span="12">
             <div class="grid-content bg-purple-light">
                 <div class="inner">
-                    <el-col :span="16" v-if="user.sign == 'super'" class="inner-select" style="display: flex;justify-content: flex-end;">
+                    <el-col :span="16" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
                         <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:140px">
                             <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
                         </el-select>
                     </el-col>
                     <el-col :span="16" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
-                        {{value.Hsxx_Name}}
+                        {{club.Hsxx_Name}}
                     </el-col>
                     <el-col :span="8">
                     <div class="userinfo-inner">
@@ -92,12 +92,19 @@
                         type: "warning"
                     })
                     .then(() => {
-                        // sessionStorage.removeItem('user');
+                      requestLogin('/exitLogin', {}, 'get').then(data => {
+                        sessionStorage.removeItem('access-token');
+                        sessionStorage.removeItem('clubList');
                         _this.$router.push("/login");
+                      }).catch(error => {
+                          if (error.response) {
+                              this.$message({
+                                  message: "对不起,退出失败",
+                                  type: "error"
+                              });
+                          }
                     })
-                    .catch(() => {
-                        this.$message("您取消了退出登录");
-                    });
+                });
             },
             changeCollasped() {
                 this.downIcon = !this.downIcon;
