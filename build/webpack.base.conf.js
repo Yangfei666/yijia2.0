@@ -88,10 +88,10 @@ module.exports = {
         tls: 'empty',
         child_process: 'empty'
     },
-    externals:{
-        'vue': 'Vue',
-        'element-ui': 'ELEMENT',
-        'echarts':'echarts',
-        'axios':'axios'
-      }
+    // externals:{
+    //     // 'vue': 'Vue',ba等一i西安   要不把这一行删掉把   这是我加的
+    //     // 'element-ui': 'ELEMENT',
+    //     // 'echarts':'echarts',
+    //     // 'axios':'axios'
+    //   }
 }
