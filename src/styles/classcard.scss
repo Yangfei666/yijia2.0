@@ -12,10 +12,10 @@
           position: relative;
           .infor-but{
             position: absolute;
-            top: 2.5%!important;
+            top: 2.4%!important;
             z-index:2;
             color:#262626;
-            right: 84%!important;
+            right: 65%!important;
             .goback{
                 font-size: 14px;
             }
@@ -62,10 +62,10 @@
           position: relative;
           .infor-but{
             position: absolute;
-            top: 2.5%!important;
+            top: 2.4%!important;
             z-index:2;
             color:#262626;
-            right: 84%!important;
+            right: 73%!important;
             .goback{
                 font-size: 14px;
             }
@@ -89,10 +89,10 @@
                 }
               }
             .el-range-editor.el-input__inner{
-                width: 210px!important;
+                width: 170px!important;
             }
             .el-select{
-                width: 220px!important;
+                width: 145px!important;
             }
           }
         }
@@ -193,6 +193,56 @@
             }
             .el-select{
                 width: 250px!important;
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but{
+            position: absolute;
+            top: 2.5%!important;
+            z-index:2;
+            color:#262626;
+            right: 84%!important;
+            .goback{
+                font-size: 14px;
+            }
+        }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 360px!important;
+            }
+            .el-select{
+                width: 350px!important;
             }
           }
         }

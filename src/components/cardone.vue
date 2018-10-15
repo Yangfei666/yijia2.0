@@ -2,7 +2,7 @@
  <div>
    <!--会员卡1-->
 <div class="cardone">
-    <el-col :span="11" class="one-left">
+    <el-col :span="10" class="one-left">
     <div class="card-left">
         <el-col :span="22" class="cardseed">
         <span class="seed1">卡种</span>
@@ -25,9 +25,11 @@
     </div>
     </el-col>
     <div class="box4"></div>
-    <el-col :span="12" class="one-right">
-    <div id="myChart" :style="{width: '280px', height: '300px'}"></div>
-    <el-col :span="14" class="chart-bottom">
+    <el-col :span="13" class="one-right">
+      <el-col :span="12">
+         <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
+      </el-col>
+    <el-col :span="12" class="chart-bottom">
         <el-col :span="12" class="chart-left">
         <div class="box"></div>
         <span class="chart-span">已使用次数</span>
@@ -266,7 +268,7 @@ require('echarts/lib/component/title')
       }
     }
     .box4{
-        width: 1px;
+        width: 2px;
         height: 50%;
         background: #e8e8e8;
         float: left;

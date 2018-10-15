@@ -27,13 +27,15 @@
     </el-col>
     <div class="box4"></div>
     <el-col :span="13" class="one-right">
-    <div id="myChart3" :style="{width: '280px', height: '300px'}"></div>
-    <el-col :span="14" class="chart-bottom">
-        <el-col :span="10" class="chart-left">
+    <el-col :span="12">
+        <div id="myChart3" :style="{width: '100%', height: '300px'}"></div>
+      </el-col>
+    <el-col :span="12" class="chart-bottom">
+        <el-col :span="12" class="chart-left">
         <div class="box"></div>
         <span class="chart-span">已使用次数</span>
         </el-col>
-        <el-col :span="10" class="chart-left">
+        <el-col :span="12" class="chart-left">
         <div class="box2"></div>
         <span class="chart-span">剩余次数</span>
         </el-col>
@@ -260,7 +262,7 @@ require('echarts/lib/component/title')
       }
     }
     .box4{
-        width: 1px;
+        width: 2px;
         height: 50%;
         background: #e8e8e8;
         float: left;

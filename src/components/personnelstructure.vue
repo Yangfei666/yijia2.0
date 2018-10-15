@@ -154,6 +154,7 @@ export default {
  @import '../styles/dialog.scss';
 </style>
 <style lang="scss" scoped>
+ @import '@/styles/personnelstructure.scss';
   .practice-table2 {
       .add{
         border: 1px solid #00bc71;
@@ -166,7 +167,6 @@ export default {
         float: left;
         .p {
           color: #00bc71;
-          font-size: 16px;
           font-family: PingFang-SC-Regular;
           font-size: 16px;
           font-weight: normal;
@@ -186,7 +186,6 @@ export default {
          float: left;
         .p {
           color: #ff2366;
-          font-size: 16px;
           font-family: PingFang-SC-Regular;
           font-size: 16px;
           font-weight: normal;
@@ -199,6 +198,7 @@ export default {
             height: 100%;
             width: 95%;
             margin: 20px auto;
+            display: inline-block;
             .left-table-main{
                     border-bottom: 1px solid #d9d9d9;
                     height: 55px;
