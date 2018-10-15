@@ -27,7 +27,7 @@
     </el-select>
     </el-form-item>
     <el-form-item class="form-main" v-if="isAdmin">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="confirmClub">确定</el-button>
+      <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="confirmClub" :loading="logining">确定</el-button>
     </el-form-item>
   </el-form>
     </div>
@@ -75,7 +75,6 @@ export default {
             num: this.num
           };
           requestLogin('/getToken', loginParams).then(data => {
-              console.log(data);
               this.logining = false;
               sessionStorage.setItem("userInfo", JSON.stringify(data.user)); //缓存用户信息
               sessionStorage.setItem("access-token", data.token); //缓存token
@@ -89,6 +88,7 @@ export default {
               }
             })
             .catch(error => {
+              this.logining = false;
               if (error.response) {
                 this.$message({
                   message: "登录失败,请稍候再试",
@@ -104,14 +104,15 @@ export default {
     },
     confirmClub () {
       requestLogin('/againGetToken/'+this.account.door).then(data => {
-        console.log(data);
+        this.logining = true;
         sessionStorage.setItem("access-token", data.token);//换成有权限的token
         sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
         this.$router.push({ path: "/home/main" });
       }).catch(error => {
+        this.logining = false;
         if (error.response) {
           this.$message({
-            message: "对不起,选择门店失败",
+            message: "请选择所属门店",
             type: "error"
           });
         }
