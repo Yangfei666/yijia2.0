@@ -121,7 +121,7 @@ let router = new Router({
         {
             path: '/login',
             name: 'Login',
-            component: Login//登录
+            component: Login,//登录
         }, {
             path: '/home',
             name: 'Home',
@@ -131,7 +131,7 @@ let router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-bijibendiannao',// 图标样式class
             children: [
-                { path: '/home/main', component: Main, name: '首页', menuShow: true }//首页
+                { path: '/home/main', component: Main, name: '首页', menuShow: true}//首页
             ]
         }, {
             path: '/Curriculum',
@@ -142,7 +142,7 @@ let router = new Router({
             children: [
                 { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true },//团课课程表
                 { path: '/Curriculum/privateculum', component: CurriPrivateCulum, name: '私教课程表', menuShow: true },//私教课程表
-                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true }//课程科目管理
+                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true}//课程科目管理
             ]
         }, {
             path: '/Customer',

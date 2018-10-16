@@ -81,15 +81,15 @@
                         </el-radio-group>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="name" align="left" label="卡名称" width="150px"></el-table-column>
-                    <el-table-column prop="type" align="left" label="类型" width="150px"></el-table-column>
-                    <el-table-column prop="price" align="left" label="售价" width="150px"></el-table-column>
-                    <el-table-column prop="color" align="left" label="底色" width="150px"></el-table-column>
-                    <el-table-column prop="tuansi" align="left" label="团课/私教" width="150px"></el-table-column>
-                    <el-table-column prop="week" align="left" label="限制星期" width="170px"></el-table-column>
-                    <el-table-column prop="time" align="left" label="限制时段" width="230px"></el-table-column>
-                    <el-table-column prop="num" align="left" label="周限次数" width="150px"></el-table-column>
-                    <el-table-column prop="status" align="left" label="状态" fixed="right" width="160px"></el-table-column>
+                    <el-table-column prop="CTName" align="left" label="卡名称" width="150px"></el-table-column>
+                    <el-table-column prop="ctType" align="left" label="类型" width="150px"></el-table-column>
+                    <el-table-column prop="CTjg" align="left" label="售价" width="150px"></el-table-column>
+                    <el-table-column prop="ColorCard" align="left" label="底色" width="150px"></el-table-column>
+                    <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="150px"></el-table-column>
+                    <el-table-column prop="CTxDate_YN" align="left" label="限制星期" width="170px"></el-table-column>
+                    <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="230px"></el-table-column>
+                    <el-table-column prop="CTvalidity" align="left" label="周限次数" width="150px"></el-table-column>
+                    <el-table-column prop="CTdate" align="left" label="状态" fixed="right" width="160px"></el-table-column>
                 </el-table>
                 <div class="block">
                     <el-pagination
@@ -110,6 +110,7 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 import Carddetails from "@/components/carddetails";
 import Cardedit from "@/components/cardedit";
 import Foundmembercard from "@/components/foundmembercard";
@@ -132,105 +133,27 @@ export default {
       form: {
           name:'',
         },
-      tableData:[{
-          index:0,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'周一',
-          time:'2018-09-24-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          shoproom:'言瑜伽'
-      },{
-          index:1,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      },{
-          index:2,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      },{
-          index:3,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      },{
-          index:4,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      },{
-          index:5,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      },{
-          index:6,
-          name:'VIP钻石卡',
-          type:'期限卡',
-          price:'18880',
-          color:'灰底',
-          tuansi:'团课',
-          week:'无',
-          time:'00:00:00-00:00:00',
-          num:'不限',
-          status:'启用',
-          youxiaoqi:'30',
-          limitdate:'周一',
-          shoproom:'言瑜伽'
-      }]
+      tableData:[]
     };
+  },
+    created: function () {
+    //表格列表数据
+      let _this = this;
+      this.loading = true;
+      requestLogin("/setCardType",{},'get')
+        .then(function(res) {
+          _this.tableData = res.selfCard;
+          // _this.tableData = res.relationCard;
+          this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods:{
        radiochange(row) {

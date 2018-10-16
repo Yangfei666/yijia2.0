@@ -204,6 +204,7 @@
   </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 import Editrole from "@/components/editrole";
 const cityOptions = ['资料录入', '体验客户管理', '体验券设置', '客户退体验券','体验客户约课',
 '编辑体验客户资料','体验客户购券'];//体验管理
@@ -323,39 +324,26 @@ export default {
       dialogFormVisible2: false,
       currentPage4: 4,
       radio: true,
-      tableData: [
-        {
-          index: 0,
-          name: "超级管理员",
-          addtime: "2010-06-20 00:00:00",
-          status: "停用"
-        },
-        {
-          index:1,
-          name: "店长",
-          addtime: "2010-06-20 00:00:00",
-          status: "停用"
-        },
-        {
-          index:2,
-          name: "前台",
-          addtime: "2010-06-20 00:00:00",
-          status: "停用"
-        },
-        {
-          index:3,
-          name: "教练",
-          addtime: "2010-06-20 00:00:00",
-          status: "停用"
-        },
-        {
-          index:4,
-          name: "会籍顾问",
-          addtime: "2010-06-20 00:00:00",
-          status: "启用"
-        }
-      ]
+      tableData: []
     };
+  },
+      created: function () {
+    //表格列表数据
+      let _this = this;
+      this.loading = true;
+      requestLogin("/RoleAuthorityManagement",{},'get')
+        .then(function(res) {
+          _this.tableData = res;
+          this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods: {
     radiochange(row) {

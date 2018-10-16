@@ -57,8 +57,8 @@
                   </el-form-item>
                   <el-form-item class="dialog-footer">
                     <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                      <el-button @click="resetForm('ruleForm')">重置</el-button>
-                      <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                      <el-button @click.native="resetForm('ruleForm')">重置</el-button>
+                      <el-button type="primary" @click.native="submitForm('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">提交</el-button>
                     </el-col>
                   </el-form-item>
                 </el-form>
@@ -66,7 +66,7 @@
             </template>
           </div>
           <div class="add">
-            <el-button type="text" class="p" @click="changeInfo">修改课程科目</el-button>
+            <el-button type="text" class="p" @click.prevent="changeInfo">修改课程科目</el-button>
             <template>
               <el-dialog title="修改课程科目" :append-to-body="true" :visible.sync="dialogFormVisible2">
                 <EditCoursesubjects :currentSelectRow="currentSelectRow"></EditCoursesubjects>
@@ -74,7 +74,7 @@
             </template>
           </div>
           <div class="add2">
-            <el-button type="text" class="p" @click="open2">删除课程科目</el-button>
+            <el-button type="text" class="p" @click.prevent="handleDel">删除课程科目</el-button>
           </div>
         </div>
         <div class="purple2">
@@ -99,18 +99,18 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" @change="tableDataList" fixed style="width: 100%">
-              <el-table-column align="center" prop="radio" fixed width="80px">
+            <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+              <el-table-column align="center" prop="radio" fixed width="80px" v-loading="loading" element-loading-text="请给我点时间！">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
                     <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" align="left" label="课程名称"></el-table-column>
-              <el-table-column prop="heat" align="left" label="热度"></el-table-column>
-              <el-table-column prop="status" align="left" label="状态"></el-table-column>
-              <el-table-column prop="desc" align="left" label="备注"></el-table-column>
+              <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
+              <el-table-column prop="kcHot" align="left" label="热度"></el-table-column>
+              <el-table-column prop="ZT" align="left" label="状态"></el-table-column>
+              <el-table-column prop="BZ" align="left" label="备注"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -132,6 +132,8 @@ export default {
   },
   data() {
     return {
+      addLoading: false,
+      loading: false,
       imageUrl: "",
       formLabelWidth: "130px",
       currentSelectRow: "",
@@ -141,11 +143,12 @@ export default {
       pagesize: 10,
       radio: true,
       ruleForm: {
-        classname: "", //课程名称
-        price: "", //价格
-        heat: "", //热度
-        start: "", //状态
-        cover: "" //课程封面
+        classname: "是都", //课程名称
+        price: "123", //价格
+        heat: "2", //热度
+        start: "1", //状态
+        cover: "" ,//课程封面
+        desc:"",//备注
       },
       rules: {
         classname: [
@@ -160,65 +163,26 @@ export default {
       form: {
         name: ""
       },
-      tableData: [
-        {
-          index: 0,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 1,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 2,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 3,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 4,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 5,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        },
-        {
-          index: 6,
-          name: "空中瑜伽",
-          heat: "精品",
-          status: "启用",
-          desc: "无",
-          price: "200.00"
-        }
-      ]
+      tableData: []
     };
+  },
+  created: function () {
+    //表格列表数据
+      let _this = this;
+      this.loading = true;
+      requestLogin("/setCurSubInfo",{},'get')
+        .then(function(res) {
+          _this.tableData = res;
+          this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods: {
     radiochange(row) {
@@ -238,40 +202,34 @@ export default {
       this.currentSelectRow = row;
       console.log(row.index);
     },
-    //表格列表数据
-    tableDataList() {
-      requestLogin("/setCurSubInfo", {}, "get").then(function(response) {
-          sessionStorage.setItem("access-token", data.token);
-        })
-        .catch(error => {
-          if (error.response) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        })
-    },
-    open2() {
-      this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
+    //删除课程科目
+    handleDel() {
+        this.$confirm("确认删除该条记录吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.tableData = this.tableData.splice(1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+          this.loading = true;
+          console.log(123);
+          requestLogin("/setCurSubInfo/" +1, {}, "delete").then(response => {
+            console.log(111);
+            this.loading = false;
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            });
+            this.tableData = this.tableData.splice(1);
           });
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除"
+            message: "删除失败!",
+            type: "error"
           });
         });
     },
+    //修改课程科目
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
@@ -288,19 +246,50 @@ export default {
         });
       }
     },
+    //查询表单
     onSubmit() {
       console.log("submit!");
     },
+   //添加课程科目
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$confirm('确认提交吗？','提示').then(() => {
+            console.log("接口前");
+            this.addLoading = true;
+            var loginParams = {
+                kcName: this.ruleForm.classname,//课程名称
+                ZT: this.ruleForm.start,//状态
+                BZ: this.ruleForm.desc,//备注
+                kcHot : this.ruleForm.heat,//热度
+                price : this.ruleForm.price,//价格
+                file : this.ruleForm.cover,//课程封面
+            };
+            requestLogin('/setCurSubInfo', loginParams,'post').then(data => {
+              console.log("接口后");
+              this.addLoading = false;
+              this.$message({
+									message: '提交成功',
+									type: 'success'
+                });
+            })
+            .catch(error => {
+              this.addLoading = false;
+              if (error.response) {
+                this.$message({
+                  message: "提交失败,请稍候再试",
+                  type: "error"
+                });
+              }
+            });
+          })
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
+    //重置
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

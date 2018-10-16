@@ -99,12 +99,12 @@
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" align="left" label="体验卷名称"></el-table-column>
-              <el-table-column prop="price" align="left" label="售价"></el-table-column>
-              <el-table-column prop="status" align="left" label="状态"></el-table-column>
+              <el-table-column prop="tkName" align="left" label="体验卷名称"></el-table-column>
+              <el-table-column prop="tkPrice" align="left" label="售价"></el-table-column>
+              <el-table-column prop="tkState" align="left" label="状态"></el-table-column>
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
-              <el-table-column prop="num" align="left" label="次数"></el-table-column>
-              <el-table-column prop="week" align="left" label="有效期(天数)"></el-table-column>
+              <el-table-column prop="frequency" align="left" label="次数"></el-table-column>
+              <el-table-column prop="vld" align="left" label="有效期(天数)"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -118,6 +118,7 @@
 </template>
 <script>
 import Editexpersecurity from "@/components/editexpersecurity";
+import { requestLogin } from "@/api/api";
 export default {
   name: "experience",
   components: {
@@ -168,79 +169,26 @@ export default {
              {required: true, message: '请选择状态', trigger: 'change'}
          ]
         },
-      tableData: [
-        {
-          index: 0,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index: 1,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:2,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:3,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:4,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:5,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:6,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        }
-      ]
+      tableData: []
     };
+  },
+      created: function () {
+    //表格列表数据
+      let _this = this;
+      this.loading = true;
+      requestLogin("/setExperienceVoucher",{},'get')
+        .then(function(res) {
+          _this.tableData = res;
+          this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods: {
     radiochange(row) {

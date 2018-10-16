@@ -147,21 +147,21 @@
                 <el-row>
                     <el-col :span="24">
                             <el-table highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                <el-table-column align="center" prop="radio" fixed width="70px">
+                                <el-table-column align="center" prop="radio" fixed width="70px" v-loading="loading" element-loading-text="请给我点时间">
                                     <template slot-scope="scope">
                                       <el-radio-group v-model="radio">
                                         <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
                                       </el-radio-group>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="name" align="left" label="员工姓名" width="180px"></el-table-column>
-                                <el-table-column prop="tel" align="left" label="手机号" width="180px"></el-table-column>
-                                <el-table-column prop="card" align="left" label="身份证" width="180px"></el-table-column>
-                                <el-table-column prop="sex" align="left" label="性别" width="160px"></el-table-column>
-                                <el-table-column prop="status" align="left" label="状态" width="160px"></el-table-column>
-                                <el-table-column prop="role" align="left" label="角色" width="160px"></el-table-column>
-                                <el-table-column prop="desc" align="left" label="简介" width="180px"></el-table-column>
-                                <el-table-column prop="addtime" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
+                                <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" width="180px"></el-table-column>
+                                <el-table-column prop="YGXX_HOMETEL" align="left" label="手机号" width="180px"></el-table-column>
+                                <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
+                                <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
+                                <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
+                                <el-table-column prop="role.name" align="left" label="角色" width="160px"></el-table-column>
+                                <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
+                                <el-table-column prop="YGXX_HOMETEL" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
                             </el-table>
                         <div class="block">
                             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -175,6 +175,7 @@
 </template>
 <script>
 import Editstaff from "@/components/editstaff";
+import { requestLogin } from "@/api/api";
 export default {
   name: "staff",
   components: {
@@ -228,107 +229,26 @@ export default {
              {required: true, message: '请选择所属权限', trigger: 'change'}
          ]
         },
-      tableData: [
-        {
-          index: 0,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 1,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 2,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 3,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 4,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 5,
-          name: "理发师",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        },
-        {
-          index: 6,
-          name: "大方的",
-          tel: "00000000000",
-          card: "00000000000000000",
-          sex: "女",
-          status: "在职",
-          role: "教练",
-          desc: "无",
-          addtime: "2020-06-20 00:00:00",
-          power: "超级管理",
-          big: "1大队",
-          small: "1小组"
-        }
-      ]
+      tableData: []
     };
+  },
+    created: function () {
+    //表格列表数据
+      let _this = this;
+      this.loading = true;
+      requestLogin("/setStaffInfo",{},'get')
+        .then(function(res) {
+          _this.tableData = res;
+          this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods: {
     radiochange(row) {

@@ -2,9 +2,9 @@
     <div>
       <!--修改课程科目-->
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
-            <el-form-item label="课程科目:" prop="name" :label-width="formLabelWidth">
+            <el-form-item label="课程科目:" prop="kcName" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+                <el-input v-model="currentSelectRow.kcName" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
@@ -12,16 +12,16 @@
                 <el-input v-model="currentSelectRow.price" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="热度:" prop="heat" :label-width="formLabelWidth">
+            <el-form-item label="热度:" prop="kcHot" :label-width="formLabelWidth">
                 <el-col :span="22">
-                <el-radio v-model="currentSelectRow.heat" label="精品" value="0"></el-radio>
-                <el-radio v-model="currentSelectRow.heat" label="普通" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.kcHot" label="精品" value="0"></el-radio>
+                <el-radio v-model="currentSelectRow.kcHot" label="普通" value="1"></el-radio>
                 </el-col> 
             </el-form-item>
-            <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
+            <el-form-item label="状态:" prop="ZT" :label-width="formLabelWidth">
                 <el-col :span="22">
-                <el-radio v-model="currentSelectRow.status" label="启用" value="0"></el-radio>
-                <el-radio v-model="currentSelectRow.status" label="禁用" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.ZT" label="启用" value="0"></el-radio>
+                <el-radio v-model="currentSelectRow.ZT" label="禁用" value="1"></el-radio>
                 </el-col> 
             </el-form-item>
              <el-form-item label="课程封面:" prop="cover" :label-width="formLabelWidth">

@@ -2,25 +2,25 @@
     <div>
         <!--编辑新员工-->
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
-          <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
+          <el-form-item label="姓名:" prop="YGXX_NAME" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+                <el-input v-model="currentSelectRow.YGXX_NAME" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
-             <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+             <el-form-item label="性别:" prop="YGXX_SEX" :label-width="formLabelWidth">
             <el-col :span="22">
-                    <el-radio label="女" value="0" v-model="currentSelectRow.sex"></el-radio>
-                    <el-radio label="男" value="1" v-model="currentSelectRow.sex"></el-radio>
+                    <el-radio label="女" value="0" v-model="currentSelectRow.YGXX_SEX"></el-radio>
+                    <el-radio label="男" value="1" v-model="currentSelectRow.YGXX_SEX"></el-radio>
                 </el-col> 
             </el-form-item>
-             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
+             <el-form-item label="电话:" prop="YGXX_HOMETEL" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.tel" placeholder="请输入"></el-input>
+                <el-input v-model="currentSelectRow.YGXX_HOMETEL" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="身份证号:" prop="card" :label-width="formLabelWidth">
+            <el-form-item label="身份证号:" prop="ygIdentity" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.card" placeholder="请输入"></el-input>
+                <el-input v-model="currentSelectRow.ygIdentity" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
@@ -55,9 +55,9 @@
                 </el-select>
                 </el-col>
             </el-form-item>
-            <el-form-item label="员工简介:" prop="desc" :label-width="formLabelWidth">
+            <el-form-item label="员工简介:" prop="ygIntro" :label-width="formLabelWidth">
                <el-col :span="22">
-               <el-input type="textarea" v-model="currentSelectRow.desc"></el-input>
+               <el-input type="textarea" v-model="currentSelectRow.ygIntro"></el-input>
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">

@@ -2,72 +2,72 @@
     <div>
         <!--会员卡编辑-->
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
-          <el-form-item label="卡名称:" prop="name" :label-width="formLabelWidth">
+          <el-form-item label="卡名称:" prop="CTName" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.name"></el-input>
+                <el-input v-model="currentSelectRow.CTName"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
+            <el-form-item label="类型:" prop="ctType" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="期限卡" value="0" v-model="currentSelectRow.type"></el-radio>
-                    <el-radio label="次数卡" value="1" v-model="currentSelectRow.type"></el-radio>
-                    <el-radio label="金额卡" value="2" v-model="currentSelectRow.type"></el-radio>
+                    <el-radio label="期限卡" value="0" v-model="currentSelectRow.ctType"></el-radio>
+                    <el-radio label="次数卡" value="1" v-model="currentSelectRow.ctType"></el-radio>
+                    <el-radio label="金额卡" value="2" v-model="currentSelectRow.ctType"></el-radio>
                 </el-col>
             </el-form-item>
-             <el-form-item label="课程种类:" prop="tuansi" :label-width="formLabelWidth">
+             <el-form-item label="课程种类:" prop="ctIsIsPrivate" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="团课" value="0" v-model="currentSelectRow.tuansi"></el-radio>
-                    <el-radio label="私教" value="1" v-model="currentSelectRow.tuansi"></el-radio>
+                    <el-radio label="团课" value="0" v-model="currentSelectRow.ctIsIsPrivate"></el-radio>
+                    <el-radio label="私教" value="1" v-model="currentSelectRow.ctIsIsPrivate"></el-radio>
                 </el-col>
             </el-form-item>
-            <el-form-item label="会员卡底色:" prop="color" :label-width="formLabelWidth">
+            <el-form-item label="会员卡底色:" prop="ColorCard" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="白底" value="0" v-model="currentSelectRow.color"></el-radio>
-                    <el-radio label="灰底" value="1" v-model="currentSelectRow.color"></el-radio>
+                    <el-radio label="白底" value="0" v-model="currentSelectRow.ColorCard"></el-radio>
+                    <el-radio label="灰底" value="1" v-model="currentSelectRow.ColorCard"></el-radio>
                 </el-col>
             </el-form-item>
-            <el-form-item label="售价:" prop="price" :label-width="formLabelWidth">
+            <el-form-item label="售价:" prop="CTjg" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.price"></el-input>
+                <el-input v-model="currentSelectRow.CTjg"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="有效期:" prop="youxiaoqi" :label-width="formLabelWidth">
+            <el-form-item label="有效期:" prop="CTvalidity" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.youxiaoqi"></el-input>
+                <el-input v-model="currentSelectRow.CTvalidity"></el-input>
                 </el-col>
             </el-form-item>
-             <el-form-item label="一周次数限制:" prop="num" :label-width="formLabelWidth">
+             <el-form-item label="一周次数限制:" prop="CTvalidity" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="不限" value="0" v-model="currentSelectRow.num"></el-radio>
-                    <el-radio label="2次" value="1" v-model="currentSelectRow.num"></el-radio>
-                    <el-radio label="3次" value="2" v-model="currentSelectRow.num"></el-radio>
-                    <el-radio label="4次" value="3" v-model="currentSelectRow.num"></el-radio>
+                    <el-radio label="不限" value="0" v-model="currentSelectRow.CTvalidity"></el-radio>
+                    <el-radio label="2次" value="1" v-model="currentSelectRow.CTvalidity"></el-radio>
+                    <el-radio label="3次" value="2" v-model="currentSelectRow.CTvalidity"></el-radio>
+                    <el-radio label="4次" value="3" v-model="currentSelectRow.CTvalidity"></el-radio>
                 </el-col>
             </el-form-item>
-            <el-form-item label="限制日期(可用):" prop="week" :label-width="formLabelWidth">
+            <el-form-item label="限制日期(可用):" prop="CTxDate_YN" :label-width="formLabelWidth">
               <el-col :span="22">
                 <el-checkbox-group>
-                    <el-checkbox label="周一" value="0" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周二" value="1" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周三" value="2" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周四" value="3" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周五" value="4" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周六" value="5" v-model="currentSelectRow.week"></el-checkbox>
-                    <el-checkbox label="周日" value="6" v-model="currentSelectRow.week"></el-checkbox>
+                    <el-checkbox label="周一" value="0" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周二" value="1" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周三" value="2" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周四" value="3" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周五" value="4" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周六" value="5" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
+                    <el-checkbox label="周日" value="6" v-model="currentSelectRow.CTxDate_YN"></el-checkbox>
                 </el-checkbox-group>
                 </el-col>
             </el-form-item>
-             <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
+             <el-form-item label="状态:" prop="CTdate" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="启用" value="0" v-model="currentSelectRow.status"></el-radio>
-                    <el-radio label="禁用" value="1" v-model="currentSelectRow.status"></el-radio>
+                    <el-radio label="启用" value="0" v-model="currentSelectRow.CTdate"></el-radio>
+                    <el-radio label="禁用" value="1" v-model="currentSelectRow.CTdate"></el-radio>
                 </el-col>
             </el-form-item>
-            <el-form-item label="限时段(可用):" prop="time" :label-width="formLabelWidth">
+            <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
               <el-col :span="22">
                 <el-time-picker 
                 is-range 
-                v-model="currentSelectRow.time" 
+                v-model="currentSelectRow.CTxTime_YN" 
                 range-separator="~" 
                 start-placeholder="开始时间" 
                 end-placeholder="结束时间" 
