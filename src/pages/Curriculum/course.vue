@@ -99,8 +99,8 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
-              <el-table-column align="center" prop="radio" fixed width="80px" v-loading="loading" element-loading-text="请给我点时间！">
+            <el-table v-loading="loading" highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+              <el-table-column align="center" prop="radio" fixed width="80px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
                     <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
@@ -169,11 +169,11 @@ export default {
   created: function () {
     //表格列表数据
       let _this = this;
-      this.loading = true;
+      _this.loading = true;
       requestLogin("/setCurSubInfo",{},'get')
         .then(function(res) {
+          _this.loading = false;
           _this.tableData = res;
-          this.loading = false;
         })
         .catch(error => {
           if(error.res){

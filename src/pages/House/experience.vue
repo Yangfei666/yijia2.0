@@ -91,7 +91,7 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick" v-loading="listLoading">
+            <el-table v-loading="loading" fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
@@ -135,7 +135,7 @@ export default {
       disabled:false,
       limitdate: [],
       currentSelectRow: "",
-      listLoading: false,
+      loading: true,
       dialogFormVisible: false,
       dialogFormVisible2: false,
       currentPage: 1,
@@ -175,11 +175,11 @@ export default {
       created: function () {
     //表格列表数据
       let _this = this;
-      this.loading = true;
+      _this.loading = true;
       requestLogin("/setExperienceVoucher",{},'get')
         .then(function(res) {
           _this.tableData = res;
-          this.loading = false;
+          _this.loading = false;
         })
         .catch(error => {
           if(error.res){

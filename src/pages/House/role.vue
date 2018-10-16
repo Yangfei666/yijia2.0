@@ -185,7 +185,7 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table highlight-current-row :data="tableData" :header-cell-style="{background:'#fafafa'}" fixed style="width: 100%" @row-click="rowClick">
+            <el-table v-loading="loading" highlight-current-row :data="tableData" :header-cell-style="{background:'#fafafa'}" fixed style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="100px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
@@ -228,7 +228,8 @@ export default {
   },
   data() {
     return {
-      isShow:true,
+        loading:true,
+        isShow:true,
          isShow2:true,
          isShow3:true,
          isShow4:true,
@@ -330,11 +331,11 @@ export default {
       created: function () {
     //表格列表数据
       let _this = this;
-      this.loading = true;
+      _this.loading = true;
       requestLogin("/RoleAuthorityManagement",{},'get')
         .then(function(res) {
           _this.tableData = res;
-          this.loading = false;
+          _this.loading = false;
         })
         .catch(error => {
           if(error.res){

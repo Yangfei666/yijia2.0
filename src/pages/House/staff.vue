@@ -146,8 +146,8 @@
             <div class="practice-table">
                 <el-row>
                     <el-col :span="24">
-                            <el-table highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                <el-table-column align="center" prop="radio" fixed width="70px" v-loading="loading" element-loading-text="请给我点时间">
+                            <el-table v-loading="loading" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                                <el-table-column align="center" prop="radio" fixed width="70px">
                                     <template slot-scope="scope">
                                       <el-radio-group v-model="radio">
                                         <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
@@ -183,6 +183,7 @@ export default {
   },
   data() {
     return {
+      loading:true,
         role:[],
         remnant: 666,
         dialogFormVisible: false,
@@ -235,11 +236,11 @@ export default {
     created: function () {
     //表格列表数据
       let _this = this;
-      this.loading = true;
+      _this.loading = true;
       requestLogin("/setStaffInfo",{},'get')
         .then(function(res) {
           _this.tableData = res;
-          this.loading = false;
+          _this.loading = false;
         })
         .catch(error => {
           if(error.res){
