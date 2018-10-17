@@ -112,7 +112,7 @@
                                 <el-button type="text" class="p" @click="open2">员工离职</el-button>
                             </div>
                             <div class="add2">
-                                <el-button type="text" class="p"  @click="open2">删除员工</el-button>
+                                <el-button type="text" class="p"  @click.prevent="open2">删除员工</el-button>
                             </div>
                         </div>
                     </el-col>
@@ -161,7 +161,7 @@
                                 <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
                                 <el-table-column prop="role.name" align="left" label="角色" width="160px"></el-table-column>
                                 <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
-                                <el-table-column prop="YGXX_HOMETEL" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
+                                <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
                             </el-table>
                         <div class="block">
                             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -294,26 +294,43 @@ export default {
         });
       }
     },
-    open2() {
-      this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.tableData = this.tableData.slice(1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    }
+    //删除员工
+    // open2() {
+    //   let _this = this;
+    //   if (!this.currentSelectRow) {
+    //     this.$message({ message: "请先选择数据!", type: "warning" });
+    //     return;
+    //   }
+    //   this.$confirm("确认删除该条记录吗？", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       this.loading = true;
+    //       console.log(123);
+    //       console.log(_this.currentSelectRow.kcno);
+    //       requestLogin(
+    //         "/setCurSubInfo/" + _this.currentSelectRow.kcno,
+    //         "delete"
+    //       ).then(response => {
+    //         console.log(111);
+    //         this.loading = false;
+    //         this.$message({
+    //           message: "删除成功",
+    //           type: "success"
+    //         });
+    //         // this.tableData = this.tableData.splice(1);
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.loading = false;
+    //       this.$message({
+    //         message: "删除失败!",
+    //         type: "error"
+    //       });
+    //     });
+    // },
   }
 };
 </script>

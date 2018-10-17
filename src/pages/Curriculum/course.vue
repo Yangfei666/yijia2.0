@@ -202,43 +202,6 @@ export default {
       this.currentSelectRow = row;
       console.log(row);
     },
-    //删除课程科目
-    // handleDel() {
-    //   let _this = this;
-    //   if (!this.currentSelectRow) {
-    //     this.$message({ message: "请先选择数据!", type: "warning" });
-    //     return;
-    //   }
-    //   this.$confirm("确认删除该条记录吗？", "提示", {
-    //     confirmButtonText: "确定",
-    //     cancelButtonText: "取消",
-    //     type: "warning"
-    //   })
-    //     .then(() => {
-    //       this.loading = true;
-    //       console.log(123);
-    //       console.log(_this.currentSelectRow.kcno);
-    //       requestLogin(
-    //         "/setCurSubInfo/" + _this.currentSelectRow.kcno,
-    //         "delete"
-    //       ).then(response => {
-    //         console.log(111);
-    //         this.loading = false;
-    //         this.$message({
-    //           message: "删除成功",
-    //           type: "success"
-    //         });
-    //         // this.tableData = this.tableData.splice(1);
-    //       });
-    //     })
-    //     .catch(() => {
-    //       this.loading = false;
-    //       this.$message({
-    //         message: "删除失败!",
-    //         type: "error"
-    //       });
-    //     });
-    // },
     //修改课程科目
     changeInfo() {
       //先选择列表

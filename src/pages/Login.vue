@@ -11,8 +11,8 @@
     </el-form-item>
     <el-form-item prop="verifycode" class="identifyform" v-if="!isAdmin">
       <div class="identifybox">
-      <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput" style="width:60%"></el-input>
-      <el-col :span="22">
+      <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput" style="width:98%"></el-input>
+      <el-col :span="24">
         <img :src="img" alt="验证码" title="点击换一张" @click="getimg"/>
       </el-col>
       </div>

@@ -24,11 +24,11 @@
                 <el-radio v-model="currentSelectRow.ZT" label="禁用" value="1"></el-radio>
                 </el-col> 
             </el-form-item>
-             <el-form-item label="课程封面:" prop="cover" :label-width="formLabelWidth">
+             <el-form-item label="课程封面:" prop="kcPicasa" :label-width="formLabelWidth">
                 <el-col :span="22">
                     <el-upload
                     class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action=""
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     v-model="currentSelectRow.cover"
