@@ -131,7 +131,7 @@ let router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-bijibendiannao',// 图标样式class
             children: [
-                { path: '/home/main', component: Main, name: '首页', menuShow: true}//首页
+                { path: '/home/main', component: Main, name: '首页', menuShow: true }//首页
             ]
         }, {
             path: '/Curriculum',
@@ -142,7 +142,7 @@ let router = new Router({
             children: [
                 { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true },//团课课程表
                 { path: '/Curriculum/privateculum', component: CurriPrivateCulum, name: '私教课程表', menuShow: true },//私教课程表
-                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true}//课程科目管理
+                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true }//课程科目管理
             ]
         }, {
             path: '/Customer',
@@ -315,15 +315,30 @@ let router = new Router({
                         { path: '/House/visualizationchart/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
                     ]
                 },
-                { path: '/House/403', component: Forbidden, name: '403', menuShow: false },//403
-                { path: '/House/404', component: NotFound, name: '404', menuShow: false },//404
-                { path: '/House/500', component: ServerError, name: '500', menuShow: false }//500
             ]
+        },
+        {
+            path: '/403', //403
+            component: Forbidden, 
+            name: '403', 
+            menuShow: false
+        },
+        { 
+            path: '/404', //404
+            component: NotFound, 
+            name: '404', 
+            menuShow: false 
+        },
+        { 
+            path: '/500', //500
+            component: ServerError, 
+            name: '500', 
+            menuShow: false 
         },
         {
             path: '*',
             hidden: true,
-            redirect: { path: '/House/403' }
+            redirect: { path: '/403' }
         }
     ]
 })

@@ -99,7 +99,7 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+            <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
               <el-table-column align="center" prop="radio" fixed width="80px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
@@ -223,6 +223,7 @@ export default {
           });
         })
         .catch(() => {
+          this.loading = false;
           this.$message({
             message: "删除失败!",
             type: "error"

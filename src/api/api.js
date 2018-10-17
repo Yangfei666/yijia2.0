@@ -7,7 +7,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 axios.interceptors.response.use(
   response => {/*请求成功的设置*/
     let newToken=response.config.headers.token
-    localStorage.setItem('x-auth-token', newToken);
+    sessionStorage.setItem('access-token', newToken);
     if(response.data.code==-1&&response.status==200){
       this.$message({showClose: true, message:response.data.msg, type: 'warning'});
     };

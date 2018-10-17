@@ -185,7 +185,7 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" highlight-current-row :data="tableData" :header-cell-style="{background:'#fafafa'}" fixed style="width: 100%" @row-click="rowClick">
+            <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :data="tableData" :header-cell-style="{background:'#fafafa'}" fixed style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="100px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
