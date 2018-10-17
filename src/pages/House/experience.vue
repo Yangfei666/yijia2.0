@@ -27,9 +27,9 @@
                   <el-dialog title="添加体验卷" :append-to-body="true" :visible.sync="dialogFormVisible">
                     <!--添加体验卷-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                      <el-form-item label="体验卷名称:" prop="cardname" :label-width="formLabelWidth">
+                      <el-form-item label="体验卷名称:" prop="experiencename" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.cardname" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="售价(元):" prop="price" :label-width="formLabelWidth">
@@ -37,19 +37,19 @@
                             <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
-                        <el-form-item label="总次数:" prop="num" :label-width="formLabelWidth">
+                        <el-form-item label="总次数:" prop="number" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.num" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
-                        <el-form-item label="有效期(天数):" prop="datenum" :label-width="formLabelWidth">
+                        <el-form-item label="有效期(天数):" prop="termvalidity" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.datenum" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.termvalidity" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-radio-group v-model="status">
+                            <el-radio-group v-model="ruleForm.status">
                                 <el-radio :label="1">启用</el-radio>
                                 <el-radio :label="2">禁用</el-radio>
                             </el-radio-group>
@@ -107,7 +107,7 @@
               <el-table-column prop="vld" align="left" label="有效期(天数)"></el-table-column>
             </el-table>
             <div class="block">
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </div>
           </el-col>
@@ -119,6 +119,7 @@
 <script>
 import Editexpersecurity from "@/components/editexpersecurity";
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 export default {
   name: "experience",
   components: {
@@ -127,13 +128,7 @@ export default {
   data() {
     return {
       formLabelWidth: '130px',
-      num: 1,
-      status:1,
-      memcolor:1,
-      classtype:1,
-      type:1,
       disabled:false,
-      limitdate: [],
       currentSelectRow: "",
       loading: true,
       dialogFormVisible: false,
@@ -142,32 +137,20 @@ export default {
       pagesize: 10,
       radio: true,
       ruleForm: {
-          cardname:'',//卡名称
+          experiencename:'',//体验卷名称
           type: '',//类型
           price:'',//售价
-          datenum: '',//有效期
-          num:'',//总次数
+          termvalidity: '',//有效期
+          number:'',//总次数
           status:'',//状态
         },
         rules: {
-          cardname:[
-            {required: true, message: '请输入体验卷名称', trigger: 'blur' }
-          ],
-          type: [
-            { required: true, message: '请选择类型', trigger: 'change' }
-          ],
-          price: [
-            {required: true, message: '请输入售价', trigger: 'blur' }
-          ],
-          datenum: [
-            {required: true, message: '请输入有效期', trigger: 'blur' }
-          ],
-         num:[
-             {required: true, message: '请输入总次数', trigger: 'blur' }
-         ],
-         status:[
-             {required: true, message: '请选择状态', trigger: 'change'}
-         ]
+          experiencename:validate.experiencename,
+          type: validate.type,
+          price:validate.price,
+          termvalidity: validate.termvalidity,
+          number:validate.number,
+          status:validate.status
         },
       tableData: []
     };

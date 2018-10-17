@@ -24,6 +24,12 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-table .descending .sort-caret.descending{
+  border-top-color:#00bc71;
+}
+.el-table .ascending .sort-caret.ascending{
+  border-bottom-color:#00bc71;
+}
 .el-tabs__nav {
   margin-left: 50px;
 }

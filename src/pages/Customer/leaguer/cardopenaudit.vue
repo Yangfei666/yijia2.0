@@ -29,15 +29,15 @@
         </div>
         </el-col>
         <el-col :span="24">
-                <el-table :data="tableData" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                <el-table :data="tableData" :default-sort = "{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                     <el-table-column align="center" prop="name" label="客户姓名" width="130px" fixed></el-table-column>
                     <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
                     <el-table-column prop="card" align="left" label="卡号" width="150px"></el-table-column>
                     <el-table-column prop="cardname" align="left" label="卡名称" width="150px"></el-table-column>
-                    <el-table-column prop="fksj" align="left" label="发卡时间" width="160px"></el-table-column>
-                    <el-table-column prop="dqsj" align="left" label="到期时间" width="160px"></el-table-column>
+                    <el-table-column prop="fksj" align="left" label="发卡时间" sortable width="160px"></el-table-column>
+                    <el-table-column prop="dqsj" align="left" label="到期时间" sortable width="160px"></el-table-column>
                     <el-table-column prop="fkfs" align="left" label="付款方式" width="150px"></el-table-column>
-                    <el-table-column prop="fkje" align="left" label="付款金额" width="140px"></el-table-column>
+                    <el-table-column prop="fkje" align="left" label="付款金额" sortable width="140px"></el-table-column>
                     <el-table-column prop="hjgw" align="left" label="会籍顾问" width="140px"></el-table-column>
                     <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
                         <template slot-scope="scope">
@@ -61,10 +61,10 @@ export default {
           tel:'123232323',
           card:'00000000',
           cardname:'大众卡',
-          fksj:'2018-02-24',
-          dqsj:'2019-02-25',
+          fksj:'2018-02-20',
+          dqsj:'2019-02-20',
           fkfs:'支付宝',
-          fkje:'200',
+          fkje:'202',
           hjgw:'Angel'
       },{
           name:'小厨子',
@@ -133,6 +133,10 @@ export default {
       handleClick2(row){
           console.log(row);
           alert('点击了');
+      },
+      //格式化指定列的值
+       formatter(row, column) {
+        return row.address;
       },
    }
 }

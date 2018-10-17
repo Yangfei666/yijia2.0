@@ -37,19 +37,19 @@
                   </el-form-item>
                   <el-form-item label="热度:" prop="heat" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-radio v-model="ruleForm.heat" label="精品">精品</el-radio>
-                      <el-radio v-model="ruleForm.heat" label="普通">普通</el-radio>
+                      <el-radio v-model="ruleForm.heat" label="1">精品</el-radio>
+                      <el-radio v-model="ruleForm.heat" label="2">普通</el-radio>
                     </el-col>
                   </el-form-item>
-                  <el-form-item label="状态:" prop="start" :label-width="formLabelWidth">
+                  <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-radio v-model="ruleForm.start" label="启用">启用</el-radio>
-                      <el-radio v-model="ruleForm.start" label="禁用">禁用</el-radio>
+                      <el-radio v-model="ruleForm.status" label="1">启用</el-radio>
+                      <el-radio v-model="ruleForm.status" label="2">禁用</el-radio>
                     </el-col>
                   </el-form-item>
-                  <el-form-item label="课程封面:" prop="cover" :label-width="formLabelWidth">
+                  <el-form-item label="课程封面:" prop="filecover" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" v-model="ruleForm.cover" :before-upload="beforeAvatarUpload">
+                      <el-upload class="avatar-uploader" ref="imgupload" action="" :on-change="uploadImg" :show-file-list="false">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       </el-upload>
@@ -72,9 +72,6 @@
                 <EditCoursesubjects :currentSelectRow="currentSelectRow"></EditCoursesubjects>
               </el-dialog>
             </template>
-          </div>
-          <div class="add2">
-            <el-button type="text" class="p" @click.prevent="handleDel">删除课程科目</el-button>
           </div>
         </div>
         <div class="purple2">
@@ -113,7 +110,7 @@
               <el-table-column prop="BZ" align="left" label="备注"></el-table-column>
             </el-table>
             <div class="block">
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </div>
           </el-col>
@@ -124,6 +121,7 @@
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 import EditCoursesubjects from "@/components/editCoursesubjects";
 export default {
   name: "course",
@@ -132,6 +130,7 @@ export default {
   },
   data() {
     return {
+      imgfile: "",
       addLoading: false,
       loading: false,
       imageUrl: "",
@@ -143,22 +142,18 @@ export default {
       pagesize: 10,
       radio: true,
       ruleForm: {
-        classname: "是都", //课程名称
-        price: "123", //价格
-        heat: "2", //热度
-        start: "1", //状态
-        cover: "" ,//课程封面
-        desc:"",//备注
+        classname: "", //课程名称
+        price: "", //价格
+        heat: "", //热度
+        status: "", //状态
+        filecover: "", //课程封面
+        desc: "" //备注
       },
       rules: {
-        classname: [
-          { required: true, message: "请输入课程名称", trigger: "blur" }
-        ],
-        heat: [{ required: true, message: "请选择热度", trigger: "change" }],
-        start: [{ required: true, message: "请选择状态", trigger: "change" }],
-        cover: [
-          { required: true, message: "请选择课程封面", trigger: "change" }
-        ]
+        classname: validate.classname,
+        heat: validate.heat,
+        status: validate.status
+        // filecover: validate.filecover
       },
       form: {
         name: ""
@@ -166,25 +161,29 @@ export default {
       tableData: []
     };
   },
-  created: function () {
+  created: function() {
     //表格列表数据
-      let _this = this;
-      _this.loading = true;
-      requestLogin("/setCurSubInfo",{},'get')
-        .then(function(res) {
-          _this.loading = false;
-          _this.tableData = res;
-        })
-        .catch(error => {
-          if(error.res){
-             this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+    let _this = this;
+    _this.loading = true;
+    requestLogin("/setCurSubInfo", {}, "get")
+      .then(function(res) {
+        _this.loading = false;
+        _this.tableData = res;
+      })
+      .catch(error => {
+        if (error.res) {
+          this.$message({
+            message: "获取数据失败",
+            type: "error"
+          });
+        }
+      });
   },
   methods: {
+    uploadImg(file) {
+      this.imgfile = file.raw;
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
     radiochange(row) {
       console.log(`当前: ${row}`);
     },
@@ -198,92 +197,93 @@ export default {
     },
     //获取表格数据
     rowClick(row, event, column) {
+      let _this = this;
       this.radio = row.index;
       this.currentSelectRow = row;
-      console.log(row.index);
+      console.log(row);
     },
     //删除课程科目
-    handleDel() {
-        this.$confirm("确认删除该条记录吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.loading = true;
-          console.log(123);
-          requestLogin("/setCurSubInfo/" +1, {}, "delete").then(response => {
-            console.log(111);
-            this.loading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
-            this.tableData = this.tableData.splice(1);
-          });
-        })
-        .catch(() => {
-          this.loading = false;
-          this.$message({
-            message: "删除失败!",
-            type: "error"
-          });
-        });
-    },
+    // handleDel() {
+    //   let _this = this;
+    //   if (!this.currentSelectRow) {
+    //     this.$message({ message: "请先选择数据!", type: "warning" });
+    //     return;
+    //   }
+    //   this.$confirm("确认删除该条记录吗？", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       this.loading = true;
+    //       console.log(123);
+    //       console.log(_this.currentSelectRow.kcno);
+    //       requestLogin(
+    //         "/setCurSubInfo/" + _this.currentSelectRow.kcno,
+    //         "delete"
+    //       ).then(response => {
+    //         console.log(111);
+    //         this.loading = false;
+    //         this.$message({
+    //           message: "删除成功",
+    //           type: "success"
+    //         });
+    //         // this.tableData = this.tableData.splice(1);
+    //       });
+    //     })
+    //     .catch(() => {
+    //       this.loading = false;
+    //       this.$message({
+    //         message: "删除失败!",
+    //         type: "error"
+    //       });
+    //     });
+    // },
     //修改课程科目
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-        this.$alert("请先选择列表", "提示信息", {
-          confirmButtonText: "确定",
-          callback: action => {
-            this.$message({
-              type: "info",
-              message: `请先选择列表`
-            });
-          }
-        });
+        this.$message({ message: "请先选择表格数据!", type: "warning" });
       }
     },
     //查询表单
     onSubmit() {
       console.log("submit!");
     },
-   //添加课程科目
+    //添加课程科目
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$confirm('确认提交吗？','提示').then(() => {
-            console.log("接口前");
+          this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-                kcName: this.ruleForm.classname,//课程名称
-                ZT: this.ruleForm.start,//状态
-                BZ: this.ruleForm.desc,//备注
-                kcHot : this.ruleForm.heat,//热度
-                price : this.ruleForm.price,//价格
-                file : this.ruleForm.cover,//课程封面
+              kcName: this.ruleForm.classname, //课程名称
+              ZT: this.ruleForm.status, //状态
+              BZ: this.ruleForm.desc, //备注
+              kcHot: this.ruleForm.heat, //热度
+              price: this.ruleForm.price, //价格
+              file: this.imgfile //课程封面
             };
-            requestLogin('/setCurSubInfo', loginParams,'post').then(data => {
-              console.log("接口后");
-              this.addLoading = false;
-              this.$message({
-									message: '提交成功',
-									type: 'success'
-                });
-            })
-            .catch(error => {
-              this.addLoading = false;
-              if (error.response) {
+            requestLogin("/setCurSubInfo", loginParams, "post")
+              .then(data => {
+                this.addLoading = false;
                 this.$message({
-                  message: "提交失败,请稍候再试",
-                  type: "error"
+                  message: "提交成功",
+                  type: "success"
                 });
-              }
-            });
-          })
+              })
+              .catch(error => {
+                this.addLoading = false;
+                if (error.response) {
+                  this.$message({
+                    message: "提交失败,请稍候再试",
+                    type: "error"
+                  });
+                }
+              });
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -293,6 +293,8 @@ export default {
     //重置
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.$refs.imgupload.clearFiles();
+      this.imageUrl = "";
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -302,10 +304,10 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error("上传图片只能是 JPG 格式!");
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
     }

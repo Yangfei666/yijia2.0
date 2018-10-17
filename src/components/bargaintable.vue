@@ -81,7 +81,7 @@
             <div class="practice-table">
                 <el-row>
                     <el-col :span="24">
-                        <el-table style="width: 100%" highlight-current-row  :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" max-height="700">
+                        <el-table style="width: 100%" :default-sort = "{order: 'descending'}" highlight-current-row  :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" max-height="700">
                             <el-table-column align="center" prop="radio" fixed width="70px">
                                 <template slot-scope="scope">
                                    <el-radio-group v-model="radio">
@@ -89,12 +89,12 @@
                                   </el-radio-group>
                                 </template>
                             </el-table-column>
-                            <el-table-column align="left" prop="name" label="姓名" width="150px"></el-table-column>
+                            <el-table-column align="left" prop="name" label="姓名" fixed width="150px"></el-table-column>
                             <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
                             <el-table-column prop="hj" align="left" label="会籍" width="150px"></el-table-column>
-                            <el-table-column prop="djrq" align="left" label="登记日期" width="150px"></el-table-column>
+                            <el-table-column prop="djrq" align="left" label="登记日期" sortable width="150px"></el-table-column>
                             <el-table-column prop="fkfs" align="left" label="付款方式" width="150px"></el-table-column>
-                            <el-table-column prop="je" align="left" label="金额" width="150px"></el-table-column>
+                            <el-table-column prop="je" align="left" label="金额" sortable width="150px"></el-table-column>
                             <el-table-column prop="cjzt" align="left" label="成交状态" width="150px"></el-table-column>
                             <el-table-column prop="desc" align="left" label="备注" width="150px"></el-table-column>
                             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="280px">
@@ -117,7 +117,7 @@
                             </el-table-column>
                         </el-table>
                         <div class="block">
-                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                             </el-pagination>
                         </div>
                     </el-col>

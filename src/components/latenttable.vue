@@ -98,7 +98,7 @@
             <div class="practice-table">
         <el-row>
             <el-col :span="24">
-                <el-table fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                <el-table fixed highlight-current-row :default-sort = "{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                     <el-table-column align="center" prop="radio" fixed width="80px">
                         <template slot-scope="scope">
                             <el-radio-group v-model="radio">
@@ -106,10 +106,10 @@
                              </el-radio-group>
                         </template>
                     </el-table-column>
-                    <el-table-column align="left" prop="name" label="姓名" width="200px"></el-table-column>
+                    <el-table-column align="left" prop="name" label="姓名" fixed width="200px"></el-table-column>
                     <el-table-column prop="tel" align="left" label="手机号" width="200px"></el-table-column>
                     <el-table-column prop="hj" align="left" label="会籍" width="200px"></el-table-column>
-                    <el-table-column prop="djrq" align="left" label="登记日期" width="200px"></el-table-column>
+                    <el-table-column prop="djrq" align="left" label="登记日期" sortable width="200px"></el-table-column>
                     <el-table-column prop="quality" align="left" label="质量" width="200px"></el-table-column>
                     <el-table-column prop="cjzt" align="left" label="成交状态" width="200px"></el-table-column>
                     <el-table-column align="left" label="操作" fixed="right" width="320px">
@@ -134,7 +134,7 @@
                     </el-table-column>
                 </el-table>
                 <div class="block">
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                     </el-pagination>
                 </div>
             </el-col>

@@ -122,7 +122,7 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                    <el-table highlight-current-row :default-sort = "{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="80px">
                             <template slot-scope="scope">
                                 <el-radio-group v-model="radio">
@@ -130,15 +130,15 @@
                                 </el-radio-group>
                             </template>
                         </el-table-column>
-                        <el-table-column align="left" prop="name" label="姓名" width="150px"></el-table-column>
+                        <el-table-column align="left" prop="name" label="姓名" fixed width="150px"></el-table-column>
                         <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
                         <el-table-column prop="card" align="left" label="卡号" width="150px"></el-table-column>
                         <el-table-column prop="kz" align="left" label="卡种" width="150px"></el-table-column>
-                        <el-table-column prop="kksj" align="left" label="开卡时间" width="150px"></el-table-column>
+                        <el-table-column prop="kksj" align="left" label="开卡时间" sortable width="150px"></el-table-column>
                         <el-table-column prop="hj" align="left" label="会籍" width="140px"></el-table-column>
-                        <el-table-column prop="dqsj" align="left" label="到期时间" width="150px"></el-table-column>
-                        <el-table-column prop="sycs" align="left" label="剩余次数" width="130px"></el-table-column>
-                        <el-table-column prop="syje" align="left" label="剩余金额" width="130px"></el-table-column>
+                        <el-table-column prop="dqsj" align="left" label="到期时间" sortable width="150px"></el-table-column>
+                        <el-table-column prop="sycs" align="left" label="剩余次数" sortable width="130px"></el-table-column>
+                        <el-table-column prop="syje" align="left" label="剩余金额" sortable width="130px"></el-table-column>
                         <el-table-column prop="status" align="left" label="卡状态" width="140px"></el-table-column>
                         <el-table-column prop="cz" align="left" label="操作" fixed="right">
                             <template slot-scope="scope">
@@ -147,7 +147,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                         </el-pagination>
                     </div>
                 </el-col>
@@ -255,12 +255,12 @@ export default {
           name: "挖煤",
           tel: "123232323",
           card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
+          kz: "大众卡2",
+          kksj: "2018-02-10",
           hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
+          dqsj: "2018-07-20",
+          sycs: "13",
+          syje: "210",
           status: "正常"
         },
         {
@@ -269,7 +269,7 @@ export default {
           tel: "123232323",
           card: "02200200",
           kz: "大众卡",
-          kksj: "2018-02-21",
+          kksj: "2018-02-11",
           hj: "Angel",
           dqsj: "2018-07-25",
           sycs: "12",
@@ -280,6 +280,10 @@ export default {
     };
   },
   methods: {
+      //格式化指定列的值
+       formatter(row, column) {
+        return row.address;
+      },
       radiochange(row) {
       console.log(`当前: ${row}`);
     },
@@ -289,11 +293,6 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-      // if(row.radio == true){
-      //   this.radio = true;
-      // }else{
-      //   this.radio = false;
-      // }
     },     
     handleClick3(row) {
       console.log(row);

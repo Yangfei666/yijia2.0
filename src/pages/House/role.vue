@@ -27,9 +27,9 @@
                   <el-dialog title="创建角色" :append-to-body="true" :visible.sync="dialogFormVisible">
                      <!--创建角色-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                      <el-form-item label="角色名称:" prop="cardname" :label-width="formLabelWidth">
+                      <el-form-item label="角色名称:" prop="rolename" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.cardname" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.rolename" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
@@ -205,6 +205,7 @@
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 import Editrole from "@/components/editrole";
 const cityOptions = ['资料录入', '体验客户管理', '体验券设置', '客户退体验券','体验客户约课',
 '编辑体验客户资料','体验客户购券'];//体验管理
@@ -297,7 +298,7 @@ export default {
         type:1,
         disabled:false,
         ruleForm: {
-          cardname:'',//卡名称
+          rolename:'',//角色名称
           status:'',//状态
           cities:'',//体验管理
           member:'',//会员管理
@@ -313,12 +314,8 @@ export default {
           datereport:''//数据报表
         },
         rules: {
-          cardname:[
-            {required: true, message: '请输入角色名称', trigger: 'blur' }
-          ],
-          status: [
-            { required: true, message: '请选择状态', trigger: 'change' }
-          ]
+          rolename:validate.rolename,
+          status:validate.status
         },
       currentSelectRow: "",
       dialogFormVisible: false,

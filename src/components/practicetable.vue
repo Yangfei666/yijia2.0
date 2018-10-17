@@ -100,7 +100,7 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="listLoading" style="width: 100%">
+                    <el-table highlight-current-row :default-sort = "{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="listLoading" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="70px">
                             <template slot-scope="scope">
                                <el-radio-group v-model="radio">
@@ -108,13 +108,13 @@
                                </el-radio-group>
                             </template>
                         </el-table-column>
-                        <el-table-column align="left" prop="name" label="姓名" width="150px"></el-table-column>
+                        <el-table-column align="left" prop="name" label="姓名" fixed width="150px"></el-table-column>
                         <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
                         <el-table-column prop="jz" align="left" label="劵种" width="150px"></el-table-column>
                         <el-table-column prop="fkfs" align="left" label="付款方式" width="150px"></el-table-column>
-                        <el-table-column prop="je" align="left" label="金额" width="150px"></el-table-column>
+                        <el-table-column prop="je" align="left" label="金额" sortable width="150px"></el-table-column>
                         <el-table-column prop="hj" align="left" label="会籍" width="150px"></el-table-column>
-                        <el-table-column prop="djrq" align="left" label="登记日期" width="150px"></el-table-column>
+                        <el-table-column prop="djrq" align="left" label="登记日期" sortable width="150px"></el-table-column>
                         <el-table-column prop="cjzt" align="left" label="成交状态" width="150px"></el-table-column>
                         <el-table-column prop="wcjyy" align="left" label="未成交原因" width="230px"></el-table-column>
                         <el-table-column prop="cz" align="left" label="操作" fixed="right" width="260px">
@@ -135,7 +135,7 @@
                         @current-change="handleCurrentChange" 
                         :current-page="currentPage" 
                         background 
-                        :page-sizes="[10, 20, 30, 40]" 
+                        :page-sizes="[10, 20, 30, 40,50,100]" 
                         :page-size="pagesize" 
                         layout="total, sizes, prev, pager, next, jumper" 
                         :total="tableData.length">
@@ -254,9 +254,9 @@ export default {
           tel: "123232323",
           jz: "大众卡",
           fkfs: "微信",
-          je: "1200",
+          je: "1230",
           hj: "Angel",
-          djrq: "2018-07-25",
+          djrq: "2018-07-20",
           cjzt: "跟进中",
           wcjyy: "--"
         }

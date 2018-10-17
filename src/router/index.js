@@ -315,25 +315,25 @@ let router = new Router({
                         { path: '/House/visualizationchart/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
                     ]
                 },
+                {
+                    path: '/House/403', //403
+                    component: Forbidden, 
+                    name: '403', 
+                    menuShow: false
+                },
+                { 
+                    path: '/House/404', //404
+                    component: NotFound, 
+                    name: '404', 
+                    menuShow: false 
+                },
+                { 
+                    path: '/House/500', //500
+                    component: ServerError, 
+                    name: '500', 
+                    menuShow: false 
+                },
             ]
-        },
-        {
-            path: '/403', //403
-            component: Forbidden, 
-            name: '403', 
-            menuShow: false
-        },
-        { 
-            path: '/404', //404
-            component: NotFound, 
-            name: '404', 
-            menuShow: false 
-        },
-        { 
-            path: '/500', //500
-            component: ServerError, 
-            name: '500', 
-            menuShow: false 
         },
         {
             path: '*',

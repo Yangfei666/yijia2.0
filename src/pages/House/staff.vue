@@ -40,14 +40,14 @@
                                               </el-radio-group>
                                               </el-col> 
                                           </el-form-item>
-                                          <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
+                                          <el-form-item label="电话:" prop="phone" :label-width="formLabelWidth">
                                             <el-col :span="22">
-                                              <el-input v-model="ruleForm.tel" placeholder="请输入"></el-input>
+                                              <el-input v-model="ruleForm.phone" placeholder="请输入"></el-input>
                                               </el-col>
                                           </el-form-item>
-                                          <el-form-item label="身份证号:" prop="card" :label-width="formLabelWidth">
+                                          <el-form-item label="身份证号:" prop="idnumber" :label-width="formLabelWidth">
                                             <el-col :span="22">
-                                              <el-input v-model="ruleForm.card" placeholder="请输入"></el-input>
+                                              <el-input v-model="ruleForm.idnumber" placeholder="请输入"></el-input>
                                               </el-col>
                                           </el-form-item>
                                           <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
@@ -164,7 +164,7 @@
                                 <el-table-column prop="YGXX_HOMETEL" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
                             </el-table>
                         <div class="block">
-                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                             </el-pagination>
                         </div>
                     </el-col>
@@ -176,6 +176,7 @@
 <script>
 import Editstaff from "@/components/editstaff";
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 export default {
   name: "staff",
   components: {
@@ -202,8 +203,8 @@ export default {
       ruleForm: {
           name:'',//姓名
           sex: '',//性别
-          tel:'',//电话
-          card: '',//身份证号
+          phone:'',//电话
+          idnumber: '',//身份证号
           role:'',//分配角色
           power:'',//所属权限
           big:'',//所属大队
@@ -211,24 +212,12 @@ export default {
           desc:''//员工简介
         },
         rules: {
-          name:[
-            {required: true, message: '请输入姓名', trigger: 'blur' }
-          ],
-          sex: [
-            { required: true,message: '请选择性别', trigger: 'change' }
-          ],
-          tel: [
-            {required: true, message: '请输入电话', trigger: 'blur' }
-          ],
-          card: [
-            {required: true, message: '请输入身份证号', trigger: 'blur' }
-          ],
-         role:[
-             {required: true, message: '请选择角色', trigger: 'change' }
-         ],
-         power:[
-             {required: true, message: '请选择所属权限', trigger: 'change'}
-         ]
+          name:validate.name,
+          sex: validate.sex,
+          phone:validate.phone,
+          idnumber:validate.idnumber,
+          role:validate.role,
+          power:validate.power
         },
       tableData: []
     };
