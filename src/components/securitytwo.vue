@@ -1,6 +1,6 @@
  <template>
  <div>
-   <!--体验卷2-->
+   <!--体验券2-->
 <div class="cardone">
     <el-col :span="10" class="one-left">
     <div class="card-left">

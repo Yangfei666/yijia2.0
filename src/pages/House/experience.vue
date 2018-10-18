@@ -7,11 +7,11 @@
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>会所管理</el-breadcrumb-item>
-              <el-breadcrumb-item>体验卷管理</el-breadcrumb-item>
+              <el-breadcrumb-item>体验券管理</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
           <el-col :span="23" class="weber">
-            <span class="weber-span">体验卷管理</span>
+            <span class="weber-span">体验券管理</span>
           </el-col>
         </div>
       </el-col>
@@ -22,12 +22,12 @@
           <el-col :span="24">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加体验卷</el-button>
+                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加体验券</el-button>
                 <template>
-                  <el-dialog title="添加体验卷" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <!--添加体验卷-->
+                  <el-dialog title="添加体验券" :append-to-body="true" :visible.sync="dialogFormVisible">
+                    <!--添加体验券-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                      <el-form-item label="体验卷名称:" prop="experiencename" :label-width="formLabelWidth">
+                      <el-form-item label="体验券名称:" prop="experiencename" :label-width="formLabelWidth">
                           <el-col :span="22">
                             <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
                             </el-col>
@@ -51,15 +51,15 @@
                           <el-col :span="22">
                             <el-radio-group v-model="ruleForm.status">
                                 <el-radio :label="1">启用</el-radio>
-                                <el-radio :label="2">禁用</el-radio>
+                                <el-radio :label="0">禁用</el-radio>
                             </el-radio-group>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
                           <el-col :span="22">
                             <el-radio-group v-model="ruleForm.type">
-                                <el-radio :label="1">团课卷</el-radio>
-                                <el-radio :label="2">私教卷</el-radio>
+                                <el-radio :label="1">团课券</el-radio>
+                                <el-radio :label="0">私教券</el-radio>
                             </el-radio-group>
                             </el-col>
                         </el-form-item>
@@ -74,15 +74,15 @@
                 </template>
               </div>
               <div class="add">
-                <el-button type="text" class="p" @click="changeInfo">编辑体验卷</el-button>
+                <el-button type="text" class="p" @click="changeInfo">编辑体验券</el-button>
                 <template>
-                  <el-dialog title="编辑体验卷" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                  <el-dialog title="编辑体验券" :append-to-body="true" :visible.sync="dialogFormVisible2">
                     <Editexpersecurity :currentSelectRow="currentSelectRow"></Editexpersecurity>
                   </el-dialog>
                 </template>
               </div>
               <div class="add2">
-                <el-button type="text" class="p" @click="open2">删除体验卷</el-button>
+                <el-button type="text" class="p" @click="delexper">删除体验券</el-button>
               </div>
             </div>
           </el-col>
@@ -99,7 +99,7 @@
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="tkName" align="left" label="体验卷名称"></el-table-column>
+              <el-table-column prop="tkName" align="left" label="体验券名称"></el-table-column>
               <el-table-column prop="tkPrice" align="left" label="售价"></el-table-column>
               <el-table-column prop="tkState" align="left" label="状态"></el-table-column>
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
@@ -121,6 +121,7 @@ import Editexpersecurity from "@/components/editexpersecurity";
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
+  inject:['reload'],
   name: "experience",
   components: {
     Editexpersecurity
@@ -137,7 +138,7 @@ export default {
       pagesize: 10,
       radio: true,
       ruleForm: {
-          experiencename:'',//体验卷名称
+          experiencename:'',//体验券名称
           type: '',//类型
           price:'',//售价
           termvalidity: '',//有效期
@@ -192,10 +193,40 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
+    //添加体验券
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$confirm("确认提交吗？", "提示").then(() => {
+            this.addLoading = true;
+            var loginParams = {
+              tkName: this.ruleForm.experiencename, //劵名称
+              tkPrice: this.ruleForm.price, //劵价格
+              tkState: this.ruleForm.status, //状态
+              frequency: this.ruleForm.number, //次数
+              vld: this.ruleForm.termvalidity, //有效期
+              type: this.ruleForm.type //类型
+            };
+            requestLogin("/setExperienceVoucher", loginParams, "post")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible=false;
+              })
+              .catch(error => {
+                this.addLoading = false;
+                if (error.response) {
+                  this.$message({
+                    message: "提交失败,请稍候再试",
+                    type: "error"
+                  });
+                }
+              });
+          });
           } else {
             console.log('error submit!!');
             return false;
@@ -216,35 +247,44 @@ export default {
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-        this.$alert("请先选择列表", "提示信息", {
-          confirmButtonText: "确定",
-          callback: action => {
-            this.$message({
-              type: "info",
-              message: `请先选择列表`
-            });
-          }
-        });
+        this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
-    open2() {
-      this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
+    //删除体验券
+      delexper() {
+      let _this = this;
+      if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+      this.$confirm("确认删除该条记录吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.tableData = this.tableData.slice(1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+          _this.loading = true;
+          console.log(_this.currentSelectRow.id);
+          requestLogin(
+            "/setExperienceVoucher/" + _this.currentSelectRow.id,
+            {},
+            "delete"
+          ).then(response => {
+            _this.loading = false;
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            });
           });
+          this.reload();
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+          if (error.response) {
+            this.$message({
+              message: "对不起,该员工还有正在跟进的定金客户没有交接",
+              type: "error"
+            });
+          }
         });
     }
   }

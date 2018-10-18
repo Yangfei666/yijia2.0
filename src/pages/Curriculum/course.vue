@@ -125,6 +125,7 @@ import * as validate from "@/validate/Login";
 import EditCoursesubjects from "@/components/editCoursesubjects";
 export default {
   name: "course",
+  inject:['reload'],
   components: {
     EditCoursesubjects
   },
@@ -236,6 +237,8 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
+                this.reload();
+                this.dialogFormVisible=false;
               })
               .catch(error => {
                 this.addLoading = false;

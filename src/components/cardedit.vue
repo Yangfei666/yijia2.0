@@ -36,7 +36,7 @@
                 <el-input v-model="currentSelectRow.CTvalidity"></el-input>
                 </el-col>
             </el-form-item>
-             <el-form-item label="一周次数限制:" prop="CTvalidity" :label-width="formLabelWidth">
+             <el-form-item label="一周次数限制:" prop="CTxDate_YN" :label-width="formLabelWidth">
               <el-col :span="22">
                     <el-radio label="不限" value="0" v-model="currentSelectRow.CTvalidity"></el-radio>
                     <el-radio label="2次" value="1" v-model="currentSelectRow.CTvalidity"></el-radio>
@@ -57,10 +57,10 @@
                 </el-checkbox-group>
                 </el-col>
             </el-form-item>
-             <el-form-item label="状态:" prop="CTdate" :label-width="formLabelWidth">
+             <el-form-item label="状态:" prop="CTState" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="启用" value="0" v-model="currentSelectRow.CTdate"></el-radio>
-                    <el-radio label="禁用" value="1" v-model="currentSelectRow.CTdate"></el-radio>
+                    <el-radio label="启用" value="0" v-model="currentSelectRow.CTState"></el-radio>
+                    <el-radio label="禁用" value="1" v-model="currentSelectRow.CTState"></el-radio>
                 </el-col>
             </el-form-item>
             <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">

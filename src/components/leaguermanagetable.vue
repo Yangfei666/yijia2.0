@@ -147,6 +147,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
+                        <el-button size="small" class="export">导出</el-button>
                         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                         </el-pagination>
                     </div>
@@ -450,6 +451,15 @@ export default {
         .el-pager li.active {
           color: #00bc71;
         }
+      }
+    .export{
+        height: 30px;
+        margin-top: 3.2%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00BC6A;
+        color: #00BC6A;
+        margin-left: -5%;
       }
     }
   }

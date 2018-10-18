@@ -82,7 +82,7 @@ export let sex = [
         {
             required: true,
             message: "请选择性别",
-            trigger: "blur"
+            trigger: "change"
         }
     ];
 /* 验证电话 */
@@ -134,11 +134,11 @@ export let rolename = [
             trigger: "blur"
         }
     ];
-/* 验证体验卷名称 */
+/* 验证体验券名称 */
 export let experiencename = [
         {
             required:true,
-            message: "请输入体验卷名称",
+            message: "请输入体验券名称",
             trigger: "blur"
         }
     ];
@@ -156,6 +156,10 @@ export let price = [
             required:true,
             message: "请输入价格",
             trigger: "blur"
+        },
+        {
+            type: 'number',
+            message: '年龄必须为数字值'
         }
     ];
 /* 验证有效期*/

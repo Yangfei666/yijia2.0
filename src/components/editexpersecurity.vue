@@ -1,8 +1,8 @@
 <template>
     <div>
-        <!--编辑体验卷-->
+        <!--编辑体验券-->
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
-          <el-form-item label="体验卷名称:" prop="tkName" :label-width="formLabelWidth">
+          <el-form-item label="体验券名称:" prop="tkName" :label-width="formLabelWidth">
               <el-col :span="22">
                 <el-input v-model="currentSelectRow.tkName" placeholder="请输入"></el-input>
                 </el-col>
@@ -24,14 +24,14 @@
             </el-form-item>
              <el-form-item label="状态:" prop="tkState" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="启用"  value="0" v-model="currentSelectRow.tkState"></el-radio>
-                    <el-radio label="禁用"  value="1" v-model="currentSelectRow.tkState"></el-radio>
+                    <el-radio label="启用"  value="1" v-model="currentSelectRow.tkState"></el-radio>
+                    <el-radio label="禁用"  value="0" v-model="currentSelectRow.tkState"></el-radio>
                 </el-col>
             </el-form-item>
             <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="团课卷" value="0" v-model="currentSelectRow.type"></el-radio>
-                    <el-radio label="私教卷" value="1" v-model="currentSelectRow.type"></el-radio>
+                    <el-radio label="团课券" value="1" v-model="currentSelectRow.type"></el-radio>
+                    <el-radio label="私教券" value="0" v-model="currentSelectRow.type"></el-radio>
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">
@@ -44,26 +44,53 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name:'editexpersecurity',
   props: ["currentSelectRow"],
+  inject:['reload'],
     data() {
      return {
         dialogFormVisible: false,
         formLabelWidth: '130px',
-        num: 1,
-        status:1,
-        memcolor:1,
-        classtype:1,
-        type:1,
         disabled:false,
      }
     },
     methods: {
+      //编辑体验券
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$confirm("确认提交吗？", "提示").then(() => {
+            this.addLoading = true;
+            var loginParams = {
+              tkName: this.currentSelectRow.tkName, //劵名称
+              tkPrice: this.currentSelectRow.tkPrice, //劵价格
+              tkState: this.currentSelectRow.tkState == '启用' ? 1 :0, //状态
+              frequency: this.currentSelectRow.frequency, //次数
+              vld: this.currentSelectRow.vld, //有效期
+              type: this.currentSelectRow.type  == '团课券' ? 1 :0//类型
+            };
+            requestLogin("/setExperienceVoucher/"+this.currentSelectRow.id, loginParams, "put")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "修改成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible=false;
+              })
+              .catch(error => {
+                this.addLoading = false;
+                if (error.response) {
+                  this.$message({
+                    message: "修改失败,请稍候再试",
+                    type: "error"
+                  });
+                }
+              });
+          });
           } else {
             console.log('error submit!!');
             return false;

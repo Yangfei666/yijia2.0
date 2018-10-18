@@ -86,10 +86,10 @@
                     <el-table-column prop="CTjg" align="left" label="售价" width="150px"></el-table-column>
                     <el-table-column prop="ColorCard" align="left" label="底色" width="150px"></el-table-column>
                     <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="150px"></el-table-column>
-                    <el-table-column prop="CTxDate_YN" align="left" label="限制星期" width="170px"></el-table-column>
+                    <el-table-column prop="CTdate" align="left" label="限制星期" width="170px"></el-table-column>
                     <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="230px"></el-table-column>
-                    <el-table-column prop="CTvalidity" align="left" label="周限次数" width="150px"></el-table-column>
-                    <el-table-column prop="CTdate" align="left" label="状态" fixed="right" width="160px"></el-table-column>
+                    <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="150px"></el-table-column>
+                    <el-table-column prop="CTState" align="left" label="状态" fixed="right" width="160px"></el-table-column>
                 </el-table>
                 <div class="block">
                     <el-pagination

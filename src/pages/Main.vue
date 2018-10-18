@@ -61,7 +61,7 @@
             <el-table-column align="left" prop="name" label="客户姓名">
             </el-table-column>
             <el-table-column align="left" prop="tel" label="手机号"></el-table-column>
-            <el-table-column align="left" prop="tyj" label="体验卷"></el-table-column>
+            <el-table-column align="left" prop="tyj" label="体验券"></el-table-column>
             <el-table-column align="left" prop="hjgw" label="会籍顾问"></el-table-column>
             <el-table-column align="left" prop="fkfs" label="付款方式"></el-table-column>
             <el-table-column align="left" label="操作" fixed="right">

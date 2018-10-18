@@ -3,10 +3,10 @@
   <!--体验客户主页-->
     <div class="memberhome">
     <div class="member-but">
-      <el-button type="text" class="butt el-icon-plus" @click="dialogFormVisible = true">购买体验卷</el-button>
+      <el-button type="text" class="butt el-icon-plus" @click="dialogFormVisible = true">购买体验券</el-button>
         <template>
         <el-dialog title="购买体验劵" :append-to-body="true" :visible.sync="dialogFormVisible">
-        <!--购买体验卷-->
+        <!--购买体验券-->
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
               <el-form-item label="劵类型:" prop="cardname" :label-width="formLabelWidth">
                 <el-col :span="22">
@@ -84,14 +84,14 @@ export default {
         disabled:false,
         limitdate: [],
         ruleForm: {
-          cardname:'',//卷类型
+          cardname:'',//券类型
           price:'',//金额
           payment: '',//付款方式
           desc:''//原因
         },
         rules: {
           cardname:[
-            {required: true, message: '请选择卷类型', trigger: 'change' }
+            {required: true, message: '请选择券类型', trigger: 'change' }
           ],
           price: [
             {required: true, message: '请输入金额', trigger: 'blur' }

@@ -130,6 +130,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
+                        <el-button size="small" class="export">导出</el-button>
                         <el-pagination 
                         @size-change="handleSizeChange" 
                         @current-change="handleCurrentChange" 
@@ -432,6 +433,15 @@ export default {
         .el-pager li.active {
           color: #00bc71;
         }
+      }
+    .export{
+        height: 30px;
+        margin-top: 3.2%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00BC6A;
+        color: #00BC6A;
+        margin-left: -5%;
       }
     }
   }

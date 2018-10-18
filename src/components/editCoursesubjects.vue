@@ -14,14 +14,14 @@
             </el-form-item>
             <el-form-item label="热度:" prop="kcHot" :label-width="formLabelWidth">
                 <el-col :span="22">
-                <el-radio v-model="currentSelectRow.kcHot" label="精品" value="0"></el-radio>
-                <el-radio v-model="currentSelectRow.kcHot" label="普通" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.kcHot" label="精品" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.kcHot" label="普通" value="2"></el-radio>
                 </el-col> 
             </el-form-item>
             <el-form-item label="状态:" prop="ZT" :label-width="formLabelWidth">
                 <el-col :span="22">
-                <el-radio v-model="currentSelectRow.ZT" label="启用" value="0"></el-radio>
-                <el-radio v-model="currentSelectRow.ZT" label="禁用" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.ZT" label="启用" value="1"></el-radio>
+                <el-radio v-model="currentSelectRow.ZT" label="禁用" value="2"></el-radio>
                 </el-col> 
             </el-form-item>
              <el-form-item label="课程封面:" prop="kcPicasa" :label-width="formLabelWidth">
@@ -31,7 +31,7 @@
                     action=""
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
-                    v-model="currentSelectRow.cover"
+                    v-model="currentSelectRow.imgfile"
                     :before-upload="beforeAvatarUpload">
                     <img v-if="imageUrl" :src="imageUrl" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -48,9 +48,11 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   props: ["currentSelectRow"],
   name:'editCoursesubjects',
+  inject:['reload'],
     data() {
     return {
         imageUrl: '',
@@ -59,10 +61,40 @@ export default {
      }
     },
     methods: {
+      //修改课程科目
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$confirm("确认提交吗？", "提示").then(() => {
+            this.addLoading = true;
+            var loginParams = {
+              kcName: this.currentSelectRow.kcName, //课程名称
+              ZT: this.currentSelectRow.ZT == '启用' ? 1 : 2, //状态
+              BZ: this.currentSelectRow.BZ, //备注
+              kcHot: this.currentSelectRow.kcHot == '普通' ? 1 : 2, //热度
+              price: this.currentSelectRow.price, //价格
+              file: this.currentSelectRow.imgfile //课程封面
+            };
+            requestLogin("/setCurSubInfo/"+this.currentSelectRow.kcno, loginParams, "put")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "修改成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible=false;
+              })
+              .catch(error => {
+                this.addLoading = false;
+                if (error.response) {
+                  this.$message({
+                    message: "修改失败,请稍候再试",
+                    type: "error"
+                  });
+                }
+              });
+          });
           } else {
             console.log('error submit!!');
             return false;

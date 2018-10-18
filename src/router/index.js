@@ -40,7 +40,7 @@ const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工�
 
 const HouseRole = resolve => require(['@/pages/House/role'], resolve)//角色权限管理
 
-const HouseExperience = resolve => require(['@/pages/House/experience'], resolve)//体验卷设置
+const HouseExperience = resolve => require(['@/pages/House/experience'], resolve)//体验券设置
 
 const HouseMembership = resolve => require(['@/pages/House/membership'], resolve)//会员卡管理
 
@@ -302,7 +302,7 @@ let router = new Router({
             children: [
                 { path: '/House/staff', component: HouseStaff, name: '员工管理', menuShow: true },//员工管理
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
-                { path: '/House/experience', component: HouseExperience, name: '体验卷设置', menuShow: true },//体验卷设置
+                { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
                 {

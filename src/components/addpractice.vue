@@ -33,7 +33,7 @@
                 </el-select>
                 </el-col>
             </el-form-item>
-            <el-form-item label="卷类型:" prop="type" :label-width="formLabelWidth">
+            <el-form-item label="券类型:" prop="type" :label-width="formLabelWidth">
                <el-col :span="22">
                 <el-select v-model="ruleForm.type" placeholder="请选择" style="width:100%">
                 <el-option label="Angel" value="cishucard"></el-option>
