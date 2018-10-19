@@ -4,153 +4,68 @@
     <el-col :span="24" class="main-wp">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(i,index) in arr" :key="index">
+          <div class="swiper-slide" v-for="(item, index) in groupList" :key="item.ID" @click="courseId(item.ID, index)">
             <template>
               <div class="swiper-main">
                 <div class="dimback">
-                  <img class="Img" :src="i.Img" />
+                  <img class="Img" :src="item.staff_info.Photo" />
                 </div>
-                <p class="time">{{i.time}}</p>
-                <p class="name">{{i.name}}</p>
+                <p class="time">{{item.Stime}}~{{item.Etime}}</p>
+                <p class="name">{{item.curriculum_subject.kcName}}.{{item.staff_info.YGXX_NAME}}</p>
               </div>
               <div class="box"></div>
-              <div class="bai">{{i.tuan}}</div>
-              <p class="yuyue">{{i.num}}</p>
+              <div class="bai">{{item.kcbSort.substring(0,1)}}</div>
+              <p class="yuyue">已预约:{{item.group_curriculum_appointment_count}}/{{item.RenShu}}</p>
               <div class="progressContainer">
                 <div class="progress">
-                  <b>{{i.progress}}</b>
+                  <b>{{progress}}</b>
                 </div>
               </div>
               <div class="star">
                 <div class="block">
-                  <el-rate v-model="value1"></el-rate>
+                  <el-rate v-model="item.kcDiff" disabled></el-rate>
                 </div>
                 <div class="but">
-                  <p>{{i.but}}</p>
+                  <p>{{item.kcIsPrivate.substr(0,2)}}</p>
                 </div>
               </div>
             </template>
+            <!-- <div class="tea-weber"> -->
+            <div class="weber-main">
+              <div class="circle"></div>
+              <span style="font-size:18px">{{item.Stime}}</span>
+            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>
       <!-- <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div> -->
     </el-col>
-    <el-col :span="24">
+    <!-- 卡片下方时间 -->
+    <!-- <el-col :span="24">
       <div class="tea-weber">
-        <div class="weber-main">
+        <div class="weber-main" v-for="item in groupList" :key="item.ID">
           <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span>09:00</span>
-          <em class="top"></em>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
+          <span style="font-size:18px">{{item.Stime}}</span>
         </div>
       </div>
-    </el-col>
+    </el-col> -->
   </div>
 </template>
 <script src="swiper/dist/js/swiper.min.js"></script>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
-import Img from "@/assets/1.png";
-import Img2 from "@/assets/2.png";
-import Img3 from "@/assets/3.png";
-import Img4 from "@/assets/4.png";
-import Img5 from "@/assets/5.png";
 export default {
   name: "league",
+  props: {
+    groupList:[Object, Array]
+  },
   data() {
     return {
-      value1: 4,
       progress: 20,
-      mySwiper: "",
-      arr: [
-        {
-          id: 1,
-          Img: Img,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约25/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 2,
-          Img: Img2,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "灰",
-          num: "已预约20/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 3,
-          Img: Img3,
-          time: "9:30-10:00",
-          name: "基础瑜伽·angel",
-          tuan: "白",
-          num: "已预约16/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 4,
-          Img: Img4,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约21/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 5,
-          Img: Img5,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 6,
-          Img: Img,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 7,
-          Img: Img2,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        }
-      ]
+      mySwiper: ""
     };
   },
   mounted() {
@@ -179,6 +94,9 @@ export default {
           prevEl: ".swiper-button-prev"
         }
       });
+    },
+    courseId (id, index) {
+      this.$emit('clickCourse', id, index);
     }
   }
 };
@@ -189,7 +107,7 @@ export default {
 .main-wp {
   .swiper-container {
     width: 95%;
-    height: 260px;
+    height: 310px;
     background-color: #fff;
     .swiper-slide {
       display: flex;
@@ -204,13 +122,18 @@ export default {
       transform-origin: center center;
       position: relative;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+      .weber-main {
+        position: relative;
+        left: 33%;
+        bottom: -54%;
+      }///////////////////////
       .swiper-main {
         width: 100%;
         height: 55%;
         position: absolute;
         top: 0px;
         .dimback {
-          background: #000;
+          background: rgba(0, 0, 0, 0.822);
           border-radius: 4px;
           display: flex;
           height: 100%;

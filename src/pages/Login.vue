@@ -89,10 +89,11 @@ export default {
               }
             })
             .catch(error => {
+              console.log(this.$message);
               this.logining = false;
               if (error.response) {
                 this.$message({
-                  message: "登录失败,请稍候再试",
+                  message: "登录失败,请检查输入是否正确!",
                   type: "error"
                 });
               }

@@ -71,15 +71,16 @@ import { requestLogin } from "../api/api";
                 requestLogin('/againGetToken/'+this.club.Hsxx_Hsid).then(data => {
                     sessionStorage.setItem("access-token", data);//换成新门店的token
                     this.options.forEach(item => {
-                        if (item.Hsxx_Hsid == this.account.door) {
-                            sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
+                        if (item.Hsxx_Hsid == this.club.Hsxx_Hsid) {
+                          sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
                         }
                     });
-                    this.$router.push({ path: "/home/main" });
+                    this.$router.go(0);
+                    // this.$router.push({ path: "/home/main" });
                 }).catch(error => {
-                    if (error.response) {
-                        this.$message({
-                            message: "对不起,切换门店失败",
+                  if (error.response) {
+                    this.$message({
+                      message: "对不起,切换门店失败",
                             type: "error"
                         });
                     }
