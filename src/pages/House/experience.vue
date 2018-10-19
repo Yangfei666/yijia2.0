@@ -99,7 +99,7 @@
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="tkName" align="left" label="体验券名称"></el-table-column>
+              <el-table-column prop="tkName" align="left" fixed label="体验券名称"></el-table-column>
               <el-table-column prop="tkPrice" align="left" label="售价"></el-table-column>
               <el-table-column prop="tkState" align="left" label="状态"></el-table-column>
               <el-table-column prop="type" align="left" label="类型"></el-table-column>

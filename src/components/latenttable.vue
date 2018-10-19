@@ -168,7 +168,7 @@ export default {
       pagesize: 10,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-       btnText: "展开",
+      btnText: "展开",
       isShow: false,
       radio:true,
       formInline: {
@@ -325,15 +325,7 @@ export default {
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-        this.$alert("请先选择列表", "提示信息", {
-          confirmButtonText: "确定",
-          callback: action => {
-            this.$message({
-              type: "info",
-              message: `请先选择列表`
-            });
-          }
-        });
+        this.$message({ message: "请先选择数据!", type: "warning" });
       }
     }
   }

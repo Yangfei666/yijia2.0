@@ -52,7 +52,7 @@
                       </el-form-item>
                       <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-checkbox-group v-model="ruleForm.role">
+                          <el-checkbox-group v-model="ruleForm.role" @change="handleCheckChange">
                             <el-checkbox v-for="i in role" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
                           </el-checkbox-group>
                         </el-col>
@@ -66,8 +66,8 @@
                       </el-form-item>
                       <el-form-item label="所属小组:" prop="small" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="ruleForm.small" placeholder="请选择" style="width:100%">
-                            <el-option v-for="item in groups" :key="item.id" :label="item.club_info_group.group" :value="item.id"></el-option>
+                          <el-select v-model="ruleForm.small" placeholder="请选择" style="width:100%" @change="xiaozu">
+                            <el-option v-for="item in groups" :key="item.id" :label="item.group" :value="item.group"></el-option>
                           </el-select>
                         </el-col>
                       </el-form-item>
@@ -121,7 +121,7 @@
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" width="180px"></el-table-column>
+              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="180px"></el-table-column>
               <el-table-column prop="YGXX_HOMETEL" align="left" label="手机号" width="180px"></el-table-column>
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
@@ -200,6 +200,7 @@ export default {
       .then(function(res) {
         _this.tableData = res;
         _this.loading = false;
+        this.rolegourp();
       })
       .catch(error => {
         if (error.res) {
@@ -209,7 +210,6 @@ export default {
           });
         }
       });
-    this.rolegourp();
   },
   methods: {
     //添加员工角色大队
@@ -232,11 +232,18 @@ export default {
           }
         });
     },
-    bigsVal(){
-     let groups = this.groups;
-     console.log(this.groups);
+    bigsVal(id){
+     this.brigades.map((item,index) => {
+        if (item.id === id) {
+          this.groups = item.club_info_group;
+        }
+     })
+    },
+    handleCheckChange(val){
+       console.log(this.ruleForm.role);
     },
     radiochange(row) {
+      this.radio = row;
       console.log(`当前: ${row}`);
     },
     handleSizeChange(size) {
@@ -249,6 +256,9 @@ export default {
     },
     onSubmit() {
       console.log("submit!");
+    },
+    xiaozu(val){
+      console.log(val);
     },
     rowClick(row, event, column) {
       this.radio = row.index;
@@ -270,7 +280,7 @@ export default {
               ygIdentity: this.ruleForm.idnumber, //身份证
               Brigade: this.ruleForm.big, //大队
               group: this.ruleForm.small, //小组
-              power: this.ruleForm.role //分配角色
+              role: this.ruleForm.role //分配角色
             };
             requestLogin("/setStaffInfo", loginParams, "post")
               .then(data => {
@@ -282,18 +292,20 @@ export default {
                 this.reload();
                 this.dialogFormVisible = false;
               })
-              .catch(error => {
+               .catch(error => {
                 this.addLoading = false;
-                if (error.response) {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
                   this.$message({
-                    message: "提交失败,请稍候再试",
+                    message: msg,
                     type: "error"
                   });
+                  return;
                 }
               });
           });
         } else {
-          console.log("error submit!!");
+         this.$message({ message: "提交失败!", type: "error" });
           return false;
         }
       });
@@ -341,12 +353,15 @@ export default {
           });
           this.reload();
         })
-        .catch(() => {
-          if (error.response) {
+        .catch(error => {
+          this.addLoading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "对不起,该员工还有正在跟进的定金客户没有交接",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     }
@@ -508,7 +523,7 @@ export default {
     .purple2 {
       height: 80px;
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       .search {
         width: 35%;
         border: 1px solid #e8e8e8;

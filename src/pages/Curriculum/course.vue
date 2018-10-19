@@ -49,7 +49,10 @@
                   </el-form-item>
                   <el-form-item label="课程封面:" prop="filecover" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-upload class="avatar-uploader" ref="imgupload" action="" :on-change="uploadImg" :show-file-list="false">
+                      <el-upload class="avatar-uploader" ref="imgupload" action="" 
+                      :on-change="uploadImg" 
+                      :auto-upload="false"
+                      :show-file-list="false">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       </el-upload>
@@ -182,6 +185,7 @@ export default {
   },
   methods: {
     uploadImg(file) {
+      // console.log(file.raw);
       this.imgfile = file.raw;
       this.imageUrl = URL.createObjectURL(file.raw);
     },
@@ -228,8 +232,16 @@ export default {
               BZ: this.ruleForm.desc, //备注
               kcHot: this.ruleForm.heat, //热度
               price: this.ruleForm.price, //价格
-              file: this.imgfile //课程封面
+              file: this.imgfile//课程封面
             };
+            // var loginParams = new FormData();
+            // loginParams.append('file', file);
+            // loginParams.append('kcName', this.ruleForm.classname);
+            // loginParams.append('ZT', this.ruleForm.status);
+            // loginParams.append('BZ', this.ruleForm.desc);
+            // loginParams.append('kcHot', this.ruleForm.heat);
+            // loginParams.append('price', this.ruleForm.price);
+            console.log(loginParams);
             requestLogin("/setCurSubInfo", loginParams, "post")
               .then(data => {
                 this.addLoading = false;
@@ -242,16 +254,18 @@ export default {
               })
               .catch(error => {
                 this.addLoading = false;
-                if (error.response) {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0){
                   this.$message({
-                    message: "提交失败,请稍候再试",
+                    message: msg,
                     type: "error"
                   });
+                  return;
                 }
               });
           });
         } else {
-          console.log("error submit!!");
+          this.$message({ message: "提交失败!", type: "error" });
           return false;
         }
       });
@@ -261,21 +275,6 @@ export default {
       this.$refs[formName].resetFields();
       this.$refs.imgupload.clearFiles();
       this.imageUrl = "";
-    },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
     }
   }
 };

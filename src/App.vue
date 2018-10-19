@@ -42,6 +42,11 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-loading-spinner .el-loading-text{
+  color:#00bc71;
+}
+.el-loading-spinner .path{-webkit-animation:loading-dash 1.5s ease-in-out infinite;animation:loading-dash 1.5s ease-in-out infinite;stroke-dasharray:90,150;stroke-dashoffset:0;stroke-width:2;stroke:#00bc71;stroke-linecap:round}
+.el-loading-spinner i{color:#00bc71}
 .el-table .descending .sort-caret.descending{
   border-top-color:#00bc71;
 }

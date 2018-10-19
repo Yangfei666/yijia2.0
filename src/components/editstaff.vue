@@ -9,8 +9,8 @@
             </el-form-item>
              <el-form-item label="性别:" prop="YGXX_SEX" :label-width="formLabelWidth">
             <el-col :span="22">
-                    <el-radio label="女" value="0" v-model="currentSelectRow.YGXX_SEX"></el-radio>
-                    <el-radio label="男" value="1" v-model="currentSelectRow.YGXX_SEX"></el-radio>
+                    <el-radio label="女" value="1" v-model="currentSelectRow.YGXX_SEX"></el-radio>
+                    <el-radio label="男" value="2" v-model="currentSelectRow.YGXX_SEX"></el-radio>
                 </el-col> 
             </el-form-item>
              <el-form-item label="电话:" prop="YGXX_HOMETEL" :label-width="formLabelWidth">
@@ -25,25 +25,22 @@
             </el-form-item>
             <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
                <el-col :span="22">
-                <el-select v-model="currentSelectRow.role" placeholder="请选择" style="width:100%">
-                <el-option label="教练" value="cishucard"></el-option>
-                <el-option label="会籍顾问" value="jinecard"></el-option>
+                 <el-checkbox-group v-model="currentSelectRow.role" @change="handleCheckChange">
+                  <el-checkbox v-for="i in role" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
+                </el-checkbox-group>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="所属大队:" prop="Brigade" :label-width="formLabelWidth">
+               <el-col :span="22">
+                <el-select v-model="currentSelectRow.Brigade" placeholder="请选择" style="width:100%" @change="bigsVal">
+                  <el-option v-for="item in brigades" :key="item.Brigade" :label="item.Brigade" :value="item.Brigade"></el-option>
                 </el-select>
                 </el-col>
             </el-form-item>
-            <el-form-item label="所属大队:" prop="big" :label-width="formLabelWidth">
+             <el-form-item label="所属小组:" prop="group" :label-width="formLabelWidth">
                <el-col :span="22">
-                <el-select v-model="currentSelectRow.big" placeholder="请选择" style="width:100%">
-                <el-option label="1大队" value="cishucard"></el-option>
-                <el-option label="2大队" value="jinecard"></el-option>
-                </el-select>
-                </el-col>
-            </el-form-item>
-             <el-form-item label="所属小组:" prop="small" :label-width="formLabelWidth">
-               <el-col :span="22">
-                <el-select v-model="currentSelectRow.small" placeholder="请选择" style="width:100%">
-                <el-option label="1小组" value="cishucard"></el-option>
-                <el-option label="2小组" value="jinecard"></el-option>
+                <el-select v-model="currentSelectRow.group" placeholder="请选择" style="width:100%" @change="xiaozu">
+                  <el-option v-for="item in groups" :key="item.id" :label="item.group" :value="item.group"></el-option>
                 </el-select>
                 </el-col>
             </el-form-item>
@@ -55,7 +52,7 @@
              <el-form-item class="dialog-footer">
                <el-col :span="24" style="display: flex;justify-content: flex-end;">
             <el-button @click="resetForm('currentSelectRow')">重置</el-button>
-            <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+            <el-button type="primary" @click="submitForm('currentSelectRow')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
             </el-col>
         </el-form-item>
         </el-form>
@@ -69,12 +66,39 @@ export default {
   inject:['reload'],
     data() {
      return {
+        addLoading: false,
+        loading: true,
         dialogFormVisible: false,
         formLabelWidth: '130px',
         disabled:false,
+        role: [],
+        brigades: [],
+        groups: []
      }
     },
+    mounted: function() {
+       this.rolegourp();
+    },
     methods: {
+      rolegourp() {
+      let _this = this;
+      _this.loading = true;
+      requestLogin("/setStaffInfo/create", {}, "get")
+        .then(function(res) {
+          _this.loading = false;
+          let { role, brigades} = res;
+          _this.role = role;
+          _this.brigades = brigades;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
       //编辑员工信息
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -89,7 +113,7 @@ export default {
               ygIdentity: this.currentSelectRow.ygIdentity, //身份证
               Brigade: this.currentSelectRow.Brigade, //大队
               group: this.currentSelectRow.group, //小组
-              power: this.currentSelectRow.role //分配角色
+              role: this.currentSelectRow.role //分配角色
             };
             requestLogin("/setStaffInfo/"+this.currentSelectRow.id, loginParams, "put")
               .then(data => {
@@ -103,11 +127,13 @@ export default {
               })
               .catch(error => {
                 this.addLoading = false;
-                if (error.response) {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0){
                   this.$message({
-                    message: "修改失败,请稍候再试",
+                    message: msg,
                     type: "error"
                   });
+                  return;
                 }
               });
           });
@@ -119,7 +145,20 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      }
+      },
+    handleCheckChange(val){
+       console.log(this.currentSelectRow.role);
+    },
+     xiaozu(val){
+      console.log(val);
+    },
+    bigsVal(id){
+     this.brigades.map((item,index) => {
+        if (item.id === id) {
+          this.groups = item.club_info_group;
+        }
+     })
+    },
     }
 }
 </script>
