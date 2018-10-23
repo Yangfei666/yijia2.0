@@ -45,7 +45,7 @@
                         <el-col :span="22">
                           <i class="el-icon-caret-bottom" @click="showToggle"></i>
                           <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">体验管理</el-checkbox>
-                          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange" style="margin-left:45px;" v-show="isShow">
+                          <el-checkbox-group v-model="ruleForm.cities" @change="handleCheckedCitiesChange" style="margin-left:45px;" v-show="isShow">
                             <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
                           </el-checkbox-group>
                         </el-col>
@@ -163,7 +163,7 @@
                       <el-form-item class="dialog-footer">
                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
                           <el-button @click="resetForm('ruleForm')">重置</el-button>
-                          <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                          <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                         </el-col>
                       </el-form-item>
                     </el-form>
@@ -211,62 +211,27 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 import Editrole from "@/components/editrole";
-const cityOptions = [
-  "资料录入",
-  "体验客户管理",
-  "体验券设置",
-  "客户退体验券",
-  "体验客户约课",
-  "编辑体验客户资料",
-  "体验客户购券"
-]; //体验管理
-const cityOptions2 = [
-  "会员资料录入",
-  "开卡审核",
-  "会员续会/充值",
-  "会员积分",
-  "更换会籍顾问",
-  "更换教练",
-  "会员请假/销假",
-  "会员综合信息查询编辑",
-  "意向会员交定金",
-  "意向会员定金管理",
-  "补开卡",
-  "放弃定金",
-  "上课记录"
-]; //会员管理
-const cityOptions3 = [
-  "挂失",
-  "解挂",
-  "补卡",
-  "转卡",
-  "退让",
-  "升级",
-  "变更有效期",
-  "变更体侧数据"
-]; //会员/会员卡操作管理
+const cityOptions = [ "资料录入", "体验客户管理","体验券设置","客户退体验券","体验客户约课","编辑体验客户资料", "体验客户购券"]; //体验管理
+const cityOptions2 = ["会员资料录入","开卡审核", "会员续会/充值","会员积分","更换会籍顾问","更换教练","会员请假/销假","会员综合信息查询编辑","意向会员交定金","意向会员定金管理","补开卡","放弃定金","上课记录"]; //会员管理
+const cityOptions3 = ["挂失","解挂","补卡","转卡","退让","升级","变更有效期","变更体侧数据"]; //会员/会员卡操作管理
 const cityOptions4 = ["添加会员卡", "会员卡管理"]; //会员卡管理
 const cityOptions5 = ["私教预约", "团课预约", "预约管理"]; //预约管理
 const cityOptions6 = ["私教登记进场", "团课登记进场"]; //进场管理
 const cityOptions7 = ["添加新员工", "员工管理"]; //员工管理
 const cityOptions8 = ["添加新角色", "角色管理", "新增权限"]; //角色权限管理
-const cityOptions9 = [
-  "课程表查看",
-  "课程表修改",
-  "课程科目查看",
-  "课程科目修改",
-  "课程上课登记"
-]; //课程管理
+const cityOptions9 = ["课程表查看","课程表修改","课程科目查看","课程科目修改","课程上课登记"]; //课程管理
 const cityOptions10 = ["登录+个人中心"]; //个人中心
 const cityOptions11 = ["新增卡种", "查看会员名下所有卡种", "卡种切换"]; //会员名下卡管理
 const cityOptions12 = ["会馆业绩", "会馆潜在录入", "会馆卖卡", "会馆卖券"]; //数据报表
 export default {
   name: "role",
+  inject: ["reload"],
   components: {
     Editrole
   },
   data() {
     return {
+      addLoading: false,
       loading: true,
       isShow: true,
       isShow2: true,
@@ -292,7 +257,7 @@ export default {
       checkAll10: false,
       checkAll11: false,
       checkAll12: false,
-      checkedCities: [],
+      // cities: [],
       checkedCities2: [],
       checkedCities3: [],
       checkedCities4: [],
@@ -338,7 +303,7 @@ export default {
       ruleForm: {
         rolename: "", //角色名称
         status: "", //状态
-        cities: "", //体验管理
+        cities: [], //体验管理
         member: "", //会员管理
         memberoperation: "", //会员/会员卡操作管理
         membercard: "", //会员卡管理
@@ -353,7 +318,6 @@ export default {
       },
       rules: {
         rolename: validate.rolename,
-        status: validate.status
       },
       currentSelectRow: "",
       dialogFormVisible: false,
@@ -371,6 +335,7 @@ export default {
       .then(function(res) {
         _this.tableData = res;
         _this.loading = false;
+        _this.rolecreate();
       })
       .catch(error => {
         if (error.res) {
@@ -382,18 +347,32 @@ export default {
       });
   },
   methods: {
-     handleClick(row) {
-        console.log(row);
-      },
+    //角色编辑页
+    rolecreate(){
+      let _this = this;
+      _this.loading = true;
+      requestLogin("/RoleAuthorityManagement/create", {}, "get")
+        .then(function(res) {
+          _this.loading = false;
+          console.log(res);
+          // let { role, brigades } = res;
+          // _this.role = role;
+          // _this.brigades = brigades;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    handleClick(row) {
+      console.log(row);
+    },
     radiochange(row) {
       console.log(`当前: ${row}`);
-    },
-    handleClick3(row) {
-      console.log(row);
-      alert("点击了");
-    },
-    onSubmit() {
-      console.log("submit!");
     },
     rowClick(row, event, column) {
       this.radio = row.index;
@@ -409,32 +388,40 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
-    open2() {
-      this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.tableData = this.tableData.slice(1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    },
+    //添加角色权限
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            this.addLoading = true;
+            var loginParams = {
+              name: this.ruleForm.rolename, //角色名称
+              power: this.ruleForm.cities, //权限
+            };
+            requestLogin("/RoleAuthorityManagement", loginParams, "post")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible = false;
+              })
+              .catch(error => {
+                this.addLoading = false;
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
         } else {
-          console.log("error submit!!");
+          this.$message({ message: "提交失败!", type: "error" });
           return false;
         }
       });
@@ -479,7 +466,7 @@ export default {
       this.isShow12 = !this.isShow12;
     },
     handleCheckAllChange(val) {
-      this.checkedCities = val ? cityOptions : [];
+      this.cities = val ? cityOptions : [];
       this.isIndeterminate = false;
     },
     handleCheckAllChange2(val) {

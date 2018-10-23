@@ -49,10 +49,7 @@
                   </el-form-item>
                   <el-form-item label="课程封面:" prop="filecover" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-upload class="avatar-uploader" ref="imgupload" action="" 
-                      :on-change="uploadImg" 
-                      :auto-upload="false"
-                      :show-file-list="false">
+                      <el-upload class="avatar-uploader" ref="imgupload" action="" :on-change="uploadImg" :auto-upload="false" :show-file-list="false">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       </el-upload>
@@ -78,18 +75,18 @@
           </div>
         </div>
         <div class="purple2">
-          <el-form ref="form" :model="form" label-width="90px">
+          <el-form ref="form" label-width="90px">
             <el-col :span="23" class="purple-name">
               <el-form-item label="课程名称:">
                 <el-col :span="24">
-                  <el-input v-model="form.name" placeholder="请输入"></el-input>
+                  <el-input v-model="searchName" placeholder="请输入"></el-input>
                 </el-col>
               </el-form-item>
             </el-col>
             <el-col :span="1" class="purple-but">
               <el-form-item label-width="25px">
                 <el-col :span="24">
-                  <el-button type="primary" @click="onSubmit">查询</el-button>
+                  <el-button type="primary" @click="search">查询</el-button>
                 </el-col>
               </el-form-item>
             </el-col>
@@ -128,7 +125,7 @@ import * as validate from "@/validate/Login";
 import EditCoursesubjects from "@/components/editCoursesubjects";
 export default {
   name: "course",
-  inject:['reload'],
+  inject: ["reload"],
   components: {
     EditCoursesubjects
   },
@@ -159,11 +156,18 @@ export default {
         status: validate.status
         // filecover: validate.filecover
       },
-      form: {
-        name: ""
-      },
-      tableData: []
+      searchName: "",
+      tableData: [],
+      tableData2: []
     };
+  },
+  watch: {
+    searchName(val) {
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    }
   },
   created: function() {
     //表格列表数据
@@ -173,6 +177,7 @@ export default {
       .then(function(res) {
         _this.loading = false;
         _this.tableData = res;
+        _this.tableData2 = res;
       })
       .catch(error => {
         if (error.res) {
@@ -217,8 +222,11 @@ export default {
       }
     },
     //查询表单
-    onSubmit() {
-      console.log("submit!");
+    search() {
+      this.tableData = this.tableData2;
+      this.tableData = this.tableData2.filter(
+        i => i.kcName.indexOf(this.searchName) != -1
+      );
     },
     //添加课程科目
     submitForm(formName) {
@@ -232,7 +240,7 @@ export default {
               BZ: this.ruleForm.desc, //备注
               kcHot: this.ruleForm.heat, //热度
               price: this.ruleForm.price, //价格
-              file: this.imgfile//课程封面
+              file: this.imgfile //课程封面
             };
             // var loginParams = new FormData();
             // loginParams.append('file', file);
@@ -250,12 +258,12 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible=false;
+                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;
                 let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0){
+                if (errorCode != 0) {
                   this.$message({
                     message: msg,
                     type: "error"

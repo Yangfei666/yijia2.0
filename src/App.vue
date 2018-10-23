@@ -42,6 +42,12 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-checkbox__inner:hover{
+  border-color:#00bc71;
+}
+.el-transfer-panel__item:hover{
+  color:#00bc71;
+}
 .el-loading-spinner .el-loading-text{
   color:#00bc71;
 }
@@ -239,7 +245,7 @@ border-radius:3px
 .el-button--primary.is-disabled,
 .el-button--primary.is-disabled:active,
 .el-button--primary.is-disabled:focus,
-.el-button--primary.is-disabled:hover{color:#fff;background-color:#00bc71;border-color:#EDFAF5}
+.el-button--primary.is-disabled:hover{color:#fff;background-color:#ebebeb;border-color:#EDFAF5}
 .el-button--primary.is-plain:focus,
 .el-button--primary.is-plain:hover{background:#00bc71;border-color:#00bc71;color:#fff}
 .el-button--primary.is-plain:active{background:#00bc71;border-color:#00bc71;color:#fff;outline:0}

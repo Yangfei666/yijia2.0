@@ -48,7 +48,7 @@ export let heat = [
         {
             required: true,
             message: "请选择热度",
-            trigger: "blur"
+            trigger: "change"
         }
     ];
 
@@ -57,7 +57,7 @@ export let status = [
         {
             required: true,
             message: "请选择状态",
-            trigger: "blur"
+            trigger: "change"
         }
     ];
 
@@ -66,7 +66,7 @@ export let filecover = [
         {
             required: true,
             message: "请选择课程封面",
-            trigger: "blur"
+            trigger: "change"
         }
     ];
 /* 验证姓名 */
@@ -106,7 +106,8 @@ export let idnumber = [
         },
         {
             pattern:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-            message:"身份证号码不符合规范"
+            message:"身份证号码不符合规范",
+            trigger: "blur"
         }
         
     ];
@@ -147,7 +148,7 @@ export let type = [
         {
             required:true,
             message: "请选择类型",
-            trigger: "blur"
+            trigger: "change"
         }
     ];
 /* 验证价格*/
@@ -156,10 +157,6 @@ export let price = [
             required:true,
             message: "请输入价格",
             trigger: "blur"
-        },
-        {
-            type: 'number',
-            message: '年龄必须为数字值'
         }
     ];
 /* 验证有效期*/
@@ -176,5 +173,116 @@ export let number = [
             required:true,
             message: "请输入次数",
             trigger: "blur"
+        }
+    ];
+/* 验证门店名称*/
+export let roomname = [
+        {
+            required:true,
+            message: "请输入门店名称",
+            trigger: "blur"
+        }
+    ];
+/* 验证门店别名*/
+export let roombyname = [
+        {
+            required:true,
+            message: "请输入门店别名",
+            trigger: "blur"
+        }
+    ];
+/* 验证邮编*/
+export let zipcode = [
+        {
+            required:true,
+            message: "请输入邮编",
+            trigger: "blur"
+        },
+        {
+            min: 6,
+            message: "邮编长度最低为6位",
+            trigger: "blur"
+        }
+    ];
+/* 验证法人*/
+export let corporation = [
+        {
+            required:true,
+            message: "请输入法人",
+            trigger: "blur"
+        }
+    ];
+/* 验证城市*/
+export let homecity = [
+        {
+            required:true,
+            message: "请输入城市",
+            trigger: "blur"
+        }
+    ];
+/* 验证地址*/
+export let detadaddress = [
+        {
+            required:true,
+            message: "请输入地址",
+            trigger: "blur"
+        },
+        {
+            min: 8,
+            message: "地址长度最低为8位",
+            trigger: "blur"
+        }
+    ];
+/* 验证传真*/
+export let portraiture = [
+        {
+            required:true,
+            message: "请输入传真",
+            trigger: "blur"
+        },
+        {
+            max: 6,
+            message: "传真长度最低为6位",
+            trigger: "blur"
+        }
+    ];
+/* 验证卡名称*/
+export let cardname = [
+        {
+            required:true,
+            message: "请输入卡名称",
+            trigger: "blur"
+        }
+    ];
+/* 验证课程种类*/
+export let classtype = [
+        {
+            required:true,
+            message: "请选择课程种类",
+            trigger: "change"
+        }
+    ];
+/* 验证底色*/
+export let memcolor = [
+        {
+            required:true,
+            message: "请选择底色",
+            trigger: "change"
+        }
+    ];
+/* 验证有效期*/
+export let date = [
+        {
+            required:true,
+            message: "请输入有效期",
+            trigger: "blur"
+        }
+    ];
+/* 验证次数*/
+export let num = [
+        {
+            required:true,
+            message: "请选择次数",
+            trigger: "change"
         }
     ];

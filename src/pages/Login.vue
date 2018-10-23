@@ -50,7 +50,7 @@ export default {
       num:0,
         account: {
           username: '18812345678',
-          pwd: '123456',
+          pwd: '1234567',
           verifycode:'',
           door:''
         },
@@ -89,12 +89,14 @@ export default {
             })
             .catch(error => {
               this.logining = false;
-              if (error.response) {
-                this.$message({
-                  message: "登录失败,请稍候再试",
-                  type: "error"
-                });
-              }
+              let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
             });
         } else {
           console.log("....");

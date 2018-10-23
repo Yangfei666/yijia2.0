@@ -44,7 +44,7 @@
                         <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                          <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                        <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
+                        <Carddetails :currentSelectRow2="currentSelectRow2"></Carddetails>
                         </el-dialog>
                         </template>
                     </div>
@@ -55,17 +55,17 @@
                 </el-col>
             <el-col :span="12">
                 <div class="purple2">
-                    <el-form ref="form" :model="form" label-width="90px">
+                    <el-form ref="form" label-width="90px">
                         <el-col :span="22" class="purple-name">
                     <el-form-item label="卡名称:">
                          <el-col :span="24">
-                        <el-input v-model="form.name" placeholder="请输入"></el-input>
+                        <el-input v-model="cardName" placeholder="请输入"></el-input>
                         </el-col>
                     </el-form-item>
                     </el-col>
                     <el-col :span="2" class="purple-but">
                     <el-form-item label-width="20px">
-                       <el-button type="primary" @click="onSubmit">查询</el-button>
+                       <el-button type="primary" @click="searchName">查询</el-button>
                     </el-form-item>
                     </el-col>
                     </el-form>
@@ -137,7 +137,7 @@
                         <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                          <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                        <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
+                        <Carddetails :currentSelectRow2="currentSelectRow2"></Carddetails>
                         </el-dialog>
                         </template>
                     </div>
@@ -148,17 +148,17 @@
                 </el-col>
             <el-col :span="12">
                 <div class="purple2">
-                    <el-form ref="form" :model="form" label-width="90px">
+                    <el-form ref="form" label-width="90px">
                         <el-col :span="22" class="purple-name">
                     <el-form-item label="卡名称:">
                          <el-col :span="24">
-                        <el-input v-model="form.name" placeholder="请输入"></el-input>
+                        <el-input v-model="cardName2" placeholder="请输入"></el-input>
                         </el-col>
                     </el-form-item>
                     </el-col>
                     <el-col :span="2" class="purple-but">
                     <el-form-item label-width="20px">
-                       <el-button type="primary" @click="onSubmit">查询</el-button>
+                       <el-button type="primary" @click="searchName">查询</el-button>
                     </el-form-item>
                     </el-col>
                     </el-form>
@@ -169,7 +169,7 @@
     <div class="practice-table">
         <el-row>
             <el-col :span="24">
-                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
+                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                     <template slot-scope="scope">
                          <el-radio-group v-model="radio">
@@ -196,7 +196,7 @@
                     :page-sizes="[10, 20, 30, 40, 50, 100]"
                     :page-size="pagesize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="tableData.length">
+                    :total="tableData2.length">
                     </el-pagination>
                 </div>
             </el-col>
@@ -226,17 +226,34 @@ export default {
       activeName: 'nonuniversal',
       loading:true,
       currentSelectRow: "",
+      currentSelectRow2: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       currentPage:1,
       pagesize:10,
       radio:true,
-      form: {
-          name:'',
-        },
-      tableData:[]
+      tableData:[],
+      tableData2:[],
+      tableData3:[],
+      tableData4:[],
+      cardName:"",
+      cardName2:"",
     };
+  },
+    watch: {
+    cardName(val) {
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData3;
+      }
+    },
+    cardName2(val) {
+      console.log(val);
+      if (!val) {
+        this.tableData2 = this.tableData4;
+      }
+    }
   },
     created: function () {
     //表格列表数据
@@ -245,7 +262,9 @@ export default {
       requestLogin("/setCardType",{},'get')
         .then(function(res) {
           _this.tableData = res.selfCard;
-          // _this.tableData = res.relationCard;
+          _this.tableData2 = res.relationCard;
+          _this.tableData3 = res.selfCard;
+          _this.tableData4 = res.relationCard;
           _this.loading = false;
         })
         .catch(error => {
@@ -276,6 +295,17 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
+     //查询表格数据
+     searchName() {
+      this.tableData = this.tableData3;
+      this.tableData2 = this.tableData4;
+      this.tableData = this.tableData3.filter(
+        i => i.CTName.indexOf(this.cardName) != -1
+      );
+      this.tableData2 = this.tableData4.filter(
+        i => i.CTName.indexOf(this.cardName2) != -1
+      );
+    },
     rowClick(row, event, column) {
        this.radio=row.index;
       //获取表格数据
@@ -300,7 +330,7 @@ export default {
         console.log('submit!');
       },
       //删除会员卡
-       delmember() {
+    delmember() {
         let _this = this;
       if (!this.currentSelectRow) {
         this.$message({ message: "请先选择数据!", type: "warning" });
@@ -311,7 +341,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
+        .then(()=> {
           _this.loading = true;
           console.log(_this.currentSelectRow.CTID);
           requestLogin(
@@ -324,13 +354,15 @@ export default {
           });
           this.reload();
         })
-        .catch(() => {
-          if (error.response) {
-            this.$message({
-              message: "对不起,该员工还有正在跟进的定金客户没有交接",
-              type: "error"
-            });
-          }
+        .catch(error => {
+         let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
         });
       }
   }

@@ -103,8 +103,8 @@
           <el-col :span="12">
             <div class="purple2">
               <el-col :span="24" class="search">
-                <input class="search-input" maxlength="18" placeholder="搜索姓名/电话/卡号" />
-                <i class="search-icon el-icon-search"></i>
+                <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+                <i class="search-icon el-icon-search" @click="search"></i>
               </el-col>
             </div>
           </el-col>
@@ -146,21 +146,19 @@ import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
   name: "staff",
-  inject:['reload'],
+  inject: ["reload"],
   components: {
     Editstaff
   },
   data() {
     return {
-      bigsvalue:'',
+      bigsvalue: "",
       addLoading: false,
       loading: true,
       remnant: 666,
       dialogFormVisible: false,
       formLabelWidth: "130px",
-      sex: 1,
       disabled: false,
-      limitdate: [],
       currentSelectRow: "",
       dialogFormVisible2: false,
       currentPage: 1,
@@ -187,10 +185,20 @@ export default {
         role: validate.role
       },
       tableData: [],
+      tableData2: [],
       role: [],
       brigades: [],
-      groups: []
+      groups: [],
+      searchVal: ""
     };
+  },
+  watch: {
+    searchVal(val) {
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    }
   },
   mounted: function() {
     //表格列表数据
@@ -199,8 +207,9 @@ export default {
     requestLogin("/setStaffInfo", {}, "get")
       .then(function(res) {
         _this.tableData = res;
+        _this.tableData2 = res;
         _this.loading = false;
-        this.rolegourp();
+        _this.rolegourp();
       })
       .catch(error => {
         if (error.res) {
@@ -219,7 +228,7 @@ export default {
       requestLogin("/setStaffInfo/create", {}, "get")
         .then(function(res) {
           _this.loading = false;
-          let { role, brigades} = res;
+          let { role, brigades } = res;
           _this.role = role;
           _this.brigades = brigades;
         })
@@ -232,15 +241,24 @@ export default {
           }
         });
     },
-    bigsVal(id){
-     this.brigades.map((item,index) => {
+    bigsVal(id) {
+      this.brigades.map((item, index) => {
         if (item.id === id) {
           this.groups = item.club_info_group;
         }
-     })
+      });
     },
-    handleCheckChange(val){
-       console.log(this.ruleForm.role);
+    //查询表格
+    search() {
+      this.tableData = this.tableData2;
+      this.tableData = this.tableData2.filter(
+        i =>
+          i.YGXX_NAME.includes(this.searchVal) ||
+          i.YGXX_HOMETEL.includes(this.searchVal)
+      );
+    },
+    handleCheckChange(val) {
+      console.log(this.ruleForm.role);
     },
     radiochange(row) {
       this.radio = row;
@@ -254,17 +272,23 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-    onSubmit() {
-      console.log("submit!");
-    },
-    xiaozu(val){
+    xiaozu(val) {
       console.log(val);
     },
     rowClick(row, event, column) {
       this.radio = row.index;
+      let roleIds = [];
+      console.log(row);
+      row.role.map(i => {
+        if (i.id) {
+          roleIds.push(i.id);
+        }
+      });
+      if (row.role[0].id) {
+        row.role = roleIds;
+      }
       //获取表格数据
       this.currentSelectRow = row;
-      console.log(row.index);
     },
     //添加员工
     submitForm(formName) {
@@ -292,7 +316,7 @@ export default {
                 this.reload();
                 this.dialogFormVisible = false;
               })
-               .catch(error => {
+              .catch(error => {
                 this.addLoading = false;
                 let { response: { data: { errorCode, msg } } } = error;
                 if (errorCode != 0) {
@@ -305,7 +329,7 @@ export default {
               });
           });
         } else {
-         this.$message({ message: "提交失败!", type: "error" });
+          this.$message({ message: "提交失败!", type: "error" });
           return false;
         }
       });
