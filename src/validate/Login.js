@@ -148,7 +148,7 @@ export let type = [
         {
             required:true,
             message: "请选择类型",
-            trigger: "change"
+            trigger: "blur"
         }
     ];
 /* 验证价格*/
@@ -283,6 +283,46 @@ export let num = [
         {
             required:true,
             message: "请选择次数",
+            trigger: "change"
+        }
+    ];
+/* 验证微信*/
+export let wechat = [
+        {
+            required:true,
+            message: "请输入微信",
+            trigger: "blur"
+        }
+    ];
+/* 验证会籍顾问*/
+export let adviser = [
+        {
+            required:true,
+            message: "请选择会籍顾问",
+            trigger: "blur"
+        }
+    ];
+/* 验证质量*/
+export let quality = [
+        {
+            required:true,
+            message: "请选择客户质量",
+            trigger: "change"
+        }
+    ];
+/* 验证备注*/
+export let desc = [
+        {
+            required:true,
+            message: "请输入备注",
+            trigger: "blur"
+        }
+    ];
+/* 验证付款方式*/
+export let mode = [
+        {
+            required:true,
+            message: "请选择付款方式",
             trigger: "change"
         }
     ];

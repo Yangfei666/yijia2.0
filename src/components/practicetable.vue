@@ -76,14 +76,10 @@
                             </template>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/tastefollowup" style="text-decoration:none;">
-                                <el-button type="text" class="add-p">客户跟进</el-button>
-                            </router-link>
+                                <el-button type="text" class="add-p" @click="taste()">客户跟进</el-button>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/experiencehome" style="text-decoration:none;">
-                                <el-button type="text" class="add-p">体验客户主页</el-button>
-                            </router-link>
+                                <el-button type="text" class="add-p" @click="exper()">体验客户主页</el-button>
                         </div>
                     </div>
                 </el-col>
@@ -100,7 +96,7 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row :default-sort = "{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="listLoading" style="width: 100%">
+                    <el-table id="rebateSetTable" highlight-current-row :default-sort = "{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="listLoading" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="70px">
                             <template slot-scope="scope">
                                <el-radio-group v-model="radio">
@@ -130,7 +126,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-button size="small" class="export">导出</el-button>
+                        <el-button size="small" class="export" @click="exportExcel">导出</el-button>
                         <el-pagination 
                         @size-change="handleSizeChange" 
                         @current-change="handleCurrentChange" 
@@ -288,17 +284,26 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-      // if(row.radio == true){
-      //   this.radio = true;
-      // }else{
-      //   this.radio = false;
-      // }
     },
     go() {
       let currentRoute = this.$route.path.split("/")[2];
       console.log(currentRoute);
       //认领跳转
       this.$router.push("/Customer/" + currentRoute + "/claim");
+    },
+    taste(){
+        if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+        this.$router.push({path: '/Customer/tastefollowup'});
+    },
+    exper(){
+         if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+        this.$router.push({path: '/Customer/experiencehome'});
     },
     showToggle: function() {
       this.isShow = !this.isShow;
@@ -308,7 +313,19 @@ export default {
       } else {
         this.btnText = "展开";
       }
-    }
+    },
+  //表格导出
+    exportExcel () {
+         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
+         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+         try {
+             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '体验客户管理数据表.xlsx')
+         } catch (e) { 
+           if (typeof console !== 'undefined')
+                console.log(e, wbout) 
+            }
+         return wbout
+     },
   }
 };
 </script>

@@ -27,25 +27,21 @@
             </el-form-item>
             <el-form-item label="客户质量:" prop="quality" :label-width="formLabelWidth">
                <el-col :span="22">
-                <el-select v-model="ruleForm.quality" placeholder="请选择" style="width:100%">
-                <el-option label="A" value="cishucard"></el-option>
-                <el-option label="B" value="jinecard"></el-option>
-                <el-option label="C" value="jinecard"></el-option>
-                <el-option label="D" value="jinecard"></el-option>
+                <el-select v-model="ruleForm.quality" placeholder="请选择" style="width:100%" @change="Selectchange">
+                  <el-option v-for="item in quality" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
                 </el-col>
             </el-form-item>
             <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
                <el-col :span="22">
-                <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%">
-                <el-option label="Angel" value="cishucard"></el-option>
-                <el-option label="ViVi" value="jinecard"></el-option>
+                <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                 </el-select>
                 </el-col>
             </el-form-item>
             <el-form-item label="备注:" prop="desc" :label-width="formLabelWidth">
                <el-col :span="22">
-               <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入"></el-input>
+               <el-input type="textarea" v-model="ruleForm.desc" placeholder="汉字、字母、数字和下划线及逗号句号, 长度50以内"></el-input>
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">
@@ -58,63 +54,113 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 export default {
   name:'addlatent',
+  inject: ["reload"],
     data() {
      return {
         dialogFormVisible: false,
         formLabelWidth: '130px',
-        sex:1,
         disabled:false,
-        limitdate: [],
+        quality: [//客户质量
+          {value: '1',label: 'A'},
+          {value: '2',label: 'B'}, 
+          {value: '3',label: 'C'}, 
+          {value: '4',label: 'D'}],
+        staff_info:[],
         ruleForm: {
           name:'',//姓名
           sex: '',//性别
           tel:'',//电话
           wechat: '',//微信
           quality:'',//客户质量
-          adviser:'',//会籍顾问
+          adviser:[],//会籍顾问
           desc:''//员工简介
         },
         rules: {
-          name:[
-            {required: true, message: '请输入姓名', trigger: 'blur' }
-          ],
-          sex: [
-            { required: true,message: '请选择性别', trigger: 'change' }
-          ],
-          tel: [
-            {required: true, message: '请输入电话', trigger: 'blur' }
-          ],
-          wechat: [
-            {required: true, message: '请输入微信', trigger: 'blur' }
-          ],
-         adviser:[
-             {required: true, message: '请选择会籍顾问', trigger: 'change' }
-         ],
-         quality:[
-             {required: true, message: '请选择客户质量', trigger: 'change'}
-         ],
-          desc:[
-            {required: true, message: '请输入备注', trigger: 'blur' }
-          ],
+          name:validate.name,//姓名
+          sex:validate.sex,//性别
+          tel: validate.phone,//电话
+          wechat:validate.wechat,//微信
+          adviser:validate.adviser,//会籍顾问
+          quality:validate.quality,//客户质量
+          desc:validate.desc,//备注
         }
      }
     },
+    created:function(){
+      this.getCustomer();
+    },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+    //获取会籍顾问列表
+    getCustomer(){
+      let _this = this;
+    requestLogin("/setDepositCustomer/create", {}, "get")
+      .then(function(res) {
+        let {staff_info} = res;
+        _this.staff_info = staff_info;
+      })
+      .catch(error => {
+        if (error.res) {
+          this.$message({
+            message: "获取数据失败",
+            type: "error"
+          });
+        }
+      });
+    },
+     //添加潜在客户
+    submitForm(formName) {
+      let _this=this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var loginParams = {
+              prName: _this.ruleForm.name, //姓名
+              prTel: _this.ruleForm.tel, //电话
+              prSex: _this.ruleForm.sex, //性别
+              prQuality: _this.ruleForm.quality, //客户质量
+              prBelog: _this.ruleForm.adviser, //会籍顾问id
+              WeChat: _this.ruleForm.wechat, //微信号
+              remark: _this.ruleForm.desc, //备注
+            };
+            requestLogin("/setPotentialCustomer", loginParams, "post")
+              .then(data => {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible = false;
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          this.$message({ message: "提交失败!", type: "error" });
+          return false;
+        }
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      }
+      },
+      Selectchange(val){
+        console.log(val);
+      },
+     Selectchange2(val) {
+        console.log(val);
+    },
     }
 }
 </script>

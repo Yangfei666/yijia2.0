@@ -36,6 +36,11 @@
                 <el-input v-model="currentSelectRow.CTvalidity"></el-input>
                 </el-col>
             </el-form-item>
+             <el-form-item label="次数:" prop="number" :label-width="formLabelWidth" v-if="ctType == 2">
+              <el-col :span="22">
+                <el-input v-model="currentSelectRow.Ctnum"></el-input>
+              </el-col>
+            </el-form-item>
              <el-form-item label="一周次数限制:" prop="CTxDate_Val" :label-width="formLabelWidth">
               <el-col :span="22">
                     <el-radio label="不限" value="1" v-model="currentSelectRow.CTxDate_Val"></el-radio>
@@ -47,14 +52,16 @@
             <el-form-item label="限制日期(可用):" prop="CTdate" :label-width="formLabelWidth">
               <el-col :span="22">
                  <el-checkbox-group v-model="currentSelectRow.CTdate" @change="handleCheckChange">
-                    <el-checkbox v-for="i in limit" :label="i" :key="i">{{i}}</el-checkbox>
+                    <el-checkbox v-for="i in limit" :label="i.id" :key="i.id">{{i.id}}</el-checkbox>
                 </el-checkbox-group>
                 </el-col>
             </el-form-item>
              <el-form-item label="状态:" prop="CTstate" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="启用" value="1" v-model="currentSelectRow.CTState"></el-radio>
-                    <el-radio label="禁用" value="2" v-model="currentSelectRow.CTState"></el-radio>
+                <el-radio-group v-model="currentSelectRow.CTState">
+                    <el-radio label="启用" value="1"></el-radio>
+                    <el-radio label="禁用" value="2"></el-radio>
+                </el-radio-group>
                 </el-col>
             </el-form-item>
             <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
@@ -65,20 +72,13 @@
             </el-form-item>
              <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
               <el-col :span="22">
-                 <el-transfer
-                    filterable
-                    :filter-method="filterMethod"
-                    :titles="['待选门店', '已选门店']"
-                    filter-placeholder="请输入门店名称"
-                    v-model="shoproom"
-                    :data="data2">
-                </el-transfer>
+                <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}"></el-transfer>
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">
                <el-col :span="24" style="display: flex;justify-content: flex-end;">
             <el-button @click="resetForm('currentSelectRow')">重置</el-button>
-            <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+            <el-button type="primary" @click="submitForm('currentSelectRow')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
             </el-col>
         </el-form-item>
         </el-form>
@@ -91,34 +91,24 @@ const cityOptions = ['周一','周二','周三','周四','周五','周六','周�
 export default {
   name:'cardedit',
   props: ["currentSelectRow"],
+  inject: ["reload"],
     data() {
-        const generateData2 = _ => {
-        const data = [];
-        const cities = ['本朴瑜伽', '言瑜伽', '一伽瑜伽', '花影瑜伽', '观云瑜伽', '竹瑜伽', '爱伽瑜伽'];
-        const pinyin = ['benpuyujia', 'yanyujia', 'yijiayujia', 'huayingyujia', 'guanyunyujia', 'zhuyujia', 'aijiayujia'];
-        cities.forEach((room, index) => {
-          data.push({
-            label: room,
-            key: index,
-            pinyin: pinyin[index]
-          });
-        });
-        return data;
-      };
      return {
-        data2: generateData2(),
+        ctType:2,
+        data2:[],
         shoproom: [],
         startTime: '',
         endTime: '',
-        filterMethod(query, item) {
-          return item.pinyin.indexOf(query) > -1;
-        },
+        addLoading: false,
         dialogFormVisible: false,
         formLabelWidth: '130px',
         value:'',
         limitdate: [],
         limit:cityOptions
      }
+    },
+    mounted:function(){
+      this.getallClub();
     },
     methods: {
       //修改会员卡
@@ -128,20 +118,20 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-              CTName: this.ruleForm.cardname, //卡名称
-              CTjg: this.ruleForm.price, //价格
-              CTstate: this.ruleForm.status, //状态
-              CTxDate_Val: this.ruleForm.num, //每周限用次数
-              CTxTime_1S: this.ruleForm.startTime, //限用时间段--开始
-              CTxTime_1E: this.ruleForm.endTime, //限用时间段--结束
-              ColorCard: this.ruleForm.memcolor, //颜色
-              ctNotes: this.ruleForm.role, //备注
-              ctType: this.ruleForm.type, //类型
-              CTdate: this.ruleForm.limitdate, //限制日期
-              CTvalidity: this.ruleForm.date, //有效期
-              Ctnum: this.ruleForm.num, //次数
-              ctIsIsPrivate: this.ruleForm.classtype, //课程类别
-              clubRelation: this.Hsxx_Hsid //连锁店id
+              CTName: this.currentSelectRow.cardname, //卡名称
+              CTjg: this.currentSelectRow.price, //价格
+              CTstate: this.currentSelectRow.status, //状态
+              CTxDate_Val: this.currentSelectRow.num, //每周限用次数
+              CTxTime_1S: this.currentSelectRow.startTime, //限用时间段--开始
+              CTxTime_1E: this.currentSelectRow.endTime, //限用时间段--结束
+              ColorCard: this.currentSelectRow.memcolor, //颜色
+              ctNotes: this.currentSelectRow.role, //备注
+              ctType: this.currentSelectRow.type, //类型
+              CTdate: this.currentSelectRow.limitdate, //限制日期
+              CTvalidity: this.currentSelectRow.date, //有效期
+              Ctnum: this.currentSelectRow.number, //次数
+              ctIsIsPrivate: this.currentSelectRow.classtype, //课程类别
+              clubRelation: this.currentSelectRow.shoproom //连锁店id
             };
             requestLogin("/setCardType", loginParams, "post")
               .then(data => {
@@ -150,6 +140,7 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
+                this.reload();
                 this.dialogFormVisible = false;
               })
               .catch(error => {
@@ -170,8 +161,28 @@ export default {
         }
       });
     },
+   //门店数据
+    getallClub() {
+      let _this = this;
+      requestLogin("/allClub", {}, "get")
+        .then(function(res) {
+          _this.data2 = res;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+     getSelectItem(val) {
+      this.currentSelectRow.shoproom = val;
+      console.log(val)
+    },
     handleCheckChange(val) {
-      console.log(this.ruleForm.limit);
+      console.log(this.currentSelectRow.limit);
     },
       resetForm(formName) {
         this.$refs[formName].resetFields();

@@ -370,7 +370,7 @@ export default {
         checkPass: "" //确认新密码
       },
       rules2: {
-        pass: [{required: true,trigger: "blur",message: "请输入密码"}], //原密码
+        pass: [{required: true,trigger: "blur",message: "请输入原密码"}], //原密码
         passWord: [{validator: validatePass,trigger: "blur"}], //新密码
         checkPass: [{ validator: validatePass2,trigger: "blur"}] //确认新密码
       },

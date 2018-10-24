@@ -87,7 +87,7 @@
                             <span>会所名称</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg}}</span>
+                            <span>{{club.Hsxx_Name}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -95,7 +95,7 @@
                             <span>会所别名</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg2}}</span>
+                            <span>{{club.Hsxx_Name_jch}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -103,7 +103,7 @@
                             <span>所属城市</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg3}}</span>
+                            <span>{{club.Hsxx_City}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -111,7 +111,7 @@
                             <span>详细地址</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg4}}</span>
+                            <span>{{club.Hsxx_Add}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -119,7 +119,7 @@
                             <span>邮编</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg5}}</span>
+                            <span>{{club.Hsxx_YB}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -127,7 +127,7 @@
                             <span>电话</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg6}}</span>
+                            <span>{{club.Hsxx_Tel}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -135,7 +135,7 @@
                             <span>传真</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg7}}</span>
+                            <span>{{club.Hsxx_Fax}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -143,7 +143,7 @@
                             <span>是否开启员工注册</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span class="gg-span">{{msg8}}</span>
+                            <span class="gg-span">{{club.register}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -151,7 +151,7 @@
                             <span>预售开始时间</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg9}}</span>
+                            <span>{{club.startTime}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -159,7 +159,7 @@
                             <span>预售截止时间</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg10}}</span>
+                            <span>{{club.preSaleTime}}</span>
                         </el-col>
                         </div>
                         <div class="left-table-main">
@@ -167,7 +167,7 @@
                             <span>邀请码</span>
                         </el-col>
                         <el-col :span="17" class="table-gg">
-                            <span>{{msg11}}</span>
+                            <span>{{club.invite}}</span>
                         </el-col>
                         </div>
                     </div>
@@ -191,6 +191,7 @@ export default {
     name:'clubhousebasic',
   data() {
     return {
+        club:JSON.parse(sessionStorage.getItem("club")),
         formLabelWidth: '130px',
         starttime: new Date(2016, 9, 10, 18, 40),
         endtime: new Date(2016, 9, 10, 18, 40),

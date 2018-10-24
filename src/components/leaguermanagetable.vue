@@ -122,7 +122,7 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row :default-sort = "{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                    <el-table id="rebateSetTable" highlight-current-row :default-sort = "{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="80px">
                             <template slot-scope="scope">
                                 <el-radio-group v-model="radio">
@@ -147,7 +147,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-button size="small" class="export">导出</el-button>
+                        <el-button size="small" class="export" @click="exportExcel">导出</el-button>
                         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                         </el-pagination>
                     </div>
@@ -326,7 +326,19 @@ export default {
       } else {
         this.btnText = "展开";
       }
-    }
+    },
+  //表格导出
+    exportExcel () {
+         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
+         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+         try {
+             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '会员客户管理数据表.xlsx')
+         } catch (e) { 
+           if (typeof console !== 'undefined')
+                console.log(e, wbout) 
+            }
+         return wbout
+     },
   }
 };
 </script>
