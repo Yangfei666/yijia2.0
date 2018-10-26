@@ -1,144 +1,140 @@
 <template>
-<!--潜在表格-->
-        <div class="practice-list">
-            <el-row>
-                <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="90px">
-                    <div class="quanbu">
-                        <div class="search-form">
-                            <el-form-item label="登记日期:">
-                                <el-col :span="24">
-                                    <el-date-picker v-model="formInline.date" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form">
-                            <el-form-item label="客户质量:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region" placeholder="请选择" style="width:200px">
-                                        <el-option label="A" value="A"></el-option>
-                                        <el-option label="B" value="B"></el-option>
-                                        <el-option label="C" value="C"></el-option>
-                                        <el-option label="D" value="D"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="所属会籍:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region3" placeholder="请选择" style="width:170px">
-                                        <el-option label="Angel" value="angel"></el-option>
-                                        <el-option label="MeiMei" value="meimei"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="多久未跟进:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region2" placeholder="请选择" style="width:200px">
-                                        <el-option label="一周" value="aweek"></el-option>
-                                        <el-option label="一个月" value="onemonth"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="quanbu2">
-                            <div class="search-form2">
-                                <el-form-item>
-                                    <el-button type="primary" @click="onSubmit">查询</el-button>
-                                    <el-button @click="resetForm">重置</el-button>
-                                </el-form-item>
-                            </div>
-                            <div class="corry">
-                                <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
-                                    <i class="el-icon-arrow-down" v-show="downIcon"></i>
-                                    <i class="el-icon-arrow-up" v-show="!downIcon"></i>
-                                </el-button>
-                            </div>
-                        </div>
-                    </div>
-                </el-form>
-            </el-row>
-            <div class="practice-center">
-                <el-row>
-                    <el-col :span="12">
-                        <div class="purple">
-                            <div class="add">
-                                <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加潜在客户</el-button>
-                                <template>
-                                    <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                        <Addlatent></Addlatent>
-                                    </el-dialog>
-                                </template>
-                            </div>
-                            <div class="add">
-                                <el-button type="text" class="add-p" @click="changeInfo">修改资料</el-button>
-                                <template>
-                                    <el-dialog title="修改资料" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                                        <Revisedatum :currentSelectRow="currentSelectRow"></Revisedatum>
-                                    </el-dialog>
-                                </template>
-                            </div>
-                            <div class="add">
-                                    <el-button type="text" class="add-p" @click="func()">客户跟进</el-button>
-                            </div>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="purple2">
-                            <el-col :span="10" class="search">
-                                <input class="search-input" maxlength="18" placeholder="搜索姓名/电话/卡号" />
-                                <i class="search-icon el-icon-search"></i>
-                            </el-col>
-                        </div>
-                    </el-col>
-                </el-row>
+  <!--潜在表格-->
+  <div class="practice-list">
+    <el-row>
+      <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
+        <div class="quanbu">
+          <div class="search-form">
+            <el-form-item label="登记日期:">
+              <el-col :span="24">
+                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form">
+            <el-form-item label="客户质量:">
+              <el-col :span="24">
+                <el-select v-model="formInline.quality" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in quality" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="所属会籍:">
+              <el-col :span="24">
+                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                  <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="多久未跟进:">
+              <el-col :span="24">
+                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                  <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="quanbu2">
+            <div class="search-form2">
+              <el-form-item>
+                <el-button type="primary" @click="getTableData(false)">查询</el-button>
+                <el-button @click="resetForm">重置</el-button>
+              </el-form-item>
             </div>
-            <div class="practice-table">
-        <el-row>
-            <el-col :span="24">
-                <el-table fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                    <el-table-column align="center" prop="radio" fixed width="80px">
-                        <template slot-scope="scope">
-                            <el-radio-group v-model="radio">
-                            <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                             </el-radio-group>
-                        </template>
-                    </el-table-column>
-                    <el-table-column align="left" prop="name" label="姓名" width="200px"></el-table-column>
-                    <el-table-column prop="tel" align="left" label="手机号" width="200px"></el-table-column>
-                    <el-table-column prop="hj" align="left" label="会籍" width="200px"></el-table-column>
-                    <el-table-column prop="djrq" align="left" label="登记日期" width="200px"></el-table-column>
-                    <el-table-column prop="quality" align="left" label="质量" width="200px"></el-table-column>
-                    <el-table-column prop="cjzt" align="left" label="成交状态" width="200px"></el-table-column>
-                    <el-table-column align="left" label="操作" fixed="right" width="320px">
-                        <template slot-scope="scope">
-                            <el-button @click="go" type="text" size="small">
-                                认领</el-button>
-                            <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">体验</el-button>
-                            <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">意向</el-button>
-                            <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
-                            <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
-                            <template>
-                                <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                                    <Change></Change>
-                                </el-dialog>
-                            </template>
-                            <template>
-                                <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible4">
-                                    <Addmember></Addmember>
-                                </el-dialog>
-                            </template>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <div class="block">
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-                    </el-pagination>
-                </div>
+            <div class="corry">
+              <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+                <i class="el-icon-arrow-down" v-show="downIcon"></i>
+                <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+              </el-button>
+            </div>
+          </div>
+        </div>
+      </el-form>
+    </el-row>
+    <div class="practice-center">
+      <el-row>
+        <el-col :span="12">
+          <div class="purple">
+            <div class="add">
+              <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加潜在客户</el-button>
+              <template>
+                <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible">
+                  <Addlatent></Addlatent>
+                </el-dialog>
+              </template>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="changeInfo">修改资料</el-button>
+              <template>
+                <el-dialog title="修改资料" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                  <Revisedatum :currentSelectRow="currentSelectRow"></Revisedatum>
+                </el-dialog>
+              </template>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="func()">客户跟进</el-button>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="purple2">
+            <el-col :span="10" class="search">
+              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+              <i class="search-icon el-icon-search" @click="search"></i>
             </el-col>
-        </el-row>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="practice-table">
+      <el-row>
+        <el-col :span="24">
+          <el-table id="rebateSetTable" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+            <el-table-column align="center" prop="radio" fixed width="80px">
+              <template slot-scope="scope">
+                <el-radio-group v-model="radio">
+                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
+                </el-radio-group>
+              </template>
+            </el-table-column>
+            <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
+            <el-table-column prop="prTel" align="left" label="手机号" width="200px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="200px"></el-table-column>
+            <el-table-column prop="prDate" align="left" label="登记日期" sortable width="200px"></el-table-column>
+            <el-table-column prop="prQuality" align="left" label="质量" width="200px"></el-table-column>
+            <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
+            <el-table-column align="left" label="操作" fixed="right" width="320px">
+              <template slot-scope="scope">
+                <el-button @click="go" type="text" size="small">
+                  认领</el-button>
+                <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">体验</el-button>
+                <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">意向</el-button>
+                <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
+                <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
+                <template>
+                  <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
+                    <Change></Change>
+                  </el-dialog>
+                </template>
+                <template>
+                  <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible4">
+                    <Addmember></Addmember>
+                  </el-dialog>
+                </template>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="block">
+            <el-button size="small" class="export" @click="exportExcel">导出</el-button>
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -147,9 +143,13 @@ import Addlatent from "@/components/addlatent";
 import Revisedatum from "@/components/revisedatum";
 import Change from "@/components/change";
 import Addmember from "@/components/addmember";
+import { requestLogin } from "@/api/api";
+import FileSaver from 'file-saver';
+import XLSX from 'xlsx';
 export default {
-  name:'latenttable',
-   components: {
+  name: "latenttable",
+  inject: ["reload"],
+  components: {
     Addlatent,
     Revisedatum,
     Change,
@@ -157,132 +157,193 @@ export default {
   },
   data() {
     return {
+      loading: true,
       downIcon: true,
       currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
-      input10: "",
-      value6: "",
       currentPage: 1,
       pagesize: 10,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-       btnText: "展开",
+      btnText: "展开",
       isShow: false,
-      radio:true,
+      radio: true,
+      quality: [
+        //客户质量
+        { value: "1", label: "A" },
+        { value: "2", label: "B" },
+        { value: "3", label: "C" },
+        { value: "4", label: "D" }
+      ],
+      follow: [
+        //多久未跟进
+        { value: "1", label: "一周以内" },
+        { value: "2", label: "1周到1月" },
+        { value: "3", label: "1月到2个月" },
+        { value: "4", label: "2个月以上" }
+      ],
       formInline: {
         user: "",
         date: "",
-        region: "",
-        region2: "",
-        region3: ""
+        quality: [],
+        adviser: [],
+        follow: []
       },
-      tableData: [
-        {
-          index:0,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:1,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:2,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:3,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:4,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:5,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        },
-        {
-          index:6,
-          name: "凌凌漆",
-          tel: "123232323",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          sex: "女",
-          wechat: "13456wechat",
-          quality: "A",
-          desc: "备注备注"
-        }
-      ]
+      tableData: [],
+      tableData2: [],
+      staff_info: [],
+      searchVal: ""
     };
   },
-  methods: {
-    radiochange(row) {
-      console.log(`当前: ${row}`);
+  created: function() {
+    this.getTableData(true); //初次进入页面
+    this.getCustomer();
+  },
+  watch: {
+    searchVal(val) {
+      //姓名电话
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
     },
-     handleClick3(row) {
+    quality(val) {
+      //质量
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    adviser(val) {
+      //会籍
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    follow(val) {
+      //跟进
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    }
+  },
+  methods: {
+    //获取表格数据
+    getTableData(type) {
+      let _this = this;
+      _this.loading = true;
+      let params = {};
+      if (!type) {
+        params = {
+          name: _this.prName, //姓名
+          tel: _this.prTel, //电话
+          quality: _this.formInline.quality, //质量
+          followUpTime: _this.formInline.follow, //多长时间未跟进
+          registerTimeStart: _this.formInline.date[0], //登记时间区间--开始
+          registerTimeEnd: _this.formInline.date[1] //登记时间区间--结束
+        };
+      }
+      requestLogin(
+        "/setPotentialCustomer/searchPotentialCustomers/1",
+        params,
+        "post"
+      )
+        .then(function(res) {
+          _this.loading = false;
+          let { errorCode, msg } = res;
+          if (errorCode) {
+            _this.tableData = "";
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+          _this.tableData = res;
+          _this.tableData2 = res;
+        })
+        .catch(error => {
+          _this.loading = false;
+          if (error) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    search() {
+      this.tableData = this.tableData2;
+      this.tableData = this.tableData2.filter(
+        i =>
+          i.prName.includes(this.searchVal) ||
+          i.prTel.includes(this.searchVal)
+      );
+    },
+    //获取会籍顾问列表
+    getCustomer() {
+      let _this = this;
+      requestLogin("/setDepositCustomer/create", {}, "get")
+        .then(function(res) {
+          let { staff_info } = res;
+          _this.staff_info = staff_info;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    //表格导出
+    exportExcel () {
+         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
+         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+         try {
+             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '潜在客户管理数据表.xlsx')
+         } catch (e) { 
+           if (typeof console !== 'undefined')
+                console.log(e, wbout) 
+            }
+         return wbout
+     },
+    Selectchange(val) {
+      console.log(val);
+    },
+    Selectchange2(val) {
+      console.log(val);
+    },
+    Selectchange3(val) {
+      console.log(val);
+    },
+    handleClick3(row) {
       console.log(row);
       alert("点击了");
     },
-    //查询
-    onSubmit() {
-      alert("submit!");
+    radiochange(row) {
+      console.log(`当前: ${row}`);
     },
     //重置
-     resetForm() {
-       alert("resetForm");
-      },
-    func (){
-        this.$router.push({path: '/Customer/potentialfollowup'});
+    resetForm() {
+      this.formInline.quality="";
+      this.formInline.date="";
+      this.formInline.follow="";
+      this.formInline.adviser="";
+    },
+    func() {
+      if (!this.currentSelectRow) {
+        this.$message({
+          message: "请先选择数据!",
+          type: "warning"
+        });
+        return;
+      }
+      this.$router.push({
+        path: "/Customer/potentialfollowup"
+      });
     },
     showToggle: function() {
       //表单收起展开
@@ -303,43 +364,33 @@ export default {
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
-       this.radio=row.index;
+      this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-      // if(row.radio == true){
-      //   this.radio = true;
-      // }else{
-      //   this.radio = false;
-      // }
     },
     go() {
-      let currentRoute =this.$route.path === "/Customer/bargain/latenttable" ? "bargain" : "latent";
+      let currentRoute =
+        this.$route.path === "/Customer/bargain/latenttable"
+          ? "bargain"
+          : "latent";
       console.log(currentRoute);
       //认领跳转
       this.$router.push("/Customer/" + currentRoute + "/claim");
     },
-     changeInfo() {
+    changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-        this.$alert("请先选择列表", "提示信息", {
-          confirmButtonText: "确定",
-          callback: action => {
-            this.$message({
-              type: "info",
-              message: `请先选择列表`
-            });
-          }
-        });
+        this.$message({ message: "请先选择数据!", type: "warning" });
       }
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-@import '@/styles/latenttable.scss';
+@import "@/styles/latenttable.scss";
 .practice-list {
   width: 97%;
   height: 100%;
@@ -361,7 +412,7 @@ export default {
         height: 35px;
         line-height: 1px;
       }
-      .el-button+.el-button{
+      .el-button + .el-button {
         height: 35px;
         line-height: 1px;
       }
@@ -389,7 +440,7 @@ export default {
         height: 35px;
         line-height: 1px;
       }
-      .el-button+.el-button{
+      .el-button + .el-button {
         height: 35px;
         line-height: 1px;
       }
@@ -481,6 +532,15 @@ export default {
         .el-pager li.active {
           color: #00bc71;
         }
+      }
+      .export {
+        height: 30px;
+        margin-top: 3.2%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00bc6a;
+        color: #00bc6a;
+        margin-left: -5%;
       }
     }
   }

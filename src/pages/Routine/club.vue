@@ -31,6 +31,11 @@
                             <Personnelstructure></Personnelstructure>
                         </template>
                     </el-tab-pane>
+                    <el-tab-pane label="会所封面管理" name="cover">
+                        <template>
+                            <Covermanagement></Covermanagement>
+                        </template>
+                    </el-tab-pane>
                 </el-tabs>
             </el-col>
            </el-row>
@@ -41,11 +46,13 @@
 <script>
 import Clubhousebasic from "@/components/clubhousebasic";
 import Personnelstructure from "@/components/personnelstructure";
+import Covermanagement from "@/components/covermanagement";
 export default {
      name:'club',
     components: {
       Clubhousebasic,
-      Personnelstructure
+      Personnelstructure,
+      Covermanagement
     },
   data() {
     return {

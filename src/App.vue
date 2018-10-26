@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
 
 <script>
 export default {
   name: "App",
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  data(){
+    return{
+      isRouterAlive:true
+    }
+  },
+  methods:{
+    reload(){
+      this.isRouterAlive = false
+      this.$nextTick(function(){
+        this.isRouterAlive = true
+      })
+    }
+  }
 };
 </script>
 
@@ -23,6 +41,23 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+.el-checkbox__inner:hover{
+  border-color:#00bc71;
+}
+.el-transfer-panel__item:hover{
+  color:#00bc71;
+}
+.el-loading-spinner .el-loading-text{
+  color:#00bc71;
+}
+.el-loading-spinner .path{-webkit-animation:loading-dash 1.5s ease-in-out infinite;animation:loading-dash 1.5s ease-in-out infinite;stroke-dasharray:90,150;stroke-dashoffset:0;stroke-width:2;stroke:#00bc71;stroke-linecap:round}
+.el-loading-spinner i{color:#00bc71}
+.el-table .descending .sort-caret.descending{
+  border-top-color:#00bc71;
+}
+.el-table .ascending .sort-caret.ascending{
+  border-bottom-color:#00bc71;
 }
 .el-tabs__nav {
   margin-left: 50px;
@@ -210,7 +245,7 @@ border-radius:3px
 .el-button--primary.is-disabled,
 .el-button--primary.is-disabled:active,
 .el-button--primary.is-disabled:focus,
-.el-button--primary.is-disabled:hover{color:#fff;background-color:#00bc71;border-color:#EDFAF5}
+.el-button--primary.is-disabled:hover{color:#fff;background-color:#ebebeb;border-color:#EDFAF5}
 .el-button--primary.is-plain:focus,
 .el-button--primary.is-plain:hover{background:#00bc71;border-color:#00bc71;color:#fff}
 .el-button--primary.is-plain:active{background:#00bc71;border-color:#00bc71;color:#fff;outline:0}

@@ -25,8 +25,8 @@
                 <div class="right-span">
                   <el-button type="text" class="link" @click="dialogFormVisible = true">办卡</el-button>
                       <template>
-                    <el-dialog title="创建会员卡" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <Foundmembercard></Foundmembercard>
+                    <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+                    <Addmember></Addmember>
                     </el-dialog>
                     </template>
                 </div>
@@ -65,13 +65,13 @@
 </div>
 </template>
 <script>
-import Foundmembercard from "@/components/foundmembercard";
+import Addmember from "@/components/addmember";
 import Addbargain from "@/components/addbargain";
 import Change from "@/components/change";
 export default {
   name:'experiencehome',
     components: {
-      Foundmembercard,
+      Addmember,
       Addbargain,
       Change
   },

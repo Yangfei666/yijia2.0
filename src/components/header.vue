@@ -57,8 +57,8 @@ import { requestLogin } from "../api/api";
                 input21: "",
                 applyimg: require('@/assets/apply.png'), //图片地址
                 applyimg2: require('@/assets/classify.png'), //图片地址
-                sysUserName: "Angle",
-                sysUserAvatar: "http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg",
+                sysUserName: "",
+                sysUserAvatar: "",
                 options:JSON.parse(sessionStorage.getItem("clubList")),
                 user:JSON.parse(sessionStorage.getItem("userInfo")),
                 club:JSON.parse(sessionStorage.getItem("club"))

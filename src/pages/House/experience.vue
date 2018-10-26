@@ -7,11 +7,11 @@
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>会所管理</el-breadcrumb-item>
-              <el-breadcrumb-item>体验卷管理</el-breadcrumb-item>
+              <el-breadcrumb-item>体验券管理</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
           <el-col :span="23" class="weber">
-            <span class="weber-span">体验卷管理</span>
+            <span class="weber-span">体验券管理</span>
           </el-col>
         </div>
       </el-col>
@@ -22,14 +22,14 @@
           <el-col :span="24">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加体验卷</el-button>
+                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加体验券</el-button>
                 <template>
-                  <el-dialog title="添加体验卷" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <!--添加体验卷-->
+                  <el-dialog title="添加体验券" :append-to-body="true" :visible.sync="dialogFormVisible">
+                    <!--添加体验券-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                      <el-form-item label="体验卷名称:" prop="cardname" :label-width="formLabelWidth">
+                      <el-form-item label="体验券名称:" prop="experiencename" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.cardname" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="售价(元):" prop="price" :label-width="formLabelWidth">
@@ -37,29 +37,29 @@
                             <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
-                        <el-form-item label="总次数:" prop="num" :label-width="formLabelWidth">
+                        <el-form-item label="总次数:" prop="number" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.num" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
-                        <el-form-item label="有效期(天数):" prop="datenum" :label-width="formLabelWidth">
+                        <el-form-item label="有效期(天数):" prop="termvalidity" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-input v-model="ruleForm.datenum" placeholder="请输入"></el-input>
+                            <el-input v-model="ruleForm.termvalidity" placeholder="请输入"></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                           <el-col :span="22">
-                            <el-radio-group v-model="status">
+                            <el-radio-group v-model="ruleForm.status">
                                 <el-radio :label="1">启用</el-radio>
-                                <el-radio :label="2">禁用</el-radio>
+                                <el-radio :label="0">禁用</el-radio>
                             </el-radio-group>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
                           <el-col :span="22">
                             <el-radio-group v-model="ruleForm.type">
-                                <el-radio :label="1">团课卷</el-radio>
-                                <el-radio :label="2">私教卷</el-radio>
+                                <el-radio :label="1">团课券</el-radio>
+                                <el-radio :label="0">私教券</el-radio>
                             </el-radio-group>
                             </el-col>
                         </el-form-item>
@@ -74,15 +74,15 @@
                 </template>
               </div>
               <div class="add">
-                <el-button type="text" class="p" @click="changeInfo">编辑体验卷</el-button>
+                <el-button type="text" class="p" @click="changeInfo">编辑体验券</el-button>
                 <template>
-                  <el-dialog title="编辑体验卷" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                  <el-dialog title="编辑体验券" :append-to-body="true" :visible.sync="dialogFormVisible2">
                     <Editexpersecurity :currentSelectRow="currentSelectRow"></Editexpersecurity>
                   </el-dialog>
                 </template>
               </div>
               <div class="add2">
-                <el-button type="text" class="p" @click="open2">删除体验卷</el-button>
+                <el-button type="text" class="p" @click="delexper">删除体验券</el-button>
               </div>
             </div>
           </el-col>
@@ -91,7 +91,7 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick" v-loading="listLoading">
+            <el-table v-loading="loading" element-loading-text="拼命加载中..." fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
                   <el-radio-group v-model="radio">
@@ -99,15 +99,15 @@
                   </el-radio-group>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" align="left" label="体验卷名称"></el-table-column>
-              <el-table-column prop="price" align="left" label="售价"></el-table-column>
-              <el-table-column prop="status" align="left" label="状态"></el-table-column>
+              <el-table-column prop="tkName" align="left" fixed label="体验券名称"></el-table-column>
+              <el-table-column prop="tkPrice" align="left" label="售价"></el-table-column>
+              <el-table-column prop="tkState" align="left" label="状态"></el-table-column>
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
-              <el-table-column prop="num" align="left" label="次数"></el-table-column>
-              <el-table-column prop="week" align="left" label="有效期(天数)"></el-table-column>
+              <el-table-column prop="frequency" align="left" label="次数"></el-table-column>
+              <el-table-column prop="vld" align="left" label="有效期(天数)"></el-table-column>
             </el-table>
             <div class="block">
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </div>
           </el-col>
@@ -118,7 +118,10 @@
 </template>
 <script>
 import Editexpersecurity from "@/components/editexpersecurity";
+import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 export default {
+  inject:['reload'],
   name: "experience",
   components: {
     Editexpersecurity
@@ -126,121 +129,50 @@ export default {
   data() {
     return {
       formLabelWidth: '130px',
-      num: 1,
-      status:1,
-      memcolor:1,
-      classtype:1,
-      type:1,
       disabled:false,
-      limitdate: [],
       currentSelectRow: "",
-      listLoading: false,
+      loading: true,
       dialogFormVisible: false,
       dialogFormVisible2: false,
       currentPage: 1,
       pagesize: 10,
       radio: true,
       ruleForm: {
-          cardname:'',//卡名称
+          experiencename:'',//体验券名称
           type: '',//类型
           price:'',//售价
-          datenum: '',//有效期
-          num:'',//总次数
+          termvalidity: '',//有效期
+          number:'',//总次数
           status:'',//状态
         },
         rules: {
-          cardname:[
-            {required: true, message: '请输入体验卷名称', trigger: 'blur' }
-          ],
-          type: [
-            { required: true, message: '请选择类型', trigger: 'change' }
-          ],
-          price: [
-            {required: true, message: '请输入售价', trigger: 'blur' }
-          ],
-          datenum: [
-            {required: true, message: '请输入有效期', trigger: 'blur' }
-          ],
-         num:[
-             {required: true, message: '请输入总次数', trigger: 'blur' }
-         ],
-         status:[
-             {required: true, message: '请选择状态', trigger: 'change'}
-         ]
+          experiencename:validate.experiencename,
+          type: validate.type,
+          price:validate.price,
+          termvalidity: validate.termvalidity,
+          number:validate.number,
+          status:validate.status
         },
-      tableData: [
-        {
-          index: 0,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index: 1,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:2,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:3,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:4,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:5,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        },
-        {
-          index:6,
-          name: "一对一私教",
-          price: "158.00",
-          status: "启用",
-          type: "私教卷",
-          num: "5",
-          week: "80",
-          datenum: "20"
-        }
-      ]
+      tableData: []
     };
+  },
+      created: function () {
+    //表格列表数据
+      let _this = this;
+      _this.loading = true;
+      requestLogin("/setExperienceVoucher",{},'get')
+        .then(function(res) {
+          _this.tableData = res;
+          _this.loading = false;
+        })
+        .catch(error => {
+          if(error.res){
+             this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
   },
   methods: {
     radiochange(row) {
@@ -261,10 +193,40 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
+    //添加体验券
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$confirm("确认提交吗？", "提示").then(() => {
+            this.addLoading = true;
+            var loginParams = {
+              tkName: this.ruleForm.experiencename, //劵名称
+              tkPrice: this.ruleForm.price, //劵价格
+              tkState: this.ruleForm.status, //状态
+              frequency: this.ruleForm.number, //次数
+              vld: this.ruleForm.termvalidity, //有效期
+              type: this.ruleForm.type //类型
+            };
+            requestLogin("/setExperienceVoucher", loginParams, "post")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible=false;
+              })
+              .catch(error => {
+                this.addLoading = false;
+                if (error.response) {
+                  this.$message({
+                    message: "提交失败,请稍候再试",
+                    type: "error"
+                  });
+                }
+              });
+          });
           } else {
             console.log('error submit!!');
             return false;
@@ -285,35 +247,44 @@ export default {
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
-        this.$alert("请先选择列表", "提示信息", {
-          confirmButtonText: "确定",
-          callback: action => {
-            this.$message({
-              type: "info",
-              message: `请先选择列表`
-            });
-          }
-        });
+        this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
-    open2() {
-      this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
+    //删除体验券
+      delexper() {
+      let _this = this;
+      if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+      this.$confirm("确认删除该条记录吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.tableData = this.tableData.slice(1);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+          _this.loading = true;
+          console.log(_this.currentSelectRow.id);
+          requestLogin(
+            "/setExperienceVoucher/" + _this.currentSelectRow.id,
+            {},
+            "delete"
+          ).then(response => {
+            _this.loading = false;
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            });
           });
+          this.reload();
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+          if (error.response) {
+            this.$message({
+              message: "对不起,该员工还有正在跟进的定金客户没有交接",
+              type: "error"
+            });
+          }
         });
     }
   }

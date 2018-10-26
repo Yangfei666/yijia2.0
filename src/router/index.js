@@ -40,7 +40,7 @@ const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工�
 
 const HouseRole = resolve => require(['@/pages/House/role'], resolve)//角色权限管理
 
-const HouseExperience = resolve => require(['@/pages/House/experience'], resolve)//体验卷设置
+const HouseExperience = resolve => require(['@/pages/House/experience'], resolve)//体验券设置
 
 const HouseMembership = resolve => require(['@/pages/House/membership'], resolve)//会员卡管理
 
@@ -121,7 +121,7 @@ let router = new Router({
         {
             path: '/login',
             name: 'Login',
-            component: Login//登录
+            component: Login,//登录
         }, {
             path: '/home',
             name: 'Home',
@@ -302,7 +302,7 @@ let router = new Router({
             children: [
                 { path: '/House/staff', component: HouseStaff, name: '员工管理', menuShow: true },//员工管理
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
-                { path: '/House/experience', component: HouseExperience, name: '体验卷设置', menuShow: true },//体验卷设置
+                { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
                 {
@@ -315,15 +315,30 @@ let router = new Router({
                         { path: '/House/visualizationchart/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
                     ]
                 },
-                { path: '/House/403', component: Forbidden, name: '403', menuShow: false },//403
-                { path: '/House/404', component: NotFound, name: '404', menuShow: false },//404
-                { path: '/House/500', component: ServerError, name: '500', menuShow: false }//500
+                {
+                    path: '/House/403', //403
+                    component: Forbidden, 
+                    name: '403', 
+                    menuShow: false
+                },
+                { 
+                    path: '/House/404', //404
+                    component: NotFound, 
+                    name: '404', 
+                    menuShow: false 
+                },
+                { 
+                    path: '/House/500', //500
+                    component: ServerError, 
+                    name: '500', 
+                    menuShow: false 
+                },
             ]
         },
         {
             path: '*',
             hidden: true,
-            redirect: { path: '/House/403' }
+            redirect: { path: '/403' }
         }
     ]
 })

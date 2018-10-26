@@ -11,8 +11,8 @@
     </el-form-item>
     <el-form-item prop="verifycode" class="identifyform" v-if="!isAdmin">
       <div class="identifybox">
-      <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput" style="width:60%"></el-input>
-      <el-col :span="22">
+      <el-input type="text" v-model="account.verifycode" placeholder="验证码" class="identifyinput" style="width:98%"></el-input>
+      <el-col :span="24">
         <img :src="img" alt="验证码" title="点击换一张" @click="getimg"/>
       </el-col>
       </div>
@@ -27,7 +27,7 @@
     </el-select>
     </el-form-item>
     <el-form-item class="form-main" v-if="isAdmin">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="confirmClub">确定</el-button>
+      <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="confirmClub" :loading="logining">确定</el-button>
     </el-form-item>
   </el-form>
     </div>
@@ -49,8 +49,8 @@ export default {
       img : 'http://192.168.2.111/pc/v1.Login/getVerification',
       num:0,
         account: {
-          username: '18550105300',
-          pwd: '123456',
+          username: '18812345678',
+          pwd: '1234567',
           verifycode:'',
           door:''
         },
@@ -75,7 +75,6 @@ export default {
             num: this.num
           };
           requestLogin('/getToken', loginParams).then(data => {
-              console.log(data);
               this.logining = false;
               sessionStorage.setItem("userInfo", JSON.stringify(data.user)); //缓存用户信息
               sessionStorage.setItem("access-token", data.token); //缓存token
@@ -91,12 +90,14 @@ export default {
             .catch(error => {
               console.log(this.$message);
               this.logining = false;
-              if (error.response) {
-                this.$message({
-                  message: "登录失败,请检查输入是否正确!",
-                  type: "error"
-                });
-              }
+              let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
             });
         } else {
           console.log("....");
@@ -106,7 +107,7 @@ export default {
     },
     confirmClub () {
       requestLogin('/againGetToken/'+this.account.door).then(data => {
-        console.log(data);
+        this.logining = true;
         sessionStorage.setItem("access-token", data);//换成有权限的token
         this.clubList.forEach(item => {
           if (item.Hsxx_Hsid == this.account.door) {
@@ -115,9 +116,10 @@ export default {
         });
         this.$router.push({ path: "/home/main" });
       }).catch(error => {
+        this.logining = false;
         if (error.response) {
-          this.$message({
-            message: "对不起,选择门店失败",
+        this.$message({
+            message: "请选择所属门店",
             type: "error"
           });
         }

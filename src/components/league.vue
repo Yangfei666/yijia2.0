@@ -298,7 +298,7 @@ export default {
       &.top {
         border-width: 12px;
         border-style: solid dashed dashed;
-        border-color: transparent transparent #e9eef3 transparent;
+        border-color: transparent transparent #ddd transparent;
         left: 42%;
         top: 75%;
       }

@@ -1,8 +1,8 @@
 <template>
-<!--体验表格-->
+    <!--体验表格-->
     <div class="practice-list">
         <el-row>
-            <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="90px">
+            <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
                 <div class="quanbu">
                     <div class="search-form">
                         <el-form-item label="体验劵种:">
@@ -14,16 +14,15 @@
                     <div class="search-form">
                         <el-form-item label="登记日期:">
                             <el-col :span="24">
-                                <el-date-picker v-model="formInline.date" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </div>
                     <div class="search-form" v-show="isShow">
-                        <el-form-item label="卡状态:">
+                        <el-form-item label="成交状态:">
                             <el-col :span="24">
-                                <el-select v-model="formInline.region" placeholder="请选择" style="width:200px">
-                                    <el-option label="已激活" value="activate"></el-option>
-                                    <el-option label="已过期" value="overdue"></el-option>
+                                 <el-select v-model="formInline.cardstatus" placeholder="请选择" style="width:200px" @change="Selectchange">
+                                    <el-option v-for="item in cardstatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                 </el-select>
                             </el-col>
                         </el-form-item>
@@ -31,35 +30,33 @@
                     <div class="search-form" v-show="isShow">
                         <el-form-item label="多久未跟进:" label-width="100px">
                             <el-col :span="24">
-                                <el-select v-model="formInline.region2" placeholder="请选择" style="width:200px">
-                                    <el-option label="一周" value="aweek"></el-option>
-                                    <el-option label="一个月" value="onemonth"></el-option>
+                                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                                    <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                 </el-select>
                             </el-col>
                         </el-form-item>
                     </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="所属会籍:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region3" placeholder="请选择" style="width:170px">
-                                        <el-option label="Angel" value="angel"></el-option>
-                                        <el-option label="MeiMei" value="meimei"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form">
-                            <el-form-item label-width="40px">
-                                <el-button type="primary" @click="onSubmit">查询</el-button>
-                                <el-button>重置</el-button>
-                            </el-form-item>
-                        </div>
-                        <div class="corry">
-                            <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
-                                <i class="el-icon-arrow-down" v-show="downIcon"></i>
-                                <i class="el-icon-arrow-up" v-show="!downIcon"></i>
-                            </el-button>
-                        </div>
+                    <div class="search-form" v-show="isShow">
+                        <el-form-item label="所属会籍:">
+                            <el-col :span="24">
+                                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                                    <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                                </el-select>
+                            </el-col>
+                        </el-form-item>
+                    </div>
+                    <div class="search-form">
+                        <el-form-item label-width="40px">
+                            <el-button type="primary" @click="getTableData(false)">查询</el-button>
+                            <el-button @click="resetForm">重置</el-button>
+                        </el-form-item>
+                    </div>
+                    <div class="corry">
+                        <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+                            <i class="el-icon-arrow-down" v-show="downIcon"></i>
+                            <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+                        </el-button>
+                    </div>
                 </div>
             </el-form>
         </el-row>
@@ -76,22 +73,18 @@
                             </template>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/tastefollowup" style="text-decoration:none;">
-                                <el-button type="text" class="add-p">客户跟进</el-button>
-                            </router-link>
+                            <el-button type="text" class="add-p" @click="taste()">客户跟进</el-button>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/experiencehome" style="text-decoration:none;">
-                                <el-button type="text" class="add-p">体验客户主页</el-button>
-                            </router-link>
+                            <el-button type="text" class="add-p" @click="exper()">体验客户主页</el-button>
                         </div>
                     </div>
                 </el-col>
                 <el-col :span="12">
                     <div class="purple2">
                         <el-col :span="10" class="search">
-                            <input class="search-input" maxlength="18" placeholder="搜索姓名/电话/卡号" />
-                            <i class="search-icon el-icon-search"></i>
+                            <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+                            <i class="search-icon el-icon-search" @click="search"></i>
                         </el-col>
                     </div>
                 </el-col>
@@ -100,24 +93,24 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="listLoading" style="width: 100%">
+                    <el-table id="rebateSetTable" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="70px">
                             <template slot-scope="scope">
-                               <el-radio-group v-model="radio">
-                                <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                               </el-radio-group>
+                                <el-radio-group v-model="radio">
+                                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
+                                </el-radio-group>
                             </template>
                         </el-table-column>
-                        <el-table-column align="left" prop="name" label="姓名" width="150px"></el-table-column>
-                        <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
-                        <el-table-column prop="jz" align="left" label="劵种" width="150px"></el-table-column>
-                        <el-table-column prop="fkfs" align="left" label="付款方式" width="150px"></el-table-column>
-                        <el-table-column prop="je" align="left" label="金额" width="150px"></el-table-column>
-                        <el-table-column prop="hj" align="left" label="会籍" width="150px"></el-table-column>
-                        <el-table-column prop="djrq" align="left" label="登记日期" width="150px"></el-table-column>
-                        <el-table-column prop="cjzt" align="left" label="成交状态" width="150px"></el-table-column>
-                        <el-table-column prop="wcjyy" align="left" label="未成交原因" width="230px"></el-table-column>
-                        <el-table-column prop="cz" align="left" label="操作" fixed="right" width="260px">
+                        <el-table-column prop="exName" align="left" label="姓名" fixed width="150px"></el-table-column>
+                        <el-table-column prop="exTel" align="left" label="手机号" width="180px"></el-table-column>
+                        <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
+                        <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
+                        <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
+                        <el-table-column prop="exHjgwName" align="left" label="会籍" width="180px"></el-table-column>
+                        <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
+                        <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
+                        <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
+                        <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
                             <template slot-scope="scope">
                                 <el-button @click="go" type="text" size="small">认领</el-button>
                                 <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
@@ -130,15 +123,8 @@
                         </el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-pagination 
-                        @size-change="handleSizeChange" 
-                        @current-change="handleCurrentChange" 
-                        :current-page="currentPage" 
-                        background 
-                        :page-sizes="[10, 20, 30, 40]" 
-                        :page-size="pagesize" 
-                        layout="total, sizes, prev, pager, next, jumper" 
-                        :total="tableData.length">
+                        <el-button size="small" class="export" @click="exportExcel">导出</el-button>
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                         </el-pagination>
                     </div>
                 </el-col>
@@ -149,8 +135,12 @@
 <script>
 import Addpractice from "@/components/addpractice";
 import Change from "@/components/change";
+import { requestLogin } from "@/api/api";
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "practicetable",
+  inject: ["reload"],
   components: {
     Addpractice,
     Change
@@ -158,7 +148,7 @@ export default {
   data() {
     return {
       downIcon: true,
-      listLoading: false,
+      loading: true,
       dialogFormVisible: false,
       dialogFormVisible2: false,
       input10: "",
@@ -167,104 +157,141 @@ export default {
       pagesize: 10,
       btnText: "展开",
       isShow: false,
-      radio:true,
+      radio: true,
       formInline: {
         user: "",
         date: "",
-        region: "",
-        region2: "",
-        region3: ""
+        cardstatus: "",
+        follow: "",
+        adviser: ""
       },
-      tableData: [
-        {
-          index:0,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:1,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:2,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:3,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:4,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:5,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        },
-        {
-          index:6,
-          name: "挖煤",
-          tel: "123232323",
-          jz: "大众卡",
-          fkfs: "微信",
-          je: "1200",
-          hj: "Angel",
-          djrq: "2018-07-25",
-          cjzt: "跟进中",
-          wcjyy: "--"
-        }
+      tableData: [],
+      tableData2: [],
+      searchVal: "",
+      staff_info: [],
+      follow: [
+        //多久未跟进
+        { value: "1", label: "一周以内" },
+        { value: "2", label: "1周到1月" },
+        { value: "3", label: "1月到2个月" },
+        { value: "4", label: "2个月以上" }
+      ],
+      cardstatus:[
+        //成交状态
+        { value: "0", label: "已成交" },
+        { value: "1", label: "未成交" },
+        { value: "2", label: "跟进中" }
       ]
     };
   },
+  watch: {
+    searchVal(val) {
+      //姓名电话
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    adviser(val) {
+      //会籍
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    follow(val) {
+      //跟进
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    }
+  },
+  created: function() {
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
+  },
   methods: {
-       radiochange(row) {
+    //获取表格数据
+    getTableData(type) {
+      let _this = this;
+      _this.loading = true;
+      let params = {};
+      if (!type) {
+        params = {
+          name: _this.exName, //姓名
+          tel: _this.exTel, //电话
+          followUpTime: _this.formInline.follow, //多长时间未跟进
+          registerTimeStart: _this.formInline.date[0], //登记时间区间--开始
+          registerTimeEnd: _this.formInline.date[1], //登记时间区间--结束
+          voucherType: _this.formInline.user, //券名称
+          status: _this.formInline.cardstatus, //成交状态
+        };
+      }
+      requestLogin(
+        "/setExperienceCustomer/searchExperienceCustomers/1",
+        params,
+        "post"
+      )
+        .then(function(res) {
+          _this.loading = false;
+          let { errorCode, msg } = res;
+          if (errorCode) {
+            _this.tableData = "";
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+          _this.tableData = res;
+          _this.tableData2 = res;
+        })
+        .catch(error => {
+          _this.loading = false;
+          if (error) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    //获取会籍顾问列表
+    getCustomer() {
+      let _this = this;
+      requestLogin("/setDepositCustomer/create", {}, "get")
+        .then(function(res) {
+          let { staff_info } = res;
+          _this.staff_info = staff_info;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    search() {
+      this.tableData = this.tableData2;
+      this.tableData = this.tableData2.filter(
+        i =>
+          i.exName.includes(this.searchVal) || i.exTel.includes(this.searchVal)
+      );
+    },
+    Selectchange3(val){
+        console.log(val);
+    },
+    Selectchange2(val){
+        console.log(val);
+    },
+    Selectchange(val){
+        console.log(val);
+    },
+    radiochange(row) {
       console.log(`当前: ${row}`);
     },
     handleClick3(row) {
@@ -279,25 +306,38 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-    onSubmit() {
-      console.log("submit!");
+    resetForm() {
+        this.formInline.user= "";        
+        this.formInline.date= "";        
+        this.formInline.cardstatus= "";        
+        this.formInline.follow= "";        
+        this.formInline.adviser= "";  
     },
     rowClick(row, event, column) {
-       this.radio=row.index;
+      this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-      // if(row.radio == true){
-      //   this.radio = true;
-      // }else{
-      //   this.radio = false;
-      // }
     },
     go() {
       let currentRoute = this.$route.path.split("/")[2];
       console.log(currentRoute);
       //认领跳转
       this.$router.push("/Customer/" + currentRoute + "/claim");
+    },
+    taste() {
+      if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+      this.$router.push({ path: "/Customer/tastefollowup" });
+    },
+    exper() {
+      if (!this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
+      this.$router.push({ path: "/Customer/experiencehome" });
     },
     showToggle: function() {
       this.isShow = !this.isShow;
@@ -307,12 +347,32 @@ export default {
       } else {
         this.btnText = "展开";
       }
+    },
+    //表格导出
+    exportExcel() {
+      var wb = XLSX.utils.table_to_book(
+        document.querySelector("#rebateSetTable")
+      );
+      var wbout = XLSX.write(wb, {
+        bookType: "xlsx",
+        bookSST: true,
+        type: "array"
+      });
+      try {
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "体验客户管理数据表.xlsx"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.log(e, wbout);
+      }
+      return wbout;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-@import '@/styles/latenttable.scss';
+@import "@/styles/latenttable.scss";
 .practice-list {
   width: 97%;
   height: 100%;
@@ -334,12 +394,12 @@ export default {
         height: 35px;
         line-height: 1px;
       }
-      .el-button+.el-button{
+      .el-button + .el-button {
         height: 35px;
         line-height: 1px;
       }
     }
-     .corry {
+    .corry {
       height: 37px;
       line-height: 37px;
       float: left;
@@ -432,6 +492,15 @@ export default {
         .el-pager li.active {
           color: #00bc71;
         }
+      }
+      .export {
+        height: 30px;
+        margin-top: 2%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00bc6a;
+        color: #00bc6a;
+        margin-left: -5%;
       }
     }
   }
