@@ -122,7 +122,7 @@
                         </div>
                       </el-form-item>
                       <el-form-item class="primary">
-                        <el-button type="primary" @click="Modifypsd('ruleForm2')">提交</el-button>
+                        <el-button type="primary" @click="Modifypsd('ruleForm2')" :loading="addLoading">提交</el-button>
                         <el-button @click="resetForm('ruleForm2')">重置</el-button>
                       </el-form-item>
                     </el-form>
@@ -182,7 +182,7 @@
                             <el-form-item class="dialog-footer">
                               <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                 <el-button @click="resetForm('ruleForm')">重置</el-button>
-                                <el-button type="primary" @click="addroom('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                <el-button type="primary" @click="addroom('ruleForm')"  :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                               </el-col>
                             </el-form-item>
                           </el-form>
@@ -250,7 +250,7 @@
                             <el-form-item class="dialog-footer">
                               <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                 <el-button @click="resetforbidden('ruleForm3')">重置</el-button>
-                                <el-button type="primary" @click="addforbidden('ruleForm3')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                <el-button type="primary" @click="addforbidden('ruleForm3')"  :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                               </el-col>
                             </el-form-item>
                           </el-form>
@@ -324,6 +324,7 @@ export default {
       radio: true,
       value1: "",
       loading: false,
+      addLoading:false,
       formLabelWidth: "130px",
       downIcon: true,
       downIcon2: false,

@@ -12,10 +12,6 @@
         </el-col>
         <el-col :span="23" class="weber">
             <span class="weber-span">体验客户管理</span>
-            <div class="search">
-                <input class="search-input" maxlength="18" placeholder="搜索姓名/电话/卡号"/>
-                <i class="search-icon el-icon-search"></i>
-            </div>
         </el-col>
     </div>
     </el-col>

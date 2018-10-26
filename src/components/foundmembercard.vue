@@ -102,7 +102,6 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      type:2,
       data2: [],
       shoproom:[],
       limitdate: [],
@@ -225,6 +224,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.shoproom = ""
     }
   }
 };

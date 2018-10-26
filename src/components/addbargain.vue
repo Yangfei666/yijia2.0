@@ -36,11 +36,12 @@
             <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
               <el-col :span="22">
                  <el-radio-group v-model="ruleForm.mode">
-                    <el-radio :label="3">店内到付</el-radio>
-                    <el-radio :label="6">大众</el-radio>
-                    <el-radio :label="9">美团</el-radio>
-                    <el-radio :label="9">会籍代收</el-radio>
-                    <el-radio :label="9">未支付</el-radio>
+                    <el-radio :label="1">微信</el-radio>
+                    <el-radio :label="2">支付宝</el-radio>
+                    <el-radio :label="3">现金</el-radio>
+                    <el-radio :label="4">银行卡</el-radio>
+                    <el-radio :label="5">信用卡</el-radio>
+                    <el-radio :label="6">手机银行转账</el-radio>
                 </el-radio-group>
                 </el-col>
             </el-form-item>

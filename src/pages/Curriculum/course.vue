@@ -242,13 +242,6 @@ export default {
               price: this.ruleForm.price, //价格
               file: this.imgfile //课程封面
             };
-            // var loginParams = new FormData();
-            // loginParams.append('file', file);
-            // loginParams.append('kcName', this.ruleForm.classname);
-            // loginParams.append('ZT', this.ruleForm.status);
-            // loginParams.append('BZ', this.ruleForm.desc);
-            // loginParams.append('kcHot', this.ruleForm.heat);
-            // loginParams.append('price', this.ruleForm.price);
             console.log(loginParams);
             requestLogin("/setCurSubInfo", loginParams, "post")
               .then(data => {

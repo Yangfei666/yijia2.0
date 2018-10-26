@@ -9,9 +9,11 @@
             </el-form-item>
             <el-form-item label="类型:" prop="ctType" :label-width="formLabelWidth">
               <el-col :span="22">
-                    <el-radio label="期限卡" value="1" v-model="currentSelectRow.ctType"></el-radio>
-                    <el-radio label="次数卡" value="2" v-model="currentSelectRow.ctType"></el-radio>
-                    <el-radio label="金额卡" value="3" v-model="currentSelectRow.ctType"></el-radio>
+                <el-radio-group v-model="currentSelectRow.ctType" @change="radiochange">
+                    <el-radio label="期限卡" value="1"></el-radio>
+                    <el-radio label="次数卡" value="2"></el-radio>
+                    <el-radio label="金额卡" value="3"></el-radio>
+                </el-radio-group>
                 </el-col>
             </el-form-item>
              <el-form-item label="课程种类:" prop="ctIsIsPrivate" :label-width="formLabelWidth">
@@ -36,7 +38,7 @@
                 <el-input v-model="currentSelectRow.CTvalidity"></el-input>
                 </el-col>
             </el-form-item>
-             <el-form-item label="次数:" prop="number" :label-width="formLabelWidth" v-if="ctType == 2">
+             <el-form-item label="次数:" prop="Ctnum" :label-width="formLabelWidth" v-show="currentSelectRow.ctType == '次数卡'">
               <el-col :span="22">
                 <el-input v-model="currentSelectRow.Ctnum"></el-input>
               </el-col>
@@ -52,15 +54,15 @@
             <el-form-item label="限制日期(可用):" prop="CTdate" :label-width="formLabelWidth">
               <el-col :span="22">
                  <el-checkbox-group v-model="currentSelectRow.CTdate" @change="handleCheckChange">
-                    <el-checkbox v-for="i in limit" :label="i.id" :key="i.id">{{i.id}}</el-checkbox>
-                </el-checkbox-group>
+                 <el-checkbox v-for="i in limit" :label="i" :key="i">{{i}}</el-checkbox>
+               </el-checkbox-group>
                 </el-col>
             </el-form-item>
              <el-form-item label="状态:" prop="CTstate" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-radio-group v-model="currentSelectRow.CTState">
-                    <el-radio label="启用" value="1"></el-radio>
-                    <el-radio label="禁用" value="2"></el-radio>
+                <el-radio-group v-model="currentSelectRow.CTstate">
+                    <el-radio label="启用" value="1" ></el-radio>
+                    <el-radio label="禁用" value="2" ></el-radio>
                 </el-radio-group>
                 </el-col>
             </el-form-item>
@@ -70,9 +72,9 @@
               <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
                 </el-col>
             </el-form-item>
-             <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
+             <el-form-item label="选择可用门店:" prop="club_info" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}"></el-transfer>
+                <el-transfer filterable v-model="club_info" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}"></el-transfer>
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">
@@ -95,16 +97,19 @@ export default {
     data() {
      return {
         ctType:2,
+        Ctnum:"",
         data2:[],
         shoproom: [],
+        CTdate:[],
         startTime: '',
         endTime: '',
         addLoading: false,
         dialogFormVisible: false,
         formLabelWidth: '130px',
         value:'',
-        limitdate: [],
-        limit:cityOptions
+        // limit: [],
+        limit:cityOptions,
+        club_info:[]
      }
     },
     mounted:function(){
@@ -118,20 +123,20 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-              CTName: this.currentSelectRow.cardname, //卡名称
-              CTjg: this.currentSelectRow.price, //价格
-              CTstate: this.currentSelectRow.status, //状态
-              CTxDate_Val: this.currentSelectRow.num, //每周限用次数
-              CTxTime_1S: this.currentSelectRow.startTime, //限用时间段--开始
-              CTxTime_1E: this.currentSelectRow.endTime, //限用时间段--结束
-              ColorCard: this.currentSelectRow.memcolor, //颜色
-              ctNotes: this.currentSelectRow.role, //备注
-              ctType: this.currentSelectRow.type, //类型
-              CTdate: this.currentSelectRow.limitdate, //限制日期
-              CTvalidity: this.currentSelectRow.date, //有效期
-              Ctnum: this.currentSelectRow.number, //次数
-              ctIsIsPrivate: this.currentSelectRow.classtype, //课程类别
-              clubRelation: this.currentSelectRow.shoproom //连锁店id
+              CTName: this.currentSelectRow.CTName, //卡名称
+              CTjg: this.currentSelectRow.CTjg, //价格
+              CTstate: this.currentSelectRow.CTstate, //状态
+              CTxDate_Val: this.currentSelectRow.CTxDate_Val, //每周限用次数
+              CTxTime_1S: this.currentSelectRow.CTxTime_1S, //限用时间段--开始
+              CTxTime_1E: this.currentSelectRow.CTxTime_1E, //限用时间段--结束
+              ColorCard: this.currentSelectRow.ColorCard, //颜色
+              ctNotes: this.currentSelectRow.ctNotes, //备注
+              ctType: this.currentSelectRow.ctType, //类型
+              CTdate: this.currentSelectRow.CTdate, //限制日期
+              CTvalidity: this.currentSelectRow.CTvalidity, //有效期
+              Ctnum: this.currentSelectRow.Ctnum, //次数
+              ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate, //课程类别
+              clubRelation: this.currentSelectRow.clubRelation //连锁店id
             };
             requestLogin("/setCardType", loginParams, "post")
               .then(data => {
@@ -177,12 +182,16 @@ export default {
           }
         });
     },
+    radiochange(val){
+        console.log(val, 'val');
+        console.log(this.currentSelectRow.Ctnum, 'input的值');
+    },
      getSelectItem(val) {
       this.currentSelectRow.shoproom = val;
       console.log(val)
     },
     handleCheckChange(val) {
-      console.log(this.currentSelectRow.limit);
+      console.log(this.currentSelectRow.CTdate);
     },
       resetForm(formName) {
         this.$refs[formName].resetFields();

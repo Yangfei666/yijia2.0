@@ -44,7 +44,7 @@
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                          <Carddetails :currentSelectRow2="currentSelectRow2"></Carddetails>
+                          <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
                         </el-dialog>
                       </template>
                     </div>
@@ -92,7 +92,7 @@
                     <el-table-column prop="CTdate" align="left" label="限制星期" width="250px"></el-table-column>
                     <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="230px"></el-table-column>
                     <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="150px"></el-table-column>
-                    <el-table-column prop="CTState" align="left" label="状态" fixed="right" width="160px"></el-table-column>
+                    <el-table-column prop="CTstate" align="left" label="状态" width="150px" fixed="right"></el-table-column>
                   </el-table>
                   <div class="block">
                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -129,7 +129,7 @@
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible6">
-                          <Carddetails :currentSelectRow="currentSelectRow2"></Carddetails>
+                          <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
                         </el-dialog>
                       </template>
                     </div>
@@ -177,7 +177,7 @@
                     <el-table-column prop="CTdate" align="left" label="限制星期" width="250px"></el-table-column>
                     <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="230px"></el-table-column>
                     <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="150px"></el-table-column>
-                    <el-table-column prop="CTState" align="left" label="状态" fixed="right" width="160px"></el-table-column>
+                    <el-table-column prop="CTstate" align="left" label="状态" width="150px" fixed="right"></el-table-column>
                   </el-table>
                   <div class="block">
                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">

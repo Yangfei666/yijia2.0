@@ -1,20 +1,20 @@
 <template>
-<!--会员表格-->
+    <!--会员表格-->
     <div class="practice-list">
         <el-row>
-            <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="90px">
+            <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
                 <div class="quanbu">
                     <div class="search-form">
                         <el-form-item label="会员卡种:">
                             <el-col :span="24">
-                                <el-input v-model="formInline.user" placeholder="请输入" clearable style="width:170px;"></el-input>
+                                <el-input v-model="formInline.membercard" placeholder="请输入" clearable style="width:170px;"></el-input>
                             </el-col>
                         </el-form-item>
                     </div>
                     <div class="search-form">
                         <el-form-item label="到期时间:">
                             <el-col :span="24">
-                                <el-date-picker v-model="formInline.date" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
                             </el-col>
                         </el-form-item>
                     </div>
@@ -38,50 +38,47 @@
                             </el-col>
                         </el-form-item>
                     </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="所属会籍:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region3" placeholder="请选择" style="width:170px">
-                                        <el-option label="Angel" value="angel"></el-option>
-                                        <el-option label="MeiMei" value="meimei"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="卡状态:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region" placeholder="请选择" style="width:230px">
-                                        <el-option label="已激活" value="activate"></el-option>
-                                        <el-option label="已过期" value="overdue"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form" v-show="isShow">
-                            <el-form-item label="多久未跟进:">
-                                <el-col :span="24">
-                                    <el-select v-model="formInline.region2" placeholder="请选择" style="width:210px">
-                                        <el-option label="一周" value="aweek"></el-option>
-                                        <el-option label="一个月" value="onemonth"></el-option>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="search-form">
-                            <el-form-item label-width="40px">
-                                <el-col :span="24">
-                                <el-button type="primary" @click="onSubmit">查询</el-button>
-                                <el-button>重置</el-button>
-                                </el-col>
-                            </el-form-item>
-                        </div>
-                        <div class="corry">
-                            <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
-                                <i class="el-icon-arrow-down" v-show="downIcon"></i>
-                                <i class="el-icon-arrow-up" v-show="!downIcon"></i>
-                            </el-button>
-                        </div>
+                    <div class="search-form" v-show="isShow">
+                        <el-form-item label="所属会籍:">
+                            <el-col :span="24">
+                                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                                    <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                                </el-select>
+                            </el-col>
+                        </el-form-item>
+                    </div>
+                    <div class="search-form" v-show="isShow">
+                        <el-form-item label="卡状态:">
+                            <el-col :span="24">
+                                <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange">
+                                    <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                </el-select>
+                            </el-col>
+                        </el-form-item>
+                    </div>
+                    <div class="search-form" v-show="isShow">
+                        <el-form-item label="多久未跟进:">
+                            <el-col :span="24">
+                                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                                    <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                </el-select>
+                            </el-col>
+                        </el-form-item>
+                    </div>
+                    <div class="search-form">
+                        <el-form-item label-width="40px">
+                            <el-col :span="24">
+                                <el-button type="primary" @click="getTableData(false)">查询</el-button>
+                                <el-button @click="resetForm">重置</el-button>
+                            </el-col>
+                        </el-form-item>
+                    </div>
+                    <div class="corry">
+                        <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+                            <i class="el-icon-arrow-down" v-show="downIcon"></i>
+                            <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+                        </el-button>
+                    </div>
                 </div>
             </el-form>
         </el-row>
@@ -98,22 +95,18 @@
                             </template>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/memberfollowup" style="text-decoration:none;">
-                                <el-button type="text" class="add-b">会员跟进</el-button>
-                            </router-link>
+                            <el-button type="text" class="add-b" @click="func2()">会员跟进</el-button>
                         </div>
                         <div class="add">
-                            <router-link to="/Customer/membershiphome" style="text-decoration:none;">
-                                <el-button type="text" class="add-b">会员主页</el-button>
-                            </router-link>
+                            <el-button type="text" class="add-b" @click="zhuye()">会员主页</el-button>
                         </div>
                     </div>
                 </el-col>
                 <el-col :span="12">
                     <div class="purple2">
                         <el-col :span="10" class="search">
-                            <input class="search-input" maxlength="18" placeholder="搜索姓名/电话/卡号" />
-                            <i class="search-icon el-icon-search"></i>
+                            <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话/卡号" />
+                            <i class="search-icon el-icon-search" @click="search"></i>
                         </el-col>
                     </div>
                 </el-col>
@@ -122,7 +115,7 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table id="rebateSetTable" highlight-current-row :default-sort = "{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                    <el-table id="rebateSetTable" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="80px">
                             <template slot-scope="scope">
                                 <el-radio-group v-model="radio">
@@ -130,16 +123,16 @@
                                 </el-radio-group>
                             </template>
                         </el-table-column>
-                        <el-table-column align="left" prop="name" label="姓名" fixed width="150px"></el-table-column>
-                        <el-table-column prop="tel" align="left" label="手机号" width="150px"></el-table-column>
-                        <el-table-column prop="card" align="left" label="卡号" width="150px"></el-table-column>
-                        <el-table-column prop="kz" align="left" label="卡种" width="150px"></el-table-column>
-                        <el-table-column prop="kksj" align="left" label="开卡时间" sortable width="150px"></el-table-column>
-                        <el-table-column prop="hj" align="left" label="会籍" width="140px"></el-table-column>
-                        <el-table-column prop="dqsj" align="left" label="到期时间" sortable width="150px"></el-table-column>
-                        <el-table-column prop="sycs" align="left" label="剩余次数" sortable width="130px"></el-table-column>
-                        <el-table-column prop="syje" align="left" label="剩余金额" sortable width="130px"></el-table-column>
-                        <el-table-column prop="status" align="left" label="卡状态" width="140px"></el-table-column>
+                        <el-table-column prop="HYName" align="left" label="姓名" fixed width="150px"></el-table-column>
+                        <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
+                        <el-table-column prop="CardNO" align="left" label="卡号" width="180px"></el-table-column>
+                        <el-table-column prop="CTName" align="left" label="卡种" width="180px"></el-table-column>
+                        <el-table-column prop="sTime" align="left" label="开卡时间" sortable width="200px"></el-table-column>
+                        <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
+                        <el-table-column prop="eTime" align="left" label="到期时间" sortable width="200px"></el-table-column>
+                        <el-table-column prop="SYCS" align="left" label="剩余次数" sortable width="130px"></el-table-column>
+                        <el-table-column prop="SYJE" align="left" label="剩余金额" sortable width="130px"></el-table-column>
+                        <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
                         <el-table-column prop="cz" align="left" label="操作" fixed="right">
                             <template slot-scope="scope">
                                 <el-button @click="go" type="text" size="small">认领</el-button>
@@ -158,8 +151,12 @@
 </template>
 <script>
 import Addmember from "@/components/addmember";
+import { requestLogin } from "@/api/api";
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "leaguermanagetable",
+  inject: ["reload"],
   components: {
     Addmember
   },
@@ -167,134 +164,211 @@ export default {
     return {
       downIcon: true,
       dialogFormVisible: false,
-      input10: "",
-      value6: "",
       radio: true,
       currentPage: 1,
       pagesize: 10,
       btnText: "展开",
       isShow: false,
+      loading: true,
       formInline: {
-        user: "",
+        membercard: "",
         date: "",
         numsmall: "",
         numbig: "",
         fundsmall: "",
         fundbig: "",
-        region: "",
-        region2: "",
-        region3: ""
+        adviser: [],
+        follow: [],
+        status: []
       },
-      tableData: [
-        {
-          index:0,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        },
-        {
-          index:1,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        },
-        {
-          index:2,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        },
-        {
-           index:3,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        },
-        {
-            index:4,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-21",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        },
-        {
-          index:5,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡2",
-          kksj: "2018-02-10",
-          hj: "Angel",
-          dqsj: "2018-07-20",
-          sycs: "13",
-          syje: "210",
-          status: "正常"
-        },
-        {
-            index:6,
-          name: "挖煤",
-          tel: "123232323",
-          card: "02200200",
-          kz: "大众卡",
-          kksj: "2018-02-11",
-          hj: "Angel",
-          dqsj: "2018-07-25",
-          sycs: "12",
-          syje: "200",
-          status: "正常"
-        }
+      tableData: [],
+      tableData2: [],
+      staff_info: [],
+      searchVal: "",
+      follow: [
+        //多久未跟进
+        { value: "1", label: "一周以内" },
+        { value: "2", label: "1周到1月" },
+        { value: "3", label: "1月到2个月" },
+        { value: "4", label: "2个月以上" }
+      ],
+      status: [
+        //状态
+        { value: "未成交", label: "未成交" },
+        { value: "跟进中", label: "跟进中" },
+        { value: "已成交", label: "已成交" }
       ]
     };
   },
+  watch: {
+    searchVal(val) {
+      //姓名电话
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    adviser(val) {
+      //会籍
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    follow(val) {
+      //跟进
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    status(val) {
+      //状态
+      if (!val) {
+        this.tableData = this.tableData2;
+      }
+    }
+  },
+  created: function() {
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
+  },
   methods: {
-      //格式化指定列的值
-       formatter(row, column) {
-        return row.address;
-      },
-      radiochange(row) {
+    //获取表格数据
+    getTableData(type) {
+      let _this = this;
+      _this.loading = true;
+      let params = {};
+      if (!type) {
+        params = {
+          name: _this.HYName, //姓名
+          tel: _this.MotoTel, //电话
+          cardNo: _this.CardNO, //卡号
+          cardType: _this.formInline.membercard, //卡名称
+          cardStatus: _this.formInline.status, //成交状态
+          remainderStart: _this.formInline.numsmall, //剩余次数区间--小
+          remainderEnd: _this.formInline.numbig, //剩余次数区间--大
+          remainSumStart: _this.formInline.fundsmall, //剩余金额区间--小
+          remainSumEnd: _this.formInline.fundbig, //剩余金额区间--大
+          followUpTime: _this.formInline.follow, //多长时间未跟进
+          expiryTimeStart: _this.formInline.date[0], //到期时间区间--开始
+          expiryTimeEnd: _this.formInline.date[1] //到期时间区间--结束
+        };
+      }
+      requestLogin(
+        "/setMemberCustomers/searchMemberCustomers/1",
+        params,
+        "post"
+      )
+        .then(function(res) {
+          _this.loading = false;
+          let { errorCode, msg } = res;
+          if (errorCode) {
+            _this.tableData = "";
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+          _this.tableData = res;
+          _this.tableData2 = res;
+        })
+        .catch(error => {
+          _this.loading = false;
+          if (error) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    //获取会籍顾问列表
+    getCustomer() {
+      let _this = this;
+      requestLogin("/setDepositCustomer/create", {}, "get")
+        .then(function(res) {
+          let { staff_info } = res;
+          _this.staff_info = staff_info;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    search() {
+      this.tableData = this.tableData2;
+      this.tableData = this.tableData2.filter(
+        i =>
+          i.HYName.includes(this.searchVal) ||
+          i.MotoTel.includes(this.searchVal) ||
+          i.CardNO.includes(this.searchVal)
+      );
+    },
+    resetForm() {
+      this.formInline.date = "";
+      this.formInline.membercard = "";
+      this.formInline.adviser = "";
+      this.formInline.follow = "";
+      this.formInline.status = "";
+      this.formInline.numsmall = "";
+      this.formInline.numbig = "";
+      this.formInline.fundsmall = "";
+      this.formInline.fundbig = "";
+    },
+    func2() {
+      if (!this.currentSelectRow) {
+        this.$message({
+          message: "请先选择数据!",
+          type: "warning"
+        });
+        return;
+      }
+      this.$router.push({
+        path: "/Customer/memberfollowup"
+      });
+    },
+    zhuye() {
+      if (!this.currentSelectRow) {
+        this.$message({
+          message: "请先选择数据!",
+          type: "warning"
+        });
+        return;
+      }
+      this.$router.push({
+        path: "/Customer/membershiphome"
+      });
+    },
+    Selectchange(val) {
+      console.log(val);
+    },
+    Selectchange2(val) {
+      console.log(val);
+    },
+    Selectchange3(val) {
+      console.log(val);
+    },
+    //格式化指定列的值
+    formatter(row, column) {
+      return row.address;
+    },
+    radiochange(row) {
       console.log(`当前: ${row}`);
     },
-    rowClick(row, event, column){
-    this.$refs.moviesTable.toggleRowSelection(row);
-    this.radio=row.index;
+    rowClick(row, event, column) {
+      this.$refs.moviesTable.toggleRowSelection(row);
+      this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
-    },     
+    },
     handleClick3(row) {
       console.log(row);
       alert("点击了");
@@ -306,9 +380,6 @@ export default {
     handleCurrentChange(currentPage) {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
-    },
-    onSubmit() {
-      console.log("submit!");
     },
     go() {
       let currentRoute = this.$route.path.split("/")[2];
@@ -327,23 +398,31 @@ export default {
         this.btnText = "展开";
       }
     },
-  //表格导出
-    exportExcel () {
-         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '会员客户管理数据表.xlsx')
-         } catch (e) { 
-           if (typeof console !== 'undefined')
-                console.log(e, wbout) 
-            }
-         return wbout
-     },
+    //表格导出
+    exportExcel() {
+      var wb = XLSX.utils.table_to_book(
+        document.querySelector("#rebateSetTable")
+      );
+      var wbout = XLSX.write(wb, {
+        bookType: "xlsx",
+        bookSST: true,
+        type: "array"
+      });
+      try {
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "会员客户管理数据表.xlsx"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.log(e, wbout);
+      }
+      return wbout;
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-@import '@/styles/leaguertable.scss';
+@import "@/styles/leaguertable.scss";
 .practice-list {
   width: 97%;
   height: 100%;
@@ -365,7 +444,7 @@ export default {
         height: 35px;
         line-height: 1px;
       }
-      .el-button+.el-button{
+      .el-button + .el-button {
         height: 35px;
         line-height: 1px;
       }
@@ -464,13 +543,13 @@ export default {
           color: #00bc71;
         }
       }
-    .export{
+      .export {
         height: 30px;
-        margin-top: 3.2%;
+        margin-top: 2%;
         padding: 6px 13px;
         font-size: 14px;
-        border: 1px solid #00BC6A;
-        color: #00BC6A;
+        border: 1px solid #00bc6a;
+        color: #00bc6a;
         margin-left: -5%;
       }
     }

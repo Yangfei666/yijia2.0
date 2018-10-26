@@ -42,7 +42,7 @@
             <div class="search-form2">
               <el-form-item>
                 <el-button type="primary" @click="getTableData(false)">查询</el-button>
-                <el-button @click="resetForm('formInline')">重置</el-button>
+                <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </div>
             <div class="corry">
@@ -101,7 +101,7 @@
                 </el-radio-group>
               </template>
             </el-table-column>
-            <el-table-column prop="prName" align="left" label="姓名" fixed width="200px"></el-table-column>
+            <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
             <el-table-column prop="prTel" align="left" label="手机号" width="200px"></el-table-column>
             <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="200px"></el-table-column>
             <el-table-column prop="prDate" align="left" label="登记日期" sortable width="200px"></el-table-column>
@@ -236,7 +236,7 @@ export default {
       let params = {};
       if (!type) {
         params = {
-          name: _this.YGXX_NAME, //姓名
+          name: _this.prName, //姓名
           tel: _this.prTel, //电话
           quality: _this.formInline.quality, //质量
           followUpTime: _this.formInline.follow, //多长时间未跟进
@@ -265,7 +265,6 @@ export default {
         })
         .catch(error => {
           _this.loading = false;
-
           if (error) {
             this.$message({
               message: "获取数据失败",
@@ -273,19 +272,12 @@ export default {
             });
           }
         });
-      // this.tableData = this.tableData2;
-      // this.tableData = this.tableData2.filter(
-      //   i =>
-      //     i.prQuality.includes(this.quality) ||
-      //     i.prBelog.includes(this.adviser) ||
-      //     i.RecordTime.includes(this.follow)
-      // );
     },
     search() {
       this.tableData = this.tableData2;
       this.tableData = this.tableData2.filter(
         i =>
-          i.YGXX_NAME.includes(this.searchVal) ||
+          i.prName.includes(this.searchVal) ||
           i.prTel.includes(this.searchVal)
       );
     },
@@ -335,8 +327,11 @@ export default {
       console.log(`当前: ${row}`);
     },
     //重置
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.formInline.quality="";
+      this.formInline.date="";
+      this.formInline.follow="";
+      this.formInline.adviser="";
     },
     func() {
       if (!this.currentSelectRow) {

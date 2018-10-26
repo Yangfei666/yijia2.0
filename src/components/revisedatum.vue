@@ -9,10 +9,8 @@
       </el-form-item>
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-radio-group v-model="currentSelectRow.prSex">
-            <el-radio label="女" value="1"></el-radio>
-            <el-radio label="男" value="2"></el-radio>
-          </el-radio-group>
+            <el-radio label="女" value="1" v-model="currentSelectRow.prSex"></el-radio>
+            <el-radio label="男" value="2" v-model="currentSelectRow.prSex"></el-radio>
         </el-col>
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">

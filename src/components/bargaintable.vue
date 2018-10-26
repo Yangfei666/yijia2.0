@@ -32,7 +32,7 @@
           <div class="search-form">
             <el-form-item label-width="40px">
               <el-button type="primary" @click="getTableData(false)">查询</el-button>
-              <el-button>重置</el-button>
+              <el-button @click="resetForm">重置</el-button>
             </el-form-item>
           </div>
         </div>
@@ -77,7 +77,7 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" style="width: 100%" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" max-height="700">
+          <el-table id="rebateSetTable" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" >
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
                 <el-radio-group v-model="radio">
@@ -128,6 +128,8 @@ import Revisedatum2 from "@/components/revisedatum2";
 import Change from "@/components/change";
 import Givedeposit from "@/components/givedeposit";
 import { requestLogin } from "@/api/api";
+import FileSaver from 'file-saver';
+import XLSX from 'xlsx';
 export default {
   name: "bargaintable",
   inject: ["reload"],
@@ -144,10 +146,9 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-      input10: "",
-      value6: "",
       currentPage: 1,
       pagesize: 10,
+      loading:true,
       radio: true,
       formInline: {
         date: "",
@@ -189,8 +190,11 @@ export default {
     }
   },
   created: function() {
-    this.getTableData(true); //初次进入页面
-    this.getCustomer();
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function(){
+       _this.getCustomer();
+    },1000)
   },
   methods: {
     //获取表格数据
@@ -228,7 +232,6 @@ export default {
         })
         .catch(error => {
           _this.loading = false;
-
           if (error) {
             this.$message({
               message: "获取数据失败",
@@ -298,6 +301,11 @@ export default {
     handleClick3(row) {
       console.log(row);
       alert("点击了");
+    },
+    resetForm() {
+      this.formInline.date="";
+      this.formInline.adviser="";
+      this.formInline.follow="";
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);
