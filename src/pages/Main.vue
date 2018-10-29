@@ -1,133 +1,158 @@
 <template>
-<div class="main-total">
-  <template>
-    <Nav></Nav>
-  </template>
-  <div class="main">
-    <div class="main-right">
-      <div class="block">
-        <el-col :span="24">
-          <el-date-picker v-model="SelectDate" @change="changeSelectDate" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" style="width:180px"></el-date-picker>
-        </el-col>
+  <div class="main-total">
+    <template>
+      <Nav></Nav>
+    </template>
+    <div class="main">
+      <div class="main-right">
+        <div class="block">
+          <el-col :span="24">
+            <el-date-picker v-model="SelectDate" @change="changeSelectDate" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" style="width:180px"></el-date-picker>
+          </el-col>
+        </div>
+        <div class="block2">
+          <el-radio-group v-model="bottomDay" size="medium" @change="changeBottomDay">
+            <el-radio-button label="今天"></el-radio-button>
+            <el-radio-button label="明天"></el-radio-button>
+            <el-radio-button label="后天"></el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
-      <div class="block2">
-        <el-radio-group v-model="bottomDay" size="medium" @change="changeBottomDay">
-          <el-radio-button label="今天"></el-radio-button>
-          <el-radio-button label="明天"></el-radio-button>
-          <el-radio-button label="后天"></el-radio-button>
-        </el-radio-group>
-      </div>
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="团课(共20节)" name="league">
+          <League ref='League' :groupList="groupList" @clickCourse="clickCourse"></League>
+        </el-tab-pane>
+        <el-tab-pane label="私教(共20节)" name="private">
+          <Private></Private>
+        </el-tab-pane>
+      </el-tabs>
     </div>
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="团课(共20节)" name="league"><League ref='League' :groupList="groupList" @clickCourse="clickCourse"></League></el-tab-pane>
-      <el-tab-pane label="私教(共20节)" name="private"><Private></Private></el-tab-pane>
-    </el-tabs>
-  </div>
-  <div class="main-list" v-if="experience.length>0">
-    <div class="customer">
+    <div class="main-list" v-if="experience.length>0">
+      <div class="customer">
         <span>体验客户约课</span>
-    </div>
-    <div class="main-table">
-      <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
-        <el-table-column align="left" fixed label="头像">
+      </div>
+      <div class="main-table">
+        <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+          <el-table-column align="left" fixed label="头像">
             <template slot-scope="scope">
-              <img  src="../assets/tianjiahuiyuan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <img src="../assets/tianjiahuiyuan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
-        </el-table-column>
-        <el-table-column align="left" prop="experience_customers.exName" label="客户姓名">
-        </el-table-column>
-        <el-table-column align="left" prop="experience_customers.exTel" label="手机号"></el-table-column>
-        <el-table-column align="left" prop="customer_voucher.experience_voucher.tkName" label="体验券"></el-table-column>
-        <el-table-column align="left" prop="experience_customers.exHjgwName" label="会籍顾问"></el-table-column>
-        <el-table-column align="left" prop="customer_voucher.mode" label="付款方式"></el-table-column>
-        <el-table-column align="left" label="操作" fixed="right">
-          <template slot-scope="scope">
-            <div v-if="scope.row.isEnter == '未进场'">
-              <el-button type="text" size="small">进场</el-button>
-              <el-button type="text" size="small" @click="cancelReservation()">取消预约</el-button>
-            </div>
-            <div v-else>
-              <el-button type="text" size="small">离场</el-button>
-              <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+          <el-table-column align="left" prop="experience_customers.exName" label="客户姓名">
+          </el-table-column>
+          <el-table-column align="left" prop="experience_customers.exTel" label="手机号"></el-table-column>
+          <el-table-column align="left" prop="customer_voucher.experience_voucher.tkName" label="体验券"></el-table-column>
+          <el-table-column align="left" prop="experience_customers.exHjgwName" label="会籍顾问"></el-table-column>
+          <el-table-column align="left" prop="customer_voucher.mode" label="付款方式"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right">
+            <template slot-scope="scope">
+              <div v-if="scope.row.isEnter == '未进场'">
+                <el-button type="text" size="small" @click="dialogFormVisible = true">进场</el-button>
+                <el-button type="text" size="small" @click="cancelReservation()">取消预约</el-button>
+              </div>
+              <div v-else>
+                <el-button type="text" size="small">离场</el-button>
+                <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
+              </div>
+            </template>
+             <template>
+              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible">
+                <Approach></Approach>
+              </el-dialog>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
-  </div>
-  <div class="nav-list">
-    <div class="customer">
+    <div class="nav-list">
+      <div class="customer">
         <span>会员约课</span>
-    </div>
-    <div class="main-table">
-      <el-table highlight-current-row :data="leaguer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
-        <el-table-column align="left" prop="img" fixed label="头像">
+      </div>
+      <div class="main-table">
+        <el-table highlight-current-row :data="leaguer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+          <el-table-column align="left" prop="img" fixed label="头像">
             <template slot-scope="scope">
-              <img  :src="scope.row.member_customers.Photo" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <img :src="scope.row.member_customers.Photo" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
-        </el-table-column>
-        <el-table-column align="left" prop="member_customers.HYName" label="客户姓名"></el-table-column>
-        <el-table-column align="left" prop="member_customers.MotoTel" label="手机号"></el-table-column>
-        <el-table-column align="left" prop="membership_card.CardNO" label="卡号" ></el-table-column>
-        <el-table-column align="left" prop="member_customers.staff_info.YGXX_NAME" label="会籍顾问"></el-table-column>
-        <el-table-column align="left" label="操作" fixed="right">
-          <template slot-scope="scope">
-            <div v-if="scope.row.isEnter == '未进场'">
-              <el-button type="text" size="small">进场</el-button>
-              <el-button type="text" size="small" @click="cancelReservation(scope.row.id)">取消预约</el-button>
-            </div>
-            <div v-else>
-              <el-button type="text" size="small">离场</el-button>
-              <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+          <el-table-column align="left" prop="member_customers.HYName" label="客户姓名"></el-table-column>
+          <el-table-column align="left" prop="member_customers.MotoTel" label="手机号"></el-table-column>
+          <el-table-column align="left" prop="membership_card.CardNO" label="卡号"></el-table-column>
+          <el-table-column align="left" prop="member_customers.staff_info.YGXX_NAME" label="会籍顾问"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right">
+            <template slot-scope="scope">
+              <div v-if="scope.row.isEnter == '未进场'">
+                <el-button type="text" size="small" @click="dialogFormVisible2 = true">进场</el-button>
+                <el-button type="text" size="small" @click="cancelReservation(scope.row.id)">取消预约</el-button>
+              </div>
+              <div v-else>
+                <el-button type="text" size="small">离场</el-button>
+                <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
+              </div>
+            </template>
+            <template>
+              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible">
+                <Approach></Approach>
+              </el-dialog>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
-  </div>
-  <div class="main-list">
-    <div class="customer">
+    <div class="main-list">
+      <div class="customer">
         <span>教练上课登记</span>
-    </div>
-    <div class="main-table">
-      <el-table highlight-current-row :data="trainer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
-        <el-table-column  fixed align="left" label="头像">
+      </div>
+      <div class="main-table">
+        <el-table highlight-current-row :data="trainer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+          <el-table-column fixed align="left" label="头像">
             <template slot-scope="scope">
-              <img  :src="scope.row.staff_info.Photo" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <img :src="scope.row.staff_info.Photo" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
-        </el-table-column>
-        <el-table-column align="left" prop="staff_info.YGXX_NAME" label="安排教练"></el-table-column>
-        <el-table-column align="left" prop="staff_info.YGXX_HOMETEL" label="手机号"></el-table-column>
-        <el-table-column align="left" prop="staff_info.YGXX_NAME" label="上课教练"></el-table-column>
-        <el-table-column align="left" prop="kcPlace" label="教室"></el-table-column>
-        <el-table-column align="left" label="操作" fixed="right">
-        <template slot-scope="scope">
-            <el-button @click="handleClick2(scope.row)" type="text" size="small">进场</el-button>
-        </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+          <el-table-column align="left" prop="staff_info.YGXX_NAME" label="安排教练"></el-table-column>
+          <el-table-column align="left" prop="staff_info.YGXX_HOMETEL" label="手机号"></el-table-column>
+          <el-table-column align="left" prop="staff_info.YGXX_NAME" label="上课教练"></el-table-column>
+          <el-table-column align="left" prop="kcPlace" label="教室"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right">
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="dialogFormVisible3 = true">进场</el-button>
+            </template>
+             <template>
+              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                <Approach></Approach>
+              </el-dialog>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 import League from "../components/league";
 import Private from "../components/private";
+import Approach from "@/components/approach";
 import Nav from "../components/nav";
-import { requestLogin as request } from '../api/api';
+import { requestLogin as request } from "../api/api";
 export default {
   components: {
     League,
     Private,
-    Nav
+    Nav,
+    Approach
   },
   data() {
     return {
-      groupList:[],// 团课列表
-      privateList:[],// 私教列表
+      dialogFormVisible: false,
+      dialogFormVisible2: false,
+      dialogFormVisible3: false,
+      formLabelWidth: '130px',
+      groupList: [], // 团课列表
+      privateList: [], // 私教列表
       date: new Date(),
       activeName: "league",
-      bottomDay: '今天',
+      bottomDay: "今天",
       pickerOptions1: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -157,138 +182,156 @@ export default {
           }
         ]
       },
-      SelectDate: "",// 日期选择
-      experience:[],// 体验客户
-      leaguer:[],// 会员客户
-      number: '0000',//进场手牌
-      SelectedIndex : 0//选中课程的index
+      SelectDate: "", // 日期选择
+      experience: [], // 体验客户
+      leaguer: [], // 会员客户
+      number: "0000", //进场手牌
+      SelectedIndex: 0 //选中课程的index
     };
   },
   computed: {
-    trainer () {
+    trainer() {
       if (this.groupList.length == 0 && this.privateList.length == 0) {
-        return [{
-          staff_info : {
-            Photo : ''/* 'http://192.168.2.111/uploades/icon/default.png' */,
-            YGXX_NAME : '加载中',
-            YGXX_HOMETEL : '加载中'
-          },
-          kcPlace : '加载中'
-        }];
-      } else if (this.activeName === 'league') {
+        return [
+          {
+            staff_info: {
+              Photo: "" /* 'http://192.168.2.111/uploades/icon/default.png' */,
+              YGXX_NAME: "加载中",
+              YGXX_HOMETEL: "加载中"
+            },
+            kcPlace: "加载中"
+          }
+        ];
+      } else if (this.activeName === "league") {
         // console.log(this.groupList);
-        return this.groupList.slice(this.SelectedIndex,this.SelectedIndex + 1);
+        return this.groupList.slice(this.SelectedIndex, this.SelectedIndex + 1);
       } else {
-        return this.privateList.slice(this.SelectedIndex,this.SelectedIndex + 1);
+        return this.privateList.slice(
+          this.SelectedIndex,
+          this.SelectedIndex + 1
+        );
       }
     },
-    bool () {
-      return this.activeName == 'league' ? true : false;
+    bool() {
+      return this.activeName == "league" ? true : false;
     }
   },
-  created () {
-    let today = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' +this.date.getDate();
+  created() {
+    let today =
+      this.date.getFullYear() +
+      "-" +
+      (this.date.getMonth() + 1) +
+      "-" +
+      this.date.getDate();
     this.getCourseList(today);
   },
-  watch : {
-  },
+  watch: {},
   methods: {
     // 客户进场
-    customerEntry () {
+    customerEntry() {
       let params = {
-        id : id,
-        userId : userId,
-        hand : hand ,
-        bool : this.bool
+        id: id,
+        userId: userId,
+        hand: hand,
+        bool: this.bool
       };
     },
     // 取消预约
-    cancelReservation (id) {
-      request('/adminHomePage/'+id+'/edit', {'bool' : this.bool}, 'get').then(data => {
-        this.msgThen(data);
-      }).catch(error => {
-        this.msgCatch(error, '对不起,取消预约失败');
-      })
+    cancelReservation(id) {
+      request("/adminHomePage/" + id + "/edit", { bool: this.bool }, "get")
+        .then(data => {
+          this.msgThen(data);
+        })
+        .catch(error => {
+          this.msgCatch(error, "对不起,取消预约失败");
+        });
     },
     //时间按钮
-    changeBottomDay () {
-      if (this.bottomDay == '今天') {
+    changeBottomDay() {
+      if (this.bottomDay == "今天") {
         this.getCourseList(this.GetDateStr(0));
-      } else if(this.bottomDay == '明天') {
+      } else if (this.bottomDay == "明天") {
         this.getCourseList(this.GetDateStr(1));
       } else {
         this.getCourseList(this.GetDateStr(2));
       }
     },
     // 获取指定天数后的时间
-    GetDateStr (num) {
+    GetDateStr(num) {
       let date = new Date();
       date.setDate(date.getDate() + num);
       let y = date.getFullYear();
-      let m = date.getMonth()+1;
+      let m = date.getMonth() + 1;
       let d = date.getDate();
-      return y+"-"+m+"-"+d;
+      return y + "-" + m + "-" + d;
     },
     // 时间选择
-    changeSelectDate () {
+    changeSelectDate() {
       let date = new Date(this.SelectDate);
-      let day = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-      this.bottomDay = '';
+      let day =
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      this.bottomDay = "";
       this.getCourseList(day);
     },
     // 根据日期获取课程列表
-    getCourseList (day) {
-      request('/adminHomePage?day='+day, {}, 'get').then(data => {
-        // console.log(data.group);
-        // console.log(sessionStorage.getItem('access-token'));
-        this.groupList = data.group;
-        this.privateList = data.private;
-        setTimeout(this.getCourseDetails(this.groupList.shift().ID), 2000);// 加载默认课程详情
-      }).catch(error => {
-        this.msgCatch(error, '对不起,课程数据加载失败');
-      })
+    getCourseList(day) {
+      request("/adminHomePage?day=" + day, {}, "get")
+        .then(data => {
+          // console.log(data.group);
+          // console.log(sessionStorage.getItem('access-token'));
+          this.groupList = data.group;
+          this.privateList = data.private;
+          setTimeout(this.getCourseDetails(this.groupList.shift().ID), 2000); // 加载默认课程详情
+        })
+        .catch(error => {
+          this.msgCatch(error, "对不起,课程数据加载失败");
+        });
     },
     // 获取课程预约详情
-    clickCourse (clickCourse, index) {
+    clickCourse(clickCourse, index) {
       this.SelectedIndex = index;
       this.getCourseDetails(clickCourse);
     },
-    getCourseDetails (id) {
+    getCourseDetails(id) {
       if (!id) {
         return fasle;
       }
       // id = 7016;
-      request('/adminHomePage/'+id, {}, 'get').then(data => {
-        this.experience = data.experience;
-        this.leaguer = data.member;
-      }).catch(error => {
-        if (error.response) {
-          this.$message({
-            message: "对不起,课预约详情获取失败!",
-            type: "error"
-          });
-        }
-      })
+      request("/adminHomePage/" + id, {}, "get")
+        .then(data => {
+          this.experience = data.experience;
+          this.leaguer = data.member;
+        })
+        .catch(error => {
+          if (error.response) {
+            this.$message({
+              message: "对不起,课预约详情获取失败!",
+              type: "error"
+            });
+          }
+        });
     },
     //教练进场
-    caochEnter (id) {
-      if(!id) {
+    caochEnter(id) {
+      if (!id) {
         return false;
       }
       let params = {
-        userId : this.trainer.JLID,
-        number : this.number
+        userId: this.trainer.JLID,
+        number: this.number
       };
-      request('/adminHomePage/'+id, params, 'put').then(data => {
-        this.msgThen(data);
-      }).catch(error => {
-        this.msgCatch(error, '对不起,教练进场失败');
-      })
+      request("/adminHomePage/" + id, params, "put")
+        .then(data => {
+          this.msgThen(data);
+        })
+        .catch(error => {
+          this.msgCatch(error, "对不起,教练进场失败");
+        });
     },
-    msgThen (data) {
+    msgThen(data) {
       if (data.errorCode == 0) {
         this.$message({
-          message: '操作成功',
+          message: "操作成功",
           type: "success"
         });
       } else {
@@ -298,14 +341,27 @@ export default {
         });
       }
     },
-    msgCatch (error, msg) {
+    msgCatch(error, msg) {
       if (error.response) {
         this.$message({
           message: msg,
           type: "error"
         });
       }
-    }
+    },
+    submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
   }
 };
 </script>
@@ -377,13 +433,13 @@ export default {
         height: 32px;
         line-height: 32px;
         margin-top: 4px;
-                .el-radio-button__inner {
-              color: #fff;
-              background-color: #00bc71;
-              border-color: #00bc71;
-              -webkit-box-shadow: -1px 0 0 0 #00bc71;
-              box-shadow: -1px 0 0 0 #00bc71;
-          }
+        .el-radio-button__inner {
+          color: #fff;
+          background-color: #00bc71;
+          border-color: #00bc71;
+          -webkit-box-shadow: -1px 0 0 0 #00bc71;
+          box-shadow: -1px 0 0 0 #00bc71;
+        }
       }
     }
     .el-tabs {
@@ -414,7 +470,7 @@ export default {
                 bottom: 0;
                 left: 37px;
                 height: 2px;
-                background-color: #56E79E;
+                background-color: #56e79e;
                 z-index: 1;
                 -webkit-transition: -webkit-transform 0.3s
                   cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -446,11 +502,11 @@ export default {
                 padding-left: 37px;
               }
               .el-tabs__item.is-active {
-                color: #56E79E;
+                color: #56e79e;
               }
               .el-tabs__item:hover {
-                  color: #56E79E;
-                  cursor: pointer;
+                color: #56e79e;
+                cursor: pointer;
               }
             }
           }
@@ -461,7 +517,7 @@ export default {
   /deep/ .main-list {
     width: 97%;
     margin: 20px auto;
-    height:100%;
+    height: 100%;
     background-color: #ffffff;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
     border-radius: 4px;
@@ -542,8 +598,8 @@ export default {
           }
         }
       }
-      .el-button--text{
-        color: #00BC71;
+      .el-button--text {
+        color: #00bc71;
       }
     }
   }
@@ -631,11 +687,10 @@ export default {
           }
         }
       }
-      .el-button--text{
-        color: #00BC71;
+      .el-button--text {
+        color: #00bc71;
       }
     }
   }
 }
-
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--潜在跟进记录-->
+    <!--会员跟进记录-->
     <div class="taste-wapper">
       <el-row>
         <div class="taste-list">
@@ -44,7 +44,6 @@
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name: "memberup",
   inject: ["reload"],
   data() {
     return {
@@ -63,9 +62,9 @@ export default {
   created: function() {
     let _this = this;
     console.log(this.$route);
-    console.log(this.$route.query.id);
+    console.log(this.$route.query.HYID);
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/potential/" + this.$route.query.id,
+      "/CustomerFollowUp/getFollowUpRecord/member/" + this.$route.query.HYID,
       {},
       "get"
     )
@@ -89,8 +88,8 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-              identity: 'potential', //客户类别
-              id: this.$route.query.id, //客户id
+              identity: 'member', //客户类别
+              id: this.$route.query.HYID, //客户id
               content:this.ruleForm.desc//内容
             };
             requestLogin("/CustomerFollowUp/addFollowUpRecord", loginParams, "post")

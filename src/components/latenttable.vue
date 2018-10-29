@@ -193,7 +193,7 @@ export default {
       tableData: [],
       tableData2: [],
       staff_info: [],
-      searchVal: ""
+      searchVal: "",
     };
   },
   created: function() {
@@ -333,7 +333,9 @@ export default {
       this.formInline.follow="";
       this.formInline.adviser="";
     },
+    //跟进记录
     func() {
+      console.log(this.currentSelectRow);
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -341,9 +343,14 @@ export default {
         });
         return;
       }
-      this.$router.push({
-        path: "/Customer/potentialfollowup"
-      });
+      let currentRoute =
+        this.$route.path === "/Customer/potentialfollowup"
+          ? "depositfollowup"
+          : "potentialfollowup";
+      console.log(currentRoute);
+      //跟进跳转
+      this.$router.push({path:"/Customer/" + currentRoute + "/memberup", 
+      query:{id:this.currentSelectRow.id, prName:this.currentSelectRow.prName, prSex:this.currentSelectRow.prSex}});
     },
     showToggle: function() {
       //表单收起展开
@@ -367,13 +374,14 @@ export default {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
-      console.log(row.index);
+      console.log(this.currentSelectRow.prName);
+      console.log(this.currentSelectRow.prSex);
     },
     go() {
       let currentRoute =
-        this.$route.path === "/Customer/bargain/latenttable"
-          ? "bargain"
-          : "latent";
+        this.$route.path === "/Customer/latent/latenttable"
+          ? "latent"
+          : "bargain";
       console.log(currentRoute);
       //认领跳转
       this.$router.push("/Customer/" + currentRoute + "/claim");

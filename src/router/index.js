@@ -82,7 +82,13 @@ const Memberhome = resolve => require(['@/components/memberhome'], resolve)//会
 
 const Experhome = resolve => require(['@/components/experhome'], resolve)//体验客户主页
 
-const Memberup = resolve => require(['@/components/memberup'], resolve)//会员跟进记录
+const Memberup = resolve => require(['@/components/memberup'], resolve)//潜在跟进记录
+
+const Bargainup = resolve => require(['@/components/bargainup'], resolve)//定金跟进记录
+
+const Practiceup = resolve => require(['@/components/practiceup'], resolve)//体验跟进记录
+
+const Insiderup = resolve => require(['@/components/insiderup'], resolve)//会员跟进记录
 
 const Healthsurvey = resolve => require(['@/components/healthsurvey'], resolve)//健康调查表
 
@@ -118,6 +124,11 @@ Vue.use(Router)
 
 let router = new Router({
     routes: [
+        {
+            path: '/',
+            name: 'Login',
+            component: Login,//登录
+        },
         {
             path: '/login',
             name: 'Login',
@@ -193,9 +204,9 @@ let router = new Router({
                     component: Depositfollowup,
                     name: '定金客户跟进',
                     menuShow: false,
-                    redirect: '/Customer/depositfollowup/memberup',
+                    redirect: '/Customer/depositfollowup/bargainup',
                     children: [
-                        { path: '/Customer/depositfollowup/memberup', component: Memberup },//定金跟进记录
+                        { path: '/Customer/depositfollowup/bargainup', component: Bargainup },//定金跟进记录
                         { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/depositfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/depositfollowup/postureevaluating', component: Postureevaluating },//体态评估表
@@ -208,7 +219,7 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/potentialfollowup/memberup',
                     children: [
-                        { path: '/Customer/potentialfollowup/memberup', component: Memberup },//潜在跟进记录
+                        { path: '/Customer/potentialfollowup/memberup', component: Memberup,name:Memberup},//潜在跟进记录
                         { path: '/Customer/potentialfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/potentialfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/potentialfollowup/postureevaluating', component: Postureevaluating },//体态评估表
@@ -219,9 +230,9 @@ let router = new Router({
                     component: TasteFollow,
                     name: '体验客户跟进',
                     menuShow: false,
-                    redirect: '/Customer/tastefollowup/memberup',
+                    redirect: '/Customer/tastefollowup/practiceup',
                     children: [
-                        { path: '/Customer/tastefollowup/memberup', component: Memberup },//体验跟进记录
+                        { path: '/Customer/tastefollowup/practiceup', component: Practiceup },//体验跟进记录
                         { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating },//体态评估表
@@ -232,9 +243,9 @@ let router = new Router({
                     component: MemberFollowup,
                     name: '会员客户跟进',
                     menuShow: false,
-                    redirect: '/Customer/memberfollowup/memberup',
+                    redirect: '/Customer/memberfollowup/insiderup',
                     children: [
-                        { path: '/Customer/memberfollowup/memberup', component: Memberup },//会员跟进记录
+                        { path: '/Customer/memberfollowup/insiderup', component: Insiderup },//会员跟进记录
                         { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating },//体态评估表

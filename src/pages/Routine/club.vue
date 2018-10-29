@@ -31,7 +31,7 @@
                             <Personnelstructure></Personnelstructure>
                         </template>
                     </el-tab-pane>
-                    <el-tab-pane label="会所封面管理" name="cover">
+                    <el-tab-pane label="会所图片" name="cover">
                         <template>
                             <Covermanagement></Covermanagement>
                         </template>

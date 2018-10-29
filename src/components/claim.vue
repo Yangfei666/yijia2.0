@@ -18,16 +18,16 @@
             <div class="practice-table">
               <el-row>
             <el-col :span="24">
-                <el-table fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
-                    <el-table-column prop="name" align="left" label="姓名"></el-table-column>
-                    <el-table-column prop="tel" align="left" label="电话"></el-table-column>
-                    <el-table-column prop="sex" align="left" label="性别"></el-table-column>
-                    <el-table-column prop="datebirth" align="left" label="出生日期"></el-table-column>
-                    <el-table-column prop="height" align="left" label="身高"></el-table-column>
-                    <el-table-column prop="weight" align="left" label="体重"></el-table-column>
+                <el-table fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
+                    <el-table-column prop="htName" align="left" label="姓名"></el-table-column>
+                    <el-table-column prop="htTel" align="left" label="电话"></el-table-column>
+                    <el-table-column prop="htSex" align="left" label="性别"></el-table-column>
+                    <el-table-column prop="htBirthday" align="left" label="出生日期"></el-table-column>
+                    <el-table-column prop="htHeight" align="left" label="身高"></el-table-column>
+                    <el-table-column prop="htWeight" align="left" label="体重"></el-table-column>
                     <el-table-column align="left" label="操作" fixed="right">
                         <template slot-scope="scope">
-                            <el-button type="text" size="small" @click="open2">认领</el-button>
+                            <el-button type="text" size="small" @click="claim(scope.row)">认领</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -43,71 +43,35 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name:'claim',
   data() {
     return {
       currentPage: 1,
       pagesize: 10,
-       tableData: [
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        },
-        {
-          name: "凌凌漆",
-          tel: "123232323",
-          sex: "女",
-          datebirth: "2018-07-25",
-          height: "160CM",
-          weight: "100KG",
-        }
-      ]
+      tableData: [],
+      loading:true
     };
+  },
+    mounted: function() {
+    //表格列表数据
+    let _this = this;
+    _this.loading = true;
+    requestLogin("/CustomerFollowUp/getWaitReceiveData", {}, "get")
+      .then(function(res) {
+         _this.loading = false;
+        let {health} = res;
+        _this.tableData = health;
+      })
+      .catch(error => {
+        if (error.res) {
+          this.$message({
+            message: "获取数据失败",
+            type: "error"
+          });
+        }
+      });
   },
   methods: {
     goback(){
@@ -121,23 +85,35 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-      open2() {
-        this.$confirm('确定要认领?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '认领成功!'
+      claim(row,pass) {
+        console.log(pass);
+        this.$confirm("确认要认领吗？", "提示").then(() => {
+            var loginParams = {
+              identity:pass, //客户类别
+              howMuch:pass, //数据类型
+              num:pass, //数据id
+              id:pass, //客户id
+            };
+            requestLogin("/CustomerFollowUp/confirmReceive", loginParams, "post")
+              .then(data => {
+                this.$message({
+                  message: "认领成功",
+                  type: "success"
+                });
+                this.reload();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
           });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消认领!'
-          });          
-        });
-      }
+    },
   }
 };
 </script>

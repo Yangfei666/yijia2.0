@@ -4,10 +4,10 @@
     <div class="practice-table">
       <el-col :span="24">
         <div class="add">
-          <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加封面</el-button>
+          <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加图片</el-button>
           <template>
-            <el-dialog title="添加会所封面" :append-to-body="true" :visible.sync="dialogFormVisible">
-              <!--添加会所封面-->
+            <el-dialog title="添加会所图片" :append-to-body="true" :visible.sync="dialogFormVisible">
+              <!--添加会所图片-->
               <el-upload class="upload-demo" ref="upload" action=" " 
               :file-list="fileList" 
               :limit='5'
@@ -33,15 +33,28 @@
           </el-table-column>
           <el-table-column prop="hsxxIsFirst" label="状态" sortable align="left" width="300">
             <template slot-scope="scope">
-              <el-tooltip :content="hsxxIsFirst" placement="top">
-                <el-switch v-model="hsxxIsFirst" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+              <div v-if="scope.row.hsxxIsFirst == '封面'">
+                <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
+                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch(scope.row)" disabled active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
                 </el-switch>
               </el-tooltip>
+              </div>
+              <div v-else>
+              <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
+                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch(scope.row)" @click.native.prevent="toggleStatus(scope.$index)" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+                </el-switch>
+              </el-tooltip>
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="left">
             <template slot-scope="scope">
+              <div v-if="scope.row.hsxxIsFirst == '封面'">
+               <el-button size="mini" type="danger" disabled>删除</el-button>
+              </div>
+              <div v-else>
               <el-button size="mini" type="danger" @click.native.prevent="mydel(scope.$index,cover)">删除</el-button>
+              </div>
             </template>
           </el-table-column>
         </el-table>
@@ -68,6 +81,39 @@ export default {
     this.getClub();
   },
   methods: {
+    toggleStatus(index, row) {
+      let _this = this;
+      this.$confirm("确认选择当前为封面吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          _this.loading = true;
+          requestLogin(
+            "/setClubInfoImg/" + _this.currentSelectRow.id,
+            {},
+            "put"
+          ).then(() => {
+            _this.loading = false;
+            this.$message({
+              message: "修改成功",
+              type: "success"
+            });
+            this.reload();
+          });
+        })
+        .catch(error => {
+          _this.loading = false;
+          this.$message({
+              message: "修改失败",
+              type: "error"
+            });
+        });
+    },
+    changeSwitch(data) {
+      console.log(data)
+    },
     uploadOverrun: function() {
       this.$message({
         type: "error",

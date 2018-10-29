@@ -267,12 +267,10 @@ export default {
     radiochange(row) {
       console.log(`当前: ${row}`);
     },
-    handleClick3(row) {
-      console.log(row);
-      alert("点击了");
-    },
     handleClick(tab, event) {
       console.log(tab, event);
+      console.log(event.target.getAttribute('id'));
+      this.tab.nonuniversal = !this.tab.nonuniversal;
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);

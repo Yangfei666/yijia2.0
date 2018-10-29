@@ -185,6 +185,7 @@ require('echarts/lib/component/title')
             font-weight: normal;
             font-stretch: normal;
             color: #fff;
+            display: block;
           }
           .seed2{
             font-family: PingFang-SC-Medium;

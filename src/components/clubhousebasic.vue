@@ -219,7 +219,7 @@ export default {
           Hsxx_City: this.ruleForm.Hsxx_City, //城市
           Hsxx_Add: this.ruleForm.Hsxx_Add, //地址
           Hsxx_YB: this.ruleForm.Hsxx_YB, //邮编
-          Hsxx_FR: this.Hsxx_FR, //法人
+          Hsxx_FR: this.currentSelectRow.Hsxx_FR, //法人
           Hsxx_Tel: this.ruleForm.Hsxx_Tel, //电话
           Hsxx_Fax: this.ruleForm.Hsxx_Fax, //传真
           preSaleTime: this.ruleForm.preSaleTime, //预售结束时间

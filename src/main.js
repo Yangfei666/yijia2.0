@@ -23,6 +23,32 @@ Vue.use(VueProgressBar)
 //在vue中使用vuex必须先调用vue.use方法
 Vue.use(Vuex)
 
+/* 请求拦截器 */
+// axios.interceptors.request.use(function (config) { // 每次请求时会从sessionStorage中获取token
+//     let token = sessionStorage.getItem('access-token')
+//     if (token) {
+//       token = 'bearer' + ' ' + token.replace(/'|"/g, '') // 把token加入到默认请求参数中
+//       config.headers.common['Authorization'] = token
+//     }
+//     return config
+//   }, function (error) {
+//     return Promise.reject(error)
+//   })
+  /* 响应拦截器 */
+  axios.interceptors.response.use(function (response) { // 10001 token无效
+    if (response.data.errorCode === 10001) {
+      sessionStorage.removeItem('access-token') // 删除已经失效或过期的token
+      router.replace({
+        path: '/login' // 到登录页重新获取token
+      })
+    } else if (response.data.token) { // 判断token是否存在，如果存在说明需要更新token
+      sessionStorage.setItem('access-token', response.data.token) // 覆盖原来的token
+    }
+    return response
+  }, function (error) {
+    return Promise.reject(error)
+  })  
+
 Vue.config.productionTip = false
 //将vuex实例挂载到vue原型链上
 Vue.prototype.$store = new Vuex.Store({

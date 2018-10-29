@@ -38,9 +38,9 @@
         </div>
         </div>
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="总业绩图表" name="first"><Totalchart></Totalchart></el-tab-pane>
-                <el-tab-pane label="体验图表" name="second"><Experiencechart></Experiencechart></el-tab-pane>
-                <el-tab-pane label="潜在图表" name="third"><Latentchart></Latentchart></el-tab-pane>
+                <el-tab-pane label="总业绩图表" name="first" :lazy="true"><Totalchart></Totalchart></el-tab-pane>
+                <el-tab-pane label="体验图表" name="second" :lazy="true"><Experiencechart></Experiencechart></el-tab-pane>
+                <el-tab-pane label="潜在图表" name="third" :lazy="true"><Latentchart></Latentchart></el-tab-pane>
             </el-tabs>
         </el-col>
     </div>

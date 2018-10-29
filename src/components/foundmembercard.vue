@@ -78,7 +78,7 @@
           <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endTime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
         </el-col>
       </el-form-item>
-      <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
+      <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth" v-show="activeName=='nonuniversal'">
         <el-col :span="22">
           <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
           </el-transfer>
@@ -107,6 +107,8 @@ export default {
       limitdate: [],
       startTime: "",
       endTime: "",
+      activeName: "nonuniversal",
+      nonuniversal:true,
       dialogFormVisible: false,
       formLabelWidth: "130px",
       disabled: false,

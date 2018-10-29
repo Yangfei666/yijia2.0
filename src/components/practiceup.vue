@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--潜在跟进记录-->
+    <!--体验跟进记录-->
     <div class="taste-wapper">
       <el-row>
         <div class="taste-list">
@@ -65,7 +65,7 @@ export default {
     console.log(this.$route);
     console.log(this.$route.query.id);
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/potential/" + this.$route.query.id,
+      "/CustomerFollowUp/getFollowUpRecord/experience/" + this.$route.query.id,
       {},
       "get"
     )
@@ -89,7 +89,7 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-              identity: 'potential', //客户类别
+              identity: 'experience', //客户类别
               id: this.$route.query.id, //客户id
               content:this.ruleForm.desc//内容
             };

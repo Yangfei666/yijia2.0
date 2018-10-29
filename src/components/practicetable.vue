@@ -330,7 +330,9 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
         return;
       }
-      this.$router.push({ path: "/Customer/tastefollowup" });
+       //跟进跳转
+      this.$router.push({path:"/Customer/tastefollowup/practiceup", 
+      query:{id:this.currentSelectRow.id, exName:this.currentSelectRow.exName, exSex:this.currentSelectRow.exSex}});
     },
     exper() {
       if (!this.currentSelectRow) {

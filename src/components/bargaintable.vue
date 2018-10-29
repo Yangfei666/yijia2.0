@@ -273,9 +273,9 @@ export default {
         });
         return;
       }
-      this.$router.push({
-        path: "/Customer/depositfollowup"
-      });
+      //跟进跳转
+      this.$router.push({path:"/Customer/depositfollowup/bargainup", 
+      query:{id:this.currentSelectRow.id, itName:this.currentSelectRow.itName, itSex:this.currentSelectRow.itSex}});
     },
       //表格导出
     exportExcel () {

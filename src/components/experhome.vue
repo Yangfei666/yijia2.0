@@ -49,13 +49,13 @@
         </template>
       </div>
      <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="劵1" name="cardone" style="font-size:16px">
+    <el-tab-pane label="劵1" name="cardone" style="font-size:16px" :lazy="true">
       <Securityone></Securityone>
       </el-tab-pane>
-    <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px">
+    <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px" :lazy="true">
       <Securitytwo></Securitytwo>
     </el-tab-pane>
-    <el-tab-pane label="劵3" name="cardthree" style="font-size:16px">
+    <el-tab-pane label="劵3" name="cardthree" style="font-size:16px" :lazy="true">
       <Securitythree></Securitythree>
     </el-tab-pane>
   </el-tabs>

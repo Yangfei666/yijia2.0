@@ -330,9 +330,9 @@ export default {
         });
         return;
       }
-      this.$router.push({
-        path: "/Customer/memberfollowup"
-      });
+       //跟进跳转
+      this.$router.push({path:"/Customer/memberfollowup/insiderup", 
+      query:{HYID:this.currentSelectRow.HYID, HYName:this.currentSelectRow.HYName, Sex:this.currentSelectRow.Sex}});
     },
     zhuye() {
       if (!this.currentSelectRow) {

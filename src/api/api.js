@@ -9,7 +9,7 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
     method: method ? method : 'post', //方法
     url: url, //地址
     data: params, // 参数,
-    headers: { 'token': sessionStorage.getItem('access-token')},
+    headers: { 'token': sessionStorage.getItem('access-token') },
     baseURL: baseURL === false ? '' : '/api',
     responseType: responseType ? responseType : 'json'
   }).then(res => res.data);
