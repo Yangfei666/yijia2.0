@@ -17,37 +17,52 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 export default {
   name:'givedeposit',
+  inject: ["reload"],
+  props:['currentSelectRow'],
     data() {
      return {
         dialogFormVisible: false,
         formLabelWidth: '130px',
-        sex:1,
-        disabled:false,
-        limitdate: [],
-        fileList:[],
         ruleForm: {
           desc:''//放弃原因
         },
         rules: {
-          desc:[
-            {required: true, message: '请输入放弃原因', trigger: 'blur' }
-          ],
+          desc:validate.desc,
         }
-     }
+      }
     },
     methods: {
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      this.$confirm("确认要变更吗？", "提示").then(() => {
+        var loginParams = {
+          id:this.currentSelectRow.id, //定金客户id
+          content: this.ruleForm.desc //变更原因
+        };
+        console.log(this.currentSelectRow.id);
+        requestLogin("/setDepositCustomer/giveUp", loginParams, "post")
+          .then(data => {
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },

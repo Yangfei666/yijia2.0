@@ -42,6 +42,15 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-form-item__error{
+  color: #f56c6c;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
 .el-upload--picture-card {
   background-color: #fbfdff;
   border: 1px dashed #c0ccda;

@@ -11,14 +11,14 @@
                 </div>
             </el-col>
             <el-col :span="24" class="infor-dd">
-                <span>姓名：<span>凌凌漆</span></span>
-                <span style="padding-left:30px">电话：<span>123232323</span></span>
+                <span>姓名：<span>{{this.$route.query.prName}}</span></span>
+                <span style="padding-left:30px">电话：<span>{{this.$route.query.prTel}}</span></span>
             </el-col>
             <el-col :span="24">
             <div class="practice-table">
               <el-row>
             <el-col :span="24">
-                <el-table fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
+                <el-table fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
                     <el-table-column prop="htName" align="left" label="姓名"></el-table-column>
                     <el-table-column prop="htTel" align="left" label="电话"></el-table-column>
                     <el-table-column prop="htSex" align="left" label="性别"></el-table-column>
@@ -46,12 +46,13 @@
 import { requestLogin } from "@/api/api";
 export default {
   name:'claim',
+  inject: ["reload"],
   data() {
     return {
       currentPage: 1,
       pagesize: 10,
       tableData: [],
-      loading:true
+      loading:true,
     };
   },
     mounted: function() {
@@ -65,6 +66,7 @@ export default {
         _this.tableData = health;
       })
       .catch(error => {
+        _this.loading = false;
         if (error.res) {
           this.$message({
             message: "获取数据失败",
@@ -85,14 +87,14 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-      claim(row,pass) {
-        console.log(pass);
+      claim(row) {
+        console.log(row);
         this.$confirm("确认要认领吗？", "提示").then(() => {
             var loginParams = {
-              identity:pass, //客户类别
-              howMuch:pass, //数据类型
-              num:pass, //数据id
-              id:pass, //客户id
+              identity:'potential', //客户类别
+              howMuch:1, //数据类型
+              num:this.currentSelectRow.id, //数据id
+              id:this.currentSelectRow.id, //客户id
             };
             requestLogin("/CustomerFollowUp/confirmReceive", loginParams, "post")
               .then(data => {
@@ -113,6 +115,10 @@ export default {
                 }
               });
           });
+    },
+    rowClick(row, event, column) {
+      //获取表格数据
+      this.currentSelectRow = row;
     },
   }
 };

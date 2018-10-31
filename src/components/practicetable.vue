@@ -1,136 +1,136 @@
 <template>
-    <!--体验表格-->
-    <div class="practice-list">
-        <el-row>
-            <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
-                <div class="quanbu">
-                    <div class="search-form">
-                        <el-form-item label="体验劵种:">
-                            <el-col :span="24">
-                                <el-input v-model="formInline.user" placeholder="请输入" clearable style="width:170px;"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form">
-                        <el-form-item label="登记日期:">
-                            <el-col :span="24">
-                                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="成交状态:">
-                            <el-col :span="24">
-                                 <el-select v-model="formInline.cardstatus" placeholder="请选择" style="width:200px" @change="Selectchange">
-                                    <el-option v-for="item in cardstatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="多久未跟进:" label-width="100px">
-                            <el-col :span="24">
-                                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
-                                    <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="所属会籍:">
-                            <el-col :span="24">
-                                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                                    <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form">
-                        <el-form-item label-width="40px">
-                            <el-button type="primary" @click="getTableData(false)">查询</el-button>
-                            <el-button @click="resetForm">重置</el-button>
-                        </el-form-item>
-                    </div>
-                    <div class="corry">
-                        <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
-                            <i class="el-icon-arrow-down" v-show="downIcon"></i>
-                            <i class="el-icon-arrow-up" v-show="!downIcon"></i>
-                        </el-button>
-                    </div>
-                </div>
-            </el-form>
-        </el-row>
-        <div class="practice-center">
-            <el-row>
-                <el-col :span="12">
-                    <div class="purple">
-                        <div class="add">
-                            <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加体验客户</el-button>
-                            <template>
-                                <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                    <Addpractice></Addpractice>
-                                </el-dialog>
-                            </template>
-                        </div>
-                        <div class="add">
-                            <el-button type="text" class="add-p" @click="taste()">客户跟进</el-button>
-                        </div>
-                        <div class="add">
-                            <el-button type="text" class="add-p" @click="exper()">体验客户主页</el-button>
-                        </div>
-                    </div>
-                </el-col>
-                <el-col :span="12">
-                    <div class="purple2">
-                        <el-col :span="10" class="search">
-                            <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
-                            <i class="search-icon el-icon-search" @click="search"></i>
-                        </el-col>
-                    </div>
-                </el-col>
-            </el-row>
+  <!--体验表格-->
+  <div class="practice-list">
+    <el-row>
+      <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
+        <div class="quanbu">
+          <div class="search-form">
+            <el-form-item label="体验劵种:">
+              <el-col :span="24">
+                <el-input v-model="formInline.user" placeholder="请输入" clearable style="width:170px;"></el-input>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form">
+            <el-form-item label="登记日期:">
+              <el-col :span="24">
+                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="成交状态:">
+              <el-col :span="24">
+                <el-select v-model="formInline.cardstatus" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in cardstatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="多久未跟进:" label-width="100px">
+              <el-col :span="24">
+                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                  <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="所属会籍:">
+              <el-col :span="24">
+                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                  <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form">
+            <el-form-item label-width="40px">
+              <el-button type="primary" @click="getTableData(false)">查询</el-button>
+              <el-button @click="resetForm">重置</el-button>
+            </el-form-item>
+          </div>
+          <div class="corry">
+            <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+              <i class="el-icon-arrow-down" v-show="downIcon"></i>
+              <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+            </el-button>
+          </div>
         </div>
-        <div class="practice-table">
-            <el-row>
-                <el-col :span="24">
-                    <el-table id="rebateSetTable" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
-                        <el-table-column align="center" prop="radio" fixed width="70px">
-                            <template slot-scope="scope">
-                                <el-radio-group v-model="radio">
-                                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                                </el-radio-group>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="exName" align="left" label="姓名" fixed width="150px"></el-table-column>
-                        <el-table-column prop="exTel" align="left" label="手机号" width="180px"></el-table-column>
-                        <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
-                        <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
-                        <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
-                        <el-table-column prop="exHjgwName" align="left" label="会籍" width="180px"></el-table-column>
-                        <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
-                        <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
-                        <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
-                        <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
-                            <template slot-scope="scope">
-                                <el-button @click="go" type="text" size="small">认领</el-button>
-                                <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
-                                <template>
-                                    <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                                        <Change></Change>
-                                    </el-dialog>
-                                </template>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <div class="block">
-                        <el-button size="small" class="export" @click="exportExcel">导出</el-button>
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-                        </el-pagination>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
+      </el-form>
+    </el-row>
+    <div class="practice-center">
+      <el-row>
+        <el-col :span="12">
+          <div class="purple">
+            <div class="add">
+              <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加体验客户</el-button>
+              <template>
+                <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible">
+                  <Addpractice></Addpractice>
+                </el-dialog>
+              </template>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="taste()">客户跟进</el-button>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="exper()">体验客户主页</el-button>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="purple2">
+            <el-col :span="10" class="search">
+              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+              <i class="search-icon el-icon-search" @click="search"></i>
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
     </div>
+    <div class="practice-table">
+      <el-row>
+        <el-col :span="24">
+          <el-table id="rebateSetTable" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
+            <el-table-column align="center" prop="radio" fixed width="70px">
+              <template slot-scope="scope">
+                <el-radio-group v-model="radio">
+                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
+                </el-radio-group>
+              </template>
+            </el-table-column>
+            <el-table-column prop="exName" align="left" label="姓名" fixed width="150px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="180px"></el-table-column>
+            <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
+            <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
+            <el-table-column prop="exHjgwName" align="left" label="会籍" width="180px"></el-table-column>
+            <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
+            <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
+            <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
+              <template slot-scope="scope">
+                <el-button @click="go" type="text" size="small">认领</el-button>
+                <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <template>
+            <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible2">
+              <Change :potential="Potential"></Change>
+            </el-dialog>
+          </template>
+          <div class="block">
+            <el-button size="small" class="export" @click="exportExcel">导出</el-button>
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
 </template>
 <script>
 import Addpractice from "@/components/addpractice";
@@ -147,6 +147,7 @@ export default {
   },
   data() {
     return {
+      Potential:{potential:'setExperienceCustomer',id:''},
       downIcon: true,
       loading: true,
       dialogFormVisible: false,
@@ -158,6 +159,7 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: true,
+      experience: "experience",
       formInline: {
         user: "",
         date: "",
@@ -176,7 +178,7 @@ export default {
         { value: "3", label: "1月到2个月" },
         { value: "4", label: "2个月以上" }
       ],
-      cardstatus:[
+      cardstatus: [
         //成交状态
         { value: "0", label: "已成交" },
         { value: "1", label: "未成交" },
@@ -226,7 +228,7 @@ export default {
           registerTimeStart: _this.formInline.date[0], //登记时间区间--开始
           registerTimeEnd: _this.formInline.date[1], //登记时间区间--结束
           voucherType: _this.formInline.user, //券名称
-          status: _this.formInline.cardstatus, //成交状态
+          status: _this.formInline.cardstatus //成交状态
         };
       }
       requestLogin(
@@ -282,14 +284,14 @@ export default {
           i.exName.includes(this.searchVal) || i.exTel.includes(this.searchVal)
       );
     },
-    Selectchange3(val){
-        console.log(val);
+    Selectchange3(val) {
+      console.log(val);
     },
-    Selectchange2(val){
-        console.log(val);
+    Selectchange2(val) {
+      console.log(val);
     },
-    Selectchange(val){
-        console.log(val);
+    Selectchange(val) {
+      console.log(val);
     },
     radiochange(row) {
       console.log(`当前: ${row}`);
@@ -307,16 +309,17 @@ export default {
       this.currentPage = currentPage;
     },
     resetForm() {
-        this.formInline.user= "";        
-        this.formInline.date= "";        
-        this.formInline.cardstatus= "";        
-        this.formInline.follow= "";        
-        this.formInline.adviser= "";  
+      this.formInline.user = "";
+      this.formInline.date = "";
+      this.formInline.cardstatus = "";
+      this.formInline.follow = "";
+      this.formInline.adviser = "";
     },
     rowClick(row, event, column) {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
+      this.Potential.id=this.currentSelectRow.id;
       console.log(row.index);
     },
     go() {
@@ -330,16 +333,30 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
         return;
       }
-       //跟进跳转
-      this.$router.push({path:"/Customer/tastefollowup/practiceup", 
-      query:{id:this.currentSelectRow.id, exName:this.currentSelectRow.exName, exSex:this.currentSelectRow.exSex}});
+      //跟进跳转
+      this.$router.push({
+        name: 'Practiceup',
+        params: {
+          id: this.currentSelectRow.id,
+          exName: this.currentSelectRow.exName,
+          exSex: this.currentSelectRow.exSex
+        }
+      });
     },
     exper() {
       if (!this.currentSelectRow) {
         this.$message({ message: "请先选择数据!", type: "warning" });
         return;
       }
-      this.$router.push({ path: "/Customer/experiencehome" });
+      this.$router.push({ 
+          name: "Experhome",
+          params: {
+          id: this.currentSelectRow.id,
+          exName: this.currentSelectRow.exName,
+          exHjgwName: this.currentSelectRow.exHjgwName,
+          exTel: this.currentSelectRow.exTel,
+        }});
+        console.log(this.currentSelectRow.id);
     },
     showToggle: function() {
       this.isShow = !this.isShow;

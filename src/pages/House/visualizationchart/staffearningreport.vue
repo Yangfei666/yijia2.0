@@ -23,7 +23,7 @@
                     <el-col :span="20" style="height:50px">
                 <el-form-item label="员工姓名:">
                     <el-col :span="24">
-                    <el-select v-model="form.region" placeholder="请选择活动区域" style="width:280px">
+                    <el-select v-model="form.region" placeholder="请选择活动区域" style="width:200px">
                     <el-option label="区域一" value="shanghai"></el-option>
                     <el-option label="区域二" value="beijing"></el-option>
                     </el-select>

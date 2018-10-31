@@ -331,9 +331,14 @@ export default {
         return;
       }
        //跟进跳转
-      this.$router.push({path:"/Customer/memberfollowup/insiderup", 
-      query:{HYID:this.currentSelectRow.HYID, HYName:this.currentSelectRow.HYName, Sex:this.currentSelectRow.Sex}});
+      this.$router.push({
+      name:"Insiderup", 
+      params:{
+        HYID:this.currentSelectRow.HYID, 
+        HYName:this.currentSelectRow.HYName, 
+        Sex:this.currentSelectRow.Sex}});
     },
+    //会员主页
     zhuye() {
       if (!this.currentSelectRow) {
         this.$message({
@@ -343,7 +348,13 @@ export default {
         return;
       }
       this.$router.push({
-        path: "/Customer/membershiphome"
+        name:'Memberhome',
+        params:{
+        HYID:this.currentSelectRow.HYID, 
+        HYName:this.currentSelectRow.HYName,
+        YGXX_NAME:this.currentSelectRow.YGXX_NAME,
+        MotoTel:this.currentSelectRow.MotoTel,
+        }
       });
     },
     Selectchange(val) {

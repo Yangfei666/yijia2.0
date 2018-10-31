@@ -13,7 +13,7 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="23" class="weber">
-            <span class="weber-span">{{$route.query.itName}}·{{$route.query.itSex}}</span>
+            <span class="weber-span">{{$route.params.itName}}·{{$route.params.itSex}}</span>
             <el-col :span="10" class="weber-right">
               <div class="right-span">
                  <router-link to="/Customer/depositfollowup/healthsurvey" class="link">健康调查表</router-link>

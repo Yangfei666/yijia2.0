@@ -35,7 +35,7 @@
       <el-form-item label="体验券:" prop="type" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-select v-model="ruleForm.type" placeholder="请选择" style="width:100%" @change="Selectchange">
-             <el-option v-for="item in tkName" :key="item.id" :label="item.tkName" :value="item.vld"></el-option>
+             <el-option v-for="item in tkName" :key="item.id" :label="item.tkName" :value="item.id"></el-option>
           </el-select>
         </el-col>
       </el-form-item>
@@ -103,7 +103,8 @@ export default {
         desc: validate.desc
       },
       staff_info: [],
-      tkName:[]
+      tkName:[],
+      YGXX_NAME:''
     };
   },
   created: function() {
@@ -156,12 +157,12 @@ export default {
               exWeChat: _this.ruleForm.wechat, //微信
               exSex: _this.ruleForm.sex, //性别
               exHjgwId: _this.ruleForm.adviser, //会籍顾问id
-              exHjgwName: _this.ruleForm.YGXX_NAME, //会籍顾问姓名
+              exHjgwName:_this.YGXX_NAME, //会籍顾问姓名
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
               price: _this.ruleForm.price, //价格
-              identity: _this.ruleForm.sex, //转换客户的身份
-              oldId: _this.ruleForm.sex //原客户类别的id
+              identity: "newCustomer", //转换客户的身份
+              // oldId: _this.ruleForm.sex //原客户类别的id
             };
             requestLogin("/setExperienceCustomer", loginParams, "post")
               .then(data => {
@@ -193,8 +194,14 @@ export default {
       this.$refs[formName].resetFields();
     },
     Selectchange2(val) {
-      console.log(val);
-    },
+       let obj = {};
+          obj = this.staff_info.find((item)=>{
+            return item.YGXX_YGID_NEI===val;  
+          });  
+          this.YGXX_NAME=obj.YGXX_NAME;
+          console.log(obj.YGXX_NAME); 
+          console.log(val);
+          },
     Selectchange(val) {
       console.log(val);
     }

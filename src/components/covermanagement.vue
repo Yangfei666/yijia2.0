@@ -41,7 +41,7 @@
               </div>
               <div v-else>
               <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
-                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch(scope.row)" @click.native.prevent="toggleStatus(scope.$index)" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" @click.native.prevent="toggleStatus(scope.$index)" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
                 </el-switch>
               </el-tooltip>
               </div>
@@ -73,7 +73,7 @@ export default {
       formLabelWidth: "130px",
       dialogFormVisible: false,
       cover: [],
-      hsxxIsFirst: "",
+      hsxxIsFirst:true,
       loading: true,
     };
   },
@@ -111,8 +111,8 @@ export default {
             });
         });
     },
-    changeSwitch(data) {
-      console.log(data)
+    changeSwitch(val,row) {
+      console.log(val,row)
     },
     uploadOverrun: function() {
       this.$message({

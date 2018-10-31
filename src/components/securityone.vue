@@ -68,6 +68,7 @@ require('echarts/lib/chart/pie')
 // 引入提示框和title组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
+import { requestLogin } from "@/api/api";
   export default {
     name:'securityone',
     data() {
@@ -136,7 +137,7 @@ require('echarts/lib/component/title')
         ]
       };
       myChart.setOption(option);
-    }
+    },
   }
 };
 </script>
@@ -185,7 +186,8 @@ require('echarts/lib/component/title')
             font-weight: normal;
             font-stretch: normal;
             color: #fff;
-            display: block;
+            width: 100%;
+            text-align: left;
           }
           .seed2{
             font-family: PingFang-SC-Medium;

@@ -15,10 +15,10 @@
     <el-col :span="24">
     <div class="health-from"> 
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="115px" class="demo-ruleForm">
-            <el-col :span="20" class="from-date">
+            <el-col :span="17" class="from-date">
             <el-form-item label="不办卡原因：" prop="desc">
                 <el-col :span="24">
-                <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput"></el-input>
+                <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
                 <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-col>
             </el-form-item>
@@ -36,19 +36,16 @@
 </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
     name:'nocards',
   data() {
     return {
          remnant: 666,
          ruleForm: {
-          leavedate:'',
           desc: '',
         },
         rules: {
-            leavedate:[
-                { type: 'date', required: true, message: '请选择请假时间', trigger: 'change' }
-            ],
             desc: [
             { required: true, message: '请输入请假原因', trigger: 'blur' },
             { min: 1, max: 666, message: '长度在 1 到 666个字符', trigger: 'blur' }
@@ -57,16 +54,35 @@ export default {
     };
   },
   methods: {
-         submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+    //不办卡
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var loginParams = {
+              content: this.ruleForm.desc, //原因
+            };
+            console.log(this.$route);
+            requestLogin("/setExperienceCustomer/giveUp/"+this.$route.params.id, loginParams, "post")
+              .then(data => {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              })
+              .catch(error => {
+                  this.$message({
+                  message: "提交失败",
+                  type: "error"
+                });
+              });
+          });
+        } else {
+          this.$message({ message: "提交失败!请检查是否有误!", type: "error" });
+          return false;
+        }
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },

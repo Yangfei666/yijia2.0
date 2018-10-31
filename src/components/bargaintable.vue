@@ -77,7 +77,7 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" >
+          <el-table id="rebateSetTable" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
                 <el-radio-group v-model="radio">
@@ -96,22 +96,21 @@
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="280px">
               <template slot-scope="scope">
                 <el-button @click="go" type="text" size="small">认领</el-button>
-                <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">补交尾款</el-button>
+                <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">办卡</el-button>
                 <el-button @click="dialogFormVisible4 = true" type="text" size="small">放弃定金</el-button>
-                <template>
-                  <el-dialog title="放弃定金" :append-to-body="true" :visible.sync="dialogFormVisible4">
-                    <Givedeposit></Givedeposit>
-                  </el-dialog>
-                </template>
                 <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
-                <template>
-                  <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                    <Change></Change>
-                  </el-dialog>
-                </template>
               </template>
             </el-table-column>
           </el-table>
+          <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible5">
+            <Addmember></Addmember>
+          </el-dialog>
+          <el-dialog title="放弃定金" :append-to-body="true" :visible.sync="dialogFormVisible4">
+            <Givedeposit :currentSelectRow="currentSelectRow"></Givedeposit>
+          </el-dialog>
+          <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
+            <change :potential="Potential"></change>
+          </el-dialog>
           <div class="block">
             <el-button size="small" class="export" @click="exportExcel">导出</el-button>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -124,12 +123,13 @@
 </template>
 <script>
 import Addbargain from "@/components/addbargain";
+import Addmember from "@/components/addmember";
 import Revisedatum2 from "@/components/revisedatum2";
 import Change from "@/components/change";
 import Givedeposit from "@/components/givedeposit";
 import { requestLogin } from "@/api/api";
-import FileSaver from 'file-saver';
-import XLSX from 'xlsx';
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "bargaintable",
   inject: ["reload"],
@@ -137,7 +137,8 @@ export default {
     Addbargain,
     Revisedatum2,
     Change,
-    Givedeposit
+    Givedeposit,
+    Addmember
   },
   data() {
     return {
@@ -146,10 +147,12 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
+      dialogFormVisible5: false,
       currentPage: 1,
       pagesize: 10,
-      loading:true,
+      loading: true,
       radio: true,
+      Potential:{potential:'setDepositCustomer',id:''},
       formInline: {
         date: "",
         adviser: [],
@@ -165,7 +168,7 @@ export default {
         { value: "2", label: "1周到1月" },
         { value: "3", label: "1月到2个月" },
         { value: "4", label: "2个月以上" }
-      ],
+      ]
     };
   },
   watch: {
@@ -176,7 +179,7 @@ export default {
         this.tableData = this.tableData2;
       }
     },
-  adviser(val) {
+    adviser(val) {
       //会籍
       if (!val) {
         this.tableData = this.tableData2;
@@ -192,9 +195,9 @@ export default {
   created: function() {
     let _this = this;
     this.getTableData(true);
-    setTimeout(function(){
-       _this.getCustomer();
-    },1000)
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
   },
   methods: {
     //获取表格数据
@@ -261,8 +264,7 @@ export default {
       this.tableData = this.tableData2;
       this.tableData = this.tableData2.filter(
         i =>
-          i.itName.includes(this.searchVal) ||
-          i.itTel.includes(this.searchVal)
+          i.itName.includes(this.searchVal) || i.itTel.includes(this.searchVal)
       );
     },
     func2() {
@@ -274,21 +276,35 @@ export default {
         return;
       }
       //跟进跳转
-      this.$router.push({path:"/Customer/depositfollowup/bargainup", 
-      query:{id:this.currentSelectRow.id, itName:this.currentSelectRow.itName, itSex:this.currentSelectRow.itSex}});
+      this.$router.push({
+        name: "Bargainup",
+        params: {
+          id: this.currentSelectRow.id,
+          itName: this.currentSelectRow.itName,
+          itSex: this.currentSelectRow.itSex
+        }
+      });
     },
-      //表格导出
-    exportExcel () {
-         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '定金客户管理数据表.xlsx')
-         } catch (e) { 
-           if (typeof console !== 'undefined')
-                console.log(e, wbout) 
-            }
-         return wbout
-     },
+    //表格导出
+    exportExcel() {
+      var wb = XLSX.utils.table_to_book(
+        document.querySelector("#rebateSetTable")
+      );
+      var wbout = XLSX.write(wb, {
+        bookType: "xlsx",
+        bookSST: true,
+        type: "array"
+      });
+      try {
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "定金客户管理数据表.xlsx"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.log(e, wbout);
+      }
+      return wbout;
+    },
     radiochange(row) {
       console.log(`当前: ${row}`);
     },
@@ -303,9 +319,9 @@ export default {
       alert("点击了");
     },
     resetForm() {
-      this.formInline.date="";
-      this.formInline.adviser="";
-      this.formInline.follow="";
+      this.formInline.date = "";
+      this.formInline.adviser = "";
+      this.formInline.follow = "";
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);
@@ -319,6 +335,7 @@ export default {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
+       this.Potential.id=this.currentSelectRow.id;
       console.log(row.index);
     },
     go() {

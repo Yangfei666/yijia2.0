@@ -14,12 +14,12 @@
         </el-col>
         <el-col :span="23" class="weber">
           <el-col :span="10" class="weber-left">
-            <span class="weber-span">体验客户·小李子<img src="../assets/51.png"/></span>
-            <p class="weber-p">会籍顾问:刘淑芹<span class="weber-pp">电话:12345678901</span></p>
+            <span class="weber-span">体验客户·{{this.$route.params.exName}}<img src="../assets/51.png"/></span>
+            <p class="weber-p">会籍顾问:{{this.$route.params.exHjgwName}}<span class="weber-pp">电话:{{this.$route.params.exTel}}</span></p>
             </el-col>
             <el-col :span="14" class="weber-right">
               <div class="right-span">
-                <router-link to="/Customer/experiencehome/information" class="link">综合信息 </router-link>
+                <router-link :to="{name:'Information2',params:{id:243}}" class="link">综合信息 </router-link>
               </div>
               <div class="border"></div>
                 <div class="right-span">
@@ -32,7 +32,7 @@
                 </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link to="/Customer/experiencehome/nocards" class="link">不办卡</router-link>
+                  <router-link :to="{name:'Nocards',params:{id:243}}" class="link">不办卡</router-link>
                 </div>
               <div class="border"></div>
               <div class="right-span">
@@ -79,8 +79,14 @@ export default {
     return {
       dialogFormVisible: false,
       dialogFormVisible2: false,
-      dialogFormVisible3:false
+      dialogFormVisible3:false,
     };
+  },
+  mounted(){
+    // this.id = this.$route.params.id;
+    this.exHjgwName = this.$route.params.exHjgwName;
+    this.exName = this.$route.params.exName;
+    this.exTel = this.$route.params.exTel;
   },
   methods: {
   }

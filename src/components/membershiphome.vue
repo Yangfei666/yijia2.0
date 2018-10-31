@@ -18,8 +18,8 @@
             <img src="http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg"/>
           </el-col>
           <el-col :span="10" class="weber-left">
-            <span class="weber-span">小册子<img src="../assets/51.png"/></span>
-            <p class="weber-p">会籍顾问:刘淑芹<span class="weber-pp">电话:12345678901</span></p>
+            <span class="weber-span">{{this.$route.params.HYName}}<img src="../assets/51.png"/></span>
+            <p class="weber-p">会籍顾问:{{this.$route.params.YGXX_NAME}}<span class="weber-pp">电话:{{this.$route.params.MotoTel}}</span></p>
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
@@ -38,7 +38,7 @@
                 <el-button type="text" class="add-p link" @click="dialogFormVisible = true">换会籍</el-button>
                     <template>
                     <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <Change></Change>
+                    <Change :potential="Potential"></Change>
                     </el-dialog>
                     </template>
               </div>
@@ -67,7 +67,8 @@ export default {
   },
   data() {
     return {
-      dialogFormVisible:false
+      dialogFormVisible:false,
+      Potential:{potential:'setDesignateMember',id:this.$route.params.HYID},
     };
   },
   methods: {

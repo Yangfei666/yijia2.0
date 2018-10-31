@@ -62,9 +62,9 @@ export default {
   created: function() {
     let _this = this;
     console.log(this.$route);
-    console.log(this.$route.query.HYID);
+    console.log(this.$route.params.HYID);
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/member/" + this.$route.query.HYID,
+      "/CustomerFollowUp/getFollowUpRecord/member/" + this.$route.params.HYID,
       {},
       "get"
     )
@@ -89,7 +89,7 @@ export default {
             this.addLoading = true;
             var loginParams = {
               identity: 'member', //客户类别
-              id: this.$route.query.HYID, //客户id
+              id: this.$route.params.HYID, //客户id
               content:this.ruleForm.desc//内容
             };
             requestLogin("/CustomerFollowUp/addFollowUpRecord", loginParams, "post")

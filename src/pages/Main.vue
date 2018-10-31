@@ -55,7 +55,7 @@
                 <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
               </div>
             </template>
-             <template>
+            <template>
               <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible">
                 <Approach></Approach>
               </el-dialog>
@@ -118,13 +118,13 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="dialogFormVisible3 = true">进场</el-button>
             </template>
-             <template>
-              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                <Approach></Approach>
-              </el-dialog>
-            </template>
           </el-table-column>
         </el-table>
+        <template>
+          <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible2">
+            <Approach></Approach>
+          </el-dialog>
+        </template>
       </div>
     </div>
   </div>
@@ -147,7 +147,7 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
-      formLabelWidth: '130px',
+      formLabelWidth: "130px",
       groupList: [], // 团课列表
       privateList: [], // 私教列表
       date: new Date(),
@@ -350,18 +350,18 @@ export default {
       }
     },
     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
 };
 </script>

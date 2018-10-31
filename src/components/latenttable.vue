@@ -109,25 +109,26 @@
             <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
             <el-table-column align="left" label="操作" fixed="right" width="320px">
               <template slot-scope="scope">
-                <el-button @click="go" type="text" size="small">
-                  认领</el-button>
-                <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">体验</el-button>
-                <el-button @click.native.prevent="handleClick3(scope.row)" type="text" size="small">意向</el-button>
+                <el-button @click.native.prevent="go(scope.row,scope.$index)" type="text" size="small">认领</el-button>
+                <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
+                <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
-                <template>
-                  <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                    <Change></Change>
-                  </el-dialog>
-                </template>
-                <template>
-                  <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible4">
-                    <Addmember></Addmember>
-                  </el-dialog>
-                </template>
               </template>
             </el-table-column>
           </el-table>
+          <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
+            <change :potential="Potential"></change>
+          </el-dialog>
+          <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible4">
+            <Addmember></Addmember>
+          </el-dialog>
+          <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible5">
+            <Addbargain></Addbargain>
+          </el-dialog>
+          <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible6">
+            <Addpractice></Addpractice>
+          </el-dialog>
           <div class="block">
             <el-button size="small" class="export" @click="exportExcel">导出</el-button>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -142,10 +143,12 @@
 import Addlatent from "@/components/addlatent";
 import Revisedatum from "@/components/revisedatum";
 import Change from "@/components/change";
+import Addbargain from "@/components/addbargain";
+import Addpractice from "@/components/addpractice";
 import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
-import FileSaver from 'file-saver';
-import XLSX from 'xlsx';
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
 export default {
   name: "latenttable",
   inject: ["reload"],
@@ -153,10 +156,13 @@ export default {
     Addlatent,
     Revisedatum,
     Change,
-    Addmember
+    Addmember,
+    Addbargain,
+    Addpractice
   },
   data() {
     return {
+      Potential:{potential:'setPotentialCustomer',id:''},
       loading: true,
       downIcon: true,
       currentSelectRow: "",
@@ -166,6 +172,8 @@ export default {
       pagesize: 10,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
+      dialogFormVisible5: false,
+      dialogFormVisible6: false,
       btnText: "展开",
       isShow: false,
       radio: true,
@@ -194,11 +202,15 @@ export default {
       tableData2: [],
       staff_info: [],
       searchVal: "",
+      class: "potential"
     };
   },
   created: function() {
-    this.getTableData(true); //初次进入页面
-    this.getCustomer();
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function(){
+      _this.getCustomer();
+    },1500)
   },
   watch: {
     searchVal(val) {
@@ -277,8 +289,7 @@ export default {
       this.tableData = this.tableData2;
       this.tableData = this.tableData2.filter(
         i =>
-          i.prName.includes(this.searchVal) ||
-          i.prTel.includes(this.searchVal)
+          i.prName.includes(this.searchVal) || i.prTel.includes(this.searchVal)
       );
     },
     //获取会籍顾问列表
@@ -299,17 +310,25 @@ export default {
         });
     },
     //表格导出
-    exportExcel () {
-         var wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'))
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '潜在客户管理数据表.xlsx')
-         } catch (e) { 
-           if (typeof console !== 'undefined')
-                console.log(e, wbout) 
-            }
-         return wbout
-     },
+    exportExcel() {
+      var wb = XLSX.utils.table_to_book(
+        document.querySelector("#rebateSetTable")
+      );
+      var wbout = XLSX.write(wb, {
+        bookType: "xlsx",
+        bookSST: true,
+        type: "array"
+      });
+      try {
+        FileSaver.saveAs(
+          new Blob([wbout], { type: "application/octet-stream" }),
+          "潜在客户管理数据表.xlsx"
+        );
+      } catch (e) {
+        if (typeof console !== "undefined") console.log(e, wbout);
+      }
+      return wbout;
+    },
     Selectchange(val) {
       console.log(val);
     },
@@ -328,10 +347,10 @@ export default {
     },
     //重置
     resetForm() {
-      this.formInline.quality="";
-      this.formInline.date="";
-      this.formInline.follow="";
-      this.formInline.adviser="";
+      this.formInline.quality = "";
+      this.formInline.date = "";
+      this.formInline.follow = "";
+      this.formInline.adviser = "";
     },
     //跟进记录
     func() {
@@ -343,14 +362,15 @@ export default {
         });
         return;
       }
-      let currentRoute =
-        this.$route.path === "/Customer/potentialfollowup"
-          ? "depositfollowup"
-          : "potentialfollowup";
-      console.log(currentRoute);
       //跟进跳转
-      this.$router.push({path:"/Customer/" + currentRoute + "/memberup", 
-      query:{id:this.currentSelectRow.id, prName:this.currentSelectRow.prName, prSex:this.currentSelectRow.prSex}});
+      this.$router.push({
+        name:'Memberup',
+        params: {
+          id: this.currentSelectRow.id,
+          prName: this.currentSelectRow.prName,
+          prSex: this.currentSelectRow.prSex
+        }
+      });
     },
     showToggle: function() {
       //表单收起展开
@@ -372,22 +392,29 @@ export default {
     },
     rowClick(row, event, column) {
       this.radio = row.index;
-      //获取表格数据
+      //获取表格 怎么加属性 我要加一个新属性  
+      //获取表格 怎么加属性 我要加一个新属性  
       this.currentSelectRow = row;
-      console.log(this.currentSelectRow.prName);
-      console.log(this.currentSelectRow.prSex);
+       this.Potential.id=this.currentSelectRow.id;
     },
-    go() {
+    go(row) {
+      console.log(row)
       let currentRoute =
         this.$route.path === "/Customer/latent/latenttable"
           ? "latent"
           : "bargain";
       console.log(currentRoute);
       //认领跳转
-      this.$router.push("/Customer/" + currentRoute + "/claim");
+      this.$router.push({
+        path: "/Customer/" + currentRoute + "/claim",
+        query: {
+          prName: this.currentSelectRow.prName,
+          prTel: this.currentSelectRow.prTel
+        }
+      });
     },
     changeInfo() {
-      //先选择列表
+      //先选择列表 
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
