@@ -20,14 +20,15 @@
       </div>
       <el-tabs v-model="activeName">
         <el-tab-pane label="团课(共20节)" name="league">
-          <League ref='League' :groupList="groupList" @clickCourse="clickCourse"></League>
+          <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
+          <div v-else>对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane label="私教(共20节)" name="private">
           <Private></Private>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="main-list" v-if="experience.length>0">
+    <div class="main-list" v-if="experience.length>0 && enterStadium">
       <div class="customer">
         <span>体验客户约课</span>
       </div>
@@ -47,7 +48,7 @@
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场'">
-                <el-button type="text" size="small" @click="dialogFormVisible = true">进场</el-button>
+                <el-button type="text" size="small" @click="clickEnter('体验客户', scope.row.experience_customers.id)">进场</el-button>
                 <el-button type="text" size="small" @click="cancelReservation()">取消预约</el-button>
               </div>
               <div v-else>
@@ -55,16 +56,12 @@
                 <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
               </div>
             </template>
-            <template>
-              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible">
-                <Approach></Approach>
-              </el-dialog>
-            </template>
+
           </el-table-column>
         </el-table>
       </div>
     </div>
-    <div class="nav-list">
+    <div class="nav-list" v-if="enterStadium">
       <div class="customer">
         <span>会员约课</span>
       </div>
@@ -82,7 +79,7 @@
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场'">
-                <el-button type="text" size="small" @click="dialogFormVisible2 = true">进场</el-button>
+                <el-button type="text" size="small" @click="clickEnter('会员客户', scope.row.member_customers.HYID)">进场</el-button>
                 <el-button type="text" size="small" @click="cancelReservation(scope.row.id)">取消预约</el-button>
               </div>
               <div v-else>
@@ -90,16 +87,11 @@
                 <el-button type="text" size="small">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
               </div>
             </template>
-            <template>
-              <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible">
-                <Approach></Approach>
-              </el-dialog>
-            </template>
           </el-table-column>
         </el-table>
       </div>
     </div>
-    <div class="main-list">
+    <div class="main-list" v-if="enterStadium">
       <div class="customer">
         <span>教练上课登记</span>
       </div>
@@ -116,17 +108,19 @@
           <el-table-column align="left" prop="kcPlace" label="教室"></el-table-column>
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="dialogFormVisible3 = true">进场</el-button>
+              <el-button type="text" size="small" @click="clickEnter('教练', 0)">进场</el-button>
             </template>
           </el-table-column>
         </el-table>
-        <template>
-          <el-dialog title="团课教练进场" :append-to-body="true" :visible.sync="dialogFormVisible2">
-            <Approach></Approach>
-          </el-dialog>
-        </template>
       </div>
     </div>
+    <!-- 进场输入框 -->
+    <template>
+      <el-dialog :title="enterTitle" :append-to-body="true" :visible.sync="dialogFormVisible" :course="course">
+        <Approach :course="course" :userId="userId">
+        </Approach>
+      </el-dialog>
+    </template>
   </div>
 </template>
 <script>
@@ -144,15 +138,15 @@ export default {
   },
   data() {
     return {
+      enterStadium : true,// 是否显示课程内容
+      enterTitle : '',//进场输入框的标题
       dialogFormVisible: false,
-      dialogFormVisible2: false,
-      dialogFormVisible3: false,
       formLabelWidth: "130px",
       groupList: [], // 团课列表
       privateList: [], // 私教列表
       date: new Date(),
-      activeName: "league",
-      bottomDay: "今天",
+      activeName: "league",// 团课/私教
+      bottomDay: "今天",// 时间按钮
       pickerOptions1: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -182,16 +176,19 @@ export default {
           }
         ]
       },
-      SelectDate: "", // 日期选择
+      SelectDate: this.GetDateStr(0), // 日期选择
       experience: [], // 体验客户
       leaguer: [], // 会员客户
       number: "0000", //进场手牌
-      SelectedIndex: 0 //选中课程的index
+      course: false, //选中课程
+      userId: 0, //选中的客户id
+      identity : ''//要进场的身份
     };
   },
   computed: {
+    // 当前选中的课程
     trainer() {
-      if (this.groupList.length == 0 && this.privateList.length == 0) {
+      if (!this.course) {
         return [
           {
             staff_info: {
@@ -202,31 +199,26 @@ export default {
             kcPlace: "加载中"
           }
         ];
-      } else if (this.activeName === "league") {
-        // console.log(this.groupList);
-        return this.groupList.slice(this.SelectedIndex, this.SelectedIndex + 1);
-      } else {
-        return this.privateList.slice(
-          this.SelectedIndex,
-          this.SelectedIndex + 1
-        );
       }
+      return [this.course];
     },
     bool() {
       return this.activeName == "league" ? true : false;
     }
   },
   created() {
-    let today =
-      this.date.getFullYear() +
-      "-" +
-      (this.date.getMonth() + 1) +
-      "-" +
-      this.date.getDate();
+    let today = this.GetDateStr(0);
     this.getCourseList(today);
   },
   watch: {},
   methods: {
+    // 进场按钮点击
+    clickEnter (str, id)
+    {
+      this.enterTitle = (this.activeName == "league" ? '团课' : '私教') + str + '进场';
+      this.userId = id;
+      this.dialogFormVisible = true;
+    },
     // 客户进场
     customerEntry() {
       let params = {
@@ -249,11 +241,17 @@ export default {
     //时间按钮
     changeBottomDay() {
       if (this.bottomDay == "今天") {
-        this.getCourseList(this.GetDateStr(0));
+        let day = this.GetDateStr(0)
+        this.SelectDate = day;
+        this.getCourseList(day);
       } else if (this.bottomDay == "明天") {
-        this.getCourseList(this.GetDateStr(1));
+        let day = this.GetDateStr(1)
+        this.SelectDate = day;
+        this.getCourseList(day);
       } else {
-        this.getCourseList(this.GetDateStr(2));
+        let day = this.GetDateStr(2)
+        this.SelectDate = day;
+        this.getCourseList(day);
       }
     },
     // 获取指定天数后的时间
@@ -262,14 +260,15 @@ export default {
       date.setDate(date.getDate() + num);
       let y = date.getFullYear();
       let m = date.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
       let d = date.getDate();
+      d = d < 10 ? '0' + d : d;
       return y + "-" + m + "-" + d;
     },
     // 时间选择
     changeSelectDate() {
       let date = new Date(this.SelectDate);
-      let day =
-        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      let day = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       this.bottomDay = "";
       this.getCourseList(day);
     },
@@ -279,25 +278,30 @@ export default {
         .then(data => {
           // console.log(data.group);
           // console.log(sessionStorage.getItem('access-token'));
-          this.groupList = data.group;
-          this.privateList = data.private;
-          setTimeout(this.getCourseDetails(this.groupList.shift().ID), 2000); // 加载默认课程详情
+          if (data.group === false && data.private === false) {
+            this.enterStadium = false;
+          } else {
+            this.enterStadium = true;
+            this.groupList = data.group;
+            this.privateList = data.private;
+            setTimeout(this.getCourseDetails(this.groupList.shift()), 2000); // 加载默认课程详情
+          }
         })
         .catch(error => {
           this.msgCatch(error, "对不起,课程数据加载失败");
         });
     },
     // 获取课程预约详情
-    clickCourse(clickCourse, index) {
-      this.SelectedIndex = index;
-      this.getCourseDetails(clickCourse);
+    clickCourse(course) {
+      this.getCourseDetails(course);
     },
-    getCourseDetails(id) {
-      if (!id) {
+    getCourseDetails(course) {
+      if (!course) {
         return fasle;
       }
+      this.course = course;
       // id = 7016;
-      request("/adminHomePage/" + id, {}, "get")
+      request("/adminHomePage/" + course.ID, {}, "get")
         .then(data => {
           this.experience = data.experience;
           this.leaguer = data.member;
@@ -311,23 +315,8 @@ export default {
           }
         });
     },
-    //教练进场
-    caochEnter(id) {
-      if (!id) {
-        return false;
-      }
-      let params = {
-        userId: this.trainer.JLID,
-        number: this.number
-      };
-      request("/adminHomePage/" + id, params, "put")
-        .then(data => {
-          this.msgThen(data);
-        })
-        .catch(error => {
-          this.msgCatch(error, "对不起,教练进场失败");
-        });
-    },
+
+    //成功提示
     msgThen(data) {
       if (data.errorCode == 0) {
         this.$message({
@@ -341,6 +330,7 @@ export default {
         });
       }
     },
+    //失败提示
     msgCatch(error, msg) {
       if (error.response) {
         this.$message({
@@ -349,19 +339,6 @@ export default {
         });
       }
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
   }
 };
 </script>

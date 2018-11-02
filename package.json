@@ -14,7 +14,7 @@
     "axios-mock-adapter": "^1.15.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
-    "file-saver": "^2.0.0-rc.3",
+    "file-saver": "^2.0.0-rc.4",
     "font-awesome": "^4.7.0",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.2",

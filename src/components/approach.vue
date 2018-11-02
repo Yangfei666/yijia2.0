@@ -1,33 +1,24 @@
 <template>
     <div>
-        <!--团课教练进场-->
+        <!--进场-->
         <el-form :model="ruleForm" ref="ruleForm" label-width="100px">
-            <el-form-item label="课程名称:" prop="name" :label-width="formLabelWidth">
-                <el-col :span="22">
-                    <el-input v-model="ruleForm.name" placeholder="请输入"></el-input>
-                </el-col>
+            <el-form-item label="课程信息:" prop="name" :label-width="formLabelWidth">
+                <el-button-group>
+                  <el-button type="danger" round >{{course.kcStime}}</el-button>
+                  <el-button type="danger" round >{{course.Stime}}~{{course.Etime}}</el-button>
+                  <el-button type="danger" round >{{course.curriculum_subject.kcName}}</el-button>
+                </el-button-group>
             </el-form-item>
-            <el-form-item label="上课日期:" prop="attenddate" :label-width="formLabelWidth">
-                <el-col :span="22">
-                    <el-date-picker v-model="ruleForm.attenddate" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%"></el-date-picker>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="开始时间:" prop="attendtime" :label-width="formLabelWidth">
-                <el-col :span="22">
-                 <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{start: '08:30',step: '00:15',end: '18:30'}" style="width:100%"></el-time-select>
-                </el-col>
-            </el-form-item>
-            <el-form-item label="上课教练:" prop="trainer" :label-width="formLabelWidth">
+            <el-form-item label="上课教练:" prop="trainer" :label-width="formLabelWidth" v-if="userId == 0">
                 <el-col :span="22">
                     <el-select v-model="ruleForm.trainer" placeholder="请选择" style="width:100%">
-                        <el-option label="菲菲" value="feifei"></el-option>
-                        <el-option label="琦琦" value="qiqi"></el-option>
+                        <el-option v-for="item in coach" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                     </el-select>
                 </el-col>
             </el-form-item>
             <el-form-item label="进场手牌:" prop="approach" :label-width="formLabelWidth">
                 <el-col :span="22">
-                    <el-input v-model="ruleForm.approach" placeholder="请输入"></el-input>
+                    <el-input v-model="ruleForm.approach" placeholder="请输入手牌号,不用则忽略"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item class="dialog-footer">
@@ -40,54 +31,101 @@
     </div>
 </template>
 <script>
+import { requestLogin as request } from "../api/api";
 export default {
+  props: {
+    course:[Object, Array],
+    userId:Number,
+  },
   data() {
     return {
       formLabelWidth: "130px",
       ruleForm: {
-        name: "", //课程名称
         approach: "", //进场手牌
         trainer: "", //上课教练
-        attenddate: "", //上课日期
-        attendtime: ""//开始时间
       },
       rules: {
-        name: [
-          { required: true, message: "请输入姓名", trigger: "blur" },
-          { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" }
-        ],
-        approach: [
-          { required: true, message: "请输入进场手牌", trigger: "blur" }
-        ],
+        approach: [{ required: true, message: "请输入进场手牌", trigger: "blur" }],
         trainer: [{ required: true, message: "请选择教练", trigger: "change" }],
-        attenddate: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择上课日期",
-            trigger: "change"
-          }
-        ],
-        attendtime: [
-          { required: true, message: "请选择开始时间", trigger: "change" }
-        ]
-      }
+      },
+      coach : []
     };
+  },
+  // 获取教练列表
+  created() {
+    request("/getCurTableBaseInfo")
+      .then(data => {
+        this.coach = data.coach;
+      });
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.userId === 0 ? this.caochEnter() : this.customerEntry()
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
     },
+    // 客户进场
+    customerEntry() {
+      let params = {
+        id : this.course.ID,
+        userId : this.userId,
+        hand : this.ruleForm.approach,
+        bool : this.course.kcIsPrivate == '团课课程' ? true : false
+      };
+      console.log(params);
+      // request("/adminHomePage", params)
+      //   .then(data => {
+      //     this.msgThen(data);
+      //   })
+      //   .catch(error => {
+      //     this.msgCatch(error, "对不起,客户进场失败");
+      //   });
+    },
+    //教练进场
+    caochEnter() {
+      let params = {
+        userId : this.ruleForm.trainer,
+        number : this.ruleForm.approach,
+      };
+      request("/adminHomePage/" + this.course.ID, params, "put")
+        .then(data => {
+          console.log(data);
+          this.msgThen(data);
+        })
+        .catch(error => {
+          this.msgCatch(error, '对不起,教练进场成功');
+        });
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+    //成功提示
+    msgThen(data) {
+      if (data.errorCode == 0) {
+        this.$message({
+          message: "操作成功",
+          type: "success"
+        });
+      } else {
+        this.$message({
+          message: data.msg,
+          type: "error"
+        });
+      }
+    },
+    //失败提示
+    msgCatch(error, msg) {
+      if (error.response) {
+        this.$message({
+          message: msg ? mag : error.response.data.msg,
+          type: "error"
+        });
+      }
+    },
   }
 };
 </script>

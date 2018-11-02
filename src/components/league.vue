@@ -4,7 +4,7 @@
     <el-col :span="24" class="main-wp">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in groupList" :key="item.ID" @click="courseId(item.ID, index)">
+          <div class="swiper-slide" v-for="item in groupList" :key="item.ID" @click="courseId(item)">
             <template>
               <div class="swiper-main">
                 <div class="dimback">
@@ -95,8 +95,8 @@ export default {
         }
       });
     },
-    courseId (id, index) {
-      this.$emit('clickCourse', id, index);
+    courseId (course) {
+      this.$emit('clickCourse', course);
     }
   }
 };
