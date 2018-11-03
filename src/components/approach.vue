@@ -59,6 +59,7 @@ export default {
       });
   },
   methods: {
+    // 进场
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -73,17 +74,20 @@ export default {
       let params = {
         id : this.course.ID,
         userId : this.userId,
-        hand : this.ruleForm.approach,
+        number : this.ruleForm.approach == '' ? '0000' : this.ruleForm.approach,
         bool : this.course.kcIsPrivate == '团课课程' ? true : false
       };
-      console.log(params);
-      // request("/adminHomePage", params)
-      //   .then(data => {
-      //     this.msgThen(data);
-      //   })
-      //   .catch(error => {
-      //     this.msgCatch(error, "对不起,客户进场失败");
-      //   });
+      request("/adminHomePage", params)
+        .then(data => {
+          CustomerSuccess(params.number);
+          this.msgThen(data);
+        })
+        .catch(error => {
+          this.msgCatch(error, "对不起,客户进场失败");
+        });
+    },
+    CustomerSuccess(hand){
+      this.$emit('CustomerSuccess', hand);
     },
     //教练进场
     caochEnter() {
@@ -93,12 +97,21 @@ export default {
       };
       request("/adminHomePage/" + this.course.ID, params, "put")
         .then(data => {
-          console.log(data);
+          for (let i = 0; i < this.coach.length; i++) {
+            const element = this.coach[i];
+            if (element.YGXX_YGID_NEI == params.userId) {
+              var name2 = element.YGXX_NAME;
+            }
+          }
+          this.caochSuccess (name2, params.userId);
           this.msgThen(data);
         })
         .catch(error => {
-          this.msgCatch(error, '对不起,教练进场成功');
+          this.msgCatch(error, '对不起,教练进场失败');
         });
+    },
+    caochSuccess (name2,JLIDs) {
+      this.$emit('caochSuccess', name2, JLIDs);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
