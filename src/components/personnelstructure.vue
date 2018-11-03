@@ -41,8 +41,8 @@
             <el-table-column align="left" prop="tag">
               <template slot-scope="scope">
                 <span>{{scope.row.Brigade}}</span>
-                <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" style="margin-left:20px;">
-                  {{tag}}
+                <el-tag :key="tag.id" v-for="tag in scope.row.club_info_group" closable :disable-transitions="false" @close="handleClose(tag.id)" style="margin-left:20px;">
+                  {{tag.group}}
                 </el-tag>
                 <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm" style="width:87px;height:35px;">
                 </el-input>
@@ -65,7 +65,7 @@ export default {
       formLabelWidth: "130px",
       dialogFormVisible: false,
       radio: true,
-      dynamicTags: ["标签一", "标签二", "标签三"],
+      dynamicTags: [],
       inputVisible: false,
       loading: false,
       inputValue: "",
@@ -86,8 +86,6 @@ export default {
     requestLogin("/setClubInfo/create", {}, "get")
       .then(function(res) {
         _this.tableData = res;
-        // let { club_info_group } = res;
-        // _this.dynamicTags = club_info_group;
       })
       .catch(error => {
         if (error.res) {
@@ -108,9 +106,9 @@ export default {
           type: "warning"
         })
           .then(() => {
-            console.log(_this.currentSelectRow.id);
+            console.log(_this.currentSelectRow.bid);
             requestLogin(
-              "/setClubInfo/" + _this.currentSelectRow.id,
+              "/setClubInfo/" + _this.currentSelectRow.bid,
               {},
               "delete"
             ).then(response => {
@@ -119,7 +117,7 @@ export default {
                 type: "success"
               });
             });
-            this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

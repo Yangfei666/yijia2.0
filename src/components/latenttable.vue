@@ -96,7 +96,7 @@
           <el-table id="rebateSetTable" ref="tb" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="80px">
               <template slot-scope="scope">
-                   <el-radio v-model="radioData" @change.native="radiochange(scope.row)" :label="scope.$index">&nbsp;</el-radio>
+                <el-radio v-model="radioData" @change.native="radiochange(scope.row)" :label="scope.$index">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -160,7 +160,7 @@ export default {
   },
   data() {
     return {
-      Potential:{potential:'setPotentialCustomer',id:''},
+      Potential: { potential: "setPotentialCustomer", id: "" },
       loading: true,
       downIcon: true,
       currentSelectRow: "",
@@ -174,7 +174,7 @@ export default {
       dialogFormVisible6: false,
       btnText: "展开",
       isShow: false,
-      radioData: '',
+      radioData: "",
       quality: [
         //客户质量
         { value: "1", label: "A" },
@@ -199,15 +199,15 @@ export default {
       tableData: [],
       tableData2: [],
       staff_info: [],
-      searchVal: "",
+      searchVal: ""
     };
   },
   created: function() {
     let _this = this;
     this.getTableData(true);
-    setTimeout(function(){
+    setTimeout(function() {
       _this.getCustomer();
-    },1500)
+    }, 1500);
   },
   watch: {
     searchVal(val) {
@@ -309,9 +309,16 @@ export default {
     },
     //表格导出
     exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
@@ -362,7 +369,7 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name:'Memberup',
+        name: "Memberup",
         params: {
           id: this.currentSelectRow.id,
           prName: this.currentSelectRow.prName,
@@ -392,12 +399,12 @@ export default {
       this.radioData = row.index;
       //获取所需id
       this.currentSelectRow = row;
-      this.Potential.id=this.currentSelectRow.id;
+      this.Potential.id = this.currentSelectRow.id;
       this.$refs.tb.toggleRowSelection(row);
       console.log(this.$refs.tb.toggleRowSelection(row));
     },
-    go(index,row) {
-      console.log(index,row)
+    go(index, row) {
+      console.log(index, row);
       let currentRoute =
         this.$route.path === "/Customer/latent/latenttable"
           ? "latent"
@@ -413,7 +420,7 @@ export default {
       });
     },
     changeInfo() {
-      //先选择列表 
+      //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {

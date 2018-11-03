@@ -48,7 +48,8 @@
                                         </el-form-item>
                                         <el-form-item label="上课时间:" prop="attendtime" :label-width="formLabelWidth">
                                             <el-col :span="22">
-                                                <el-time-picker is-range value-format="HH:mm:ss" v-model="ruleForm.attendtime" range-separator="~" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围" style="width: 100%;"></el-time-picker>
+                                                <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
+                                                <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endtime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
                                             </el-col>
                                         </el-form-item>
                                         <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
@@ -92,7 +93,7 @@
                                             </el-form-item>
                                             <el-form-item label="课程底色:" prop="kcbSort" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.kcbSort" placeholder="请选择" style="width:100%">
+                                                    <el-select v-model="currentSelectRow.kcbSort" @change="ceshihcange" placeholder="请选择" style="width:100%">
                                                         <el-option label="白底" value="1"></el-option>
                                                         <el-option label="灰底" value="2"></el-option>
                                                     </el-select>
@@ -120,7 +121,8 @@
                                             </el-form-item>
                                             <el-form-item label="上课时间:" prop="Stime" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-time-picker is-range v-model="currentSelectRow.Stime" range-separator="~" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围" style="width: 100%;"></el-time-picker>
+                                                    <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
+                                                    <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="容纳人数:" prop="RenShu" :label-width="formLabelWidth">
@@ -158,7 +160,7 @@
                                         <el-form :model="currentSelectRow" :rules="rules2" ref="currentSelectRow" label-width="100px">
                                             <el-form-item label="门店:" prop="door" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                   <el-select v-model="currentSelectRow.door" placeholder="请选择" style="width:100%" @change="Selectchange3">
+                                                    <el-select v-model="currentSelectRow.door" placeholder="请选择" style="width:100%" @change="Selectchange5">
                                                         <el-option v-for="item in mendian" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
                                                     </el-select>
                                                 </el-col>
@@ -170,7 +172,8 @@
                                             </el-form-item>
                                             <el-form-item prop="Stime" label="上课时间:" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-time-picker is-range v-model="currentSelectRow.Stime" range-separator="~" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围" style="width: 100%;"></el-time-picker>
+                                                    <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
+                                                    <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="预约课程:" prop="kcName" :label-width="formLabelWidth">
@@ -187,7 +190,7 @@
                                             </el-form-item>
                                             <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.consumer" placeholder="请选择" style="width:100%">
+                                                    <el-select v-model="currentSelectRow.consumer" @change="optionchange" placeholder="请选择" style="width:100%">
                                                         <el-option label="会员" value="member"></el-option>
                                                         <el-option label="体验客户" value="experience"></el-option>
                                                     </el-select>
@@ -252,36 +255,40 @@ import * as validate from "@/validate/Login";
 export default {
   name: "grouptimetable",
   inject: ["reload"],
-  props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs","clubs"],
+  props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs"],
   data() {
     return {
       jiaoshi: [],
       kecheng: [],
       jiaolian: [],
       tableData: [],
-      mendian:[],
+      mendian: [],
       formLabelWidth: "130px",
       radio: "",
+      startTime: '',
+      endTime: '',
       ruleForm: {
         course: "", //课程
         courseclassify: "", //课程分类
         train: "", //教练
         room: "", //教室
         attendtime: "", //上课时间
+        endtime: "", //结束时间
         attenddate: "", //课程日期
         galleryful: "", //容纳人数
         difficulty: "", //难度
         price: "" //价格
       },
       currentSelectRow: {
-          door:'',//门店
-          attenddate: '',//上课日期
-          attendtime:'',//上课时间
-          kcName:'',//预约课程
-          consumer:'',//会员/体验客户
-          name: '',//姓名
-          card:'',//卡种
-        },
+        door: "", //门店
+        attenddate: "", //上课日期
+        attendtime: "", //上课时间
+        endtime: "", //结束时间
+        kcName: "", //预约课程
+        consumer: "", //会员/体验客户
+        name: "", //姓名
+        card: "" //卡种
+      },
       rules: {
         course: [{ required: true, message: "请选择课程", trigger: "change" }],
         courseclassify: [
@@ -291,6 +298,9 @@ export default {
         room: [{ required: true, message: "请选择教室", trigger: "change" }],
         attendtime: [
           { required: true, message: "请选择上课时间", trigger: "change" }
+        ],
+        endtime: [
+          { required: true, message: "请选择结束时间", trigger: "change" }
         ],
         attenddate: [
           { required: true, message: "请选择课程日期", trigger: "change" }
@@ -304,19 +314,16 @@ export default {
         price: [{ required: true, message: "请输入课程价格", trigger: "blur" }]
       },
       rules2: {
-          door:[
-            {required: true, message: '请输入门店', trigger: 'blur' }
-          ],
-          kcName: [
-            {required: true, message: '请选择预约课程', trigger: 'change' }
-          ],
-          consumer: [
-            {required: true, message: '请选择会员/体验客户', trigger: 'change' }
-          ],
-         card:[
-             {required: true, message: '请选择卡种', trigger: 'change' }
-         ]
-        },
+        door: [{ required: true, message: "请选择门店", trigger: "change" }],
+        name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+        kcName: [
+          { required: true, message: "请选择预约课程", trigger: "change" }
+        ],
+        consumer: [
+          { required: true, message: "请选择会员/体验客户", trigger: "change" }
+        ],
+        card: [{ required: true, message: "请选择卡种", trigger: "change" }]
+      },
       currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
@@ -404,15 +411,42 @@ export default {
     },
     //预约团课
     yuyueForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认预约课程吗？", "提示").then(() => {
+            var formData = {
+              kcbId: this.currentSelectRow.kcName, //课程编号
+              cardId : this.currentSelectRow.kcName, //会员卡id
+              sign: this.currentSelectRow.consumer, //查询类别
+              hsid: this.currentSelectRow.door, //会所id
+            };
+            requestLogin( "/SetGroupReserve",formData,"post")
+              .then(data => {
+                this.addLoading = false;
+                this.$message({
+                  message: "预约成功",
+                  type: "success"
+                });
+                this.reload();
+              })
+              .catch(error => {
+                this.addLoading = false;
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          this.$message({ message: "提交失败!", type: "error" });
+          return false;
+        }
+      });
+    },
     //修改课程
     editForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -420,12 +454,12 @@ export default {
           this.$confirm("确认修改吗？", "提示").then(() => {
             var formData = {
               kcStime: this.currentSelectRow.kcStime, //课程日期
-              KCNO: this.currentSelectRow.KCNO, //所选课程id
+              KCNO: this.currentSelectRow.kcName, //所选课程id
               kcbSort: this.currentSelectRow.kcbSort, //灰底白底
               JLID: this.currentSelectRow.JLIDs, //教练id
               kcPlace: this.currentSelectRow.kcPlace, //教室
-              Stime: this.currentSelectRow.Stime[0], //开课时间
-              Etime: this.currentSelectRow.Stime[1], //结束时间
+              Stime: this.currentSelectRow.Stime, //开课时间
+              Etime: this.currentSelectRow.Etime, //结束时间
               RenShu: this.currentSelectRow.RenShu, //容纳人数
               kcDiff: this.currentSelectRow.kcDiff, //课程难度
               price: this.currentSelectRow.price //价格
@@ -514,8 +548,8 @@ export default {
               kcbSort: this.ruleForm.courseclassify, //灰底白底
               JLID: this.ruleForm.train, //教练id
               kcPlace: this.ruleForm.room, //教室
-              Stime: this.ruleForm.attendtime[0], //开课时间
-              Etime: this.ruleForm.attendtime[1], //结束时间
+              Stime: this.ruleForm.attendtime, //开始时间
+              Etime: this.ruleForm.endtime, //结束时间
               RenShu: this.ruleForm.galleryful, //容纳人数
               kcDiff: this.ruleForm.difficulty, //课程难度
               price: this.ruleForm.price //价格
@@ -556,6 +590,15 @@ export default {
     },
     Selectchange4(val) {
       console.log(val);
+    },
+    Selectchange5(val) {
+      console.log(val);
+    },
+    optionchange(val){
+        console.log(val);
+    },
+    ceshihcange(val){
+        console.log(val);
     }
   }
 };

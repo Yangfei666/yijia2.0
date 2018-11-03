@@ -185,7 +185,7 @@ export default {
      var params = {
           id:243,//体验券id
           type: 1, //课程种类
-          state: 4, //上课状态
+          state: 1, //上课状态
           cardId: 17, //券种id
           startTime:'', //预约时间
           endTime:'' //结束
@@ -250,10 +250,10 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 5.4% !important;
+      top: 2.4% !important;
       z-index: 2;
       color: #262626;
-      right: 79% !important;
+      right: 65% !important;
       .goback {
         font-size: 14px;
       }

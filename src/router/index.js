@@ -78,7 +78,9 @@ const Nocards = resolve => require(['@/components/nocards'], resolve)//不办卡
 
 const Operationnote = resolve => require(['@/components/operationnote'], resolve)//操作记录
 
-const Classcard = resolve => require(['@/components/classcard'], resolve)//上课记录
+const Classcard = resolve => require(['@/components/classcard'], resolve)//上课记录--体验
+
+const Classcard2 = resolve => require(['@/components/classcard2'], resolve)//上课记录--会员
 
 const Memberhome = resolve => require(['@/components/memberhome'], resolve)//会员主页
 
@@ -274,12 +276,12 @@ let router = new Router({
                                 { path: '/Customer/membershiphome/memberhome/activate', component: Activate },//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/information', component: Information },//综合信息
-                        { path: '/Customer/membershiphome/leave', component: Leave },//请假销假操作
-                        { path: '/Customer/membershiphome/unhook', component: Unhook },//解挂--补卡--挂失
+                        { path: '/Customer/membershiphome/information', component: Information,name:'Information' },//综合信息
+                        { path: '/Customer/membershiphome/leave', component: Leave ,name:'Leave'},//请假销假操作
+                        { path: '/Customer/membershiphome/unhook', component: Unhook ,name:'Unhook'},//解挂--补卡--挂失
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍
                         { path: '/Customer/membershiphome/operationnote', component: Operationnote },//操作记录
-                        { path: '/Customer/membershiphome/classcard', component: Classcard },//上课记录
+                        { path: '/Customer/membershiphome/classcard2', component: Classcard2 },//上课记录
                     ]
                 },
                 {
@@ -293,7 +295,7 @@ let router = new Router({
                         { path: '/Customer/experiencehome/information2', component: Information2,name:'Information2' },//综合信息
                         { path: '/Customer/experiencehome/nocards', component: Nocards,name:'Nocards'},//不办卡
                         { path: '/Customer/experiencehome/change', component: Change },//换会籍
-                        { path: '/Customer/experiencehome/classcard', component: Classcard },//上课记录
+                        { path: '/Customer/experiencehome/classcard', component: Classcard ,name:'Classcard'},//上课记录
                     ]
                 }
             ]

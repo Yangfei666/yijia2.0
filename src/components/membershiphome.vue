@@ -23,15 +23,15 @@
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
-                <router-link to="/Customer/membershiphome/information" class="link">综合信息</router-link>
+                <router-link :to="{name:'Information',params:{HYID:5208}}" class="link">综合信息</router-link>
               </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link to="/Customer/membershiphome/leave" class="link">请假/销假</router-link>
+                  <router-link :to="{name:'Leave',params:{HYID:5208}}" class="link">请假/销假</router-link>
                 </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link to="/Customer/membershiphome/unhook" class="link">挂失/解挂/补卡</router-link>
+                  <router-link :to="{name:'Unhook',params:{HYID:5208}}" class="link">挂失/解挂/补卡</router-link>
                 </div>
               <div class="border"></div>
               <div class="right-span">
@@ -48,7 +48,7 @@
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link to="/Customer/membershiphome/classcard" class="link">上课记录</router-link>
+                <router-link to="/Customer/membershiphome/classcard2" class="link">上课记录</router-link>
               </div>
             </el-col>
         </el-col>

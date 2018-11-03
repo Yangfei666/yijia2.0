@@ -368,10 +368,17 @@ export default {
       }
     },
     //表格导出
-    exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+     exportExcel() {
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
@@ -386,7 +393,7 @@ export default {
         if (typeof console !== "undefined") console.log(e, wbout);
       }
       return wbout;
-    }
+    },
   }
 };
 </script>

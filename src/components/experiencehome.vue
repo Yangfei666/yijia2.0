@@ -48,13 +48,13 @@
                 <el-button type="text" class="link" @click="dialogFormVisible3 = true">换会籍</el-button>
                     <template>
                     <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                    <Change></Change>
+                    <Change :potential="Potential"></Change>
                     </el-dialog>
                     </template>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link to="/Customer/experiencehome/classcard" class="link">上课记录</router-link>
+                <router-link :to="{name:'Classcard',params:{id:243}}" class="link">上课记录</router-link>
               </div>
             </el-col>
         </el-col>
@@ -80,6 +80,7 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3:false,
+      Potential:{potential:'setExperienceCustomer'},
     };
   },
   mounted(){

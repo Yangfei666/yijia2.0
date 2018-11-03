@@ -1,153 +1,205 @@
 <template>
-    <div>
-        <!--会员综合信息-->
-        <div class="infor">
-            <el-col :span="24" class="infor-head">
-                <div class="infor-but" v-on:click="back">
-                    <span class="goback el-icon-arrow-left">返回</span>
-                </div>
-                <div class="infor-title">
-                    <span>会员综合信息</span>
-                    <img src="../assets/deit.png" @click="dialogFormVisible = true" />
-                    <template>
-                        <el-dialog title="会员综合信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible">
-                             <!--会员综合信息编辑-->
-                          <el-form :model="ruleForm" ref="ruleForm" label-width="100px">
-                            <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.name" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.tel" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.wechat" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="性别:" prop="sex" label-width="130px">
-                              <el-col :span="22">
-                                  <el-radio v-model="radio" label="女">女</el-radio>
-                                  <el-radio v-model="radio" label="男">男</el-radio>
-                              </el-col>
-                          </el-form-item>
-                          <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                              <el-date-picker v-model="ruleForm.birthday" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
-                              </el-col>
-                          </el-form-item>
-                          <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.address" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="职业:" prop="vocation" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.vocation" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.contact" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.contacttel" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                        <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-input v-model="ruleForm.catenumber" placeholder="请输入"></el-input>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item class="dialog-footer" style="margin-left:30px;">
-                            <el-col :span="24" style="display: flex;justify-content: flex-start;">
-                              <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                              <el-button @click="resetForm('ruleForm')">重置</el-button>
-                              </el-col>
-                          </el-form-item>
-                          </el-form>
-                        </el-dialog>
-                    </template>
-                </div>
-            </el-col>
-            <el-col :span="24">
-                <div class="infor-center">
-                    <el-col :span="24" class="infor-info">
-                        <span class="left padding">生日：</span>
-                        <span class="right">1995-02-35</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left padding">地址：</span>
-                        <span class="right">暂无</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left padding">职业：</span>
-                        <span class="right">教室</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left margin">紧急联系人：</span>
-                        <span class="right">暂无</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left">发卡时间：</span>
-                        <span class="right">1995-02-35</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left">激活时间：</span>
-                        <span class="right">1995-02-35</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left">到期时间：</span>
-                        <span class="right">1995-02-35</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left">付款金额：</span>
-                        <span class="right">￥3004</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left">付款方式：</span>
-                        <span class="right">微信</span>
-                    </el-col>
-                    <el-col :span="24" class="infor-info">
-                        <span class="left padding2">证件号：</span>
-                        <span class="right">19965565455</span>
-                    </el-col>
-                </div>
-            </el-col>
+  <div>
+    <!--会员综合信息-->
+    <div class="infor">
+      <el-col :span="24" class="infor-head">
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
+        <div class="infor-title">
+          <span>会员综合信息</span>
+          <img src="../assets/deit.png" @click="editclub" />
+          <template>
+            <el-dialog title="会员综合信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible">
+              <!--会员综合信息编辑-->
+              <el-form :model="ruleForm" label-width="100px">
+                <el-form-item label="姓名:" prop="HYName" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.HYName" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="电话:" prop="MotoTel" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.MotoTel" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="微信:" prop="hyWeChat" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.hyWeChat" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="性别:" prop="Sex" label-width="130px">
+                  <el-col :span="22">
+                    <el-radio-group v-model="ruleForm.Sex">
+                      <el-radio label="女" value="1"></el-radio>
+                      <el-radio label="男" value="2"></el-radio>
+                    </el-radio-group>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="生日:" prop="Birthday" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-date-picker v-model="ruleForm.Birthday" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="住址:" prop="HomeAdd" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.HomeAdd" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="职业:" prop="ZhiYe" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.ZhiYe" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="紧急联系人:" prop="hyContacts" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.hyContacts" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="紧急联系人电话:" prop="hyConTel" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.hyConTel" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="证件号码:" prop="ZhengJianNO" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm.ZhengJianNO" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item class="dialog-footer" style="margin-left:30px;">
+                  <el-col :span="24" style="display: flex;justify-content: flex-start;">
+                    <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+            </el-dialog>
+          </template>
+        </div>
+      </el-col>
+      <el-col :span="24">
+        <div class="infor-center">
+          <el-col :span="24" class="infor-info">
+            <span class="left padding">生日：</span>
+            <span class="right">{{club.Birthday}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left padding">地址：</span>
+            <span class="right">{{club.HomeAdd}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left padding">职业：</span>
+            <span class="right">{{club.ZhiYe}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left margin">紧急联系人：</span>
+            <span class="right">{{club.hyContacts}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left">发卡时间：</span>
+            <span class="right">{{club.ZhengJianNO}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left">激活时间：</span>
+            <span class="right">{{club.ZhengJianNO}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left">到期时间：</span>
+            <span class="right">{{club.ZhengJianNO}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left">付款金额：</span>
+            <span class="right">￥{{club.ZhengJianNO}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left">付款方式：</span>
+            <span class="right">{{club.ZhengJianNO}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left padding2">证件号：</span>
+            <span class="right">{{club.ZhengJianNO}}</span>
+          </el-col>
+        </div>
+      </el-col>
     </div>
+  </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
-  name:'information',
+  name: "information",
+  inject: ["reload"],
   data() {
     return {
-        fileList: [],
-        radio: '男',
-        dialogFormVisible: false,
-        formLabelWidth: '130px',
-        birthday:'',
-        payment:3,
-        ruleForm: {
-          name: '',//姓名
-          tel:'',//电话
-          wechat:'',//微信
-          sex:'',//性别
-          birthday:'',//生日
-          catenumber:'',//证件号码
-          address:'',//地址
-          vocation:'',//职业
-          contact:'',//紧急联系人
-          contacttel:'',//紧急联系人电话
-        },
+      dialogFormVisible: false,
+      formLabelWidth: "130px",
+      payment: 3,
+      club: "",
+      ruleForm: {},
+      membership_card: ""
     };
   },
+  created() {
+    this.getexperhome();
+  },
   methods: {
+    //获取会员详情
+    getexperhome() {
+      let _this = this;
+      let relationCard=[];
+      console.log(this.$route);
+      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+        .then(function(res) {
+          _this.club = res;
+          let { membership_card } = res;
+          relationCard = membership_card.relationCard;//这个接口
+          console.log('relationCard'+relationCard);
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    submitForm(formName) {
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        var loginParams = {
+          HYName: this.ruleForm.HYName, //姓名
+          Sex: this.ruleForm.Sex, //性别
+          Birthday: this.ruleForm.Birthday, //生日
+          MotoTel: this.ruleForm.MotoTel, //电话
+          ZhiYe: this.ruleForm.ZhiYe, //职业
+          ZhengJianNO: this.ruleForm.ZhengJianNO, //证件号
+          HomeAdd: this.ruleForm.HomeAdd, //地址
+          hyContacts: this.ruleForm.hyContacts, //紧急联系人
+          hyConTel: this.ruleForm.hyConTel, //紧急联系人电话
+          hyWeChat: this.ruleForm.hyWeChat  //微信号
+        };
+        console.log(this.$route.params.HYID)
+        requestLogin("/setDesignateMember/"+this.$route.params.HYID, loginParams, "put")
+          .then(data => {
+            this.$message({
+              message: "修改成功",
+              type: "success"
+            });
+            this.reload();
+            this.dialogFormVisible = false;
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
     back() {
       let url = this.$route.path;
       if (url === "/Customer/membershiphome/information") {
@@ -156,21 +208,15 @@ export default {
         this.$router.go(-1); //返回上一层
       }
     },
-    submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+    editclub() {
+      this.dialogFormVisible = true;
+      this.ruleForm = this.club;
+    }
   }
 };
 </script>
 <style lang="scss">
- @import '../styles/dialog.scss';
+@import "../styles/dialog.scss";
 </style>
 <style lang="scss" scoped>
 .infor {

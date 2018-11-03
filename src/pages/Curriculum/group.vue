@@ -161,8 +161,7 @@ export default {
         });
     },
     handleClick(tab, event) {
-      console.log("tab:" + tab);
-      console.log("event:" + event);
+      console.log(tab,event);
     },
     Changeselect(val){
         console.log(val)

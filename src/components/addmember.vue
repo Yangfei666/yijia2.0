@@ -183,7 +183,7 @@ export default {
     this.getCustomer();
   },
   methods: {
-    //获取会籍顾问列表
+    //获取会籍顾问和卡名称
     getCustomer() {
       let _this = this;
       let relationCard = [];

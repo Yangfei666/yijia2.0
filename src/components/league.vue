@@ -116,7 +116,7 @@ export default {
       list-style: none;
       width: 18% !important;
       background: #fff;
-      height: 89.236%;
+      height: 84.236%;
       margin: 15px auto;
       transition: 500ms ease-in-out;
       transform-origin: center center;
@@ -125,8 +125,8 @@ export default {
       .weber-main {
         position: relative;
         left: 33%;
-        bottom: -54%;
-      }///////////////////////
+        bottom: -60%;
+      }
       .swiper-main {
         width: 100%;
         height: 55%;

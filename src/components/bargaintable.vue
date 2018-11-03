@@ -286,10 +286,30 @@ export default {
       });
     },
     //表格导出
-    exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+    // exportExcel(){
+    //    require.ensure([], () => {
+    //       const { export_json_to_excel } = require('@/vendor/Export2Excel')
+    //       const tHeader = ['姓名', '手机号', '会籍','登记日期','付款方式','金额','成交状态','备注']
+    //       const filterVal = ['itName', 'itTel', 'itHjgwName','itDepositTime','itPayment','itPrice','itSuc','itRemark']
+    //       const list = this.tableData
+    //       const data = this.formatJson(filterVal, list)
+    //       export_json_to_excel(tHeader, data, '定金客户管理数据表')
+    //     })
+    // },
+    // formatJson(filterVal, jsonData) {
+    //     return jsonData.map(v => filterVal.map(j => v[j]))
+    //   },
+     exportExcel() {
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
