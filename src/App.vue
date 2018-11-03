@@ -42,6 +42,12 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-upload__tip {
+    font-size: 12px;
+    color: #606266;
+    margin-top: 7px;
+    margin-left: 10px;
+}
 .el-form-item__error{
   color: #f56c6c;
     font-size: 12px;
@@ -192,6 +198,28 @@ body {
 .el-select {
   height: 35px;
 }
+.el-tag + .el-tag {
+  margin-left: 10px;
+  margin-top: 10px;
+  color: #00bc71;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  margin-top: 10px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #00bc71;
+}
+.input-new-tag {
+  width: 87px;
+  height: 35px;
+  line-height: 30px;
+  margin-left: 10px;
+  vertical-align: bottom;
+  color: #00bc71;
+}
 .el-tag .el-icon-close:hover {
   background-color: #00bc71;
   color: #fff;
@@ -202,6 +230,7 @@ body {
 .el-tag {
   background-color: #edfaf5;
   border-color: #edfaf9;
+   color: #00bc71;
 }
 .el-button:hover {
   color: #00bc71;

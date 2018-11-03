@@ -198,7 +198,7 @@ let router = new Router({
                     path: '/Customer/latent', component: CustomerLatent, name: '潜在客户管理', menuShow: true, redirect: '/Customer/latent/latenttable',//潜在客户管理
                     children: [
                         { path: '/Customer/latent/latenttable', component: Latenttable },//潜在表格
-                        { path: '/Customer/latent/claim', component: Claim ,name:'Claim'},//认领
+                        { path: '/Customer/latent/claim', component: Claim },//认领
                     ]
                 },
                 {

@@ -93,12 +93,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+          <el-table id="rebateSetTable" ref="tb" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="80px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+                   <el-radio v-model="radioData" @change.native="radiochange(scope.row)" :label="scope.$index">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -109,7 +107,7 @@
             <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
             <el-table-column align="left" label="操作" fixed="right" width="320px">
               <template slot-scope="scope">
-                <el-button @click.native.prevent="go(scope.row,scope.$index)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index, scope.row)" type="text" size="small">认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
@@ -176,7 +174,7 @@ export default {
       dialogFormVisible6: false,
       btnText: "展开",
       isShow: false,
-      radio: true,
+      radioData: '',
       quality: [
         //客户质量
         { value: "1", label: "A" },
@@ -202,7 +200,6 @@ export default {
       tableData2: [],
       staff_info: [],
       searchVal: "",
-      class: "potential"
     };
   },
   created: function() {
@@ -283,6 +280,7 @@ export default {
               type: "error"
             });
           }
+          _this.$onError(err);
         });
     },
     search() {
@@ -391,14 +389,15 @@ export default {
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
-      this.radio = row.index;
-      //获取表格 怎么加属性 我要加一个新属性  
-      //获取表格 怎么加属性 我要加一个新属性  
+      this.radioData = row.index;
+      //获取所需id
       this.currentSelectRow = row;
-       this.Potential.id=this.currentSelectRow.id;
+      this.Potential.id=this.currentSelectRow.id;
+      this.$refs.tb.toggleRowSelection(row);
+      console.log(this.$refs.tb.toggleRowSelection(row));
     },
-    go(row) {
-      console.log(row)
+    go(index,row) {
+      console.log(index,row)
       let currentRoute =
         this.$route.path === "/Customer/latent/latenttable"
           ? "latent"

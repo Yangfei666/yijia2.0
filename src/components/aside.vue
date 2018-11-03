@@ -10,23 +10,13 @@
         <div class="one-img">
           <img src="../assets/51.png" />
         </div>
-        <el-button type="text" class="one-p" @click="dialogFormVisible = true">约私教</el-button>
-        <template>
-          <el-dialog title="预约私教" :append-to-body="true" :visible.sync="dialogFormVisible">
-            <Personal></Personal>
-          </el-dialog>
-        </template>
+        <el-button type="text" class="one-p" @click="personal">约私教</el-button>
       </div>
       <div class="cen-two">
         <div class="two-img">
           <img src="../assets/49.png" />
         </div>
-        <el-button type="text" class="two-p" @click="dialogFormVisible2 = true">约团课</el-button>
-        <template>
-          <el-dialog title="预约团课" :append-to-body="true" :visible.sync="dialogFormVisible2">
-            <Group></Group>
-          </el-dialog>
-        </template>
+        <el-button type="text" class="two-p" @click="Group">约团课</el-button>
       </div>
     </div>
     <div class="left-head" v-show="collapsed">
@@ -83,6 +73,12 @@ export default {
     };
   },
   methods: {
+    personal(){
+      this.$router.push("/Curriculum/privateculum");
+    },
+    Group(){
+      this.$router.push("/Curriculum/group");
+    },
     handleSelect(index) {
       this.defaultActiveIndex = index;
     },

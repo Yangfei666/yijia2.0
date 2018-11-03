@@ -172,10 +172,6 @@
                             </template>
                         </el-tab-pane>
                     </el-tabs>
-                    <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="10">
-                        </el-pagination>
-                    </div>
                 </el-col>
             </el-row>
         </div>
@@ -192,7 +188,6 @@ export default {
     return {
       dialogFormVisible: false,
       activeName2: "morning",
-      currentPage4: 4,
       value6: "",
       value1: "",
       value: "",

@@ -49,6 +49,38 @@ Vue.use(Vuex)
     return Promise.reject(error)
   })  
 
+  Vue.prototype.$onError = function (error) {
+    var error_msg = '网络错误';
+    var toastFlag = true;
+    switch (error.errorCode) {
+        case 401:
+            error_msg = '请重新登录';
+            break;
+        case 403:
+            error_msg = '请求失败';
+            this.$router.push({path: '/House/403'});
+            break;
+        case 404:
+            error_msg = '请求错误';
+            this.$router.push({path: '/House/404'});
+            break;
+        case 500:
+            error_msg = '服务器错误';
+            this.$router.push({path: '/House/500'});
+            break;
+    }
+    if(toastFlag){
+        this.$Toast({
+            message: error_msg,
+            position: 'bottom',
+            duration: 2000,
+            callback: () => {
+                this.$router.push({path: '/House/403'});
+            }
+        })
+    }
+}
+
 Vue.config.productionTip = false
 //将vuex实例挂载到vue原型链上
 Vue.prototype.$store = new Vuex.Store({

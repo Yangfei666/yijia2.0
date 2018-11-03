@@ -326,3 +326,11 @@ export let mode = [
             trigger: "change"
         }
     ];
+/* 验证激活时间*/
+export let sensitize = [
+        {
+            required:true,
+            message: "请选择激活时间",
+            trigger: "change"
+        }
+    ];

@@ -28,14 +28,14 @@
           </el-table-column>
           <el-table-column prop="hsxxPic" label="图片" sortable align="left" width="300">
             <template slot-scope="scope">
-              <img :src="scope.row.hsxxPic" style="width: 80px;height: 80px">
+              <img :src="scope.row.hsxxPic" style="width: 75px;height: 65px">
             </template>
           </el-table-column>
           <el-table-column prop="hsxxIsFirst" label="状态" sortable align="left" width="300">
             <template slot-scope="scope">
               <div v-if="scope.row.hsxxIsFirst == '封面'">
                 <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
-                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch(scope.row)" disabled active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" disabled active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
                 </el-switch>
               </el-tooltip>
               </div>
@@ -112,7 +112,7 @@ export default {
         });
     },
     changeSwitch(val,row) {
-      console.log(val,row)
+      console.log(val,row);
     },
     uploadOverrun: function() {
       this.$message({

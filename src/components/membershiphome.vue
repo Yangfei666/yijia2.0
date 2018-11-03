@@ -23,7 +23,7 @@
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
-                <router-link to="/Customer/membershiphome/information" class="link">综合信息 </router-link>
+                <router-link to="/Customer/membershiphome/information" class="link">综合信息</router-link>
               </div>
               <div class="border"></div>
                 <div class="right-span">
