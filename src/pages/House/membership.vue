@@ -161,12 +161,10 @@
             <div class="practice-table">
               <el-row>
                 <el-col :span="24">
-                  <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
+                  <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2"  element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
-                        <el-radio-group v-model="radio">
-                          <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                        </el-radio-group>
+                       <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
                     <el-table-column prop="CTName" align="left" fixed label="卡名称" width="150px"></el-table-column>
@@ -296,7 +294,15 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
+    handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {

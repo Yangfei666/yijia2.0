@@ -3,7 +3,7 @@
     <!--不办卡操作-->
     <div class="health">
     <el-col :span="24" class="infor-head">
-        <router-link to="/Customer/experiencehome/experhome" style="text-decoration:none;">
+        <router-link :to="{name:'Experhome'}" style="text-decoration:none;">
         <div class="infor-but">
             <span class="goback el-icon-arrow-left">返回</span>
         </div>
@@ -53,6 +53,9 @@ export default {
         }
     };
   },
+  created(){
+      console.log(this.$route);
+  },
   methods: {
     //不办卡
     submitForm(formName) {
@@ -62,7 +65,6 @@ export default {
             var loginParams = {
               content: this.ruleForm.desc, //原因
             };
-            console.log(this.$route);
             requestLogin("/setExperienceCustomer/giveUp/"+this.$route.params.id, loginParams, "post")
               .then(data => {
                 this.$message({

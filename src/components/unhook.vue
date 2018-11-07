@@ -1,68 +1,68 @@
 <template>
-    <!--会员卡解挂操作-->
-    <div class="memberhome">
-        <el-col :span="24">
-            <div class="class-main">
-                <router-link to="/Customer/membershiphome/memberhome" style="text-decoration:none;">
-                    <div class="infor-but">
-                        <span class="goback el-icon-arrow-left">返回</span>
-                    </div>
-                </router-link>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane label="解挂操作" name="first">
-                        <template>
-                            <el-col :span="24">
-                                <div class="first-from">
-                                    <span>点击右侧按钮解挂<img class="from-img" src="../assets/51.png" /></span>
-                                    <el-button class="first-but" type="primary" @click="Unhook">确定</el-button>
-                                </div>
-                            </el-col>
-                        </template>
-                    </el-tab-pane>
-                    <el-tab-pane label="补卡操作" name="second">
-                        <template>
-                            <el-col :span="24">
-                                <div class="health-from">
-                                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                                        <el-col :span="20" class="from-date">
-                                            <el-form-item label="新的卡号：" prop="card">
-                                                <el-col :span="24">
-                                                    <el-input v-model="ruleForm.card" placeholder="请输入"></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :span="20" class="from-date">
-                                            <el-form-item label="确认卡号：" prop="confirmcard">
-                                                <el-col :span="24">
-                                                    <el-input v-model="ruleForm.confirmcard" placeholder="请输入"></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :span="20" class="from-date">
-                                            <el-form-item>
-                                                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                                                <el-button @click="resetForm('ruleForm')">重置</el-button>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-form>
-                                </div>
-                            </el-col>
-                        </template>
-                    </el-tab-pane>
-                    <el-tab-pane label="挂失操作" name="unhook">
-                        <template>
-                            <el-col :span="24">
-                                <div class="first-from">
-                                    <span>点击右侧按钮挂失<img class="from-img" src="../assets/51.png" /></span>
-                                    <el-button class="first-but" type="primary" @click="ReportLoss">确定</el-button>
-                                </div>
-                            </el-col>
-                        </template>
-                    </el-tab-pane>
-                </el-tabs>
-            </div>
-        </el-col>
-    </div>
+  <!--会员卡解挂操作-->
+  <div class="memberhome">
+    <el-col :span="24">
+      <div class="class-main">
+        <router-link :to="{name:'Memberhome'}" style="text-decoration:none;">
+          <div class="infor-but">
+            <span class="goback el-icon-arrow-left">返回</span>
+          </div>
+        </router-link>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="解挂操作" name="first">
+            <template>
+              <el-col :span="24">
+                <div class="first-from">
+                  <span>点击右侧按钮解挂<img class="from-img" src="../assets/shou.png" /></span>
+                  <el-button class="first-but" type="primary" @click="Unhook">确定</el-button>
+                </div>
+              </el-col>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane label="补卡操作" name="second">
+            <template>
+              <el-col :span="24">
+                <div class="health-from">
+                  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                    <el-col :span="20" class="from-date">
+                      <el-form-item label="新的卡号：" prop="card">
+                        <el-col :span="24">
+                          <el-input v-model="ruleForm.card" placeholder="请输入"></el-input>
+                        </el-col>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="20" class="from-date">
+                      <el-form-item label="确认卡号：" prop="confirmcard">
+                        <el-col :span="24">
+                          <el-input v-model="ruleForm.confirmcard" placeholder="请输入"></el-input>
+                        </el-col>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="20" class="from-date">
+                      <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                      </el-form-item>
+                    </el-col>
+                  </el-form>
+                </div>
+              </el-col>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane label="挂失操作" name="unhook">
+            <template>
+              <el-col :span="24">
+                <div class="first-from">
+                  <span>点击右侧按钮挂失<img class="from-img" src="../assets/shou.png" /></span>
+                  <el-button class="first-but" type="primary" @click="ReportLoss">确定</el-button>
+                </div>
+              </el-col>
+            </template>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </el-col>
+  </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";
@@ -109,7 +109,10 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/SupplementCard/" + this.$route.params.HYID+"/"+this.ruleForm.card,
+          "/setDesignateMember/SupplementCard/" +
+            this.$route.params.HYID +
+            "/" +
+            this.ruleForm.card,
           {},
           "get"
         )
@@ -250,9 +253,11 @@ export default {
         text-align: center;
       }
       span .from-img {
-        width: 14px;
-        height: 8px;
+        width: 22px;
+        height: 18px;
         padding-left: 10px;
+        position: relative;
+        top: 3px;
       }
     }
   }

@@ -113,12 +113,10 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+            <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
-                  <el-radio-group v-model="radio">
-                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                  </el-radio-group>
+                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
               <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="180px"></el-table-column>
@@ -272,6 +270,13 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
+     handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     xiaozu(val) {
       console.log(val);
     },
@@ -289,6 +294,7 @@ export default {
       }
       //获取表格数据
       this.currentSelectRow = row;
+       this.radio = this.tableData.indexOf(row);
     },
     //添加员工
     submitForm(formName) {

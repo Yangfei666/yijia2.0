@@ -109,6 +109,7 @@ export default {
               message: "修改失败",
               type: "error"
             });
+            this.scope.row.hsxxIsFirst = false;
         });
     },
     changeSwitch(val,row) {

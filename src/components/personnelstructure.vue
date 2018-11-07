@@ -30,18 +30,16 @@
       </el-col>
       <el-col :span="24">
         <div class="handback">
-          <el-table :data="tableData" :show-header="false" style="width: 100%" highlight-current-row @row-click="rowClick">
+          <el-table :data="tableData" ref="singleTable" @current-change="handleCurrentChange2" :show-header="false" style="width: 100%" highlight-current-row @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="50px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+                <el-radio :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column align="left" prop="tag">
               <template slot-scope="scope">
                 <span>{{scope.row.Brigade}}</span>
-                <el-tag :key="tag.id" v-for="tag in scope.row.club_info_group" closable :disable-transitions="false" @close="handleClose(tag.id)" style="margin-left:20px;">
+                <el-tag :key="tag.index" v-for="tag in scope.row.club_info_group" closable :disable-transitions="false" @close="handleClose(tag)" style="margin-left:20px;">
                   {{tag.group}}
                 </el-tag>
                 <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm" style="width:87px;height:35px;">
@@ -65,7 +63,7 @@ export default {
       formLabelWidth: "130px",
       dialogFormVisible: false,
       radio: true,
-      dynamicTags: [],
+      club_info_group: [],
       inputVisible: false,
       loading: false,
       inputValue: "",
@@ -100,24 +98,59 @@ export default {
     //删除小组
     handleClose(tag) {
       let _this = this;
-        this.$confirm("确认删除该小组吗？", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            console.log(_this.currentSelectRow.bid);
-            requestLogin(
-              "/setClubInfo/" + _this.currentSelectRow.bid,
-              {},
-              "delete"
-            ).then(response => {
-              this.$message({
-                message: "删除成功",
-                type: "success"
-              });
+      this.$confirm("确认删除该小组吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          console.log(_this.currentSelectRow.bid);
+          requestLogin(
+            "/setClubInfo/" + _this.currentSelectRow.bid,
+            {},
+            "delete"
+          ).then(response => {
+            this.$message({
+              message: "删除成功",
+              type: "success"
             });
-            // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            //  _this.scope.row.club_info_group.splice(
+            //   _this.scope.row.club_info_group.indexOf(tag),
+            //   1
+            // );
+          });
+        })
+        .catch(error => {
+          this.$message({
+              message: "删除失败",
+              type: "error"
+            });
+        });
+    },
+    //添加小组
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        requestLogin(
+          "/setClubInfo/addGroup/" +
+            this.inputValue +
+            "/" +
+            this.currentSelectRow.id,
+          {},
+          "post"
+        )
+          .then(data => {
+            this.scope.row.club_info_group.push(inputValue);
+            this.$message({
+              message: "添加小组成功",
+              type: "success"
+            });
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;
@@ -129,37 +162,6 @@ export default {
               return;
             }
           });
-    },
-    //添加小组
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-      console.log(this.inputValue);
-      console.log(this.currentSelectRow.id);
-      requestLogin("/setClubInfo/addGroup/"+this.inputValue+"/"+this.currentSelectRow.id, {}, "post")
-        .then(data => {
-          this.$message({
-            message: "添加小组成功",
-            type: "success"
-          });
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
-    },
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
       }
       this.inputVisible = false;
       this.inputValue = "";
@@ -203,12 +205,20 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
     radiochange(row) {
       console.log(`当前: ${row}`);
+    },
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+      this.$emit("data", val.pkg);
+    },
+    getCurrentRow(val) {
+      console.log(val);
     },
     //删除大队
     open2() {

@@ -93,12 +93,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
+          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+                <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="exName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -112,7 +110,7 @@
             <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
               <template slot-scope="scope">
-                <el-button @click="go" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.row)" type="text" size="small">认领</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
               </template>
             </el-table-column>
@@ -158,7 +156,7 @@ export default {
       pagesize: 10,
       btnText: "展开",
       isShow: false,
-      radio: true,
+      radio: "",
       experience: "experience",
       formInline: {
         user: "",
@@ -293,6 +291,13 @@ export default {
     Selectchange(val) {
       console.log(val);
     },
+    handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     radiochange(row) {
       console.log(`当前: ${row}`);
     },
@@ -320,13 +325,14 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
       this.Potential.id=this.currentSelectRow.id;
-      console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
-    go() {
+    go(row) {
       let currentRoute = this.$route.path.split("/")[2];
       console.log(currentRoute);
       //认领跳转
       this.$router.push("/Customer/" + currentRoute + "/claim");
+      console.log(row);
     },
     taste() {
       if (!this.currentSelectRow) {
@@ -355,6 +361,7 @@ export default {
           exName: this.currentSelectRow.exName,
           exHjgwName: this.currentSelectRow.exHjgwName,
           exTel: this.currentSelectRow.exTel,
+          exSex: this.currentSelectRow.exSex,
         }});
         console.log(this.currentSelectRow.id);
     },

@@ -3,7 +3,7 @@
         <!--请假操作-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <router-link to="/Customer/membershiphome/memberhome" style="text-decoration:none;">
+                <router-link :to="{name:'Memberhome'}" style="text-decoration:none;">
                     <div class="infor-but">
                         <span class="goback el-icon-arrow-left">返回</span>
                     </div>

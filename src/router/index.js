@@ -263,7 +263,7 @@ let router = new Router({
                     redirect: '/Customer/membershiphome/memberhome',
                     children: [
                         {
-                            path: '/Customer/membershiphome/memberhome', //会员主页
+                            path: '/Customer/membershiphome/memberhome/:HYID/:HYName/:MotoTel/:YGXX_NAME', //会员主页
                             component: Memberhome,
                             name:'Memberhome',
                             children: [
@@ -276,12 +276,12 @@ let router = new Router({
                                 { path: '/Customer/membershiphome/memberhome/activate', component: Activate },//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/information', component: Information,name:'Information' },//综合信息
-                        { path: '/Customer/membershiphome/leave', component: Leave ,name:'Leave'},//请假销假操作
-                        { path: '/Customer/membershiphome/unhook', component: Unhook ,name:'Unhook'},//解挂--补卡--挂失
-                        { path: '/Customer/membershiphome/change', component: Change },//换会籍
-                        { path: '/Customer/membershiphome/operationnote', component: Operationnote },//操作记录
-                        { path: '/Customer/membershiphome/classcard2', component: Classcard2 },//上课记录
+                        { path: '/Customer/membershiphome/information/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Information,name:'Information' },//综合信息
+                        { path: '/Customer/membershiphome/leave/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Leave ,name:'Leave'},//请假销假操作
+                        { path: '/Customer/membershiphome/unhook/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Unhook ,name:'Unhook'},//解挂--补卡--挂失
+                        { path: '/Customer/membershiphome/change/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Change },//换会籍
+                        { path: '/Customer/membershiphome/operationnote/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Operationnote ,name:'Operationnote'},//操作记录
+                        { path: '/Customer/membershiphome/classcard2/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Classcard2 ,name:'Classcard2'},//上课记录
                     ]
                 },
                 {
@@ -291,11 +291,11 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/experiencehome/experhome',
                     children: [
-                        { path: '/Customer/experiencehome/experhome', component: Experhome,name:'Experhome'},//体验主页
-                        { path: '/Customer/experiencehome/information2', component: Information2,name:'Information2' },//综合信息
-                        { path: '/Customer/experiencehome/nocards', component: Nocards,name:'Nocards'},//不办卡
-                        { path: '/Customer/experiencehome/change', component: Change },//换会籍
-                        { path: '/Customer/experiencehome/classcard', component: Classcard ,name:'Classcard'},//上课记录
+                        { path: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experhome,name:'Experhome'},//体验主页
+                        { path: '/Customer/experiencehome/information2/:id/:exHjgwName/:exName/:exTel/:exSex', component: Information2,name:'Information2' },//综合信息
+                        { path: '/Customer/experiencehome/nocards/:id/:exHjgwName/:exName/:exTel/:exSex', component: Nocards,name:'Nocards'},//不办卡
+                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change },//换会籍
+                        { path: '/Customer/experiencehome/classcard/:id/:exHjgwName/:exName/:exTel/:exSex', component: Classcard ,name:'Classcard'},//上课记录
                     ]
                 }
             ]

@@ -93,10 +93,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" ref="tb" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+          <el-table id="rebateSetTable" ref="singleTable"  @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="80px">
               <template slot-scope="scope">
-                <el-radio v-model="radioData" @change.native="radiochange(scope.row)" :label="scope.$index">&nbsp;</el-radio>
+                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -168,13 +168,13 @@ export default {
       dialogFormVisible2: false,
       currentPage: 1,
       pagesize: 10,
+      radio: "",
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
       dialogFormVisible6: false,
       btnText: "展开",
       isShow: false,
-      radioData: "",
       quality: [
         //客户质量
         { value: "1", label: "A" },
@@ -334,6 +334,13 @@ export default {
       }
       return wbout;
     },
+      handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     Selectchange(val) {
       console.log(val);
     },
@@ -400,8 +407,7 @@ export default {
       //获取所需id
       this.currentSelectRow = row;
       this.Potential.id = this.currentSelectRow.id;
-      this.$refs.tb.toggleRowSelection(row);
-      console.log(this.$refs.tb.toggleRowSelection(row));
+      this.radio = this.tableData.indexOf(row);
     },
     go(index, row) {
       console.log(index, row);

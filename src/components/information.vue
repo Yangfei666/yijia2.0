@@ -79,6 +79,18 @@
       </el-col>
       <el-col :span="24">
         <div class="infor-center">
+           <el-col :span="24" class="infor-info">
+            <span class="left padding">姓名：</span>
+            <span class="right">{{club.HYName}}</span>
+          </el-col>
+           <el-col :span="24" class="infor-info">
+            <span class="left padding">电话：</span>
+            <span class="right">{{club.MotoTel}}</span>
+          </el-col>
+          <el-col :span="24" class="infor-info">
+            <span class="left padding">微信：</span>
+            <span class="right">{{club.hyWeChat}}</span>
+          </el-col>
           <el-col :span="24" class="infor-info">
             <span class="left padding">生日：</span>
             <span class="right">{{club.Birthday}}</span>
@@ -96,24 +108,8 @@
             <span class="right">{{club.hyContacts}}</span>
           </el-col>
           <el-col :span="24" class="infor-info">
-            <span class="left">发卡时间：</span>
-            <span class="right">{{club.ZhengJianNO}}</span>
-          </el-col>
-          <el-col :span="24" class="infor-info">
-            <span class="left">激活时间：</span>
-            <span class="right">{{club.ZhengJianNO}}</span>
-          </el-col>
-          <el-col :span="24" class="infor-info">
-            <span class="left">到期时间：</span>
-            <span class="right">{{club.ZhengJianNO}}</span>
-          </el-col>
-          <el-col :span="24" class="infor-info">
-            <span class="left">付款金额：</span>
-            <span class="right">￥{{club.ZhengJianNO}}</span>
-          </el-col>
-          <el-col :span="24" class="infor-info">
-            <span class="left">付款方式：</span>
-            <span class="right">{{club.ZhengJianNO}}</span>
+            <span class="left margin2">紧急联系人电话：</span>
+            <span class="right">{{club.hyConTel}}</span>
           </el-col>
           <el-col :span="24" class="infor-info">
             <span class="left padding2">证件号：</span>
@@ -148,11 +144,12 @@ export default {
       let _this = this;
       let relationCard=[];
       console.log(this.$route);
+      console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
           let { membership_card } = res;
-          relationCard = membership_card.relationCard;//这个接口
+          relationCard = membership_card.relationCard;
           console.log('relationCard'+relationCard);
         })
         .catch(error => {
@@ -271,6 +268,9 @@ export default {
       }
       .margin {
         margin-left: -14px;
+      }
+      .margin2 {
+        margin-left: -42px;
       }
       .padding2 {
         padding-left: 13px;

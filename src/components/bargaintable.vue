@@ -77,12 +77,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
+          <el-table id="rebateSetTable"  ref="singleTable"  @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+               <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="itName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -286,19 +284,6 @@ export default {
       });
     },
     //表格导出
-    // exportExcel(){
-    //    require.ensure([], () => {
-    //       const { export_json_to_excel } = require('@/vendor/Export2Excel')
-    //       const tHeader = ['姓名', '手机号', '会籍','登记日期','付款方式','金额','成交状态','备注']
-    //       const filterVal = ['itName', 'itTel', 'itHjgwName','itDepositTime','itPayment','itPrice','itSuc','itRemark']
-    //       const list = this.tableData
-    //       const data = this.formatJson(filterVal, list)
-    //       export_json_to_excel(tHeader, data, '定金客户管理数据表')
-    //     })
-    // },
-    // formatJson(filterVal, jsonData) {
-    //     return jsonData.map(v => filterVal.map(j => v[j]))
-    //   },
      exportExcel() {
       var fix = document.querySelector(".el-table__fixed");
       var wb;
@@ -338,6 +323,13 @@ export default {
       console.log(row);
       alert("点击了");
     },
+    handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     resetForm() {
       this.formInline.date = "";
       this.formInline.adviser = "";
@@ -356,7 +348,7 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
        this.Potential.id=this.currentSelectRow.id;
-      console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
     go(index,row) {
       let currentRoute =

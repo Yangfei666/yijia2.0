@@ -104,6 +104,7 @@ export default {
     getexperhome() {
       let _this = this;
       console.log(this.$route);
+      console.log(this.$route.params.id);
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
           _this.club = res;

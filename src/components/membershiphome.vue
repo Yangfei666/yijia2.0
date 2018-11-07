@@ -15,23 +15,23 @@
         </el-col>
         <el-col :span="23" class="weber">
           <el-col :span="1" class="weber-img">
-            <img src="http://img2.woyaogexing.com/2017/10/31/da621481e30d6bc4!400x400_big.jpg"/>
+            <img :src="club.Photo"/>
           </el-col>
           <el-col :span="10" class="weber-left">
-            <span class="weber-span">{{this.$route.params.HYName}}<img src="../assets/51.png"/></span>
-            <p class="weber-p">会籍顾问:{{this.$route.params.YGXX_NAME}}<span class="weber-pp">电话:{{this.$route.params.MotoTel}}</span></p>
+            <span class="weber-span">{{club.HYName}}·{{club.Sex}}</span>
+            <p class="weber-p">会籍顾问:{{this.YGXX_NAME}}<span class="weber-pp">电话:{{club.MotoTel}}</span></p>
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
-                <router-link :to="{name:'Information',params:{HYID:5208}}" class="link">综合信息</router-link>
+                <router-link :to="{name:'Information',params:{HYID:this.HYID}}" class="link">综合信息</router-link>
               </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link :to="{name:'Leave',params:{HYID:5208}}" class="link">请假/销假</router-link>
+                  <router-link :to="{name:'Leave',params:{HYID:this.HYID}}" class="link">请假/销假</router-link>
                 </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link :to="{name:'Unhook',params:{HYID:5208}}" class="link">挂失/解挂/补卡</router-link>
+                  <router-link :to="{name:'Unhook',params:{HYID:this.HYID}}" class="link">挂失/解挂/补卡</router-link>
                 </div>
               <div class="border"></div>
               <div class="right-span">
@@ -44,11 +44,11 @@
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link to="/Customer/membershiphome/operationnote" class="link">操作记录</router-link>
+                <router-link :to="{name:'Operationnote',params:{HYID:this.HYID}}" class="link">操作记录</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link to="/Customer/membershiphome/classcard2" class="link">上课记录</router-link>
+                <router-link :to="{name:'Classcard2',params:{HYID:this.HYID}}" class="link">上课记录</router-link>
               </div>
             </el-col>
         </el-col>
@@ -59,6 +59,7 @@
 </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 import Change from "@/components/change";
 export default {
   name:'membershiphome',
@@ -69,9 +70,40 @@ export default {
     return {
       dialogFormVisible:false,
       Potential:{potential:'setDesignateMember',id:this.$route.params.HYID},
+      club:"",
+      YGXX_NAME:'',
+      HYName:'',
+      HYID:'',
+      MotoTel:""
     };
   },
+  created(){
+    this.getexperhome();
+    this.YGXX_NAME = this.$route.params.YGXX_NAME;
+    this.HYID = this.$route.params.HYID;
+    this.HYName = this.$route.params.HYName;
+    this.MotoTel = this.$route.params.MotoTel;
+  },
   methods: {
+    //获取个人中心详情
+    getexperhome() {
+      let _this = this;
+      console.log(this.$route);
+      console.log(this.$route.params.HYID);
+      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+        .then(function(res) {
+          _this.club = res;
+          console.log(res);
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
   }
 };
 </script>

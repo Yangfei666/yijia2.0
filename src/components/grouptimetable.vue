@@ -8,7 +8,7 @@
                         <div class="add">
                             <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程</el-button>
                             <template>
-                                <el-dialog title="添加课程(2018-07-10 周一)" :append-to-body="true" :visible.sync="dialogFormVisible">
+                                <el-dialog title="添加课程" :append-to-body="true" :visible.sync="dialogFormVisible">
                                     <!--添加课程-->
                                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                                         <el-form-item label="课程:" prop="course" :label-width="formLabelWidth">
@@ -225,12 +225,10 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" :default-sort="{order: 'descending'}" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+                    <el-table highlight-current-row ref="singleTable" @current-change="handleCurrentChange2" :data="tableData" @row-click="rowClick" :default-sort="{order: 'descending'}" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
                         <el-table-column align="center" prop="radio" fixed width="50px">
                             <template slot-scope="scope">
-                                <el-radio-group v-model="radio">
-                                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                                </el-radio-group>
+                                <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                             </template>
                         </el-table-column>
                         <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
@@ -387,11 +385,19 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
+      handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     rowClick(row, event, column) {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
     changeInfo() {
       //先选择列表

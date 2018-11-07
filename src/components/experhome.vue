@@ -48,15 +48,15 @@
         </template>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="劵1" name="cardone" style="font-size:16px" :lazy="true">
+        <el-tab-pane v-for="title in header" :label="title.title" :name="title.key" :key="title.key" style="font-size:16px" :lazy="true">
           <Securityone></Securityone>
         </el-tab-pane>
-        <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px" :lazy="true">
+        <!-- <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px" :lazy="true">
           <Securitytwo></Securitytwo>
         </el-tab-pane>
         <el-tab-pane label="劵3" name="cardthree" style="font-size:16px" :lazy="true">
           <Securitythree></Securitythree>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
@@ -85,17 +85,23 @@ export default {
       payment: 1,
       disabled: false,
       limitdate: [],
+      club:[],
+      header: [
+        { title: "劵1", key: "agekey" ,name:"cardone"},
+        { title: "劵2", key: "namekey" ,name:"cardtwo"},
+        { title: "劵3", key: "sixkey" ,name:"cardthree"}
+      ],
       ruleForm: {
-        type:[], //券类型
+        type: [], //券类型
         price: "", //金额
         mode: "", //付款方式
         desc: "" //原因
       },
-      tkName:[],
+      tkName: [],
       rules: {
         type: validate.type,
         price: validate.price,
-        mode:validate.mode,
+        mode: validate.mode
       }
     };
   },
@@ -113,10 +119,14 @@ export default {
             var loginParams = {
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.ruleForm.price, //价格
+              price: _this.ruleForm.price //价格
             };
             console.log(this.$route.params.id);
-            requestLogin("/setExperienceCustomer/purchaseVoucher/"+this.$route.params.id, loginParams, "post")
+            requestLogin(
+              "/setExperienceCustomer/purchaseVoucher/" + this.$route.params.id,
+              loginParams,
+              "post"
+            )
               .then(data => {
                 this.$message({
                   message: "购买成功",
@@ -142,12 +152,12 @@ export default {
         }
       });
     },
-     //获取体验券详情
-    getexperhome(){
+    //获取体验券详情
+    getexperhome() {
       let _this = this;
-      requestLogin("/setExperienceCustomer/"+this.$route.params.id, {}, "get")
+      requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          // _this.club = res;
+          _this.club = res;
           console.log(res);
         })
         .catch(error => {
@@ -160,8 +170,8 @@ export default {
         });
     },
     //获取体验券
-    getVouchers(){
-       let _this = this;
+    getVouchers() {
+      let _this = this;
       requestLogin("/setExperienceCustomer/selectVouchers", {}, "get")
         .then(function(res) {
           _this.tkName = res;
@@ -175,7 +185,7 @@ export default {
           }
         });
     },
-    Selectchange(val){
+    Selectchange(val) {
       console.log(val);
     },
     handleClick(tab, event) {
