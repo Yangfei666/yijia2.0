@@ -280,7 +280,6 @@ export default {
               type: "error"
             });
           }
-          _this.$onError(err);
         });
     },
     search() {
@@ -336,7 +335,7 @@ export default {
     },
       handleCurrentChange2(val,index) {
         this.currentRow = val;
-        this.$emit('data',val.pkg);
+        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);

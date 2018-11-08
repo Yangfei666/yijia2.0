@@ -192,9 +192,12 @@ export default {
       ],
       status: [
         //状态
-        { value: "未成交", label: "未成交" },
-        { value: "跟进中", label: "跟进中" },
-        { value: "已成交", label: "已成交" }
+        { value: "未激活", label: "未激活" },
+        { value: "正常", label: "正常" },
+        { value: "挂失", label: "挂失" },
+        { value: "请假", label: "请假" },
+        { value: "退卡", label: "退卡" },
+        { value: "过期", label: "过期" },
       ]
     };
   },
@@ -361,7 +364,7 @@ export default {
     },
      handleCurrentChange2(val,index) {
         this.currentRow = val;
-        this.$emit('data',val.pkg);
+        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);

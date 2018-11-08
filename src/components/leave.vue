@@ -8,8 +8,14 @@
                         <span class="goback el-icon-arrow-left">返回</span>
                     </div>
                 </router-link>
-                <div class="infor-title">
+                <div class="infor-title" v-if="membership_card.State == '请假'">
+                    <span>销假操作</span>
+                </div>
+                <div class="infor-title" v-else-if="membership_card.State != '未激活' && membership_card.State != '挂失' && membership_card.State != '请假'">
                     <span>请假操作</span>
+                </div>
+                <div class="infor-title" v-else-if="membership_card.State == '未激活'|| membership_card.State == '挂失'">
+                    <span>卡异常</span>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -40,6 +46,12 @@
                     </el-form>
                 </div>
             </el-col>
+            <!-- <el-col :span="24">
+                <div class="first-from">
+                  <span>点击右侧按钮销假<img class="from-img" src="../assets/shou.png" /></span>
+                  <el-button class="first-but" type="primary" @click="leave">确定</el-button>
+                </div>
+              </el-col> -->
         </div>
     </div>
 </template>
@@ -52,6 +64,7 @@ export default {
   data() {
     return {
       remnant: 666,
+      membership_card:'',
       ruleForm: {
         leavedate: "",
         desc: ""
@@ -61,6 +74,9 @@ export default {
         desc:validate.desc
       }
     };
+  },
+  created(){
+    this.getexperhome();
   },
   methods: {
     //请假销假
@@ -95,6 +111,53 @@ export default {
             }
           });
       });
+    },
+    // leave(){
+    //   this.$confirm("确认提交吗？", "提示").then(() => {
+    //     requestLogin(
+    //       "/setDesignateMember/resumptionFromLeave/" + this.$route.params.HYID,
+    //       {},
+    //       "get"
+    //     )
+    //       .then(data => {
+    //         this.$message({
+    //           message: "销假成功",
+    //           type: "success"
+    //         });
+    //         this.reload();
+    //       })
+    //       .catch(error => {
+    //         let { response: { data: { errorCode, msg } } } = error;
+    //         if (errorCode != 0) {
+    //           this.$message({
+    //             message: msg,
+    //             type: "error"
+    //           });
+    //           return;
+    //         }
+    //       });
+    //   });
+    // },
+    //获取会员详情
+    getexperhome() {
+      let _this = this;
+      // let relationCard = [];
+      console.log(this.$route);
+      console.log(this.$route.params.HYID);
+      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+        .then(function(res) {
+          let { membership_card } = res;
+          _this.membership_card = membership_card.State;
+          // relationCard = membership_card.relationCard;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -158,5 +221,25 @@ export default {
       line-height: 1px;
     }
   }
+   .first-from {
+      width: 70%;
+      margin: 20px;
+      display: flex;
+      justify-content: space-between;
+      .first-but {
+        width: 64px;
+        height: 33px;
+        border: 1px solid;
+        line-height: 8px;
+        text-align: center;
+      }
+      span .from-img {
+        width: 22px;
+        height: 18px;
+        padding-left: 10px;
+        position: relative;
+        top: 3px;
+      }
+    }
 }
 </style>

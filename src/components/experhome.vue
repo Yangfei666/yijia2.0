@@ -48,15 +48,9 @@
         </template>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane v-for="title in header" :label="title.title" :name="title.key" :key="title.key" style="font-size:16px" :lazy="true">
+        <el-tab-pane v-for="title in header" :label="title" :name="title" :key="title" style="font-size:16px" :lazy="true">
           <Securityone></Securityone>
         </el-tab-pane>
-        <!-- <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px" :lazy="true">
-          <Securitytwo></Securitytwo>
-        </el-tab-pane>
-        <el-tab-pane label="劵3" name="cardthree" style="font-size:16px" :lazy="true">
-          <Securitythree></Securitythree>
-        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
@@ -65,19 +59,15 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 import Securityone from "../components/securityone";
-import Securitytwo from "../components/securitytwo";
-import Securitythree from "../components/securitythree";
 export default {
   name: "experhome",
   inject: ["reload"],
   components: {
     Securityone,
-    Securitytwo,
-    Securitythree
   },
   data() {
     return {
-      activeName: "cardone",
+      activeName: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
       remnant: 666,
@@ -85,12 +75,7 @@ export default {
       payment: 1,
       disabled: false,
       limitdate: [],
-      club:[],
-      header: [
-        { title: "劵1", key: "agekey" ,name:"cardone"},
-        { title: "劵2", key: "namekey" ,name:"cardtwo"},
-        { title: "劵3", key: "sixkey" ,name:"cardthree"}
-      ],
+      header: [],
       ruleForm: {
         type: [], //券类型
         price: "", //金额
@@ -107,7 +92,9 @@ export default {
   },
   created: function() {
     this.getVouchers();
-    this.getexperhome();
+    setTimeout(()=>{
+      this.getexperhome();
+    },1500)
   },
   methods: {
     //购买体验券
@@ -157,8 +144,13 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          _this.club = res;
-          console.log(res);
+          var customer_voucher=[];
+          customer_voucher=res.customer_voucher;
+          console.log('customer_voucher:'+ customer_voucher[0].experience_voucher.tkName);
+          for(var i=0;i<customer_voucher.length;i++){
+              _this.header.push(customer_voucher[i].experience_voucher.tkName);
+          }
+          console.log('header:'+ _this.header);
         })
         .catch(error => {
           if (error.res) {

@@ -116,7 +116,7 @@
             <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
-                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                  <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
               <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="180px"></el-table-column>
@@ -124,7 +124,7 @@
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
               <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
-              <el-table-column prop="role.name" align="left" label="角色" width="160px"></el-table-column>
+              <el-table-column prop="role" align="left" label="角色" width="200px"></el-table-column>
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
               <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
             </el-table>
@@ -170,7 +170,7 @@ export default {
         sex: "", //性别
         phone: "", //电话
         idnumber: "", //身份证号
-        role: [], //分配角色
+        role: "", //分配角色
         big: "", //所属大队
         small: "", //所属小组
         desc: "" //员工简介
@@ -185,6 +185,7 @@ export default {
       tableData: [],
       tableData2: [],
       role: [],
+      //rolestr:[],
       brigades: [],
       groups: [],
       searchVal: ""
@@ -204,10 +205,20 @@ export default {
     _this.loading = true;
     requestLogin("/setStaffInfo", {}, "get")
       .then(function(res) {
-        _this.tableData = res;
-        _this.tableData2 = res;
         _this.loading = false;
-        _this.rolegourp();
+        _this.tableData = res; 
+        _this.tableData2 = res;
+        _this.rolegourp();     
+        for(var i = 0; i<_this.tableData.length;i++){
+           var rolestr=_this.tableData[i].role[0].name;
+           var role=_this.tableData[i].role;
+           if(role.length>1){
+              for(var j = 1; j<role.length;j++){
+                 rolestr = rolestr.concat(','+role[j].name);
+               }
+           }         
+           _this.tableData[i].role=rolestr;
+        }      
       })
       .catch(error => {
         if (error.res) {
@@ -272,7 +283,7 @@ export default {
     },
      handleCurrentChange2(val,index) {
         this.currentRow = val;
-        this.$emit('data',val.pkg);
+        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);
@@ -282,8 +293,9 @@ export default {
     },
     rowClick(row, event, column) {
       this.radio = row.index;
+      this.currentSelectRow = row;
+       this.radio = this.tableData.indexOf(row);
       let roleIds = [];
-      console.log(row);
       row.role.map(i => {
         if (i.id) {
           roleIds.push(i.id);
@@ -292,9 +304,6 @@ export default {
       if (row.role[0].id) {
         row.role = roleIds;
       }
-      //获取表格数据
-      this.currentSelectRow = row;
-       this.radio = this.tableData.indexOf(row);
     },
     //添加员工
     submitForm(formName) {

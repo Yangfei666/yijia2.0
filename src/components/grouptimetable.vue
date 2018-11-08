@@ -239,7 +239,7 @@
                         <el-table-column prop="kcDiff" align="left" label="难度" sortable fixed="right"></el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength">
                         </el-pagination>
                     </div>
                 </el-col>
@@ -260,6 +260,7 @@ export default {
       kecheng: [],
       jiaolian: [],
       tableData: [],
+      tablelength:0,
       mendian: [],
       formLabelWidth: "130px",
       radio: "",
@@ -355,10 +356,13 @@ export default {
           this.tableData = val.list.Sunday;
           break;
       }
-      this.tableData.map((item, index) => {
+      if(null!=this.tableData){
+        this.tableData.map((item, index) => {
         item.kcName = item.curriculum_subject.kcName;
         item.JLIDs = item.staff_info.YGXX_NAME;
-      });
+        });
+        this.tablelength=this.tableData.length;  
+      }     
     },
     classrooms(val) {
       this.jiaoshi = this.classrooms;
@@ -387,7 +391,7 @@ export default {
     },
       handleCurrentChange2(val,index) {
         this.currentRow = val;
-        this.$emit('data',val.pkg);
+        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);

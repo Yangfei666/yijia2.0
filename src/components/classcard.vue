@@ -1,5 +1,5 @@
 <template>
-    <!--上课记录-->
+    <!--体验上课记录-->
     <div class="memberhome">
         <el-col :span="24">
             <div class="class-main">
@@ -7,7 +7,7 @@
                     <span class="goback el-icon-arrow-left">返回</span>
                 </div>
                 <el-tabs v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane label="团课记录" name="first">
+                    <el-tab-pane label="团课记录" name="1">
                         <template>
                             <el-col :span="24">
                                 <div class="class-form">
@@ -15,18 +15,15 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
                                             <el-form-item label="券种:" style="text-align:center">
                                                 <el-col :span="24">
-                                                    <el-select v-model="formInline.quan" placeholder="请选择" style="width:100%">
-                                                        <el-option label="取消预约" value="1"></el-option>
-                                                        <el-option label="待上课" value="2"></el-option>
-                                                        <el-option label="已完成" value="3"></el-option>
-                                                        <el-option label="全部" value="4"></el-option>
+                                                    <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -52,18 +49,30 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
-                                            <el-table-column prop="kcName" align="left" label="课程" fixed width="170px"></el-table-column>
-                                            <el-table-column prop="create_time" align="left" label="上课时间" width="250px"></el-table-column>
-                                            <el-table-column prop="kcbSort" align="left" label="券种" width="150px"></el-table-column>
-                                            <el-table-column prop="kcPlace" align="left" label="教室" width="250px"></el-table-column>
-                                            <el-table-column prop="YGXX_NAME" align="left" label="教练" width="170px"></el-table-column>
-                                            <el-table-column prop="kcDiff" align="left" label="难度" width="170px"></el-table-column>
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData" style="width: 100%">
+                                            <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="170px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="250px"></el-table-column>
+                                            <el-table-column prop="customer_voucher.experience_voucher.tkName" align="left" label="券种" width="150px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="250px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="170px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度" width="170px"></el-table-column>
                                             <el-table-column prop="hand" align="left" label="手牌" width="170px"></el-table-column>
-                                            <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="170px"></el-table-column>
+                                            <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="170px">
+                                                <template slot-scope="scope">
+                                                    <div v-if="scope.row.isEnter == '已进场'">
+                                                        <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
+                                                    </div>
+                                                    <div v-else-if="scope.row.isTrue == '未取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    </div>
+                                                    <div v-else>
+                                                        <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength">
                                             </el-pagination>
                                         </div>
                                     </div>
@@ -71,7 +80,7 @@
                             </el-col>
                         </template>
                     </el-tab-pane>
-                    <el-tab-pane label="私教记录" name="second">
+                    <el-tab-pane label="私教记录" name="2">
                         <template>
                             <el-col :span="24">
                                 <div class="class-form">
@@ -79,18 +88,15 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
                                             <el-form-item label="券种:" style="text-align:center">
                                                 <el-col :span="24">
-                                                    <el-select v-model="formInline.quan" placeholder="请选择" style="width:100%">
-                                                        <el-option label="取消预约" value="1"></el-option>
-                                                        <el-option label="待上课" value="2"></el-option>
-                                                        <el-option label="已完成" value="3"></el-option>
-                                                        <el-option label="全部" value="4"></el-option>
+                                                    <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -116,16 +122,28 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
-                                            <el-table-column prop="time" align="left" sortable label="上课时间" fixed width="300px"></el-table-column>
-                                            <el-table-column prop="card" align="left" label="卡种" width="230px"></el-table-column>
-                                            <el-table-column prop="room" align="left" label="教室" width="300px"></el-table-column>
-                                            <el-table-column prop="train" align="left" label="教练" width="230px"></el-table-column>
-                                            <el-table-column prop="handcard" align="left" label="手牌" width="230px"></el-table-column>
-                                            <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="230px"></el-table-column>
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" sortable label="上课时间" fixed width="300px"></el-table-column>
+                                            <el-table-column prop="customer_voucher.experience_voucher.tkName" align="left" label="券种" width="230px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="300px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="230px"></el-table-column>
+                                            <el-table-column prop="hand" align="left" label="手牌" width="230px"></el-table-column>
+                                            <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="230px">
+                                                <template slot-scope="scope">
+                                                    <div v-if="scope.row.isEnter == '已进场'">
+                                                        <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
+                                                    </div>
+                                                    <div v-else-if="scope.row.isTrue == '未取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    </div>
+                                                    <div v-else>
+                                                        <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength2">
                                             </el-pagination>
                                         </div>
                                     </div>
@@ -144,16 +162,17 @@ export default {
   name: "classcard",
   data() {
     return {
-      activeName: "first",
+      activeName: "1",
       currentPage: 1,
       pagesize: 10,
-      loading: false,
+      loading: true,
+      tablelength: 0,
+      tablelength2: 0,
+      header: [],
       formInline: {
-        user: "",
-        date: "",
-        region: "",
-        region2: "",
-        region3: ""
+        time: "",
+        header: "",
+        status: ""
       },
       status: [
         { value: "1", label: "取消预约" },
@@ -162,39 +181,85 @@ export default {
         { value: "4", label: "全部" }
       ],
       tableData: [],
-      tableData2: []
+      tableData2: [],
+      tableData3: [],
+      tableData4: []
     };
+  },
+  watch: {
+    header(val) {
+      //券种
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData3;
+      }
+    },
+    status(val) {
+      //状态
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData3;
+      }
+    },
+    time(val) {
+      //时间
+      console.log(val);
+      if (!val) {
+        this.tableData = this.tableData3;
+      }
+    }
   },
   created() {
     this.getTableData();
+    setTimeout(() => {
+      this.getexperhome();
+    }, 1500);
   },
   methods: {
+    //获取体验券详情
+    getexperhome() {
+      let _this = this;
+      requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
+        .then(function(res) {
+          var customer_voucher = [];
+          var xialaobj = { key: "", name: "" };
+          customer_voucher = res.customer_voucher;
+          console.log(
+            "customer_voucher:" + customer_voucher[0].experience_voucher.tkName
+          );
+          for (var i = 0; i < customer_voucher.length; i++) {
+            xialaobj.key = customer_voucher[i].id;
+            xialaobj.name = customer_voucher[i].experience_voucher.tkName;
+            _this.header.push(xialaobj);
+          }
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     //获取表格页面
     getTableData() {
       let _this = this;
       _this.loading = true;
       var params = {
         id: _this.$route.params.id, //体验券id  this.$route.params.id
-        type:1, //课程种类
-        // state: 4, //上课状态   this.formInline.status
-        // cardId: 143, //券种id
-        // startTime: "", //预约时间
-        // endTime: "" //结束
+        type:3, //课程种类
+        state: _this.formInline.status, //上课状态 
+        cardId: _this.formInline.header, //券种id 
+        startTime: _this.formInline.time, //预约时间
+        endTime: _this.formInline.time //结束
       };
       requestLogin("/setExperienceCustomer/takeLessonsRecord", params, "post")
         .then(function(res) {
-         _this.loading = false;
-          let { group } = res;
-          _this.tableData = this.group.curriculum_table;
-          let { errorCode, msg } = res;
-          if (errorCode) {
-            _this.tableData = "";
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
+            _this.loading = false;
+          let { group, privateList } = res;
+          _this.tableData = group;
+          _this.tableData2 = privateList;
         })
         .catch(error => {
           _this.loading = false;
@@ -205,16 +270,29 @@ export default {
             });
           }
         });
-      _this.tableData.map((item, index) => {
-        item.kcName = item.curriculum_table.curriculum_subject.kcName;
-        item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
-      });
+      if (null != this.tableData || null != this.tableData2) {
+        _this.tableData.map((item, index) => {
+          item.kcName = item.curriculum_table.curriculum_subject.kcName;
+          item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
+        });
+         _this.tableData2.map((item, index) => {
+          item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
+        });
+        this.tablelength = this.tableData.length;
+        this.tablelength2 = this.tableData2.length;
+      }
     },
     handleClick(tab, event) {
       console.log(tab, event);
-      console.log(event.target.getAttribute('id'))
+      console.log(event.target.getAttribute("id"));
     },
     Selectchange3(val) {
+      console.log(val);
+    },
+    Selectchange4(val) {
+      console.log(val);
+    },
+    timechange(val) {
       console.log(val);
     },
     handleSizeChange(size) {
@@ -246,7 +324,7 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 5.4% !important;
+      top: 0.3% !important;
       z-index: 2;
       color: #262626;
       right: 79% !important;

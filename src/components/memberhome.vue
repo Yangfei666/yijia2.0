@@ -10,7 +10,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
               <el-form-item label="客户编号:" prop="userid" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="club.HYID" :disabled="true"></el-input>
+                  <el-input v-model="this.$route.params.HYID" :disabled="true"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -77,15 +77,9 @@
           </el-dialog>
         </template>
       </div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="卡1" name="cardone" style="font-size:16px">
+     <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane v-for="title in header" :label="title" :name="title" :key="title" style="font-size:16px" :lazy="true">
           <Cardone></Cardone>
-        </el-tab-pane>
-        <el-tab-pane label="卡2" name="cardtwo" style="font-size:16px">
-          <Cardtwo></Cardtwo>
-        </el-tab-pane>
-        <el-tab-pane label="卡3" name="cardthree" style="font-size:16px">
-          <Cardthree></Cardthree>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -96,23 +90,20 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 import Cardone from "../components/cardone";
-import Cardtwo from "../components/cardtwo";
-import Cardthree from "../components/cardthree";
 export default {
   name: "memberhome",
   inject: ["reload"],
   components: {
     Cardone,
-    Cardtwo,
-    Cardthree
   },
   data() {
     return {
       formLabelWidth: "130px",
-      activeName: "cardone",
+      activeName: "",
       dialogFormVisible: false,
       selfCard: [],
       club:[],
+      header: [],
       ruleForm: {
         userid: "", //编号
         cardname: "", //卡名称
@@ -144,8 +135,13 @@ export default {
       console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
         .then(function(res) {
-          _this.club = res;
-          console.log(res);
+          var membership_card=[];
+          membership_card=res.membership_card;
+          console.log('membership_card:'+ membership_card[0].card_type.CTName);
+          for(var i=0;i<membership_card.length;i++){
+              _this.header.push(membership_card[i].card_type.CTName);
+          }
+          console.log('header:'+ _this.header);
         })
         .catch(error => {
           if (error.res) {

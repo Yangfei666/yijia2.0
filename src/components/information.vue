@@ -77,13 +77,13 @@
           </template>
         </div>
       </el-col>
-      <el-col :span="24">
+      <el-col :span="24" class="infor-wp">
         <div class="infor-center">
-           <el-col :span="24" class="infor-info">
+          <el-col :span="24" class="infor-info">
             <span class="left padding">姓名：</span>
             <span class="right">{{club.HYName}}</span>
           </el-col>
-           <el-col :span="24" class="infor-info">
+          <el-col :span="24" class="infor-info">
             <span class="left padding">电话：</span>
             <span class="right">{{club.MotoTel}}</span>
           </el-col>
@@ -116,6 +116,17 @@
             <span class="right">{{club.ZhengJianNO}}</span>
           </el-col>
         </div>
+        <div class="infor-center2">
+        <el-col :span="24" class="hand-right">
+          <div class="head_img">
+            <img :src="imageUrl" />
+          </div>
+          <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+            <el-button type="success" class="successbut" plain>更换头像</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
+        </el-col>
+        </div>
       </el-col>
     </div>
   </div>
@@ -131,7 +142,9 @@ export default {
       formLabelWidth: "130px",
       payment: 3,
       club: "",
+      imageUrl:"",
       ruleForm: {},
+      fileList: [],
       membership_card: ""
     };
   },
@@ -139,10 +152,43 @@ export default {
     this.getexperhome();
   },
   methods: {
+     uploadOverrun: function() {
+      this.$message({
+        type: "error",
+        message: "上传文件个数超出限制!最多上传1张图片!"
+      });
+    },
+    //打开图片上传
+    submitUpload: function(content) {
+      this.addLoading = true;
+      this.file = content.file;
+      let formData = new FormData();
+      formData.append("file",this.file);
+      requestLogin("/setDesignateMember/editMemberIcon/"+this.$route.params.HYID, formData, "post")
+        .then(res => {
+          this.addLoading = false;
+          this.$message({
+            message: "更换成功",
+            type: "success"
+          });
+          this.reload();
+        })
+        .catch(error => {
+          this.addLoading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     //获取会员详情
     getexperhome() {
       let _this = this;
-      let relationCard=[];
+      let relationCard = [];
       console.log(this.$route);
       console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
@@ -150,7 +196,8 @@ export default {
           _this.club = res;
           let { membership_card } = res;
           relationCard = membership_card.relationCard;
-          console.log('relationCard'+relationCard);
+          let { Photo } = res;
+          _this.imageUrl = Photo;
         })
         .catch(error => {
           if (error.res) {
@@ -173,10 +220,14 @@ export default {
           HomeAdd: this.ruleForm.HomeAdd, //地址
           hyContacts: this.ruleForm.hyContacts, //紧急联系人
           hyConTel: this.ruleForm.hyConTel, //紧急联系人电话
-          hyWeChat: this.ruleForm.hyWeChat  //微信号
+          hyWeChat: this.ruleForm.hyWeChat //微信号
         };
-        console.log(this.$route.params.HYID)
-        requestLogin("/setDesignateMember/"+this.$route.params.HYID, loginParams, "put")
+        console.log(this.$route.params.HYID);
+        requestLogin(
+          "/setDesignateMember/" + this.$route.params.HYID,
+          loginParams,
+          "put"
+        )
           .then(data => {
             this.$message({
               message: "修改成功",
@@ -218,7 +269,8 @@ export default {
 <style lang="scss" scoped>
 .infor {
   width: 97%;
-  height: 570px;
+  height: 100%;
+  display: inline-block;
   margin: 20px auto;
   background: #fff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
@@ -248,9 +300,13 @@ export default {
       }
     }
   }
+  .infor-wp{
+    display:flex;
   .infor-center {
-    width: 70%;
+    width: 40%;
     margin: 20px auto;
+    height: 100%;
+    display: inline-block;
     .infor-info {
       height: 47px;
       line-height: 47px;
@@ -284,6 +340,34 @@ export default {
         color: #262626;
       }
     }
+  }
+  .infor-center2{
+    width: 40%;
+    margin: 20px auto;
+    height: 100%;
+    display: inline-block;
+    margin-left:-9%;
+  .hand-right {
+    height: 100%;
+    .head_img {
+      margin-top: 4%;
+      img {
+        width: 28%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .setting_right {
+      height: 35px;
+      margin-top: 4%;
+      .successbut {
+        width: 17%;
+        height: 35px;
+        padding: 10px;
+      }
+    }
+  }
+  }
   }
 }
 </style>
