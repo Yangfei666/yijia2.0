@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 axios.defaults.timeout = 2500;
-// axios.defaults.withCredentials = true;// 携带cookie
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 export const requestLogin = (url, params, method, baseURL, responseType) => {

@@ -7,7 +7,10 @@
       <div class="main-right">
         <div class="block">
           <el-col :span="24">
-            <el-date-picker v-model="SelectDate" @change="changeSelectDate" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" style="width:180px"></el-date-picker>
+            <el-date-picker
+            v-model="SelectDate" @change="changeSelectDate" value-format="yyyy-MM-dd" align="right" type="date"
+            placeholder="选择日期" :picker-options="pickerOptions1" :clearable="false" style="width:180px">
+            </el-date-picker>
           </el-col>
         </div>
         <div class="block2">
@@ -21,14 +24,14 @@
       <el-tabs v-model="activeName">
         <el-tab-pane label="团课(共20节)" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
-          <div v-else>对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
+          <div v-else >对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane label="私教(共20节)" name="private">
-          <Private></Private>
+          <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="main-list" v-if="experience.length>0 && enterStadium">
+    <div class="main-list" v-if="experience.length > 0 && enterStadium">
       <div class="customer">
         <span>体验客户约课</span>
       </div>
@@ -47,21 +50,23 @@
           <el-table-column align="left" prop="customer_voucher.mode" label="付款方式"></el-table-column>
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
-              <div v-if="scope.row.isEnter == '未进场'">
+              <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
                 <el-button type="text" size="small" @click="clickEnter('体验客户', scope.row.experience_customers.id)">进场</el-button>
-                <el-button type="text" size="small" @click="cancelReservation()">取消预约</el-button>
+                <el-button type="text" size="small" @click="cancelReservation(scope.row.id, '体验客户')">取消预约</el-button>
               </div>
-              <div v-else>
+              <div v-if="scope.row.isTrue == '已取消'">
+                <el-button type="text" size="small" disabled style="color:red">已取消</el-button>
+              </div>
+              <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>
                 <el-button type="text" size="small" disabled style="color:red">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
               </div>
             </template>
-
           </el-table-column>
         </el-table>
       </div>
     </div>
-    <div class="nav-list" v-if="enterStadium">
+    <div class="nav-list" v-if="leaguer.length > 0 && enterStadium">
       <div class="customer">
         <span>会员约课</span>
       </div>
@@ -78,11 +83,14 @@
           <el-table-column align="left" prop="member_customers.staff_info.YGXX_NAME" label="会籍顾问"></el-table-column>
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
-              <div v-if="scope.row.isEnter == '未进场'">
+              <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
                 <el-button type="text" size="small" @click="clickEnter('会员客户', scope.row.member_customers.HYID)">进场</el-button>
-                <el-button type="text" size="small" @click="cancelReservation(scope.row.id)">取消预约</el-button>
+                <el-button type="text" size="small" @click="cancelReservation(scope.row.id, '会员客户')">取消预约</el-button>
               </div>
-              <div v-else>
+              <div v-if="scope.row.isTrue == '已取消'">
+                <el-button type="text" size="small" disabled style="color:red">已取消</el-button>
+              </div>
+              <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>
                 <el-button type="text" size="small" disabled style="color:red">{{scope.row.hand == '0000' ? '未使用手牌' : scope.row.hand }}</el-button>
               </div>
@@ -143,7 +151,7 @@ export default {
   data() {
     return {
       enterStadium : true,// 是否显示课程内容
-      enterTitle : '',//进场输入框的标题
+      enterTitle : '团课会员进场',//进场输入框的标题
       dialogFormVisible: false,
       formLabelWidth: "130px",
       groupList: [], // 团课列表
@@ -153,7 +161,9 @@ export default {
       bottomDay: "今天",// 时间按钮
       pickerOptions1: {
         disabledDate(time) {
-          return time.getTime() > Date.now();
+          const date = new Date();
+          var maxDay = date.setTime(date.getTime() + 3600 * 1000 * 24 * 30);
+          return time.getTime() > maxDay;
         },
         shortcuts: [
           {
@@ -227,27 +237,71 @@ export default {
     let today = this.GetDateStr(0);
     this.getCourseList(today);
   },
-  watch: {},
+  watch: {
+    activeName (oldValue, newValue) {
+      if (newValue == 'league') {
+        var course = this.privateList.slice(0, 1)[0];
+        } else {
+        var course = this.groupList.slice(0, 1)[0];
+      }
+      this.course = course;
+      this.getCourseDetails(course);
+    }
+  },
   methods: {
     // 进场按钮点击
-    clickEnter (str, id)
-    {
+    clickEnter (str, id) {
       this.enterTitle = (this.activeName == "league" ? '团课' : '私教') + str + '进场';
-      this.id = id;
+      this.userId = id;
       this.dialogFormVisible = true;
     },
-
+    // 教练进场成功更改状态
+    caochSuccess(name2, JLIDs) {
+      this.name2 = name2;
+      this.course.JLIDs = JLIDs;
+      this.dialogFormVisible = false;
+    },
+    // 客户进场更改状态
+    CustomerSuccess(hand) {
+      this.changeStatus('已进场', hand);
+      this.dialogFormVisible = false;
+    },
+    // 页面进场/取消状态更改
+    changeStatus(msg, num) {
+      let str = this.enterTitle.substring(2,4);
+      let array = str == '会员' ? this.leaguer : this.experience;
+      for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        if (msg == '已取消' && element.id == num) {
+          element.isTrue = msg;
+        }
+        if (str == '会员') {
+          if (msg == '已进场' && element.member_customers.HYID == this.userId) {
+            element.isEnter = msg;
+            element.hand = num;
+          }
+        } else {
+          if (msg == '已进场' && element.experience_customers.id == this.userId) {
+            element.isEnter = msg;
+            element.hand = num;
+          }
+        }
+      }
+    },
     // 取消预约
-    cancelReservation(id) {
-      request("/adminHomePage/" + id + "/edit", { bool: this.bool }, "get")
+    cancelReservation(id, str) {
+      this.enterTitle = (this.activeName == "league" ? '团课' : '私教') + str + '取消预约';
+      let params = { bool: this.bool, id:id };
+      request("/adminHomePage/cancelReservation", params)
         .then(data => {
+          this.changeStatus('已取消', id);
           this.msgThen(data);
         })
         .catch(error => {
           this.msgCatch(error, "对不起,取消预约失败");
         });
     },
-    //时间按钮
+    // 时间按钮
     changeBottomDay() {
       if (this.bottomDay == "今天") {
         let day = this.GetDateStr(0)
@@ -264,8 +318,9 @@ export default {
       }
     },
     // 获取指定天数后的时间
-    GetDateStr(num) {
-      let date = new Date();
+    GetDateStr(num, day) {
+      var day = day || new Date();
+      let date = new Date(day);
       date.setDate(date.getDate() + num);
       let y = date.getFullYear();
       let m = date.getMonth() + 1;
@@ -276,17 +331,23 @@ export default {
     },
     // 时间选择
     changeSelectDate() {
-      let date = new Date(this.SelectDate);
-      let day = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-      this.bottomDay = "";
-      this.getCourseList(day);
+      if (this.SelectDate == this.GetDateStr(0)) {
+        this.bottomDay = "今天";
+      } else if (this.SelectDate == this.GetDateStr(1)) {
+        this.bottomDay = "明天";
+      } else if (this.SelectDate == this.GetDateStr(2)) {
+        this.bottomDay = "后天";
+      } else {
+        this.bottomDay = "";
+      }
+      this.getCourseList(this.SelectDate);
     },
     // 根据日期获取课程列表
     getCourseList(day) {
       request("/adminHomePage?day=" + day, {}, "get")
         .then(data => {
-          // console.log(data.group);
-          console.log(sessionStorage.getItem('access-token'));
+          console.log(data);
+          // console.log(sessionStorage.getItem('access-token'));
           if (data.group === false && data.private === false) {
             this.enterStadium = false;
           } else {
@@ -323,25 +384,6 @@ export default {
             });
           }
         });
-    },
-    // 教练进场成功更改状态
-    caochSuccess(name2, JLIDs) {
-      this.name2 = name2;
-      this.course.JLIDs = JLIDs;
-      this.dialogFormVisible = false;
-    },
-    //客户进场更改状态
-    CustomerSuccess(hand) {
-      let str = this.enterTitle.substring(2, 4);
-      let array = str == '会员' ? this.leaguer : this.experience;
-      for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-        if (element.member_customers.HYID == this.userId) {
-          element.isEnter = '已进场';
-          element.hand = hand;
-        }
-      }
-      this.dialogFormVisible = false;
     },
     //成功提示
     msgThen(data) {

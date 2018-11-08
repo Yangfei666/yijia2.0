@@ -4,9 +4,10 @@
         <el-form :model="ruleForm" ref="ruleForm" label-width="100px">
             <el-form-item label="课程信息:" prop="name" :label-width="formLabelWidth">
                 <el-button-group>
+                  <el-button type="danger" round >{{course.kcIsPrivate}}</el-button>
                   <el-button type="danger" round >{{course.kcStime}}</el-button>
                   <el-button type="danger" round >{{course.Stime}}~{{course.Etime}}</el-button>
-                  <el-button type="danger" round >{{course.curriculum_subject.kcName}}</el-button>
+                  <el-button type="danger" round >{{course.kcIsPrivate == '团课课程' ? course.curriculum_subject.kcName : course.staff_info.YGXX_NAME}}</el-button>
                 </el-button-group>
             </el-form-item>
             <el-form-item label="上课教练:" prop="trainer" :label-width="formLabelWidth" v-if="userId == 0">
@@ -79,7 +80,7 @@ export default {
       };
       request("/adminHomePage", params)
         .then(data => {
-          CustomerSuccess(params.number);
+          this.CustomerSuccess(params.number);
           this.msgThen(data);
         })
         .catch(error => {
@@ -93,7 +94,7 @@ export default {
     caochEnter() {
       let params = {
         userId : this.ruleForm.trainer,
-        number : this.ruleForm.approach,
+        number : this.ruleForm.approach ? this.ruleForm.approach : "0000",
       };
       request("/adminHomePage/" + this.course.ID, params, "put")
         .then(data => {

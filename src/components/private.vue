@@ -4,60 +4,41 @@
     <el-col :span="24" class="main-wp">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(i,index) in arr" :key="index">
+          <div class="swiper-slide" v-for="item in privateList" :key="item.ID" @click="courseId(item)">
             <template>
               <div class="swiper-main">
                 <div class="dimback">
-                  <img class="Img" :src="i.Img" />
+                  <img class="Img" :src="item.staff_info.Photo" />
                 </div>
-                <p class="time">{{i.time}}</p>
-                <p class="name">{{i.name}}</p>
+                <p class="time">{{item.Stime}}~{{item.Etime}}</p>
+                <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
               </div>
               <div class="box"></div>
-              <div class="bai">{{i.tuan}}</div>
-              <p class="yuyue">{{i.num}}</p>
+              <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验'
+                ? '体验·' + item.private_curriculum_appointment.experience_customers.exName
+                : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
               <div class="progressContainer">
                 <div class="progress">
-                  <b>{{i.progress}}</b>
+                  <b>{{progress}}</b>
                 </div>
               </div>
               <div class="star">
                 <div class="block">
-                  <el-rate v-model="value1"></el-rate>
+                  <p style="text-align:left;color:#f37489;font-size:14px;padding-left:12%;">
+                {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验'
+                ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName
+                : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
                 </div>
                 <div class="but">
-                  <p>{{i.but}}</p>
+                  <p>{{item.kcIsPrivate.substr(0,2)}}</p>
                 </div>
               </div>
             </template>
+            <div class="weber-main">
+              <div class="circle"></div>
+              <span style="font-size:18px;">{{item.Stime}}</span>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div> -->
-    </el-col>
-    <el-col :span="24">
-      <div class="tea-weber">
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span>09:00</span>
-          <em class="top"></em>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
-        </div>
-        <div class="weber-main">
-          <div class="circle"></div>
-          <span style="font-size:18px">09:00</span>
         </div>
       </div>
     </el-col>
@@ -67,90 +48,14 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
-import Img from "@/assets/1.png";
-import Img2 from "@/assets/2.png";
-import Img3 from "@/assets/3.png";
-import Img4 from "@/assets/4.png";
-import Img5 from "@/assets/5.png";
 export default {
-  name: "league",
+  name: "private",
+  props: {
+    privateList:[Object, Array]
+  },
   data() {
     return {
-      value1: 4,
       progress: 20,
-      mySwiper: "",
-      arr: [
-        {
-          id: 1,
-          Img: Img,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约25/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 2,
-          Img: Img2,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "灰",
-          num: "已预约20/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 3,
-          Img: Img3,
-          time: "9:30-10:00",
-          name: "基础瑜伽·angel",
-          tuan: "白",
-          num: "已预约16/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 4,
-          Img: Img4,
-          time: "9:30-10:00",
-          name: "空中瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约21/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 5,
-          Img: Img5,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 6,
-          Img: Img,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        },
-        {
-          id: 7,
-          Img: Img2,
-          time: "9:30-10:00",
-          name: "基础瑜伽·lucyv",
-          tuan: "白",
-          num: "已预约14/25",
-          progress: "20",
-          but: "团课"
-        }
-      ]
     };
   },
   mounted() {
@@ -160,11 +65,6 @@ export default {
     }, 500);
   },
   methods: {
-    // middle(i) {
-    //   let idx = this.arr.indexOf(i);
-    //   this.arr.splice(idx, 1);
-    //   this.arr.splice(2, 0, i);
-    // },
     initSwiper() {
       var appendNumber = 5;
       var prependNumber = 1;
@@ -179,6 +79,9 @@ export default {
           prevEl: ".swiper-button-prev"
         }
       });
+    },
+    courseId (course) {
+      this.$emit('clickCourse', course);
     }
   }
 };
@@ -189,7 +92,7 @@ export default {
 .main-wp {
   .swiper-container {
     width: 95%;
-    height: 260px;
+    height: 310px;
     background-color: #fff;
     .swiper-slide {
       display: flex;
@@ -198,19 +101,34 @@ export default {
       list-style: none;
       width: 18% !important;
       background: #fff;
-      height: 89.236%;
+      // height: 89.236%;
+      height: 75%;
       margin: 15px auto;
       transition: 500ms ease-in-out;
       transform-origin: center center;
       position: relative;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+      .weber-main {
+        position: relative;
+        left: 33%;
+        bottom: -65%;
+        .circle {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #00bc71;
+          margin: 12px auto;
+          margin-top: 20px;
+          margin-left: 45%;
+        }
+      }///////////////////////
       .swiper-main {
         width: 100%;
         height: 55%;
         position: absolute;
         top: 0px;
         .dimback {
-          background: #000;
+          background: rgba(0, 0, 0, 0.822);
           border-radius: 4px;
           display: flex;
           height: 100%;
@@ -287,7 +205,7 @@ export default {
         bottom: 48px;
       }
       div.progress {
-        background-color: #eed29b;
+        background-color: #f37489;
         border-radius: 10px;
         height: 1px;
       }
@@ -326,7 +244,7 @@ export default {
           float: right;
           margin-top: -11%;
           border-radius: 10px;
-          border: solid 1px #eed29b;
+          border: solid 1px #f37489;
           margin-right: 4%;
           p {
             font-family: PingFang-SC-Regular;
@@ -335,7 +253,7 @@ export default {
             font-stretch: normal;
             line-height: 0px;
             letter-spacing: 0px;
-            color: #eed29b;
+            color: #f37489;
             margin-top: 10px;
           }
         }
@@ -375,7 +293,7 @@ export default {
       &.top {
         border-width: 12px;
         border-style: solid dashed dashed;
-        border-color: transparent transparent #e9eef3 transparent;
+        border-color: transparent transparent #ddd transparent;
         left: 42%;
         top: 75%;
       }

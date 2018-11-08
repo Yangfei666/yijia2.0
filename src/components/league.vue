@@ -65,7 +65,6 @@ export default {
   data() {
     return {
       progress: 20,
-      mySwiper: ""
     };
   },
   mounted() {
@@ -75,11 +74,6 @@ export default {
     }, 500);
   },
   methods: {
-    // middle(i) {
-    //   let idx = this.arr.indexOf(i);
-    //   this.arr.splice(idx, 1);
-    //   this.arr.splice(2, 0, i);
-    // },
     initSwiper() {
       var appendNumber = 5;
       var prependNumber = 1;
@@ -116,16 +110,27 @@ export default {
       list-style: none;
       width: 18% !important;
       background: #fff;
-      height: 89.236%;
+      // height: 89.236%;
+      height: 75%;
       margin: 15px auto;
       transition: 500ms ease-in-out;
       transform-origin: center center;
       position: relative;
+      z-index: 999;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
       .weber-main {
         position: relative;
         left: 33%;
-        bottom: -54%;
+        bottom: -62%;
+        .circle {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #00bc71;
+          margin: 12px auto;
+          margin-top: 20px;
+          margin-left: 45%;
+        }
       }///////////////////////
       .swiper-main {
         width: 100%;
