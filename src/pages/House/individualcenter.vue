@@ -77,20 +77,13 @@
                       </div>
                     </el-col>
                     <el-col :span="11" class="hand-right">
-                      <!-- <div class="upload">
-                        <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :auto-upload="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>
-                        <el-button type="success" class="successbut" plain >点击更换头像</el-button>
-                      </div> -->
-                          <div class="head_img">
-                            <img :src="imageUrl"/>
-                          </div>
-                          <div class="setting_right" @click.stop="uploadHeadImg">
-                            <el-button type="success" class="successbut" plain>更换头像</el-button>
-                          </div>
-                          <input type="file" accept="image/*" @change="handleFile" class="hiddenInput"/>
+                      <div class="head_img">
+                        <img :src="imageUrl" />
+                      </div>
+                      <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+                        <el-button type="success" class="successbut" plain>更换头像</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                      </el-upload>
                     </el-col>
                   </div>
                 </template>
@@ -182,7 +175,7 @@
                             <el-form-item class="dialog-footer">
                               <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                 <el-button @click="resetForm('ruleForm')">重置</el-button>
-                                <el-button type="primary" @click="addroom('ruleForm')"  :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                <el-button type="primary" @click="addroom('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                               </el-col>
                             </el-form-item>
                           </el-form>
@@ -250,7 +243,7 @@
                             <el-form-item class="dialog-footer">
                               <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                 <el-button @click="resetforbidden('ruleForm3')">重置</el-button>
-                                <el-button type="primary" @click="addforbidden('ruleForm3')"  :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                <el-button type="primary" @click="addforbidden('ruleForm3')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                               </el-col>
                             </el-form-item>
                           </el-form>
@@ -298,17 +291,17 @@ export default {
   name: "individualcenter",
   inject: ["reload"],
   data() {
-  var validatePass = (rule, value, callback) => {
+    var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入新密码"));
       } else {
         if (this.ruleForm2.checkPass !== "") {
-        this.$refs.ruleForm2.validateField("checkPass");
+          this.$refs.ruleForm2.validateField("checkPass");
         }
         callback();
       }
-      };
-  var validatePass2 = (rule, value, callback) => {
+    };
+    var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入新密码"));
       } else if (value !== this.ruleForm2.passWord) {
@@ -316,7 +309,7 @@ export default {
       } else {
         callback();
       }
-      };
+    };
     return {
       item: "",
       imageUrl: "",
@@ -324,10 +317,11 @@ export default {
       radio: true,
       value1: "",
       loading: false,
-      addLoading:false,
+      addLoading: false,
       formLabelWidth: "130px",
       downIcon: true,
       downIcon2: false,
+      fileList: [],
       downIcon3: false,
       pwdType: "text", // 密码类型
       pwdType2: "password", // 密码类型
@@ -371,9 +365,9 @@ export default {
         checkPass: "" //确认新密码
       },
       rules2: {
-        pass: [{required: true,trigger: "blur",message: "请输入原密码"}], //原密码
-        passWord: [{validator: validatePass,trigger: "blur"}], //新密码
-        checkPass: [{ validator: validatePass2,trigger: "blur"}] //确认新密码
+        pass: [{ required: true, trigger: "blur", message: "请输入原密码" }], //原密码
+        passWord: [{ validator: validatePass, trigger: "blur" }], //新密码
+        checkPass: [{ validator: validatePass2, trigger: "blur" }] //确认新密码
       },
       tableData: [], //我的门店
       tableData2: [], //私教禁用时间
@@ -425,41 +419,45 @@ export default {
   },
   methods: {
     //获取个人资料
-    getUser(){
+    getUser() {
       let _this = this;
-    _this.loading = true;
-    requestLogin("/PersonalCenter", {}, "get")
-      .then(function(res) {
-        _this.loading = false;
-        _this.item = res;
-        let { Photo } = res;
-        _this.imageUrl = Photo;
-      })
-      .catch(error => {
-        if (error.res) {
-          this.$message({
-            message: "获取数据失败",
-            type: "error"
-          });
-        }
+      _this.loading = true;
+      requestLogin("/PersonalCenter", {}, "get")
+        .then(function(res) {
+          _this.loading = false;
+          _this.item = res;
+          let { Photo } = res;
+          _this.imageUrl = Photo;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
+    uploadOverrun: function() {
+      this.$message({
+        type: "error",
+        message: "上传文件个数超出限制!最多上传1张图片!"
       });
     },
-    // 打开图片上传
-    uploadHeadImg: function () {
-      this.$el.querySelector('.hiddenInput').click();
+    //打开图片上传
+    submitUpload: function(content) {
       this.addLoading = true;
-      var loginParams = {
-        file: this.imageUrl,
-        headers:{'Content-Type':'multipart/form-data'}
-      };
-      requestLogin("/uploadStaffPhoto", loginParams, "post")
+      this.file = content.file;
+      let formData = new FormData();
+      formData.append("file",this.file);
+      requestLogin("/uploadStaffPhoto", formData, "post")
         .then(res => {
           this.addLoading = false;
           this.$message({
-            message: "修改成功",
+            message: "更换成功",
             type: "success"
           });
-            console.log(res);
+          console.log(res);
           this.reload();
         })
         .catch(error => {
@@ -473,17 +471,6 @@ export default {
             return;
           }
         });
-    },
-    // 将头像显示
-    handleFile: function (e) {
-      let $target = e.target || e.srcElement;
-      let file = $target.files[0];
-      var reader = new FileReader();
-      reader.onload = (data) => {
-        let res = data.target || data.srcElement;
-        this.imageUrl = res.result;
-      }
-      reader.readAsDataURL(file);
     },
     //获取表格列表
     rowClick(row, event, column) {
@@ -672,26 +659,12 @@ export default {
     resetforbidden(formName) {
       this.$refs[formName].resetFields();
     },
-     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
     radiochange(row) {
       console.log(`当前: ${row}`);
     },
     handleClick(tab, event) {
       console.log(tab, event);
-      console.log(event.target.getAttribute('id'));
+      console.log(event.target.getAttribute("id"));
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);
@@ -718,7 +691,7 @@ export default {
     },
     changeType3() {
       this.pwdType3 = this.pwdType3 === "password" ? "text" : "password";
-    },
+    }
   }
 };
 </script>
@@ -731,23 +704,22 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height:94px;
+  height: 94px;
   width: 300px;
-  padding:0px 24px 0px 38px;
+  padding: 0px 24px 0px 38px;
   border-bottom: 1px solid #f7f7f7;
   background: #fff;
 }
 .head_p {
-  height:132px;
-  margin-left:70px;
+  height: 132px;
+  margin-left: 70px;
 }
 
-
-.hiddenInput{
+.hiddenInput {
   display: none;
 }
 .caption {
-  color: #8F8F8F;
+  color: #8f8f8f;
   font-size: 22px;
   height: 37px;
 }
@@ -860,57 +832,23 @@ export default {
     }
     .hand-right {
       height: 100%;
-      .head_img{
-          margin-top:4%;
-          img{
-            width:32%;
-            height:100%;
-            border-radius:50%;
-          }
+      .head_img {
+        margin-top: 4%;
+        img {
+          width: 32%;
+          height: 100%;
+          border-radius: 50%;
         }
-        .setting_right{
+      }
+      .setting_right {
+        height: 35px;
+        margin-top: 4%;
+        .successbut {
+          width: 17%;
           height: 35px;
-           margin-top:4%;
-           .successbut {
-            width: 17%;
-            height: 35px;
-            padding: 10px;
-          }
+          padding: 10px;
         }
-      // .upload {
-      //   width: 270px;
-      //   height: 150px;
-      //   margin: 20px auto;
-      //   .avatar-uploader .el-upload {
-      //     border: 1px dashed #d9d9d9;
-      //     border-radius: 6px;
-      //     cursor: pointer;
-      //     position: relative;
-      //     overflow: hidden;
-      //   }
-      //   .avatar-uploader .el-upload:hover {
-      //     border-color: #409eff;
-      //   }
-      //   .avatar-uploader-icon {
-      //     font-size: 28px;
-      //     color: #8c939d;
-      //     width: 178px;
-      //     height: 178px;
-      //     line-height: 178px;
-      //     text-align: center;
-      //   }
-      //   .avatar {
-      //     width: 178px;
-      //     height: 178px;
-      //     display: block;
-      //   }
-      //   .successbut {
-      //     width: 105px;
-      //     height: 35px;
-      //     line-height: 6px;
-      //     padding: 10px;
-      //   }
-      // }
+      }
     }
   }
   .center-two {

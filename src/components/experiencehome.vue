@@ -14,12 +14,12 @@
         </el-col>
         <el-col :span="23" class="weber">
           <el-col :span="10" class="weber-left">
-            <span class="weber-span">体验客户·{{this.$route.params.exName}}<img src="../assets/51.png"/></span>
-            <p class="weber-p">会籍顾问:{{this.$route.params.exHjgwName}}<span class="weber-pp">电话:{{this.$route.params.exTel}}</span></p>
+            <span class="weber-span">体验客户·{{this.exName}}·{{this.exSex}}</span>
+            <p class="weber-p">会籍顾问:{{this.exHjgwName}}<span class="weber-pp">电话:{{this.exTel}}</span></p>
             </el-col>
             <el-col :span="14" class="weber-right">
               <div class="right-span">
-                <router-link :to="{name:'Information2',params:{id:243}}" class="link">综合信息 </router-link>
+                <router-link :to="{name:'Information2',params:{id:this.id}}" class="link">综合信息 </router-link>
               </div>
               <div class="border"></div>
                 <div class="right-span">
@@ -32,7 +32,7 @@
                 </div>
               <div class="border"></div>
                 <div class="right-span">
-                  <router-link :to="{name:'Nocards',params:{id:243}}" class="link">不办卡</router-link>
+                  <router-link :to="{name:'Nocards',params:{id:this.id}}" class="link">不办卡</router-link>
                 </div>
               <div class="border"></div>
               <div class="right-span">
@@ -48,13 +48,13 @@
                 <el-button type="text" class="link" @click="dialogFormVisible3 = true">换会籍</el-button>
                     <template>
                     <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                    <Change></Change>
+                    <Change :potential="Potential"></Change>
                     </el-dialog>
                     </template>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link to="/Customer/experiencehome/classcard" class="link">上课记录</router-link>
+                <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">上课记录</router-link>
               </div>
             </el-col>
         </el-col>
@@ -80,13 +80,25 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3:false,
+      Potential:{potential:'setExperienceCustomer',
+      id:this.id,
+      exHjgwName:this.exHjgwName,
+      exName:this.exName,
+      exTel:this.exTel,
+      exSex:this.exSex},
+      id:'',
+      exHjgwName:"",
+      exName:"",
+      exTel:"",
+      exSex:""
     };
   },
   mounted(){
-    // this.id = this.$route.params.id;
+    this.id = this.$route.params.id;
     this.exHjgwName = this.$route.params.exHjgwName;
     this.exName = this.$route.params.exName;
     this.exTel = this.$route.params.exTel;
+    this.exSex = this.$route.params.exSex;
   },
   methods: {
   }

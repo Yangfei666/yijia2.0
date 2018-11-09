@@ -3,7 +3,7 @@
         <!--操作记录-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <router-link to="/Customer/membershiphome/memberhome" style="text-decoration:none;">
+                <router-link :to="{name:'Memberhome'}" style="text-decoration:none;">
                     <div class="infor-but">
                         <span class="goback el-icon-arrow-left">返回</span>
                     </div>
@@ -400,15 +400,13 @@
                         </el-card>
                     </el-col>
                 </el-row>
-                <div class="block">
-                <el-pagination layout="prev, pager, next" :total="1000"></el-pagination>
-                </div>
             </div>
             </el-col>
         </div>
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
     name:'operationnote',
   data() {
@@ -417,7 +415,33 @@ export default {
       isShow: false
     };
   },
+  created(){
+      this.getexperhome();
+  },
   methods: {
+       //获取操作记录
+    getexperhome() {
+      let _this = this;
+      let relationCard = [];
+      console.log(this.$route);
+      console.log(this.$route.params.HYID);
+      requestLogin("/setDesignateMember/getOperationRecord/" + this.$route.params.HYID, {}, "get")
+        .then(function(res) {
+        //   _this.club = res;
+        //   let { membership_card } = res;
+        //   relationCard = membership_card.relationCard;
+        //   let { Photo } = res;
+        //   _this.imageUrl = Photo;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     showToggle: function() {
       this.isShow = !this.isShow;
       if (this.isShow) {

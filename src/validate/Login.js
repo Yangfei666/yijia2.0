@@ -326,3 +326,35 @@ export let mode = [
             trigger: "change"
         }
     ];
+/* 验证激活时间*/
+export let sensitize = [
+        {
+            required:true,
+            message: "请选择激活时间",
+            trigger: "change"
+        }
+    ];
+/* 验证到期时间*/
+export let become = [
+        {
+            required:true,
+            message: "请选择到期时间",
+            trigger: "change"
+        }
+    ];
+/* 验证是否启动*/
+export let start = [
+        {
+            required:true,
+            message: "请选择是否启动",
+            trigger: "blur"
+        }
+    ];
+/* 验证请假时间*/
+export let leavedate = [
+        {
+            required:true,
+            message: "请选择请假时间",
+            trigger: "change"
+        }
+    ];

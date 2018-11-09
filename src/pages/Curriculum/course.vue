@@ -49,9 +49,9 @@
                   </el-form-item>
                   <el-form-item label="课程封面:" prop="filecover" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-upload class="avatar-uploader" ref="imgupload" action="" :on-change="uploadImg" :auto-upload="false" :show-file-list="false">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                      <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <span slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
                       </el-upload>
                     </el-col>
                   </el-form-item>
@@ -131,7 +131,8 @@ export default {
   },
   data() {
     return {
-      imgfile: "",
+      file: "",
+      fileList: [],
       addLoading: false,
       loading: false,
       imageUrl: "",
@@ -154,7 +155,6 @@ export default {
         classname: validate.classname,
         heat: validate.heat,
         status: validate.status
-        // filecover: validate.filecover
       },
       searchName: "",
       tableData: [],
@@ -189,10 +189,15 @@ export default {
       });
   },
   methods: {
-    uploadImg(file) {
-      // console.log(file.raw);
-      this.imgfile = file.raw;
-      this.imageUrl = URL.createObjectURL(file.raw);
+    uploadOverrun: function() {
+      this.$message({
+        type: "error",
+        message: "上传文件个数超出限制!最多上传1张图片!"
+      });
+    },
+    //上传图片
+    submitUpload: function(content) {
+      this.file = content.file;
     },
     radiochange(row) {
       console.log(`当前: ${row}`);
@@ -234,16 +239,14 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
-            var loginParams = {
-              kcName: this.ruleForm.classname, //课程名称
-              ZT: this.ruleForm.status, //状态
-              BZ: this.ruleForm.desc, //备注
-              kcHot: this.ruleForm.heat, //热度
-              price: this.ruleForm.price, //价格
-              file: this.imgfile //课程封面
-            };
-            console.log(loginParams);
-            requestLogin("/setCurSubInfo", loginParams, "post")
+            let formData = new FormData();
+            formData.append("kcName",this.ruleForm.classname);//课程名称
+            formData.append("ZT", this.ruleForm.status);//状态
+            formData.append("BZ", this.ruleForm.desc);//备注
+            formData.append("kcHot", this.ruleForm.heat);//热度
+            formData.append("price", this.ruleForm.price);//价格
+            formData.append("file", this.file);//课程封面
+            requestLogin("/setCurSubInfo", formData, "post")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -275,7 +278,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.$refs.imgupload.clearFiles();
-      this.imageUrl = "";
+      this.file = "";
     }
   }
 };

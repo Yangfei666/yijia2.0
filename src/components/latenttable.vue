@@ -93,12 +93,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+          <el-table id="rebateSetTable" ref="singleTable"  @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="80px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -109,7 +107,7 @@
             <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
             <el-table-column align="left" label="操作" fixed="right" width="320px">
               <template slot-scope="scope">
-                <el-button @click.native.prevent="go(scope.row,scope.$index)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index, scope.row)" type="text" size="small">认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
@@ -162,7 +160,7 @@ export default {
   },
   data() {
     return {
-      Potential:{potential:'setPotentialCustomer',id:''},
+      Potential: { potential: "setPotentialCustomer", id: "" },
       loading: true,
       downIcon: true,
       currentSelectRow: "",
@@ -170,13 +168,13 @@ export default {
       dialogFormVisible2: false,
       currentPage: 1,
       pagesize: 10,
+      radio: "",
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
       dialogFormVisible6: false,
       btnText: "展开",
       isShow: false,
-      radio: true,
       quality: [
         //客户质量
         { value: "1", label: "A" },
@@ -201,16 +199,15 @@ export default {
       tableData: [],
       tableData2: [],
       staff_info: [],
-      searchVal: "",
-      class: "potential"
+      searchVal: ""
     };
   },
   created: function() {
     let _this = this;
     this.getTableData(true);
-    setTimeout(function(){
+    setTimeout(function() {
       _this.getCustomer();
-    },1500)
+    }, 1500);
   },
   watch: {
     searchVal(val) {
@@ -311,9 +308,16 @@ export default {
     },
     //表格导出
     exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
@@ -329,6 +333,13 @@ export default {
       }
       return wbout;
     },
+      handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        // this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     Selectchange(val) {
       console.log(val);
     },
@@ -364,7 +375,7 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name:'Memberup',
+        name: "Memberup",
         params: {
           id: this.currentSelectRow.id,
           prName: this.currentSelectRow.prName,
@@ -391,14 +402,14 @@ export default {
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
-      this.radio = row.index;
-      //获取表格 怎么加属性 我要加一个新属性  
-      //获取表格 怎么加属性 我要加一个新属性  
+      this.radioData = row.index;
+      //获取所需id
       this.currentSelectRow = row;
-       this.Potential.id=this.currentSelectRow.id;
+      this.Potential.id = this.currentSelectRow.id;
+      this.radio = this.tableData.indexOf(row);
     },
-    go(row) {
-      console.log(row)
+    go(index, row) {
+      console.log(index, row);
       let currentRoute =
         this.$route.path === "/Customer/latent/latenttable"
           ? "latent"
@@ -414,7 +425,7 @@ export default {
       });
     },
     changeInfo() {
-      //先选择列表 
+      //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {

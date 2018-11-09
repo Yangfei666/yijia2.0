@@ -77,12 +77,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
+          <el-table id="rebateSetTable"  ref="singleTable"  @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                </el-radio-group>
+               <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="itName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -95,7 +93,7 @@
             <el-table-column prop="itRemark" align="left" label="备注" width="150px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="280px">
               <template slot-scope="scope">
-                <el-button @click="go" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index, scope.row)" type="text" size="small">认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">办卡</el-button>
                 <el-button @click="dialogFormVisible4 = true" type="text" size="small">放弃定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
@@ -286,10 +284,17 @@ export default {
       });
     },
     //表格导出
-    exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+     exportExcel() {
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
@@ -318,6 +323,13 @@ export default {
       console.log(row);
       alert("点击了");
     },
+    handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        // this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     resetForm() {
       this.formInline.date = "";
       this.formInline.adviser = "";
@@ -336,9 +348,9 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
        this.Potential.id=this.currentSelectRow.id;
-      console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
     },
-    go() {
+    go(index,row) {
       let currentRoute =
         this.$route.path === "/Customer/bargain/bargaintable"
           ? "bargain"

@@ -115,12 +115,10 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table id="rebateSetTable" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" ref="moviesTable" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                    <el-table id="rebateSetTable" ref="singleTable"  @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                         <el-table-column align="center" prop="radio" fixed width="80px">
                             <template slot-scope="scope">
-                                <el-radio-group v-model="radio">
-                                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                                </el-radio-group>
+                                <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                             </template>
                         </el-table-column>
                         <el-table-column prop="HYName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -194,9 +192,12 @@ export default {
       ],
       status: [
         //状态
-        { value: "未成交", label: "未成交" },
-        { value: "跟进中", label: "跟进中" },
-        { value: "已成交", label: "已成交" }
+        { value: "未激活", label: "未激活" },
+        { value: "正常", label: "正常" },
+        { value: "挂失", label: "挂失" },
+        { value: "请假", label: "请假" },
+        { value: "退卡", label: "退卡" },
+        { value: "过期", label: "过期" },
       ]
     };
   },
@@ -356,10 +357,18 @@ export default {
         MotoTel:this.currentSelectRow.MotoTel,
         }
       });
+      console.log(this.currentSelectRow.HYID);
     },
     Selectchange(val) {
       console.log(val);
     },
+     handleCurrentChange2(val,index) {
+        this.currentRow = val;
+        // this.$emit('data',val.pkg);
+     },
+        getCurrentRow(val){
+          console.log(val);
+     },
     Selectchange2(val) {
       console.log(val);
     },
@@ -374,8 +383,7 @@ export default {
       console.log(`当前: ${row}`);
     },
     rowClick(row, event, column) {
-      this.$refs.moviesTable.toggleRowSelection(row);
-      this.radio = row.index;
+      this.radio = this.tableData.indexOf(row);
       //获取表格数据
       this.currentSelectRow = row;
       console.log(row.index);
@@ -410,10 +418,17 @@ export default {
       }
     },
     //表格导出
-    exportExcel() {
-      var wb = XLSX.utils.table_to_book(
-        document.querySelector("#rebateSetTable")
-      );
+     exportExcel() {
+      var fix = document.querySelector(".el-table__fixed");
+      var wb;
+      if (fix) {
+        wb = XLSX.utils.table_to_book(
+          document.querySelector('#rebateSetTable').removeChild(fix)
+        );
+        document.querySelector('#rebateSetTable').appendChild(fix);
+      } else {
+        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
+      }
       var wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
@@ -428,7 +443,7 @@ export default {
         if (typeof console !== "undefined") console.log(e, wbout);
       }
       return wbout;
-    }
+    },
   }
 };
 </script>

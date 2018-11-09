@@ -1,34 +1,33 @@
 <template>
-    <div>
-        <el-row>
-            <div class="tag">
-                <em class="top"></em>
-                <el-col :span="24" class="transfer">
-                    <div class="transfer-main">
-                        <span class="transfer-span">激活操作</span>
-                    </div>
-                </el-col>
-                <el-col :span="24">
-                    <div class="first-from">
-                            <span>点击右侧按钮激活<img class="from-img" src="../assets/51.png"/></span>
-                            <el-button class="first-but" type="primary" @click="onSubmit">确定</el-button>
-                        </div>
-                </el-col>
-            </div>
-        </el-row>
-    </div>
+  <div>
+    <el-row>
+      <div class="tag">
+        <em class="top"></em>
+        <el-col :span="24" class="transfer">
+          <div class="transfer-main">
+            <span class="transfer-span">激活操作</span>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="first-from">
+            <span>点击右侧按钮激活<img class="from-img" src="../assets/shou.png" /></span>
+            <el-button class="first-but" type="primary" @click="onSubmit">确定</el-button>
+          </div>
+        </el-col>
+      </div>
+    </el-row>
+  </div>
 </template>
 <script>
 export default {
-  name:'activate',
+  name: "activate",
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     onSubmit() {
       console.log("submit!");
-    },
+    }
   }
 };
 </script>
@@ -88,23 +87,25 @@ export default {
       }
     }
   }
- .first-from{
-         width: 70%;
-        margin: 20px;
-        display: flex;
-        justify-content: space-between;
-        .first-but{
-            width: 64px;
-            height: 33px;
-            border: 1px solid;
-            line-height: 8px;
-            text-align: center;
-        }
-        span .from-img{
-                width: 14px;
-                height: 8px;
-                padding-left: 10px;
-        }
+  .first-from {
+    width: 70%;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    .first-but {
+      width: 64px;
+      height: 33px;
+      border: 1px solid;
+      line-height: 8px;
+      text-align: center;
     }
+    span .from-img {
+      width: 22px;
+      height: 18px;
+      padding-left: 10px;
+      position: relative;
+      top: 3px;
+    }
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <!--体验上课记录-->
+    <!--会员上课记录-->
     <div class="memberhome">
         <el-col :span="24">
             <div class="class-main">
@@ -20,10 +20,10 @@
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
-                                            <el-form-item label="券种:" style="text-align:center">
+                                            <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -51,8 +51,8 @@
                                     <div class="table-tuan">
                                         <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
                                             <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="170px"></el-table-column>
-                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="250px"></el-table-column>
-                                            <el-table-column prop="customer_voucher.experience_voucher.tkName" align="left" label="券种" width="150px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="220px"></el-table-column>
+                                            <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="220px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="250px"></el-table-column>
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="170px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度" width="170px"></el-table-column>
@@ -93,10 +93,10 @@
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
-                                            <el-form-item label="券种:" style="text-align:center">
+                                            <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -124,7 +124,7 @@
                                     <div class="table-tuan">
                                         <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
                                             <el-table-column prop="curriculum_table.kcStime" align="left" sortable label="上课时间" fixed width="300px"></el-table-column>
-                                            <el-table-column prop="customer_voucher.experience_voucher.tkName" align="left" label="券种" width="230px"></el-table-column>
+                                            <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="230px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="300px"></el-table-column>
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="230px"></el-table-column>
                                             <el-table-column prop="hand" align="left" label="手牌" width="230px"></el-table-column>
@@ -168,7 +168,7 @@ export default {
       loading: true,
       tablelength: 0,
       tablelength2: 0,
-      header: [],
+      headers: [],
       formInline: {
         time: "",
         header: "",
@@ -188,7 +188,7 @@ export default {
   },
   watch: {
     header(val) {
-      //券种
+      //卡种
       console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
@@ -216,22 +216,26 @@ export default {
     }, 1500);
   },
   methods: {
-    //获取体验券详情
+    //获取会员卡详情
     getexperhome() {
       let _this = this;
-      requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
-        .then(function(res) {
-          var customer_voucher = [];         
-          customer_voucher = res.customer_voucher;
+      console.log(this.$route);
+      console.log(this.$route.params.HYID);
+      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+        .then(function(res) {          
+          var membership_card = res.membership_card;
           console.log(
-            "customer_voucher:" + customer_voucher[0].experience_voucher.tkName
+              "CTID:" + membership_card[0].card_type.CTID+
+            "CTName:" + membership_card[0].card_type.CTName
           );
-          for (var i = 0; i < customer_voucher.length; i++) {
-            var xialaobj = { key: "", name: "" };
-            xialaobj.key = customer_voucher[i].id;
-            xialaobj.name = customer_voucher[i].experience_voucher.tkName;
-            _this.header.push(xialaobj);
+          for (var i = 0; i < membership_card.length; i++) {
+              var xialaobj = { key: "", name: "" };
+              xialaobj.key = membership_card[i].card_type.CTID;
+              xialaobj.name = membership_card[i].card_type.CTName;
+              console.log('xialaobj:'+xialaobj);
+              _this.headers.push(xialaobj);            
           }
+          console.log('headers:'+_this.headers);
         })
         .catch(error => {
           if (error.res) {
@@ -247,14 +251,14 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.params.id, //体验券id  this.$route.params.id
-        type:3, //课程种类
+        id: _this.$route.params.HYID, //体验券id  this.$route.params.id
+        type: 3, //课程种类
         state: _this.formInline.status, //上课状态 
-        cardId: _this.formInline.header, //券种id 
+        cardId: _this.formInline.header, //卡id 
         startTime: _this.formInline.time, //预约时间
         endTime: _this.formInline.time //结束
       };
-      requestLogin("/setExperienceCustomer/takeLessonsRecord", params, "post")
+      requestLogin("/setDesignateMember/takeLessonsRecord", params, "post")
         .then(function(res) {
             _this.loading = false;
           let { group, privateList } = res;
@@ -324,7 +328,7 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 0.3% !important;
+      top: 4.5% !important;
       z-index: 2;
       color: #262626;
       right: 79% !important;

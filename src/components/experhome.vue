@@ -47,15 +47,9 @@
           </el-dialog>
         </template>
       </div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="劵1" name="cardone" style="font-size:16px" :lazy="true">
-          <Securityone></Securityone>
-        </el-tab-pane>
-        <el-tab-pane label="劵2" name="cardtwo" style="font-size:16px" :lazy="true">
-          <Securitytwo></Securitytwo>
-        </el-tab-pane>
-        <el-tab-pane label="劵3" name="cardthree" style="font-size:16px" :lazy="true">
-          <Securitythree></Securitythree>
+      <el-tabs v-model="TabsValue" @tab-click="handleClick">
+        <el-tab-pane v-for="item in header" :label="item.tkName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
+          <Securityone :customerVouchers="customerVoucher" :clubs="club"></Securityone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -64,20 +58,17 @@
 <script>
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
-import Securityone from "../components/securityone";
-import Securitytwo from "../components/securitytwo";
-import Securitythree from "../components/securitythree";
+import Securityone from "@/components/securityone";
 export default {
   name: "experhome",
   inject: ["reload"],
   components: {
     Securityone,
-    Securitytwo,
-    Securitythree
   },
   data() {
     return {
-      activeName: "cardone",
+      club: [],
+      TabsValue: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
       remnant: 666,
@@ -85,25 +76,47 @@ export default {
       payment: 1,
       disabled: false,
       limitdate: [],
+      header: [],
+      customerVoucher:[],
       ruleForm: {
-        type:[], //券类型
+        type: [], //券类型
         price: "", //金额
         mode: "", //付款方式
         desc: "" //原因
       },
-      tkName:[],
+      tkName: [],
       rules: {
         type: validate.type,
         price: validate.price,
-        mode:validate.mode,
+        mode: validate.mode
       }
     };
   },
   created: function() {
     this.getVouchers();
-    this.getexperhome();
+    setTimeout(()=>{
+      this.getexperhome();
+    },1500)
+    setTimeout(()=>{
+      this.getClub();
+    },1500)
   },
   methods: {
+    getClub() {
+      let _this = this;
+      requestLogin("/allClub", {}, "get")
+        .then(function(res) {
+          _this.club = res;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     //购买体验券
     submitForm(formName) {
       let _this = this;
@@ -113,10 +126,14 @@ export default {
             var loginParams = {
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.ruleForm.price, //价格
+              price: _this.ruleForm.price //价格
             };
             console.log(this.$route.params.id);
-            requestLogin("/setExperienceCustomer/purchaseVoucher/"+this.$route.params.id, loginParams, "post")
+            requestLogin(
+              "/setExperienceCustomer/purchaseVoucher/" + this.$route.params.id,
+              loginParams,
+              "post"
+            )
               .then(data => {
                 this.$message({
                   message: "购买成功",
@@ -142,13 +159,22 @@ export default {
         }
       });
     },
-     //获取体验券详情
-    getexperhome(){
+    //获取体验券详情
+    getexperhome() {
       let _this = this;
-      requestLogin("/setExperienceCustomer/"+this.$route.params.id, {}, "get")
+      requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          // _this.club = res;
-          console.log(res);
+          var customer_voucher=res.customer_voucher;
+          _this.customerVoucher=customer_voucher;
+          console.log('customerVoucher:'+_this.customerVoucher[0].id);
+          for(var i=0;i<customer_voucher.length;i++){
+              var voucher={id:'',tkName:'',name:''};
+              voucher.id=customer_voucher[i].id;
+              voucher.tkName=customer_voucher[i].experience_voucher.tkName;
+              voucher.name=voucher.tkName+voucher.id;
+              _this.header.push(voucher);
+          }
+          _this.TabsValue=_this.header[0].name;
         })
         .catch(error => {
           if (error.res) {
@@ -160,8 +186,8 @@ export default {
         });
     },
     //获取体验券
-    getVouchers(){
-       let _this = this;
+    getVouchers() {
+      let _this = this;
       requestLogin("/setExperienceCustomer/selectVouchers", {}, "get")
         .then(function(res) {
           _this.tkName = res;
@@ -175,7 +201,7 @@ export default {
           }
         });
     },
-    Selectchange(val){
+    Selectchange(val) {
       console.log(val);
     },
     handleClick(tab, event) {
