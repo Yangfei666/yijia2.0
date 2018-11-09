@@ -346,7 +346,7 @@ export default {
     getCourseList(day) {
       request("/adminHomePage?day=" + day, {}, "get")
         .then(data => {
-          console.log(data);
+          // console.log(data);
           // console.log(sessionStorage.getItem('access-token'));
           if (data.group === false && data.private === false) {
             this.enterStadium = false;

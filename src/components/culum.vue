@@ -18,159 +18,47 @@
             </el-row>
         </div>
         <div class="practice-table">
+            <template>
+              <el-table :data="evening" border style="width: 100%">
+                <el-table-column fixed label="教室" width="150">
+                  <template slot-scope="scope">
+                    <el-col :span="2" class="wer-col">
+                        <h4>{{scope.row.name}}</h4>
+                    </el-col>
+                    <!-- <span style="margin-left: 10px">{{ scope.row.name }}</span> -->
+                  </template>
+                </el-table-column>
+                <el-table-column label="时间" width="150">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
             <el-row>
                 <el-col :span="24">
-                    <el-tabs :data="morning" v-model="activeName2" type="card" @tab-click="handleClick">
-                        <el-tab-pane label="上午" name="morning">
-                            <template>
-                                <div class="morning-main">
-                                    <el-col :span="24" v-for="item in morning" :key="item.id">
+                    <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
+                        <template>
+                            <div class="morning-main3">
+                                <el-col :span="24" v-for="item in evening" :key="item.id"  style="overflow:scroll;">
                                     <div class="mor-wer">
-                                        <el-col :span="2" class="wer-col">
+                                        <!-- <el-col :span="2" class="wer-col">
                                             <h4>{{item.name}}</h4>
-                                            <span>{{item.text}}</span>
+                                        </el-col>
+                                        <el-col :span="2" class="wer-col2" v-for="(value,index) in item.time" :key="index">
+                                            <div class="wer-div">{{value.time}}</div>
+                                            <span>{{value.staff}}·{{value.name}}</span>
+                                        </el-col> -->
+                                        <!-- <el-col :span="2" class="wer-col2">
+                                            <div class="wer-div2">{{value.time}}</div>
                                         </el-col>
                                         <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div">{{item.time}}</div>
-                                            <span>{{item.hjgw}}</span>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div">{{item.time}}</div>
-                                            <span>{{item.hjgw}}</span>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div">{{item.time}}</div>
-                                            <span>{{item.hjgw}}</span>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div2">{{item.time2}}</div>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div2">{{item.time2}}</div>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div2">{{item.time2}}</div>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div">{{item.time}}</div>
-                                            <span>{{item.hjgw}}</span>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div">{{item.time}}</div>
-                                            <span>{{item.hjgw}}</span>
-                                        </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div3">{{item.time2}}</div>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div3">{{item.time2}}</div>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div3">{{item.time2}}</div>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div3">{{item.time2}}</div>
-                                        </el-col>
+                                            <div class="wer-div3">{{value.time}}</div>
+                                        </el-col> -->
                                     </div>
                                 </el-col>
-                                </div>
-                            </template>
-                        </el-tab-pane>
-                        <el-tab-pane label="下午" name="afternoon">
-                            <template>
-                                <div class="morning-main2">
-                                    <el-col :span="24" v-for="item in afternoon" :key="item.id">
-                                        <div class="mor-wer">
-                                            <el-col :span="2" class="wer-col">
-                                                <h4>{{item.name}}</h4>
-                                                <span>{{item.text}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div2">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div2">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div2">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div3">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div3">{{item.time2}}</div>
-                                            </el-col>
-                                        </div>
-                                    </el-col>
-                                </div>
-                            </template>
-                        </el-tab-pane>
-                        <el-tab-pane label="晚上" name="evening">
-                            <template>
-                                <div class="morning-main3">
-                                    <el-col :span="24" v-for="item in evening" :key="item.id">
-                                        <div class="mor-wer">
-                                            <el-col :span="2" class="wer-col">
-                                                <h4>{{item.name}}</h4>
-                                                <span>{{item.text}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div2">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div2">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div">{{item.time}}</div>
-                                                <span>{{item.hjgw}}</span>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div3">{{item.time2}}</div>
-                                            </el-col>
-                                            <el-col :span="2" class="wer-col2">
-                                                <div class="wer-div3">{{item.time2}}</div>
-                                            </el-col>
-                                        </div>
-                                    </el-col>
-                                </div>
-                            </template>
-                        </el-tab-pane>
+                            </div>
+                        </template>
                     </el-tabs>
                     <div class="block">
                         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="10">
@@ -184,151 +72,116 @@
 <script>
 import Personal from "@/components/personal";
 export default {
-    name:'culum',
+  name: "culum",
   components: {
     Personal
+  },
+  props: {
+    courseDaily: [Object, Array],
+    SystemSetup: Object
   },
   data() {
     return {
       dialogFormVisible: false,
       activeName2: "morning",
       currentPage4: 4,
-      value6: "",
-      value1: "",
-      value: "",
-      morning: [
+      tableData : [
         {
-          name: "教室A",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
+          date : 111,
+          name :222,
+          province : 333
         },
         {
-          name: "教室B",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
+          date : 111,
+          name :222,
+          province : 333
         },
         {
-          name: "教室C",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
+          date : 111,
+          name :222,
+          province : 333
         },
         {
-          name: "教室D",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
-        },
-        {
-          name: "教室E",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
-        },
-        {
-          name: "教室F",
-          text: "教练·客户",
-          time: "07:00",
-          hjgw: "Angle·李木子",
-          time2: "07:00"
-        }
-      ],
-      afternoon: [
-        {
-          name: "教室A",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
-        },
-        {
-          name: "教室B",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
-        },
-        {
-          name: "教室C",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
-        },
-        {
-          name: "教室D",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
-        },
-        {
-          name: "教室E",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
-        },
-        {
-          name: "教室F",
-          text: "教练·客户",
-          time: "13:00",
-          hjgw: "Angle·李木子",
-          time2: "13:00"
+          date : 111,
+          name :222,
+          province : 333
         }
       ],
       evening: [
         {
-          name: "教室A",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
+          id: 1,
+          name: "教室1",
+          time: [
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:30:00", staff: "Luna", name: "夏佳111" }
+          ]
         },
         {
-          name: "教室B",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
-        },
-        {
-          name: "教室C",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
-        },
-        {
-          name: "教室D",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
-        },
-        {
-          name: "教室E",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
-        },
-        {
-          name: "教室F",
-          text: "教练·客户",
-          time: "18:00",
-          hjgw: "Angle·李木子",
-          time2: "18:00"
+          id: 2,
+          name: "教室2",
+          time: [
+            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
+            { time: "17:30:00", staff: "Luna", name: "夏佳111" }
+          ]
         }
-      ]
+      ],
+
+      value6: "",
+      value1: "",
+      value: ""
     };
+  },
+  computed: {
+    // 课程时间分类上下午
+    courseDailyClassify() {
+      var courseDailyClassify = {
+        morning: {},
+        afternoon: {},
+        evening: {}
+      };
+      if (JSON.stringify(this.SystemSetup) !== "{}") {
+        let time1 = this.SystemSetup.openTime,
+          time2 = this.SystemSetup.closeTime;
+        // let starts = new Date("2018-01-01 " + time1), ends = new Date("2018-01-01 " + time2);
+        // let diffTime = Math.ceil((ends - starts) / (1800 * 1000));
+        let start =
+          time1.substring(0, 2) +
+          ":" +
+          (time1.substring(3, 5) < 30 ? "30" : "00");
+        let end =
+          time2.substring(0, 2) +
+          ":" +
+          (time2.substring(3, 5) < 30 ? "00" : "30");
+        let data = this.courseDaily;
+        for (let i = 0; i < 48 /* diffTime.length */; i++) {
+          for (let j = 0; j < 48; j++) {}
+        }
+      }
+    }
   },
   methods: {
     onSubmit() {
