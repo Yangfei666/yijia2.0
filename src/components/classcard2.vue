@@ -23,7 +23,7 @@
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -49,7 +49,7 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData" style="width: 100%">
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
                                             <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="170px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="220px"></el-table-column>
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="220px"></el-table-column>
@@ -72,7 +72,7 @@
                                             </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength">
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                                             </el-pagination>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -168,7 +168,7 @@ export default {
       loading: true,
       tablelength: 0,
       tablelength2: 0,
-      header: [],
+      headers: [],
       formInline: {
         time: "",
         header: "",
@@ -218,21 +218,24 @@ export default {
   methods: {
     //获取会员卡详情
     getexperhome() {
+      let _this = this;
       console.log(this.$route);
       console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
-        .then(function(res) {
-          var membership_card = [];
-          var xialaobj = { key: "", name: "" };
-          membership_card = res.membership_card;
+        .then(function(res) {          
+          var membership_card = res.membership_card;
           console.log(
-            "membership_card:" + membership_card[0].card_type.CTName
+              "CTID:" + membership_card[0].card_type.CTID+
+            "CTName:" + membership_card[0].card_type.CTName
           );
           for (var i = 0; i < membership_card.length; i++) {
-            xialaobj.key = membership_card[i].CTID;
-            xialaobj.name = membership_card[i].card_type.CTName;
-            _this.header.push(xialaobj);
+              var xialaobj = { key: "", name: "" };
+              xialaobj.key = membership_card[i].card_type.CTID;
+              xialaobj.name = membership_card[i].card_type.CTName;
+              console.log('xialaobj:'+xialaobj);
+              _this.headers.push(xialaobj);            
           }
+          console.log('headers:'+_this.headers);
         })
         .catch(error => {
           if (error.res) {

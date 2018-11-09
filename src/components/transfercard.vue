@@ -11,9 +11,9 @@
                             <span @click="dialogFormVisible = true">转卡给新客户</span>
                         </div>
                         <template>
-                            <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                <!--添加会员-->
-                                <!-- <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                            <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+                                <!--添加新会员-->
+                                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                                     <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
                                         <el-col :span="22">
                                             <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
@@ -56,15 +56,15 @@
                                         <el-col :span="22">
                                             <el-input v-model="ruleForm.vocation" placeholder="长度2-10"></el-input>
                                         </el-col>
-                                    </el-form-item> -->
-                                    <!-- <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
+                                    </el-form-item>
+                                    <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
                                         <el-col :span="22">
                                             <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                                                <el-option v-for="item in staff" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                                                <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                                             </el-select>
                                         </el-col>
-                                    </el-form-item> -->
-                                    <!-- <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
+                                    </el-form-item>
+                                    <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
                                         <el-col :span="22">
                                             <el-input v-model="ruleForm.contact" placeholder="长度2-6"></el-input>
                                         </el-col>
@@ -73,49 +73,6 @@
                                         <el-col :span="22">
                                             <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
                                         </el-col>
-                                    </el-form-item> -->
-                                    <!-- <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-select v-model="ruleForm.cardname" placeholder="请选择" style="width:100%" @change="Selectchange3">
-                                                <el-option v-for="item in cards" :key="item.CTID" :label="item.CTName" :value="item.CTID"></el-option>
-                                            </el-select>
-                                        </el-col>
-                                    </el-form-item>
-                                    <el-form-item label="卡号:" prop="card" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-input v-model="ruleForm.card" placeholder="长度6-12位"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                    <el-form-item label="卡号确认:" prop="cardaffirm" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-input v-model="ruleForm.cardaffirm" placeholder="长度6-12位"></el-input>
-                                        </el-col>
-                                    </el-form-item> -->
-                                    <!-- <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-input v-model="ruleForm.price" placeholder="0-100000元之间"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                    <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-radio-group v-model="ruleForm.mode">
-                                                <el-radio :label="1">微信</el-radio>
-                                                <el-radio :label="2">支付宝</el-radio>
-                                                <el-radio :label="3">现金</el-radio>
-                                                <el-radio :label="4">银行卡</el-radio>
-                                                <el-radio :label="5">信用卡</el-radio>
-                                                <el-radio :label="6">手机银行转账</el-radio>
-                                            </el-radio-group>
-                                        </el-col>
-                                    </el-form-item>
-                                    <el-form-item label="激活时间:" prop="sensitize" :label-width="formLabelWidth">
-                                        <el-col :span="22">
-                                            <el-radio-group v-model="ruleForm.sensitize" @change="cahngesen">
-                                                <el-radio :label="1">立即激活</el-radio>
-                                                <el-radio :label="2">系统设置时间激活</el-radio>
-                                                <el-radio :label="3">客户首次刷卡激活</el-radio>
-                                            </el-radio-group>
-                                        </el-col>
                                     </el-form-item>
                                     <el-form-item class="dialog-footer">
                                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
@@ -123,7 +80,7 @@
                                             <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                                         </el-col>
                                     </el-form-item>
-                                </el-form> -->
+                                </el-form>
                             </el-dialog>
                         </template>
                     </div>
@@ -172,52 +129,120 @@ import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
   name: "transfercard",
+  inject: ["reload"],
   data() {
     return {
       formInline: {
         user: "",
         region: ""
       },
-    //   ruleForm: {
-    //     name: "", //姓名
-    //     phone: "", //手机号
-    //     wechat: "", //微信
-    //     sex: "", //性别
-    //     birthday: "", //生日
-    //     catenumber: "", //证件号码
-    //     address: "", //地址
-    //     vocation: "", //职业
-    //     adviser: "", //会籍顾问
-    //     contact: "", //紧急联系人
-    //     contacttel: "", //紧急联系人电话
-    //     cardname: "", //卡名称
-    //     card: "", //卡号
-    //     cardaffirm: "", //卡号确认
-    //     price: "", //金额
-    //     mode: "", //付款方式
-    //     sensitize: "" //激活时间
-    //   },
-    //   rules: {
-    //     name: validate.name,
-    //     sex: validate.sex,
-    //     phone: validate.phone,
-    //     adviser: validate.adviser,
-    //     mode: validate.mode,
-    //     cardname: validate.cardname,
-    //     card: [{ validator: validatecard, trigger: "blur" }],
-    //     cardaffirm: [{ validator: validatecardaffirm, trigger: "blur" }],
-    //     sensitize: validate.sensitize,
-    //     price: validate.price
-    //   },
+      ruleForm: {
+        name: "", //姓名
+        phone: "", //手机号
+        wechat: "", //微信
+        sex: "", //性别
+        birthday: "", //生日
+        catenumber: "", //证件号码
+        address: "", //地址
+        vocation: "", //职业
+        adviser: "", //会籍顾问
+        contact: "", //紧急联系人
+        contacttel: "" //紧急联系人电话
+      },
+      rules: {
+        name: validate.name,
+        sex: validate.sex,
+        phone: validate.phone,
+        adviser: validate.adviser,
+        catenumber: validate.idnumber
+      },
+      formLabelWidth: "130px",
       tableData4: [],
+      staff_info:[],
       dialogFormVisible: false //转卡给新客户接口setMemberCustomers/onlyMemberInfo
     };
   },
+  created(){
+      this.getCustomer();
+  },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    //获取会籍顾问
+    getCustomer() {
+      let _this = this;
+      requestLogin("/setDepositCustomer/create", {}, "get")
+        .then(function(res) {
+          let { staff_info } = res;
+          _this.staff_info = staff_info;
+          console.log(res);
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
     },
-    deleteRow(index, rows) {}
+    //添加新会员
+    submitForm(formName) {
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var loginParams = {
+              id: _this.ruleForm.adviser, //会籍顾问id
+              HYName: _this.ruleForm.name, //姓名
+              Sex: _this.ruleForm.sex, //性别
+              Birthday: _this.ruleForm.birthday, //生日
+              MotoTel: _this.ruleForm.phone, //电话
+              ZhiYe: _this.ruleForm.vocation, //职业
+              ZhengJianNO: _this.ruleForm.catenumber, //证件号
+              hyContacts: _this.ruleForm.contact, //紧急联系人
+              hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
+              hyWeChat: _this.ruleForm.wechat //微信
+            };
+            console.log(this.$route.params.id);
+            requestLogin(
+              "/setMemberCustomers/onlyMemberInfo/" + this.$route.params.id,
+              loginParams,
+              "post"
+            )
+              .then(data => {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible = false;
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          this.$message({ message: "提交失败!", type: "error" });
+          return false;
+        }
+      });
+    },
+    Selectchange2(val) {
+      console.log(val);
+    },
+    ChangeSex(val) {
+      console.log(val);
+    },
+    //转卡
+    deleteRow(index, rows) {},
+    //查询
+    onSubmit() {}
   }
 };
 </script>

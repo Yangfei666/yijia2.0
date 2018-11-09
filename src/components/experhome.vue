@@ -47,9 +47,9 @@
           </el-dialog>
         </template>
       </div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane v-for="title in header" :label="title" :name="title" :key="title" style="font-size:16px" :lazy="true">
-          <Securityone></Securityone>
+      <el-tabs v-model="TabsValue" @tab-click="handleClick">
+        <el-tab-pane v-for="item in header" :label="item.tkName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
+          <Securityone :customerVouchers="customerVoucher" :clubs="club"></Securityone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -58,7 +58,7 @@
 <script>
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
-import Securityone from "../components/securityone";
+import Securityone from "@/components/securityone";
 export default {
   name: "experhome",
   inject: ["reload"],
@@ -67,7 +67,8 @@ export default {
   },
   data() {
     return {
-      activeName: "",
+      club: [],
+      TabsValue: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
       remnant: 666,
@@ -76,6 +77,7 @@ export default {
       disabled: false,
       limitdate: [],
       header: [],
+      customerVoucher:[],
       ruleForm: {
         type: [], //券类型
         price: "", //金额
@@ -95,8 +97,26 @@ export default {
     setTimeout(()=>{
       this.getexperhome();
     },1500)
+    setTimeout(()=>{
+      this.getClub();
+    },1500)
   },
   methods: {
+    getClub() {
+      let _this = this;
+      requestLogin("/allClub", {}, "get")
+        .then(function(res) {
+          _this.club = res;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     //购买体验券
     submitForm(formName) {
       let _this = this;
@@ -144,13 +164,17 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          var customer_voucher=[];
-          customer_voucher=res.customer_voucher;
-          console.log('customer_voucher:'+ customer_voucher[0].experience_voucher.tkName);
+          var customer_voucher=res.customer_voucher;
+          _this.customerVoucher=customer_voucher;
+          console.log('customerVoucher:'+_this.customerVoucher[0].id);
           for(var i=0;i<customer_voucher.length;i++){
-              _this.header.push(customer_voucher[i].experience_voucher.tkName);
+              var voucher={id:'',tkName:'',name:''};
+              voucher.id=customer_voucher[i].id;
+              voucher.tkName=customer_voucher[i].experience_voucher.tkName;
+              voucher.name=voucher.tkName+voucher.id;
+              _this.header.push(voucher);
           }
-          console.log('header:'+ _this.header);
+          _this.TabsValue=_this.header[0].name;
         })
         .catch(error => {
           if (error.res) {

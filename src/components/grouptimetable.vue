@@ -157,40 +157,40 @@
                                 <el-dialog title="预约团课" :append-to-body="true" :visible.sync="dialogFormVisible2">
                                     <template>
                                         <!--预约团课-->
-                                        <el-form :model="currentSelectRow" :rules="rules2" ref="currentSelectRow" label-width="100px">
+                                        <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px">
                                             <el-form-item label="门店:" prop="door" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.door" placeholder="请选择" style="width:100%" @change="Selectchange5">
+                                                    <el-select v-model="ruleForm2.door" placeholder="请选择" style="width:100%" @change="Selectchange5">
                                                         <el-option v-for="item in mendian" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item prop="kcStime" label="上课日期:" :label-width="formLabelWidth">
+                                            <el-form-item prop="date" label="上课日期:" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-date-picker type="date" placeholder="请选择" v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
+                                                    <el-date-picker type="date" placeholder="请选择" disabled v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item prop="Stime" label="上课时间:" :label-width="formLabelWidth">
+                                            <el-form-item prop="time" label="上课时间:" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-                                                    <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+                                                    <el-time-select placeholder="起始时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
+                                                    <el-time-select placeholder="结束时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item label="预约课程:" prop="kcName" :label-width="formLabelWidth">
+                                            <el-form-item label="预约课程:" prop="yycourse" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.kcName" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                                                        <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName" :value="item.kcno"></el-option>
+                                                    <el-select v-model="currentSelectRow.kcName" disabled placeholder="请选择" style="width:100%" @change="Selectchange2">
+                                                        <el-option v-for="item in kecheng" :key="item.ID" :label="item.kcName" :value="item.ID"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+                                                    <el-input v-model="ruleForm2.name" placeholder="请输入" @change="inputchange"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.consumer" @change="optionchange" placeholder="请选择" style="width:100%">
+                                                    <el-select v-model="ruleForm2.consumer" @change="optionchange" placeholder="请选择" style="width:100%">
                                                         <el-option label="会员" value="member"></el-option>
                                                         <el-option label="体验客户" value="experience"></el-option>
                                                     </el-select>
@@ -198,16 +198,15 @@
                                             </el-form-item>
                                             <el-form-item label="卡种:" prop="card" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-select v-model="currentSelectRow.card" placeholder="请选择" style="width:100%">
-                                                        <el-option label="次数卡" value="cishucard"></el-option>
-                                                        <el-option label="金额卡" value="jinecard"></el-option>
+                                                    <el-select v-model="ruleForm2.card" placeholder="请选择" style="width:100%" @change="Selectchange6">
+                                                        <el-option v-for="item in kazhong" :key="item.id" :label="item.CTName" :value="item.id"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item class="dialog-footer">
                                                 <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                                                    <el-button @click="resetForm('currentSelectRow')">重置</el-button>
-                                                    <el-button type="primary" @click="yuyueForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                                    <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                                                    <el-button type="primary" @click="yuyueForm('ruleForm2')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                                                 </el-col>
                                             </el-form-item>
                                         </el-form>
@@ -225,10 +224,10 @@
         <div class="practice-table">
             <el-row>
                 <el-col :span="24">
-                    <el-table highlight-current-row ref="singleTable" @current-change="handleCurrentChange2" :data="tableData" @row-click="rowClick" :default-sort="{order: 'descending'}" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+                    <el-table highlight-current-row ref="singleTable" @current-change="handleCurrentChange2" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" :default-sort="{order: 'descending'}" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
                         <el-table-column align="center" prop="radio" fixed width="50px">
                             <template slot-scope="scope">
-                                <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                             </template>
                         </el-table-column>
                         <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
@@ -239,7 +238,7 @@
                         <el-table-column prop="kcDiff" align="left" label="难度" sortable fixed="right"></el-table-column>
                     </el-table>
                     <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                         </el-pagination>
                     </div>
                 </el-col>
@@ -260,12 +259,12 @@ export default {
       kecheng: [],
       jiaolian: [],
       tableData: [],
-      tablelength:0,
+      tablelength: 0,
       mendian: [],
       formLabelWidth: "130px",
       radio: "",
-      startTime: '',
-      endTime: '',
+      startTime: "",
+      endTime: "",
       ruleForm: {
         course: "", //课程
         courseclassify: "", //课程分类
@@ -278,12 +277,11 @@ export default {
         difficulty: "", //难度
         price: "" //价格
       },
-      currentSelectRow: {
+      ruleForm2: {
         door: "", //门店
-        attenddate: "", //上课日期
-        attendtime: "", //上课时间
-        endtime: "", //结束时间
-        kcName: "", //预约课程
+        date: "", //上课日期
+        time: "", //上课时间
+        yycourse: "", //预约课程
         consumer: "", //会员/体验客户
         name: "", //姓名
         card: "" //卡种
@@ -315,9 +313,6 @@ export default {
       rules2: {
         door: [{ required: true, message: "请选择门店", trigger: "change" }],
         name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-        kcName: [
-          { required: true, message: "请选择预约课程", trigger: "change" }
-        ],
         consumer: [
           { required: true, message: "请选择会员/体验客户", trigger: "change" }
         ],
@@ -328,7 +323,8 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       currentPage: 1,
-      pagesize: 10
+      pagesize: 10,
+      kazhong: []
     };
   },
   watch: {
@@ -356,13 +352,15 @@ export default {
           this.tableData = val.list.Sunday;
           break;
       }
-      if(null!=this.tableData){
+      if (null != this.tableData) {
         this.tableData.map((item, index) => {
-        item.kcName = item.curriculum_subject.kcName;
-        item.JLIDs = item.staff_info.YGXX_NAME;
+          item.kcName = item.curriculum_subject.kcName;
+          item.JLIDs = item.staff_info.YGXX_NAME;
         });
-        this.tablelength=this.tableData.length;  
-      }     
+        this.tablelength = this.tableData.length;
+      } else {
+        this.tableData = [];
+      }
     },
     classrooms(val) {
       this.jiaoshi = this.classrooms;
@@ -389,13 +387,13 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-      handleCurrentChange2(val,index) {
-        this.currentRow = val;
-        // this.$emit('data',val.pkg);
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+      // this.$emit('data',val.pkg);
+    },
+    getCurrentRow(val) {
+      console.log(val);
+    },
     rowClick(row, event, column) {
       this.radio = row.index;
       //获取表格数据
@@ -419,18 +417,57 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
+    //查询姓名
+    searchname() {
+      let _this = this;
+      var loginParams = {
+        name: _this.ruleForm2.name, //姓名
+        sign: _this.ruleForm2.consumer //类别experience  member
+      };
+      requestLogin("/getSearchName", loginParams, "post")
+        .then(function(res) {
+          if (loginParams.sign == "member") {
+            _this.kazhong = [];
+            var membership_card = res.membership_card;
+            for (var i = 0; i < membership_card.length; i++) {
+              var cardType = { CTID: "", CTName: "" };
+              cardType.id = membership_card[i].id;
+              cardType.CTName = membership_card[i].card_type.CTName;
+              _this.kazhong.push(cardType);
+            }
+          } else {
+            _this.kazhong = [];
+            var customer_voucher = res.customer_voucher;
+            for (var i = 0; i < customer_voucher.length; i++) {
+              var cardType = { CTID: "", CTName: "" };
+              cardType.id = customer_voucher[i].id;
+              cardType.CTName = customer_voucher[i].experience_voucher.tkName;
+              _this.kazhong.push(cardType);
+            }
+          }
+          console.log(res);
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     //预约团课
     yuyueForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认预约课程吗？", "提示").then(() => {
             var formData = {
-              kcbId: this.currentSelectRow.kcName, //课程编号
-              cardId : this.currentSelectRow.kcName, //会员卡id
-              sign: this.currentSelectRow.consumer, //查询类别
-              hsid: this.currentSelectRow.door, //会所id
+              kcbId: this.currentSelectRow.ID, //课程编号
+              cardId: this.ruleForm2.card, //会员卡id
+              sign: this.ruleForm2.consumer, //查询类别
+              hsid: this.ruleForm2.door //会所id
             };
-            requestLogin( "/SetGroupReserve",formData,"post")
+            requestLogin("/SetGroupReserve", formData, "post")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -592,6 +629,9 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    inputchange(val) {
+      console.log(val);
+    },
     Selectchange2(val) {
       console.log(val);
     },
@@ -604,11 +644,15 @@ export default {
     Selectchange5(val) {
       console.log(val);
     },
-    optionchange(val){
-        console.log(val);
+    Selectchange6(val) {
+      console.log(val);
     },
-    ceshihcange(val){
-        console.log(val);
+    optionchange(val) {
+      this.searchname();
+      console.log(val);
+    },
+    ceshihcange(val) {
+      console.log(val);
     }
   }
 };

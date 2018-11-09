@@ -77,8 +77,8 @@
           </el-dialog>
         </template>
       </div>
-     <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane v-for="title in header" :label="title" :name="title" :key="title" style="font-size:16px" :lazy="true">
+     <el-tabs v-model="TabsValue" @tab-click="handleClick">
+        <el-tab-pane v-for="item in header" :label="item.CTName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
           <Cardone></Cardone>
         </el-tab-pane>
       </el-tabs>
@@ -99,7 +99,7 @@ export default {
   data() {
     return {
       formLabelWidth: "130px",
-      activeName: "",
+      TabsValue: "",
       dialogFormVisible: false,
       selfCard: [],
       club:[],
@@ -137,10 +137,14 @@ export default {
         .then(function(res) {
           var membership_card=[];
           membership_card=res.membership_card;
-          console.log('membership_card:'+ membership_card[0].card_type.CTName);
           for(var i=0;i<membership_card.length;i++){
-              _this.header.push(membership_card[i].card_type.CTName);
+            var voucher={id:'',CTName:'',name:''};
+            voucher.id=membership_card[i].id;
+             voucher.CTName=membership_card[i].card_type.CTName;
+              voucher.name=voucher.CTName+voucher.id;
+              _this.header.push(voucher);
           }
+          _this.TabsValue=_this.header[0].name;
           console.log('header:'+ _this.header);
         })
         .catch(error => {

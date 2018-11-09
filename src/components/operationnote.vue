@@ -400,9 +400,6 @@
                         </el-card>
                     </el-col>
                 </el-row>
-                <div class="block">
-                <el-pagination layout="prev, pager, next" :total="1000"></el-pagination>
-                </div>
             </div>
             </el-col>
         </div>

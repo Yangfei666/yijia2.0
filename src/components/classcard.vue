@@ -49,7 +49,7 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData" style="width: 100%">
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
                                             <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="170px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="250px"></el-table-column>
                                             <el-table-column prop="customer_voucher.experience_voucher.tkName" align="left" label="券种" width="150px"></el-table-column>
@@ -72,7 +72,7 @@
                                             </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength">
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                                             </el-pagination>
                                         </div>
                                     </div>
@@ -221,13 +221,13 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          var customer_voucher = [];
-          var xialaobj = { key: "", name: "" };
+          var customer_voucher = [];         
           customer_voucher = res.customer_voucher;
           console.log(
             "customer_voucher:" + customer_voucher[0].experience_voucher.tkName
           );
           for (var i = 0; i < customer_voucher.length; i++) {
+            var xialaobj = { key: "", name: "" };
             xialaobj.key = customer_voucher[i].id;
             xialaobj.name = customer_voucher[i].experience_voucher.tkName;
             _this.header.push(xialaobj);

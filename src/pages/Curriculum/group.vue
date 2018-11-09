@@ -107,9 +107,6 @@ export default {
     setTimeout(() => {
       this.getClub();
     }, 2000);
-    setTimeout(() => {
-      this.searchname();
-    }, 2500);
   },
   methods: {
     //获取团课课程表数据
@@ -118,30 +115,6 @@ export default {
       requestLogin("/CurTableInfo", {}, "get")
         .then(function(res) {
           _this.tdlist = res;
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
-    },
-    //查询姓名
-    searchname() {
-      let _this = this;
-      var loginParams = {
-              name: "杨飞", //姓名
-              sign: "member", //类别experience  member
-            };
-      requestLogin("/getSearchName",loginParams, "post")
-        .then(function(res) {
-        //   let { classroom, coach, subject } = res;
-        //   _this.classroom = classroom;
-        //   _this.coach = coach;
-        //   _this.subject = subject;
-        console.log(res)
         })
         .catch(error => {
           if (error.res) {
