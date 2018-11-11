@@ -267,13 +267,13 @@ let router = new Router({
                             component: Memberhome,
                             name:'Memberhome',
                             children: [
-                                { path: '/Customer/membershiphome/memberhome/transfercard', component: Transfercard },//转卡
-                                { path: '/Customer/membershiphome/memberhome/returncard', component: Returncard },//退卡
-                                { path: '/Customer/membershiphome/memberhome/upgradecard', component: Upgradecard },//升级
-                                { path: '/Customer/membershiphome/memberhome/changevalidity', component: Changevalidity },//变更有效期
-                                { path: '/Customer/membershiphome/memberhome/changepriceandnum', component: Changepriceandnum },//变更次数和金额
-                                { path: '/Customer/membershiphome/memberhome/enabledisabling', component: Enabledisabling },//启用禁用
-                                { path: '/Customer/membershiphome/memberhome/activate', component: Activate },//激活
+                                { path: '/Customer/membershiphome/memberhome/transfercard/:HYID/:CARD', component: Transfercard ,name:'Transfercard'},//转卡
+                                { path: '/Customer/membershiphome/memberhome/returncard/:HYID/:CARD', component: Returncard ,name:'Returncard'},//退卡
+                                { path: '/Customer/membershiphome/memberhome/upgradecard/:HYID/:CARD', component: Upgradecard ,name:'Upgradecard'},//升级
+                                { path: '/Customer/membershiphome/memberhome/changevalidity/:HYID/:CARD', component: Changevalidity ,name:'Changevalidity'},//变更有效期
+                                { path: '/Customer/membershiphome/memberhome/changepriceandnum/:HYID/:CARD', component: Changepriceandnum ,name:'Changepriceandnum'},//变更次数和金额
+                                { path: '/Customer/membershiphome/memberhome/enabledisabling/:HYID/:CARD', component: Enabledisabling ,name:'Enabledisabling'},//启用禁用
+                                { path: '/Customer/membershiphome/memberhome/activate/:HYID/:CARD', component: Activate,name:'Activate' },//激活
                             ]
                         },
                         { path: '/Customer/membershiphome/information/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Information,name:'Information' },//综合信息

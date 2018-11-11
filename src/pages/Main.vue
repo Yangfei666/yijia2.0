@@ -24,7 +24,7 @@
       <el-tabs v-model="activeName">
         <el-tab-pane label="团课(共20节)" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
-          <div v-else >对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
+          <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane label="私教(共20节)" name="private">
           <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>

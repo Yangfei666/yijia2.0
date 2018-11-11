@@ -16,8 +16,8 @@
                            <el-form-item label="启用或禁用该卡:" prop="enablecard">
                                <el-col :span="24">
                                <el-select v-model="ruleForm.enablecard" placeholder="请选择" style="width:100%">
-                                    <el-option label="禁用" value="shanghai"></el-option>
-                                    <el-option label="启用" value="beijing"></el-option>
+                                    <el-option label="禁用" value="2"></el-option>
+                                    <el-option label="启用" value="1"></el-option>
                                 </el-select>
                                 </el-col>
                             </el-form-item>
@@ -44,6 +44,7 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name:'enabledisabling',
   data() {
@@ -65,19 +66,42 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
-    },
+     //启用禁用
     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var loginParams = {
+              oldCardId: _this.$route.params.CARD.id, //会员卡id
+              num: _this.ruleForm.enablecard, //启用禁用
+              content: _this.ruleForm.desc, //原因
+            };
+            requestLogin("/setDesignateMember/enabledOrDisable", loginParams, "post")
+              .then(data => {
+                this.$message({
+                  message: "操作成功",
+                  type: "success"
+                });
+               this.resetForm(formName);
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          this.$message({ message: "提交失败!", type: "error" });
+          return false;
+        }
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },

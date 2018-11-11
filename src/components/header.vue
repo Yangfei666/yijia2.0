@@ -65,7 +65,9 @@ export default {
     };
   },
   created() {
-    this.getUser();
+    setTimeout(()=>{
+      this.getUser();
+    },500)
   },
   methods: {
     //获取个人资料

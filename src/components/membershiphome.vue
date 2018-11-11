@@ -78,7 +78,9 @@ export default {
     };
   },
   created(){
-    this.getexperhome();
+    setTimeout(()=>{
+      this.getexperhome();
+    },500)
     this.YGXX_NAME = this.$route.params.YGXX_NAME;
     this.HYID = this.$route.params.HYID;
     this.HYName = this.$route.params.HYName;

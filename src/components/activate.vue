@@ -19,14 +19,38 @@
   </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name: "activate",
   data() {
     return {};
   },
-  methods: {
+  methods: { 
+    //激活
     onSubmit() {
-      console.log("submit!");
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        requestLogin(
+          "/setDesignateMember/activationCard/" + this.$route.params.CARD.id,
+          {},
+          "post"
+        )
+          .then(data => {
+            this.$message({
+              message: "激活成功",
+              type: "success"
+            });
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
     }
   }
 };

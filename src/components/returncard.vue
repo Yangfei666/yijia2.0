@@ -41,8 +41,10 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name:'returncard',
+  inject: ["reload"],
   data() {
     return {
         remnant: 666,
@@ -63,19 +65,39 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
-    },
+    //退卡
     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        var loginParams = {
+          id:this.$route.params.CARD.id, //会员卡id
+          num: this.ruleForm.price, //退款金额
+          content: this.ruleForm.desc //原因
+        };
+        console.log(this.$route.params.HYID);
+        requestLogin(
+          "/setDesignateMember/backCard",
+          loginParams,
+          "post"
+        )
+          .then(data => {
+            this.$message({
+              message: "退卡成功",
+              type: "success"
+            });
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },

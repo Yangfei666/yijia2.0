@@ -89,7 +89,7 @@
                     <div class="transfer-from">
                         <el-form :inline="true" :model="formInline" class="demo-form-inline">
                             <el-form-item label="被转卡人姓名:">
-                                <el-input v-model="formInline.user" placeholder="请输入"></el-input>
+                                <el-input v-model="formInline.user" placeholder="请输入" @change="textinput"></el-input>
                             </el-form-item>
                             <el-form-item>
                                 <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -100,19 +100,14 @@
                 <el-col :span="24">
                     <div class="transfer-table">
                         <el-table :data="tableData4" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-                            <el-table-column fixed prop="name" align="left" label="姓名" width="90"></el-table-column>
-                            <el-table-column prop="tel" align="left" label="手机号" width="140"></el-table-column>
-                            <el-table-column prop="cardmunber" align="left" label="卡号" width="140"></el-table-column>
-                            <el-table-column prop="cardseed" align="left" label="卡种" width="140"></el-table-column>
-                            <el-table-column prop="membership" align="left" label="会籍" width="140"></el-table-column>
-                            <el-table-column prop="opentime" align="left" label="开卡时间" width="140"></el-table-column>
-                            <el-table-column prop="endtime" align="left" label="到期时间" width="140"></el-table-column>
-                            <el-table-column prop="residuenum" align="left" label="剩余次数" width="140"></el-table-column>
-                            <el-table-column prop="residueprice" align="left" label="剩余金额" width="140"></el-table-column>
-                            <el-table-column prop="status" align="left" label="卡状态" width="140"></el-table-column>
+                            <el-table-column prop="HYName" align="left" label="姓名" width="200" fixed></el-table-column>
+                            <el-table-column prop="MotoTel" align="left" label="手机号" width="200"></el-table-column>
+                            <el-table-column prop="czyName" align="left" label="会籍" width="200"></el-table-column>
+                            <el-table-column prop="breachNum" align="left" label="剩余次数" width="200"></el-table-column>
+                            <el-table-column prop="residueprice" align="left" label="剩余金额" width="200"></el-table-column>
                             <el-table-column fixed="right" align="left" label="操作">
                                 <template slot-scope="scope">
-                                    <el-button @click.native.prevent="deleteRow(scope.$index, tableData4)" type="text" size="small">
+                                    <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
                                         转卡
                                     </el-button>
                                 </template>
@@ -158,12 +153,16 @@ export default {
       },
       formLabelWidth: "130px",
       tableData4: [],
-      staff_info:[],
-      dialogFormVisible: false //转卡给新客户接口setMemberCustomers/onlyMemberInfo
+      staff_info: [],
+      dialogFormVisible: false,
+      hyinfo:{}
     };
   },
-  created(){
-      this.getCustomer();
+  created() {
+    this.getCustomer();
+    console.log(this.$route);
+    console.log(this.$route.params.HYID);
+    console.log("CARD:" + this.$route.params.CARD.CardNO);
   },
   methods: {
     //获取会籍顾问
@@ -202,9 +201,8 @@ export default {
               hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
               hyWeChat: _this.ruleForm.wechat //微信
             };
-            console.log(this.$route.params.id);
             requestLogin(
-              "/setMemberCustomers/onlyMemberInfo/" + this.$route.params.id,
+              "/setMemberCustomers/onlyMemberInfo",
               loginParams,
               "post"
             )
@@ -214,7 +212,6 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -233,6 +230,12 @@ export default {
         }
       });
     },
+    textinput(val) {
+      console.log(val);
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
     Selectchange2(val) {
       console.log(val);
     },
@@ -240,9 +243,58 @@ export default {
       console.log(val);
     },
     //转卡
-    deleteRow(index, rows) {},
+    deleteRow(index, rows) {
+      let _this = this;
+      this.$confirm("确认提交吗？", "提示").then(() => {
+      var loginParams = {
+        id: _this.$route.params.CARD.id, //会员卡id
+        oldId:_this.$route.params.HYID, //原会员id
+        oldName: _this.$route.params.HYName, //原会员姓名
+        newId: _this.hyinfo.HYID, //新会员id
+        newName:_this.hyinfo.HYName //新会员姓名
+      };
+      requestLogin("/setDesignateMember/transferCard", loginParams, "post")
+        .then(function(res) {
+          this.$message({
+            message: "转卡成功",
+            type: "success"
+          });
+          this.reload();
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "提交数据失败",
+              type: "error"
+            });
+          }
+        });
+      });
+    },
     //查询
-    onSubmit() {}
+    onSubmit() {
+      let _this = this;
+      var loginParams = {
+        name: _this.formInline.user, //姓名
+        sign: "member" //类别
+      };
+      requestLogin("/getSearchName", loginParams, "post")
+        .then(function(res) {
+          res.CardNO = _this.$route.params.CARD.CardNO;
+          res.CTName = _this.$route.params.CARD.card_type.CTName;
+          _this.hyinfo = res;
+          _this.tableData4.push(res);
+          console.log(res);
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    }
   }
 };
 </script>
