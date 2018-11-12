@@ -13,9 +13,11 @@
             <p class="date2">到期时间:{{membershipcards.eTime}}</p>
           </el-col>
           <el-col :span="21" class="cardfoot">
-            <el-col :span="18" class="cardplace">
+            <el-col :span="18" class="cardplace" v-if="membershipcards.card_type.CTxTime_YN == '限用'">
               <span class="place1">卡的使用限制</span>
-              <span class="place2">{{membershipcards.fkTime}}~{{membershipcards.sTime}}</span>
+              <span class="place2">{{membershipcards.card_type.CTxTime_1S}}~{{membershipcards.card_type.CTxTime_1E}}</span>
+            </el-col>
+            <el-col :span="18" class="cardplace" v-else>
             </el-col>
             <el-col :span="6" class="cardstatus">
               <span class="status1">卡状态</span>
@@ -32,31 +34,51 @@
         <el-col :span="12" class="chart-bottom">
           <el-col :span="12" class="chart-left">
             <div class="box"></div>
-            <span class="chart-span">已使用次数</span>
+            <span class="chart-span" v-if="membershipcards.card_type.ctType=='次数卡'">已使用次数</span>
+            <span class="chart-span" v-else>已使用金额</span>
           </el-col>
           <el-col :span="12" class="chart-left">
             <div class="box2"></div>
-            <span class="chart-span">剩余次数</span>
+            <span class="chart-span" v-if="membershipcards.card_type.ctType=='次数卡'">剩余次数</span>
+            <span class="chart-span" v-else>剩余金额</span>
           </el-col>
           <div class="chart-top">
-            <el-col class="box-top">
+            <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
               <span>总次数</span>
               <p>100
                 <span class="ci">次</span>
               </p>
             </el-col>
+            <el-col class="box-top" v-else>
+              <span>总金额</span>
+              <p>100
+                <span class="ci">元</span>
+              </p>
+            </el-col>
             <div class="box3"></div>
-            <el-col class="box-top">
+            <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
               <span>已使用次数30%</span>
               <p>30
                 <span class="ci">次</span>
               </p>
             </el-col>
+            <el-col class="box-top" v-else>
+              <span>已使用金额30%</span>
+              <p>30
+                <span class="ci">元</span>
+              </p>
+            </el-col>
             <div class="box3"></div>
-            <el-col class="box-top">
+            <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
               <span>剩余次数70%</span>
               <p>70
                 <span class="ci">次</span>
+              </p>
+            </el-col>
+            <el-col class="box-top" v-else>
+              <span>剩余金额70%</span>
+              <p>70
+                <span class="ci">元</span>
               </p>
             </el-col>
           </div>
@@ -68,25 +90,25 @@
         <span class="oper">卡1操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
-            <router-link :to="{name:'Transfercard',params:{HYID:this.$route.params.HYID,HYName:this.$route.params.HYName,CARD:membershipcards}}" class="link">转卡</router-link>
+            <router-link :to="{name:'Transfercard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Returncard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">退卡</router-link>
+            <router-link :to="{name:'Returncard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Upgradecard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">升级</router-link>
+            <router-link :to="{name:'Upgradecard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>升级</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Changevalidity',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">变更有效期</router-link>
+            <router-link :to="{name:'Changevalidity',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>变更有效期</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Changepriceandnum',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">变更次数/金额</router-link>
+            <router-link :to="{name:'Changepriceandnum',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>变更次数/金额</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Enabledisabling',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">启用/禁用</router-link>
+            <router-link :to="{name:'Enabledisabling',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>启用/禁用</router-link>
           </div>
           <div class="oper-left" v-if="membershipcards.State == '未激活'">
-            <router-link :to="{name:'Activate',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link">激活</router-link>
+            <router-link :to="{name:'Activate',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>激活</router-link>
           </div>
         </el-col>
       </div>
@@ -397,7 +419,7 @@ export default {
         color: #595959;
         padding: 5px 15px;
       }
-      .router-link-active{
+      .router-link-exact-active{
         background: #facc14;
         font-size: 16px;
         border-radius: 4px;

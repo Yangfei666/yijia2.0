@@ -21,7 +21,6 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  console.log(error.response);
   if (error.response) {
     switch(error.response.status){
       case 401:
@@ -31,19 +30,15 @@ axios.interceptors.response.use(function (response) {
           type: 'error',
           duration: 3000
         });
-          router.replace({
-            path: '/login'
-          });
+        setTimeout(function () {
+          window.location.href = "/login"
+      }, 3000);
         break;
       case 403:
-        router.replace({
-          path: '/House/403'
-        });
+         window.location.replace('/House/403');
         break;
       case 404:
-        router.replace({
-          path: '/House/404'
-        });
+         window.location.replace('/House/404');
         break;
       case 500:
         router.replace({

@@ -167,6 +167,7 @@ export default {
 .tag {
   width: 97%;
   height: 500px;
+  display: inline-block;
   position: relative;
   background-color: #fff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);

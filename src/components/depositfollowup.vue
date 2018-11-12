@@ -13,18 +13,18 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="23" class="weber">
-            <span class="weber-span">{{$route.params.itName}}·{{$route.params.itSex}}</span>
+            <span class="weber-span">{{this.itName}}·{{this.itSex}}</span>
             <el-col :span="10" class="weber-right">
               <div class="right-span">
-                 <router-link to="/Customer/depositfollowup/healthsurvey" class="link">健康调查表</router-link>
+                 <router-link :to="{path:'/Customer/depositfollowup/healthsurvey'}" class="link2">健康调查表</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/depositfollowup/postureevaluating" class="link">体态评估</router-link>
+                 <router-link :to="{path:'/Customer/depositfollowup/staminaevaluating'}" class="link2">体态评估</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/depositfollowup/staminaevaluating" class="link">体能评估</router-link>
+                 <router-link :to="{path:'/Customer/depositfollowup/postureevaluating'}" class="link2">体能评估</router-link>
               </div>
             </el-col>
         </el-col>
@@ -39,7 +39,15 @@ export default {
   name:'depositfollowup',
     data() {
     return {
+      id:'',
+      itSex:'',
+      itName:'',
     }
+  },
+  mounted(){
+    this.id = this.$route.params.id;
+    this.itName = this.$route.params.itName;
+    this.itSex = this.$route.params.itSex;
   }
 }
 </script>
@@ -75,7 +83,7 @@ export default {
         font-stretch: normal;
         color: #595959;
         margin-right: 10px;
-        .link{
+        .link2{
             text-decoration: none;
             font-size: 16px;
             color: #595959;

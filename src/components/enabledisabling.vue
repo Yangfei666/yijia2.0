@@ -73,7 +73,7 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              oldCardId: _this.$route.params.CARD.id, //会员卡id
+              id: _this.$route.params.CARD.id, //会员卡id
               num: _this.ruleForm.enablecard, //启用禁用
               content: _this.ruleForm.desc, //原因
             };
@@ -116,6 +116,7 @@ export default {
 .tag {
   width: 97%;
   height: 500px;
+  display: inline-block;
   position: relative;
   background-color: #fff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);

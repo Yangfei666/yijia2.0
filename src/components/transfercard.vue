@@ -100,11 +100,9 @@
                 <el-col :span="24">
                     <div class="transfer-table">
                         <el-table :data="tableData4" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-                            <el-table-column prop="HYName" align="left" label="姓名" width="200" fixed></el-table-column>
-                            <el-table-column prop="MotoTel" align="left" label="手机号" width="200"></el-table-column>
-                            <el-table-column prop="czyName" align="left" label="会籍" width="200"></el-table-column>
-                            <el-table-column prop="breachNum" align="left" label="剩余次数" width="200"></el-table-column>
-                            <el-table-column prop="residueprice" align="left" label="剩余金额" width="200"></el-table-column>
+                            <el-table-column prop="HYName" align="left" label="姓名" fixed></el-table-column>
+                            <el-table-column prop="MotoTel" align="left" label="手机号"></el-table-column>
+                            <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
                             <el-table-column fixed="right" align="left" label="操作">
                                 <template slot-scope="scope">
                                     <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
@@ -199,7 +197,8 @@ export default {
               ZhengJianNO: _this.ruleForm.catenumber, //证件号
               hyContacts: _this.ruleForm.contact, //紧急联系人
               hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
-              hyWeChat: _this.ruleForm.wechat //微信
+              hyWeChat: _this.ruleForm.wechat, //微信
+              identity:'newCustomer'//新会员
             };
             requestLogin(
               "/setMemberCustomers/onlyMemberInfo",
@@ -302,6 +301,7 @@ export default {
 .tag {
   width: 97%;
   height: 500px;
+  display: inline-block;
   position: relative;
   background-color: #fff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);

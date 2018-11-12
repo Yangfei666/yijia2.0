@@ -1,6 +1,6 @@
 <template>
 <div>
-    <!--体态评估表-->
+    <!--体能评估表-->
     <div class="health">
     <el-col :span="24" class="infor-head">
         <div class="infor-but" v-on:click="back">
@@ -8,8 +8,7 @@
             <span class="goback">返回</span>
         </div>
         <div class="infor-title">
-            <span>体态评估表</span>
-            <img src="../assets/51.png"  @click="editAll" v-on:click="show = !show"/>
+            <span>体能评估表</span>
         </div>
     </el-col>
     <el-col :span="24">
@@ -45,16 +44,16 @@
                             <span>颈前引</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -62,16 +61,16 @@
                             <span>圆肩</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -79,16 +78,16 @@
                             <span>胸椎曲度(看驼背)</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -96,16 +95,16 @@
                             <span>腰椎曲度(看肋骨外翻)</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -113,16 +112,16 @@
                             <span>盆骨(看前倾后倾)</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -130,16 +129,16 @@
                             <span>膝关节(看是否超伸)</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <div class="wrap">
@@ -154,16 +153,16 @@
                             <span>侧倾</span>
                         </el-col>
                           <el-col :span="5" class="shang2 aa">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 cc">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 dd">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 gg">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -171,16 +170,16 @@
                             <span>旋转</span>
                         </el-col>
                           <el-col :span="5" class="shang2 aa">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 cc">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 dd">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 gg">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     </el-col>
@@ -201,16 +200,16 @@
                             <span>耸肩</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -218,16 +217,16 @@
                             <span>异状肩胛</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -235,16 +234,16 @@
                             <span>脊椎(C或S形)</span>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <div class="wrap">
@@ -259,16 +258,16 @@
                             <span>侧倾</span>
                         </el-col>
                           <el-col :span="5" class="shang2 aa">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 cc">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 dd">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 gg">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     <el-col :span="24" class="right-shang">
@@ -276,16 +275,16 @@
                             <span>旋转</span>
                         </el-col>
                           <el-col :span="5" class="shang2 aa">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 cc">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 dd">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                           <el-col :span="5" class="shang2 gg">
-                            <el-radio v-model="radio" :disabled="edit"></el-radio>
+                            <el-radio v-model="radio" ></el-radio>
                         </el-col>
                     </el-col>
                     </el-col>
@@ -302,15 +301,11 @@
                  <el-col :span="22" style="width:94%">
                 <div class="one-right">
                     <el-input type="textarea" placeholder="这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是
-这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容内容这是备注内容" style="height:100%" :disabled="edit"></el-input>
+这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容这是备注内容内容这是备注内容" style="height:100%" ></el-input>
                 </div>
                  </el-col>
             </div>
         </div>
-        <el-form-item label-width="0px" style="margin-top:30px" v-if="show">
-            <el-button type="primary" @click="onSubmit">提交</el-button>
-            <el-button>重置</el-button>
-        </el-form-item>
          </el-form>
     </el-col>
     </div>
@@ -323,8 +318,6 @@ export default {
     return {
           ruleForm: {},
           radio: '',
-          edit: true,
-          show: false,
     };
   },
   methods: {
@@ -334,9 +327,6 @@ export default {
     onSubmit() {
         console.log('submit!');
       },
-      editAll () {
-			this.edit = false
-        },
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <!--体能评估表-->
+    <!--体态评估表-->
     <div class="health">
     <el-col :span="24" class="infor-head">
         <div class="infor-but" v-on:click="back">
@@ -8,8 +8,8 @@
             <span class="goback">返回</span>
         </div>
         <div class="infor-title">
-            <span>体能评估表（<span style="color:#f00;font-size:14px">测试日期Date:</span><el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>）</span>
-            <img src="../assets/51.png"  @click="editAll" v-on:click="show = !show"/>
+            <span>体态评估表（<span style="color:#f00;font-size:14px">测试日期Date:</span><el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>）</span>
+            <img src="../assets/deit.png"  @click="editAll" v-on:click="show = !show"/>
         </div>
     </el-col>
     <el-col :span="24">
@@ -298,9 +298,6 @@ export default {
       editAll () {
 			this.edit = false
         },
-      handleClick(tab, event) {
-      console.log(tab, event);
-    },
       onSubmit(){
         alert('submit!');
       },
@@ -338,8 +335,8 @@ export default {
             font-size: 16px;
             color: #262626;
             img{
-                width: 15px;
-                height: 15px;
+                width: 18px;
+                height: 19px;
             }
         }
     }

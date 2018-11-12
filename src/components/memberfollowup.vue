@@ -14,18 +14,18 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="23" class="weber">
-            <span class="weber-span">{{$route.params.HYName}}·{{$route.params.Sex}}</span>
+            <span class="weber-span">{{this.HYName}}·{{this.Sex}}</span>
             <el-col :span="10" class="weber-right">
                <div class="right-span">
-                 <router-link to="/Customer/memberfollowup/healthsurvey" class="link">健康调查表</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/healthsurvey'}" class="link">健康调查表</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/memberfollowup/postureevaluating" class="link">体态评估</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/postureevaluating'}" class="link">体态评估</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/memberfollowup/staminaevaluating" class="link">体能评估</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/staminaevaluating'}" class="link">体能评估</router-link>
               </div>
             </el-col>
         </el-col>
@@ -40,7 +40,15 @@ export default {
   name:'memberfollowup',
     data() {
     return {
+      HYID:'',
+      HYName:'',
+      Sex:''
     }
+  },
+  mounted(){
+    this.HYID = this.$route.params.HYID;
+    this.HYName = this.$route.params.HYName;
+    this.Sex = this.$route.params.Sex;
   }
 }
 </script>

@@ -208,7 +208,6 @@ export default {
       activeName: "nonuniversal",
       loading: true,
       currentSelectRow: "",
-      currentSelectRow2: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,

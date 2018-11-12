@@ -1,106 +1,71 @@
 <template>
-<div>
+  <div>
     <el-row>
-    <el-col :span="24">
-    <div class="practice-main">
-        <el-col :span="23" class="breadcrumb">
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>会所管理</el-breadcrumb-item>
-            <el-breadcrumb-item>可视化数表</el-breadcrumb-item>
-            <el-breadcrumb-item>会所业绩报表</el-breadcrumb-item>
-        </el-breadcrumb>
-        </el-col>
-    </div>
-    </el-col>
-    <el-col :span="24">
+      <el-col :span="24">
+        <div class="practice-main">
+          <el-col :span="23" class="breadcrumb">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>会所管理</el-breadcrumb-item>
+              <el-breadcrumb-item>可视化数表</el-breadcrumb-item>
+              <el-breadcrumb-item>会所业绩报表</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+        </div>
+      </el-col>
+      <el-col :span="24">
         <div class="practice-head">
-            <el-col :span="24" class="weber">
-          <div class="main-right">
-            <div class="block2">
-            <el-radio-group v-model="radio4" size="medium" style="height:32px">
-            <el-radio-button label="今天" ></el-radio-button>
-            <el-radio-button label="本月"></el-radio-button>
-            <el-radio-button label="本年"></el-radio-button>
-            </el-radio-group>
-        </div>
-        <div class="block">
-            <el-col :span="24">
-                <el-date-picker
-                 v-model="value2"
-                 align="right" 
-                 type="date" 
-                 placeholder="选择日期" 
-                 :picker-options="pickerOptions1" 
-                 style="width:130px">
-                 </el-date-picker>
-            </el-col>
-        </div>
-        </div>
+          <el-col :span="24" class="weber">
+            <div class="main-right">
+              <div class="block">
+                <el-col :span="24">
+                  <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+                  <el-date-picker v-model="value4" type="month" placeholder="选择月"></el-date-picker>
+                  <el-date-picker v-model="value5" type="year" placeholder="选择年"></el-date-picker>
+                </el-col>
+              </div>
+            </div>
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="总业绩图表" name="first" :lazy="true"><Totalchart></Totalchart></el-tab-pane>
-                <el-tab-pane label="体验图表" name="second" :lazy="true"><Experiencechart></Experiencechart></el-tab-pane>
-                <el-tab-pane label="潜在图表" name="third" :lazy="true"><Latentchart></Latentchart></el-tab-pane>
+              <el-tab-pane label="总业绩图表" name="first" :lazy="true">
+                <Totalchart></Totalchart>
+              </el-tab-pane>
+              <el-tab-pane label="体验图表" name="second" :lazy="true">
+                <Experiencechart></Experiencechart>
+              </el-tab-pane>
+              <el-tab-pane label="潜在图表" name="third" :lazy="true">
+                <Latentchart></Latentchart>
+              </el-tab-pane>
             </el-tabs>
-        </el-col>
-    </div>
-</el-col>
-</el-row>
-</div>
+          </el-col>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 <script>
-import Totalchart from '@/components/totalchart';
-import Experiencechart from '@/components/experiencechart';
-import Latentchart from '@/components/latentchart';
+import Totalchart from "@/components/totalchart";
+import Experiencechart from "@/components/experiencechart";
+import Latentchart from "@/components/latentchart";
 export default {
-  name:'visualization',
-  components:{
+  name: "visualization",
+  components: {
     Totalchart,
     Experiencechart,
     Latentchart
-   },
+  },
   data() {
     return {
-        activeName: 'first',
-         radio4: '今天',
-         value2:'',
-      pickerOptions1: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        },
-        shortcuts: [
-          {
-            text: "今天",
-            onClick(picker) {
-              picker.$emit("pick", new Date());
-            }
-          },
-          {
-            text: "昨天",
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit("pick", date);
-            }
-          },
-          {
-            text: "一周前",
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", date);
-            }
-          }
-        ]
-      },
+      activeName: "first",
+      value1: "",
+      value4: "",
+      value5: "",
     };
   },
-    mounted() {
-     },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
+  mounted() {},
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
+    }
   }
 };
 </script>
@@ -113,22 +78,22 @@ export default {
     margin: 23px 20px auto;
   }
 }
-.practice-head{
-    height: 50px;
-    background: #fff;
-    border-bottom: 1px solid #e8e8e8;
-      .weber {
-          margin-top: 10px;
-          position: relative;
-           .main-right {
-              // width: 29%;
-              position: absolute;
-              right: 2%;
-              z-index: 2;
+.practice-head {
+  height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  .weber {
+    margin-top: 10px;
+    position: relative;
+    .main-right {
+      // width: 29%;
+      position: absolute;
+      right: 2%;
+      z-index: 2;
       .block {
-          float: right;
-          margin-top: -5px;
-          line-height: 40px;
+        float: right;
+        margin-top: -5px;
+        line-height: 40px;
         .el-date-editor {
           position: relative;
           display: inline-block;
@@ -173,17 +138,16 @@ export default {
         height: 32px;
         line-height: 32px;
         margin-top: -2px;
-        margin-right:10px;
-                .el-radio-button__inner {
-              color: #fff;
-              background-color: #00bc71;
-              border-color: #00bc71;
-              -webkit-box-shadow: -1px 0 0 0 #00bc71;
-              box-shadow: -1px 0 0 0 #00bc71;
-          }
+        margin-right: 10px;
+        .el-radio-button__inner {
+          color: #fff;
+          background-color: #00bc71;
+          border-color: #00bc71;
+          -webkit-box-shadow: -1px 0 0 0 #00bc71;
+          box-shadow: -1px 0 0 0 #00bc71;
+        }
       }
     }
-      }
-      
+  }
 }
 </style>

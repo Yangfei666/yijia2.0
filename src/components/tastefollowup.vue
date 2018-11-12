@@ -13,18 +13,18 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="23" class="weber">
-            <span class="weber-span">{{$route.params.exName}}·{{$route.params.exSex}}</span>
+            <span class="weber-span">{{this.exName}}·{{this.exSex}}</span>
             <el-col :span="10" class="weber-right">
               <div class="right-span">
-                 <router-link to="/Customer/tastefollowup/healthsurvey" class="link">健康调查表</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/healthsurvey'}" class="link">健康调查表</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/tastefollowup/postureevaluating" class="link">体态评估</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/postureevaluating'}" class="link">体态评估</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link to="/Customer/tastefollowup/staminaevaluating" class="link">体能评估</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/staminaevaluating'}" class="link">体能评估</router-link>
               </div>
             </el-col>
         </el-col>
@@ -39,7 +39,15 @@ export default {
   name:'tastefollowup',
     data() {
     return {
+      id:'',
+      exName:'',
+      exSex:''
     }
+  },
+  mounted(){
+    this.id = this.$route.params.id;
+    this.exName = this.$route.params.exName;
+    this.exSex = this.$route.params.exSex;
   }
 }
 </script>

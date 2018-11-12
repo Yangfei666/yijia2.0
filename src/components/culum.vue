@@ -22,9 +22,9 @@
               <el-table :data="evening" border style="width: 100%">
                 <el-table-column fixed label="教室" width="150">
                   <template slot-scope="scope">
-                    <el-col :span="2" class="wer-col">
+                    <!-- <el-col :span="24" class="wer-col"> -->
                         <h4>{{scope.row.name}}</h4>
-                    </el-col>
+                    <!-- </el-col> -->
                     <!-- <span style="margin-left: 10px">{{ scope.row.name }}</span> -->
                   </template>
                 </el-table-column>
