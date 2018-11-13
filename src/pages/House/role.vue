@@ -73,7 +73,7 @@
                 <el-button type="text" class="p" @click="changeInfo">修改角色权限</el-button>
                 <template>
                   <el-dialog title="修改角色权限" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                    <Editrole :currentSelectRow="currentSelectRow" @closeEditPage="closeEditPage"></Editrole>
+                    <Editrole v-if="dialogFormVisible2" :currentSelectRow="currentSelectRow" @closeEditPage="closeEditPage"></Editrole>
                   </el-dialog>
                 </template>
               </div>
@@ -226,7 +226,6 @@
         //先选择列表
         if (this.currentSelectRow) {
           this.dialogFormVisible2 = true;
-          console.log(this.currentSelectRow.id);
         } else {
           this.$message({message: "请先选择数据!", type: "warning"});
         }

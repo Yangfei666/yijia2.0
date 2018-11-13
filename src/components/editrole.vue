@@ -81,25 +81,7 @@
       };
     },
     mounted() {
-    },
-    created: function () {
-      //表格列表数据
-      let _this = this;
-      _this.loading = true;
-      role.createList()
-        .then(function (res) {
-          _this.tableData = res;
-          _this.loading = false;
-          _this.rolecreate();
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+      this.rolecreate()
     },
     methods: {
       //角色编辑页
