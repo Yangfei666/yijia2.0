@@ -10,18 +10,18 @@
           <div id="myChart11" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
           <el-col class="total-main">
             <el-col :span="12" class="total-right">
-              <div class="box"></div>
+              <div class="box1"></div>
               <span class="chart-span">团课业绩</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{parseInt(chartData.experienceData.group,10)/parseInt(chartData.experienceData.count,10)}}%</span>
+              <span class="total-num">￥{{chartData.experienceData.group}}</span>
             </el-col>
             <el-col :span="12" class="total-right">
               <div class="box2"></div>
               <span class="chart-span">私教业绩</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{parseInt(chartData.experienceData.private,10)/parseInt(chartData.experienceData.count,10)}}%</span>
+              <span class="total-num">￥{{chartData.experienceData.private}}</span>
             </el-col>
           </el-col>
         </el-col>
@@ -32,47 +32,12 @@
           </el-col>
           <div id="myChart22" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
           <el-col class="total-main">
-            <el-col :span="11" class="total-right">
-              <div class="box"></div>
-              <span class="chart-span">李木子</span>
+            <el-col v-for="(item, index) in chartData.experienceData.staff" :span="11" class="total-right">
+              <div :class="`box${index%6}`"></div>
+              <span class="chart-span">{{item.name}}</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
-            </el-col>
-            <el-col :span="11" class="total-right">
-              <div class="box2"></div>
-              <span class="chart-span">凌凌漆</span>
-              <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
-            </el-col>
-            <el-col :span="11" class="total-right">
-              <div class="box3"></div>
-              <span class="chart-span">尔特我</span>
-              <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
-            </el-col>
-            <el-col :span="11" class="total-right">
-              <div class="box4"></div>
-              <span class="chart-span">水电费</span>
-              <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
-            </el-col>
-            <el-col :span="11" class="total-right">
-              <div class="box5"></div>
-              <span class="chart-span">办公费</span>
-              <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
-            </el-col>
-            <el-col :span="11" class="total-right">
-              <div class="box6"></div>
-              <span class="chart-span">电风扇</span>
-              <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue}}%</span>
+              <span class="total-num">￥{{item.value}}</span>
             </el-col>
           </el-col>
         </el-col>
@@ -105,23 +70,55 @@
   require('echarts/lib/component/tooltip');
   require('echarts/lib/component/title');
   require('echarts/lib/component/legend');
+
+  function getDaysInMonth(year, month) {
+    var month = parseInt(month, 10);
+    var temp = new Date(year, month, 0);
+    return temp.getDate();
+  }
+
   export default {
     name: 'experiencechart',
-    data() {
-      return {};
+    props: {
+      chartData: {
+        type: Object,
+      },
+      dataDate: {
+        type: String,
+      }
     },
-    mounted() {
+    data() {
+      return {
+        sumStaffValue: 0,
+      };
+    },
+    beforeMount() {
+      let _this = this;
       setTimeout(() => {
-        this.drawLine();
-        this.drawPie();
-        this.drawBar();
+        let {
+          adviser: exp_adviser,
+          experienceData: exp_experienceData,
+          experienceData: {
+            staff: exp_staff,
+            timeAchievement: exp_timeAchievement,
+            staffTimeAchievement: exp_staffTimeAchievement
+          }
+        } = _this.chartData;
+        this.drawLine({exp_timeAchievement});
+        this.drawPie({exp_experienceData, exp_staff});
+        this.drawBar({exp_adviser, exp_staffTimeAchievement});
       }, 500);
+      let sum = 0
+       this.chartData.experienceData.staff.map(item=>{
+        sum += item.value
+      })
+      this.sumStaffValue = sum
     },
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      drawPie() { //饼图
+      drawPie({exp_experienceData, exp_staff}) { //饼图
         let myChart11 = echarts.init(document.getElementById('myChart11'));
         let myChart22 = echarts.init(document.getElementById('myChart22'));
         let option11 = {
@@ -162,11 +159,11 @@
               },
               data: [
                 {
-                  value: 30,
+                  value: exp_experienceData.private,
                   name: '私教业绩'
                 },
                 {
-                  value: 70,
+                  value: exp_experienceData.group,
                   name: '团课业绩'
                 }]
             }
@@ -208,38 +205,15 @@
                   show: false
                 }
               },
-              data: [
-                {
-                  value: 24,
-                  name: '凌凌漆'
-                },
-                {
-                  value: 34,
-                  name: '李木子'
-                },
-                {
-                  value: 70,
-                  name: '电风扇'
-                },
-                {
-                  value: 28,
-                  name: '办公费'
-                },
-                {
-                  value: 64,
-                  name: '水电费'
-                },
-                {
-                  value: 50,
-                  name: '尔特我'
-                }]
+              data: exp_staff
             }
           ]
         };
         myChart11.setOption(option11);
         myChart22.setOption(option22);
       },
-      drawLine() { //折线图
+      drawLine({exp_timeAchievement}) { //折线图
+
         let myChart33 = echarts.init(document.getElementById('myChart33'));
         myChart33.setOption({
           title: {
@@ -258,7 +232,7 @@
             }
           },
           legend: {
-            data: ['团课体验客户人数', '私教体验客户人数'],
+            data: Object.keys(exp_timeAchievement),
             top: '4%'
           },
           grid: {
@@ -276,32 +250,41 @@
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['06/02', '06/03', '06/04', '06/05', '06/06', '06/07',
-              '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14',
-              '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21'
-            ]
+            data: this.detailXAxis()
           },
           yAxis: {
             type: 'value'
           },
-          series: [{
-            name: '团课体验客户人数',
-            type: 'line',
-            stack: '总量',
-            color: '#1890ff',
-            data: [23, 34, 45, 56, 23, 54, 64, 34, 54, 67, 88, 20, 75, 48, 46, 78, 30, 49, 56, 34]
-          },
-            {
-              name: '私教体验客户人数',
-              type: 'line',
-              stack: '总量',
-              color: '#2fc25b',
-              data: [100, 120, 90, 98, 100, 40, 80, 76, 20, 60, 20, 75, 95, 48, 93, 63, 76, 37, 75, 34]
-            },
-          ]
+          series: this.detailLineData(exp_timeAchievement)
         });
       },
-      drawBar() { //柱状图
+      detailXAxis() {
+        let [year, month, day] = this.dataDate.split('-');
+        if (!month) {
+          return '1,2,3,4,5,6,7,8,9,10,11,12'.split(',').map(item => {
+            return `${year}-${item}`;
+          });
+        } else {
+          let days = getDaysInMonth(year, month);
+          let temp = [];
+          for (let d = 1; d <= days; d++) {
+            temp.push(`${month}-${d}`);
+          }
+          return temp;
+        }
+      },
+      detailLineData(object) {
+        let keys = Object.keys(object);
+        return keys.map(item => {
+          let temp = {};
+          temp.name = item;
+          temp.data = object[item];
+          temp.type = 'line';
+          temp.stack = '总量';
+          return temp;
+        });
+      },
+      drawBar({exp_adviser, exp_staffTimeAchievement}) { //柱状图
         let myChart44 = echarts.init(document.getElementById('myChart44'));
         myChart44.setOption({
           title: {
@@ -320,7 +303,7 @@
             }
           },
           legend: {
-            data: ['木子', '上官木子', '小木子', '欧阳', 'Angel', 'ViVi'],
+            data: exp_adviser,
             top: '4%'
           },
           grid: {
@@ -333,10 +316,7 @@
           xAxis: [
             {
               type: 'category',
-              data: ['06/02', '06/03', '06/04', '06/05', '06/06', '06/07',
-                '06/08', '06/09', '06/10', '06/11', '06/12', '06/13', '06/14',
-                '06/15', '06/16', '06/17', '06/18', '06/19', '06/20', '06/21'
-              ]
+              data: this.detailXAxis()
             }
           ],
           yAxis: [
@@ -344,44 +324,7 @@
               type: 'value'
             }
           ],
-          series: [
-            {
-              name: '木子',
-              color: '#2FC25B',
-              type: 'bar',
-              data: [100, 120, 90, 98, 100, 40, 80, 76, 20, 60, 20, 75, 95, 48, 93, 63, 76, 37, 75, 34]
-            },
-            {
-              name: '上官木子',
-              type: 'bar',
-              color: '#1890FF',
-              data: [23, 34, 45, 56, 23, 54, 64, 34, 54, 67, 88, 20, 75, 48, 46, 78, 30, 49, 56, 34]
-            },
-            {
-              name: '小木子',
-              type: 'bar',
-              color: '#8378EA',
-              data: [100, 120, 90, 98, 100, 40, 80, 76, 20, 60, 20, 75, 95, 48, 93, 63, 76, 37, 75, 34]
-            },
-            {
-              name: '欧阳',
-              type: 'bar',
-              color: '#E062AE',
-              data: [23, 34, 45, 56, 23, 54, 64, 34, 54, 67, 88, 20, 75, 48, 46, 78, 30, 49, 56, 34]
-            },
-            {
-              name: 'Angel',
-              type: 'bar',
-              color: '#FFDB5C',
-              data: [100, 120, 90, 98, 100, 40, 80, 76, 20, 60, 20, 75, 95, 48, 93, 63, 76, 37, 75, 34],
-            },
-            {
-              name: 'ViVi',
-              type: 'bar',
-              color: '#13c2c2',
-              data: [23, 34, 45, 56, 23, 54, 64, 34, 54, 67, 88, 20, 75, 48, 46, 78, 30, 49, 56, 34]
-            },
-          ]
+          series: exp_staffTimeAchievement
         });
       },
     }
@@ -417,7 +360,15 @@
           line-height: 40px;
           color: #8c8c8c;
           font-size: 14px;
-          .box {
+          .box0 {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d21dff;
+            position: relative;
+            top: 16px;
+          }
+          .box1 {
             width: 8px;
             height: 8px;
             border-radius: 50%;
