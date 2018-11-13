@@ -88,7 +88,8 @@
       async rolecreate() {
         let _this = this;
         _this.loading = true;
-        await role.createList().then((res) => {
+        await role.createList()
+          .then((res) => {
           _this.loading = false;
           _this.emptyOptions = res.map(item => {
             item.checkedItems = [];

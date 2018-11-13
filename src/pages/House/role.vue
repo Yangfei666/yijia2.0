@@ -22,7 +22,7 @@
           <el-col :span="12">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">创建角色</el-button>
+                <el-button type="text" class="p el-icon-plus" @click="createRole">创建角色</el-button>
                 <template>
                   <el-dialog title="创建角色" :append-to-body="true" :visible.sync="dialogFormVisible">
                     <!--创建角色-->
@@ -73,7 +73,8 @@
                 <el-button type="text" class="p" @click="changeInfo">修改角色权限</el-button>
                 <template>
                   <el-dialog title="修改角色权限" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                    <Editrole v-if="dialogFormVisible2" :currentSelectRow="currentSelectRow" @closeEditPage="closeEditPage"></Editrole>
+                    <Editrole v-if="dialogFormVisible2" :currentSelectRow="currentSelectRow"
+                              @closeEditPage="closeEditPage"></Editrole>
                   </el-dialog>
                 </template>
               </div>
@@ -98,7 +99,7 @@
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
               <el-table-column fixed="right" label="操作" align="left">
                 <template slot-scope="scope">
-                  <el-button @click="handleClick(scope.row)" type="danger" plain disabled size="small">删除</el-button>
+                  <el-button @click="deleteRole(scope.row)" type="danger" plain disabled size="small">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -113,6 +114,27 @@
   import * as validate from "@/validate/Login";
   import Editrole from "@/components/editrole";
 
+
+  let role = {
+    infoById(id) {
+      return requestLogin(`/RoleAuthorityManagement/${id}`, {}, "get");
+    },
+    updateById(id, params) {
+      return requestLogin(`/RoleAuthorityManagement/${id}`, params, "put");
+    },
+    deleteById(id) {
+      return requestLogin(`/RoleAuthorityManagement/${id}`, {}, "delete");
+    },
+    createList() {
+      return requestLogin("/RoleAuthorityManagement/create", {}, "get");
+    },
+    add(params) {
+      return requestLogin("/RoleAuthorityManagement", params, "post");
+    },
+    get() {
+      return requestLogin("/RoleAuthorityManagement", {}, "get");
+    }
+  };
   export default {
     name: "role",
     inject: ["reload"],
@@ -159,31 +181,37 @@
         emptyOptions: [],
       };
     },
-    created: function () {
-      //表格列表数据
-      let _this = this;
-      _this.loading = true;
-      requestLogin("/RoleAuthorityManagement", {}, "get")
-        .then(function (res) {
-          _this.tableData = res;
-          _this.loading = false;
-          _this.rolecreate();
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+    created() {
+      this.getRoleLists();
     },
     methods: {
+      getRoleLists() {
+        //表格列表数据
+        let _this = this;
+        _this.loading = true;
+        role.get()
+          .then(function (res) {
+            _this.tableData = res;
+            _this.loading = false;
+          })
+          .catch(error => {
+            if (error.res) {
+              _this.$message({
+                message: "获取数据失败",
+                type: "error"
+              });
+            }
+          });
+      },
+      createRole(){
+        this.rolecreate()
+      },
       //角色编辑页
       rolecreate() {
         let _this = this;
+        _this.dialogFormVisible = true
         _this.loading = true;
-        requestLogin("/RoleAuthorityManagement/create", {}, "get")
+        role.createList()
           .then(function (res) {
             _this.loading = false;
             _this.emptyOptions = res.map(item => {
@@ -203,8 +231,9 @@
             }
           });
       },
-      handleClick(row) {
+      deleteRole(row) {
         console.log(row);
+        // role.deleteById()
       },
       radiochange(row) {
         console.log(`当前: ${row}`);
@@ -246,11 +275,11 @@
           if (valid) {
             this.$confirm("确认提交吗？", "提示").then(() => {
               _this.addLoading = true;
-              var loginParams = {
+              let params = {
                 name: _this.ruleForm.rolename, //角色名称
                 power: _this.mapSubmitFormParams(), //权限
               };
-              requestLogin("/RoleAuthorityManagement", loginParams, "post")
+              role.add(params)
                 .then(data => {
                   _this.addLoading = false;
                   _this.$message({
