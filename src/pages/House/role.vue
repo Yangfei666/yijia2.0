@@ -73,7 +73,7 @@
                 <el-button type="text" class="p" @click="changeInfo">修改角色权限</el-button>
                 <template>
                   <el-dialog title="修改角色权限" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                    <Editrole :currentSelectRow="currentSelectRow"></Editrole>
+                    <Editrole :currentSelectRow="currentSelectRow" @closeEditPage="closeEditPage"></Editrole>
                   </el-dialog>
                 </template>
               </div>
@@ -193,7 +193,6 @@
               item.isIndeterminate = false;
               return item;
             });
-            console.log(res);
           })
           .catch(error => {
             if (error.res) {
@@ -221,18 +220,18 @@
         this.radio = row.index;
         //获取表格数据
         this.currentSelectRow = row;
-        console.log(row.index);
         this.radio = this.tableData.indexOf(row);
       },
       changeInfo() {
         //先选择列表
         if (this.currentSelectRow) {
           this.dialogFormVisible2 = true;
+          console.log(this.currentSelectRow.id);
         } else {
           this.$message({message: "请先选择数据!", type: "warning"});
         }
       },
-      getSubmitFormParams() {
+      mapSubmitFormParams() {
         let checkPower = [];
         this.emptyOptions.map(item => {
           item.checkedItems.map(subItem => {
@@ -244,28 +243,29 @@
       //添加角色权限
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
+          let _this = this;
           if (valid) {
             this.$confirm("确认提交吗？", "提示").then(() => {
-              this.addLoading = true;
+              _this.addLoading = true;
               var loginParams = {
-                name: this.ruleForm.rolename, //角色名称
-                power: this.getSubmitFormParams(), //权限
+                name: _this.ruleForm.rolename, //角色名称
+                power: _this.mapSubmitFormParams(), //权限
               };
               requestLogin("/RoleAuthorityManagement", loginParams, "post")
                 .then(data => {
-                  this.addLoading = false;
-                  this.$message({
+                  _this.addLoading = false;
+                  _this.$message({
                     message: "提交成功",
                     type: "success"
                   });
-                  this.reload();
-                  this.dialogFormVisible = false;
+                  _this.reload();
+                  _this.dialogFormVisible = false;
                 })
                 .catch(error => {
-                  this.addLoading = false;
+                  _this.addLoading = false;
                   let {response: {data: {errorCode, msg}}} = error;
                   if (errorCode != 0) {
-                    this.$message({
+                    _this.$message({
                       message: msg,
                       type: "error"
                     });
@@ -292,15 +292,20 @@
         this.emptyOptions[order].isShow = !this.emptyOptions[order].isShow;
       },
       isCheckAll(val, order) {
-        this.emptyOptions[order].checkAll = val;
-        this.emptyOptions[order].checkedItems = val ? this.emptyOptions[order].power.map(item => item.id) : [];
-        this.emptyOptions[order].isIndeterminate = false;
+        let orderOptions = this.emptyOptions[order];
+        orderOptions.checkAll = val;
+        orderOptions.checkedItems = val ? orderOptions.power.map(item => item.id) : [];
+        orderOptions.isIndeterminate = false;
       },
       getCheckedItems(val, order) {
         let checkedCount = val.length;
-        this.emptyOptions[order].checkAll = checkedCount === this.emptyOptions[order].power.length;
-        this.emptyOptions[order].isIndeterminate = checkedCount > 0 && checkedCount < this.emptyOptions[order].power.length;
+        let orderOptions = this.emptyOptions[order];
+        orderOptions.checkAll = checkedCount === orderOptions.power.length;
+        orderOptions.isIndeterminate = checkedCount > 0 && checkedCount < orderOptions.power.length;
       },
+      closeEditPage() {
+        this.dialogFormVisible2 = false;
+      }
     }
   };
 </script>
