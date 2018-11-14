@@ -44,14 +44,17 @@
               <template slot-scope="scope">
                 <span>{{scope.row.Brigade}}</span>
                 <el-tag :key="tag.index" v-for="tag in scope.row.club_info_group" closable :disable-transitions="false"
-                        @close="handleClose(tag)" style="margin-left:20px;">
+                        @close="handleClose(scope.$index, tag)" style="margin-left:20px;">
                   {{tag.group}}
                 </el-tag>
-                <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
-                          @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"
+                <el-input class="input-new-tag" v-if="scope.$index === selectInputIndex" v-model="inputValue"
+                          ref="saveTagInput" size="small" :autofocus="true"
+                          @keyup.enter.native="handleInputConfirm(scope.$index)"
+                          @blur="handleInputConfirm(scope.$index)"
                           style="width:87px;height:35px;">
                 </el-input>
-                <el-button v-else class="button-new-tag" size="small" @click="showInput">+添加新组</el-button>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.$index,scope.row)">+添加新组
+                </el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -83,7 +86,8 @@
             {required: true, message: "请输入大队名称", trigger: "blur"}
           ]
         },
-        tableData: []
+        tableData: [],
+        selectInputIndex: -1,
       };
     },
     created: function () {
@@ -92,6 +96,7 @@
       requestLogin("/setClubInfo/create", {}, "get")
         .then(function (res) {
           _this.tableData = res;
+          console.log(_this.tableData);
         })
         .catch(error => {
           if (error.res) {
@@ -104,66 +109,57 @@
     },
     methods: {
       //删除小组
-      handleClose(tag) {
+      handleClose(index, tag) {
         let _this = this;
-        this.$confirm("确认删除该小组吗？", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+        let subIndex = _this.tableData[index].club_info_group.findIndex(item => item.id === tag.id)
+        this.$confirm("确认删除该小组吗？", "提示")
           .then(() => {
-            console.log(_this.currentSelectRow.bid);
-            requestLogin(
-              "/setClubInfo/" + _this.currentSelectRow.bid,
-              {},
-              "delete"
-            ).then(response => {
-              this.$message({
-                message: "删除成功",
-                type: "success"
+            requestLogin(`/setClubInfo/${tag.id}`, {id: tag.id}, "get")
+              .then(response => {
+                _this.$message({
+                  message: "删除成功",
+                  type: "success"
+                });
+              _this.tableData[index].club_info_group.splice(subIndex,1)
+              })
+              .catch(error => {
+                _this.$message({
+                  message: "删除失败",
+                  type: "error"
+                });
               });
-              //  _this.scope.row.club_info_group.splice(
-              //   _this.scope.row.club_info_group.indexOf(tag),
-              //   1
-              // );
-            });
           })
           .catch(error => {
             this.$message({
-              message: "删除失败",
+              message: "取消删除",
               type: "error"
             });
           });
       },
       //添加小组
-      showInput() {
-        this.inputVisible = true;
-        this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus();
-        });
+      showInput(index, row) {
+        this.selectInputIndex = index;
       },
-      handleInputConfirm() {
+      handleInputConfirm(index) {
+        this.selectInputIndex = -1;
         let inputValue = this.inputValue;
         if (inputValue) {
-          requestLogin(
-            "/setClubInfo/addGroup/" +
-            this.inputValue +
-            "/" +
-            this.currentSelectRow.id,
-            {},
-            "post"
-          )
+          let title = inputValue;
+          let id = this.currentSelectRow.id;
+          let params = {title, id,};
+          let _this = this;
+          requestLogin(`/addGroup`, params, "post")
             .then(data => {
-              this.scope.row.club_info_group.push(inputValue);
-              this.$message({
+              _this.$message({
                 message: "添加小组成功",
                 type: "success"
               });
+              _this.tableData[index].club_info_group.push(data);
             })
             .catch(error => {
               let {response: {data: {errorCode, msg}}} = error;
               if (errorCode != 0) {
-                this.$message({
+                _this.$message({
                   message: msg,
                   type: "error"
                 });
@@ -171,7 +167,6 @@
               }
             });
         }
-        this.inputVisible = false;
         this.inputValue = "";
       },
       //添加大队
@@ -212,7 +207,6 @@
         this.radio = row.index;
         //获取表格数据
         this.currentSelectRow = row;
-        console.log(row.index);
         this.radio = this.tableData.indexOf(row);
       },
       resetForm(formName) {
