@@ -39,13 +39,13 @@
             </div>
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="总业绩图表" name="first" :lazy="true">
-                <Totalchart :chart-data="selectChartData" :data-date="selectDate"></Totalchart>
+                <Totalchart v-if="Object.keys(chartTypeData.achievementData).length !== 0" :chart-data="chartTypeData.achievementData" :data-date="selectDate"></Totalchart>
               </el-tab-pane>
               <el-tab-pane label="体验图表" name="second" :lazy="true">
-                <Experiencechart></Experiencechart>
+                <Experiencechart v-if="Object.keys(chartTypeData.experienceData).length !== 0" :chart-data="chartTypeData.experienceData" :data-date="selectDate"></Experiencechart>
               </el-tab-pane>
               <el-tab-pane label="潜在图表" name="third" :lazy="true">
-                <Latentchart></Latentchart>
+                <Latentchart v-if="Object.keys(chartTypeData.prospectData).length !== 0" :chart-data="chartTypeData.prospectData" :data-date="selectDate"></Latentchart>
               </el-tab-pane>
             </el-tabs>
           </el-col>
@@ -112,40 +112,28 @@
           prospectData: {},
         },
         selectChartData: {},
-        selectDate: '2018-8',
+        selectDate: '2018',
       };
     },
-    beforeMount() {
+    created() {
       let _this = this;
       _this.getChartDate();
     },
     methods: {
-      async getChartDate() {
+      getChartDate() {
         let _this = this;
         let date = this.selectDate;
         let params = {
           date,
         };
-        await clubDate.getChart(date, params)
+        clubDate.getChart(date, params)
           .then(res => {
             _this.chartTypeData.achievementData = res.achievement;
             _this.chartTypeData.experienceData = res.experience;
             _this.chartTypeData.prospectData = res.prospect;
-            // let {adviser: ach_adviser, achievementData: ach_achievementData, achievementData: {staff: ach_staff, timeAchievement: ach_timeAchievement, staffTimeAchievement: ach_staffTimeAchievement}} = res.achievement;
-            // let {adviser: exp_adviser, experienceData: exp_experienceData, experienceData: {staff: exp_staff, timeAchievement: exp_timeAchievement, staffTimeAchievement: exp_staffTimeAchievement}} = res.experience;
-            // let {adviser: pro_adviser, prospectData: pro_prospectData, prospectData: {staff: pro_staff, timeAchievement: pro_timeAchievement, staffTimeAchievement: pro_staffTimeAchievement}} = res.prospect;
           })
-          .then(() => {
-            _this.handleClick({index: 0});
-          });
       },
       handleClick(tab) {
-        let tempObject = {
-          0: this.chartTypeData.achievementData,
-          1: this.chartTypeData.experienceData,
-          2: this.chartTypeData.prospectData,
-        };
-        this.selectChartData = tempObject[tab.index];
       },
     }
   };

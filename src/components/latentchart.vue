@@ -10,7 +10,7 @@
           <div id="myChart111" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
           <el-col class="total-main">
             <el-col :span="12" class="total-right">
-              <div class="box"></div>
+              <div class="box1"></div>
               <span class="chart-span">转体验</span>
               <div class="bord"></div>
               <span class="total-bai">80.00%</span>
@@ -46,11 +46,12 @@
           </el-col>
           <div id="myChart222" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
           <el-col class="total-main">
-            <el-col v-for="(item, index) in chartData.prospectData.staff" :span="11" class="total-right">
+            <el-col v-if="chartData.prospectData.staff" v-for="(item, index) in chartData.prospectData.staff"
+                    :key="index" :span="11" class="total-right">
               <div :class="`box${index%6}`"></div>
               <span class="chart-span">{{item.name}}</span>
               <div class="bord"></div>
-              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue}}%</span>
+              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue|isNaNNumber}}%</span>
               <span class="total-num">￥{{item.value}}</span>
             </el-col>
           </el-col>
@@ -118,15 +119,15 @@
             staffTimeAchievement: pro_staffTimeAchievement
           }
         } = _this.chartData;
-        this.drawLine({pro_timeAchievement});
-        this.drawPie({pro_prospectData, pro_staff});
-        this.drawBar({pro_adviser, pro_staffTimeAchievement});
+        _this.drawLine({pro_timeAchievement});
+        _this.drawPie({pro_prospectData, pro_staff});
+        _this.drawBar({pro_adviser, pro_staffTimeAchievement});
       }, 500);
-      let sum = 0
-      this.chartData.experienceData.staff.map(item=>{
-        sum += item.value
-      })
-      this.sumStaffValue = sum
+      let sum = 0;
+      this.chartData.prospectData.staff.map(item => {
+        sum += item.value;
+      });
+      this.sumStaffValue = sum;
     },
     methods: {
       handleClick(tab, event) {
@@ -337,6 +338,11 @@
           series: pro_staffTimeAchievement
         });
       },
+    },
+    filters: {
+      isNaNNumber(value) {
+        return Number.isNaN(value) ? 0 : value.toFixed(2);
+      }
     }
   };
 </script>

@@ -13,14 +13,14 @@
               <div class="box1"></div>
               <span class="chart-span">团课业绩</span>
               <div class="bord"></div>
-              <span class="total-bai">{{parseInt(chartData.experienceData.group,10)/parseInt(chartData.experienceData.count,10)}}%</span>
+              <span class="total-bai">{{(parseInt(chartData.experienceData.group,10)/parseInt(chartData.experienceData.count,10))|isNaNNumber}}%</span>
               <span class="total-num">￥{{chartData.experienceData.group}}</span>
             </el-col>
             <el-col :span="12" class="total-right">
               <div class="box2"></div>
               <span class="chart-span">私教业绩</span>
               <div class="bord"></div>
-              <span class="total-bai">{{parseInt(chartData.experienceData.private,10)/parseInt(chartData.experienceData.count,10)}}%</span>
+              <span class="total-bai">{{parseInt(chartData.experienceData.private,10)/parseInt(chartData.experienceData.count,10)|isNaNNumber}}%</span>
               <span class="total-num">￥{{chartData.experienceData.private}}</span>
             </el-col>
           </el-col>
@@ -32,11 +32,11 @@
           </el-col>
           <div id="myChart22" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
           <el-col class="total-main">
-            <el-col v-for="(item, index) in chartData.experienceData.staff" :span="11" class="total-right">
+            <el-col v-for="(item, index) in chartData.experienceData.staff" :key="index" :span="11" class="total-right">
               <div :class="`box${index%6}`"></div>
               <span class="chart-span">{{item.name}}</span>
               <div class="bord"></div>
-              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue}}%</span>
+              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue|isNaNNumber}}%</span>
               <span class="total-num">￥{{item.value}}</span>
             </el-col>
           </el-col>
@@ -101,18 +101,18 @@
           experienceData: {
             staff: exp_staff,
             timeAchievement: exp_timeAchievement,
-            staffTimeAchievement: exp_staffTimeAchievement
+            staffTimeAchievement: exp_staffTimeAchievement,
           }
         } = _this.chartData;
-        this.drawLine({exp_timeAchievement});
-        this.drawPie({exp_experienceData, exp_staff});
-        this.drawBar({exp_adviser, exp_staffTimeAchievement});
+        _this.drawLine({exp_timeAchievement});
+        _this.drawPie({exp_experienceData, exp_staff});
+        _this.drawBar({exp_adviser, exp_staffTimeAchievement});
       }, 500);
-      let sum = 0
-       this.chartData.experienceData.staff.map(item=>{
-        sum += item.value
-      })
-      this.sumStaffValue = sum
+      let sum = 0;
+      this.chartData.experienceData.staff.map(item => {
+        sum += item.value;
+      });
+      this.sumStaffValue = sum;
     },
     methods: {
       handleClick(tab, event) {
@@ -327,6 +327,11 @@
           series: exp_staffTimeAchievement
         });
       },
+    },
+    filters: {
+      isNaNNumber(value) {
+        return Number.isNaN(value) ? 0 : value.toFixed(2);
+      }
     }
   };
 </script>

@@ -62,25 +62,25 @@
     beforeMount() {
       let _this = this;
       setTimeout(() => {
-        this.drawLine(_this.chartData);
-        this.drawPie(_this.chartData);
-        this.drawBar(_this.chartData);
-      }, 500);
-    },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      drawPie(chartData) { //饼图
         let {
           adviser: ach_adviser,
           achievementData: ach_achievementData,
           achievementData: {
             staff: ach_staff,
             timeAchievement: ach_timeAchievement,
-            staffTimeAchievement: ach_staffTimeAchievement
+            staffTimeAchievement: ach_staffTimeAchievement,
           }
-        } = chartData;
+        } = _this.chartData;
+        _this.drawLine({ach_timeAchievement});
+        _this.drawPie({ach_adviser, ach_achievementData, ach_staff});
+        _this.drawBar({ach_adviser, ach_staffTimeAchievement});
+      }, 500);
+    },
+    methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+      drawPie({ach_adviser, ach_achievementData, ach_staff}) { //饼图
         let myChart = echarts.init(document.getElementById('myChart'));
         let myChart2 = echarts.init(document.getElementById('myChart2'));
         let option = {
@@ -201,16 +201,7 @@
         myChart.setOption(option);
         myChart2.setOption(option2);
       },
-      drawLine(chartData) { //折线图
-        let {
-          adviser: ach_adviser,
-          achievementData: ach_achievementData,
-          achievementData: {
-            staff: ach_staff,
-            timeAchievement: ach_timeAchievement,
-            staffTimeAchievement: ach_staffTimeAchievement
-          }
-        } = chartData;
+      drawLine({ach_timeAchievement}) { //折线图
         let myChart3 = echarts.init(document.getElementById('myChart3'));
         myChart3.setOption({
           title: {
@@ -281,16 +272,7 @@
           return temp;
         });
       },
-      drawBar(chartData) { //柱状图
-        let {
-          adviser: ach_adviser,
-          achievementData: ach_achievementData,
-          achievementData: {
-            staff: ach_staff,
-            timeAchievement: ach_timeAchievement,
-            staffTimeAchievement: ach_staffTimeAchievement
-          }
-        } = chartData;
+      drawBar({ach_adviser, ach_staffTimeAchievement}) { //柱状图
         let myChart4 = echarts.init(document.getElementById('myChart4'));
         myChart4.setOption({
           title: {
@@ -333,7 +315,7 @@
           series: ach_staffTimeAchievement
         });
       },
-    }
+    },
   };
 </script>
 <style lang="scss" scoped>
