@@ -42,6 +42,25 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-radio__input.is-disabled.is-checked .el-radio__inner::after {
+    background-color: #00bc71;
+}
+.el-textarea.is-disabled .el-textarea__inner{
+  color:#999;
+}
+.el-radio__input.is-disabled .el-radio__inner, .el-radio__input.is-disabled.is-checked .el-radio__inner {
+    background-color: #f5f7fa;
+    border-color: #ccc;
+}
+.el-radio__inner{
+  border: 1px solid #ccc;
+}
+.el-input.is-disabled .el-input__inner{
+  background-color: #fafafa;
+    border-color: #e4e7ed;
+    color: #888;
+    cursor: not-allowed;
+}
 .el-upload__tip {
     font-size: 12px;
     color: #606266;

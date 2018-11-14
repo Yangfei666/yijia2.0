@@ -45,39 +45,39 @@
           <div class="chart-top">
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
               <span>总次数</span>
-              <p>100
+              <p>{{membershipcards.card_type.Ctnum}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
               <span>总金额</span>
-              <p>100
+              <p>{{membershipcards.card_type.CTjg}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用次数30%</span>
-              <p>30
+              <span>已使用次数{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}%</span>
+              <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用金额30%</span>
-              <p>30
+              <span>已使用金额{{membershipcards.card_type.CTjg-membershipcards.SYJE}}%</span>
+              <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余次数70%</span>
-              <p>70
+              <span>剩余次数{{this.membershipcards.SYCS}}%</span>
+              <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余金额70%</span>
-              <p>70
+              <span>剩余金额{{membershipcards.SYJE}}%</span>
+              <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
@@ -116,11 +116,8 @@
   </div>
 </template>
 <script>
-// 引入基本模板
 let echarts = require("echarts/lib/echarts");
-// 引入柱状图组件
 require("echarts/lib/chart/pie");
-// 引入提示框和title组件
 require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
@@ -134,7 +131,7 @@ export default {
   watch: {
     membershipcards(val) {
       //this.shipcardsId= this.membershipcards.id;
-      console.log("membershipcards:" + this.membershipcards);
+     // console.log("membershipcards:" + this.membershipcards);
     }
   },
   mounted() {
@@ -166,8 +163,8 @@ export default {
               "#9d96f5"
             ],
             data: [
-              { value: 30, name: "已使用次数" },
-              { value: 70, name: "剩余次数" }
+              { value: this.membershipcards.card_type.Ctnum-this.membershipcards.SYCS, name: "已使用次数" },
+              { value: this.membershipcards.SYCS, name: "剩余次数" }
             ],
             label: {
               normal: {

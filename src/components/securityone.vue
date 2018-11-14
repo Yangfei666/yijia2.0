@@ -42,14 +42,14 @@
           <div class="chart-top">
             <el-col class="box-top">
               <span>总次数</span>
-              <p>100
+              <p>{{customercars.experience_voucher.frequency}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top">
               <span>已使用次数30%</span>
-              <p>30
+              <p>{{customercars.experience_voucher.frequency-customercars.surplus}}
                 <span class="ci">次</span>
               </p>
             </el-col>
@@ -114,8 +114,8 @@ export default {
               "#9d96f5"
             ],
             data: [
-              { value: 30, name: "已使用次数" },
-              { value: 70, name: "剩余次数" }
+              { value: this.customercars.experience_voucher.frequency-this.customercars.surplus, name: "已使用次数" },
+              { value:this.customercars.surplus, name: "剩余次数" }
             ],
             label: {
               normal: {

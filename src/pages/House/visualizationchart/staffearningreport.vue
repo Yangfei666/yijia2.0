@@ -377,46 +377,6 @@ export default {
       right: 0px;
       z-index: 2;
       top: 0px;
-      .block {
-        float: right;
-        margin-top: -5px;
-        line-height: 40px;
-        .el-date-editor {
-          position: relative;
-          display: inline-block;
-          text-align: left;
-          .el-input__inner {
-            -webkit-appearance: none;
-            background-color: #fff;
-            background-image: none;
-            border-radius: 16px;
-            border: 1px solid #e8e8e8;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            color: #606266;
-            display: inline-block;
-            font-size: inherit;
-            height: 32px;
-            line-height: 32px;
-            outline: 0;
-            padding: 0 15px;
-            -webkit-transition: border-color 0.2s
-              cubic-bezier(0.645, 0.045, 0.355, 1);
-            transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            width: 100%;
-          }
-        }
-        .el-date-editor.el-input,
-        .el-date-editor.el-input__inner {
-          width: 148px;
-        }
-        .el-input {
-          position: relative;
-          font-size: 14px;
-          display: inline-block;
-          width: 100%;
-        }
-      }
       .block2 {
         height: 32px;
         line-height: 32px;

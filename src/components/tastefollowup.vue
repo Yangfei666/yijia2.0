@@ -13,18 +13,18 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="23" class="weber">
-            <span class="weber-span">{{this.exName}}·{{this.exSex}}</span>
+            <span class="weber-span">{{this.Name}}·{{this.Sex}}</span>
             <el-col :span="10" class="weber-right">
               <div class="right-span">
-                 <router-link :to="{path:'/Customer/tastefollowup/healthsurvey'}" class="link">健康调查表</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/healthsurvey',query:{id:this.id,potential:this.Potential}}" class="link">健康调查表</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link :to="{path:'/Customer/tastefollowup/postureevaluating'}" class="link">体态评估</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/staminaevaluating',query:{id:this.id,potential:this.Potential}}" class="link">体能评估</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link :to="{path:'/Customer/tastefollowup/staminaevaluating'}" class="link">体能评估</router-link>
+                 <router-link :to="{path:'/Customer/tastefollowup/postureevaluating',query:{id:this.id,potential:this.Potential}}" class="link">体态评估</router-link>
               </div>
             </el-col>
         </el-col>
@@ -40,14 +40,17 @@ export default {
     data() {
     return {
       id:'',
-      exName:'',
-      exSex:''
+      Name:'',
+      Sex:'',
+       Potential:'experience',
     }
   },
   mounted(){
     this.id = this.$route.params.id;
-    this.exName = this.$route.params.exName;
-    this.exSex = this.$route.params.exSex;
+    this.Name = this.$route.params.exName;
+    this.Sex = this.$route.params.exSex;
+    this.Potential = 'experience';
+    console.log(this.Potential);
   }
 }
 </script>

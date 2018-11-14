@@ -238,7 +238,7 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/tastefollowup/practiceup',
                     children: [
-                        { path: '/Customer/tastefollowup/practiceup', component: Practiceup, name: 'Practiceup' },//体验跟进记录
+                        { path: '/Customer/tastefollowup/practiceup/:id/:exName/:exSex', component: Practiceup, name: 'Practiceup' },//体验跟进记录
                         { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
                         { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
                         { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
@@ -251,7 +251,7 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/memberfollowup/insiderup',
                     children: [
-                        { path: '/Customer/memberfollowup/insiderup', component: Insiderup, name: 'Insiderup' },//会员跟进记录
+                        { path: '/Customer/memberfollowup/insiderup/:id/:HYName/:Sex', component: Insiderup, name: 'Insiderup' },//会员跟进记录
                         { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
                         { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
                         { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
@@ -354,11 +354,6 @@ let router = new Router({
                 },
             ]
         },
-        {
-            path: '*',
-            hidden: true,
-            redirect: { path: '/403' }
-        }
     ]
 })
 

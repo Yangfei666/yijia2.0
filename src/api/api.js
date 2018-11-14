@@ -1,11 +1,10 @@
 import axios from 'axios'
-import {Message} from 'element-ui'
+import { Message } from 'element-ui'
 
 axios.defaults.timeout = 2500;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 /* 请求拦截器 */
-
 axios.interceptors.request.use(function (config) {
   let token = sessionStorage.getItem('access-token');
   if (token) {
@@ -22,7 +21,7 @@ axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   if (error.response) {
-    switch(error.response.status){
+    switch (error.response.status) {
       case 401:
         sessionStorage.removeItem('access-token');
         Message.error({
@@ -31,19 +30,17 @@ axios.interceptors.response.use(function (response) {
           duration: 3000
         });
         setTimeout(function () {
-          window.location.href = "/login"
-      }, 3000);
+         location.href("/#/login");
+        }, 3000);
         break;
       case 403:
-         window.location.replace('/House/403');
+        location.replace('/#/House/403');
         break;
       case 404:
-         window.location.replace('/House/404');
+        location.replace('/#/House/404');
         break;
       case 500:
-        router.replace({
-          path: '/House/500'
-        });
+        location.replace('/#/House/500');
         break;
     }
   }

@@ -130,23 +130,6 @@ export default {
           width: 100%;
         }
       }
-      .block2 {
-        float: left;
-        display: flex;
-        justify-content: space-between;
-        border-radius: 30px;
-        height: 32px;
-        line-height: 32px;
-        margin-top: -2px;
-        margin-right: 10px;
-        .el-radio-button__inner {
-          color: #fff;
-          background-color: #00bc71;
-          border-color: #00bc71;
-          -webkit-box-shadow: -1px 0 0 0 #00bc71;
-          box-shadow: -1px 0 0 0 #00bc71;
-        }
-      }
     }
   }
 }
