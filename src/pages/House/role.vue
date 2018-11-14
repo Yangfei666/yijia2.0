@@ -99,7 +99,9 @@
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
               <el-table-column fixed="right" label="操作" align="left">
                 <template slot-scope="scope">
-                  <el-button @click="deleteRole(scope.row)" type="danger" plain disabled size="small">删除</el-button>
+                  <el-button @click="deleteRole(scope.row)" type="danger" plain
+                             :disabled="tableData[scope.$index].type === '默认角色'" size="small">删除
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -203,13 +205,13 @@
             }
           });
       },
-      createRole(){
-        this.rolecreate()
+      createRole() {
+        this.rolecreate();
       },
       //角色编辑页
       rolecreate() {
         let _this = this;
-        _this.dialogFormVisible = true
+        _this.dialogFormVisible = true;
         _this.loading = true;
         role.createList()
           .then(function (res) {
@@ -232,8 +234,21 @@
           });
       },
       deleteRole(row) {
-        console.log(row);
-        // role.deleteById()
+        let _this = this;
+        this.$confirm("确认删除吗？", "提示")
+          .then(() => {
+            role.deleteById(row.id)
+              .then(() => {
+                _this.$message({
+                  message: "删除成功",
+                  type: "success"
+                });
+                _this.reload();
+              });
+          })
+          .catch(error =>{
+            this.$message({message: "已取消删除!", type: "error"});
+          });
       },
       radiochange(row) {
         console.log(`当前: ${row}`);
