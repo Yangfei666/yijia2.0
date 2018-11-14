@@ -152,6 +152,25 @@ import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
+function  downloadExcel(config, sourceData) {
+  let subData = sourceData.map(item => {
+    let temp = [];
+    let keys = Object.keys(item);
+    for (let i = 0, len = keys.length; i < len; i++) {
+      if (config.limit.includes(keys[i])) {
+        continue;
+      }
+      temp.push(item[keys[i]]);
+    }
+    return temp;
+  });
+  subData.unshift(config.headTitle);
+  let data = subData;
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, `${config.sheetName}`);
+  XLSX.writeFile(wb, `${config.excelName}.xlsx`);
+}
 export default {
   name: "leaguermanagetable",
   inject: ["reload"],
@@ -419,30 +438,13 @@ export default {
     },
     //表格导出
      exportExcel() {
-      var fix = document.querySelector(".el-table__fixed");
-      var wb;
-      if (fix) {
-        wb = XLSX.utils.table_to_book(
-          document.querySelector('#rebateSetTable').removeChild(fix)
-        );
-        document.querySelector('#rebateSetTable').appendChild(fix);
-      } else {
-        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
-      }
-      var wbout = XLSX.write(wb, {
-        bookType: "xlsx",
-        bookSST: true,
-        type: "array"
-      });
-      try {
-        FileSaver.saveAs(
-          new Blob([wbout], { type: "application/octet-stream" }),
-          "会员客户管理数据表.xlsx"
-        );
-      } catch (e) {
-        if (typeof console !== "undefined") console.log(e, wbout);
-      }
-      return wbout;
+       let config = {
+         excelName: "会员管理",
+         sheetName: "会员管理",
+         limit: 'hyRecordTime,HYID,Sex,cid'.split(','),
+         headTitle: '卡号|姓名|手机号|开卡时间|到期时间|剩余次数|剩余金额|卡状态|卡种|会籍'.split('|'),
+       };
+       downloadExcel(config, this.tableData)
     },
   }
 };
