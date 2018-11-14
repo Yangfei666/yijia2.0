@@ -22,6 +22,7 @@
 import { requestLogin } from "@/api/api";
 export default {
   name: "activate",
+  inject: ["reload"],
   data() {
     return {};
   },
@@ -39,6 +40,7 @@ export default {
               message: "激活成功",
               type: "success"
             });
+            this.reload();
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

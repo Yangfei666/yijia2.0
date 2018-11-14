@@ -213,7 +213,7 @@ let router = new Router({
                     redirect: '/Customer/depositfollowup/bargainup',
                     children: [
                         { path: '/Customer/depositfollowup/bargainup/:id/:itName/:itSex', component: Bargainup, name: 'Bargainup' },//定金跟进记录
-                        { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
+                        { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey},//健康调查表
                         { path: '/Customer/depositfollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
                         { path: '/Customer/depositfollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
                     ]
@@ -226,9 +226,9 @@ let router = new Router({
                     redirect: '/Customer/potentialfollowup/memberup',
                     children: [
                         { path: '/Customer/potentialfollowup/memberup/:id/:prName/:prSex', component: Memberup, name: 'Memberup' },//潜在跟进记录
-                        { path: '/Customer/potentialfollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
-                        { path: '/Customer/potentialfollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
-                        { path: '/Customer/potentialfollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
+                        { path: '/Customer/potentialfollowup/healthsurvey', component: Healthsurvey},//健康调查表
+                        { path: '/Customer/potentialfollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
+                        { path: '/Customer/potentialfollowup/postureevaluating', component: Postureevaluating},//体态评估表
                     ]
                 },
                 {
@@ -239,9 +239,9 @@ let router = new Router({
                     redirect: '/Customer/tastefollowup/practiceup',
                     children: [
                         { path: '/Customer/tastefollowup/practiceup/:id/:exName/:exSex', component: Practiceup, name: 'Practiceup' },//体验跟进记录
-                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
-                        { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
-                        { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
+                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey},//健康调查表
+                        { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
+                        { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating},//体态评估表
                     ]
                 },
                 {
@@ -252,9 +252,9 @@ let router = new Router({
                     redirect: '/Customer/memberfollowup/insiderup',
                     children: [
                         { path: '/Customer/memberfollowup/insiderup/:id/:HYName/:Sex', component: Insiderup, name: 'Insiderup' },//会员跟进记录
-                        { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey, name: 'Healthsurvey' },//健康调查表
-                        { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
-                        { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
+                        { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey},//健康调查表
+                        { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
+                        { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating},//体态评估表
                     ]
                 },
                 {

@@ -272,7 +272,7 @@ export default {
   data() {
     return {
       posture_assessment: {},
-      disabled:true,
+      disabled:false,
       show:true,
     };
   },

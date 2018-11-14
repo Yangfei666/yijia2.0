@@ -28,7 +28,7 @@
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">创建会员卡</el-button>
                       <template>
                         <el-dialog title="创建会员卡" :append-to-body="true" :visible.sync="dialogFormVisible">
-                          <Foundmembercard></Foundmembercard>
+                          <Foundmembercard :ceshis='ceshi'></Foundmembercard>
                         </el-dialog>
                       </template>
                     </div>
@@ -222,7 +222,8 @@ export default {
       tableData3: [],
       tableData4: [],
       cardName: "",
-      cardName2: ""
+      cardName2: "",
+      ceshi:'hide'
     };
   },
   watch: {
@@ -267,7 +268,6 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
       console.log(event.target.getAttribute('id'));
-      this.tab.nonuniversal = !this.tab.nonuniversal;
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);

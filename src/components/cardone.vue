@@ -57,26 +57,26 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用次数{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}%</span>
+              <span>已使用次数{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用金额{{membershipcards.card_type.CTjg-membershipcards.SYJE}}%</span>
+              <span>已使用金额{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余次数{{this.membershipcards.SYCS}}%</span>
+              <span>剩余次数{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余金额{{membershipcards.SYJE}}%</span>
+              <span>剩余金额{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
@@ -125,19 +125,36 @@ export default {
   props: ["membershipcards"],
   data() {
     return {
-      // shipcardsId:'',
+      tbdata: []
     };
   },
   watch: {
     membershipcards(val) {
-      //this.shipcardsId= this.membershipcards.id;
-     // console.log("membershipcards:" + this.membershipcards);
     }
   },
   mounted() {
     setTimeout(() => {
       this.drawBar();
     }, 500);
+    if (this.membershipcards.card_type.ctType == "次数卡") {
+      this.tbdata = [
+        {
+          value:
+            this.membershipcards.card_type.Ctnum - this.membershipcards.SYCS,
+          name: "已使用次数"
+        },
+        { value: this.membershipcards.SYCS, name: "剩余次数" }
+      ];
+    }else{
+      this.tbdata = [
+        {
+          value:
+            this.membershipcards.card_type.CTjg - this.membershipcards.SYJE,
+          name: "已使用金额"
+        },
+        { value: this.membershipcards.SYJE, name: "剩余金额" }
+      ];
+    }
   },
   methods: {
     drawBar() {
@@ -162,10 +179,7 @@ export default {
               "#FFDB5C",
               "#9d96f5"
             ],
-            data: [
-              { value: this.membershipcards.card_type.Ctnum-this.membershipcards.SYCS, name: "已使用次数" },
-              { value: this.membershipcards.SYCS, name: "剩余次数" }
-            ],
+            data: this.tbdata,
             label: {
               normal: {
                 show: false,
@@ -416,7 +430,7 @@ export default {
         color: #595959;
         padding: 5px 15px;
       }
-      .router-link-exact-active{
+      .router-link-exact-active {
         background: #facc14;
         font-size: 16px;
         border-radius: 4px;

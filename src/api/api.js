@@ -33,12 +33,6 @@ axios.interceptors.response.use(function (response) {
          location.href("/#/login");
         }, 3000);
         break;
-      case 403:
-        location.replace('/#/House/403');
-        break;
-      case 404:
-        location.replace('/#/House/404');
-        break;
       case 500:
         location.replace('/#/House/500');
         break;
