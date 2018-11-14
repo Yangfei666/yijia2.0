@@ -23,9 +23,10 @@
                   <el-col :span="20" style="height:50px">
                     <el-form-item label="员工姓名:">
                       <el-col :span="24">
-                        <el-select v-model="form.region" placeholder="请选择活动区域" style="width:200px">
-                          <el-option label="区域一" value="shanghai"></el-option>
-                          <el-option label="区域二" value="beijing"></el-option>
+                        <el-select v-if="staffList.length > 0" @change="selectStaff" v-model="form.region" :placeholder="staffList[0].name"
+                                   style="width:200px">
+                          <el-option v-for="staff in staffList" :key="staff.id" :label="staff.name"
+                                     :value="staff.id"></el-option>
                         </el-select>
                       </el-col>
                     </el-form-item>
@@ -79,6 +80,23 @@
   require('echarts/lib/component/tooltip');
   require('echarts/lib/component/title');
   require('echarts/lib/component/legend');
+  import {requestLogin} from "@/api/api";
+
+  let staff = {
+    getList() {
+      return requestLogin(`/setStaffInfo`, {}, "get");
+    },
+    getChart(date, id, params) {
+      return requestLogin(`/chart/getStaffData/${date}/${id}`, params, "get");
+    }
+  };
+
+  function getDaysInMonth(year, month) {
+    var month = parseInt(month, 10);
+    var temp = new Date(year, month, 0);
+    return temp.getDate();
+  }
+
   export default {
     name: 'staffearningreport',
     data() {
@@ -88,6 +106,15 @@
         },
         radio4: '今天',
         value2: '',
+        staffChartData: {
+          adviser: [],
+          achievement: {},
+          experience: {},
+          intention: {},
+          prospect: {},
+        },
+        staffList: [],
+        selectData: '2018-8',
         pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -119,20 +146,51 @@
         },
       };
     },
-    mounted() {
-      setTimeout(() => {
-        this.drawLine();
-        this.drawBar();
-      }, 500);
+    beforeMount() {
+      this.getStaffList();
     },
     methods: {
+      selectStaff(id) {
+        this.getStaffChart(id);
+      },
+      getStaffChart(id) {
+        let _this = this;
+        let params = {
+          date: this.selectData,
+          id,
+        };
+        staff.getChart(this.selectData, id, params)
+          .then(res => {
+            Object.assign(_this.staffChartData, res);
+          })
+          .then(() => {
+            setTimeout(() => {
+              _this.drawLine(_this.staffChartData.intention.timeAchievement);
+              _this.drawBar(_this.staffChartData.achievement.timeAchievement);
+            }, 500);
+          });
+      },
+      getStaffList() {
+        let _this = this;
+        staff.getList()
+          .then(res => {
+            _this.staffList = res.map(item => {
+              let temp = {};
+              temp.id = item.YGXX_YGID_NEI;
+              temp.name = item.YGXX_NAME;
+              return temp;
+            });
+          }).then(() => {
+          _this.getStaffChart(_this.staffList[0].id);
+        });
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
       onSubmit() {
         console.log('submit!');
       },
-      drawBar() {
+      drawBar(achievement) {
         let staffchart = echarts.init(document.getElementById('staffchart'));
         let option = {
           title: {
@@ -151,7 +209,7 @@
             }
           },
           legend: {
-            data: ['团课业绩', '私教业绩'],
+            data: Object.keys(achievement),
             top: '5%'
           },
           grid: {
@@ -164,9 +222,7 @@
           xAxis: [
             {
               type: 'category',
-              data: ['08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02',
-                '08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02',
-                '08/02', '08/02', '08/02', '08/02', '08/02']
+              data: this.detailXAxis()
             }
           ],
           yAxis: [
@@ -174,27 +230,11 @@
               type: 'value'
             }
           ],
-          series: [
-            {
-              name: '团课业绩',
-              type: 'bar',
-              color: '#2fc25b',
-              data: [320, 332, 301, 334, 390, 330, 320, 342, 234, 234,
-                235, 565, 24, 56, 657, 345, 756, 43, 77, 776]
-            },
-            {
-              name: '私教业绩',
-              type: 'bar',
-              stack: '广告',
-              color: '#1890ff',
-              data: [120, 132, 101, 134, 90, 230, 210, 234, 456, 34,
-                678, 334, 778, 334, 99, 48, 86, 34, 786, 234]
-            }
-          ]
+          series: this.detailBarData(achievement)
         };
         staffchart.setOption(option);
       },
-      drawLine() {
+      drawLine(increased) {
         let staffchart2 = echarts.init(document.getElementById('staffchart2'));
         let option2 = {
           title: {
@@ -210,7 +250,7 @@
             trigger: 'axis'
           },
           legend: {
-            data: ['团课体验人数', '私教体验人数'],
+            data: Object.keys(increased),
             top: '5%'
           },
           grid: {
@@ -228,34 +268,52 @@
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02',
-              '08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02', '08/02',
-              '08/02', '08/02', '08/02', '08/02', '08/02']
+            data: this.detailXAxis()
           },
           yAxis: {
             type: 'value'
           },
-          series: [
-            {
-              name: '团课体验人数',
-              type: 'line',
-              stack: '总量',
-              color: '#1890ff',
-              data: [320, 332, 301, 334, 390, 330, 320, 342, 234, 234,
-                235, 565, 24, 56, 657, 345, 756, 43, 77, 36]
-            },
-            {
-              name: '私教体验人数',
-              type: 'line',
-              stack: '总量',
-              color: '#2fc25b',
-              data: [120, 132, 101, 134, 90, 230, 210, 234, 456, 34,
-                678, 334, 778, 334, 99, 48, 86, 34, 786, 234]
-            },
-          ]
+          series: this.detailLineData(increased)
         };
         staffchart2.setOption(option2);
-      }
+      },
+      detailXAxis() {
+        let [year, month, day] = this.selectData.split('-');
+        if (!month) {
+          return '1,2,3,4,5,6,7,8,9,10,11,12'.split(',').map(item => {
+            return `${year}-${item}`;
+          });
+        } else {
+          let days = getDaysInMonth(year, month);
+          let temp = [];
+          for (let d = 1; d <= days; d++) {
+            temp.push(`${month}-${d}`);
+          }
+          return temp;
+        }
+      },
+      detailBarData(object, type = 'bar') {
+        let keys = Object.keys(object);
+        return keys.map(item => {
+          let temp = {};
+          temp.name = item;
+          temp.data = object[item];
+          temp.type = type;
+          temp.barGap = 0;
+          return temp;
+        });
+      },
+      detailLineData(object, type = 'line') {
+        let keys = Object.keys(object);
+        return keys.map(item => {
+          let temp = {};
+          temp.name = item;
+          temp.data = object[item];
+          temp.type = type;
+          temp.stack = '总量';
+          return temp;
+        });
+      },
     }
   };
 </script>
