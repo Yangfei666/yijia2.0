@@ -17,7 +17,7 @@
       </el-col>
     </el-row>
     <div class="practice-list">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
         <el-tab-pane label="非通用卡" name="nonuniversal">
           <template>
             <div class="practice-center">
@@ -36,15 +36,15 @@
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
                       <template>
                         <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                          <Cardedit :currentSelectRow="currentSelectRow"></Cardedit>
+                          <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
-                    </div>
+                    </div> 
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                          <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
+                          <Carddetails :currentSelectRow="currentSelectRow" :hides='hide'></Carddetails>
                         </el-dialog>
                       </template>
                     </div>
@@ -79,9 +79,7 @@
                   <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
-                        <el-radio-group v-model="radio">
-                          <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                        </el-radio-group>
+                       <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
                     <el-table-column prop="CTName" align="left" fixed label="卡名称" width="150px"></el-table-column>
@@ -103,7 +101,7 @@
             </div>
           </template>
         </el-tab-pane>
-        <el-tab-pane label="通用卡" name="currency">
+        <el-tab-pane label="通用卡" name="currency"> 
           <template>
             <div class="practice-center">
               <el-row>
@@ -121,7 +119,7 @@
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
                       <template>
                         <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
-                          <Cardedit :currentSelectRow="currentSelectRow"></Cardedit>
+                          <Cardedit :currentSelectRow="currentSelectRow"  :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
                     </div>
@@ -129,7 +127,7 @@
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
                         <el-dialog title="会员卡信息详情" :append-to-body="true" :visible.sync="dialogFormVisible6">
-                          <Carddetails :currentSelectRow="currentSelectRow"></Carddetails>
+                          <Carddetails :currentSelectRow="currentSelectRow" :hides='hide'></Carddetails>
                         </el-dialog>
                       </template>
                     </div>
@@ -164,7 +162,7 @@
                   <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2"  element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
-                       <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                       <el-radio class="radio" v-model="radio2"  :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
                     <el-table-column prop="CTName" align="left" fixed label="卡名称" width="150px"></el-table-column>
@@ -217,13 +215,16 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: true,
+      radio2: true,
+      sign:"",
       tableData: [],
       tableData2: [],
       tableData3: [],
       tableData4: [],
       cardName: "",
       cardName2: "",
-      ceshi:'hide'
+      ceshi:'hide',
+      hide:'yinchang'
     };
   },
   watch: {
@@ -266,8 +267,13 @@ export default {
       console.log(`当前: ${row}`);
     },
     handleClick(tab, event) {
-      console.log(tab, event);
-      console.log(event.target.getAttribute('id'));
+      this.sign=event.target.getAttribute('id');
+      if(this.sign=='tab-currency'){
+          this.hide='yin';
+      }else{
+        this.hide='yinchang';
+      }
+      console.log('当前页:'+this.sign);
     },
     handleSizeChange(size) {
       console.log(`每页 ${size} 条`);
@@ -294,13 +300,16 @@ export default {
       this.currentSelectRow = row;
       console.log(row.index);
       this.radio = this.tableData.indexOf(row);
+      this.radio2 = this.tableData2.indexOf(row);
     },
     handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
-        getCurrentRow(val){
-          console.log(val);
+    getCurrentRow(val){
+      console.log(val);
+     },
+    getCurrentRow2(val){
+      console.log(val);
      },
     changeInfo() {
       //先选择列表

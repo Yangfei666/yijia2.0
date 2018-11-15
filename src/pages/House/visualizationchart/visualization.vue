@@ -25,7 +25,7 @@
                 </el-col>
               </div>
             </div>
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
               <el-tab-pane label="总业绩图表" name="first" :lazy="true">
                 <Totalchart></Totalchart>
               </el-tab-pane>

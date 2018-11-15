@@ -90,7 +90,7 @@
                             <el-button type="text" class="add-b el-icon-plus" @click="dialogFormVisible = true">添加会员</el-button>
                             <template>
                                 <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                    <Addmember></Addmember>
+                                    <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
                                 </el-dialog>
                             </template>
                         </div>
@@ -133,7 +133,7 @@
                         <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
                         <el-table-column prop="cz" align="left" label="操作" fixed="right">
                             <template slot-scope="scope">
-                                <el-button @click="go" type="text" size="small">认领</el-button>
+                                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -168,6 +168,8 @@ export default {
       btnText: "展开",
       isShow: false,
       loading: true,
+      Customercategory:'member',
+      Huiyuanqufen:{huiyuanqufen:'newCustomer'},
       formInline: {
         membercard: "",
         date: "",
@@ -263,6 +265,7 @@ export default {
         "post"
       )
         .then(function(res) {
+          console.log(res);
           _this.loading = false;
           let { errorCode, msg } = res;
           if (errorCode) {
@@ -364,7 +367,6 @@ export default {
     },
      handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);
@@ -400,13 +402,17 @@ export default {
       console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-    go() {
-      let currentRoute = this.$route.path.split("/")[2];
-      if (currentRoute === "leaguer") {
-        currentRoute = "leaguer/leaguermanage";
-      }
-      //认领跳转
-      this.$router.push("/Customer/" + currentRoute + "/claim");
+    //会员认领跳转
+    go(index,row){
+      this.currentSelectRow = row;
+     this.$router.push({
+        path:"/Customer/leaguer/leaguermanage/claim",
+        query: {
+          name: this.currentSelectRow.MotoTel,
+          tel: this.currentSelectRow.HYName,
+          customercategory:this.Customercategory
+        }
+      });
     },
     showToggle: function() {
       this.isShow = !this.isShow;

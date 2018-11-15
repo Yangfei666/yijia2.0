@@ -47,7 +47,7 @@
           </el-dialog>
         </template>
       </div>
-      <el-tabs v-model="TabsValue" @tab-click="handleClick">
+      <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
         <el-tab-pane v-for="item in header" :label="item.tkName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
           <Securityone :customercars="customercar"></Securityone>
         </el-tab-pane>

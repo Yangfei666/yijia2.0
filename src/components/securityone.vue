@@ -9,9 +9,12 @@
           <el-col :span="22" class="cardseed">
             <span class="seed1">劵种</span>
           </el-col>
-          <el-col :span="21" class="carddate">
+          <el-col :span="12" class="carddate">
             <p class="date1">付款方式: {{customercars.mode}}</p>
             <p class="date2">应收金额: ￥{{customercars.price}}</p>
+          </el-col>
+          <el-col :span="12" class="cardimg">
+            <img src="../assets/eplus2.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
             <el-col :span="16" class="cardplace">
@@ -77,13 +80,12 @@ export default {
   name: "securityone",
   props: ["customercars"],
   data() {
-    return {
-    };
+    return {};
   },
   watch: {
-    customercars(val){
-     console.log('customercars:'+this.customercars);
-    },
+    customercars(val) {
+      console.log("customercars:" + this.customercars);
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -114,8 +116,13 @@ export default {
               "#9d96f5"
             ],
             data: [
-              { value: this.customercars.experience_voucher.frequency-this.customercars.surplus, name: "已使用次数" },
-              { value:this.customercars.surplus, name: "剩余次数" }
+              {
+                value:
+                  this.customercars.experience_voucher.frequency -
+                  this.customercars.surplus,
+                name: "已使用次数"
+              },
+              { value: this.customercars.surplus, name: "剩余次数" }
             ],
             label: {
               normal: {
@@ -227,6 +234,18 @@ export default {
           font-weight: normal;
           font-stretch: normal;
           color: #fff;
+        }
+      }
+      .cardimg {
+        position: absolute;
+        right: 15%;
+        top: 38%;
+        width: 31%;
+        height: 14%;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
       }
       .cardfoot {

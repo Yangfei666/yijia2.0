@@ -6,7 +6,7 @@
                 <div class="infor-but" v-on:click="back">
                     <span class="goback el-icon-arrow-left">返回</span>
                 </div>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="团课记录" name="1">
                         <template>
                             <el-col :span="24">

@@ -21,7 +21,7 @@
           </el-radio-group>
         </div>
       </div>
-      <el-tabs v-model="activeName">
+      <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="团课(共20节)" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
           <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>

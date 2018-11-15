@@ -24,7 +24,7 @@
                                         <el-form-item label="教练姓名:">
                                             <el-col :span="24">
                                                 <el-select v-model="form.train" placeholder="请选择" style="width:100%" @change="Selectchange3">
-                                                    <el-option v-for="item in coach" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                                                    <el-option v-for="item in adviser" :key="item" :label="item" :value="item"></el-option>
                                                 </el-select>
                                             </el-col>
                                         </el-form-item>
@@ -56,18 +56,13 @@
                         <template>
                             <el-col :span="24">
                                 <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column align="center" prop="radio" fixed width="70px">
-                                        <template slot-scope="scope">
-                                            <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column prop="name" align="left" label="开始时间"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="结束时间"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="会籍顾问"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="分类"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="课程名称"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="上课人数"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开课日期"  width="180px" fixed="right"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="课程名称" width="180px" fixed></el-table-column>
+                                    <el-table-column prop="name" align="left" label="开始时间" width="190px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="结束时间" width="190px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="课程分类" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="会籍顾问" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="上课人数" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
                                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -80,18 +75,13 @@
                         <template>
                             <el-col :span="24">
                                 <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column align="center" prop="radio" fixed width="70px">
-                                        <template slot-scope="scope">
-                                            <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column prop="name" align="left" label="开始时间"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="结束时间"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="会籍顾问"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="分类"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="课程名称"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="上课人数"  width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开课日期"  width="180px" fixed="right"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="课程名称" width="180px" fixed></el-table-column>
+                                    <el-table-column prop="name" align="left" label="开始时间" width="190px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="结束时间" width="190px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="课程分类" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="会籍顾问" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="上课人数" width="180px"></el-table-column>
+                                    <el-table-column prop="name" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
                                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -118,44 +108,38 @@ export default {
       value1: "",
       value4: "",
       value5: "",
-      radio: true,
       loading: false,
-      coach: [],
-      tableData: [{ name: "chm" }],
+      adviser: [],
+      tableData: [{name:'2018-02-25'}],
       currentPage: 1,
-      pagesize: 10
+      pagesize: 10,
+      publicList: [],
+      privateList: []
     };
   },
   mounted() {
-      this.getstaffdate();
-    setTimeout(() => {
-      this.rolegourp();
-    }, 1000);
+    this.getstaffdate();
   },
   methods: {
     //教练上课记录
     getstaffdate() {
       let _this = this;
-      requestLogin("/chart/getCoachData/2018-06", {}, "get")
+      requestLogin("/chart/getCoachData/2018-07", {}, "get")
         .then(function(res) {
-        //   _this.tableData = coach;
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
+          _this.adviser = res.adviser;
+          for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].groupList.length > 0) {
+              for (var j = 0; j < res.data[i].groupList.length; j++) {
+                _this.publicList.push(res.data[i].groupList[j]);
+              }
+            }
+            if (res.data[i].privateList.length > 0) {
+              for (var z = 0; z < res.data[i].groupList.length; z++) {
+                _this.privateList.push(res.data[i].privateList[z]);
+              }
+            }
           }
-        });
-    },
-    //教练
-    rolegourp() {
-      let _this = this;
-      requestLogin("/getCurTableBaseInfo", {}, "post")
-        .then(function(res) {
-          let { coach } = res;
-          _this.coach = coach;
+          console.log(res.data);
         })
         .catch(error => {
           if (error.res) {
@@ -173,9 +157,7 @@ export default {
       this.currentRow = val;
     },
     rowClick(row, event, column) {
-      this.radio = row.index;
       this.currentSelectRow = row;
-      this.radio = this.tableData.indexOf(row);
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -272,7 +254,8 @@ export default {
   background-color: #ffffff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
-  height: 450px;
+  height: 100%;
+  display: inline-block;
   margin: 20px auto;
   .block {
     float: right;

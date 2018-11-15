@@ -38,7 +38,7 @@
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                         <el-tab-pane label="周一" name="monday">
                             <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubs="club" :weekDay='1'></Grouptimetable>
                         </el-tab-pane>

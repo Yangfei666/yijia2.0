@@ -19,8 +19,8 @@
 <div class="practice-list">
     <div class="practice-table">
         <el-row>
-            <el-col :span="24" style="margin-top:10px">
-                <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-col :span="24">
+                <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="会所基本信息" name="first">
                         <template>
                          <Clubhousebasic></Clubhousebasic>

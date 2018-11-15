@@ -8,9 +8,15 @@
             <span class="seed1">卡种</span>
             <span class="seed2">ID:{{membershipcards.CardNO}}</span>
           </el-col>
-          <el-col :span="21" class="carddate">
+          <el-col :span="12" class="carddate">
             <p class="date1">开卡时间:{{membershipcards.fkTime}}</p>
             <p class="date2">到期时间:{{membershipcards.eTime}}</p>
+          </el-col>
+          <el-col :span="12" class="cardimg">
+            <img src="../assets/eplus2.png">
+          </el-col>
+          <el-col :span="12" class="cardimg2" v-if="membershipcards.isEnabled == 2">
+            <img src="../assets/esplu.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
             <el-col :span="18" class="cardplace" v-if="membershipcards.card_type.CTxTime_YN == '限用'">
@@ -18,6 +24,7 @@
               <span class="place2">{{membershipcards.card_type.CTxTime_1S}}~{{membershipcards.card_type.CTxTime_1E}}</span>
             </el-col>
             <el-col :span="18" class="cardplace" v-else>
+               <span class="place1">卡的使用限制</span>
             </el-col>
             <el-col :span="6" class="cardstatus">
               <span class="status1">卡状态</span>
@@ -227,6 +234,7 @@ export default {
       background-color: #161d24;
       border-radius: 10px;
       margin: 25px 25px auto;
+      position: relative;
       .cardseed {
         margin: 20px 19px auto;
         display: flex;
@@ -267,6 +275,30 @@ export default {
           font-weight: normal;
           font-stretch: normal;
           color: #fff;
+        }
+      }
+      .cardimg {
+        position: absolute;
+        right: 15%;
+        top: 38%;
+        width: 31%;
+        height: 14%;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
+      .cardimg2 {
+        position: absolute;
+        right: 2%;
+        top: 30%;
+        width: 18%;
+        height: 25%;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
       }
       .cardfoot {

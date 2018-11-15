@@ -68,7 +68,7 @@
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加体验客户</el-button>
               <template>
                 <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                  <Addpractice></Addpractice>
+                  <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
                 </el-dialog>
               </template>
             </div>
@@ -110,7 +110,7 @@
             <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
               <template slot-scope="scope">
-                <el-button @click="go(scope.row)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
               </template>
             </el-table-column>
@@ -157,7 +157,8 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: "",
-      experience: "experience",
+      Tiyanqufen:{tiyanqufen:'newCustomer'},
+      Customercategory:'experience',
       formInline: {
         user: "",
         date: "",
@@ -293,7 +294,6 @@ export default {
     },
     handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);
@@ -327,12 +327,17 @@ export default {
       this.Potential.id=this.currentSelectRow.id;
       this.radio = this.tableData.indexOf(row);
     },
-    go(row) {
-      let currentRoute = this.$route.path.split("/")[2];
-      console.log(currentRoute);
-      //认领跳转
-      this.$router.push("/Customer/" + currentRoute + "/claim");
-      console.log(row);
+    //体验认领跳转
+    go(index,row) {
+      this.currentSelectRow = row;
+       this.$router.push({
+        path:"/Customer/practice/claim",
+        query: {
+          name: this.currentSelectRow.exName,
+          tel: this.currentSelectRow.exTel,
+          customercategory:this.Customercategory
+        }
+      });
     },
     taste() {
       if (!this.currentSelectRow) {

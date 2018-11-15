@@ -77,7 +77,7 @@
           </el-dialog>
         </template>
       </div>
-     <el-tabs v-model="TabsValue" @tab-click="handleClick">
+     <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
         <el-tab-pane v-for="item in header" :label="item.CTName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
           <Cardone :membershipcards="membershipcard" :lazy="true"></Cardone>
         </el-tab-pane>

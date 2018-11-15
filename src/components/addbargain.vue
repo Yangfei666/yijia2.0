@@ -77,6 +77,11 @@ import * as validate from "@/validate/Login";
 export default {
   name: "addbargain",
   inject: ["reload"],
+    props:{
+    dingjinqufen: {
+      type: Object,
+      required: true
+    }},
   data() {
     return {
       dialogFormVisible: false,
@@ -110,6 +115,8 @@ export default {
   },
   created(){
     this.getCustomer();
+    console.log(this.dingjinqufen);
+    console.log(this.dingjinqufen.id);
   },
   methods: {
      //获取会籍顾问列表
@@ -155,8 +162,8 @@ export default {
             formData.append("adviserId", this.ruleForm.adviser);//会籍顾问id
             formData.append("adviserName", this.YGXX_NAME);//会籍顾问名字
             formData.append("weChat", this.ruleForm.wechat);//微信
-            formData.append("identity",'newCustomer');//转换客户的身份
-            //formData.append("oldId",);//原客户类别的id
+            formData.append("identity",this.dingjinqufen);//转换客户的身份
+            formData.append("oldId",this.dingjinqufen.id);//原客户类别的id
             requestLogin("/setDepositCustomer",formData,"post")
               .then(data => {
                 this.addLoading = false;

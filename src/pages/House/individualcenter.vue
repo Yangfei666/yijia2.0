@@ -27,7 +27,7 @@
       <el-col :span="24">
         <div class="center-main">
           <el-col :span="24">
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
               <!--个人资料-->
               <el-tab-pane label="个人资料" name="first">
                 <template>
@@ -185,12 +185,10 @@
                   </el-col>
                   <el-col :span="24">
                     <div class="table-room">
-                      <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                      <el-table v-loading="loading"  ref="singleTable"  @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                         <el-table-column align="center" prop="radio" fixed width="70px">
                           <template slot-scope="scope">
-                            <el-radio-group v-model="radio">
-                              <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                            </el-radio-group>
+                            <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                           </template>
                         </el-table-column>
                         <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="230px"></el-table-column>
@@ -256,12 +254,10 @@
                   </el-col>
                   <el-col :span="24">
                     <div class="table-room">
-                      <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                        <el-table-column align="center" prop="radio" fixed width="70px">
+                      <el-table v-loading="loading" ref="singleTable"  @current-change="handleCurrentChange3" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                        <el-table-column align="center" prop="radio2" fixed width="70px">
                           <template slot-scope="scope">
-                            <el-radio-group v-model="radio">
-                              <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                            </el-radio-group>
+                            <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
                           </template>
                         </el-table-column>
                         <el-table-column prop="StartDate" align="left" fixed label="开始日期"></el-table-column>
@@ -315,6 +311,7 @@ export default {
       imageUrl: "",
       user: "",
       radio: true,
+      radio2: true,
       value1: "",
       loading: false,
       addLoading: false,
@@ -371,7 +368,7 @@ export default {
       },
       tableData: [], //我的门店
       tableData2: [], //私教禁用时间
-      a: "" //例子
+      a: "" 
     };
   },
   //获取门店表格信息
@@ -449,7 +446,7 @@ export default {
       this.addLoading = true;
       this.file = content.file;
       let formData = new FormData();
-      formData.append("file",this.file);
+      formData.append("file", this.file);
       requestLogin("/uploadStaffPhoto", formData, "post")
         .then(res => {
           this.addLoading = false;
@@ -476,8 +473,21 @@ export default {
     rowClick(row, event, column) {
       this.radio = row.index;
       this.currentSelectRow = row;
-      console.log(row.index);
+      this.radio = this.tableData.indexOf(row);
+      this.radio2 = this.tableData2.indexOf(row);
     },
+       getCurrentRow(val){
+          console.log(val);
+     },
+       getCurrentRow2(val){
+          console.log(val);
+     },
+        handleCurrentChange2(val,index) {
+        this.currentRow = val;
+     },
+        handleCurrentChange3(val,index) {
+        this.currentRow = val;
+     },
     //删除禁用时间
     Deltime() {
       let _this = this;

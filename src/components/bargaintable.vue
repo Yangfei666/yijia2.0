@@ -46,7 +46,7 @@
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加定金客户</el-button>
               <template>
                 <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                  <Addbargain></Addbargain>
+                  <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
                 </el-dialog>
               </template>
             </div>
@@ -101,7 +101,7 @@
             </el-table-column>
           </el-table>
           <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible5">
-            <Addmember></Addmember>
+            <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
           </el-dialog>
           <el-dialog title="放弃定金" :append-to-body="true" :visible.sync="dialogFormVisible4">
             <Givedeposit :currentSelectRow="currentSelectRow"></Givedeposit>
@@ -150,7 +150,10 @@ export default {
       pagesize: 10,
       loading: true,
       radio: true,
+      Customercategory:'deposit',
       Potential:{potential:'setDepositCustomer',id:''},
+      Dingjinqufen:{dingjinqufen:'newCustomer'},
+      Huiyuanqufen:{huiyuanqufen:'deposit',id:''},
       formInline: {
         date: "",
         adviser: [],
@@ -325,7 +328,6 @@ export default {
     },
     handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);
@@ -348,16 +350,20 @@ export default {
       //获取表格数据
       this.currentSelectRow = row;
        this.Potential.id=this.currentSelectRow.id;
+       this.Huiyuanqufen.id=this.currentSelectRow.id;
       this.radio = this.tableData.indexOf(row);
     },
+     //定金认领跳转
     go(index,row) {
-      let currentRoute =
-        this.$route.path === "/Customer/bargain/bargaintable"
-          ? "bargain"
-          : "latent";
-      console.log(currentRoute);
-      //认领跳转
-      this.$router.push("/Customer/" + currentRoute + "/claim");
+      this.currentSelectRow = row;
+      this.$router.push({
+        path:"/Customer/bargain/claim",
+        query: {
+          name: this.currentSelectRow.itName,
+          tel: this.currentSelectRow.itTel,
+          customercategory:this.Customercategory
+        }
+      });
     },
     changeInfo() {
       //先选择列表

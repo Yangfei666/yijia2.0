@@ -8,17 +8,13 @@
                     <img class="apply-img" :src="applyimg" v-show="downIcon" />
                     <img class="apply-img" :src="applyimg2" v-show="!downIcon" />
                 </div>
-                <div class="ipt">
-                    <input class="input" placeholder="搜索" v-model="input21" />
-                    <img src="../assets/seach.png" />
-                </div>
             </div>
         </el-col>
         <el-col :span="12">
             <div class="grid-content bg-purple-light">
                 <div class="inner">
                     <el-col :span="16" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
-                        <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:140px">
+                        <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:200px">
                             <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
                         </el-select>
                     </el-col>
@@ -166,32 +162,6 @@ export default {
           display: inline-block;
           margin: 0px auto;
           margin-top: 20px;
-        }
-      }
-      .ipt {
-        width: 35%;
-        margin-left: 20px;
-        position: relative;
-        .input {
-          position: relative;
-          font-size: 14px;
-          display: inline-block;
-          width: 100%;
-          margin-top: 13px;
-          background-color: #ecedf0;
-          height: 30px;
-          color: #666667;
-          border-radius: 25px;
-          border: 1px solid #ecedf0;
-          text-indent: 15px;
-        }
-        img {
-          width: 16px;
-          height: 16px;
-          display: inline-block;
-          position: absolute;
-          top: 22px;
-          right: 10px;
         }
       }
       .inner {

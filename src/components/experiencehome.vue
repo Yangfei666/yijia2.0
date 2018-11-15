@@ -26,7 +26,7 @@
                   <el-button type="text" class="link" @click="dialogFormVisible = true">办卡</el-button>
                       <template>
                     <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <Addmember></Addmember>
+                    <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
                     </el-dialog>
                     </template>
                 </div>
@@ -39,7 +39,7 @@
                 <el-button type="text" class="link"  @click="dialogFormVisible2 = true">交定金</el-button>
                     <template>
                   <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                  <Addbargain></Addbargain>
+                  <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
                   </el-dialog>
                   </template>
               </div>
@@ -86,6 +86,8 @@ export default {
       exName:this.exName,
       exTel:this.exTel,
       exSex:this.exSex},
+      Huiyuanqufen:{huiyuanqufen:'experience',id:this.$route.params.id},
+      Dingjinqufen:{dingjinqufen:'experience',id:this.$route.params.id},
       id:'',
       exHjgwName:"",
       exName:"",
