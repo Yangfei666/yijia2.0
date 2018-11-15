@@ -17,7 +17,9 @@
                 <el-col :span="24">
                   <el-form-item label="所属门店:">
                     <el-col :span="24">
-                      <el-select v-model="formInline.club" placeholder="请选择" style="width:230px">
+                      <el-select v-model="formInline.club" @change="changeClub"
+                                 v-if="club.length > 0"
+                                 :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
                         <el-option v-for="item in club" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name"
                                    :value="item.Hsxx_Hsid"></el-option>
                       </el-select>
@@ -83,6 +85,12 @@
   let group = {
     copyTable(params) {
       return requestLogin("/copyCurTable", params, "post");
+    },
+    getUserInfo() {
+      return requestLogin("/PersonalCenter", {}, "get");
+    },
+    changeGroup(params) {
+      return requestLogin("/showCurTableWeek", params, "post");
     }
   };
   export default {
@@ -113,10 +121,13 @@
             label: "复制本月"
           }
         ],
+        selectClubID: null,
+        selectClubIndex: -1,
       };
     },
     created() {
       this.getGroup();
+      this.getUserInfo();
       setTimeout(() => {
         this.rolegourp();
       }, 1500);
@@ -167,6 +178,9 @@
           .then(function (res) {
             _this.club = res;
           })
+          .then(() => {
+            _this.selectClubIndex = _this.club.findIndex(item => item.Hsxx_Hsid === _this.selectClubID);
+          })
           .catch(error => {
             if (error.res) {
               this.$message({
@@ -176,8 +190,33 @@
             }
           });
       },
+      getUserInfo() {
+        let _this = this;
+        group.getUserInfo()
+          .then(res => {
+            _this.selectClubID = res.HSXX_HSID;
+          });
+      },
+      async changeClub(val) {
+        let _this = this;
+        let sortKinds = 'now';
+        let params = {
+          monday: this.value6[0],
+          sort: sortKinds,
+          hsid: val,
+        };
+        await group.changeGroup(params)
+          .then(res => {
+            Object.assign(_this.tdlist, res);
+          })
+          .catch((error) => {
+            this.$message({
+              message: "操作失败！",
+              type: "error"
+            });
+          });
+      },
       handleClick(tab, event) {
-        console.log(tab, event);
       },
       Changeselect(val) {
         let params = {
