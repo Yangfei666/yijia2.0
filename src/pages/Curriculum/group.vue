@@ -46,11 +46,11 @@
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="周一" name="monday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                             :clubIndex="selectClubIndex" :clubs="club" :weekDay='1'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='1'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周二" name="tuesday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubIndex="selectClubIndex"  :clubs="club" :weekDay='2'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='2'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周三" name="wednesday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
@@ -211,12 +211,21 @@
           .then(res => {
             Object.assign(_this.tdlist, res);
           })
+          .then(() => {
+            _this.selectClubID = val;
+          })
           .catch((error) => {
             this.$message({
               message: "操作失败！",
               type: "error"
             });
-          });
+          })
+          .finally(()=>{
+            _this.selectClubIndex = _this.club.findIndex(item => item.Hsxx_Hsid === _this.selectClubID);
+            if (_this.selectClubIndex < 0) {
+              _this.selectClubIndex = 0;
+            }
+          })
       },
       handleClick(tab, event) {
       },
