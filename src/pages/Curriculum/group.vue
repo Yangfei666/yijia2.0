@@ -46,31 +46,31 @@
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="周一" name="monday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='1'></Grouptimetable>
+                             :clubIndex="selectClubIndex" :clubs="club" :weekDay='1'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周二" name="tuesday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='2'></Grouptimetable>
+                              :clubIndex="selectClubIndex"  :clubs="club" :weekDay='2'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周三" name="wednesday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='3'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='3'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周四" name="thursday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='4'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='4'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周五" name="friday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='5'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='5'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周六" name="saturday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='6'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='6'></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane label="周日" name="weekday">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject"
-                              :clubs="club" :weekDay='7'></Grouptimetable>
+                              :clubIndex="selectClubIndex" :clubs="club" :weekDay='7'></Grouptimetable>
             </el-tab-pane>
           </el-tabs>
         </div>

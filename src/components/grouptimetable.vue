@@ -186,7 +186,7 @@
                     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px">
                       <el-form-item label="门店:" prop="door" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="ruleForm2.door" placeholder="请选择" style="width:100%"
+                          <el-select v-if="clubs[clubIndex]" disabled v-model="ruleForm2.door" :placeholder="clubs[clubIndex].Hsxx_Name" style="width:100%"
                                      @change="Selectchange5">
                             <el-option v-for="item in mendian" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name"
                                        :value="item.Hsxx_Hsid"></el-option>
@@ -303,7 +303,7 @@
   export default {
     name: "grouptimetable",
     inject: ["reload"],
-    props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs"],
+    props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs", "clubIndex"],
     data() {
       return {
         jiaoshi: [],
@@ -362,7 +362,6 @@
           price: [{required: true, message: "请输入课程价格", trigger: "blur"}]
         },
         rules2: {
-          door: [{required: true, message: "请选择门店", trigger: "change"}],
           name: [{required: true, message: "请输入姓名", trigger: "blur"}],
           consumer: [
             {required: true, message: "请选择会员/体验客户", trigger: "change"}
@@ -519,7 +518,7 @@
                 kcbId: this.currentSelectRow.ID, //课程编号
                 cardId: this.ruleForm2.card, //会员卡id
                 sign: this.ruleForm2.consumer, //查询类别
-                hsid: this.ruleForm2.door //会所id
+                hsid: this.clubs[this.clubIndex].Hsxx_Hsid //会所id
               };
               requestLogin("/SetGroupReserve", formData, "post")
                 .then(data => {
