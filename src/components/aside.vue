@@ -27,8 +27,8 @@
       <img src="../assets/49.png" alt="约团课" title="约团课"/>
     </div>
     <el-row class="tac">
-      <el-col :span="12">
-        <el-menu :default-active="defaultActiveIndex" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed" @select="handleSelect" background-color="#323844" text-color="#fff" active-text-color="#fff">
+      <el-col :span="12"> 
+        <el-menu :default-active="defaultActiveIndex" unique-opened router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed" @select="handleSelect" background-color="#323844" text-color="#fff" active-text-color="#fff">
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index + ''" v-bind:key="item.index">
               <template slot="title">

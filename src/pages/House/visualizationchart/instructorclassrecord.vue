@@ -56,13 +56,13 @@
                         <template>
                             <el-col :span="24">
                                 <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column prop="name" align="left" label="课程名称" width="180px" fixed></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开始时间" width="190px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="结束时间" width="190px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="课程分类" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="会籍顾问" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="上课人数" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
+                                    <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
+                                    <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
+                                    <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
+                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="180px"></el-table-column>
+                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="180px"></el-table-column>
+                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="180px"></el-table-column>
+                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
                                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -75,13 +75,13 @@
                         <template>
                             <el-col :span="24">
                                 <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column prop="name" align="left" label="课程名称" width="180px" fixed></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开始时间" width="190px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="结束时间" width="190px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="课程分类" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="会籍顾问" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="上课人数" width="180px"></el-table-column>
-                                    <el-table-column prop="name" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
+                                    <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
+                                    <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
+                                    <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
+                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="180px"></el-table-column>
+                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="180px"></el-table-column>
+                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="180px"></el-table-column>
+                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
                                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">

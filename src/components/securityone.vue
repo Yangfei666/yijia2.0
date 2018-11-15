@@ -14,7 +14,7 @@
             <p class="date2">应收金额: ￥{{customercars.price}}</p>
           </el-col>
           <el-col :span="12" class="cardimg">
-            <img src="../assets/eplus2.png">
+            <img src="../assets/EPLUS.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
             <el-col :span="16" class="cardplace">

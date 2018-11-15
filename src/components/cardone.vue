@@ -13,10 +13,10 @@
             <p class="date2">到期时间:{{membershipcards.eTime}}</p>
           </el-col>
           <el-col :span="12" class="cardimg">
-            <img src="../assets/eplus2.png">
+            <img src="../assets/EPLUS.png">
           </el-col>
           <el-col :span="12" class="cardimg2" v-if="membershipcards.isEnabled == 2">
-            <img src="../assets/esplu.png">
+            <img src="../assets/JINYONG.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
             <el-col :span="18" class="cardplace" v-if="membershipcards.card_type.CTxTime_YN == '限用'">
@@ -24,7 +24,7 @@
               <span class="place2">{{membershipcards.card_type.CTxTime_1S}}~{{membershipcards.card_type.CTxTime_1E}}</span>
             </el-col>
             <el-col :span="18" class="cardplace" v-else>
-               <span class="place1">卡的使用限制</span>
+              <span class="place1">卡的使用限制</span>
             </el-col>
             <el-col :span="6" class="cardstatus">
               <span class="status1">卡状态</span>
@@ -136,8 +136,7 @@ export default {
     };
   },
   watch: {
-    membershipcards(val) {
-    }
+    membershipcards(val) {}
   },
   mounted() {
     setTimeout(() => {
@@ -152,7 +151,7 @@ export default {
         },
         { value: this.membershipcards.SYCS, name: "剩余次数" }
       ];
-    }else{
+    } else {
       this.tbdata = [
         {
           value:
@@ -279,10 +278,10 @@ export default {
       }
       .cardimg {
         position: absolute;
-        right: 15%;
-        top: 38%;
+        right: 16%;
+        top: 40%;
         width: 31%;
-        height: 14%;
+        height: 12%;
         img {
           width: 100%;
           height: 100%;
@@ -292,8 +291,8 @@ export default {
       .cardimg2 {
         position: absolute;
         right: 2%;
-        top: 30%;
-        width: 18%;
+        top: 33%;
+        width: 17.5%;
         height: 25%;
         img {
           width: 100%;

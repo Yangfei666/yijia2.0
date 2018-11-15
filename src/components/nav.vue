@@ -150,6 +150,7 @@ export default {
       letter-spacing: 0px;
       color: #8c8c8c;
       text-align: center;
+      width: 100%;
     }
     .two-p:hover {
       color: #00bc71;
