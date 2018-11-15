@@ -18,7 +18,7 @@
                   <el-form-item label="所属门店:">
                     <el-col :span="24">
                       <el-select v-model="formInline.club" @change="changeClub"
-                                 v-if="club.length > 0"
+                                 v-if="club[selectClubIndex]"
                                  :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
                         <el-option v-for="item in club" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name"
                                    :value="item.Hsxx_Hsid"></el-option>
@@ -126,14 +126,13 @@
       };
     },
     created() {
-      this.getGroup();
-      this.getUserInfo();
-      setTimeout(() => {
-        this.rolegourp();
-      }, 1500);
-      setTimeout(() => {
-        this.getClub();
-      }, 2000);
+      Promise.all([this.getGroup(), this.getUserInfo(), this.getClub(), this.rolegourp()])
+        .then(res => {
+          // console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     methods: {
       //获取团课课程表数据
@@ -180,6 +179,9 @@
           })
           .then(() => {
             _this.selectClubIndex = _this.club.findIndex(item => item.Hsxx_Hsid === _this.selectClubID);
+            if (_this.selectClubIndex < 0) {
+              _this.selectClubIndex = 0;
+            }
           })
           .catch(error => {
             if (error.res) {
