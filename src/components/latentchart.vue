@@ -58,14 +58,14 @@
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart333" :style="{width: '100%', height: '410px'}"></div>
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart444" :style="{width: '100%', height: '410px'}"></div>
@@ -102,34 +102,47 @@
         type: String,
       }
     },
+    watch: {
+      chartData: {
+        deep: true,
+        handler(val, old) {
+          this.draw();
+        }
+      },
+    },
     data() {
       return {
         sumStaffValue: 0,
       };
     },
     beforeMount() {
-      let _this = this;
-      setTimeout(() => {
-        let {
-          adviser: pro_adviser,
-          prospectData: pro_prospectData,
-          prospectData: {
-            staff: pro_staff,
-            timeAchievement: pro_timeAchievement,
-            staffTimeAchievement: pro_staffTimeAchievement
-          }
-        } = _this.chartData;
-        _this.drawLine({pro_timeAchievement});
-        _this.drawPie({pro_prospectData, pro_staff});
-        _this.drawBar({pro_adviser, pro_staffTimeAchievement});
-      }, 500);
-      let sum = 0;
-      this.chartData.prospectData.staff.map(item => {
-        sum += item.value;
-      });
-      this.sumStaffValue = sum;
+      this.draw()
     },
     methods: {
+      draw() {
+        let _this = this;
+        setTimeout(() => {
+          let {
+            adviser: pro_adviser,
+            prospectData: pro_prospectData,
+            prospectData: {
+              staff: pro_staff,
+              timeAchievement: pro_timeAchievement,
+              staffTimeAchievement: pro_staffTimeAchievement
+            }
+          } = _this.chartData;
+          _this.drawPie({pro_prospectData, pro_staff});
+          if (this.dataDate.length <= 7) {
+            _this.drawLine({pro_timeAchievement});
+            _this.drawBar({pro_adviser, pro_staffTimeAchievement});
+          }
+        }, 500);
+        let sum = 0;
+        this.chartData.prospectData.staff.map(item => {
+          sum += item.value;
+        });
+        this.sumStaffValue = sum;
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -243,7 +256,7 @@
             }
           },
           legend: {
-            data: Object.keys(pro_timeAchievement),
+            data: this.detailLegend(pro_timeAchievement),
             top: '4%'
           },
           grid: {
@@ -284,11 +297,28 @@
           return temp;
         }
       },
+      detailLegend(legend) {
+        return Object.keys(legend).map(item => {
+          if (item === 'private') {
+            return '私教';
+          }
+          if (item === 'group') {
+            return '团课';
+          }
+          return item;
+        });
+      },
       detailLineData(object) {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
           temp.name = item;
+          if (item === 'private') {
+            temp.name = '私教';
+          }
+          if (item === 'group') {
+            temp.name = '团课';
+          }
           temp.data = object[item];
           temp.type = 'line';
           temp.stack = '总量';
