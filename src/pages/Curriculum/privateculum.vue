@@ -122,7 +122,6 @@ export default {
     // 切换日期
     handleClick(tab, event) {
       this.courseDaily = this.courseTotal[this.activeName];
-      console.log(this.courseDaily);
       this.hackReset = false;
       this.$nextTick(() => {
         this.hackReset = true;

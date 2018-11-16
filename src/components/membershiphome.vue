@@ -90,12 +90,12 @@ export default {
     //获取个人中心详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route);
-      console.log(this.$route.params.HYID);
+      // console.log(this.$route);
+      // console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
-          console.log(res);
+          // console.log(res);
         })
         .catch(error => {
           if (error.res) {
