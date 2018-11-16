@@ -75,17 +75,22 @@ import * as validate from "@/validate/Login";
 export default {
   name: "addpractice",
   inject: ["reload"],
+  props:{
+    tiyanqufen: {
+      type: Object,
+      required: true
+    }},
   data() {
     return {
       dialogFormVisible: false,
       formLabelWidth: "130px",
       disabled: false,
       ruleForm: {
-        name: "", //姓名
+        name:"", //姓名
         sex: "", //性别
-        tel: "", //电话
+        tel:"", //电话
         wechat: "", //微信
-        adviser: [], //会籍顾问
+        adviser:"", //会籍顾问
         type: [], //体验券
         price: "", //金额
         mode: "", //付款方式
@@ -109,7 +114,11 @@ export default {
   },
   created: function() {
     this.getCustomer();
-    this.getVouchers();
+    setTimeout(()=>{
+      this.getVouchers();
+    },1000)
+    console.log(this.tiyanqufen);
+    console.log(this.tiyanqufen.id);
   },
   methods: {
     //获取会籍顾问列表
@@ -161,8 +170,8 @@ export default {
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
               price: _this.ruleForm.price, //价格
-              identity: "newCustomer", //转换客户的身份
-              // oldId: _this.ruleForm.sex //原客户类别的id
+              identity:_this.tiyanqufen, //转换客户的身份
+              oldId: _this.tiyanqufen.id //原客户类别的id
             };
             requestLogin("/setExperienceCustomer", loginParams, "post")
               .then(data => {

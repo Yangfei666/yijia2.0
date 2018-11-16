@@ -3,24 +3,27 @@
     <!--体验券1-->
     <div class="cardone">
       <el-col :span="10" class="one-left">
-        <div class="card-left" v-for="item in quan" :key="item.id">
+        <div class="card-left">
           <div class="LeftRound"></div>
           <div class="RightRound"></div>
           <el-col :span="22" class="cardseed">
             <span class="seed1">劵种</span>
           </el-col>
-          <el-col :span="21" class="carddate">
-            <p class="date1">付款方式: {{item.Hsxx_Hsid}}</p>
-            <p class="date2">应收金额: ￥{{item.Hsxx_Hsid}}</p>
+          <el-col :span="12" class="carddate">
+            <p class="date1">付款方式: {{customercars.mode}}</p>
+            <p class="date2">应收金额: ￥{{customercars.price}}</p>
+          </el-col>
+          <el-col :span="12" class="cardimg">
+            <img src="../assets/EPLUS.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
             <el-col :span="16" class="cardplace">
               <span class="place1">劵期限</span>
-              <span class="place2">{{item.Hsxx_Tel}}~{{item.Hsxx_Tel}}</span>
+              <span class="place2">{{customercars.startTime}}~{{customercars.endTime}}</span>
             </el-col>
             <el-col :span="8" class="cardstatus">
               <span class="status1">次数</span>
-              <span class="status2">{{item.Hsxx_Hsid}}</span>
+              <span class="status2">{{customercars.surplus}}</span>
             </el-col>
           </el-col>
         </div>
@@ -42,21 +45,21 @@
           <div class="chart-top">
             <el-col class="box-top">
               <span>总次数</span>
-              <p>100
+              <p>{{customercars.experience_voucher.frequency}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top">
-              <span>已使用次数30%</span>
-              <p>30
+              <span>已使用次数{{(customercars.experience_voucher.frequency-customercars.surplus)/customercars.experience_voucher.frequency*100}}%</span>
+              <p>{{customercars.experience_voucher.frequency-customercars.surplus}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top">
-              <span>剩余次数70%</span>
-              <p>70
+              <span>剩余次数{{customercars.surplus/customercars.experience_voucher.frequency*100}}%</span>
+              <p>{{customercars.surplus}}
                 <span class="ci">次</span>
               </p>
             </el-col>
@@ -75,27 +78,13 @@ require("echarts/lib/component/title");
 import { requestLogin } from "@/api/api";
 export default {
   name: "securityone",
-  props: ["customerVouchers", "clubs"],
+  props: ["customercars"],
   data() {
-    return {
-      quan: [
-        {
-          mode: "未付款",
-          price: "200",
-          startTime: "2018-05-06",
-          endTime: "2018-05-06",
-          num: "35"
-        }
-      ],
-    };
+    return {};
   },
   watch: {
-    customerVouchers(val){
-      console.log(val);
-    },
-    clubs(val) {
-      this.quan = this.clubs;
-      console.log(val)
+    customercars(val) {
+      console.log("customercars:" + this.customercars);
     }
   },
   mounted() {
@@ -127,8 +116,13 @@ export default {
               "#9d96f5"
             ],
             data: [
-              { value: 30, name: "已使用次数" },
-              { value: 70, name: "剩余次数" }
+              {
+                value:
+                  this.customercars.experience_voucher.frequency -
+                  this.customercars.surplus,
+                name: "已使用次数"
+              },
+              { value: this.customercars.surplus, name: "剩余次数" }
             ],
             label: {
               normal: {
@@ -240,6 +234,18 @@ export default {
           font-weight: normal;
           font-stretch: normal;
           color: #fff;
+        }
+      }
+      .cardimg {
+        position: absolute;
+        right: 15%;
+        top: 38%;
+        width: 31%;
+        height: 14%;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
       }
       .cardfoot {

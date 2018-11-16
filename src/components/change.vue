@@ -68,10 +68,6 @@ export default {
           });
         }
       });
-    //setDepositCustomer  定金 --------
-    //setPotentialCustomer  潜在-------
-    //setDesignateMember  会员---------
-    //setExperienceCustomer 体验-------
   },
   methods: {
     submitForm(formName) {

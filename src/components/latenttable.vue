@@ -119,13 +119,13 @@
             <change :potential="Potential"></change>
           </el-dialog>
           <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible4">
-            <Addmember></Addmember>
+            <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
           </el-dialog>
           <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible5">
-            <Addbargain></Addbargain>
+            <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
           </el-dialog>
           <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible6">
-            <Addpractice></Addpractice>
+            <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
           </el-dialog>
           <div class="block">
             <el-button size="small" class="export" @click="exportExcel">导出</el-button>
@@ -188,6 +188,10 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: "",
+      Tiyanqufen:{tiyanqufen:'potential',id:""},
+      Dingjinqufen:{dingjinqufen:'potential',id:""},
+      Huiyuanqufen:{huiyuanqufen:'potential',id:""},
+      Customercategory:'potential',
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
@@ -337,7 +341,6 @@ export default {
     },
       handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);
@@ -408,21 +411,22 @@ export default {
       //获取所需id
       this.currentSelectRow = row;
       this.Potential.id = this.currentSelectRow.id;
+      this.Tiyanqufen.id = this.currentSelectRow.id;
+      this.Dingjinqufen.id = this.currentSelectRow.id;
+      this.Huiyuanqufen.id = this.currentSelectRow.id;
       this.radio = this.tableData.indexOf(row);
     },
-    go(index, row) {
-      console.log(index, row);
-      let currentRoute =
-        this.$route.path === "/Customer/latent/latenttable"
-          ? "latent"
-          : "bargain";
-      console.log(currentRoute);
-      //认领跳转
+    //潜在认领跳转
+    go(index,row) {
+      this.currentSelectRow = row;
+      console.log(this.currentSelectRow.prName);
+      console.log(this.currentSelectRow.prTel);
       this.$router.push({
-        path: "/Customer/" + currentRoute + "/claim",
+        path:"/Customer/latent/claim",
         query: {
-          prName: this.currentSelectRow.prName,
-          prTel: this.currentSelectRow.prTel
+          name: this.currentSelectRow.prName,
+          tel: this.currentSelectRow.prTel,
+          customercategory:this.Customercategory
         }
       });
     },

@@ -17,35 +17,23 @@
         <div class="practice-head">
           <el-col :span="24" class="weber">
             <div class="main-right">
-              <div class="block2">
-                <el-radio-group v-model="radio4" size="medium" style="height:32px">
-                  <el-radio-button label="今天"></el-radio-button>
-                  <el-radio-button label="本月"></el-radio-button>
-                  <el-radio-button label="本年"></el-radio-button>
-                </el-radio-group>
-              </div>
               <div class="block">
                 <el-col :span="24">
-                  <el-date-picker
-                    v-model="value2"
-                    align="right"
-                    type="date"
-                    placeholder="选择日期"
-                    :picker-options="pickerOptions1"
-                    style="width:130px">
-                  </el-date-picker>
+                  <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+                  <el-date-picker v-model="value4" type="month" placeholder="选择月"></el-date-picker>
+                  <el-date-picker v-model="value5" type="year" placeholder="选择年"></el-date-picker>
                 </el-col>
               </div>
             </div>
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
               <el-tab-pane label="总业绩图表" name="first" :lazy="true">
-                <Totalchart v-if="Object.keys(chartTypeData.achievementData).length !== 0" :chart-data="chartTypeData.achievementData" :data-date="selectDate"></Totalchart>
+                <Totalchart></Totalchart>
               </el-tab-pane>
               <el-tab-pane label="体验图表" name="second" :lazy="true">
-                <Experiencechart v-if="Object.keys(chartTypeData.experienceData).length !== 0" :chart-data="chartTypeData.experienceData" :data-date="selectDate"></Experiencechart>
+                <Experiencechart></Experiencechart>
               </el-tab-pane>
               <el-tab-pane label="潜在图表" name="third" :lazy="true">
-                <Latentchart v-if="Object.keys(chartTypeData.prospectData).length !== 0" :chart-data="chartTypeData.prospectData" :data-date="selectDate"></Latentchart>
+                <Latentchart></Latentchart>
               </el-tab-pane>
             </el-tabs>
           </el-col>

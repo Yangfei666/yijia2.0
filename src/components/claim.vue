@@ -11,8 +11,8 @@
                 </div>
             </el-col>
             <el-col :span="24" class="infor-dd">
-                <span>姓名：<span>{{this.$route.query.prName}}</span></span>
-                <span style="padding-left:30px">电话：<span>{{this.$route.query.prTel}}</span></span>
+                <span>姓名：<span>{{this.name}}</span></span>
+                <span style="padding-left:30px">电话：<span>{{this.tel}}</span></span>
             </el-col>
             <el-col :span="24">
             <div class="practice-table">
@@ -53,6 +53,9 @@ export default {
       pagesize: 10,
       tableData: [],
       loading:true,
+      name:this.$route.query.name,
+      tel:this.$route.query.tel,
+      customercategory:this.$route.query.customercategory
     };
   },
     mounted: function() {
@@ -74,6 +77,7 @@ export default {
           });
         }
       });
+    console.log(this.$route);
   },
   methods: {
     goback(){
@@ -88,10 +92,9 @@ export default {
       this.currentPage = currentPage;
     },
       claim(row) {
-        console.log(row);
         this.$confirm("确认要认领吗？", "提示").then(() => {
             var loginParams = {
-              identity:'potential', //客户类别
+              identity:this.customercategory, //客户类别
               howMuch:1, //数据类型
               num:this.currentSelectRow.id, //数据id
               id:this.currentSelectRow.id, //客户id

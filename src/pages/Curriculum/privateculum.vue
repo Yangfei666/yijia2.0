@@ -22,7 +22,7 @@
             <div class="group-right">
                 <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:250px;margin-top:4px"></el-date-picker>
             </div>
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                 <el-tab-pane label="周一" name="Monday"></el-tab-pane>
                 <el-tab-pane label="周二" name="Tuesday"></el-tab-pane>
                 <el-tab-pane label="周三" name="Wednesday"></el-tab-pane>

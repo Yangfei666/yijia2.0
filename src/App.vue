@@ -42,20 +42,40 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
-.el-upload__tip {
-    font-size: 12px;
-    color: #606266;
-    margin-top: 7px;
-    margin-left: 10px;
+.el-radio__input.is-disabled.is-checked .el-radio__inner::after {
+  background-color: #00bc71;
 }
-.el-form-item__error{
+.el-textarea.is-disabled .el-textarea__inner {
+  color: #999;
+}
+.el-radio__input.is-disabled .el-radio__inner,
+.el-radio__input.is-disabled.is-checked .el-radio__inner {
+  background-color: #f5f7fa;
+  border-color: #ccc;
+}
+.el-radio__inner {
+  border: 1px solid #ccc;
+}
+.el-input.is-disabled .el-input__inner {
+  background-color: #fafafa;
+  border-color: #e4e7ed;
+  color: #888;
+  cursor: not-allowed;
+}
+.el-upload__tip {
+  font-size: 12px;
+  color: #606266;
+  margin-top: 7px;
+  margin-left: 10px;
+}
+.el-form-item__error {
   color: #f56c6c;
-    font-size: 12px;
-    line-height: 1;
-    padding-top: 10px;
-    position: absolute;
-    top: 100%;
-    left: 0;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 .el-upload--picture-card {
   background-color: #fbfdff;
@@ -125,10 +145,6 @@ body {
 .el-upload-dragger {
   width: 270px;
   height: 150px;
-}
-.el-tabs__nav-scroll {
-  height: 45px;
-  line-height: 47px;
 }
 .el-radio__input.is-checked + .el-radio__label {
   color: #00bc71;
@@ -230,7 +246,7 @@ body {
 .el-tag {
   background-color: #edfaf5;
   border-color: #edfaf9;
-   color: #00bc71;
+  color: #00bc71;
 }
 .el-button:hover {
   color: #00bc71;

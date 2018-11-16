@@ -8,7 +8,7 @@
             <span class="goback el-icon-arrow-left">返回</span>
           </div>
         </router-link>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
           <el-tab-pane label="解挂操作" name="first">
             <template>
               <el-col :span="24">

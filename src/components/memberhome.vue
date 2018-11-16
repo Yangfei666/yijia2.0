@@ -77,9 +77,9 @@
           </el-dialog>
         </template>
       </div>
-     <el-tabs v-model="TabsValue" @tab-click="handleClick">
+     <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
         <el-tab-pane v-for="item in header" :label="item.CTName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
-          <Cardone></Cardone>
+          <Cardone :membershipcards="membershipcard" :lazy="true"></Cardone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -104,6 +104,7 @@ export default {
       selfCard: [],
       club:[],
       header: [],
+      membershipcard:{},
       ruleForm: {
         userid: "", //编号
         cardname: "", //卡名称
@@ -126,7 +127,9 @@ export default {
   },
   created() {
     this.getexperhome();
-    this.getCard();
+    setTimeout(()=>{
+      this.getCard();
+    },1000)
   },
   methods: {
     //获取个人中心详情
@@ -135,17 +138,17 @@ export default {
       console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
         .then(function(res) {
-          var membership_card=[];
-          membership_card=res.membership_card;
+          _this.clubs = res.membership_card;
+          _this.membershipcard = _this.clubs[0];
+          var membership_card=res.membership_card;
           for(var i=0;i<membership_card.length;i++){
             var voucher={id:'',CTName:'',name:''};
             voucher.id=membership_card[i].id;
-             voucher.CTName=membership_card[i].card_type.CTName;
-              voucher.name=voucher.CTName+voucher.id;
-              _this.header.push(voucher);
+            voucher.CTName=membership_card[i].card_type.CTName;
+            voucher.name=voucher.CTName+voucher.id;
+            _this.header.push(voucher);
           }
           _this.TabsValue=_this.header[0].name;
-          console.log('header:'+ _this.header);
         })
         .catch(error => {
           if (error.res) {
@@ -162,7 +165,7 @@ export default {
       let relationCards = [];
       requestLogin("/setMemberCustomers/selectCards", {}, "get")
         .then(function(res) {
-         let {selfCard,relationCard} = res;//接口在这里
+         let {selfCard,relationCard} = res;
          _this.selfCard = selfCard;
          relationCards = relationCard;
          for(var i=0; i<relationCard.length;i++){
@@ -180,7 +183,19 @@ export default {
         });
     },
     handleClick(tab, event) {
-      console.log(tab, event);
+      let _this=this;
+      console.log('event'+event.currentTarget.id);
+      var eventId = event.currentTarget.id;
+      for(var i=0;i<_this.clubs.length;i++){
+        var name = _this.clubs[i].card_type.CTName;
+        var id=_this.clubs[i].id;
+         var eventIds='tab-'+name+id;
+         if(eventId == eventIds){
+            _this.membershipcard=_this.clubs[i];
+           return;
+         }
+      }
+      console.log('membershipcard:'+_this.membershipcard);
     },
     //添加新卡
     submitForm(formName) {

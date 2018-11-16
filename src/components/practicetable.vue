@@ -72,7 +72,7 @@
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加体验客户</el-button>
               <template>
                 <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                  <Addpractice></Addpractice>
+                  <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
                 </el-dialog>
               </template>
             </div>
@@ -120,7 +120,7 @@
             <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
               <template slot-scope="scope">
-                <el-button @click="go(scope.row)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
               </template>
             </el-table-column>

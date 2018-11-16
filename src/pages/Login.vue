@@ -49,8 +49,8 @@ export default {
       img : 'http://192.168.2.111/pc/v1.Login/getVerification',
       num:0,
         account: {
-          username: '18550105300',
-          pwd: '123456',
+          username: '18812345678',
+          pwd: '1234567',
           verifycode:'',
           door:''
         },

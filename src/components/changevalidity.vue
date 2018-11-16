@@ -7,7 +7,7 @@
                 <el-col :span="24" class="transfer">
                     <div class="transfer-main">
                         <span class="transfer-span">变更有效期</span>
-                        <span class="transfer-span2">原有效期：2017-07-27</span>
+                        <span class="transfer-span2">原有效期：{{this.$route.params.CARD.eTime}}</span>
                     </div>
                 </el-col>
                 <el-col :span="24">
@@ -42,8 +42,10 @@
     </div>
 </template>
 <script>
+import { requestLogin } from "@/api/api";
 export default {
   name:'changevalidity',
+  inject: ["reload"],
   data() {
     return {
         remnant: 666,
@@ -63,19 +65,39 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
-    },
+    //变更有效期
     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        var loginParams = {
+          id: this.$route.params.CARD.id, //会员卡id
+          day: this.ruleForm.date, //有效期时间
+          reason: this.ruleForm.desc //原因
+        };
+        requestLogin(
+          "/setDesignateMember/cardChangeValue",
+          loginParams,
+          "post"
+        )
+          .then(data => {
+            this.$message({
+              message: "变更成功",
+              type: "success"
+            });
+            this.resetForm(formName);
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
@@ -90,6 +112,7 @@ export default {
 .tag {
   width: 97%;
   height: 500px;
+  display: inline-block;
   position: relative;
   background-color: #fff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);

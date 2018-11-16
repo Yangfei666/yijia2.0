@@ -96,13 +96,11 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+            <el-table v-loading="loading" ref="singleTable"  @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
               <el-table-column align="center" prop="radio" fixed width="80px">
                 <template slot-scope="scope">
-                  <el-radio-group v-model="radio">
-                    <el-radio :label="scope.$index" @change.native="radiochange(scope.row)">&nbsp;</el-radio>
-                  </el-radio-group>
-                </template>
+                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+              </template>
               </el-table-column>
               <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
               <el-table-column prop="kcHot" align="left" label="热度"></el-table-column>
@@ -189,6 +187,12 @@ export default {
       });
   },
   methods: {
+     getCurrentRow(val){
+          console.log(val);
+     },
+        handleCurrentChange2(val,index) {
+        this.currentRow = val;
+     },
     uploadOverrun: function() {
       this.$message({
         type: "error",
@@ -212,10 +216,9 @@ export default {
     },
     //获取表格数据
     rowClick(row, event, column) {
-      let _this = this;
       this.radio = row.index;
       this.currentSelectRow = row;
-      console.log(row);
+      this.radio = this.tableData.indexOf(row);
     },
     //修改课程科目
     changeInfo() {

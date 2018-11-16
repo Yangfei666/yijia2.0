@@ -47,9 +47,9 @@
           </el-dialog>
         </template>
       </div>
-      <el-tabs v-model="TabsValue" @tab-click="handleClick">
+      <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
         <el-tab-pane v-for="item in header" :label="item.tkName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
-          <Securityone :customerVouchers="customerVoucher" :clubs="club"></Securityone>
+          <Securityone :customercars="customercar"></Securityone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -77,7 +77,7 @@ export default {
       disabled: false,
       limitdate: [],
       header: [],
-      customerVoucher:[],
+      customercar:{},
       ruleForm: {
         type: [], //券类型
         price: "", //金额
@@ -97,26 +97,8 @@ export default {
     setTimeout(()=>{
       this.getexperhome();
     },1500)
-    setTimeout(()=>{
-      this.getClub();
-    },1500)
   },
   methods: {
-    getClub() {
-      let _this = this;
-      requestLogin("/allClub", {}, "get")
-        .then(function(res) {
-          _this.club = res;
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
-    },
     //购买体验券
     submitForm(formName) {
       let _this = this;
@@ -164,9 +146,9 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          var customer_voucher=res.customer_voucher;
-          _this.customerVoucher=customer_voucher;
-          console.log('customerVoucher:'+_this.customerVoucher[0].id);
+          _this.clubs=res.customer_voucher;
+          _this.customercar=_this.clubs[0];
+          var customer_voucher=res.customer_voucher; 
           for(var i=0;i<customer_voucher.length;i++){
               var voucher={id:'',tkName:'',name:''};
               voucher.id=customer_voucher[i].id;
@@ -205,7 +187,20 @@ export default {
       console.log(val);
     },
     handleClick(tab, event) {
-      console.log(tab, event);
+      let _this = this;
+      console.log('event'+event.currentTarget.id);
+      var eventId=event.currentTarget.id;
+      //tab-大众1137
+       for(var i=0;i<_this.clubs.length;i++){
+         var name=_this.clubs[i].experience_voucher.tkName;
+         var id=_this.clubs[i].id;
+         var eventIds='tab-'+name+id;
+         if(eventId==eventIds){
+           _this.customercar=_this.clubs[i];
+           return;
+         }
+       }
+      console.log('customercar:'+_this.customercar);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

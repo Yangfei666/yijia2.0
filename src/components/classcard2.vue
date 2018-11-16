@@ -6,7 +6,7 @@
                 <div class="infor-but" v-on:click="back">
                     <span class="goback el-icon-arrow-left">返回</span>
                 </div>
-                <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="团课记录" name="1">
                         <template>
                             <el-col :span="24">
@@ -23,7 +23,7 @@
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -96,7 +96,7 @@
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
                                                     <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
-                                                        <el-option v-for="item in headers" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
                                             </el-form-item>
@@ -168,7 +168,7 @@ export default {
       loading: true,
       tablelength: 0,
       tablelength2: 0,
-      headers: [],
+      header: [],
       formInline: {
         time: "",
         header: "",
@@ -223,19 +223,15 @@ export default {
       console.log(this.$route.params.HYID);
       requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
         .then(function(res) {          
-          var membership_card = res.membership_card;
-          console.log(
-              "CTID:" + membership_card[0].card_type.CTID+
-            "CTName:" + membership_card[0].card_type.CTName
-          );
+          var membership_card = [];
+          membership_card = res.membership_card;
           for (var i = 0; i < membership_card.length; i++) {
               var xialaobj = { key: "", name: "" };
-              xialaobj.key = membership_card[i].card_type.CTID;
+              xialaobj.key = membership_card[i].id;
               xialaobj.name = membership_card[i].card_type.CTName;
               console.log('xialaobj:'+xialaobj);
-              _this.headers.push(xialaobj);            
+              _this.header.push(xialaobj);            
           }
-          console.log('headers:'+_this.headers);
         })
         .catch(error => {
           if (error.res) {
