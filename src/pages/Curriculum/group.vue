@@ -36,10 +36,13 @@
       <div class="group-main">
         <div class="group-head">
           <div class="group-right">
-            <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期"
-                            end-placeholder="结束日期" value-format="yyyy-MM-dd"
-                            style="width:250px;margin-top:5px;margin-right:10px;"></el-date-picker>
-            <el-select v-model="value" placeholder="请选择" style="width:140px" @change="Changeselect">
+            <el-date-picker v-model="mondayDate" type="daterange" range-separator="至" :disabled="true"
+                            style="width:250px;margin-top:4px"
+                            :start-placeholder="Monday" :end-placeholder="Sunday"></el-date-picker>
+            <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false"
+                            type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1"
+                            style="margin-top:-1px"></el-date-picker>
+            <el-select v-model="value" placeholder="复制课表" style="width:140px" @change="Changeselect">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </div>
@@ -109,7 +112,6 @@
         },
         club: [],
         activeName: "monday",
-        value6: "",
         value: "",
         options: [
           {
@@ -123,16 +125,42 @@
         ],
         selectClubID: null,
         selectClubIndex: -1,
+        dateValue: "",// 时间值-哪一周
+        mondayDate: '',
       };
     },
     created() {
-      Promise.all([this.getGroup(), this.getUserInfo(), this.getClub(), this.rolegourp()])
+      let _this = this;
+      Promise.all([this.getUserInfo(), this.rolegourp(), this.getGroup()])
         .then(res => {
-          // console.log(res);
+          _this.getClub();
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    computed: {
+      whichDay() {//选择了哪一天
+        return this.week[this.activeName];
+      },
+      //周一
+      Monday() {
+        if (this.dateValue == '') {
+          this.mondayDate = this.GetDateStr(0, this.getFirstDayOfWeek(new Date()));
+          return this.mondayDate;
+        } else {
+          this.mondayDate = this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue));
+          return this.mondayDate;
+        }
+      },
+      //周末
+      Sunday() {
+        if (this.dateValue == '') {
+          return this.GetDateStr(0, this.getFirstDayOfWeek(new Date(), 2));
+        } else {
+          return this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue, 2));
+        }
+      }
     },
     methods: {
       //获取团课课程表数据
@@ -203,7 +231,7 @@
         let _this = this;
         let sortKinds = 'now';
         let params = {
-          monday: this.value6[0],
+          monday: this.mondayDate,
           sort: sortKinds,
           hsid: val,
         };
@@ -220,19 +248,19 @@
               type: "error"
             });
           })
-          .finally(()=>{
+          .finally(() => {
             _this.selectClubIndex = _this.club.findIndex(item => item.Hsxx_Hsid === _this.selectClubID);
             if (_this.selectClubIndex < 0) {
               _this.selectClubIndex = 0;
             }
-          })
+          });
       },
       handleClick(tab, event) {
       },
       Changeselect(val) {
         let params = {
           classify: val,
-          monday: this.value6[0],
+          monday: this.mondayDate,
         };
         group.copyTable(params)
           .then(() => {
@@ -247,7 +275,40 @@
               type: "error"
             });
           });
-      }
+      },
+      // 获取指日期的周一/日时间
+      getFirstDayOfWeek(date, num) {
+        num = num ? num : 1;
+        var day = date.getDay() || 7;
+        if (num == 1) {
+          return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate() + 1 - day
+          );
+        } else {
+          return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate() + 7 - day
+          );
+        }
+      },
+      // 获取指定天数后的时间
+      GetDateStr(num, day) {
+        var day = day || new Date();
+        let date = new Date(day);
+        date.setDate(date.getDate() + num);
+        let y = date.getFullYear();
+        let m = date.getMonth() + 1;
+        m = m < 10 ? "0" + m : m;
+        let d = date.getDate();
+        d = d < 10 ? "0" + d : d;
+        return y + "-" + m + "-" + d;
+      },
+      // 改变时间
+      changeWeek(val) {
+      },
     }
   };
 </script>
