@@ -1,15 +1,18 @@
 <template>
     <div>
-        <!--私教课程表-->
         <div class="practice-center">
             <el-row>
                 <el-col :span="24">
                     <div class="purple">
+                        <div style="height: 35px; line-height: 0px;margin-top: 12px; margin-left: 20px;">
+                          <el-button type="text">{{classroom}} {{startTime}} {{endTime}}</el-button>
+                        </div>
                         <div class="add">
-                            <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">预约私教</el-button>
+                            <el-button type="text" class="add-p el-icon-plus" @click="reservationPage()">预约私教</el-button>
                             <template>
                                 <el-dialog title="预约私教" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                    <Personal></Personal>
+                                    <Personal :startTime="startTime" :endTime="endTime" :classroom="classroom"
+                                      :whichDay="whichDay" :coachList="coachList" @success="success"></Personal>
                                 </el-dialog>
                             </template>
                         </div>
@@ -19,58 +22,26 @@
         </div>
         <div class="practice-table">
             <template>
-              <el-table :data="evening" border style="width: 100%">
+              <el-table :data="privateList" border style="width: 100%">
                 <el-table-column fixed label="教室" width="150">
                   <template slot-scope="scope">
                     <el-col class="wer-col">
-                        <h4><!-- {{scope.row.name}} -->教室1</h4>
+                        <h4>{{scope.row.name}}</h4>
                     </el-col>
-                    <!-- <span style="margin-left: 10px">{{ scope.row.name }}</span> -->
                   </template>
                 </el-table-column>
-                <el-table-column label="时间" width="2000px;">
+                <el-table-column label="时间" :width="timeDivLength" >
                   <template slot-scope="scope">
-                    <!-- <span style="margin-left: 10px">{{ scope.row.date }}</span> -->
-                    <!-- <el-col :span="1" class="wer-col2" v-for="(value,index) in scope.row.time" :key="index" > -->
-                      <div v-for="(value,index) in scope.row.time" :key="index" style="display:inline-block">
-                        <div class="wer-div" >
+                      <div v-for="(value,index) in scope.row.time" :key="index" style="width:80px;display:inline-block;">
+                        <div :class="classStyle(value.staff, value.time)" @click="clickTimeButtom(value.time, scope.row.name, $event)">
                           {{value.time.substring(0,5)}}
                         </div>
                         <span style="font-size:12px;">{{value.staff}}·{{value.name}}</span>
                       </div>
-
-                    <!-- </el-col> -->
                   </template>
                 </el-table-column>
               </el-table>
             </template>
-            <!-- <el-row>
-                <el-col :span="24">
-                    <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-                        <template>
-                            <div class="morning-main3">
-                                <el-col :span="24" v-for="item in evening" :key="item.id"  style="overflow:scroll;">
-                                    <div class="mor-wer">
-                                        <el-col :span="2" class="wer-col">
-                                            <h4>{{item.name}}</h4>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2" v-for="(value,index) in item.time" :key="index">
-                                            <div class="wer-div">{{value.time}}</div>
-                                            <span>{{value.staff}}·{{value.name}}</span>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div2">{{value.time}}</div>
-                                        </el-col>
-                                        <el-col :span="2" class="wer-col2">
-                                            <div class="wer-div3">{{value.time}}</div>
-                                        </el-col>
-                                    </div>
-                                </el-col>
-                            </div>
-                        </template>
-                    </el-tabs>
-                </el-col>
-            </el-row> -->
         </div>
     </div>
 </template>
@@ -78,127 +49,202 @@
 import Personal from "@/components/personal";
 export default {
   name: "culum",
+  inject: ["reload"],
   components: {
     Personal
   },
   props: {
     courseDaily: [Object, Array],
-    SystemSetup: Object
+    SystemSetup: Object,
+    whichDay:String,
+    coachList:Array
+  },
+  watch:{
+    whichDay (newValue, oldValue) {
+        this.startTime = '';
+        this.endTime = '';
+        this.classroom = '';
+        // let array = document.getElementsByClassName('wer-div');
+        // console.log(array);
+        //   for (let index = 0; index < array.length; index++) {
+        //     const element = array[index];
+        //   this.$nextTick(() => {
+        //       element.className = 'wer-div2';
+        //   })
+        //   }
+    },
   },
   data() {
     return {
       dialogFormVisible: false,
-      activeName2: "morning",
-      currentPage4: 4,
-      tableData : [
-        {
-          date : 111,
-          name :222,
-          province : 333
-        },
-        {
-          date : 111,
-          name :222,
-          province : 333
-        },
-        {
-          date : 111,
-          name :222,
-          province : 333
-        },
-        {
-          date : 111,
-          name :222,
-          province : 333
-        }
-      ],
-      evening: [
-        {
-          id: 1,
-          name: "教室1",
-          time: [
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:30:00", staff: "Luna", name: "夏佳111" }
-          ]
-        },
-        {
-          id: 2,
-          name: "教室2",
-          time: [
-            { time: "17:00:00", staff: "Luna", name: "夏佳111" },
-            { time: "17:30:00", staff: "Luna", name: "夏佳111" }
-          ]
-        }
-      ],
-      value6: "",
-      value1: "",
-      value: ""
+      startTime : '',
+      endTime : '',
+      classroom : ''
     };
   },
   computed: {
-    // 课程时间分类上下午
-    courseDailyClassify() {
-      var courseDailyClassify = {
-        morning: {},
-        afternoon: {},
-        evening: {}
-      };
+    privateList() {
+      return Object.values(this.courseDaily);
+    },
+    timeDivLength() {
       if (JSON.stringify(this.SystemSetup) !== "{}") {
-        let time1 = this.SystemSetup.openTime,
-          time2 = this.SystemSetup.closeTime;
-        // let starts = new Date("2018-01-01 " + time1), ends = new Date("2018-01-01 " + time2);
-        // let diffTime = Math.ceil((ends - starts) / (1800 * 1000));
-        let start =
-          time1.substring(0, 2) +
-          ":" +
-          (time1.substring(3, 5) < 30 ? "30" : "00");
-        let end =
-          time2.substring(0, 2) +
-          ":" +
-          (time2.substring(3, 5) < 30 ? "00" : "30");
-        let data = this.courseDaily;
-        for (let i = 0; i < 48 /* diffTime.length */; i++) {
-          for (let j = 0; j < 48; j++) {}
-        }
+        return this.privateList[0].time.length * 81+'px;';
       }
-    }
+      return '3000px;'
+    },
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    // 预约成功
+    success() {
+      this.dialogFormVisible = false;
+      this.reload();
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
+    // 预约界面
+    reservationPage () {
+      if (this.startTime != '' && this.endTime != '' && this.classroom != '') {
+        this.dialogFormVisible = true;
+      } else {
+        this.$message({
+          message: '请先选择上课教室和时间',
+          type: "error"
+        });
+      }
     },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    // 点击时间按钮
+    clickTimeButtom(time, classroom, event) {
+      if (event.currentTarget.getAttribute('class') == 'wer-div3') {
+        return false;
+      }
+      let classStyle = event.currentTarget.getAttribute('class');// 获取属性,判断是否被选中
+      if (this.classroom != '' && this.classroom != classroom) {//说明是选择的第二个时间,但是教室不同,不许这么干
+        this.$message({message: "请选择同一个教室的时间", type: "error"});
+        return false;
+      } else if (classStyle == 'wer-div2') { //说明是添加选择
+        if (this.startTime == '' && this.endTime == '') { //默认先给开始时间
+          this.startTime = time;
+          this.classroom = classroom;
+        } else if (this.endTime == '' && this.startTime != '' || this.endTime != '' && this.startTime == '' ) {//第二个时间按钮
+          let noNullTime = this.endTime == '' ? this.startTime : this.endTime;
+          if (this.CompareDate(time, noNullTime)) { // 比有值的时间大
+            let minTime = (time.substring(0,2) - 2) + time.substring(2);
+            let maxTime = (time.substring(0,2) - 1) + time.substring(2);
+            if (this.CompareDate(noNullTime, minTime) && this.CompareDate(maxTime, noNullTime)) { //1-2小时
+              if (this.endTime == '') {
+                this.endTime = time;
+              } else {
+                this.startTime = this.endTime;
+                this.endTime = time;
+              }
+              this.middleButtonStyle(null);
+            } else {
+              this.$message({message: "时间跨度在1-2小时之间", type: "error"});
+              return false;
+            }
+          } else {// 比有值的时间小
+            let minTime = (parseInt(time.substring(0,2)) + 1) + time.substring(2);
+            let maxTime = (parseInt(time.substring(0,2)) + 2) + time.substring(2);
+            if (this.CompareDate(noNullTime, minTime) && this.CompareDate(maxTime, noNullTime)) { //1-2小时
+              if (this.endTime == '') {
+                this.endTime = this.startTime;
+                this.startTime = time;
+              } else {
+                this.startTime = time;
+              }
+              this.middleButtonStyle(null);
+            } else {
+              this.$message({message: "时间跨度在1-2小时之间", type: "error"});
+              return false;
+            }
+          }
+        } else { // 第三个时间按钮
+          if (this.CompareDate(time, this.endTime)) {// 比结束时间大
+            let minTime = (time.substring(0,2) - 2) + time.substring(2);
+            let maxTime = (time.substring(0,2) - 1) + time.substring(2);
+            if (this.CompareDate(this.startTime, minTime) && this.CompareDate(maxTime, this.startTime)) { //默认增加时长
+              this.endTime = time;
+              this.middleButtonStyle(null);
+            } else {
+              this.$message({message: "最多延长到2小时", type: "error"});
+              return false;
+            }
+          } else if (this.CompareDate(this.startTime, time)) {// 比开始时间小
+            let minTime = (parseInt(time.substring(0,2)) + 1) + time.substring(2);
+            let maxTime = (parseInt(time.substring(0,2)) + 2) + time.substring(2);
+            if (this.CompareDate(this.endTime, minTime) && this.CompareDate(maxTime, this.endTime)) { //默认增加时长
+              this.startTime = time;
+              this.middleButtonStyle(null);
+            } else {
+              this.$message({message: "最多延长到2小时", type: "error"});
+              return false;
+            }
+          }
+        }
+      } else { //取消选择
+        if (this.startTime == time) { //取消的是开始时间
+          this.middleButtonStyle('');
+          this.startTime = '';
+        } else if (this.endTime == time) { //取消的是结束时间
+          this.middleButtonStyle('');
+          this.endTime = '';
+        } else { // 取消了中间的时间
+          this.$message({message: "请从两头的时间取消", type: "error"});
+            return false;
+        }
+      }
+      event.currentTarget.setAttribute('class', classStyle == 'wer-div2' ? 'wer-div' :'wer-div2');//样式改变放最后
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+    // 时间比大小
+    CompareDate(t1,t2,bool) {
+      bool = bool ? true : false;
+      var date = new Date();
+      var a = t1.split(":");
+      var b = t2.split(":");
+      if (bool) {
+        return date.setHours(a[0],a[1]) > date.setHours(b[0],b[1]);
+      } else {
+        return date.setHours(a[0],a[1]) >= date.setHours(b[0],b[1]);
+      }
+    },
+    // 选中的时间中间的时间按钮样式
+    middleButtonStyle (param, status, num) {
+      status = status ? false : true;
+      num = num ? num : 1;
+      for (let i = 0; i < this.privateList.length; i++) {
+        const element = this.privateList[i];
+        if (element.name == this.classroom) {
+          for (let index = 0; index < element.time.length; index++) {
+            const value = element.time[index];
+            if (num == 1) {
+              if (this.CompareDate(value.time, this.startTime, status) && this.CompareDate(this.endTime, value.time, status)) {
+                value.staff = param;
+              }
+            }
+          }
+          break;
+        }
+      }
+    },
+    // 时间按钮样式
+    classStyle(str, time) {
+      let date = new Date();
+      let y = date.getFullYear();
+      let m = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+      let d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+      let today =  y + "-" + m + "-" + d;
+      let h = date.getHours() > 9 ? date.getHours() : '0'+date.getHours();
+      let i = date.getMinutes() > 9 ? date.getMinutes() : '0'+date.getMinutes();
+      let now = h+':'+i;
+      if (this.whichDay < today) {
+        return 'wer-div3';
+      } else if(this.whichDay == today) {
+        if (time > now) {
+          return str === '' ? 'wer-div2' : (str === null ? 'wer-div' : 'wer-div3');
+        } else {
+          return 'wer-div3';
+        }
+      } else {
+          return str === '' ? 'wer-div2' : (str == null ? 'wer-div' : 'wer-div3');
+      }
     }
   }
 };
@@ -207,48 +253,54 @@ export default {
 @import "@/styles/privateculum.scss";
 @import "@/styles/culum.scss";
 
-            // 111
-            .wer-div {
-              width: 40px !important;
-              height: 25px !important;
-              background: #00bc71;
-              border-radius: 16px;
-              color: #fff;
-              font-size: 12px;
-              margin: 6px auto;
-              text-align: center;
-              line-height: 27px !important;
-              border: 1px solid #e8e8e8;
-            }
+  // 111
+  .wer-div {
+    width: 50px !important;
+    height: 30px !important;
+    background: #00bc71;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 12px;
+    margin: 6px auto;
+    text-align: center;
+    line-height: 27px !important;
+    border: 1px solid #e8e8e8;
+    cursor:pointer;
+  }
+  .wer-div2 {
+    width: 50px !important;
+    height: 30px !important;
+    background: #ffff;
+    border-radius: 16px;
+    color: #595959;
+    font-size: 12px;
+    margin: 6px auto;
+    text-align: center;
+    line-height: 27px !important;
+    border: 1px solid #e8e8e8;
+    cursor:pointer;
+  }
 
-            .wer-div2 {
-              width: 40px !important;
-              height: 25px !important;
-              background: #f5f5f5;
-              border-radius: 16px;
-              color: #8c8c8c;
-              font-size: 12px;
-              margin: 6px auto;
-              text-align: center;
-              line-height: 27px !important;
-              border: 1px solid #e8e8e8;
-            }
+  // .wer-div2:hover{
+  //   background: #00bc71;
+  //   color: #fff;
+  // }
 
-            .wer-div3 {
-              width: 40px !important;
-              height: 25px !important;
-              background: #f5f5f5;
-              border-radius: 16px;
-              color: #8c8c8c;
-              font-size: 12px;
-              margin: 6px auto;
-              text-align: center;
-              line-height: 27px !important;
-              border: 1px solid #e8e8e8;
-            }
+  .wer-div3 {
+    width: 50px !important;
+    height: 30px !important;
+    background: #f5f5f5;
+    border-radius: 16px;
+    color: #8c8c8c;
+    font-size: 12px;
+    margin: 6px auto;
+    text-align: center;
+    line-height: 27px !important;
+    cursor:default;
+  }
 
-            span {
-              color: #c7c7c7;
-              font-size: 10px;
-            }
+  span {
+    color: #c7c7c7;
+    font-size: 10px !important;
+  }
 </style>
