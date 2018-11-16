@@ -12,14 +12,14 @@
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart3" :style="{width: '100%', height: '410px'}"></div>
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart4" :style="{width: '100%', height: '410px'}"></div>
@@ -56,27 +56,41 @@
         type: String,
       }
     },
+    watch: {
+      chartData: {
+        deep: true,
+        handler(val, old) {
+          this.draw();
+        }
+      },
+    },
     data() {
       return {};
     },
     beforeMount() {
-      let _this = this;
-      setTimeout(() => {
-        let {
-          adviser: ach_adviser,
-          achievementData: ach_achievementData,
-          achievementData: {
-            staff: ach_staff,
-            timeAchievement: ach_timeAchievement,
-            staffTimeAchievement: ach_staffTimeAchievement,
-          }
-        } = _this.chartData;
-        _this.drawLine({ach_timeAchievement});
-        _this.drawPie({ach_adviser, ach_achievementData, ach_staff});
-        _this.drawBar({ach_adviser, ach_staffTimeAchievement});
-      }, 500);
+      this.draw();
     },
     methods: {
+      draw() {
+        let _this = this;
+        setTimeout(() => {
+          let {
+            adviser: ach_adviser,
+            achievementData: ach_achievementData,
+            achievementData: {
+              staff: ach_staff,
+              timeAchievement: ach_timeAchievement,
+              staffTimeAchievement: ach_staffTimeAchievement,
+            }
+          } = _this.chartData;
+          _this.drawPie({ach_adviser, ach_achievementData, ach_staff});
+          if (_this.dataDate.length <= 7) {
+            _this.drawLine({ach_timeAchievement});
+            _this.drawBar({ach_adviser, ach_staffTimeAchievement});
+          }
+        }, 500);
+
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -220,7 +234,7 @@
             }
           },
           legend: {
-            data: Object.keys(ach_timeAchievement),
+            data: this.detailLegend(ach_timeAchievement),
             top: '4%'
           },
           grid: {
@@ -261,11 +275,28 @@
           return temp;
         }
       },
+      detailLegend(legend) {
+        return Object.keys(legend).map(item => {
+          if (item === 'private') {
+            return '私教';
+          }
+          if (item === 'group') {
+            return '团课';
+          }
+          return item;
+        });
+      },
       detailLineData(object) {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
           temp.name = item;
+          if (item === 'private') {
+            temp.name = '私教';
+          }
+          if (item === 'group') {
+            temp.name = '团课';
+          }
           temp.data = object[item];
           temp.type = 'line';
           temp.stack = '总量';

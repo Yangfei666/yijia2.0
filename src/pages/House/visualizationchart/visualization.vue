@@ -19,21 +19,29 @@
             <div class="main-right">
               <div class="block">
                 <el-col :span="24">
-                  <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-                  <el-date-picker v-model="value4" type="month" placeholder="选择月"></el-date-picker>
-                  <el-date-picker v-model="value5" type="year" placeholder="选择年"></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM-dd" value="2018-01-1" v-model="value1"
+                                  type="date"
+                                  placeholder="选择日期"></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" type="month"
+                                  placeholder="选择月"></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" type="year"
+                                  placeholder="选择年"></el-date-picker>
                 </el-col>
               </div>
             </div>
             <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
               <el-tab-pane label="总业绩图表" name="first" :lazy="true">
-                <Totalchart></Totalchart>
+                <Totalchart v-if="Object.keys(chartTypeData.achievementData).length !== 0"
+                            :chart-data.sync="chartTypeData.achievementData" :data-date.sync="selectDate"></Totalchart>
               </el-tab-pane>
               <el-tab-pane label="体验图表" name="second" :lazy="true">
-                <Experiencechart></Experiencechart>
+                <Experiencechart v-if="Object.keys(chartTypeData.experienceData).length !== 0"
+                                 :chart-data.sync="chartTypeData.experienceData"
+                                 :data-date.sync="selectDate"></Experiencechart>
               </el-tab-pane>
               <el-tab-pane label="潜在图表" name="third" :lazy="true">
-                <Latentchart></Latentchart>
+                <Latentchart v-if="Object.keys(chartTypeData.prospectData).length !== 0"
+                             :chart-data.sync="chartTypeData.prospectData" :data-date.sync="selectDate"></Latentchart>
               </el-tab-pane>
             </el-tabs>
           </el-col>
@@ -63,37 +71,9 @@
     data() {
       return {
         activeName: 'first',
-        radio4: '今天',
-        value2: '',
-        pickerOptions1: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: "今天",
-              onClick(picker) {
-                picker.$emit("pick", new Date());
-              }
-            },
-            {
-              text: "昨天",
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24);
-                picker.$emit("pick", date);
-              }
-            },
-            {
-              text: "一周前",
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit("pick", date);
-              }
-            }
-          ]
-        },
+        value1: "",
+        value4: "",
+        value5: "",
         chartTypeData: {
           achievementData: {},
           experienceData: {},
@@ -108,18 +88,32 @@
       _this.getChartDate();
     },
     methods: {
-      getChartDate() {
+      async getChartDate() {
         let _this = this;
         let date = this.selectDate;
         let params = {
           date,
         };
-        clubDate.getChart(date, params)
+        await clubDate.getChart(date, params)
           .then(res => {
-            _this.chartTypeData.achievementData = res.achievement;
-            _this.chartTypeData.experienceData = res.experience;
-            _this.chartTypeData.prospectData = res.prospect;
-          })
+            _this.chartTypeData.achievementData = Object.assign({}, res.achievement);
+            _this.chartTypeData.experienceData = Object.assign({}, res.experience);
+            _this.chartTypeData.prospectData = Object.assign({}, res.prospect);
+          });
+      },
+      getSelectDate(val) {
+        if (val.length > 7) {
+          this.value4 = '';
+          this.value5 = '';
+        } else if (val.length > 5) {
+          this.value5 = '';
+          this.value1 = '';
+        } else {
+          this.value1 = '';
+          this.value4 = '';
+        }
+        this.selectDate = val;
+        this.getChartDate();
       },
       handleClick(tab) {
       },
