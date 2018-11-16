@@ -55,7 +55,7 @@
                     <el-tab-pane label="团课" name="tuanke">
                         <template>
                             <el-col :span="24">
-                                <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="publicList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                                     <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
                                     <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
                                     <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
@@ -65,7 +65,7 @@
                                     <el-table-column prop="kcStime" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
-                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="publicList.length">
                                     </el-pagination>
                                 </div>
                             </el-col>
@@ -74,7 +74,7 @@
                     <el-tab-pane label="私教" name="sijiao">
                         <template>
                             <el-col :span="24">
-                                <el-table v-loading="loading" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                                     <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
                                     <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
                                     <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
@@ -106,7 +106,7 @@ export default {
       },
       activeName: "tuanke",
       value1: "",
-      value4: "",
+      value4: "2018-06",
       value5: "",
       loading: false,
       adviser: [],
@@ -124,22 +124,24 @@ export default {
     //教练上课记录
     getstaffdate() {
       let _this = this;
-      requestLogin("/chart/getCoachData/2018-07", {}, "get")
+      requestLogin("/chart/getCoachData/"+_this.value4, {}, "get")
         .then(function(res) {
-          _this.adviser = res.adviser;
-          for (var i = 0; i < res.data.length; i++) {
-            if (res.data[i].groupList.length > 0) {
-              for (var j = 0; j < res.data[i].groupList.length; j++) {
-                _this.publicList.push(res.data[i].groupList[j]);
-              }
-            }
-            if (res.data[i].privateList.length > 0) {
-              for (var z = 0; z < res.data[i].groupList.length; z++) {
-                _this.privateList.push(res.data[i].privateList[z]);
-              }
-            }
-          }
-          console.log(res.data);
+          let Coachclass = Object.values(res.data);
+          let Coach = Object.keys(res.data);
+          _this.adviser = Object.keys(res.data);
+          // for (var i = 0; i < res.data.length; i++) {
+          //   if (res.data[i].groupList.length > 0) {
+          //     for (var j = 0; j < res.data[i].groupList.length; j++) {
+          //       _this.publicList.push(res.data[i].groupList[j]);
+          //     }
+          //   }
+          //   if (res.data[i].privateList.length > 0) {
+          //     for (var z = 0; z < res.data[i].groupList.length; z++) {
+          //       _this.privateList.push(res.data[i].privateList[z]);
+          //     }
+          //   }
+          // }
+          console.log(Coachclass, Coach);
         })
         .catch(error => {
           if (error.res) {
@@ -152,9 +154,6 @@ export default {
     },
     Selectchange3(val) {
       console.log(val);
-    },
-    handleCurrentChange2(val, index) {
-      this.currentRow = val;
     },
     rowClick(row, event, column) {
       this.currentSelectRow = row;
