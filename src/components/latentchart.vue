@@ -11,31 +11,31 @@
           <el-col class="total-main">
             <el-col :span="12" class="total-right">
               <div class="box1"></div>
-              <span class="chart-span">转体验</span>
+              <span class="chart-span">A类客户</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{(parseInt(chartData.prospectData.A,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
+              <span class="total-num">￥{{chartData.prospectData.A}}</span>
             </el-col>
             <el-col :span="12" class="total-right">
               <div class="box2"></div>
-              <span class="chart-span">转定金</span>
+              <span class="chart-span">B类客户</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{(parseInt(chartData.prospectData.B,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
+              <span class="total-num">￥{{chartData.prospectData.B}}</span>
             </el-col>
             <el-col :span="12" class="total-right">
               <div class="box3"></div>
-              <span class="chart-span">转会员</span>
+              <span class="chart-span">C类客户</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{(parseInt(chartData.prospectData.C,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
+              <span class="total-num">￥{{chartData.prospectData.C}}</span>
             </el-col>
             <el-col :span="12" class="total-right">
               <div class="box4"></div>
-              <span class="chart-span">未转化</span>
+              <span class="chart-span">D类客户</span>
               <div class="bord"></div>
-              <span class="total-bai">80.00%</span>
-              <span class="total-num">￥12,624</span>
+              <span class="total-bai">{{(parseInt(chartData.prospectData.D,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
+              <span class="total-num">￥{{chartData.prospectData.D}}</span>
             </el-col>
           </el-col>
         </el-col>
@@ -116,7 +116,7 @@
       };
     },
     beforeMount() {
-      this.draw()
+      this.draw();
     },
     methods: {
       draw() {
@@ -182,21 +182,22 @@
               },
               data: [
                 {
-                  value: 30,
-                  name: '转体验'
+                  value: pro_prospectData.A,
+                  name: 'A类客户'
                 },
                 {
-                  value: 50,
-                  name: '转定金'
+                  value: pro_prospectData.B,
+                  name: 'B类客户'
                 },
                 {
-                  value: 70,
-                  name: '转会员'
+                  value: pro_prospectData.C,
+                  name: 'C类客户'
                 },
                 {
-                  value: 46,
-                  name: '未转化'
-                }]
+                  value: pro_prospectData.D,
+                  name: 'D类客户'
+                },
+              ]
             }
           ]
         };
@@ -300,30 +301,43 @@
       detailLegend(legend) {
         return Object.keys(legend).map(item => {
           if (item === 'private') {
-            return '私教';
+            return 'A类客户';
           }
           if (item === 'group') {
-            return '团课';
+            return 'B类客户';
           }
-          return item;
+          if (item === 'suc') {
+            return 'C类客户';
+          }
+          if (item === 'sum') {
+            return 'D类客户';
+          }
+          // return item;
         });
       },
       detailLineData(object) {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
           if (item === 'private') {
-            temp.name = '私教';
+            temp.name = 'A类客户';
           }
           if (item === 'group') {
-            temp.name = '团课';
+            temp.name = 'B类客户';
+          }
+          if (item === 'suc') {
+            temp.name = 'C类客户';
+          }
+          if (item === 'sum') {
+            temp.name = 'D类客户';
           }
           temp.data = object[item];
           temp.type = 'line';
           temp.stack = '总量';
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       drawBar({pro_adviser, pro_staffTimeAchievement}) { //柱状图
         let myChart444 = echarts.init(document.getElementById('myChart444'));
@@ -371,7 +385,7 @@
     },
     filters: {
       isNaNNumber(value) {
-        return Number.isNaN(value) ? 0 : value.toFixed(2);
+        return Number.isNaN(value) ? 0 : (value * 100).toFixed(2);
       }
     }
   };

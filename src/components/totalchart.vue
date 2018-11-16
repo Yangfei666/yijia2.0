@@ -290,7 +290,7 @@
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
           if (item === 'private') {
             temp.name = '私教';
           }
@@ -301,7 +301,8 @@
           temp.type = 'line';
           temp.stack = '总量';
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       drawBar({ach_adviser, ach_staffTimeAchievement}) { //柱状图
         let myChart4 = echarts.init(document.getElementById('myChart4'));

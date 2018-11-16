@@ -270,7 +270,7 @@
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
           if (item === 'private') {
             temp.name = '私教';
           }
@@ -281,7 +281,8 @@
           temp.type = type;
           temp.barGap = 0;
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       detailLegend(legend) {
         return Object.keys(legend).map(item => {
@@ -291,14 +292,14 @@
           if (item === 'group') {
             return '团课';
           }
-          return item;
+          // return item;
         });
       },
       detailLineData(object, type = 'line') {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
           if (item === 'private') {
             temp.name = '私教';
           }
@@ -309,7 +310,8 @@
           temp.type = type;
           temp.stack = '总量';
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       getSelectDate(val) {
         if (val.length > 5) {

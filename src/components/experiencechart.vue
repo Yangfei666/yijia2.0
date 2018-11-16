@@ -295,14 +295,14 @@
           if (item === 'group') {
             return '团课';
           }
-          return item;
+          // return item;
         });
       },
       detailLineData(object) {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
           if (item === 'private') {
             temp.name = '私教';
           }
@@ -313,7 +313,8 @@
           temp.type = 'line';
           temp.stack = '总量';
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       drawBar({exp_adviser, exp_staffTimeAchievement}) { //柱状图
         let myChart44 = echarts.init(document.getElementById('myChart44'));
@@ -361,7 +362,7 @@
     },
     filters: {
       isNaNNumber(value) {
-        return Number.isNaN(value) ? 0 : value.toFixed(2);
+        return Number.isNaN(value) ? 0 : (value * 100).toFixed(2);
       }
     }
   };
