@@ -23,7 +23,8 @@
                   <el-col :span="20" style="height:50px">
                     <el-form-item label="员工姓名:">
                       <el-col :span="24">
-                        <el-select v-if="staffList.length > 0" @change="selectStaff" v-model="form.region" :placeholder="staffList[0].name"
+                        <el-select v-if="staffList.length > 0" @change="selectStaff" v-model="form.region"
+                                   :placeholder="staffList[0].name"
                                    style="width:200px">
                           <el-option v-for="staff in staffList" :key="staff.id" :label="staff.name"
                                      :value="staff.id"></el-option>
@@ -41,17 +42,14 @@
                 </el-form>
               </div>
               <div class="block2">
-                <el-col :span="24" class="dsd">
-                  <el-radio-group v-model="radio4" size="medium" style="height:32px">
-                    <el-radio-button label="今天"></el-radio-button>
-                    <el-radio-button label="本月"></el-radio-button>
-                    <el-radio-button label="本年"></el-radio-button>
-                  </el-radio-group>
-                </el-col>
-                <el-col :span="15" class="block1">
-                  <el-date-picker v-model="value2" align="right" type="date" placeholder="选择日期"
-                                  :picker-options="pickerOptions1" style="width:130px"></el-date-picker>
-                </el-col>
+                <div class="block">
+                  <el-col :span="24">
+                    <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" type="month"
+                                    placeholder="选择月"></el-date-picker>
+                    <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" type="year"
+                                    placeholder="选择年"></el-date-picker>
+                  </el-col>
+                </div>
               </div>
             </div>
           </el-col>
@@ -106,6 +104,8 @@
         },
         radio4: '今天',
         value2: '',
+        value4: "",
+        value5: "",
         staffChartData: {
           adviser: [],
           achievement: {},
@@ -114,36 +114,8 @@
           prospect: {},
         },
         staffList: [],
-        selectData: '2018-8',
-        pickerOptions1: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: "今天",
-              onClick(picker) {
-                picker.$emit("pick", new Date());
-              }
-            },
-            {
-              text: "昨天",
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24);
-                picker.$emit("pick", date);
-              }
-            },
-            {
-              text: "一周前",
-              onClick(picker) {
-                const date = new Date();
-                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                picker.$emit("pick", date);
-              }
-            }
-          ]
-        },
+        selectDate: '2018-8',
+        selectStaffID: 0,
       };
     },
     beforeMount() {
@@ -151,15 +123,16 @@
     },
     methods: {
       selectStaff(id) {
-        this.getStaffChart(id);
+        this.selectStaffID = id;
+        this.getStaffChart(id, this.selectDate);
       },
-      getStaffChart(id) {
+      getStaffChart(id, date) {
         let _this = this;
         let params = {
-          date: this.selectData,
+          date,
           id,
         };
-        staff.getChart(this.selectData, id, params)
+        staff.getChart(date, id, params)
           .then(res => {
             Object.assign(_this.staffChartData, res);
           })
@@ -181,7 +154,8 @@
               return temp;
             });
           }).then(() => {
-          _this.getStaffChart(_this.staffList[0].id);
+          _this.selectStaffID = _this.staffList[0].id;
+          _this.getStaffChart(_this.staffList[0].id, _this.selectDate);
         });
       },
       handleClick(tab, event) {
@@ -209,7 +183,7 @@
             }
           },
           legend: {
-            data: Object.keys(achievement),
+            data: this.detailLegend(achievement),
             top: '5%'
           },
           grid: {
@@ -250,7 +224,7 @@
             trigger: 'axis'
           },
           legend: {
-            data: Object.keys(increased),
+            data: this.detailLegend(increased),
             top: '5%'
           },
           grid: {
@@ -278,7 +252,7 @@
         staffchart2.setOption(option2);
       },
       detailXAxis() {
-        let [year, month, day] = this.selectData.split('-');
+        let [year, month, day] = this.selectDate.split('-');
         if (!month) {
           return '1,2,3,4,5,6,7,8,9,10,11,12'.split(',').map(item => {
             return `${year}-${item}`;
@@ -297,10 +271,27 @@
         return keys.map(item => {
           let temp = {};
           temp.name = item;
+          if (item === 'private') {
+            temp.name = '私教';
+          }
+          if (item === 'group') {
+            temp.name = '团课';
+          }
           temp.data = object[item];
           temp.type = type;
           temp.barGap = 0;
           return temp;
+        });
+      },
+      detailLegend(legend) {
+        return Object.keys(legend).map(item => {
+          if (item === 'private') {
+            return '私教';
+          }
+          if (item === 'group') {
+            return '团课';
+          }
+          return item;
         });
       },
       detailLineData(object, type = 'line') {
@@ -308,11 +299,26 @@
         return keys.map(item => {
           let temp = {};
           temp.name = item;
+          if (item === 'private') {
+            temp.name = '私教';
+          }
+          if (item === 'group') {
+            temp.name = '团课';
+          }
           temp.data = object[item];
           temp.type = type;
           temp.stack = '总量';
           return temp;
         });
+      },
+      getSelectDate(val) {
+        if (val.length > 5) {
+          this.value5 = '';
+        } else {
+          this.value4 = '';
+        }
+        this.selectDate = val;
+        this.getStaffChart(this.selectStaffID, val);
       },
     }
   };
