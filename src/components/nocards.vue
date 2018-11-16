@@ -16,12 +16,12 @@
     <div class="health-from"> 
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="115px" class="demo-ruleForm">
             <el-col :span="17" class="from-date">
-            <el-form-item label="不办卡原因：" prop="desc">
                 <el-col :span="24">
+            <el-form-item label="不办卡原因：" prop="desc">
                 <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
                 <span class="textarea">还可以输入{{remnant}}字</span>
-                </el-col>
             </el-form-item>
+                </el-col>
             </el-col>
             <el-col :span="20" class="from-date">
             <el-form-item>

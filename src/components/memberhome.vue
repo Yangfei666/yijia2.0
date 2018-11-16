@@ -40,8 +40,8 @@
               <el-form-item label="是否立即启用:" prop="start" :label-width="formLabelWidth">
                 <el-col :span="22">
                   <el-radio-group v-model="ruleForm.start" @change="Selectchange3">
-                  <el-radio :label="true">启用</el-radio>
-                  <el-radio :label="false">禁用</el-radio>
+                    <el-radio :label="true">启用</el-radio>
+                    <el-radio :label="false">禁用</el-radio>
                   </el-radio-group>
                 </el-col>
               </el-form-item>
@@ -57,8 +57,8 @@
               <el-form-item label="到期时间:" prop="become" :label-width="formLabelWidth">
                 <el-col :span="22">
                   <el-radio-group v-model="ruleForm.become" @change="Selectchange5">
-                  <el-radio :label="1">自定义</el-radio>
-                  <el-radio :label="2">默认有效期</el-radio>
+                    <el-radio :label="1" v-if="ruleForm.activate != 3">自定义</el-radio>
+                    <el-radio :label="2">默认有效期</el-radio>
                   </el-radio-group>
                 </el-col>
               </el-form-item>
@@ -77,9 +77,9 @@
           </el-dialog>
         </template>
       </div>
-     <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
-        <el-tab-pane v-for="item in header" :label="item.CTName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
-          <Cardone :membershipcards="membershipcard" :lazy="true"></Cardone>
+      <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
+        <el-tab-pane v-for="(item,idx) in header" :label="item.CTName" :name="String(item.id)" :key="item.id" :data-idx='idx' style="font-size:16px" :lazy="false">
+          <Cardone :ref="'chart'+item.id" :membershipcards="membershipcard" :chartId="'chart'+item.id"></Cardone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -94,7 +94,7 @@ export default {
   name: "memberhome",
   inject: ["reload"],
   components: {
-    Cardone,
+    Cardone
   },
   data() {
     return {
@@ -102,9 +102,9 @@ export default {
       TabsValue: "",
       dialogFormVisible: false,
       selfCard: [],
-      club:[],
+      club: [],
       header: [],
-      membershipcard:{},
+      membershipcard: {},
       ruleForm: {
         userid: "", //编号
         cardname: "", //卡名称
@@ -116,20 +116,20 @@ export default {
         attenddate: "" //自定义到期时间
       },
       rules: {
-        money:validate.price,
-        cardname:validate.cardname,
-        payment:validate.mode,
-        start:validate.start,
-        activate:validate.sensitize,
-        become:validate.become,
+        money: validate.price,
+        cardname: validate.cardname,
+        payment: validate.mode,
+        start: validate.start,
+        activate: validate.sensitize,
+        become: validate.become
       }
     };
   },
   created() {
     this.getexperhome();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.getCard();
-    },1000)
+    }, 1000);
   },
   methods: {
     //获取个人中心详情
@@ -140,15 +140,15 @@ export default {
         .then(function(res) {
           _this.clubs = res.membership_card;
           _this.membershipcard = _this.clubs[0];
-          var membership_card=res.membership_card;
-          for(var i=0;i<membership_card.length;i++){
-            var voucher={id:'',CTName:'',name:''};
-            voucher.id=membership_card[i].id;
-            voucher.CTName=membership_card[i].card_type.CTName;
-            voucher.name=voucher.CTName+voucher.id;
+          var membership_card = res.membership_card;
+          for (var i = 0; i < membership_card.length; i++) {
+            var voucher = { id: "", CTName: "", name: "" };
+            voucher.id = membership_card[i].id;
+            voucher.CTName = membership_card[i].card_type.CTName;
+            voucher.name = voucher.CTName + voucher.id;
             _this.header.push(voucher);
           }
-          _this.TabsValue=_this.header[0].name;
+          _this.TabsValue = String(_this.header[0].id);
         })
         .catch(error => {
           if (error.res) {
@@ -165,12 +165,12 @@ export default {
       let relationCards = [];
       requestLogin("/setMemberCustomers/selectCards", {}, "get")
         .then(function(res) {
-         let {selfCard,relationCard} = res;
-         _this.selfCard = selfCard;
-         relationCards = relationCard;
-         for(var i=0; i<relationCard.length;i++){
-           _this.selfCard.push(relationCard[i]);
-         }
+          let { selfCard, relationCard } = res;
+          _this.selfCard = selfCard;
+          relationCards = relationCard;
+          for (var i = 0; i < relationCard.length; i++) {
+            _this.selfCard.push(relationCard[i]);
+          }
           console.log(res);
         })
         .catch(error => {
@@ -183,19 +183,17 @@ export default {
         });
     },
     handleClick(tab, event) {
-      let _this=this;
-      console.log('event'+event.currentTarget.id);
+      let _this = this;
       var eventId = event.currentTarget.id;
-      for(var i=0;i<_this.clubs.length;i++){
+      for (var i = 0; i < _this.clubs.length; i++) {
         var name = _this.clubs[i].card_type.CTName;
-        var id=_this.clubs[i].id;
-         var eventIds='tab-'+name+id;
-         if(eventId == eventIds){
-            _this.membershipcard=_this.clubs[i];
-           return;
-         }
+        var id = _this.clubs[i].id;
+        var eventIds = "tab-" + id;
+        if (eventId == eventIds) {
+          _this.membershipcard = _this.clubs[i];
+          return;
+        }
       }
-      console.log('membershipcard:'+_this.membershipcard);
     },
     //添加新卡
     submitForm(formName) {
@@ -204,13 +202,13 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              id:_this.$route.params.HYID,//会员id
+              id: _this.$route.params.HYID, //会员id
               CTID: _this.ruleForm.cardname, //会员卡id
               mode: _this.ruleForm.payment, //付款方式
               money: _this.ruleForm.money, //价格
               eTime: _this.ruleForm.attenddate, //自定义到期时间
               bool: _this.ruleForm.start, //是否立即启用
-              delay: _this.ruleForm.activate, //激活时间选择
+              delay: _this.ruleForm.activate //激活时间选择
             };
             requestLogin("/setMemberCustomers/saveCard", loginParams, "post")
               .then(data => {
@@ -253,7 +251,7 @@ export default {
     Selectchange4(val) {
       console.log(val);
     },
-    Selectchange5(val){
+    Selectchange5(val) {
       console.log(val);
     }
   }

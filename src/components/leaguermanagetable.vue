@@ -427,8 +427,8 @@ export default {
      this.$router.push({
         path:"/Customer/leaguer/leaguermanage/claim",
         query: {
-          name: this.currentSelectRow.MotoTel,
-          tel: this.currentSelectRow.HYName,
+          name: this.currentSelectRow.HYName,
+          tel: this.currentSelectRow.MotoTel,
           customercategory:this.Customercategory
         }
       });

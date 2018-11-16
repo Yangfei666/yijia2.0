@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 3000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 /* 请求拦截器 */

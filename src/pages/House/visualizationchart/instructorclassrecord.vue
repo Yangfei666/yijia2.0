@@ -23,16 +23,9 @@
                                     <el-col :span="20" style="height:50px">
                                         <el-form-item label="教练姓名:">
                                             <el-col :span="24">
-                                                <el-select v-model="form.train" placeholder="请选择" style="width:100%" @change="Selectchange3">
-                                                    <el-option v-for="item in adviser" :key="item" :label="item" :value="item"></el-option>
+                                                <el-select v-if="Coach.length > 0" v-model="form.train" :placeholder="Coach[5]" style="width:230px" @change="Selectchange3">
+                                                    <el-option v-for="item in Coach" :key="item" :label="item" :value="item"></el-option>
                                                 </el-select>
-                                            </el-col>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="4" style="height:50px">
-                                        <el-form-item label-width="3px">
-                                            <el-col :span="24">
-                                                <el-button type="primary" @click="onSubmit">查询</el-button>
                                             </el-col>
                                         </el-form-item>
                                     </el-col>
@@ -40,8 +33,8 @@
                             </div>
                             <div class="block2">
                                 <el-col :span="24">
-                                    <el-date-picker v-model="value4" type="month" placeholder="选择月" style="width:150px"></el-date-picker>
-                                    <el-date-picker v-model="value5" type="year" placeholder="选择年" style="width:150px"></el-date-picker>
+                                    <el-date-picker v-model="value4" type="month" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px"></el-date-picker>
+                                    <el-date-picker v-model="value5" type="year" value-format="yyyy" @change="change1" placeholder="选择年" style="width:150px"></el-date-picker>
                                 </el-col>
                             </div>
                         </div>
@@ -54,18 +47,19 @@
                 <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                     <el-tab-pane label="团课" name="tuanke">
                         <template>
-                            <el-col :span="24">
-                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="publicList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
-                                    <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
-                                    <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
-                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="180px"></el-table-column>
-                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="180px"></el-table-column>
-                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="180px"></el-table-column>
-                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
+                            <el-col :span="24" v-if="coachData.groupList.length > 0" >
+                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.groupList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                                    <el-table-column width="20px" fixed></el-table-column>
+                                    <el-table-column prop="kcName" align="left" label="课程名称" width="240px" fixed></el-table-column>
+                                    <el-table-column prop="Stime" align="left" label="开始时间" width="240px"></el-table-column>
+                                    <el-table-column prop="Etime" align="left" label="结束时间" width="240px"></el-table-column>
+                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="240px" :formatter="formatkcIs"></el-table-column>
+                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="240px"></el-table-column>
+                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="240px"></el-table-column>
+                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="240px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
-                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="publicList.length">
+                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="coachData.groupList.length">
                                     </el-pagination>
                                 </div>
                             </el-col>
@@ -73,18 +67,18 @@
                     </el-tab-pane>
                     <el-tab-pane label="私教" name="sijiao">
                         <template>
-                            <el-col :span="24">
-                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                                    <el-table-column prop="kcName" align="left" label="课程名称" width="180px" fixed></el-table-column>
-                                    <el-table-column prop="Stime" align="left" label="开始时间" width="190px"></el-table-column>
-                                    <el-table-column prop="Etime" align="left" label="结束时间" width="190px"></el-table-column>
-                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="180px"></el-table-column>
-                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="180px"></el-table-column>
-                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="180px"></el-table-column>
-                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="190px" fixed="right"></el-table-column>
+                            <el-col :span="24" v-if="coachData.privateList.length > 0">
+                                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.privateList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                                    <el-table-column width="20px" fixed></el-table-column>
+                                    <el-table-column prop="Stime" align="left" label="开始时间" width="260px" fixed></el-table-column>
+                                    <el-table-column prop="Etime" align="left" label="结束时间" width="260px"></el-table-column>
+                                    <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="260px" :formatter="formatkcIs"></el-table-column>
+                                    <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="260px"></el-table-column>
+                                    <el-table-column prop="kcPerson" align="left" label="上课人数" width="260px"></el-table-column>
+                                    <el-table-column prop="kcStime" align="left" label="开课日期" width="260px" fixed="right"></el-table-column>
                                 </el-table>
                                 <div class="block">
-                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="coachData.privateList.length">
                                     </el-pagination>
                                 </div>
                             </el-col>
@@ -107,40 +101,43 @@ export default {
       activeName: "tuanke",
       value1: "",
       value4: "2018-06",
-      value5: "",
+      value5: "2018",
       loading: false,
-      adviser: [],
-      tableData: [{name:'2018-02-25'}],
+      Coach: [],
+      tableData: [],
       currentPage: 1,
       pagesize: 10,
-      publicList: [],
-      privateList: []
+      Coachclass: [], //全部数据
+      coachData: [] //当前选中的教练数据
     };
   },
   mounted() {
     this.getstaffdate();
   },
   methods: {
+    //课程分类
+    formatkcIs(row, column, cellValue) {
+      if (cellValue === 1) {
+        return "私教";
+      } else if (cellValue === 0) {
+        return "团课";
+      }
+    },
+    // 根据数组下标获取单个教练的课程数据
+    getCoachData(num) {
+      this.coachData = this.Coachclass[num];
+    },
     //教练上课记录
     getstaffdate() {
       let _this = this;
-      requestLogin("/chart/getCoachData/"+_this.value4, {}, "get")
+      requestLogin("/chart/getCoachData/" + _this.value4, {}, "get")
         .then(function(res) {
           let Coachclass = Object.values(res.data);
           let Coach = Object.keys(res.data);
-          _this.adviser = Object.keys(res.data);
-          // for (var i = 0; i < res.data.length; i++) {
-          //   if (res.data[i].groupList.length > 0) {
-          //     for (var j = 0; j < res.data[i].groupList.length; j++) {
-          //       _this.publicList.push(res.data[i].groupList[j]);
-          //     }
-          //   }
-          //   if (res.data[i].privateList.length > 0) {
-          //     for (var z = 0; z < res.data[i].groupList.length; z++) {
-          //       _this.privateList.push(res.data[i].privateList[z]);
-          //     }
-          //   }
-          // }
+          _this.Coach = Object.keys(res.data);
+          _this.Coachclass = Object.values(res.data);
+          // 默认第一个教练的上课记录
+          _this.getCoachData(5);
           console.log(Coachclass, Coach);
         })
         .catch(error => {
@@ -151,6 +148,9 @@ export default {
             });
           }
         });
+    },
+    change1(val){
+        console.log(val);
     },
     Selectchange3(val) {
       console.log(val);
@@ -219,7 +219,7 @@ export default {
         line-height: 37px;
         display: flex;
         justify-content: flex-end;
-        padding-left: 22%;
+        padding-left: 29%;
         .dsd {
           line-height: 34px;
           text-align: right;

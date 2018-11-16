@@ -25,18 +25,18 @@
                 <div class="health-from">
                   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-col :span="20" class="from-date">
-                      <el-form-item label="新的卡号：" prop="card">
                         <el-col :span="24">
-                          <el-input v-model="ruleForm.card" placeholder="请输入"></el-input>
-                        </el-col>
+                      <el-form-item label="新的卡号：" prop="card">
+                          <el-input v-model="ruleForm.card" placeholder="请输入" style="width:100%"></el-input>
                       </el-form-item>
+                        </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
-                      <el-form-item label="确认卡号：" prop="confirmcard">
                         <el-col :span="24">
-                          <el-input v-model="ruleForm.confirmcard" placeholder="请输入"></el-input>
-                        </el-col>
+                      <el-form-item label="确认卡号：" prop="confirmcard">
+                          <el-input v-model="ruleForm.confirmcard" placeholder="请输入" style="width:100%"></el-input>
                       </el-form-item>
+                        </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
                       <el-form-item>

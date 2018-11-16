@@ -23,12 +23,12 @@
                             </el-form-item>
                             </el-col>
                             <el-col :span="16" class="from-date">
-                            <el-form-item label="变更原因:" prop="desc">
                                 <el-col :span="24">
+                            <el-form-item label="变更原因:" prop="desc">
                                 <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
                                 <span class="textarea">还可以输入{{remnant}}字</span>
-                                </el-col>
                             </el-form-item>
+                                </el-col>
                             </el-col>
                             <el-col :span="16" class="submit">
                             <el-form-item>

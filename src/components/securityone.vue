@@ -31,7 +31,7 @@
       <div class="box4"></div>
       <el-col :span="13" class="one-right">
         <el-col :span="12">
-          <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
+          <div :id="chartId" :style="{width: '300px', height: '300px'}"></div>
         </el-col>
         <el-col :span="12" class="chart-bottom">
           <el-col :span="12" class="chart-left">
@@ -71,16 +71,17 @@
 </template>
 <script>
 let echarts = require("echarts/lib/echarts");
-// 引入柱状图组件
 require("echarts/lib/chart/pie");
 require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 import { requestLogin } from "@/api/api";
 export default {
   name: "securityone",
-  props: ["customercars"],
+  props: ["customercars","chartId"],
   data() {
-    return {};
+    return {
+      myChart:''
+    };
   },
   watch: {
     customercars(val) {
@@ -95,7 +96,7 @@ export default {
   methods: {
     drawBar() {
       //初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart"));
+      this.myChart = echarts.init(document.getElementById(this.chartId));
       let option = {
         tooltip: {
           trigger: "item",
@@ -153,7 +154,7 @@ export default {
           }
         ]
       };
-      myChart.setOption(option);
+     this.myChart.setOption(option);
     }
   }
 };

@@ -36,7 +36,7 @@
       <div class="box4"></div>
       <el-col :span="13" class="one-right">
         <el-col :span="12">
-          <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
+          <div :id="chartId" style="width:300px; height:300px"></div>
         </el-col>
         <el-col :span="12" class="chart-bottom">
           <el-col :span="12" class="chart-left">
@@ -129,19 +129,20 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
   name: "cardone",
-  props: ["membershipcards"],
+  props: ["membershipcards", "chartId"],
   data() {
     return {
-      tbdata: []
+      tbdata: [],
+      myChart: ""
     };
   },
   watch: {
     membershipcards(val) {}
   },
   mounted() {
-    setTimeout(() => {
+    setTimeout(()=>{
       this.drawBar();
-    }, 500);
+    },500)
     if (this.membershipcards.card_type.ctType == "次数卡") {
       this.tbdata = [
         {
@@ -165,7 +166,7 @@ export default {
   methods: {
     drawBar() {
       //初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart"));
+      this.myChart = echarts.init(document.getElementById(this.chartId));
       let option = {
         tooltip: {
           trigger: "item",
@@ -215,7 +216,7 @@ export default {
           }
         ]
       };
-      myChart.setOption(option);
+      this.myChart.setOption(option);
     }
   }
 };

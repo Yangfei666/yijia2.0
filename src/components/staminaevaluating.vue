@@ -304,9 +304,11 @@ export default {
   },
   mounted() {
     this.timeDefaultShow = new Date();
+    setTimeout(()=>{
+        this.gethealth();
+    },500)
     console.log(this.$route.query.id);
     console.log(this.$route.query.potential);
-    this.gethealth();
   },
   methods: {
     gethealth() {

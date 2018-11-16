@@ -22,20 +22,20 @@
         <div class="health-from">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
             <el-col :span="20" class="from-date">
-              <el-form-item label="请假时间：" prop="leavedate">
                 <el-col :span="24">
+              <el-form-item label="请假时间：" prop="leavedate">
                   <el-date-picker v-model="ruleForm.leavedate" value-format="yyyy-MM-dd" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:100%">
                   </el-date-picker>
-                </el-col>
               </el-form-item>
+                </el-col>
             </el-col>
             <el-col :span="20" class="from-date">
-              <el-form-item label="请假原因：" prop="desc">
                 <el-col :span="24">
+              <el-form-item label="请假原因：" prop="desc">
                   <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
-                </el-col>
               </el-form-item>
+                </el-col>
             </el-col>
             <el-col :span="20" class="from-date">
               <el-form-item>

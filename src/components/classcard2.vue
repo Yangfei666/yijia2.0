@@ -122,7 +122,7 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
                                             <el-table-column prop="curriculum_table.kcStime" align="left" sortable label="上课时间" fixed width="300px"></el-table-column>
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="230px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="300px"></el-table-column>
@@ -143,7 +143,7 @@
                                             </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tablelength2">
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
                                             </el-pagination>
                                         </div>
                                     </div>

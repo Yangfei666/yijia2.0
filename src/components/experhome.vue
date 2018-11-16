@@ -48,8 +48,8 @@
         </template>
       </div>
       <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
-        <el-tab-pane v-for="item in header" :label="item.tkName" :name="item.name" :key="item.id" style="font-size:16px" :lazy="true">
-          <Securityone :customercars="customercar"></Securityone>
+        <el-tab-pane v-for="item in header" :label="item.tkName" :name="String(item.id)" :key="item.id" style="font-size:16px" :lazy="true">
+          <Securityone :ref="'chart'+item.id" :customercars="customercar" :chartId="'chart'+item.id"></Securityone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -156,7 +156,7 @@ export default {
               voucher.name=voucher.tkName+voucher.id;
               _this.header.push(voucher);
           }
-          _this.TabsValue=_this.header[0].name;
+          _this.TabsValue=String(_this.header[0].id);
         })
         .catch(error => {
           if (error.res) {
@@ -188,19 +188,17 @@ export default {
     },
     handleClick(tab, event) {
       let _this = this;
-      console.log('event'+event.currentTarget.id);
       var eventId=event.currentTarget.id;
       //tab-大众1137
        for(var i=0;i<_this.clubs.length;i++){
          var name=_this.clubs[i].experience_voucher.tkName;
          var id=_this.clubs[i].id;
-         var eventIds='tab-'+name+id;
+         var eventIds='tab-'+id;
          if(eventId==eventIds){
            _this.customercar=_this.clubs[i];
            return;
          }
        }
-      console.log('customercar:'+_this.customercar);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

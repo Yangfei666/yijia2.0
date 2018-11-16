@@ -47,7 +47,6 @@
   import Experiencechart from '@/components/experiencechart';
   import Latentchart from '@/components/latentchart';
   import {requestLogin} from "@/api/api";
-
   let clubDate = {
     getChart(date, params) {
       return requestLogin(`/chart/getClubData/${date}`, params, "get");
@@ -64,7 +63,9 @@
       return {
         activeName: 'first',
         radio4: '今天',
-        value2: '',
+        value1: '',
+        value5:'',
+        value4:'',
         pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();

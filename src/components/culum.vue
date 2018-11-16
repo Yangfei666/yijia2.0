@@ -22,8 +22,8 @@
         </div>
         <div class="practice-table">
             <template>
-              <el-table :data="privateList" border style="width: 100%">
-                <el-table-column fixed label="教室" width="150">
+              <el-table :data="privateList" :header-cell-style="{background:'#fafafa'}" border highlight-current-row style="width: 100%">
+                <el-table-column fixed label="教室" width="150" align="center">
                   <template slot-scope="scope">
                     <el-col class="wer-col">
                         <h4>{{scope.row.name}}</h4>
@@ -252,8 +252,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/privateculum.scss";
 @import "@/styles/culum.scss";
-
-  // 111
   .wer-div {
     width: 50px !important;
     height: 30px !important;
@@ -276,7 +274,7 @@ export default {
     font-size: 12px;
     margin: 6px auto;
     text-align: center;
-    line-height: 27px !important;
+    line-height: 30px !important;
     border: 1px solid #e8e8e8;
     cursor:pointer;
   }
