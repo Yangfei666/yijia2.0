@@ -147,6 +147,25 @@ import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
+function  downloadExcel(config, sourceData) {
+  let subData = sourceData.map(item => {
+    let temp = [];
+    let keys = Object.keys(item);
+    for (let i = 0, len = keys.length; i < len; i++) {
+      if (config.limit.includes(keys[i])) {
+        continue;
+      }
+      temp.push(item[keys[i]]);
+    }
+    return temp;
+  });
+  subData.unshift(config.headTitle);
+  let data = subData;
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, `${config.sheetName}`);
+  XLSX.writeFile(wb, `${config.excelName}.xlsx`);
+}
 export default {
   name: "latenttable",
   inject: ["reload"],
@@ -308,30 +327,13 @@ export default {
     },
     //表格导出
     exportExcel() {
-      var fix = document.querySelector(".el-table__fixed");
-      var wb;
-      if (fix) {
-        wb = XLSX.utils.table_to_book(
-          document.querySelector('#rebateSetTable').removeChild(fix)
-        );
-        document.querySelector('#rebateSetTable').appendChild(fix);
-      } else {
-        wb = XLSX.utils.table_to_book(document.querySelector('#rebateSetTable'));
-      }
-      var wbout = XLSX.write(wb, {
-        bookType: "xlsx",
-        bookSST: true,
-        type: "array"
-      });
-      try {
-        FileSaver.saveAs(
-          new Blob([wbout], { type: "application/octet-stream" }),
-          "潜在客户管理数据表.xlsx"
-        );
-      } catch (e) {
-        if (typeof console !== "undefined") console.log(e, wbout);
-      }
-      return wbout;
+      let config = {
+        excelName: "潜在客户管理",
+        sheetName: "潜在客户管理",
+        limit: 'id,prSex,hsid,prBelog,prHealth,RecordTime,WeChat,remark'.split(','),
+        headTitle: '姓名|电话|质量|成交状态|登记时间|会籍'.split('|'),
+      };
+      downloadExcel(config, this.tableData)
     },
       handleCurrentChange2(val,index) {
         this.currentRow = val;
