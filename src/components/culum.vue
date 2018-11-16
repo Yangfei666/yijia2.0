@@ -64,14 +64,6 @@ export default {
         this.startTime = '';
         this.endTime = '';
         this.classroom = '';
-        // let array = document.getElementsByClassName('wer-div');
-        // console.log(array);
-        //   for (let index = 0; index < array.length; index++) {
-        //     const element = array[index];
-        //   this.$nextTick(() => {
-        //       element.className = 'wer-div2';
-        //   })
-        //   }
     },
   },
   data() {
@@ -84,7 +76,18 @@ export default {
   },
   computed: {
     privateList() {
-      return Object.values(this.courseDaily);
+      let array = Object.values(this.courseDaily);
+      console.log(this.courseDaily,array);
+      // for (let index = 0; index < array.length; index++) {
+      //   const element = array[index];
+      //   for (let i = 0; i < element.length; i++) {
+      //     const value = element[i];
+      //     if (value.staff === null) {
+      //       value.staff = '';
+      //     }
+      //   }
+      // }
+      return array;
     },
     timeDivLength() {
       if (JSON.stringify(this.SystemSetup) !== "{}") {

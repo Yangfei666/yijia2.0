@@ -24,10 +24,13 @@
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane label="团课(共20节)" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
+          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
           <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane label="私教(共20节)" name="private">
           <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>
+          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
+          <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -230,7 +233,7 @@ export default {
       }
     },
     bool() {
-      return this.activeName == "league" ? true : false;
+      return (this.activeName == "league") ? true : false;
     }
   },
   created() {
@@ -238,14 +241,18 @@ export default {
     this.getCourseList(today);
   },
   watch: {
-    activeName (oldValue, newValue) {
+    activeName (newValue, oldValue) {
       if (newValue == 'league') {
         var course = this.privateList.slice(0, 1)[0];
-        } else {
+      } else {
         var course = this.groupList.slice(0, 1)[0];
       }
       this.course = course;
-      this.getCourseDetails(course);
+      if (this.course) {
+        this.getCourseDetails(course);
+      } else {
+        this.enterStadium = 0;
+      }
     }
   },
   methods: {
@@ -354,7 +361,12 @@ export default {
             this.enterStadium = true;
             this.groupList = data.group;
             this.privateList = data.private;
-            setTimeout(this.getCourseDetails(data.group.slice(0, 1)[0]), 2000); // 加载默认课程详情
+            let noe = data.group.slice(0, 1)[0];
+            if (noe) {
+              setTimeout(this.getCourseDetails(noe), 2000); // 加载默认课程详情
+            } else {
+              this.enterStadium = 0;
+            }
           }
         })
         .catch(error => {
