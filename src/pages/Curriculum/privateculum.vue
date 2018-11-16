@@ -20,9 +20,9 @@
         <div class="group-main">
           <div class="group-head">
             <div class="group-right">
-              <el-date-picker type="daterange" range-separator="至" :clearable="false" :disabled="true" style="width:250px;margin-top:4px"
+              <el-date-picker type="daterange" range-separator="至" :disabled="true" style="width:250px;margin-top:4px"
               :start-placeholder="Monday" :end-placeholder="Sunday" ></el-date-picker>
-              <el-date-picker v-model="dateValue" @change="changeWeek"
+              <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false"
               type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-1px"></el-date-picker>
             </div>
             <el-tabs v-model="activeName" @tab-click="handleClick" type="card">

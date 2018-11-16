@@ -34,7 +34,7 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="main-list" v-if="experience.length > 0 && enterStadium">
+    <div class="main-list" v-show="experience.length > 0 && enterStadium">
       <div class="customer">
         <span>体验客户约课</span>
       </div>
@@ -69,7 +69,7 @@
         </el-table>
       </div>
     </div>
-    <div class="nav-list" v-if="leaguer.length > 0 && enterStadium">
+    <div class="nav-list" v-show="leaguer.length > 0 && enterStadium">
       <div class="customer">
         <span>会员约课</span>
       </div>
@@ -102,7 +102,7 @@
         </el-table>
       </div>
     </div>
-    <div class="main-list" v-if="enterStadium">
+    <div class="main-list" v-show="enterStadium">
       <div class="customer">
         <span>教练上课登记</span>
       </div>

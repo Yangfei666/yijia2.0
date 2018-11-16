@@ -368,7 +368,7 @@ export default {
       },
       tableData: [], //我的门店
       tableData2: [], //私教禁用时间
-      a: "" 
+      a: ""
     };
   },
   //获取门店表格信息
@@ -454,7 +454,6 @@ export default {
             message: "更换成功",
             type: "success"
           });
-          console.log(res);
           this.reload();
         })
         .catch(error => {
