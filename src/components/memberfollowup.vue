@@ -48,10 +48,9 @@ export default {
   },
   mounted(){
     this.id = this.$route.params.HYID;
-    this.Name = this.$route.params.HYName;
-    this.Sex = this.$route.params.Sex;
+    this.Name = this.$route.params.HYName || this.$route.params.prName;
+    this.Sex = this.$route.params.Sex || this.$route.params.prSex;
     this.Potential = 'member';
-    console.log(this.Potential);
   }
 }
 </script>
