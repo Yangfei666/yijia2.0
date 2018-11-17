@@ -44,7 +44,7 @@
     </el-col>
   </div>
 </template>
-<script src="swiper/dist/js/swiper.min.js"></script>
+<!--<script src="swiper/dist/js/swiper.min.js"></script>-->
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
@@ -62,17 +62,17 @@ export default {
     let that = this;
     setTimeout(function() {
       that.initSwiper();
-    }, 500);
+    }, 1500);
   },
   methods: {
     initSwiper() {
       var appendNumber = 5;
       var prependNumber = 1;
       new Swiper(".swiper-container", {
-        slidesPerView: 5, //同时显示的数量
+        slidesPerView: 1, //同时显示的数量
         spaceBetween: 15, //间距
         direction: "horizontal", //滑动方向
-        speed: 500, //切换速度
+        speed: 1500, //切换速度
         grabCursor: true, //指针变成手掌
         navigation: {
           nextEl: ".swiper-button-next",
