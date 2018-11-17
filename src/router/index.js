@@ -134,8 +134,7 @@ let router = new Router({
             path: '/',
             name: 'Login',
             component: Login,//登录
-        },
-        {
+        },{
             path: '/login',
             name: 'Login',
             component: Login,//登录

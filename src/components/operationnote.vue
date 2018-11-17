@@ -111,13 +111,13 @@
                                   <div class="always-cardone">{{item.membership_card.card_type.CTName}}</div>
                               </div>
                               <div class="yuan-main3">
-                                  <div class="yuan">变更前
+                                  <div class="yuan">变更前:
                                       <span>{{item.yuancishu}}</span>
                                   </div>
-                                  <div class="yuan">变更后
+                                  <div class="yuan">变更后:
                                       <span>{{item.newcishu}}</span>
                                   </div>
-                                  <div class="yuan">原因
+                                  <div class="yuan">原因:
                                       <span>{{item.bgyuanyin}}</span>
                                   </div>
                               </div>
@@ -136,7 +136,6 @@
                               <div class="card-main">
                                   <div class="always-card">挂失</div>
                               </div>
-                              <span class="corry-out" @click="showToggle">{{btnText}}</span>
                               <div class="footss">
                                   <span class="foot1">操作人</span>
                                   <div class="foot2">{{item.czyname}}</div>
@@ -152,7 +151,6 @@
                               <div class="card-main">
                                   <div class="always-card">解挂</div>
                               </div>
-                              <span class="corry-out" @click="showToggle">{{btnText}}</span>
                               <div class="footss">
                                   <span class="foot1">操作人</span>
                                   <div class="foot2">{{item.czyname}}</div>
@@ -169,10 +167,10 @@
                                   <div class="always-card">补卡</div>
                               </div>
                               <div class="yuan-main3">
-                                  <div class="yuan">原卡号
+                                  <div class="yuan">原卡号:
                                       <span>{{item.yuancardno}}</span>
                                   </div>
-                                  <div class="yuan">新卡号
+                                  <div class="yuan">新卡号:
                                       <span>{{item.newcardno}}</span>
                                   </div>
 
@@ -193,13 +191,13 @@
                                   <div class="always-card">换会籍</div>
                               </div>
                               <div class="yuan-main3">
-                                  <div class="yuan">原会籍
+                                  <div class="yuan">原会籍:
                                       <span>{{item.hjgwname}}</span>
                                   </div>
-                                  <div class="yuan">新会籍
+                                  <div class="yuan">新会籍:
                                       <span>{{item.newhjgwname}}</span>
                                   </div>
-                                  <div class="yuan">原因
+                                  <div class="yuan">原因:
                                       <span>{{item.bgyuanyin}}</span>
                                   </div>
                               </div>
@@ -219,10 +217,10 @@
                                   <div class="always-card">请假</div>
                               </div>
                               <div class="yuan-main3">
-                                  <div class="yuan">请假时段
+                                  <div class="yuan">请假时段:
                                       <span>{{item.qjsTime}} ~ {{item.qjeTime}}</span>
                                   </div>
-                                  <div class="yuan">原因
+                                  <div class="yuan">原因:
                                       <span>{{item.yuanyin}}</span>
                                   </div>
                               </div>
@@ -300,16 +298,16 @@
                                   <div class="always-cardone">{{item.membership_card.card_type.CTName}}</div>
                               </div>
                               <div class="yuan-main3">
-                                  <div class="yuan">惩罚类型
+                                  <div class="yuan">惩罚类型:
                                       <span>{{item.type == 1 ? '限制约课' : '扣权益'}}</span>
                                   </div>
-                                  <div class="yuan" v-show="item.type == 1">开始时间
+                                  <div class="yuan" v-show="item.type == 1">开始时间:
                                       <span>{{item.startTime}}</span>
                                   </div>
-                                  <div class="yuan" v-show="item.type == 1">结束时间
+                                  <div class="yuan" v-show="item.type == 1">结束时间:
                                       <span>{{item.endTime}}</span>
                                   </div>
-                                  <div class="yuan" v-show="item.type == 2">扣权益
+                                  <div class="yuan" v-show="item.type == 2">扣权益:
                                       <span>{{item.num}}</span>
                                   </div>
                               </div>
@@ -444,7 +442,7 @@ export default {
           display: flex;
           margin-top: 10px;
           .always-card {
-            width: 56px;
+            width: 42%;
             height: 32px;
             background: #00bc71;
             border-radius: 4px;
@@ -454,7 +452,7 @@ export default {
             color: #fff;
           }
           .always-cardone {
-            width: 56px;
+            width: 42%;
             height: 32px;
             background: #facc14;
             border-radius: 4px;
