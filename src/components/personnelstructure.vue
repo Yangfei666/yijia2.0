@@ -128,10 +128,14 @@
                 _this.tableData[index].club_info_group.splice(subIndex, 1);
               })
               .catch(error => {
-                _this.$message({
-                  message: "删除失败",
-                  type: "error"
-                });
+                let {response: {data: {errorCode, msg}}} = error;
+                if (errorCode != 0) {
+                  _this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
           })
           .catch(error => {
@@ -159,8 +163,9 @@
                 message: "添加小组成功",
                 type: "success"
               });
+              return data
             })
-            .then(() => {
+            .then((data) => {
               _this.tableData[index].club_info_group.push(data);
             })
             .catch(error => {
@@ -243,12 +248,12 @@
       //删除大队
       open2() {
         let _this = this;
-        let index = _this.tableData.findIndex(item => item.id === _this.currentSelectRow.id);
-        _this.rowIndex = index === -1 ? _this.rowIndex : index;
         if (!this.currentSelectRow) {
           this.$message({message: "请先选择数据!", type: "warning"});
           return;
         } else {
+          let index = _this.tableData.findIndex(item => item.id === _this.currentSelectRow.id);
+          _this.rowIndex = index === -1 ? _this.rowIndex : index;
           this.$confirm("确认删除该条记录吗？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",

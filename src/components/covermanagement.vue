@@ -116,7 +116,6 @@ export default {
         });
     },
     changeSwitch(val,row) {
-      console.log(val,row);
     },
     uploadOverrun: function() {
       this.$message({
@@ -196,7 +195,6 @@ export default {
       console.log(file);
     },
     rowClick(row, event, column) {
-      console.log(row);
       //获取表格数据
       this.currentSelectRow = row;
     }
