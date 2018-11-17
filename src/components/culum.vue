@@ -96,6 +96,9 @@ export default {
       return '3000px;'
     },
   },
+  beforeDestroy(){
+    this.middleButtonStyle('');
+  },
   methods: {
     // 预约成功
     success() {
