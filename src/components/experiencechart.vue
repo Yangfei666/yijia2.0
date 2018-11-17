@@ -43,14 +43,14 @@
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart33" :style="{width: '100%', height: '410px'}"></div>
         </el-col>
       </div>
     </el-col>
-    <el-col :span="24">
+    <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
           <div id="myChart44" :style="{width: '100%', height: '410px'}"></div>
@@ -87,34 +87,47 @@
         type: String,
       }
     },
+    watch: {
+      chartData: {
+        deep: true,
+        handler(val, old) {
+          this.draw();
+        }
+      },
+    },
     data() {
       return {
         sumStaffValue: 0,
       };
     },
     beforeMount() {
-      let _this = this;
-      setTimeout(() => {
-        let {
-          adviser: exp_adviser,
-          experienceData: exp_experienceData,
-          experienceData: {
-            staff: exp_staff,
-            timeAchievement: exp_timeAchievement,
-            staffTimeAchievement: exp_staffTimeAchievement,
-          }
-        } = _this.chartData;
-        _this.drawLine({exp_timeAchievement});
-        _this.drawPie({exp_experienceData, exp_staff});
-        _this.drawBar({exp_adviser, exp_staffTimeAchievement});
-      }, 500);
-      let sum = 0;
-      this.chartData.experienceData.staff.map(item => {
-        sum += item.value;
-      });
-      this.sumStaffValue = sum;
+      this.draw();
     },
     methods: {
+      draw() {
+        let _this = this;
+        setTimeout(() => {
+          let {
+            adviser: exp_adviser,
+            experienceData: exp_experienceData,
+            experienceData: {
+              staff: exp_staff,
+              timeAchievement: exp_timeAchievement,
+              staffTimeAchievement: exp_staffTimeAchievement,
+            }
+          } = _this.chartData;
+          _this.drawPie({exp_experienceData, exp_staff});
+          if (_this.dataDate.length <= 7) {
+            _this.drawLine({exp_timeAchievement});
+            _this.drawBar({exp_adviser, exp_staffTimeAchievement});
+          }
+        }, 500);
+        let sum = 0;
+        this.chartData.experienceData.staff.map(item => {
+          sum += item.value;
+        });
+        this.sumStaffValue = sum;
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -232,7 +245,7 @@
             }
           },
           legend: {
-            data: Object.keys(exp_timeAchievement),
+            data: this.detailLegend(exp_timeAchievement),
             top: '4%'
           },
           grid: {
@@ -273,16 +286,35 @@
           return temp;
         }
       },
+
+      detailLegend(legend) {
+        return Object.keys(legend).map(item => {
+          if (item === 'private') {
+            return '私教';
+          }
+          if (item === 'group') {
+            return '团课';
+          }
+          // return item;
+        });
+      },
       detailLineData(object) {
         let keys = Object.keys(object);
         return keys.map(item => {
           let temp = {};
-          temp.name = item;
+          temp.name = '';
+          if (item === 'private') {
+            temp.name = '私教';
+          }
+          if (item === 'group') {
+            temp.name = '团课';
+          }
           temp.data = object[item];
           temp.type = 'line';
           temp.stack = '总量';
           return temp;
-        });
+        })
+          .filter(item => item.name);
       },
       drawBar({exp_adviser, exp_staffTimeAchievement}) { //柱状图
         let myChart44 = echarts.init(document.getElementById('myChart44'));
@@ -330,7 +362,7 @@
     },
     filters: {
       isNaNNumber(value) {
-        return Number.isNaN(value) ? 0 : value.toFixed(2);
+        return Number.isNaN(value) ? 0 : (value * 100).toFixed(2);
       }
     }
   };

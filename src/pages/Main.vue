@@ -22,11 +22,11 @@
         </div>
       </div>
       <el-tabs v-model="activeName" type="card">
-        <el-tab-pane label="团课(共20节)" name="league">
+        <el-tab-pane :label="`团课(共${groupList.length}节)`" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
           <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
-        <el-tab-pane label="私教(共20节)" name="private">
+        <el-tab-pane :label="`私教(共${privateList.length}节)`" name="private">
           <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>
         </el-tab-pane>
       </el-tabs>
@@ -66,7 +66,7 @@
         </el-table>
       </div>
     </div>
-    <div class="nav-list" v-if="leaguer.length > 0 && enterStadium">
+    <div class="nav-list" v-show="leaguer.length > 0 && enterStadium">
       <div class="customer">
         <span>会员约课</span>
       </div>
@@ -203,6 +203,7 @@ export default {
   computed: {
     // 当前选中的课程
     trainer() {
+      if(!this.course) return;
       if (this.course.JLID != this.course.JLIDs) {
         request("/setStaffInfo/" + this.course.JLIDs, {}, "get")
           .then(data => {
@@ -367,7 +368,7 @@ export default {
     },
     getCourseDetails(course) {
       if (!course) {
-        return fasle;
+        return false;
       }
       this.course = course;
       // id = 7016;
