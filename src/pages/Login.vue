@@ -49,7 +49,7 @@ export default {
       img : 'http://192.168.2.111/pc/v1.Login/getVerification',
       num:0,
         account: {
-          username: '18888888888',
+          username: '18812345678',
           pwd: '123456',
           verifycode:'',
           door:''

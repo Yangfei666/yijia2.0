@@ -46,6 +46,7 @@
 <script>
 import { requestLogin } from "../api/api";
 export default {
+  inject: ["reload"],
   data() {
     return {
       downIcon: true,
@@ -56,15 +57,15 @@ export default {
       sysUserName: "",
       sysUserAvatar: "",
       options: JSON.parse(sessionStorage.getItem("clubList")),
-      user: '',
+      user: JSON.parse(sessionStorage.getItem("userInfo")),
       club: JSON.parse(sessionStorage.getItem("club"))
     };
   },
-  created() {
-    setTimeout(()=>{
-      this.getUser();
-    },500)
-  },
+  // created() {
+  //   setTimeout(()=>{
+  //     this.getUser();
+  //   },500)
+  // },
   methods: {
     //获取个人资料
     getUser() {
@@ -93,8 +94,8 @@ export default {
               sessionStorage.setItem("club", JSON.stringify(item)); //缓存所属门店
             }
           });
-          this.$router.go(0);
-          // this.$router.push({ path: "/home/main" });
+          this.reload();
+          // this.$router.go(0);
         })
         .catch(error => {
           if (error.response) {

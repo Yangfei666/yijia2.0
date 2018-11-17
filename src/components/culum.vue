@@ -4,9 +4,6 @@
             <el-row>
                 <el-col :span="24">
                     <div class="purple">
-                        <div style="height: 35px; line-height: 0px;margin-top: 12px; margin-left: 20px;">
-                          <el-button type="text">{{classroom}} {{startTime}} {{endTime}}</el-button>
-                        </div>
                         <div class="add">
                             <el-button type="text" class="add-p el-icon-plus" @click="reservationPage()">预约私教</el-button>
                             <template>
@@ -16,6 +13,9 @@
                                 </el-dialog>
                             </template>
                         </div>
+                         <div style="height: 35px; line-height: 0px;margin-top: 10px; margin-left: 20px;">
+                          <el-button type="text" style="font-size:16px;">{{classroom}}&nbsp;&nbsp;{{startTime}}&nbsp;&nbsp;{{endTime}}</el-button>
+                        </div>
                     </div>
                 </el-col>
             </el-row>
@@ -23,7 +23,7 @@
         <div class="practice-table">
             <template>
               <el-table :data="privateList" :header-cell-style="{background:'#fafafa'}" border highlight-current-row style="width: 100%">
-                <el-table-column fixed label="教室" width="150" align="center">
+                <el-table-column fixed label="教室" width="130" align="center">
                   <template slot-scope="scope">
                     <el-col class="wer-col">
                         <h4>{{scope.row.name}}</h4>
@@ -64,14 +64,6 @@ export default {
         this.startTime = '';
         this.endTime = '';
         this.classroom = '';
-        // let array = document.getElementsByClassName('wer-div');
-        // console.log(array);
-        //   for (let index = 0; index < array.length; index++) {
-        //     const element = array[index];
-        //   this.$nextTick(() => {
-        //       element.className = 'wer-div2';
-        //   })
-        //   }
     },
   },
   data() {
@@ -84,7 +76,18 @@ export default {
   },
   computed: {
     privateList() {
-      return Object.values(this.courseDaily);
+      let array = Object.values(this.courseDaily);
+      // console.log(this.courseDaily,array);
+      // for (let index = 0; index < array.length; index++) {
+      //   const element = array[index];
+      //   for (let i = 0; i < element.length; i++) {
+      //     const value = element[i];
+      //     if (value.staff === null) {
+      //       value.staff = '';
+      //     }
+      //   }
+      // }
+      return array;
     },
     timeDivLength() {
       if (JSON.stringify(this.SystemSetup) !== "{}") {
@@ -253,50 +256,43 @@ export default {
 @import "@/styles/privateculum.scss";
 @import "@/styles/culum.scss";
   .wer-div {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #00bc71;
     border-radius: 16px;
     color: #fff;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 27px !important;
+    line-height: 35px !important;
     border: 1px solid #e8e8e8;
     cursor:pointer;
   }
   .wer-div2 {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #ffff;
     border-radius: 16px;
     color: #595959;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 30px !important;
+    line-height: 35px !important;
     border: 1px solid #e8e8e8;
     cursor:pointer;
   }
-
-  // .wer-div2:hover{
-  //   background: #00bc71;
-  //   color: #fff;
-  // }
-
   .wer-div3 {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #f5f5f5;
     border-radius: 16px;
     color: #8c8c8c;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 27px !important;
+    line-height: 35px !important;
     cursor:default;
   }
-
   span {
     color: #c7c7c7;
     font-size: 10px !important;

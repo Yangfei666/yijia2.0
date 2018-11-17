@@ -16,7 +16,7 @@
               <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
                 <el-col :span="22">
                   <el-select v-model="ruleForm.cardname" placeholder="请选择" style="width:100%" @change="Selectchange">
-                    <el-option v-for="item in selfCard" :key="item.CTID" :label="item.CTName" :value="item.CTID"></el-option>
+                    <el-option v-for="item in selfCard" :key="item.CTID+100" :label="item.CTName" :value="item.CTID"></el-option>
                   </el-select>
                 </el-col>
               </el-form-item>
@@ -78,7 +78,7 @@
         </template>
       </div>
       <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
-        <el-tab-pane v-for="(item,idx) in header" :label="item.CTName" :name="String(item.id)" :key="item.id" :data-idx='idx' style="font-size:16px" :lazy="false">
+        <el-tab-pane v-for="(item,idx) in header" :label="item.CTName" :name="String(item.id)" :key="item.id+200" :data-idx='idx' style="font-size:16px" :lazy="false">
           <Cardone :ref="'chart'+item.id" :membershipcards="membershipcard" :chartId="'chart'+item.id"></Cardone>
         </el-tab-pane>
       </el-tabs>
