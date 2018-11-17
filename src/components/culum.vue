@@ -64,14 +64,6 @@ export default {
         this.startTime = '';
         this.endTime = '';
         this.classroom = '';
-        // let array = document.getElementsByClassName('wer-div');
-        // console.log(array);
-        //   for (let index = 0; index < array.length; index++) {
-        //     const element = array[index];
-        //   this.$nextTick(() => {
-        //       element.className = 'wer-div2';
-        //   })
-        //   }
     },
   },
   data() {
@@ -92,6 +84,9 @@ export default {
       }
       return '3000px;'
     },
+  },
+  beforeDestroy(){
+    this.middleButtonStyle('');
   },
   methods: {
     // 预约成功
