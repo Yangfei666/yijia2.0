@@ -78,7 +78,7 @@
       <div v-else>
         <el-form-item label="选择可用门店:" prop="club_info" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-transfer filterable v-model="club_info" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
+            <el-transfer filterable v-model="currentSelectRow.club_info" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
             </el-transfer>
           </el-col>
         </el-form-item>
@@ -105,7 +105,6 @@ export default {
       ctType: 2,
       Ctnum: "",
       data2: [],
-      shoproom: [],
       CTdate: [],
       startTime: "",
       endTime: "",
@@ -141,7 +140,7 @@ export default {
               CTvalidity: this.currentSelectRow.CTvalidity, //有效期
               Ctnum: this.currentSelectRow.Ctnum, //次数
               ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate, //课程类别
-              clubRelation: this.currentSelectRow.clubRelation //连锁店id
+              clubRelation: this.currentSelectRow.club_info //连锁店id
             };
             requestLogin("/setCardType", loginParams, "post")
               .then(data => {
@@ -192,7 +191,7 @@ export default {
       console.log(this.currentSelectRow.Ctnum, "input的值");
     },
     getSelectItem(val) {
-      this.currentSelectRow.shoproom = val;
+      this.currentSelectRow.club_info = val;
       console.log(val);
     },
     handleCheckChange(val) {
