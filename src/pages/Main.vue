@@ -66,7 +66,7 @@
         </el-table>
       </div>
     </div>
-    <div class="nav-list" v-if="leaguer.length > 0 && enterStadium">
+    <div class="nav-list" v-show="leaguer.length > 0 && enterStadium">
       <div class="customer">
         <span>会员约课</span>
       </div>
