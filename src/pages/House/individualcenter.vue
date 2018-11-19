@@ -39,7 +39,7 @@
                             <span>岗位</span>
                           </el-col>
                           <el-col :span="17" class="table-gg">
-                            <span>{{a.name}}</span>
+                            <span v-for="(item, index) in user.role" :key="index">{{index + 1}}.{{item.name}}; </span>
                           </el-col>
                         </div>
                         <div class="left-table-main">

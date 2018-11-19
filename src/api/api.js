@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
           duration: 3000
         });
         setTimeout(function () {
-         location.href="/login";
+         location.href="/#/login";
         }, 3000);
         break;
       case 500:
@@ -47,6 +47,7 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
     url: url, //地址
     data: params, // 参数,
     headers: { 'token': sessionStorage.getItem('access-token') },
+    // baseURL: baseURL === false ? '' : process.env.API_ROOT,
     baseURL: baseURL === false ? '' : '/api',
     responseType: responseType ? responseType : 'json'
   }).then(res => res.data);
