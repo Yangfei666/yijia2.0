@@ -326,6 +326,7 @@ let router = new Router({
                 { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
+                { path: '/House/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 {
                     path: '/House/visualizationchart',//可视化数表
                     component: Visualiza,
@@ -337,7 +338,6 @@ let router = new Router({
                         { path: '/House/visualizationchart/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true },//教练上课记录
                     ]
                 },
-                { path: '/House/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 {
                     path: '/House/403', //403
                     component: Forbidden,

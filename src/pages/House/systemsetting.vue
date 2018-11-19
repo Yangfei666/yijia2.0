@@ -7,7 +7,6 @@
                     <div class="health-main">
                         <el-col :span="24" class="outside">
                             <span class="outside-biao">系统设置</span>
-                            <!-- <img src="/assets/deit.png" @click="editAll"/> -->
                             <span style="color:#00bc71;border-radius:20px;font-size:12px;width:40px;display:inline-block;border:1px solid;" @click="editAll">编辑</span>
                         </el-col>
                         <el-col :span="24">
@@ -18,14 +17,14 @@
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所开馆时间：" prop="openTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-time-picker v-model="ruleForm.openTime" value-format="HH-mm-ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认07:00:00"></el-time-picker>
+                                            <el-time-picker v-model="ruleForm.openTime" value-format="HH:mm:ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认07:00:00"></el-time-picker>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所闭馆时间：" prop="closeTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-time-picker v-model="ruleForm.closeTime" value-format="HH-mm-ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认22:00:00"></el-time-picker>
+                                            <el-time-picker v-model="ruleForm.closeTime" value-format="HH:mm:ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认22:00:00"></el-time-picker>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
@@ -382,29 +381,6 @@ export default {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
   display: inline-block;
-  .infor-head {
-    height: 50px;
-    display: flex;
-    line-height: 50px;
-    border-bottom: 1px solid #e8e8e8;
-    .infor-but {
-      padding-left: 10px;
-      font-size: 16px;
-      color: #262626;
-    }
-    .infor-but:hover {
-      color: #00bc71;
-    }
-    .infor-title {
-      padding-left: 20px;
-      font-size: 16px;
-      color: #262626;
-      img {
-        width: 15px;
-        height: 15px;
-      }
-    }
-  }
   .health-main {
     border: 1px solid #e8e8e8;
     height: 100%;
