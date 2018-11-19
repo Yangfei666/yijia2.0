@@ -38,6 +38,8 @@ const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会�
 
 const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工管理
 
+const Systemsetting = resolve => require(['@/pages/House/systemsetting'], resolve)//系统设置
+
 const HouseRole = resolve => require(['@/pages/House/role'], resolve)//角色权限管理
 
 const HouseExperience = resolve => require(['@/pages/House/experience'], resolve)//体验券设置
@@ -333,6 +335,7 @@ let router = new Router({
                         { path: '/House/visualizationchart/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true },//教练上课记录
                     ]
                 },
+                { path: '/House/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 {
                     path: '/House/403', //403
                     component: Forbidden,

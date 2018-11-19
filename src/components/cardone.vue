@@ -139,9 +139,9 @@ export default {
     membershipcards(val) {}
   },
   mounted() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.drawBar();
-    },500)
+    }, 500);
     if (this.membershipcards.card_type.ctType == "次数卡") {
       this.tbdata = [
         {
@@ -216,9 +216,9 @@ export default {
         ]
       };
       myChart.setOption(option);
-      window.onresize = function(){
+      window.onresize = function() {
         myChart.resize();
-      }
+      };
     }
   }
 };

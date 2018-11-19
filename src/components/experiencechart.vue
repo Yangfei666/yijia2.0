@@ -4,42 +4,11 @@
     <el-col :span="24">
       <div class="Totalachievement">
         <el-col :span="12" class="Total-head">
-          <el-col :span="24" class="total-span">
-            <span>私教团课体验客户占比图</span>
-          </el-col>
-          <div id="myChart11" :style="{width: '250px', height: '300px'}" style="float: left;"></div>
-          <el-col class="total-main">
-            <el-col :span="12" class="total-right">
-              <div class="box1"></div>
-              <span class="chart-span">团课业绩</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{(parseInt(chartData.experienceData.group,10)/parseInt(chartData.experienceData.count,10))|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.experienceData.group}}</span>
-            </el-col>
-            <el-col :span="12" class="total-right">
-              <div class="box2"></div>
-              <span class="chart-span">私教业绩</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{parseInt(chartData.experienceData.private,10)/parseInt(chartData.experienceData.count,10)|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.experienceData.private}}</span>
-            </el-col>
-          </el-col>
+          <div id="myChart11" :style="{width: '100%', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <el-col :span="24" class="total-span">
-            <span>员工开发体验客户占比图</span>
-          </el-col>
-          <div id="myChart22" :style="{width: '250px', height: '300px'}" style="float: left;"></div>
-          <el-col class="total-main">
-            <el-col v-for="(item, index) in chartData.experienceData.staff" :key="index" :span="11" class="total-right">
-              <div :class="`box${index%6}`"></div>
-              <span class="chart-span">{{item.name}}</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue|isNaNNumber}}%</span>
-              <span class="total-num">￥{{item.value}}</span>
-            </el-col>
-          </el-col>
+          <div id="myChart22" :style="{width: '100%', height: '300px'}" style="float: left;"></div>
         </el-col>
       </div>
     </el-col>
@@ -126,14 +95,32 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    drawPie({ exp_experienceData, exp_staff }) {
+    drawPie({exp_adviser, exp_experienceData, exp_staff }) {
       //饼图
       let myChart11 = echarts.init(document.getElementById("myChart11"));
       let myChart22 = echarts.init(document.getElementById("myChart22"));
       let option11 = {
+        title: {
+          text: "私教团课体验客户占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "6%",
+          left: "1%"
+        },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          x: "right",
+          data: ["团课业绩", "私教业绩"],
+          orient: "vertical",
+          right: 4,
+          top: 40,
+          bottom: 10
         },
         series: [
           {
@@ -188,9 +175,27 @@ export default {
         ]
       };
       let option22 = {
+        title: {
+          text: "员工开发体验客户占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "6%",
+          left: "1%"
+        },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+         legend: {
+          x: "right",
+          data: exp_adviser,
+          orient: "vertical",
+          right: 5,
+          top: 40,
+          bottom: 10
         },
         series: [
           {
@@ -211,6 +216,7 @@ export default {
               "#1B0AD7",
             ],
             radius: ["53%", "70%"],
+            center: ["50%", "50%"],
             avoidLabelOverlap: false,
             label: {
               normal: {
