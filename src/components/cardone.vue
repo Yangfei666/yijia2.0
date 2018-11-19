@@ -133,16 +133,15 @@ export default {
   data() {
     return {
       tbdata: [],
-      myChart: ""
     };
   },
   watch: {
     membershipcards(val) {}
   },
   mounted() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.drawBar();
-    },500)
+    }, 500);
     if (this.membershipcards.card_type.ctType == "次数卡") {
       this.tbdata = [
         {
@@ -166,7 +165,7 @@ export default {
   methods: {
     drawBar() {
       //初始化echarts实例
-      this.myChart = echarts.init(document.getElementById(this.chartId));
+      let myChart = echarts.init(document.getElementById(this.chartId));
       let option = {
         tooltip: {
           trigger: "item",
@@ -216,7 +215,10 @@ export default {
           }
         ]
       };
-      this.myChart.setOption(option);
+      myChart.setOption(option);
+      window.onresize = function() {
+        myChart.resize();
+      };
     }
   }
 };

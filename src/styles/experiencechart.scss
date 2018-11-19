@@ -1,0 +1,147 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .Totalachievement {
+        width: 97%;
+        height: 370px;
+        margin: 10px auto;
+        background-color: #ffffff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        display: flex;
+        .Total-head {
+          height: 100%;
+          .total-span {
+            height: 45px;
+            display: flex;
+            line-height: 45px;
+            color: #595959;
+            font-size: 14px;
+            text-indent: 15px;
+            margin-top: 20px;
+          }
+          #myChart11{
+            position: absolute;
+            left: 0%!important;
+            top:7%!important;
+            width: 180px!important;
+            height: 230px!important;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            padding: 0px;
+            margin: 0px;
+            border-width: 0px;
+          }
+          #myChart22{
+            position: absolute;
+            right:27%!important;
+            top: 7%!important;
+            width:180px!important;
+            height: 230px!important;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            padding: 0px;
+            margin: 0px;
+            border-width: 0px;
+        }
+          .total-main {
+            float: right!important;
+            position: relative!important;
+            top: 2%!important;
+            width:96%!important;
+            display: block!important;
+            .total-right {
+              height: 30px!important;
+              float: right;
+              display: flex;
+              line-height: 30px!important;
+              color: #8c8c8c;
+              font-size: 12px!important;
+              .box0 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #d21dff;
+                position: relative;
+                top: 16px;
+              }
+              .box1 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #1890ff;
+                position: relative;
+                top: 16px;
+              }
+              .box2 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #2fc25b;
+                position: relative;
+                top: 16px;
+              }
+              .box3 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #13c2c2;
+                position: relative;
+                top: 16px;
+              }
+              .box4 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #facc14;
+                position: relative;
+                top: 16px;
+              }
+              .box5 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #f04864;
+                position: relative;
+                top: 16px;
+              }
+              .box6 {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #8543e0;
+                position: relative;
+                top: 16px;
+              }
+              .chart-span {
+                padding-left: 10px;
+              }
+              .bord {
+                width: 1px;
+                height: 35%;
+                background: #e8e8e8;
+                float: left;
+                position: relative;
+                top: 35%;
+                border-radius: 5px;
+                left: 2%;
+              }
+              .total-bai {
+                padding-left: 12px;
+              }
+              .total-num {
+                padding-left: 12px;
+              }
+            }
+          }
+        }
+        .box4 {
+            width: 1px;
+            height: 50%;
+            background: #e8e8e8;
+            float: left;
+            position: relative;
+            top: 23%;
+            border-radius: 5px;
+            left: -1%;
+          }
+      }
+}

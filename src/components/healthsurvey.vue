@@ -274,7 +274,7 @@ export default {
         "get"
       )
         .then(function(res) {
-            _this.health_survey = res.health_survey;
+                _this.health_survey = res.health_survey;
         })
         .catch(error => {
           if (error.res) {

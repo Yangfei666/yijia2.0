@@ -53,6 +53,10 @@ body {
   background-color: #f5f7fa;
   border-color: #ccc;
 }
+.el-radio__input.is-disabled+span.el-radio__label{
+  color: #999;
+    cursor: not-allowed;
+}
 .el-radio__inner {
   border: 1px solid #ccc;
 }

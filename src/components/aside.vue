@@ -8,13 +8,13 @@
     <div class="left-center" v-show="!collapsed">
       <div class="cen-one">
         <div class="one-img">
-          <img src="../assets/51.png" />
+          <img src="../assets/51.png" @click="personal"/>
         </div>
         <el-button type="text" class="one-p" @click="personal">约私教</el-button>
       </div>
       <div class="cen-two">
         <div class="two-img">
-          <img src="../assets/49.png" />
+          <img src="../assets/49.png" @click="Group"/>
         </div>
         <el-button type="text" class="two-p" @click="Group">约团课</el-button>
       </div>
@@ -23,8 +23,8 @@
       <img class="mm" src="../assets/logo.png" />
     </div>
     <div v-show="collapsed" class="collapsed-icon">
-      <img src="../assets/51.png" alt="约私教" title="约私教"/>
-      <img src="../assets/49.png" alt="约团课" title="约团课"/>
+      <img src="../assets/51.png" alt="约私教" title="约私教" @click="personal"/>
+      <img src="../assets/49.png" alt="约团课" title="约团课" @click="Group"/>
     </div>
     <el-row class="tac">
       <el-col :span="12"> 

@@ -4,57 +4,11 @@
     <el-col :span="24">
       <div class="Totalachievement">
         <el-col :span="12" class="Total-head">
-          <el-col :span="24" class="total-span">
-            <span>潜在客户成交量占比图</span>
-          </el-col>
-          <div id="myChart111" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
-          <el-col class="total-main">
-            <el-col :span="12" class="total-right">
-              <div class="box1"></div>
-              <span class="chart-span">A类客户</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{(parseInt(chartData.prospectData.A,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.prospectData.A}}</span>
-            </el-col>
-            <el-col :span="12" class="total-right">
-              <div class="box2"></div>
-              <span class="chart-span">B类客户</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{(parseInt(chartData.prospectData.B,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.prospectData.B}}</span>
-            </el-col>
-            <el-col :span="12" class="total-right">
-              <div class="box3"></div>
-              <span class="chart-span">C类客户</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{(parseInt(chartData.prospectData.C,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.prospectData.C}}</span>
-            </el-col>
-            <el-col :span="12" class="total-right">
-              <div class="box4"></div>
-              <span class="chart-span">D类客户</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{(parseInt(chartData.prospectData.D,10)/parseInt(chartData.prospectData.count,10))|isNaNNumber}}%</span>
-              <span class="total-num">￥{{chartData.prospectData.D}}</span>
-            </el-col>
-          </el-col>
+          <div id="myChart111" :style="{width: '100%', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <el-col :span="24" class="total-span">
-            <span>员工开发潜在客户占比图</span>
-          </el-col>
-          <div id="myChart222" :style="{width: '280px', height: '300px'}" style="float: left;"></div>
-          <el-col class="total-main">
-            <el-col v-if="chartData.prospectData.staff" v-for="(item, index) in chartData.prospectData.staff"
-                    :key="index" :span="11" class="total-right">
-              <div :class="`box${index%6}`"></div>
-              <span class="chart-span">{{item.name}}</span>
-              <div class="bord"></div>
-              <span class="total-bai">{{parseInt(item.value,10)/sumStaffValue|isNaNNumber}}%</span>
-              <span class="total-num">￥{{item.value}}</span>
-            </el-col>
-          </el-col>
+          <div id="myChart222" :style="{width: '100%', height: '300px'}"></div>
         </el-col>
       </div>
     </el-col>
@@ -146,14 +100,47 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      drawPie({pro_prospectData, pro_staff}) { //饼图
+      drawPie({pro_adviser,pro_prospectData, pro_staff}) { //饼图
         let myChart111 = echarts.init(document.getElementById('myChart111'));
         let myChart222 = echarts.init(document.getElementById('myChart222'));
         let option111 = {
+          title: {
+          text: "潜在客户成交量占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "6%",
+          left: "1%"
+        },
           tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"
           },
+          legend: {
+          x: "right",
+          data: [{
+                  value: pro_prospectData.A,
+                  name: 'A类客户'
+                },
+                {
+                  value: pro_prospectData.B,
+                  name: 'B类客户'
+                },
+                {
+                  value: pro_prospectData.C,
+                  name: 'C类客户'
+                },
+                {
+                  value: pro_prospectData.D,
+                  name: 'D类客户'
+                },],
+          orient: "vertical",
+          right: 4,
+          top: 40,
+          bottom: 10
+        },
           series: [
             {
               name: '访问来源',
@@ -202,10 +189,28 @@
           ]
         };
         let option222 = {
+          title: {
+          text: "员工开发潜在客户占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "6%",
+          left: "1%"
+        },
           tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"
           },
+          legend: {
+          x: "right",
+          data: pro_adviser,
+          orient: "vertical",
+          right: 5,
+          top: 40,
+          bottom: 10
+        },
           series: [
             {
               name: '访问来源',

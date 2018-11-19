@@ -65,6 +65,23 @@
           }
         }
       }
+      .practice-table {
+        .el-button--text {
+          color: #00bc71;
+        }
+        .block {
+          float: right;
+          margin-top: 10px;
+          .el-pagination {
+            padding: 15px 5px;
+            float: right;
+            margin-right: 0px!important;
+            .el-pager li.active {
+              color: #00bc71;
+            }
+          }
+        }
+      }
 }
 @media screen and (min-width: 992px)and (max-width: 1280px){
     .practice-center {
@@ -130,6 +147,23 @@
                     width: 65px!important;
                     padding: 10px!important;
               }
+          }
+        }
+      }
+      .practice-table {
+        .el-button--text {
+          color: #00bc71;
+        }
+        .block {
+          float: right;
+          margin-top: 10px;
+          .el-pagination {
+            padding: 15px 5px;
+            float: right;
+            margin-right: 25px!important;
+            .el-pager li.active {
+              color: #00bc71;
+            }
           }
         }
       }
@@ -201,6 +235,23 @@
           }
         }
       }
+      .practice-table {
+        .el-button--text {
+          color: #00bc71;
+        }
+        .block {
+          float: right;
+          margin-top: 10px;
+          .el-pagination {
+            padding: 15px 5px;
+            float: right;
+            margin-right: 25px!important;
+            .el-pager li.active {
+              color: #00bc71;
+            }
+          }
+        }
+      }
 }
 @media screen and (min-width: 1440px)and (max-width: 1920px){
     .practice-center {
@@ -211,7 +262,7 @@
           justify-content: flex-start;
           .add {
             border: 1px solid #00bc71;
-            width: 24%!important;
+            width: 20%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -229,7 +280,7 @@
           }
           .add2{
             border: 1px solid #ff2366;
-            width:24%!important;
+            width:20%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -269,6 +320,23 @@
           }
         }
       }
+      .practice-table {
+        .el-button--text {
+          color: #00bc71;
+        }
+        .block {
+          float: right;
+          margin-top: 10px;
+          .el-pagination {
+            padding: 15px 5px;
+            float: right;
+            margin-right: 40px!important;
+            .el-pager li.active {
+              color: #00bc71;
+            }
+          }
+        }
+      }
 }
 @media screen and (min-width: 1920px)and (max-width: 2048px){
   .practice-center {
@@ -279,7 +347,7 @@
         justify-content: flex-start;
         .add {
           border: 1px solid #00bc71;
-          width: 22%!important;
+          width: 21%!important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;
@@ -296,7 +364,7 @@
         }
         .add2{
           border: 1px solid #ff2366;
-          width:22%!important;
+          width:21%!important;
           height: 35px;
           border-radius: 4px;
           line-height: 0px;
@@ -332,6 +400,23 @@
                   width: 85px!important;
                   padding: 10px!important;
             }
+        }
+      }
+    }
+    .practice-table {
+      .el-button--text {
+        color: #00bc71;
+      }
+      .block {
+        float: right;
+        margin-top: 10px;
+        .el-pagination {
+          padding: 15px 5px;
+          float: right;
+          margin-right: 40px!important;
+          .el-pager li.active {
+            color: #00bc71;
+          }
         }
       }
     }

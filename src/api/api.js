@@ -34,7 +34,7 @@ axios.interceptors.response.use(function (response) {
         }, 3000);
         break;
       case 500:
-        location.replace('/#/House/500');
+        location.replace('/House/500');
         break;
     }
   }

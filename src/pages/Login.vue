@@ -50,7 +50,7 @@ export default {
       num:0,
         account: {
           username: '18812345678',
-          pwd: '123456',
+          pwd: '1234567',
           verifycode:'',
           door:''
         },

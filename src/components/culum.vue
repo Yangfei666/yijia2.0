@@ -13,9 +13,10 @@
                                 </el-dialog>
                             </template>
                         </div>
-                         <div style="height: 35px; line-height: 0px;margin-top: 10px; margin-left: 20px;">
-                          <el-button type="text" style="font-size:16px;">{{classroom}}&nbsp;&nbsp;{{startTime}}&nbsp;&nbsp;{{endTime}}</el-button>
-                        </div>
+                        <el-col style="height: 35px; line-height: 0px;margin-top: 10px; margin-left: 20px;display: flex">
+                          <el-button type="text"><b style="color:#747677;">当前教室:</b>{{classroom}}</el-button>
+                          <el-button type="text"><b style="color:#747677;">上课时间:</b>{{startTime}}~{{endTime}}</el-button>
+                        </el-col>
                     </div>
                 </el-col>
             </el-row>
@@ -77,16 +78,6 @@ export default {
   computed: {
     privateList() {
       let array = Object.values(this.courseDaily);
-      // console.log(this.courseDaily,array);
-      // for (let index = 0; index < array.length; index++) {
-      //   const element = array[index];
-      //   for (let i = 0; i < element.length; i++) {
-      //     const value = element[i];
-      //     if (value.staff === null) {
-      //       value.staff = '';
-      //     }
-      //   }
-      // }
       return array;
     },
     timeDivLength() {
@@ -189,9 +180,15 @@ export default {
         if (this.startTime == time) { //取消的是开始时间
           this.middleButtonStyle('');
           this.startTime = '';
+          if(this.endTime == '') {
+            this.classroom = '';
+          }
         } else if (this.endTime == time) { //取消的是结束时间
           this.middleButtonStyle('');
           this.endTime = '';
+          if(this.startTime == '') {
+            this.classroom = '';
+          }
         } else { // 取消了中间的时间
           this.$message({message: "请从两头的时间取消", type: "error"});
             return false;
