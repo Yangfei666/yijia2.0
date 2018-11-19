@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //懒加载方式，当路由被访问的时候才加载对应组件
+
 const Login = resolve => require(['@/pages/Login'], resolve)//登录
 
 const Home = resolve => require(['@/pages/Home'], resolve)//首页
@@ -135,8 +136,9 @@ let router = new Router({
         {
             path: '/',
             name: 'Login',
-            component: Login,//登录
-        },{
+            component: Login,
+        },
+        {
             path: '/login',
             name: 'Login',
             component: Login,//登录
