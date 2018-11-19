@@ -8,11 +8,11 @@
           <template>
             <el-dialog title="添加会所图片" :append-to-body="true" :visible.sync="dialogFormVisible">
               <!--添加会所图片-->
-              <el-upload class="upload-demo" ref="upload" action=" " 
-              :file-list="fileList" 
+              <el-upload class="upload-demo" ref="upload" action=" "
+              :file-list="fileList"
               :limit='5'
               :on-exceed='uploadOverrun'
-              :http-request='submitUpload' 
+              :http-request='submitUpload'
               list-type="picture"
               :auto-upload="true">
                 <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
@@ -75,6 +75,7 @@ export default {
       cover: [],
       hsxxIsFirst:true,
       loading: true,
+      rowIndex: -1,//图片下标
     };
   },
   created: function() {
@@ -100,8 +101,10 @@ export default {
               message: "修改成功",
               type: "success"
             });
-            this.reload();
-          });
+          })
+            .then(()=>{
+              _this.getClub()
+            })
         })
         .catch(error => {
           _this.loading = false;
@@ -109,11 +112,10 @@ export default {
               message: "修改失败",
               type: "error"
             });
-            this.scope.row.hsxxIsFirst = false;
+            _this.cover[index].hsxxIsFirst = '非封面';
         });
     },
     changeSwitch(val,row) {
-      console.log(val,row);
     },
     uploadOverrun: function() {
       this.$message({
@@ -122,15 +124,15 @@ export default {
       });
     },
     //自定义的上传图片的方法
-    submitUpload: function(content) {
+    submitUpload(content){
+      let _this = this
       let formData = new FormData();
       formData.append("file", content.file);
       this.$message({message: "添加成功",type: "success"});
       this.dialogFormVisible = false;
-      this.reload();
       requestLogin("/setClubInfoImg", formData,'post')
-       .then(function(res) {
-          console.log(res);
+        .then(()=>{
+          _this.getClub()
         })
         .catch(function(error) {
           console.log(error);
@@ -171,12 +173,15 @@ export default {
             "delete"
           ).then(() => {
             _this.loading = false;
-            this.$message({
+            _this.$message({
               message: "删除成功",
               type: "success"
-            });
-            this.reload();
-          });
+            })
+          })
+            .then(()=>{
+              _this.cover.splice(index, 1)
+            })
+          ;
           rows.splice(index, 1);
         })
         .catch(error => {
@@ -190,7 +195,6 @@ export default {
       console.log(file);
     },
     rowClick(row, event, column) {
-      console.log(row);
       //获取表格数据
       this.currentSelectRow = row;
     }
