@@ -17,15 +17,16 @@
       </el-col>
       </div>
     </el-form-item>
-    <el-checkbox v-model="checked" class="remember" v-if="!isAdmin">记住密码</el-checkbox>
     <el-form-item class="form-main" v-if="!isAdmin">
       <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="logining" >登录</el-button>
     </el-form-item>
+    <transition name="slide-fade">
     <el-form-item prop="door" class="form-item2" v-if="isAdmin">
       <el-select v-model="account.door" placeholder="请选择门店">
       <el-option v-for="item in clubList" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
     </el-select>
     </el-form-item>
+    </transition>
     <el-form-item class="form-main" v-if="isAdmin">
       <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="confirmClub" :loading="logining">确定</el-button>
     </el-form-item>

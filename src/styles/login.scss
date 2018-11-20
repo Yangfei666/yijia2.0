@@ -163,7 +163,7 @@
             }
             .form-main {
                 width: 100%;
-                margin-top: 24%;
+                margin-top: 21%;
                 background: #fff;
                 border-radius: 4px;
                 .el-button--primary{
@@ -182,3 +182,14 @@
         }
     }
 }
+.slide-fade-enter-active {
+    transition: all 1s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
