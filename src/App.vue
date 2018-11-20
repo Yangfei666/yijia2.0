@@ -279,14 +279,14 @@ body {
   border-color: #00bc71;
 }
 .el-button--primary {
-  color: #fff;
-  background-color: #00bc71;
-  border-color: #edfaf5;
+  color: #fff!important;
+  background-color: #00bc71!important;
+  border-color: #edfaf5!important;
 }
 .el-button--primary:hover {
   color: #fff;
-  background-color: #00bc71;
-  border-color: #00bc71;
+  background-color: #00bc71 !important;
+  border-color: #00bc71!important;
 }
 .el-radio-button__inner:hover {
   color: #00bc71;
