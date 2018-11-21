@@ -14,9 +14,7 @@
                 <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
               </div>
               <div class="box"></div>
-              <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验'
-                ? '体验·' + item.private_curriculum_appointment.experience_customers.exName
-                : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
+              <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? '体验·' + item.private_curriculum_appointment.experience_customers.exName : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
               <div class="progressContainer">
                 <div class="progress">
                   <b>{{progress}}</b>
@@ -25,9 +23,7 @@
               <div class="star">
                 <div class="block">
                   <p style="text-align:left;color:#f37489;font-size:14px;padding-left:12%;">
-                {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验'
-                ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName
-                : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
+                    {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
                 </div>
                 <div class="but">
                   <p>{{item.kcIsPrivate.substr(0,2)}}</p>
@@ -51,11 +47,11 @@ import Swiper from "swiper";
 export default {
   name: "private",
   props: {
-    privateList:[Object, Array]
+    privateList: [Object, Array]
   },
   data() {
     return {
-      progress: 20,
+      progress: 20
     };
   },
   mounted() {
@@ -80,8 +76,8 @@ export default {
         }
       });
     },
-    courseId (course) {
-      this.$emit('clickCourse', course);
+    courseId(course) {
+      this.$emit("clickCourse", course);
     }
   }
 };
@@ -121,7 +117,7 @@ export default {
           margin-top: 20px;
           margin-left: 45%;
         }
-      }///////////////////////
+      } ///////////////////////
       .swiper-main {
         width: 100%;
         height: 55%;

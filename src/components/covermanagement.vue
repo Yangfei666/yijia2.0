@@ -8,13 +8,7 @@
           <template>
             <el-dialog title="添加会所图片" :append-to-body="true" :visible.sync="dialogFormVisible">
               <!--添加会所图片-->
-              <el-upload class="upload-demo" ref="upload" action=" "
-              :file-list="fileList"
-              :limit='5'
-              :on-exceed='uploadOverrun'
-              :http-request='submitUpload'
-              list-type="picture"
-              :auto-upload="true">
+              <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='5' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
                 <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
               </el-upload>
@@ -35,25 +29,25 @@
             <template slot-scope="scope">
               <div v-if="scope.row.hsxxIsFirst == '封面'">
                 <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
-                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" disabled active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
-                </el-switch>
-              </el-tooltip>
+                  <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" disabled active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+                  </el-switch>
+                </el-tooltip>
               </div>
               <div v-else>
-              <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
-                <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" @click.native.prevent="toggleStatus(scope.$index)" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
-                </el-switch>
-              </el-tooltip>
+                <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">
+                  <el-switch v-model="scope.row.hsxxIsFirst" @change="changeSwitch($event,scope.row)" @click.native.prevent="toggleStatus(scope.$index)" active-color="#00bc71" inactive-color="#ff4949" active-value="封面" inactive-value="非封面">
+                  </el-switch>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="left">
             <template slot-scope="scope">
               <div v-if="scope.row.hsxxIsFirst == '封面'">
-               <el-button size="mini" type="danger" disabled>删除</el-button>
+                <el-button size="mini" type="danger" disabled>删除</el-button>
               </div>
               <div v-else>
-              <el-button size="mini" type="danger" @click.native.prevent="mydel(scope.$index,cover)">删除</el-button>
+                <el-button size="mini" type="danger" @click.native.prevent="mydel(scope.$index,cover)">删除</el-button>
               </div>
             </template>
           </el-table-column>
@@ -73,9 +67,9 @@ export default {
       formLabelWidth: "130px",
       dialogFormVisible: false,
       cover: [],
-      hsxxIsFirst:true,
+      hsxxIsFirst: true,
       loading: true,
-      rowIndex: -1,//图片下标
+      rowIndex: -1 //图片下标
     };
   },
   created: function() {
@@ -95,28 +89,28 @@ export default {
             "/setClubInfoImg/" + _this.currentSelectRow.id,
             {},
             "put"
-          ).then(() => {
-            _this.loading = false;
-            this.$message({
-              message: "修改成功",
-              type: "success"
-            });
-          })
-            .then(()=>{
-              _this.getClub()
+          )
+            .then(() => {
+              _this.loading = false;
+              this.$message({
+                message: "修改成功",
+                type: "success"
+              });
             })
+            .then(() => {
+              _this.getClub();
+            });
         })
         .catch(error => {
           _this.loading = false;
           this.$message({
-              message: "修改失败",
-              type: "error"
-            });
-            _this.cover[index].hsxxIsFirst = '非封面';
+            message: "修改失败",
+            type: "error"
+          });
+          _this.cover[index].hsxxIsFirst = "非封面";
         });
     },
-    changeSwitch(val,row) {
-    },
+    changeSwitch(val, row) {},
     uploadOverrun: function() {
       this.$message({
         type: "error",
@@ -124,19 +118,17 @@ export default {
       });
     },
     //自定义的上传图片的方法
-    submitUpload(content){
-      let _this = this
+    submitUpload(content) {
+      let _this = this;
       let formData = new FormData();
       formData.append("file", content.file);
-      this.$message({message: "添加成功",type: "success"});
+      this.$message({ message: "添加成功", type: "success" });
       this.dialogFormVisible = false;
-      requestLogin("/setClubInfoImg", formData,'post')
-        .then(()=>{
-          _this.getClub()
+      requestLogin("/setClubInfoImg", formData, "post")
+        .then(() => {
+          _this.getClub();
         })
-        .catch(function(error) {
-          console.log(error);
-        });
+        .catch(function(error) {});
     },
     //获取封面
     getClub() {
@@ -171,29 +163,25 @@ export default {
             "/setClubInfoImg/" + _this.currentSelectRow.id,
             {},
             "delete"
-          ).then(() => {
-            _this.loading = false;
-            _this.$message({
-              message: "删除成功",
-              type: "success"
+          )
+            .then(() => {
+              _this.loading = false;
+              _this.$message({
+                message: "删除成功",
+                type: "success"
+              });
             })
-          })
-            .then(()=>{
-              _this.cover.splice(index, 1)
-            })
-          ;
+            .then(() => {
+              _this.cover.splice(index, 1);
+            });
           rows.splice(index, 1);
         })
         .catch(error => {
           _this.loading = false;
         });
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
+    handleRemove(file, fileList) {},
+    handlePreview(file) {},
     rowClick(row, event, column) {
       //获取表格数据
       this.currentSelectRow = row;

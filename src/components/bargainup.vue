@@ -61,8 +61,6 @@ export default {
   },
   created: function() {
     let _this = this;
-    console.log(this.$route);
-    console.log(this.$route.params.id);
     requestLogin(
       "/CustomerFollowUp/getFollowUpRecord/deposit/" + this.$route.params.id,
       {},

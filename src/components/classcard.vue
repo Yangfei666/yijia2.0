@@ -189,21 +189,18 @@ export default {
   watch: {
     header(val) {
       //券种
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     status(val) {
       //状态
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     time(val) {
       //时间
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
@@ -221,11 +218,8 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          var customer_voucher = [];         
+          var customer_voucher = [];
           customer_voucher = res.customer_voucher;
-          console.log(
-            "customer_voucher:" + customer_voucher[0].experience_voucher.tkName
-          );
           for (var i = 0; i < customer_voucher.length; i++) {
             var xialaobj = { key: "", name: "" };
             xialaobj.key = customer_voucher[i].id;
@@ -248,15 +242,15 @@ export default {
       _this.loading = true;
       var params = {
         id: _this.$route.params.id, //体验券id  this.$route.params.id
-        type:3, //课程种类
-        state: _this.formInline.status, //上课状态 
-        cardId: _this.formInline.header, //券种id 
+        type: 3, //课程种类
+        state: _this.formInline.status, //上课状态
+        cardId: _this.formInline.header, //券种id
         startTime: _this.formInline.time, //预约时间
         endTime: _this.formInline.time //结束
       };
       requestLogin("/setExperienceCustomer/takeLessonsRecord", params, "post")
         .then(function(res) {
-            _this.loading = false;
+          _this.loading = false;
           let { group, privateList } = res;
           _this.tableData = group;
           _this.tableData2 = privateList;
@@ -275,32 +269,21 @@ export default {
           item.kcName = item.curriculum_table.curriculum_subject.kcName;
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
         });
-         _this.tableData2.map((item, index) => {
+        _this.tableData2.map((item, index) => {
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
         });
         this.tablelength = this.tableData.length;
         this.tablelength2 = this.tableData2.length;
       }
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-      console.log(event.target.getAttribute("id"));
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    Selectchange4(val) {
-      console.log(val);
-    },
-    timechange(val) {
-      console.log(val);
-    },
+    handleClick(tab, event) {},
+    Selectchange3(val) {},
+    Selectchange4(val) {},
+    timechange(val) {},
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     back() {
@@ -324,7 +307,7 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 2.3% !important;
+      top: 1.3% !important;
       z-index: 2;
       color: #262626;
       right: 78% !important;

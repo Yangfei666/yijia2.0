@@ -50,7 +50,6 @@ export default {
     this.Name = this.$route.params.exName;
     this.Sex = this.$route.params.exSex;
     this.Potential = 'experience';
-    console.log(this.Potential);
   }
 }
 </script>

@@ -189,21 +189,18 @@ export default {
   watch: {
     header(val) {
       //卡种
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     status(val) {
       //状态
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     time(val) {
       //时间
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
@@ -219,9 +216,7 @@ export default {
     //获取会员卡详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route);
-      console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {          
           var membership_card = [];
           membership_card = res.membership_card;
@@ -229,7 +224,6 @@ export default {
               var xialaobj = { key: "", name: "" };
               xialaobj.key = membership_card[i].id;
               xialaobj.name = membership_card[i].card_type.CTName;
-              console.log('xialaobj:'+xialaobj);
               _this.header.push(xialaobj);            
           }
         })
@@ -247,7 +241,7 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.params.HYID, //体验券id  this.$route.params.id
+        id: _this.$route.query.HYID, //体验券id 
         type: 3, //课程种类
         state: _this.formInline.status, //上课状态 
         cardId: _this.formInline.header, //卡id 
@@ -283,28 +277,21 @@ export default {
       }
     },
     handleClick(tab, event) {
-      console.log(tab, event);
-      console.log(event.target.getAttribute("id"));
     },
     Selectchange3(val) {
-      console.log(val);
     },
     Selectchange4(val) {
-      console.log(val);
     },
     timechange(val) {
-      console.log(val);
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     back() {
-      this.$router.go(-1); //返回上一层
+        this.$router.go(-1); //返回上一层
     }
   }
 };

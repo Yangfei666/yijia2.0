@@ -3,11 +3,9 @@
   <div class="memberhome">
     <el-col :span="24">
       <div class="class-main">
-        <router-link :to="{name:'Memberhome'}" style="text-decoration:none;">
-          <div class="infor-but">
-            <span class="goback el-icon-arrow-left">返回</span>
-          </div>
-        </router-link>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
+        </div>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
           <el-tab-pane label="解挂操作" name="first">
             <template>
@@ -25,18 +23,18 @@
                 <div class="health-from">
                   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-col :span="20" class="from-date">
-                        <el-col :span="24">
-                      <el-form-item label="新的卡号：" prop="card">
+                      <el-col :span="24">
+                        <el-form-item label="新的卡号：" prop="card">
                           <el-input v-model="ruleForm.card" placeholder="请输入" style="width:100%"></el-input>
-                      </el-form-item>
-                        </el-col>
+                        </el-form-item>
+                      </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
-                        <el-col :span="24">
-                      <el-form-item label="确认卡号：" prop="confirmcard">
+                      <el-col :span="24">
+                        <el-form-item label="确认卡号：" prop="confirmcard">
                           <el-input v-model="ruleForm.confirmcard" placeholder="请输入" style="width:100%"></el-input>
-                      </el-form-item>
-                        </el-col>
+                        </el-form-item>
+                      </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
                       <el-form-item>
@@ -102,15 +100,16 @@ export default {
     };
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
+    handleClick(tab, event) {},
+    back() {
+      this.$router.go(-1); //返回上一层
     },
     //补卡
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
           "/setDesignateMember/SupplementCard/" +
-            this.$route.params.HYID +
+            this.$route.query.HYID +
             "/" +
             this.ruleForm.card,
           {},
@@ -139,7 +138,7 @@ export default {
     Unhook(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/RescissionLoss/" + this.$route.params.HYID,
+          "/setDesignateMember/RescissionLoss/" + this.$route.query.HYID,
           {},
           "get"
         )
@@ -166,7 +165,7 @@ export default {
     ReportLoss(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/ReportLoss/" + this.$route.params.HYID,
+          "/setDesignateMember/ReportLoss/" + this.$route.query.HYID,
           {},
           "get"
         )

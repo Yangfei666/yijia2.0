@@ -1,47 +1,47 @@
 <template>
-    <!--头部-->
-    <div class="header">
-        <el-col :span="12">
-            <div class="grid-content bg-purple">
-                <!--展开折叠开关-->
-                <div class="apply" @click="changeCollasped">
-                    <img class="apply-img" :src="applyimg" v-show="downIcon" />
-                    <img class="apply-img" :src="applyimg2" v-show="!downIcon" />
-                </div>
+  <!--头部-->
+  <div class="header">
+    <el-col :span="12">
+      <div class="grid-content bg-purple">
+        <!--展开折叠开关-->
+        <div class="apply" @click="changeCollasped">
+          <img class="apply-img" :src="applyimg" v-show="downIcon" />
+          <img class="apply-img" :src="applyimg2" v-show="!downIcon" />
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="12">
+      <div class="grid-content bg-purple-light">
+        <div class="inner">
+          <el-col :span="16" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
+            <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:200px">
+              <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="16" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
+            {{club.Hsxx_Name}}
+          </el-col>
+          <el-col :span="8">
+            <div class="userinfo-inner">
+              <img :src="user.Photo" />
+              <span class="name">{{user.YGXX_NAME}}</span>
+              <span class="tuichu">
+                <el-dropdown trigger="click">
+                  <i class="el-icon-arrow-down el-icon-setting"></i>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>
+                      <router-link to="/House/individualcenter" style="text-decoration: none;color: #333;">个人中心</router-link>
+                    </el-dropdown-item>
+                    <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </span>
             </div>
-        </el-col>
-        <el-col :span="12">
-            <div class="grid-content bg-purple-light">
-                <div class="inner">
-                    <el-col :span="16" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
-                        <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:200px">
-                            <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
-                        </el-select>
-                    </el-col>
-                    <el-col :span="16" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
-                        {{club.Hsxx_Name}}
-                    </el-col>
-                    <el-col :span="8">
-                        <div class="userinfo-inner">
-                            <img :src="user.Photo" />
-                            <span class="name">{{user.YGXX_NAME}}</span>
-                            <span class="tuichu">
-                                <el-dropdown trigger="click">
-                                    <i class="el-icon-arrow-down el-icon-setting"></i>
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>
-                                            <router-link to="/House/individualcenter" style="text-decoration: none;color: #333;">个人中心</router-link>
-                                        </el-dropdown-item>
-                                        <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </span>
-                        </div>
-                    </el-col>
-                </div>
-            </div>
-        </el-col>
-    </div>
+          </el-col>
+        </div>
+      </div>
+    </el-col>
+  </div>
 </template>
 <script>
 import { requestLogin } from "../api/api";
@@ -85,7 +85,6 @@ export default {
     },
     // 切换门店
     changeValue() {
-      console.log(this.club.Hsxx_Hsid);
       requestLogin("/againGetToken/" + this.club.Hsxx_Hsid)
         .then(data => {
           sessionStorage.setItem("access-token", data); //换成新门店的token
@@ -131,7 +130,6 @@ export default {
     changeCollasped() {
       this.downIcon = !this.downIcon;
       this.collapsed = !this.collapsed;
-      console.log(this.collapsed);
       this.$emit("changeCollapsed", this.collapsed);
     }
   }

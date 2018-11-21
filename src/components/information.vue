@@ -117,15 +117,15 @@
           </el-col>
         </div>
         <div class="infor-center2">
-        <el-col :span="24" class="hand-right">
-          <div class="head_img">
-            <img :src="imageUrl" />
-          </div>
-          <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
-            <el-button type="success" class="successbut" plain>更换头像</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-        </el-col>
+          <el-col :span="24" class="hand-right">
+            <div class="head_img">
+              <img :src="imageUrl" />
+            </div>
+            <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+              <el-button type="success" class="successbut" plain>更换头像</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-col>
         </div>
       </el-col>
     </div>
@@ -142,7 +142,7 @@ export default {
       formLabelWidth: "130px",
       payment: 3,
       club: "",
-      imageUrl:"",
+      imageUrl: "",
       ruleForm: {},
       fileList: [],
       membership_card: ""
@@ -152,7 +152,7 @@ export default {
     this.getexperhome();
   },
   methods: {
-     uploadOverrun: function() {
+    uploadOverrun: function() {
       this.$message({
         type: "error",
         message: "上传文件个数超出限制!最多上传1张图片!"
@@ -163,8 +163,12 @@ export default {
       this.addLoading = true;
       this.file = content.file;
       let formData = new FormData();
-      formData.append("file",this.file);
-      requestLogin("/setDesignateMember/editMemberIcon/"+this.$route.params.HYID, formData, "post")
+      formData.append("file", this.file);
+      requestLogin(
+        "/setDesignateMember/editMemberIcon/" + this.$route.query.HYID,
+        formData,
+        "post"
+      )
         .then(res => {
           this.addLoading = false;
           this.$message({
@@ -189,9 +193,7 @@ export default {
     getexperhome() {
       let _this = this;
       let relationCard = [];
-      console.log(this.$route);
-      console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
           let { membership_card } = res;
@@ -222,9 +224,8 @@ export default {
           hyConTel: this.ruleForm.hyConTel, //紧急联系人电话
           hyWeChat: this.ruleForm.hyWeChat //微信号
         };
-        console.log(this.$route.params.HYID);
         requestLogin(
-          "/setDesignateMember/" + this.$route.params.HYID,
+          "/setDesignateMember/" + this.$route.query.HYID,
           loginParams,
           "put"
         )
@@ -249,12 +250,7 @@ export default {
       });
     },
     back() {
-      let url = this.$route.path;
-      if (url === "/Customer/membershiphome/information") {
-        this.$router.push("/Customer/membershiphome/memberhome");
-      } else {
-        this.$router.go(-1); //返回上一层
-      }
+      this.$router.go(-1); //返回上一层
     },
     editclub() {
       this.dialogFormVisible = true;
@@ -300,74 +296,74 @@ export default {
       }
     }
   }
-  .infor-wp{
-    display:flex;
-  .infor-center {
-    width: 40%;
-    margin: 20px auto;
-    height: 100%;
-    display: inline-block;
-    .infor-info {
-      height: 47px;
-      line-height: 47px;
-      text-align: left;
-      .left {
-        font-family: PingFang-SC-Regular;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        letter-spacing: 0px;
-        color: #8c8c8c;
-      }
-      .padding {
-        padding-left: 28px;
-      }
-      .margin {
-        margin-left: -14px;
-      }
-      .margin2 {
-        margin-left: -42px;
-      }
-      .padding2 {
-        padding-left: 13px;
-      }
-      .right {
-        font-family: PingFang-SC-Regular;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        letter-spacing: 0px;
-        color: #262626;
+  .infor-wp {
+    display: flex;
+    .infor-center {
+      width: 40%;
+      margin: 20px auto;
+      height: 100%;
+      display: inline-block;
+      .infor-info {
+        height: 47px;
+        line-height: 47px;
+        text-align: left;
+        .left {
+          font-family: PingFang-SC-Regular;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #8c8c8c;
+        }
+        .padding {
+          padding-left: 28px;
+        }
+        .margin {
+          margin-left: -14px;
+        }
+        .margin2 {
+          margin-left: -42px;
+        }
+        .padding2 {
+          padding-left: 13px;
+        }
+        .right {
+          font-family: PingFang-SC-Regular;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #262626;
+        }
       }
     }
-  }
-  .infor-center2{
-    width: 40%;
-    margin: 20px auto;
-    height: 100%;
-    display: inline-block;
-    margin-left:-9%;
-  .hand-right {
-    height: 100%;
-    .head_img {
-      margin-top: 4%;
-      img {
-        width: 28%;
+    .infor-center2 {
+      width: 40%;
+      margin: 20px auto;
+      height: 100%;
+      display: inline-block;
+      margin-left: -9%;
+      .hand-right {
         height: 100%;
-        border-radius: 50%;
+        .head_img {
+          margin-top: 4%;
+          img {
+            width: 28%;
+            height: 100%;
+            border-radius: 50%;
+          }
+        }
+        .setting_right {
+          height: 35px;
+          margin-top: 4%;
+          .successbut {
+            width: 17%;
+            height: 35px;
+            padding: 10px;
+          }
+        }
       }
     }
-    .setting_right {
-      height: 35px;
-      margin-top: 4%;
-      .successbut {
-        width: 17%;
-        height: 35px;
-        padding: 10px;
-      }
-    }
-  }
-  }
   }
 }
 </style>

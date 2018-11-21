@@ -186,8 +186,6 @@ export default {
   },
   created() {
     this.getCustomer();
-    console.log(this.huiyuanqufen);
-    console.log(this.huiyuanqufen.id);
   },
   methods: {
     //获取会籍顾问和卡名称
@@ -270,8 +268,6 @@ export default {
         return item.YGXX_YGID_NEI === val;
       });
       this.YGXX_NAME = obj.YGXX_NAME;
-      console.log(obj.YGXX_NAME);
-      console.log(val);
     },
     Selectchange3(val) {
       let obj = {};
@@ -279,14 +275,10 @@ export default {
         return item.CTID === val;
       });
       this.CTName = obj.CTName;
-      console.log(obj.CTName);
-      console.log(val);
     },
     ChangeSex(val) {
-      console.log(val);
     },
     cahngesen(val) {
-      console.log(val);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

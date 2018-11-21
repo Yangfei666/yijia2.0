@@ -89,7 +89,6 @@ export default {
           _this.loading = false;
           let { role, brigades } = res;
           _this.role = role;
-          console.log(brigades);
           _this.brigades = brigades;
         })
         .catch(error => {
@@ -144,7 +143,6 @@ export default {
               });
           });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -152,12 +150,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    handleCheckChange(val) {
-      console.log(this.currentSelectRow.role);
-    },
-    xiaozu(val) {
-      console.log(val);
-    },
+    handleCheckChange(val) {},
+    xiaozu(val) {},
     bigsVal(id) {
       this.brigades.map((item, index) => {
         if (item.id === id) {

@@ -1,89 +1,98 @@
 <template>
-    <div>
-      <!--启用禁用操作-->
-        <el-row>
-            <div class="tag">
-                <em class="top"></em>
-                <el-col :span="24" class="transfer">
-                    <div class="transfer-main">
-                        <span class="transfer-span">启用/禁用操作</span>
-                    </div>
-                </el-col>
+  <div>
+    <!--启用禁用操作-->
+    <el-row>
+      <div class="tag">
+        <em class="top"></em>
+        <el-col :span="24" class="transfer">
+          <div class="transfer-main">
+            <span class="transfer-span">启用/禁用操作</span>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-from">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+              <el-col :span="16">
+                <el-form-item label="启用或禁用该卡:" prop="enablecard">
+                  <el-col :span="24">
+                    <el-select v-model="ruleForm.enablecard" placeholder="请选择" style="width:100%">
+                      <el-option label="禁用" value="2"></el-option>
+                      <el-option label="启用" value="1"></el-option>
+                    </el-select>
+                  </el-col>
+                </el-form-item>
+              </el-col>
+              <el-col :span="16" class="from-date">
                 <el-col :span="24">
-                    <div class="transfer-from">
-                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
-                            <el-col :span="16">
-                           <el-form-item label="启用或禁用该卡:" prop="enablecard">
-                               <el-col :span="24">
-                               <el-select v-model="ruleForm.enablecard" placeholder="请选择" style="width:100%">
-                                    <el-option label="禁用" value="2"></el-option>
-                                    <el-option label="启用" value="1"></el-option>
-                                </el-select>
-                                </el-col>
-                            </el-form-item>
-                            </el-col>
-                            <el-col :span="16" class="from-date">
-                                <el-col :span="24">
-                            <el-form-item label="变更原因:" prop="desc">
-                                <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
-                                <span class="textarea">还可以输入{{remnant}}字</span>
-                            </el-form-item>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="16" class="submit">
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                                <el-button @click="resetForm('ruleForm')">重置</el-button>
-                            </el-form-item>
-                            </el-col>
-                        </el-form>
-                    </div>
+                  <el-form-item label="变更原因:" prop="desc">
+                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                    <span class="textarea">还可以输入{{remnant}}字</span>
+                  </el-form-item>
                 </el-col>
-            </div>
-        </el-row>
-    </div>
+              </el-col>
+              <el-col :span="16" class="submit">
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                  <el-button @click="resetForm('ruleForm')">重置</el-button>
+                </el-form-item>
+              </el-col>
+            </el-form>
+          </div>
+        </el-col>
+      </div>
+    </el-row>
+  </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name:'enabledisabling',
+  name: "enabledisabling",
   data() {
     return {
-        remnant: 666,
+      remnant: 666,
       ruleForm: {
-        enablecard: '',
-        desc: ''
+        enablecard: "",
+        desc: ""
       },
-       rules: {
-            enablecard: [
-            { required: true, message: '请选择启用或禁用', trigger: 'change' },
-          ],
-           desc: [
-            { required: true, message: '请填写变更原因', trigger: 'blur' },
-            { min: 1, max: 666, message: '长度在 1 到 666个字符', trigger: 'blur' }
-          ]
-       }
+      rules: {
+        enablecard: [
+          { required: true, message: "请选择启用或禁用", trigger: "change" }
+        ],
+        desc: [
+          { required: true, message: "请填写变更原因", trigger: "blur" },
+          {
+            min: 1,
+            max: 666,
+            message: "长度在 1 到 666个字符",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   methods: {
-     //启用禁用
+    //启用禁用
     submitForm(formName) {
       let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              id: _this.$route.params.CARD.id, //会员卡id
+              id: _this.$route.query.CARD.id, //会员卡id
               num: _this.ruleForm.enablecard, //启用禁用
-              content: _this.ruleForm.desc, //原因
+              content: _this.ruleForm.desc //原因
             };
-            requestLogin("/setDesignateMember/enabledOrDisable", loginParams, "post")
+            requestLogin(
+              "/setDesignateMember/enabledOrDisable",
+              loginParams,
+              "post"
+            )
               .then(data => {
                 this.$message({
                   message: "操作成功",
                   type: "success"
                 });
-               this.resetForm(formName);
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -102,13 +111,13 @@ export default {
         }
       });
     },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-       descInput(){
-        var txtVal = this.ruleForm.desc.length;
-        this.remnant = 666 - txtVal;
-        }
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    descInput() {
+      var txtVal = this.ruleForm.desc.length;
+      this.remnant = 666 - txtVal;
+    }
   }
 };
 </script>
@@ -144,7 +153,7 @@ export default {
       margin: auto;
       line-height: 45px;
       display: flex;
-      justify-content:flex-start;
+      justify-content: flex-start;
       .transfer-span {
         font-size: 16px;
         color: #262626;
@@ -176,22 +185,22 @@ export default {
       height: 35px;
       line-height: 10px;
     }
-    .submit{
-        display: flex;
+    .submit {
+      display: flex;
     }
-    .from-date{
-        position: relative;
-        .textarea{
-            color: #00bc71;
-            position: absolute;
-            top: 60%;
-            right: 5%;
-        }
+    .from-date {
+      position: relative;
+      .textarea {
+        color: #00bc71;
+        position: absolute;
+        top: 60%;
+        right: 5%;
+      }
     }
   }
-  .transfer-table{
-      width: 98%;
-      margin: 0 auto;
+  .transfer-table {
+    width: 98%;
+    margin: 0 auto;
   }
 }
 </style>

@@ -129,12 +129,27 @@
               <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px"></el-table-column>
               <el-table-column align="left" label="操作" width="150px" fixed="right">
                 <template slot-scope="scope">
-                  <el-button @click="clickBtn(scope.row)" type="danger" plain
-                             :disabled="scope.row.role.indexOf('会籍顾问') != -1" size="small">客户转出
+                  <el-button @click="dialogFormVisible3 = true" type="danger" plain :disabled="scope.row.role.indexOf('会籍顾问') == -1" size="small">客户转出
                   </el-button>
                 </template>
               </el-table-column>
             </el-table>
+            <el-dialog title="转出客户到新会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
+              <el-form :model="ruleForm2" ref="ruleForm2" label-width="100px">
+                <el-form-item label="新会籍:" prop="adviser" :label-width="formLabelWidth">
+                  <el-col :span="22">
+                    <el-select v-model="ruleForm2.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                      <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                    </el-select>
+                  </el-col>
+                </el-form-item>
+                <el-form-item class="dialog-footer">
+                  <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                    <el-button type="primary" @click="submitForm2('ruleForm2')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+            </el-dialog>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
@@ -153,10 +168,11 @@ export default {
   name: "staff",
   inject: ["reload"],
   components: {
-    Editstaff,
+    Editstaff
   },
   data() {
     return {
+      staff_info: [],
       bigsvalue: "",
       addLoading: false,
       loading: true,
@@ -166,6 +182,7 @@ export default {
       disabled: false,
       currentSelectRow: "",
       dialogFormVisible2: false,
+      dialogFormVisible3: false,
       currentPage: 1,
       pagesize: 10,
       radio: true,
@@ -182,6 +199,9 @@ export default {
         small: "", //所属小组
         desc: "" //员工简介
       },
+      ruleForm2: {
+        adviser: [] //新会籍
+      },
       rules: {
         name: validate.name,
         sex: validate.sex,
@@ -192,7 +212,6 @@ export default {
       tableData: [],
       tableData2: [],
       role: [],
-      //rolestr:[],
       brigades: [],
       groups: [],
       searchVal: ""
@@ -200,7 +219,6 @@ export default {
   },
   watch: {
     searchVal(val) {
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -216,15 +234,15 @@ export default {
         _this.tableData = res;
         _this.tableData2 = res;
         _this.rolegourp();
-        for(var i = 0; i<_this.tableData.length;i++){
-           var rolestr=_this.tableData[i].role[0].name;
-           var role=_this.tableData[i].role;
-           if(role.length>1){
-              for(var j = 1; j<role.length;j++){
-                 rolestr = rolestr.concat(','+role[j].name);
-               }
-           }
-           _this.tableData[i].role=rolestr;
+        for (var i = 0; i < _this.tableData.length; i++) {
+          var rolestr = _this.tableData[i].role[0].name;
+          var role = _this.tableData[i].role;
+          if (role.length > 1) {
+            for (var j = 1; j < role.length; j++) {
+              rolestr = rolestr.concat("," + role[j].name);
+            }
+          }
+          _this.tableData[i].role = rolestr;
         }
       })
       .catch(error => {
@@ -235,10 +253,54 @@ export default {
           });
         }
       });
+    _this.gethuiji();
   },
   methods: {
-    clickBtn(obj) {
-
+    submitForm2() {
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        requestLogin(
+          "/setStaffInfo/changeAdviser/" +
+            this.currentSelectRow.YGXX_YGID_NEI +
+            "/" +
+            this.ruleForm2.adviser,
+          {},
+          "get"
+        )
+          .then(data => {
+            this.$message({
+              message: "转出成功",
+              type: "success"
+            });
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
+    //获取会籍顾问
+    gethuiji() {
+      let _this = this;
+      requestLogin("/setDepositCustomer/create", {}, "get")
+        .then(function(res) {
+          let { staff_info } = res;
+          _this.staff_info = staff_info;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
     },
     //添加员工角色大队
     rolegourp() {
@@ -276,34 +338,25 @@ export default {
           i.YGXX_HOMETEL.includes(this.searchVal)
       );
     },
-    handleCheckChange(val) {
-      console.log(this.ruleForm.role);
-    },
+    handleCheckChange(val) {},
     radiochange(row) {
       this.radio = row;
-      console.log(`当前: ${row}`);
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
-     handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
-    xiaozu(val) {
-      console.log(val);
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
     },
+    getCurrentRow(val) {},
+    xiaozu(val) {},
     rowClick(row, event, column) {
       this.radio = row.index;
       this.currentSelectRow = row;
-       this.radio = this.tableData.indexOf(row);
+      this.radio = this.tableData.indexOf(row);
       let roleIds = [];
       row.role.map(i => {
         if (i.id) {
@@ -365,6 +418,7 @@ export default {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 666 - txtVal;
     },
+    Selectchange2(val) {},
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
@@ -387,7 +441,6 @@ export default {
       })
         .then(() => {
           _this.loading = true;
-          console.log(_this.currentSelectRow.YGXX_YGID_NEI);
           requestLogin(
             "/setStaffInfo/" + _this.currentSelectRow.YGXX_YGID_NEI,
             {},

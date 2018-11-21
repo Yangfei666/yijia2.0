@@ -35,7 +35,7 @@
       <el-form-item label="体验券:" prop="type" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-select v-model="ruleForm.type" placeholder="请选择" style="width:100%" @change="Selectchange">
-             <el-option v-for="item in tkName" :key="item.id" :label="item.tkName" :value="item.id"></el-option>
+            <el-option v-for="item in tkName" :key="item.id" :label="item.tkName" :value="item.id"></el-option>
           </el-select>
         </el-col>
       </el-form-item>
@@ -75,22 +75,23 @@ import * as validate from "@/validate/Login";
 export default {
   name: "addpractice",
   inject: ["reload"],
-  props:{
+  props: {
     tiyanqufen: {
       type: Object,
       required: true
-    }},
+    }
+  },
   data() {
     return {
       dialogFormVisible: false,
       formLabelWidth: "130px",
       disabled: false,
       ruleForm: {
-        name:"", //姓名
+        name: "", //姓名
         sex: "", //性别
-        tel:"", //电话
+        tel: "", //电话
         wechat: "", //微信
-        adviser:"", //会籍顾问
+        adviser: "", //会籍顾问
         type: [], //体验券
         price: "", //金额
         mode: "", //付款方式
@@ -108,17 +109,15 @@ export default {
         desc: validate.desc
       },
       staff_info: [],
-      tkName:[],
-      YGXX_NAME:''
+      tkName: [],
+      YGXX_NAME: ""
     };
   },
   created: function() {
     this.getCustomer();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.getVouchers();
-    },1000)
-    console.log(this.tiyanqufen);
-    console.log(this.tiyanqufen.id);
+    }, 1000);
   },
   methods: {
     //获取会籍顾问列表
@@ -139,8 +138,8 @@ export default {
         });
     },
     //获取体验券
-    getVouchers(){
-       let _this = this;
+    getVouchers() {
+      let _this = this;
       requestLogin("/setExperienceCustomer/selectVouchers", {}, "get")
         .then(function(res) {
           _this.tkName = res;
@@ -166,11 +165,11 @@ export default {
               exWeChat: _this.ruleForm.wechat, //微信
               exSex: _this.ruleForm.sex, //性别
               exHjgwId: _this.ruleForm.adviser, //会籍顾问id
-              exHjgwName:_this.YGXX_NAME, //会籍顾问姓名
+              exHjgwName: _this.YGXX_NAME, //会籍顾问姓名
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
               price: _this.ruleForm.price, //价格
-              identity:_this.tiyanqufen, //转换客户的身份
+              identity: _this.tiyanqufen, //转换客户的身份
               oldId: _this.tiyanqufen.id //原客户类别的id
             };
             requestLogin("/setExperienceCustomer", loginParams, "post")
@@ -203,17 +202,13 @@ export default {
       this.$refs[formName].resetFields();
     },
     Selectchange2(val) {
-       let obj = {};
-          obj = this.staff_info.find((item)=>{
-            return item.YGXX_YGID_NEI===val;  
-          });  
-          this.YGXX_NAME=obj.YGXX_NAME;
-          console.log(obj.YGXX_NAME); 
-          console.log(val);
-          },
-    Selectchange(val) {
-      console.log(val);
-    }
+      let obj = {};
+      obj = this.staff_info.find(item => {
+        return item.YGXX_YGID_NEI === val;
+      });
+      this.YGXX_NAME = obj.YGXX_NAME;
+    },
+    Selectchange(val) {}
   }
 };
 </script>

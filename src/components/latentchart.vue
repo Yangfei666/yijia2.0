@@ -97,9 +97,7 @@ export default {
       });
       this.sumStaffValue = sum;
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
+    handleClick(tab, event) {},
     drawPie({ pro_adviser, pro_prospectData, pro_staff }) {
       //饼图
       let myChart111 = echarts.init(document.getElementById("myChart111"));

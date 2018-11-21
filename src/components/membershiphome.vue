@@ -25,15 +25,15 @@
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
-                <router-link :to="{name:'Information',params:{HYID:this.HYID}}" class="link" exact>综合信息</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/informations',query:{HYID:this.HYID}}" class="link">综合信息</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link :to="{name:'Leave',params:{HYID:this.HYID}}" class="link" exact>请假/销假</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/leave',query:{HYID:this.HYID}}" class="link">请假/销假</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link :to="{name:'Unhook',params:{HYID:this.HYID}}" class="link" exact>挂失/解挂/补卡</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/unhook',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">挂失/解挂/补卡</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
@@ -46,11 +46,11 @@
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link :to="{name:'Operationnote',params:{HYID:this.HYID}}" class="link" exact>操作记录</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/operationnote',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">操作记录</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link :to="{name:'Classcard2',params:{HYID:this.HYID}}" class="link" exact>上课记录</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/classcard2',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">上课记录</router-link>
               </div>
             </el-col>
           </el-col>
@@ -73,7 +73,8 @@ export default {
       dialogFormVisible: false,
       Potential: {
         potential: "setDesignateMember",
-        id: this.$route.params.HYID
+        id: this.$route.query.HYID,
+        YGXX_NAME: this.$route.query.YGXX_NAME
       },
       club: "",
       YGXX_NAME: "",
@@ -86,21 +87,18 @@ export default {
     setTimeout(() => {
       this.getexperhome();
     }, 500);
-    this.YGXX_NAME = this.$route.params.YGXX_NAME;
-    this.HYID = this.$route.params.HYID;
-    this.HYName = this.$route.params.HYName;
-    this.MotoTel = this.$route.params.MotoTel;
+    this.YGXX_NAME = this.$route.query.YGXX_NAME;
+    this.HYID = this.$route.query.HYID;
+    this.HYName = this.$route.query.HYName;
+    this.MotoTel = this.$route.query.MotoTel;
   },
   methods: {
     //获取个人中心详情
     getexperhome() {
       let _this = this;
-      // console.log(this.$route);
-      // console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
-          // console.log(res);
         })
         .catch(error => {
           if (error.res) {

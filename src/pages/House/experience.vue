@@ -28,47 +28,47 @@
                     <!--添加体验券-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="体验券名称:" prop="experiencename" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="售价(元):" prop="price" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="总次数:" prop="number" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="有效期(天数):" prop="termvalidity" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-input v-model="ruleForm.termvalidity" placeholder="请输入"></el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-radio-group v-model="ruleForm.status">
-                                <el-radio :label="1">启用</el-radio>
-                                <el-radio :label="0">禁用</el-radio>
-                            </el-radio-group>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
-                          <el-col :span="22">
-                            <el-radio-group v-model="ruleForm.type">
-                                <el-radio :label="1">团课券</el-radio>
-                                <el-radio :label="0">私教券</el-radio>
-                            </el-radio-group>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item class="dialog-footer">
-                          <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                        <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                        <el-col :span="22">
+                          <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
                         </el-col>
-                    </el-form-item>
+                      </el-form-item>
+                      <el-form-item label="售价(元):" prop="price" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="总次数:" prop="number" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="有效期(天数):" prop="termvalidity" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-input v-model="ruleForm.termvalidity" placeholder="请输入"></el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-radio-group v-model="ruleForm.status">
+                            <el-radio :label="1">启用</el-radio>
+                            <el-radio :label="0">禁用</el-radio>
+                          </el-radio-group>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-radio-group v-model="ruleForm.type">
+                            <el-radio :label="1">团课券</el-radio>
+                            <el-radio :label="0">私教券</el-radio>
+                          </el-radio-group>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item class="dialog-footer">
+                        <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                          <el-button @click="resetForm('ruleForm')">重置</el-button>
+                          <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                        </el-col>
+                      </el-form-item>
                     </el-form>
                   </el-dialog>
                 </template>
@@ -91,10 +91,10 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading"  ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+            <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
-                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                  <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
               <el-table-column prop="tkName" align="left" fixed label="体验券名称"></el-table-column>
@@ -119,15 +119,15 @@ import Editexpersecurity from "@/components/editexpersecurity";
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
-  inject:['reload'],
+  inject: ["reload"],
   name: "experience",
   components: {
     Editexpersecurity
   },
   data() {
     return {
-      formLabelWidth: '130px',
-      disabled:false,
+      formLabelWidth: "130px",
+      disabled: false,
       currentSelectRow: "",
       loading: true,
       dialogFormVisible: false,
@@ -136,66 +136,55 @@ export default {
       pagesize: 10,
       radio: true,
       ruleForm: {
-          experiencename:'',//体验券名称
-          type: '',//类型
-          price:'',//售价
-          termvalidity: '',//有效期
-          number:'',//总次数
-          status:'',//状态
-        },
-        rules: {
-          experiencename:validate.experiencename,
-          type: validate.type,
-          price:validate.price,
-          termvalidity: validate.termvalidity,
-          number:validate.number,
-          status:validate.status
-        },
+        experiencename: "", //体验券名称
+        type: "", //类型
+        price: "", //售价
+        termvalidity: "", //有效期
+        number: "", //总次数
+        status: "" //状态
+      },
+      rules: {
+        experiencename: validate.experiencename,
+        type: validate.type,
+        price: validate.price,
+        termvalidity: validate.termvalidity,
+        number: validate.number,
+        status: validate.status
+      },
       tableData: []
     };
   },
-      created: function () {
+  created: function() {
     //表格列表数据
-      let _this = this;
-      _this.loading = true;
-      requestLogin("/setExperienceVoucher",{},'get')
-        .then(function(res) {
-          _this.tableData = res;
-          _this.loading = false;
-        })
-        .catch(error => {
-          if(error.res){
-             this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+    let _this = this;
+    _this.loading = true;
+    requestLogin("/setExperienceVoucher", {}, "get")
+      .then(function(res) {
+        _this.tableData = res;
+        _this.loading = false;
+      })
+      .catch(error => {
+        if (error.res) {
+          this.$message({
+            message: "获取数据失败",
+            type: "error"
+          });
+        }
+      });
   },
   methods: {
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
-    handleClick3(row) {
-      console.log(row);
-      alert("点击了");
-    },
+    radiochange(row) {},
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
-    },
-    onSubmit() {
-      console.log("submit!");
     },
     //添加体验券
     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$confirm("确认提交吗？", "提示").then(() => {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
               tkName: this.ruleForm.experiencename, //劵名称
@@ -213,7 +202,7 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible=false;
+                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;
@@ -225,29 +214,24 @@ export default {
                 }
               });
           });
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
+        } else {
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
     rowClick(row, event, column) {
-       this.radio=row.index;
+      this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
-      console.log(row.index);
       this.radio = this.tableData.indexOf(row);
     },
-    handleCurrentChange2(val,index) {
-        this.currentRow = val;
-        // this.$emit('data',val.pkg);
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
+    getCurrentRow(val) {},
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
@@ -257,7 +241,7 @@ export default {
       }
     },
     //删除体验券
-      delexper() {
+    delexper() {
       let _this = this;
       if (!this.currentSelectRow) {
         this.$message({ message: "请先选择数据!", type: "warning" });
@@ -270,7 +254,6 @@ export default {
       })
         .then(() => {
           _this.loading = true;
-          console.log(_this.currentSelectRow.id);
           requestLogin(
             "/setExperienceVoucher/" + _this.currentSelectRow.id,
             {},
@@ -297,7 +280,7 @@ export default {
 };
 </script>
 <style lang="scss">
- @import '@/styles/dialog.scss';
+@import "@/styles/dialog.scss";
 </style>
 <style lang="scss" scoped>
 @import "@/styles/experience.scss";

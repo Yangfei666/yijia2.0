@@ -115,8 +115,6 @@ export default {
   },
   created(){
     this.getCustomer();
-    console.log(this.dingjinqufen);
-    console.log(this.dingjinqufen.id);
   },
   methods: {
      //获取会籍顾问列表
@@ -198,8 +196,6 @@ export default {
         return item.YGXX_YGID_NEI === val;
       });
       this.YGXX_NAME = obj.YGXX_NAME;
-      console.log(obj.YGXX_NAME);
-      console.log(val);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

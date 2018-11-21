@@ -93,10 +93,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" ref="singleTable"  @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :default-sort="{order: 'descending'}" :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="80px">
               <template slot-scope="scope">
-                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -147,7 +147,7 @@ import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
-function  downloadExcel(config, sourceData) {
+function downloadExcel(config, sourceData) {
   let subData = sourceData.map(item => {
     let temp = [];
     let keys = Object.keys(item);
@@ -188,10 +188,10 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: "",
-      Tiyanqufen:{tiyanqufen:'potential',id:""},
-      Dingjinqufen:{dingjinqufen:'potential',id:""},
-      Huiyuanqufen:{huiyuanqufen:'potential',id:""},
-      Customercategory:'potential',
+      Tiyanqufen: { tiyanqufen: "potential", id: "" },
+      Dingjinqufen: { dingjinqufen: "potential", id: "" },
+      Huiyuanqufen: { huiyuanqufen: "potential", id: "" },
+      Customercategory: "potential",
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
@@ -235,14 +235,12 @@ export default {
   watch: {
     searchVal(val) {
       //姓名电话
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
     },
     quality(val) {
       //质量
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -334,33 +332,21 @@ export default {
       let config = {
         excelName: "潜在客户管理",
         sheetName: "潜在客户管理",
-        limit: 'id,prSex,hsid,prBelog,prHealth,RecordTime,WeChat,remark'.split(','),
-        headTitle: '姓名|电话|质量|成交状态|登记时间|会籍'.split('|'),
+        limit: "id,prSex,hsid,prBelog,prHealth,RecordTime,WeChat,remark".split(
+          ","
+        ),
+        headTitle: "姓名|电话|质量|成交状态|登记时间|会籍".split("|")
       };
-      downloadExcel(config, this.tableData)
+      downloadExcel(config, this.tableData);
     },
-      handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
-    Selectchange(val) {
-      console.log(val);
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
     },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    handleClick3(row) {
-      console.log(row);
-      alert("点击了");
-    },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
+    getCurrentRow(val) {},
+    Selectchange(val) {},
+    Selectchange2(val) {},
+    Selectchange3(val) {},
+    radiochange(row) {},
     //重置
     resetForm() {
       this.formInline.quality = "";
@@ -370,7 +356,6 @@ export default {
     },
     //跟进记录
     func() {
-      console.log(this.currentSelectRow);
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -399,11 +384,9 @@ export default {
       }
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
@@ -417,16 +400,14 @@ export default {
       this.radio = this.tableData.indexOf(row);
     },
     //潜在认领跳转
-    go(index,row) {
+    go(index, row) {
       this.currentSelectRow = row;
-      console.log(this.currentSelectRow.prName);
-      console.log(this.currentSelectRow.prTel);
       this.$router.push({
-        path:"/Customer/latent/claim",
+        path: "/Customer/latent/claim",
         query: {
           name: this.currentSelectRow.prName,
           tel: this.currentSelectRow.prTel,
-          customercategory:this.Customercategory
+          customercategory: this.Customercategory
         }
       });
     },

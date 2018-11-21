@@ -139,8 +139,7 @@ export default {
           let Coach = Object.keys(res.data);
           _this.Coach = Object.keys(res.data);
           _this.Coachclass = Object.values(res.data);
-          let num = 0; 
-          console.log('this.jskey:'+_this.jskey);
+          let num = 0;
           if (_this.jskey != "") {
             for (var i = 0; i < _this.Coach.length; i++) {
               if (_this.jskey == Coach[i]) {
@@ -150,7 +149,6 @@ export default {
           }
           // 默认第一个教练的上课记录
           _this.getCoachData(num);
-          console.log(Coachclass, Coach);
         })
         .catch(error => {
           if (error.res) {
@@ -161,35 +159,22 @@ export default {
           }
         });
     },
-    change1(val) {
-      console.log(val);
-    },
+    change1(val) {},
     //下拉change
     Selectchange3(val) {
       this.jskey = val;
       this.getstaffdate();
-      console.log(val);
     },
     rowClick(row, event, column) {
       this.currentSelectRow = row;
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-      console.log(event.target.getAttribute("id"));
-    },
-    getCurrentRow(val) {
-      console.log(val);
-    },
+    handleClick(tab, event) {},
+    getCurrentRow(val) {},
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
-    },
-    onSubmit() {
-      console.log("submit!");
     }
   }
 };

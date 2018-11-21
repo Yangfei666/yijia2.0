@@ -12,7 +12,7 @@
                         <span style="color:#00bc71;font-size:16px">最新日期Date:</span>
                         <el-date-picker v-model="timeDefaultShow" format="yyyy年MM月dd日" disabled :default-value="timeDefaultShow" type="date" style="width:190px" value-format="yyyy-MM-dd">
                         </el-date-picker>）</span>
-                    <img src="../assets/deit.png" @click="editAll" v-show="hide"/>
+                    <img src="../assets/deit.png" @click="editAll" v-show="hide" />
                 </div>
             </el-col>
             <el-col :span="24">
@@ -297,18 +297,16 @@ export default {
       physical_energy_assessment: {},
       edit: false,
       show: true,
-      show2:false,
+      show2: false,
       timeDefaultShow: "",
-      hide:true,
+      hide: true
     };
   },
   mounted() {
     this.timeDefaultShow = new Date();
-    setTimeout(()=>{
-        this.gethealth();
-    },500)
-    console.log(this.$route.query.id);
-    console.log(this.$route.query.potential);
+    setTimeout(() => {
+      this.gethealth();
+    }, 500);
   },
   methods: {
     gethealth() {

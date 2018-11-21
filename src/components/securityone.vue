@@ -77,15 +77,12 @@ require("echarts/lib/component/title");
 import { requestLogin } from "@/api/api";
 export default {
   name: "securityone",
-  props: ["customercars","chartId"],
+  props: ["customercars", "chartId"],
   data() {
-    return {
-    };
+    return {};
   },
   watch: {
-    customercars(val) {
-      console.log("customercars:" + this.customercars);
-    }
+    customercars(val) {}
   },
   mounted() {
     setTimeout(() => {
@@ -153,10 +150,10 @@ export default {
           }
         ]
       };
-     myChart.setOption(option);
-     window.onresize = function(){
+      myChart.setOption(option);
+      window.onresize = function() {
         myChart.resize();
-      }
+      };
     }
   }
 };

@@ -1,158 +1,158 @@
 <template>
-    <!--会员表格-->
-    <div class="practice-list">
-        <el-row>
-            <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
-                <div class="quanbu">
-                    <div class="search-form">
-                        <el-form-item label="会员卡种:">
-                            <el-col :span="24">
-                                <el-input v-model="formInline.membercard" placeholder="请输入" clearable style="width:170px;"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form">
-                        <el-form-item label="到期时间:">
-                            <el-col :span="24">
-                                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="剩余次数:">
-                            <el-col :span="12">
-                                <el-input v-model="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
-                            </el-col>
-                            <el-col :span="1">
-                                <el-input v-model="formInline.numbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="剩余金额:">
-                            <el-col :span="12">
-                                <el-input v-model="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
-                            </el-col>
-                            <el-col :span="1">
-                                <el-input v-model="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="所属会籍:">
-                            <el-col :span="24">
-                                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                                    <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="卡状态:">
-                            <el-col :span="24">
-                                <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange">
-                                    <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form" v-show="isShow">
-                        <el-form-item label="多久未跟进:">
-                            <el-col :span="24">
-                                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
-                                    <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="search-form">
-                        <el-form-item label-width="40px">
-                            <el-col :span="24">
-                                <el-button type="primary" @click="getTableData(false)">查询</el-button>
-                                <el-button @click="resetForm">重置</el-button>
-                            </el-col>
-                        </el-form-item>
-                    </div>
-                    <div class="corry">
-                        <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
-                            <i class="el-icon-arrow-down" v-show="downIcon"></i>
-                            <i class="el-icon-arrow-up" v-show="!downIcon"></i>
-                        </el-button>
-                    </div>
-                </div>
-            </el-form>
-        </el-row>
-        <div class="practice-center">
-            <el-row>
-                <el-col :span="12">
-                    <div class="purple">
-                        <div class="add">
-                            <el-button type="text" class="add-b el-icon-plus" @click="dialogFormVisible = true">添加会员</el-button>
-                            <template>
-                                <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                    <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
-                                </el-dialog>
-                            </template>
-                        </div>
-                        <div class="add">
-                            <el-button type="text" class="add-b" @click="func2()">会员跟进</el-button>
-                        </div>
-                        <div class="add">
-                            <el-button type="text" class="add-b" @click="zhuye()">会员主页</el-button>
-                        </div>
-                    </div>
-                </el-col>
-                <el-col :span="12">
-                    <div class="purple2">
-                        <el-col :span="10" class="search">
-                            <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话/卡号" />
-                            <i class="search-icon el-icon-search" @click="search"></i>
-                        </el-col>
-                    </div>
-                </el-col>
-            </el-row>
+  <!--会员表格-->
+  <div class="practice-list">
+    <el-row>
+      <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
+        <div class="quanbu">
+          <div class="search-form">
+            <el-form-item label="会员卡种:">
+              <el-col :span="24">
+                <el-input v-model="formInline.membercard" placeholder="请输入" clearable style="width:170px;"></el-input>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form">
+            <el-form-item label="到期时间:">
+              <el-col :span="24">
+                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="剩余次数:">
+              <el-col :span="12">
+                <el-input v-model="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
+              </el-col>
+              <el-col :span="1">
+                <el-input v-model="formInline.numbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="剩余金额:">
+              <el-col :span="12">
+                <el-input v-model="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
+              </el-col>
+              <el-col :span="1">
+                <el-input v-model="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="所属会籍:">
+              <el-col :span="24">
+                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                  <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="卡状态:">
+              <el-col :span="24">
+                <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="多久未跟进:">
+              <el-col :span="24">
+                <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                  <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form">
+            <el-form-item label-width="40px">
+              <el-col :span="24">
+                <el-button type="primary" @click="getTableData(false)">查询</el-button>
+                <el-button @click="resetForm">重置</el-button>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="corry">
+            <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+              <i class="el-icon-arrow-down" v-show="downIcon"></i>
+              <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+            </el-button>
+          </div>
         </div>
-        <div class="practice-table">
-            <el-row>
-                <el-col :span="24">
-                    <el-table id="rebateSetTable" ref="singleTable"  @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-                        <el-table-column align="center" prop="radio" fixed width="80px">
-                            <template slot-scope="scope">
-                                <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="HYName" align="left" label="姓名" fixed width="150px"></el-table-column>
-                        <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
-                        <el-table-column prop="CardNO" align="left" label="卡号" width="180px"></el-table-column>
-                        <el-table-column prop="CTName" align="left" label="卡种" width="180px"></el-table-column>
-                        <el-table-column prop="sTime" align="left" label="开卡时间" sortable width="200px"></el-table-column>
-                        <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
-                        <el-table-column prop="eTime" align="left" label="到期时间" sortable width="200px"></el-table-column>
-                        <el-table-column prop="SYCS" align="left" label="剩余次数" sortable width="130px"></el-table-column>
-                        <el-table-column prop="SYJE" align="left" label="剩余金额" sortable width="130px"></el-table-column>
-                        <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
-                        <el-table-column prop="cz" align="left" label="操作" fixed="right">
-                            <template slot-scope="scope">
-                                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <div class="block">
-                        <el-button size="small" class="export" @click="exportExcel">导出</el-button>
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-                        </el-pagination>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
+      </el-form>
+    </el-row>
+    <div class="practice-center">
+      <el-row>
+        <el-col :span="12">
+          <div class="purple">
+            <div class="add">
+              <el-button type="text" class="add-b el-icon-plus" @click="dialogFormVisible = true">添加会员</el-button>
+              <template>
+                <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+                  <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
+                </el-dialog>
+              </template>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-b" @click="func2()">会员跟进</el-button>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-b" @click="zhuye()">会员主页</el-button>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="purple2">
+            <el-col :span="10" class="search">
+              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话/卡号" />
+              <i class="search-icon el-icon-search" @click="search"></i>
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
     </div>
+    <div class="practice-table">
+      <el-row>
+        <el-col :span="24">
+          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+            <el-table-column align="center" prop="radio" fixed width="80px">
+              <template slot-scope="scope">
+                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+              </template>
+            </el-table-column>
+            <el-table-column prop="HYName" align="left" label="姓名" fixed width="150px"></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="180px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡种" width="180px"></el-table-column>
+            <el-table-column prop="sTime" align="left" label="开卡时间" sortable width="200px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" sortable width="200px"></el-table-column>
+            <el-table-column prop="SYCS" align="left" label="剩余次数" sortable width="130px"></el-table-column>
+            <el-table-column prop="SYJE" align="left" label="剩余金额" sortable width="130px"></el-table-column>
+            <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right">
+              <template slot-scope="scope">
+                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="block">
+            <el-button size="small" class="export" @click="exportExcel">导出</el-button>
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            </el-pagination>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
 </template>
 <script>
 import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
-function  downloadExcel(config, sourceData) {
+function downloadExcel(config, sourceData) {
   let subData = sourceData.map(item => {
     let temp = [];
     let keys = Object.keys(item);
@@ -187,8 +187,8 @@ export default {
       btnText: "展开",
       isShow: false,
       loading: true,
-      Customercategory:'member',
-      Huiyuanqufen:{huiyuanqufen:'newCustomer'},
+      Customercategory: "member",
+      Huiyuanqufen: { huiyuanqufen: "newCustomer" },
       formInline: {
         membercard: "",
         date: "",
@@ -218,14 +218,13 @@ export default {
         { value: "挂失", label: "挂失" },
         { value: "请假", label: "请假" },
         { value: "退卡", label: "退卡" },
-        { value: "过期", label: "过期" },
+        { value: "过期", label: "过期" }
       ]
     };
   },
   watch: {
     searchVal(val) {
       //姓名电话
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -284,7 +283,6 @@ export default {
         "post"
       )
         .then(function(res) {
-          console.log(res);
           _this.loading = false;
           let { errorCode, msg } = res;
           if (errorCode) {
@@ -353,13 +351,15 @@ export default {
         });
         return;
       }
-       //跟进跳转
+      //跟进跳转
       this.$router.push({
-      name:"Insiderup", 
-      params:{
-        HYID:this.currentSelectRow.HYID, 
-        HYName:this.currentSelectRow.HYName, 
-        Sex:this.currentSelectRow.Sex}});
+        name: "Insiderup",
+        params: {
+          HYID: this.currentSelectRow.HYID,
+          HYName: this.currentSelectRow.HYName,
+          Sex: this.currentSelectRow.Sex
+        }
+      });
     },
     //会员主页
     zhuye() {
@@ -371,65 +371,50 @@ export default {
         return;
       }
       this.$router.push({
-        name:'Memberhome',
-        params:{
-        HYID:this.currentSelectRow.HYID, 
-        HYName:this.currentSelectRow.HYName,
-        YGXX_NAME:this.currentSelectRow.YGXX_NAME,
-        MotoTel:this.currentSelectRow.MotoTel,
+        path: "/Customer/membershiphome/memberhome",
+        query: {
+          HYID: this.currentSelectRow.HYID,
+          HYName: this.currentSelectRow.HYName,
+          YGXX_NAME: this.currentSelectRow.YGXX_NAME,
+          MotoTel: this.currentSelectRow.MotoTel
         }
       });
-      console.log(this.currentSelectRow.HYID);
     },
-    Selectchange(val) {
-      console.log(val);
+    Selectchange(val) {},
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
     },
-     handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
+    getCurrentRow(val) {},
+    Selectchange2(val) {},
+    Selectchange3(val) {},
     //格式化指定列的值
     formatter(row, column) {
       return row.address;
     },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
+    radiochange(row) {},
     rowClick(row, event, column) {
       this.radio = this.tableData.indexOf(row);
       //获取表格数据
       this.currentSelectRow = row;
-      console.log(row.index);
     },
     handleClick3(row) {
-      console.log(row);
       alert("点击了");
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     //会员认领跳转
-    go(index,row){
+    go(index, row) {
       this.currentSelectRow = row;
-     this.$router.push({
-        path:"/Customer/leaguer/leaguermanage/claim",
+      this.$router.push({
+        path: "/Customer/leaguer/leaguermanage/claim",
         query: {
           name: this.currentSelectRow.HYName,
           tel: this.currentSelectRow.MotoTel,
-          customercategory:this.Customercategory
+          customercategory: this.Customercategory
         }
       });
     },
@@ -443,15 +428,17 @@ export default {
       }
     },
     //表格导出
-     exportExcel() {
-       let config = {
-         excelName: "会员管理",
-         sheetName: "会员管理",
-         limit: 'hyRecordTime,HYID,Sex,cid'.split(','),
-         headTitle: '卡号|姓名|手机号|开卡时间|到期时间|剩余次数|剩余金额|卡状态|卡种|会籍'.split('|'),
-       };
-       downloadExcel(config, this.tableData)
-    },
+    exportExcel() {
+      let config = {
+        excelName: "会员管理",
+        sheetName: "会员管理",
+        limit: "hyRecordTime,HYID,Sex,cid".split(","),
+        headTitle: "卡号|姓名|手机号|开卡时间|到期时间|剩余次数|剩余金额|卡状态|卡种|会籍".split(
+          "|"
+        )
+      };
+      downloadExcel(config, this.tableData);
+    }
   }
 };
 </script>

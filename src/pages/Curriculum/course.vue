@@ -96,11 +96,11 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" ref="singleTable"  @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
+            <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" fixed style="width: 100%">
               <el-table-column align="center" prop="radio" fixed width="80px">
                 <template slot-scope="scope">
-                 <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-              </template>
+                  <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                </template>
               </el-table-column>
               <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
               <el-table-column prop="kcHot" align="left" label="热度"></el-table-column>
@@ -161,7 +161,6 @@ export default {
   },
   watch: {
     searchName(val) {
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -187,12 +186,10 @@ export default {
       });
   },
   methods: {
-     getCurrentRow(val){
-          console.log(val);
-     },
-        handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
+    getCurrentRow(val) {},
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
     uploadOverrun: function() {
       this.$message({
         type: "error",
@@ -203,15 +200,11 @@ export default {
     submitUpload: function(content) {
       this.file = content.file;
     },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
+    radiochange(row) {},
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     //获取表格数据
@@ -243,12 +236,12 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             let formData = new FormData();
-            formData.append("kcName",this.ruleForm.classname);//课程名称
-            formData.append("ZT", this.ruleForm.status);//状态
-            formData.append("BZ", this.ruleForm.desc);//备注
-            formData.append("kcHot", this.ruleForm.heat);//热度
-            formData.append("price", this.ruleForm.price);//价格
-            formData.append("file", this.file);//课程封面
+            formData.append("kcName", this.ruleForm.classname); //课程名称
+            formData.append("ZT", this.ruleForm.status); //状态
+            formData.append("BZ", this.ruleForm.desc); //备注
+            formData.append("kcHot", this.ruleForm.heat); //热度
+            formData.append("price", this.ruleForm.price); //价格
+            formData.append("file", this.file); //课程封面
             requestLogin("/setCurSubInfo", formData, "post")
               .then(data => {
                 this.addLoading = false;

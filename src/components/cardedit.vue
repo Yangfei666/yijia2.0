@@ -78,9 +78,7 @@
       <div v-else>
         <el-form-item label="选择可用门店:" prop="club_info" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称"
-            @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']"
-            :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
+            <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
             </el-transfer>
           </el-col>
         </el-form-item>
@@ -100,7 +98,7 @@ import * as validate from "@/validate/Login";
 const cityOptions = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 export default {
   name: "cardedit",
-  props: ["currentSelectRow","hides"],
+  props: ["currentSelectRow", "hides"],
   inject: ["reload"],
   data() {
     return {
@@ -122,7 +120,7 @@ export default {
     this.getallClub();
   },
   computed: {
-    shoproom () {
+    shoproom() {
       let array = this.currentSelectRow.club_info;
       let arr = [];
       for (let index = 0; index < array.length; index++) {
@@ -142,20 +140,28 @@ export default {
             var loginParams = {
               CTName: this.currentSelectRow.CTName, //卡名称
               CTjg: this.currentSelectRow.CTjg, //价格
-              CTstate: this.currentSelectRow.CTstate == '禁用' ? 2 : 1, //状态
-              CTxDate_Val: this.currentSelectRow.CTxDate_Val.substr(0,1), //每周限用次数
+              CTstate: this.currentSelectRow.CTstate == "禁用" ? 2 : 1, //状态
+              CTxDate_Val: this.currentSelectRow.CTxDate_Val.substr(0, 1), //每周限用次数
               CTxTime_1S: this.currentSelectRow.CTxTime_1S, //限用时间段--开始
               CTxTime_1E: this.currentSelectRow.CTxTime_1E, //限用时间段--结束
-              ColorCard: this.currentSelectRow.ColorCard == '白底' ? 1 : 2, //颜色
+              ColorCard: this.currentSelectRow.ColorCard == "白底" ? 1 : 2, //颜色
               ctNotes: this.currentSelectRow.ctNotes, //备注
-              ctType: this.currentSelectRow.ctType == '期限卡' ? 1 : (this.currentSelectRow.ctType == '次数卡' ? 2 : 3), //类型
+              ctType:
+                this.currentSelectRow.ctType == "期限卡"
+                  ? 1
+                  : this.currentSelectRow.ctType == "次数卡" ? 2 : 3, //类型
               CTdate: this.currentSelectRow.CTdate, //限制日期
               CTvalidity: this.currentSelectRow.CTvalidity, //有效期
               Ctnum: this.currentSelectRow.Ctnum, //次数
-              ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate == '团课卡' ? 2 : 1, //课程类别
+              ctIsIsPrivate:
+                this.currentSelectRow.ctIsIsPrivate == "团课卡" ? 2 : 1, //课程类别
               clubRelation: this.currentSelectRow.club_info //连锁店id
             };
-            requestLogin("/setCardType/" + this.currentSelectRow.CTID, loginParams, "put")
+            requestLogin(
+              "/setCardType/" + this.currentSelectRow.CTID,
+              loginParams,
+              "put"
+            )
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -199,17 +205,11 @@ export default {
           }
         });
     },
-    radiochange(val) {
-      console.log(val, "val");
-      console.log(this.currentSelectRow.Ctnum, "input的值");
-    },
+    radiochange(val) {},
     getSelectItem(val) {
       this.shoproom = val;
-      console.log(val);
     },
-    handleCheckChange(val) {
-      console.log(this.currentSelectRow.CTdate);
-    },
+    handleCheckChange(val) {},
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }

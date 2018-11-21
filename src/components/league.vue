@@ -60,12 +60,12 @@ import Swiper from "swiper";
 export default {
   name: "league",
   props: {
-    groupList:[Object, Array]
+    groupList: [Object, Array]
   },
   data() {
     return {
       progress: 20,
-      page:1
+      page: 1
     };
   },
   mounted() {
@@ -90,8 +90,8 @@ export default {
         }
       });
     },
-    courseId (course) {
-      this.$emit('clickCourse', course);
+    courseId(course) {
+      this.$emit("clickCourse", course);
     }
   }
 };
@@ -132,7 +132,7 @@ export default {
           margin-top: 20px;
           margin-left: 45%;
         }
-      }///////////////////////
+      } ///////////////////////
       .swiper-main {
         width: 100%;
         height: 55%;

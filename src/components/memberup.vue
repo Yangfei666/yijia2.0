@@ -48,7 +48,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      addLoading:false,
+      addLoading: false,
       dialogFormVisible: false,
       formLabelWidth: "130px",
       ruleForm: {
@@ -62,8 +62,6 @@ export default {
   },
   created: function() {
     let _this = this;
-    console.log(this.$route);
-    console.log(this.$route.params.id);
     requestLogin(
       "/CustomerFollowUp/getFollowUpRecord/potential/" + this.$route.params.id,
       {},
@@ -89,11 +87,15 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
-              identity: 'potential', //客户类别
+              identity: "potential", //客户类别
               id: this.$route.params.id, //客户id
-              content:this.ruleForm.desc//内容
+              content: this.ruleForm.desc //内容
             };
-            requestLogin("/CustomerFollowUp/addFollowUpRecord", loginParams, "post")
+            requestLogin(
+              "/CustomerFollowUp/addFollowUpRecord",
+              loginParams,
+              "post"
+            )
               .then(data => {
                 this.addLoading = false;
                 this.$message({

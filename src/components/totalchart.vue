@@ -85,9 +85,7 @@ export default {
         }
       }, 500);
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
+    handleClick(tab, event) {},
     drawPie({ ach_adviser, ach_achievementData, ach_staff }) {
       //饼图
       let myChart = echarts.init(document.getElementById("myChart"));
@@ -131,7 +129,7 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7",
+              "#1B0AD7"
             ],
             radius: ["53%", "70%"],
             center: ["50%", "50%"],
@@ -207,7 +205,7 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7",
+              "#1B0AD7"
             ],
             radius: ["53%", "70%"],
             center: ["50%", "50%"],
@@ -236,10 +234,10 @@ export default {
       };
       myChart.setOption(option);
       myChart2.setOption(option2);
-      window.onresize = function(){
+      window.onresize = function() {
         myChart.resize();
         myChart2.resize();
-      }
+      };
     },
     drawLine({ ach_timeAchievement }) {
       //折线图
@@ -287,9 +285,9 @@ export default {
         },
         series: this.detailLineData(ach_timeAchievement)
       });
-      window.onresize = function(){
+      window.onresize = function() {
         myChart3.resize();
-      }
+      };
     },
     detailXAxis() {
       let [year, month, day] = this.dataDate.split("-");
@@ -380,9 +378,9 @@ export default {
         ],
         series: ach_staffTimeAchievement
       });
-      window.onresize = function(){
+      window.onresize = function() {
         myChart4.resize();
-      }
+      };
     }
   }
 };

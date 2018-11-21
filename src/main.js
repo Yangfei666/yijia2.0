@@ -14,7 +14,7 @@ import 'swiper/dist/css/swiper.css';
 import router from './router'
 import VueProgressBar from 'vue-progressbar'
 import axios from 'axios';
-Vue.prototype.$axios=axios;
+Vue.prototype.$axios = axios;
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueProgressBar)
@@ -25,17 +25,17 @@ Vue.use(Vuex)
 Vue.config.productionTip = false
 //将vuex实例挂载到vue原型链上
 Vue.prototype.$store = new Vuex.Store({
-    state:{},
+    state: {},
     getters: {},
     actions: {},
     mutations: {}
-   });
+});
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
     store,
-    components: { App},
+    components: { App },
     template: '<App/>'
 })

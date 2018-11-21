@@ -268,25 +268,25 @@ let router = new Router({
                     redirect: '/Customer/membershiphome/memberhome',
                     children: [
                         {
-                            path: '/Customer/membershiphome/memberhome/:HYID/:HYName/:MotoTel/:YGXX_NAME', //会员主页
+                            path: '/Customer/membershiphome/memberhome', //会员主页
                             component: Memberhome,
                             name: 'Memberhome',
                             children: [
-                                { path: '/Customer/membershiphome/memberhome/transfercard/:HYID', component: Transfercard, name: 'Transfercard' },//转卡
-                                { path: '/Customer/membershiphome/memberhome/returncard/:HYID', component: Returncard, name: 'Returncard' },//退卡
-                                { path: '/Customer/membershiphome/memberhome/upgradecard/:HYID', component: Upgradecard, name: 'Upgradecard' },//升级
-                                { path: '/Customer/membershiphome/memberhome/changevalidity/:HYID', component: Changevalidity, name: 'Changevalidity' },//变更有效期
-                                { path: '/Customer/membershiphome/memberhome/changepriceandnum/:HYID', component: Changepriceandnum, name: 'Changepriceandnum' },//变更次数和金额
-                                { path: '/Customer/membershiphome/memberhome/enabledisabling/:HYID', component: Enabledisabling, name: 'Enabledisabling' },//启用禁用
-                                { path: '/Customer/membershiphome/memberhome/activate/:HYID', component: Activate, name: 'Activate' },//激活
+                                { path: '/Customer/membershiphome/memberhome/transfercard', component: Transfercard},//转卡
+                                { path: '/Customer/membershiphome/memberhome/returncard', component: Returncard},//退卡
+                                { path: '/Customer/membershiphome/memberhome/upgradecard', component: Upgradecard},//升级
+                                { path: '/Customer/membershiphome/memberhome/changevalidity', component: Changevalidity},//变更有效期
+                                { path: '/Customer/membershiphome/memberhome/changepriceandnum', component: Changepriceandnum},//变更次数和金额
+                                { path: '/Customer/membershiphome/memberhome/enabledisabling', component: Enabledisabling},//启用禁用
+                                { path: '/Customer/membershiphome/memberhome/activate', component: Activate},//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/informations/:HYID', component: Information ,name:'Information'},//综合信息
-                        { path: '/Customer/membershiphome/leave/:HYID', component: Leave, name: 'Leave' },//请假销假操作
-                        { path: '/Customer/membershiphome/unhook/:HYID', component: Unhook, name: 'Unhook' },//解挂--补卡--挂失
-                        { path: '/Customer/membershiphome/change/:HYID', component: Change },//换会籍
-                        { path: '/Customer/membershiphome/operationnote/:HYID', component: Operationnote, name: 'Operationnote' },//操作记录
-                        { path: '/Customer/membershiphome/classcard2/:HYID', component: Classcard2, name: 'Classcard2' },//上课记录
+                        { path: '/Customer/membershiphome/informations', component: Information},//综合信息
+                        { path: '/Customer/membershiphome/leave', component: Leave},//请假销假操作
+                        { path: '/Customer/membershiphome/unhook', component: Unhook},//解挂--补卡--挂失
+                        { path: '/Customer/membershiphome/change', component: Change },//换会籍
+                        { path: '/Customer/membershiphome/operationnote', component: Operationnote},//操作记录
+                        { path: '/Customer/membershiphome/classcard2', component: Classcard2},//上课记录
                     ]
                 },
                 {

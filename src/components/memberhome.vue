@@ -10,7 +10,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
               <el-form-item label="客户编号:" prop="userid" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="this.$route.params.HYID" :disabled="true"></el-input>
+                  <el-input v-model="this.$route.query.HYID" :disabled="true"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -135,8 +135,7 @@ export default {
     //获取个人中心详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.clubs = res.membership_card;
           _this.membershipcard = _this.clubs[0];
@@ -171,7 +170,6 @@ export default {
           for (var i = 0; i < relationCard.length; i++) {
             _this.selfCard.push(relationCard[i]);
           }
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {
@@ -202,7 +200,7 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              id: _this.$route.params.HYID, //会员id
+              id: _this.$route.query.HYID, //会员id
               CTID: _this.ruleForm.cardname, //会员卡id
               mode: _this.ruleForm.payment, //付款方式
               money: _this.ruleForm.money, //价格
@@ -239,21 +237,11 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    Selectchange(val) {
-      console.log(val);
-    },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    Selectchange4(val) {
-      console.log(val);
-    },
-    Selectchange5(val) {
-      console.log(val);
-    }
+    Selectchange(val) {},
+    Selectchange2(val) {},
+    Selectchange3(val) {},
+    Selectchange4(val) {},
+    Selectchange5(val) {}
   }
 };
 </script>

@@ -77,10 +77,10 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable"  ref="singleTable"  @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
+          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
             <el-table-column align="center" prop="radio" fixed width="70px">
               <template slot-scope="scope">
-               <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
             <el-table-column prop="itName" align="left" label="姓名" fixed width="150px"></el-table-column>
@@ -128,7 +128,7 @@ import Givedeposit from "@/components/givedeposit";
 import { requestLogin } from "@/api/api";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
-function  downloadExcel(config, sourceData) {
+function downloadExcel(config, sourceData) {
   let subData = sourceData.map(item => {
     let temp = [];
     let keys = Object.keys(item);
@@ -169,10 +169,10 @@ export default {
       pagesize: 10,
       loading: true,
       radio: true,
-      Customercategory:'deposit',
-      Potential:{potential:'setDepositCustomer',id:''},
-      Dingjinqufen:{dingjinqufen:'newCustomer'},
-      Huiyuanqufen:{huiyuanqufen:'deposit',id:''},
+      Customercategory: "deposit",
+      Potential: { potential: "setDepositCustomer", id: "" },
+      Dingjinqufen: { dingjinqufen: "newCustomer" },
+      Huiyuanqufen: { huiyuanqufen: "deposit", id: "" },
       formInline: {
         date: "",
         adviser: [],
@@ -194,7 +194,6 @@ export default {
   watch: {
     searchVal(val) {
       //姓名电话
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -306,64 +305,54 @@ export default {
       });
     },
     //表格导出
-     exportExcel() {
-       let config = {
-         excelName: "定金客户管理",
-         sheetName: "定金客户管理",
-         limit: 'id,itHealth,itReason,itSex,itWeChat,recordTime,voucher'.split(','),
-         headTitle: '姓名|手机号|会籍|登记日期|金额|付款方式|备注|成交状态'.split('|'),
-       };
-       downloadExcel(config, this.tableData)
+    exportExcel() {
+      let config = {
+        excelName: "定金客户管理",
+        sheetName: "定金客户管理",
+        limit: "id,itHealth,itReason,itSex,itWeChat,recordTime,voucher".split(
+          ","
+        ),
+        headTitle: "姓名|手机号|会籍|登记日期|金额|付款方式|备注|成交状态".split(
+          "|"
+        )
+      };
+      downloadExcel(config, this.tableData);
     },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
+    radiochange(row) {},
+    Selectchange2(val) {},
+    Selectchange3(val) {},
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
     },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    handleClick3(row) {
-      console.log(row);
-      alert("点击了");
-    },
-    handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-        getCurrentRow(val){
-          console.log(val);
-     },
+    getCurrentRow(val) {},
     resetForm() {
       this.formInline.date = "";
       this.formInline.adviser = "";
       this.formInline.follow = "";
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     rowClick(row, event, column) {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
-       this.Potential.id=this.currentSelectRow.id;
-       this.Huiyuanqufen.id=this.currentSelectRow.id;
+      this.Potential.id = this.currentSelectRow.id;
+      this.Huiyuanqufen.id = this.currentSelectRow.id;
       this.radio = this.tableData.indexOf(row);
     },
-     //定金认领跳转
-    go(index,row) {
+    //定金认领跳转
+    go(index, row) {
       this.currentSelectRow = row;
       this.$router.push({
-        path:"/Customer/bargain/claim",
+        path: "/Customer/bargain/claim",
         query: {
           name: this.currentSelectRow.itName,
           tel: this.currentSelectRow.itTel,
-          customercategory:this.Customercategory
+          customercategory: this.Customercategory
         }
       });
     },
