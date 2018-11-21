@@ -174,7 +174,7 @@ export default {
               ctIsIsPrivate: radioDict[this.currentSelectRow.ctIsIsPrivate], //课程类别
               clubRelation:  this.club_info_id//连锁店id
             };
-            requestLogin("/setCardType", loginParams, "put")
+            requestLogin(`/setCardType/${this.currentSelectRow.CTID}`, loginParams, "put")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -182,6 +182,7 @@ export default {
                   type: "success"
                 });
                 this.reload();
+                // this.$emit('closeEdit',false)
                 this.dialogFormVisible = false;
               })
               .catch(error => {
