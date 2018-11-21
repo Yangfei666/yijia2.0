@@ -26,7 +26,7 @@
       <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-checkbox-group v-model="currentSelectRow.role" @change="handleCheckChange">
-            <el-checkbox v-for="i in role" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
+            <el-checkbox v-for="i in role" :checked="checkoutRole(i.id)" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
           </el-checkbox-group>
         </el-col>
       </el-form-item>
@@ -76,8 +76,11 @@ export default {
       aaaaaaaaa: []
     };
   },
-  mounted: function() {
+  mounted() {
     this.rolegourp();
+  },
+  beforeDestroy(){
+    this.$emit('closeEdit', false)
   },
   methods: {
     rolegourp() {
@@ -88,7 +91,6 @@ export default {
           _this.loading = false;
           let { role, brigades } = res;
           _this.role = role;
-          console.log(brigades);
           _this.brigades = brigades;
         })
         .catch(error => {
@@ -160,7 +162,14 @@ export default {
           this.groups = item.club_info_group;
         }
       });
+    },
+    checkoutRole(id){
+      if(!Array.isArray(this.currentSelectRow.role)) return false;
+
+      return this.currentSelectRow.role.findIndex(item => item.id === id) !== -1 ? true : false
     }
+  },
+  filters:{
   }
 };
 </script>
