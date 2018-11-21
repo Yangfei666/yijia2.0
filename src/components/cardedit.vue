@@ -68,8 +68,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1S" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1S" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '05:30',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
         </el-col>
       </el-form-item>
       <div v-if="this.hides == 'yinchang'">
@@ -78,7 +78,9 @@
       <div v-else>
         <el-form-item label="选择可用门店:" prop="club_info" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-transfer filterable v-model="currentSelectRow.club_info" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
+            <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称"
+            @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']"
+            :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
             </el-transfer>
           </el-col>
         </el-form-item>
@@ -119,6 +121,17 @@ export default {
   mounted: function() {
     this.getallClub();
   },
+  computed: {
+    shoproom () {
+      let array = this.currentSelectRow.club_info;
+      let arr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        arr.push(element.Hsxx_Hsid);
+      }
+      return arr;
+    }
+  },
   methods: {
     //修改会员卡
     submitForm(formName) {
@@ -129,20 +142,20 @@ export default {
             var loginParams = {
               CTName: this.currentSelectRow.CTName, //卡名称
               CTjg: this.currentSelectRow.CTjg, //价格
-              CTstate: this.currentSelectRow.CTstate, //状态
-              CTxDate_Val: this.currentSelectRow.CTxDate_Val, //每周限用次数
+              CTstate: this.currentSelectRow.CTstate == '禁用' ? 2 : 1, //状态
+              CTxDate_Val: this.currentSelectRow.CTxDate_Val.substr(0,1), //每周限用次数
               CTxTime_1S: this.currentSelectRow.CTxTime_1S, //限用时间段--开始
               CTxTime_1E: this.currentSelectRow.CTxTime_1E, //限用时间段--结束
-              ColorCard: this.currentSelectRow.ColorCard, //颜色
+              ColorCard: this.currentSelectRow.ColorCard == '白底' ? 1 : 2, //颜色
               ctNotes: this.currentSelectRow.ctNotes, //备注
-              ctType: this.currentSelectRow.ctType, //类型
+              ctType: this.currentSelectRow.ctType == '期限卡' ? 1 : (this.currentSelectRow.ctType == '次数卡' ? 2 : 3), //类型
               CTdate: this.currentSelectRow.CTdate, //限制日期
               CTvalidity: this.currentSelectRow.CTvalidity, //有效期
               Ctnum: this.currentSelectRow.Ctnum, //次数
-              ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate, //课程类别
+              ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate == '团课卡' ? 2 : 1, //课程类别
               clubRelation: this.currentSelectRow.club_info //连锁店id
             };
-            requestLogin("/setCardType", loginParams, "post")
+            requestLogin("/setCardType/" + this.currentSelectRow.CTID, loginParams, "put")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -191,7 +204,7 @@ export default {
       console.log(this.currentSelectRow.Ctnum, "input的值");
     },
     getSelectItem(val) {
-      this.currentSelectRow.club_info = val;
+      this.shoproom = val;
       console.log(val);
     },
     handleCheckChange(val) {

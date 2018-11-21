@@ -74,8 +74,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="limittime" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.startTime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endTime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.startTime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endTime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
         </el-col>
       </el-form-item>
       <div v-if="this.ceshis=='hide'">

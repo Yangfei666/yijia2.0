@@ -87,31 +87,34 @@
           ]
         },
         tableData: [],
-        selectInputIndex: -1,
+        selectInputIndex: -1,//小组下标
+        rowIndex: -1,//大队下标
       };
     },
     created: function () {
-      //获取大队小组数据
-      let _this = this;
-      requestLogin("/setClubInfo/create", {}, "get")
-        .then(function (res) {
-          _this.tableData = res;
-          console.log(_this.tableData);
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+      this.getClubGroup();
     },
     methods: {
+      //获取大队小组数据
+      getClubGroup() {
+        let _this = this;
+        requestLogin("/setClubInfo/create", {}, "get")
+          .then(function (res) {
+            _this.tableData = res;
+          })
+          .catch(error => {
+            if (error.res) {
+              this.$message({
+                message: "获取数据失败",
+                type: "error"
+              });
+            }
+          });
+      },
       //删除小组
       handleClose(index, tag) {
         let _this = this;
-        let subIndex = _this.tableData[index].club_info_group.findIndex(item => item.id === tag.id)
+        let subIndex = _this.tableData[index].club_info_group.findIndex(item => item.id === tag.id);
         this.$confirm("确认删除该小组吗？", "提示")
           .then(() => {
             requestLogin(`/setClubInfo/${tag.id}`, {id: tag.id}, "get")
@@ -120,13 +123,19 @@
                   message: "删除成功",
                   type: "success"
                 });
-              _this.tableData[index].club_info_group.splice(subIndex,1)
+              })
+              .then(() => {
+                _this.tableData[index].club_info_group.splice(subIndex, 1);
               })
               .catch(error => {
-                _this.$message({
-                  message: "删除失败",
-                  type: "error"
-                });
+                let {response: {data: {errorCode, msg}}} = error;
+                if (errorCode != 0) {
+                  _this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
           })
           .catch(error => {
@@ -154,6 +163,9 @@
                 message: "添加小组成功",
                 type: "success"
               });
+              return data
+            })
+            .then((data) => {
               _this.tableData[index].club_info_group.push(data);
             })
             .catch(error => {
@@ -171,6 +183,7 @@
       },
       //添加大队
       submitForm(formName) {
+        let _this = this;
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.$confirm("确认提交吗？", "提示").then(() => {
@@ -183,8 +196,12 @@
                     message: "提交成功",
                     type: "success"
                   });
-                  this.reload();
                   this.dialogFormVisible = false;
+                  return data;
+                })
+                .then((data) => {
+                  data.club_info_group = [];
+                  _this.tableData.push(data);
                 })
                 .catch(error => {
                   let {response: {data: {errorCode, msg}}} = error;
@@ -195,6 +212,9 @@
                     });
                     return;
                   }
+                })
+                .finally(() => {
+                  _this.ruleForm.bigname = '';
                 });
             });
           } else {
@@ -217,7 +237,10 @@
       },
       handleCurrentChange2(val, index) {
         this.currentRow = val;
-        this.$emit("data", val.pkg);
+        if (val.pkg) {
+          console.log(222);
+          // this.$emit("data", val.pkg);
+        }
       },
       getCurrentRow(val) {
         console.log(val);
@@ -229,6 +252,8 @@
           this.$message({message: "请先选择数据!", type: "warning"});
           return;
         } else {
+          let index = _this.tableData.findIndex(item => item.id === _this.currentSelectRow.id);
+          _this.rowIndex = index === -1 ? _this.rowIndex : index;
           this.$confirm("确认删除该条记录吗？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
@@ -236,9 +261,8 @@
           })
             .then(() => {
               _this.loading = true;
-              console.log(_this.currentSelectRow.id);
               requestLogin(
-                "/setClubInfo/" + _this.currentSelectRow.id,
+                "/setClubInfo/" + _this.tableData[_this.rowIndex].id,
                 {},
                 "delete"
               ).then(response => {
@@ -247,18 +271,26 @@
                   message: "删除成功",
                   type: "success"
                 });
-              });
-              this.reload();
+              })
+                .then(() => {
+                  _this.tableData.splice(_this.rowIndex, 1);
+                })
+                .catch(error => {
+                  let {response: {data: {errorCode, msg}}} = error;
+                  if (errorCode != 0) {
+                    this.$message({
+                      message: msg,
+                      type: "error"
+                    });
+                    return;
+                  }
+                });
             })
             .catch(error => {
-              let {response: {data: {errorCode, msg}}} = error;
-              if (errorCode != 0) {
-                this.$message({
-                  message: msg,
-                  type: "error"
-                });
-                return;
-              }
+              this.$message({
+                message: '取消删除',
+                type: "error"
+              });
             });
         }
       }

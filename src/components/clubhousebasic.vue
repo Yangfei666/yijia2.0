@@ -44,6 +44,11 @@
                                         <el-input v-model="ruleForm.Hsxx_Fax"></el-input>
                                     </el-col>
                                 </el-form-item>
+                                <el-form-item label="法人:" prop="Hsxx_FR" :label-width="formLabelWidth">
+                                  <el-col :span="22">
+                                    <el-input v-model="ruleForm.Hsxx_FR"></el-input>
+                                  </el-col>
+                                </el-form-item>
                                 <el-form-item label="是否开启员工注册:" prop="register" :label-width="formLabelWidth">
                                     <el-col :span="22">
                                         <el-radio-group v-model="ruleForm.register">
@@ -139,6 +144,14 @@
                                 </el-col>
                             </div>
                             <div class="left-table-main">
+                              <el-col :span="7" class="table-hh">
+                                <span>法人</span>
+                              </el-col>
+                              <el-col :span="17" class="table-gg">
+                                <span>{{club.Hsxx_FR}}</span>
+                              </el-col>
+                            </div>
+                            <div class="left-table-main">
                                 <el-col :span="7" class="table-hh">
                                     <span>是否开启员工注册</span>
                                 </el-col>
@@ -219,7 +232,7 @@ export default {
           Hsxx_City: this.ruleForm.Hsxx_City, //城市
           Hsxx_Add: this.ruleForm.Hsxx_Add, //地址
           Hsxx_YB: this.ruleForm.Hsxx_YB, //邮编
-          Hsxx_FR: this.currentSelectRow.Hsxx_FR, //法人
+          Hsxx_FR: this.ruleForm.Hsxx_FR||'', //法人
           Hsxx_Tel: this.ruleForm.Hsxx_Tel, //电话
           Hsxx_Fax: this.ruleForm.Hsxx_Fax, //传真
           preSaleTime: this.ruleForm.preSaleTime, //预售结束时间
@@ -246,7 +259,14 @@ export default {
               return;
             }
           });
-      });
+      })
+        .catch(()=>{
+          this.$message({
+            message: '取消提交',
+            type: "error"
+          });
+
+        })
     },
     editclub(){
        this.dialogFormVisible = true;

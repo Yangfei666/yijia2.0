@@ -9,7 +9,7 @@
             </el-form-item>
             <el-form-item label="类型:" prop="ctType" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-radio-group v-model="currentSelectRow.ctType" @change="radiochange">
+                <el-radio-group v-model="currentSelectRow.ctType">
                     <el-radio label="期限卡" value="1"></el-radio>
                     <el-radio label="次数卡" value="2"></el-radio>
                     <el-radio label="金额卡" value="3"></el-radio>
@@ -55,7 +55,7 @@
             </el-form-item>
             <el-form-item label="限制日期(可用):" prop="CTdate" :label-width="formLabelWidth">
               <el-col :span="22">
-                 <el-checkbox-group v-model="currentSelectRow.CTdate" @change="handleCheckChange">
+                 <el-checkbox-group v-model="currentSelectRow.CTdate">
                  <el-checkbox v-for="i in limit" :label="i" :key="i">{{i}}</el-checkbox>
                </el-checkbox-group>
                 </el-col>
@@ -78,9 +78,10 @@
         <el-form-item label="" :label-width="formLabelWidth"></el-form-item>
       </div>
        <div v-else>
-       <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
-              <el-col :span="22">
-                <el-transfer filterable disabled v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}"></el-transfer>
+       <el-form-item label="选择可用门店:" :prop="currentSelectRow.club" :label-width="formLabelWidth">
+            <el-col :span="22">
+                <el-transfer filterable disabled v-model="shoproom" :data="data2" :titles="['待选门店', '已选门店']"
+                :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}"></el-transfer>
                 </el-col>
             </el-form-item>
       </div>
@@ -98,7 +99,6 @@ export default {
         ctType:2,
         Ctnum:"",
         data2:[],
-        shoproom: [],
         startTime: '',
         endTime: '',
         formLabelWidth: '130px',
@@ -110,6 +110,17 @@ export default {
     },
     mounted:function(){
       this.getallClub();
+    },
+    computed: {
+      shoproom () {
+        let array = this.currentSelectRow.club_info;
+        let arr = [];
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index];
+          arr.push(element.Hsxx_Hsid);
+        }
+        return arr;
+      }
     },
     methods: {
    //门店数据
@@ -128,21 +139,7 @@ export default {
           }
         });
     },
-    radiochange(val){
-        console.log(val, 'val');
-        console.log(this.currentSelectRow.Ctnum, 'input的值');
-    },
-     getSelectItem(val) {
-      this.currentSelectRow.shoproom = val;
-      console.log(val)
-    },
-    handleCheckChange(val) {
-      console.log(this.currentSelectRow.CTdate);
-    },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
-    }
+  }
 }
 </script>
 <style lang="scss">

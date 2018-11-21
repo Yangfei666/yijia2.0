@@ -47,6 +47,7 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
     url: url, //地址
     data: params, // 参数,
     headers: { 'token': sessionStorage.getItem('access-token') },
+    // baseURL: baseURL === false ? '' : process.env.API_ROOT,
     baseURL: baseURL === false ? '' : '/api',
     responseType: responseType ? responseType : 'json'
   }).then(res => res.data);

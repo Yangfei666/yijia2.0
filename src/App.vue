@@ -304,8 +304,8 @@ body {
 }
 .el-button--primary:hover {
   color: #fff;
-  background-color: #00bc71;
-  border-color: #00bc71;
+  background-color: #00bc71 !important;
+  border-color: #00bc71!important;
 }
 .el-radio-button__inner:hover {
   color: #00bc71 !important;
