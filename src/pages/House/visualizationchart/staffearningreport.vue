@@ -32,13 +32,6 @@
                       </el-col>
                     </el-form-item>
                   </el-col>
-                  <!-- <el-col :span="4" style="height:50px">
-                    <el-form-item label-width="3px">
-                      <el-col :span="24">
-                        <el-button type="primary" @click="onSubmit">查询</el-button>
-                      </el-col>
-                    </el-form-item>
-                  </el-col> -->
                 </el-form>
               </div>
               <div class="block2">
@@ -160,9 +153,6 @@
       },
       handleClick(tab, event) {
         console.log(tab, event);
-      },
-      onSubmit() {
-        console.log('submit!');
       },
       drawBar(achievement) {
         let staffchart = echarts.init(document.getElementById('staffchart'));
@@ -361,7 +351,6 @@
         top: 0px;
         .block {
           float: right;
-          margin-top: -5px;
           line-height: 40px;
           .el-date-editor {
             position: relative;
@@ -405,6 +394,7 @@
           line-height: 50px;
           display: flex;
           justify-content: flex-end;
+          margin-right: 2%;
           .dsd {
             line-height: 34px;
             text-align: right;

@@ -24,14 +24,17 @@
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane :label="`团课(共${groupList.length}节)`" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
+          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
           <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane :label="`私教(共${privateList.length}节)`" name="private">
           <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>
+          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
+          <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="main-list" v-if="experience.length > 0 && enterStadium">
+    <div class="main-list" v-show="experience.length > 0 && enterStadium">
       <div class="customer">
         <span>体验客户约课</span>
       </div>
@@ -99,7 +102,7 @@
         </el-table>
       </div>
     </div>
-    <div class="main-list" v-if="enterStadium">
+    <div class="main-list" v-show="enterStadium">
       <div class="customer">
         <span>教练上课登记</span>
       </div>
@@ -231,7 +234,7 @@ export default {
       }
     },
     bool() {
-      return this.activeName == "league" ? true : false;
+      return (this.activeName == "league") ? true : false;
     }
   },
   created() {
@@ -239,14 +242,18 @@ export default {
     this.getCourseList(today);
   },
   watch: {
-    activeName (oldValue, newValue) {
+    activeName (newValue, oldValue) {
       if (newValue == 'league') {
         var course = this.privateList.slice(0, 1)[0];
-        } else {
+      } else {
         var course = this.groupList.slice(0, 1)[0];
       }
       this.course = course;
-      this.getCourseDetails(course);
+      if (this.course) {
+        this.getCourseDetails(course);
+      } else {
+        this.enterStadium = 0;
+      }
     }
   },
   methods: {
@@ -348,14 +355,19 @@ export default {
       request("/adminHomePage?day=" + day, {}, "get")
         .then(data => {
           // console.log(data);
-          // console.log(sessionStorage.getItem('access-token'));
+          console.log(sessionStorage.getItem('access-token'));
           if (data.group === false && data.private === false) {
             this.enterStadium = false;
           } else {
             this.enterStadium = true;
             this.groupList = data.group;
             this.privateList = data.private;
-            setTimeout(this.getCourseDetails(data.group.slice(0, 1)[0]), 2000); // 加载默认课程详情
+            let noe = data.group.slice(0, 1)[0];
+            if (noe) {
+              setTimeout(this.getCourseDetails(noe), 2000); // 加载默认课程详情
+            } else {
+              this.enterStadium = 0;
+            }
           }
         })
         .catch(error => {
@@ -479,7 +491,8 @@ export default {
         border-radius: 30px;
         height: 32px;
         line-height: 32px;
-        margin-top: 4px;
+        margin-top: 2px;
+        margin-right: 1%;
         .el-radio-button__inner {
           color: #fff;
           background-color: #00bc71;

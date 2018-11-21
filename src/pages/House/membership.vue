@@ -22,7 +22,7 @@
           <template>
             <div class="practice-center">
               <el-row>
-                <el-col :span="12">
+                <el-col :span="13">
                   <div class="purple">
                     <div class="add">
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">创建会员卡</el-button>
@@ -55,7 +55,7 @@
                     </div>
                   </div>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="11">
                   <div class="purple2">
                     <el-form ref="form" label-width="90px">
                       <el-col :span="22" class="purple-name">
@@ -107,7 +107,7 @@
           <template>
             <div class="practice-center">
               <el-row>
-                <el-col :span="12">
+                <el-col :span="13">
                   <div class="purple">
                     <div class="add">
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible4 = true">创建会员卡</el-button>
@@ -140,7 +140,7 @@
                     </div>
                   </div>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="11">
                   <div class="purple2">
                     <el-form ref="form" label-width="90px">
                       <el-col :span="22" class="purple-name">

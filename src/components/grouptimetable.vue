@@ -47,8 +47,8 @@
                     </el-form-item>
                     <el-form-item label="课程日期:" prop="attenddate" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-date-picker v-model="ruleForm.attenddate" value-format="yyyy-MM-dd" type="date"
-                                        placeholder="选择日期" style="width:100%;">
+                        <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" type="date"
+                                       style="width:100%;">
                         </el-date-picker>
                       </el-col>
                     </el-form-item>
@@ -97,7 +97,7 @@
                     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
                       <el-form-item label="课程:" prop="kcName" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.kcName" placeholder="请选择" style="width:100%"
+                          <el-select v-model="currentSelectRow.kcno"  :value="currentSelectRow.kcName" style="width:100%"
                                      @change="Selectchange2">
                             <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName"
                                        :value="item.kcno"></el-option>
@@ -106,7 +106,7 @@
                       </el-form-item>
                       <el-form-item label="课程底色:" prop="kcbSort" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.kcbSort" @change="ceshihcange" placeholder="请选择"
+                          <el-select v-model="currentSelectRow.kcbSort" @change="ceshihcange" :placeholder="currentSelectRow.kcbSort"
                                      style="width:100%">
                             <el-option label="白底" value="1"></el-option>
                             <el-option label="灰底" value="2"></el-option>
@@ -115,7 +115,7 @@
                       </el-form-item>
                       <el-form-item label="教练:" prop="JLIDs" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.JLIDs" placeholder="请选择" style="width:100%"
+                          <el-select v-model="currentSelectRow.YGXX_NAME" :placeholder="currentSelectRow.JLIDs" style="width:100%"
                                      @change="Selectchange3">
                             <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME"
                                        :value="item.YGXX_YGID_NEI"></el-option>
@@ -133,8 +133,8 @@
                       </el-form-item>
                       <el-form-item label="课程日期:" prop="kcStime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-date-picker v-model="currentSelectRow.kcStime" value-format="yyyy-MM-dd" type="date"
-                                          placeholder="选择日期" style="width:100%;">
+                          <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" type="date"
+                                           style="width:100%;">
                           </el-date-picker>
                         </el-col>
                       </el-form-item>
@@ -274,11 +274,19 @@
                 </el-radio>
               </template>
             </el-table-column>
-            <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
-            <el-table-column prop="kcStime" align="left" label="上课时间" sortable></el-table-column>
-            <el-table-column prop="kcbSort" align="left" label="底色" sortable></el-table-column>
-            <el-table-column prop="JLIDs" align="left" label="教练"></el-table-column>
-            <el-table-column prop="RenShu" align="left" label="已预约" sortable></el-table-column>
+            <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称"></el-table-column>
+            <el-table-column align="left" label="开课时间" sortable>
+              <template slot-scope="scope">
+              <span>{{scope.row.Stime.substring(0,5)}}--{{scope.row.Etime.substring(0,5)}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="kcbSort" align="left" sortable label="底色"></el-table-column>
+            <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+            <el-table-column align="left" label="已预约" sortable>
+              <template slot-scope="scope">
+                <span>{{scope.row.group_curriculum_appointment_count}}/{{scope.row.RenShu}}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="kcDiff" align="left" label="难度" sortable fixed="right"></el-table-column>
           </el-table>
           <div class="block">
@@ -401,7 +409,7 @@
               this.tableData = val.list.Sunday;
               break;
           }
-          if (null != this.tableData) {
+          if (this.tableData  != null) {
             this.tableData.map((item, index) => {
               item.kcName = item.curriculum_subject.kcName;
               item.JLIDs = item.staff_info.YGXX_NAME;
@@ -439,7 +447,6 @@
       },
       handleCurrentChange2(val, index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
       },
       getCurrentRow(val) {
         console.log(val);
@@ -551,9 +558,9 @@
             this.$confirm("确认修改吗？", "提示").then(() => {
               var formData = {
                 kcStime: this.currentSelectRow.kcStime, //课程日期
-                KCNO: this.currentSelectRow.kcName, //所选课程id
-                kcbSort: this.currentSelectRow.kcbSort, //灰底白底
-                JLID: this.currentSelectRow.JLIDs, //教练id
+                KCNO: this.currentSelectRow.KCNO, //所选课程id
+                kcbSort: this.currentSelectRow.kcbSort=='白底'? 1 : 2, //灰底白底
+                JLID: this.currentSelectRow.JLID, //教练id
                 kcPlace: this.currentSelectRow.kcPlace, //教室
                 Stime: this.currentSelectRow.Stime, //开课时间
                 Etime: this.currentSelectRow.Etime, //结束时间
@@ -561,9 +568,9 @@
                 kcDiff: this.currentSelectRow.kcDiff, //课程难度
                 price: this.currentSelectRow.price //价格
               };
-              console.log(this.currentSelectRow.KCNO);
+              console.log(this.currentSelectRow.ID);
               requestLogin(
-                "/CurTableInfo/" + this.currentSelectRow.KCNO,
+                "/CurTableInfo/" + this.currentSelectRow.ID,
                 formData,
                 "put"
               )

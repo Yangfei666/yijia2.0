@@ -126,9 +126,20 @@
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
               <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
+<<<<<<< HEAD
               <el-table-column prop="strRole" align="left" label="角色" width="200px"></el-table-column>
+=======
+              <el-table-column prop="role" align="left" label="角色" width="220px"></el-table-column>
+>>>>>>> kevin
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
-              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
+              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px"></el-table-column>
+              <el-table-column align="left" label="操作" width="150px" fixed="right">
+                <template slot-scope="scope">
+                  <el-button @click="clickBtn(scope.row)" type="danger" plain
+                             :disabled="scope.row.role.indexOf('会籍顾问') != -1" size="small">客户转出
+                  </el-button>
+                </template>
+              </el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -148,7 +159,7 @@ export default {
   name: "staff",
   inject: ["reload"],
   components: {
-    Editstaff
+    Editstaff,
   },
   data() {
     return {
@@ -225,6 +236,9 @@ export default {
       });
   },
   methods: {
+    clickBtn(obj) {
+
+    },
     //添加员工角色大队
     rolegourp() {
       let _this = this;
@@ -278,7 +292,6 @@ export default {
     },
      handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
      },

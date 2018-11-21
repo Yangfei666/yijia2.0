@@ -4,11 +4,8 @@
             <el-row>
                 <el-col :span="24">
                     <div class="purple">
-                        <div style="height: 35px; line-height: 0px;margin-top: 12px; margin-left: 20px;">
-                          <el-button type="text">{{classroom}} {{startTime}} {{endTime}}</el-button>
-                        </div>
                         <div class="add">
-                            <el-button type="text" class="add-p el-icon-plus" @click="reservationPage()">预约私教</el-button>
+                            <el-button type="text" class="add-p" @click="reservationPage()">预约私教</el-button>
                             <template>
                                 <el-dialog title="预约私教" :append-to-body="true" :visible.sync="dialogFormVisible">
                                     <Personal :startTime="startTime" :endTime="endTime" :classroom="classroom"
@@ -16,6 +13,10 @@
                                 </el-dialog>
                             </template>
                         </div>
+                        <el-col style="height: 35px; line-height: 0px;margin-top: 10px; margin-left: 20px;display: flex">
+                          <el-button type="text"><b style="color:#747677;">当前教室:</b>{{classroom}}</el-button>
+                          <el-button type="text"><b style="color:#747677;">上课时间:</b>{{startTime}}~{{endTime}}</el-button>
+                        </el-col>
                     </div>
                 </el-col>
             </el-row>
@@ -23,7 +24,7 @@
         <div class="practice-table">
             <template>
               <el-table :data="privateList" :header-cell-style="{background:'#fafafa'}" border highlight-current-row style="width: 100%">
-                <el-table-column fixed label="教室" width="150" align="center">
+                <el-table-column fixed label="教室" width="130" align="center">
                   <template slot-scope="scope">
                     <el-col class="wer-col">
                         <h4>{{scope.row.name}}</h4>
@@ -76,7 +77,8 @@ export default {
   },
   computed: {
     privateList() {
-      return Object.values(this.courseDaily);
+      let array = Object.values(this.courseDaily);
+      return array;
     },
     timeDivLength() {
       if (JSON.stringify(this.SystemSetup) !== "{}") {
@@ -178,9 +180,15 @@ export default {
         if (this.startTime == time) { //取消的是开始时间
           this.middleButtonStyle('');
           this.startTime = '';
+          if(this.endTime == '') {
+            this.classroom = '';
+          }
         } else if (this.endTime == time) { //取消的是结束时间
           this.middleButtonStyle('');
           this.endTime = '';
+          if(this.startTime == '') {
+            this.classroom = '';
+          }
         } else { // 取消了中间的时间
           this.$message({message: "请从两头的时间取消", type: "error"});
             return false;
@@ -201,16 +209,22 @@ export default {
       }
     },
     // 选中的时间中间的时间按钮样式
-    middleButtonStyle (param, status, num) {
+    middleButtonStyle (param, status, state) {
       status = status ? false : true;
-      num = num ? num : 1;
+      state = state ? true : false;
       for (let i = 0; i < this.privateList.length; i++) {
         const element = this.privateList[i];
         if (element.name == this.classroom) {
           for (let index = 0; index < element.time.length; index++) {
             const value = element.time[index];
-            if (num == 1) {
-              if (this.CompareDate(value.time, this.startTime, status) && this.CompareDate(this.endTime, value.time, status)) {
+            if (this.CompareDate(value.time, this.startTime, status) && this.CompareDate(this.endTime, value.time, status)) {
+              value.staff = param;
+            }
+            if (state) {
+              if (value.time == this.startTime) {
+                value.staff = param;
+              }
+              if (value.time == this.endTime) {
                 value.staff = param;
               }
             }
@@ -248,50 +262,43 @@ export default {
 @import "@/styles/privateculum.scss";
 @import "@/styles/culum.scss";
   .wer-div {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #00bc71;
     border-radius: 16px;
     color: #fff;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 27px !important;
+    line-height: 35px !important;
     border: 1px solid #e8e8e8;
     cursor:pointer;
   }
   .wer-div2 {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #ffff;
     border-radius: 16px;
     color: #595959;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 30px !important;
+    line-height: 35px !important;
     border: 1px solid #e8e8e8;
     cursor:pointer;
   }
-
-  // .wer-div2:hover{
-  //   background: #00bc71;
-  //   color: #fff;
-  // }
-
   .wer-div3 {
-    width: 50px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 35px !important;
     background: #f5f5f5;
     border-radius: 16px;
     color: #8c8c8c;
-    font-size: 12px;
-    margin: 6px auto;
+    font-size: 14px;
+    margin: 0px auto;
     text-align: center;
-    line-height: 27px !important;
+    line-height: 35px !important;
     cursor:default;
   }
-
   span {
     color: #c7c7c7;
     font-size: 10px !important;

@@ -39,7 +39,7 @@
                             <span>岗位</span>
                           </el-col>
                           <el-col :span="17" class="table-gg">
-                            <span>{{a.name}}</span>
+                            <span v-for="(item, index) in user.role" :key="index">{{index + 1}}.{{item.name}}; </span>
                           </el-col>
                         </div>
                         <div class="left-table-main">
@@ -368,7 +368,7 @@ export default {
       },
       tableData: [], //我的门店
       tableData2: [], //私教禁用时间
-      a: "" 
+      a: ""
     };
   },
   //获取门店表格信息
@@ -454,7 +454,6 @@ export default {
             message: "更换成功",
             type: "success"
           });
-          console.log(res);
           this.reload();
         })
         .catch(error => {

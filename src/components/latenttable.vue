@@ -105,7 +105,7 @@
             <el-table-column prop="prDate" align="left" label="登记日期" sortable width="200px"></el-table-column>
             <el-table-column prop="prQuality" align="left" label="质量" width="200px"></el-table-column>
             <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
-            <el-table-column align="left" label="操作" fixed="right" width="320px">
+            <el-table-column align="left" label="操作" fixed="right" width="300px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small">认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>

@@ -24,14 +24,14 @@
       </el-col>
       <el-col :span="24" class="table">
         <el-table :data="cover" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" @row-click="rowClick">
-          <el-table-column prop="id" label="ID" sortable align="left" width="250">
+          <el-table-column prop="id" label="ID" sortable align="left">
           </el-table-column>
-          <el-table-column prop="hsxxPic" label="图片" sortable align="left" width="300">
+          <el-table-column prop="hsxxPic" label="图片" sortable align="left">
             <template slot-scope="scope">
               <img :src="scope.row.hsxxPic" style="width: 75px;height: 65px">
             </template>
           </el-table-column>
-          <el-table-column prop="hsxxIsFirst" label="状态" sortable align="left" width="300">
+          <el-table-column prop="hsxxIsFirst" label="状态" sortable align="left">
             <template slot-scope="scope">
               <div v-if="scope.row.hsxxIsFirst == '封面'">
                 <el-tooltip :content="scope.row.hsxxIsFirst" placement="top">

@@ -324,10 +324,10 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 4.5% !important;
+      top: 3.5% !important;
       z-index: 2;
       color: #262626;
-      right: 79% !important;
+      right: 78% !important;
       .goback {
         font-size: 14px;
       }

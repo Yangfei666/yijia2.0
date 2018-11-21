@@ -68,8 +68,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1S" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1S" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '05:30',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
         </el-col>
       </el-form-item>
       <div v-if="this.hides == 'yinchang'">
@@ -140,7 +140,17 @@ export default {
     this.getallClub();
     this.getClubInfoId()
   },
-
+  computed: {
+    shoproom () {
+      let array = this.currentSelectRow.club_info;
+      let arr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        arr.push(element.Hsxx_Hsid);
+      }
+      return arr;
+    }
+  },
   methods: {
     //修改会员卡
     submitForm(formName) {
@@ -218,7 +228,6 @@ export default {
     radiochange(val) {
     },
     getSelectItem(val) {
-      // this.currentSelectRow.club_info = val;
       console.log(val);
     },
 

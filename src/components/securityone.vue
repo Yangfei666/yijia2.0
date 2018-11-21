@@ -80,7 +80,6 @@ export default {
   props: ["customercars","chartId"],
   data() {
     return {
-      myChart:''
     };
   },
   watch: {
@@ -96,7 +95,7 @@ export default {
   methods: {
     drawBar() {
       //初始化echarts实例
-      this.myChart = echarts.init(document.getElementById(this.chartId));
+      let myChart = echarts.init(document.getElementById(this.chartId));
       let option = {
         tooltip: {
           trigger: "item",
@@ -154,7 +153,10 @@ export default {
           }
         ]
       };
-     this.myChart.setOption(option);
+     myChart.setOption(option);
+     window.onresize = function(){
+        myChart.resize();
+      }
     }
   }
 };

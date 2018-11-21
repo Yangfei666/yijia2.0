@@ -97,7 +97,7 @@
         <span class="oper">卡1操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
-            <router-link :to="{name:'Transfercard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
+            <router-link :to="{name:'Transfercard',params:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
           </div>
           <div class="oper-left">
             <router-link :to="{name:'Returncard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
@@ -132,17 +132,16 @@ export default {
   props: ["membershipcards", "chartId"],
   data() {
     return {
-      tbdata: [],
-      myChart: ""
+      tbdata: []
     };
   },
   watch: {
     membershipcards(val) {}
   },
   mounted() {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.drawBar();
-    },500)
+    }, 500);
     if (this.membershipcards.card_type.ctType == "次数卡") {
       this.tbdata = [
         {
@@ -166,7 +165,7 @@ export default {
   methods: {
     drawBar() {
       //初始化echarts实例
-      this.myChart = echarts.init(document.getElementById(this.chartId));
+      let myChart = echarts.init(document.getElementById(this.chartId));
       let option = {
         tooltip: {
           trigger: "item",
@@ -216,7 +215,10 @@ export default {
           }
         ]
       };
-      this.myChart.setOption(option);
+      myChart.setOption(option);
+      window.onresize = function() {
+        myChart.resize();
+      };
     }
   }
 };

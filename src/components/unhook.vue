@@ -208,10 +208,10 @@ export default {
     height: 100%;
     .infor-but {
       position: absolute;
-      top: 2.5%;
+      top: 1.8%;
       z-index: 2;
       color: #262626;
-      right: 5%;
+      right: 69%;
       .goback {
         font-size: 14px;
       }

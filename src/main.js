@@ -4,18 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import Vuex from 'vuex'
 import store from './store/index'
-import router from './router'
 import ElementUI from 'element-ui'
+import '../theme/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
 import '@/assets/iconfont.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css';
+import router from './router'
 import VueProgressBar from 'vue-progressbar'
-// import Mock from './mock'
 import axios from 'axios';
 Vue.prototype.$axios=axios;
-// Mock.init()
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueProgressBar)
