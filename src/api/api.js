@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
           duration: 3000
         });
         setTimeout(function () {
-         location.href="/login";
+         location.replace("/#/login");
         }, 3000);
         break;
       case 500:
