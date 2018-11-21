@@ -46,11 +46,10 @@ export default {
     }
   },
   mounted(){
-    this.id = this.$route.params.id;
-    this.Name = this.$route.params.itName;
-    this.Sex = this.$route.params.itSex;
+    this.id = this.$route.query.id;
+    this.Name = this.$route.query.itName;
+    this.Sex = this.$route.query.itSex;
     this.Potential = 'deposit';
-    console.log(this.Potential);
   }
 }
 </script>

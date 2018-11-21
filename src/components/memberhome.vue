@@ -10,7 +10,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
               <el-form-item label="客户编号:" prop="userid" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="this.$route.params.HYID" :disabled="true"></el-input>
+                  <el-input v-model="this.$route.query.HYID" :disabled="true"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -22,7 +22,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="money" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="ruleForm.money" placeholder="0-100000元之间"></el-input>
+                  <el-input v-model="this.CTjg" placeholder="0-100000元之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="payment" :label-width="formLabelWidth">
@@ -105,6 +105,7 @@ export default {
       club: [],
       header: [],
       membershipcard: {},
+      CTjg:"",
       ruleForm: {
         userid: "", //编号
         cardname: "", //卡名称
@@ -116,7 +117,6 @@ export default {
         attenddate: "" //自定义到期时间
       },
       rules: {
-        money: validate.price,
         cardname: validate.cardname,
         payment: validate.mode,
         start: validate.start,
@@ -135,8 +135,7 @@ export default {
     //获取个人中心详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.clubs = res.membership_card;
           _this.membershipcard = _this.clubs[0];
@@ -171,7 +170,6 @@ export default {
           for (var i = 0; i < relationCard.length; i++) {
             _this.selfCard.push(relationCard[i]);
           }
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {
@@ -202,10 +200,10 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              id: _this.$route.params.HYID, //会员id
+              id: _this.$route.query.HYID, //会员id
               CTID: _this.ruleForm.cardname, //会员卡id
               mode: _this.ruleForm.payment, //付款方式
-              money: _this.ruleForm.money, //价格
+              money: _this.CTjg, //价格
               eTime: _this.ruleForm.attenddate, //自定义到期时间
               bool: _this.ruleForm.start, //是否立即启用
               delay: _this.ruleForm.activate //激活时间选择
@@ -240,20 +238,16 @@ export default {
       this.$refs[formName].resetFields();
     },
     Selectchange(val) {
-      console.log(val);
+      let obj2 = {};
+      obj2 = this.selfCard.find(item => {
+        return item.CTID === val;
+      });
+      this.CTjg = obj2.CTjg;
     },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    Selectchange4(val) {
-      console.log(val);
-    },
-    Selectchange5(val) {
-      console.log(val);
-    }
+    Selectchange2(val) {},
+    Selectchange3(val) {},
+    Selectchange4(val) {},
+    Selectchange5(val) {}
   }
 };
 </script>

@@ -39,7 +39,7 @@
                           <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
-                    </div> 
+                    </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
@@ -79,7 +79,7 @@
                   <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
-                       <el-radio class="radio" v-model="radio"  :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                        <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
                     <el-table-column prop="CTName" align="left" fixed label="卡名称" width="150px"></el-table-column>
@@ -101,7 +101,7 @@
             </div>
           </template>
         </el-tab-pane>
-        <el-tab-pane label="通用卡" name="currency"> 
+        <el-tab-pane label="通用卡" name="currency">
           <template>
             <div class="practice-center">
               <el-row>
@@ -119,7 +119,7 @@
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
                       <template>
                         <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
-                          <Cardedit :currentSelectRow="currentSelectRow"  :hides='hide'></Cardedit>
+                          <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
                     </div>
@@ -159,10 +159,10 @@
             <div class="practice-table">
               <el-row>
                 <el-col :span="24">
-                  <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2"  element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
+                  <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
-                       <el-radio class="radio" v-model="radio2"  :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
+                        <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
                     <el-table-column prop="CTName" align="left" fixed label="卡名称" width="150px"></el-table-column>
@@ -216,26 +216,24 @@ export default {
       pagesize: 10,
       radio: true,
       radio2: true,
-      sign:"",
+      sign: "",
       tableData: [],
       tableData2: [],
       tableData3: [],
       tableData4: [],
       cardName: "",
       cardName2: "",
-      ceshi:'hide',
-      hide:'yinchang'
+      ceshi: "hide",
+      hide: "yinchang"
     };
   },
   watch: {
     cardName(val) {
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     cardName2(val) {
-      console.log(val);
       if (!val) {
         this.tableData2 = this.tableData4;
       }
@@ -263,24 +261,19 @@ export default {
       });
   },
   methods: {
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
+    radiochange(row) {},
     handleClick(tab, event) {
-      this.sign=event.target.getAttribute('id');
-      if(this.sign=='tab-currency'){
-          this.hide='yin';
-      }else{
-        this.hide='yinchang';
+      this.sign = event.target.getAttribute("id");
+      if (this.sign == "tab-currency") {
+        this.hide = "yin";
+      } else {
+        this.hide = "yinchang";
       }
-      console.log('当前页:'+this.sign);
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     //查询表格数据
@@ -298,19 +291,14 @@ export default {
       this.radio = row.index;
       //获取表格数据
       this.currentSelectRow = row;
-      console.log(row.index);
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
     },
-    handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-    getCurrentRow(val){
-      console.log(val);
-     },
-    getCurrentRow2(val){
-      console.log(val);
-     },
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
+    getCurrentRow(val) {},
+    getCurrentRow2(val) {},
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {
@@ -341,7 +329,6 @@ export default {
       })
         .then(() => {
           _this.loading = true;
-          console.log(_this.currentSelectRow.CTID);
           requestLogin(
             "/setCardType/" + _this.currentSelectRow.CTID,
             {},

@@ -177,8 +177,8 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: "",
-      Tiyanqufen:{tiyanqufen:'newCustomer'},
-      Customercategory:'experience',
+      Tiyanqufen: { tiyanqufen: "newCustomer",id:""},
+      Customercategory: "experience",
       formInline: {
         user: "",
         date: "",
@@ -208,7 +208,6 @@ export default {
   watch: {
     searchVal(val) {
       //姓名电话
-      console.log(val);
       if (!val) {
         this.tableData = this.tableData2;
       }
@@ -303,34 +302,21 @@ export default {
           i.exName.includes(this.searchVal) || i.exTel.includes(this.searchVal)
       );
     },
-    Selectchange3(val) {
-      console.log(val);
-    },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    Selectchange(val) {
-      console.log(val);
-    },
+    Selectchange3(val) {},
+    Selectchange2(val) {},
+    Selectchange(val) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;
     },
-    getCurrentRow(val) {
-      console.log(val);
-    },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
+    getCurrentRow(val) {},
+    radiochange(row) {},
     handleClick3(row) {
-      console.log(row);
       alert("点击了");
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     resetForm() {
@@ -348,14 +334,14 @@ export default {
       this.radio = this.tableData.indexOf(row);
     },
     //体验认领跳转
-    go(index,row) {
+    go(index, row) {
       this.currentSelectRow = row;
-       this.$router.push({
-        path:"/Customer/practice/claim",
+      this.$router.push({
+        path: "/Customer/practice/claim",
         query: {
           name: this.currentSelectRow.exName,
           tel: this.currentSelectRow.exTel,
-          customercategory:this.Customercategory
+          customercategory: this.Customercategory
         }
       });
     },
@@ -366,8 +352,8 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name: "Practiceup",
-        params: {
+        path: "/Customer/tastefollowup/practiceup",
+        query: {
           id: this.currentSelectRow.id,
           exName: this.currentSelectRow.exName,
           exSex: this.currentSelectRow.exSex
@@ -389,7 +375,6 @@ export default {
           exSex: this.currentSelectRow.exSex
         }
       });
-      console.log(this.currentSelectRow.id);
     },
     showToggle: function() {
       this.isShow = !this.isShow;

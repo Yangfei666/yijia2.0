@@ -71,7 +71,6 @@ export default {
               prQuality: _this.currentSelectRow.prQuality, //客户质量
               WeChat: _this.currentSelectRow.WeChat, //微信号
             };
-            console.log(_this.currentSelectRow.id);
             requestLogin("/setPotentialCustomer/"+_this.currentSelectRow.id, loginParams, "put")
               .then(data => {
                 this.$message({
@@ -102,7 +101,6 @@ export default {
       this.$refs[formName].resetFields();
     },
     Selectchange(val){
-      console.log(val)
     }
   }
 };

@@ -45,32 +45,36 @@
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name:'editexpersecurity',
+  name: "editexpersecurity",
   props: ["currentSelectRow"],
-  inject:['reload'],
-    data() {
-     return {
-        dialogFormVisible: false,
-        formLabelWidth: '130px',
-        disabled:false,
-     }
-    },
-    methods: {
-      //编辑体验券
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$confirm("确认提交吗？", "提示").then(() => {
+  inject: ["reload"],
+  data() {
+    return {
+      dialogFormVisible: false,
+      formLabelWidth: "130px",
+      disabled: false
+    };
+  },
+  methods: {
+    //编辑体验券
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
             var loginParams = {
               tkName: this.currentSelectRow.tkName, //劵名称
               tkPrice: this.currentSelectRow.tkPrice, //劵价格
-              tkState: this.currentSelectRow.tkState == '启用' ? 1 :0, //状态
+              tkState: this.currentSelectRow.tkState == "启用" ? 1 : 0, //状态
               frequency: this.currentSelectRow.frequency, //次数
               vld: this.currentSelectRow.vld, //有效期
-              type: this.currentSelectRow.type  == '团课券' ? 1 :0//类型
+              type: this.currentSelectRow.type == "团课券" ? 1 : 0 //类型
             };
-            requestLogin("/setExperienceVoucher/"+this.currentSelectRow.id, loginParams, "put")
+            requestLogin(
+              "/setExperienceVoucher/" + this.currentSelectRow.id,
+              loginParams,
+              "put"
+            )
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -78,7 +82,7 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible=false;
+                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;
@@ -97,8 +101,9 @@ export default {
         });
       },
     }
-}
+  }
+};
 </script>
 <style lang="scss">
- @import '../styles/dialog.scss';
+@import "../styles/dialog.scss";
 </style>

@@ -1,14 +1,25 @@
 <template>
-    <div>
-      <!--退卡操作-->
-        <el-row>
-            <div class="tag">
-                <em class="top"></em>
-                <el-col :span="24" class="transfer">
-                    <div class="transfer-main">
-                        <span class="transfer-span">退卡操作</span>
-                    </div>
-                </el-col>
+  <div>
+    <!--退卡操作-->
+    <el-row>
+      <div class="tag">
+        <em class="top"></em>
+        <el-col :span="24" class="transfer">
+          <div class="transfer-main">
+            <span class="transfer-span">退卡操作</span>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-from">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+              <el-col :span="16">
+                <el-form-item label="退卡金额:" prop="price">
+                  <el-col :span="24">
+                    <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                  </el-col>
+                </el-form-item>
+              </el-col>
+              <el-col :span="16" class="from-date">
                 <el-col :span="24">
                     <div class="transfer-from">
                         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -27,41 +38,51 @@
                             </el-form-item>
                                 </el-col>
                             </el-col>
-                            <el-col :span="16" class="submit">
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                                <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
-                            </el-form-item>
-                            </el-col>
+
                         </el-form>
                     </div>
                 </el-col>
-            </div>
-        </el-row>
-    </div>
+              </el-col>
+              <el-col :span="16" class="submit">
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                  <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+                </el-form-item>
+              </el-col>
+            </el-form>
+          </div>
+        </el-col>
+      </div>
+    </el-row>
+  </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name:'returncard',
+  name: "returncard",
   inject: ["reload"],
   data() {
     return {
-        remnant: 666,
+      remnant: 666,
       ruleForm: {
-        price: '',
-        desc: ''
+        price: "",
+        desc: ""
       },
-       rules: {
-            price: [
-            { required: true, message: '请输入退卡金额', trigger: 'blur' },
-            { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
-          ],
-           desc: [
-            { required: true, message: '请填写退卡原因', trigger: 'blur' },
-            { min: 1, max: 666, message: '长度在 1 到 666个字符', trigger: 'blur' }
-          ]
-       }
+      rules: {
+        price: [
+          { required: true, message: "请输入退卡金额", trigger: "blur" },
+          { min: 1, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur" }
+        ],
+        desc: [
+          { required: true, message: "请填写退卡原因", trigger: "blur" },
+          {
+            min: 1,
+            max: 666,
+            message: "长度在 1 到 666个字符",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   methods: {
@@ -69,16 +90,11 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id:this.$route.params.CARD.id, //会员卡id
+          id: this.$route.query.CARD.id, //会员卡id
           num: this.ruleForm.price, //退款金额
           content: this.ruleForm.desc //原因
         };
-        console.log(this.$route.params.HYID);
-        requestLogin(
-          "/setDesignateMember/backCard",
-          loginParams,
-          "post"
-        )
+        requestLogin("/setDesignateMember/backCard", loginParams, "post")
           .then(data => {
             this.$message({
               message: "退卡成功",
@@ -98,13 +114,13 @@ export default {
           });
       });
     },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-       descInput(){
-        var txtVal = this.ruleForm.desc.length;
-        this.remnant = 666 - txtVal;
-        }
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    descInput() {
+      var txtVal = this.ruleForm.desc.length;
+      this.remnant = 666 - txtVal;
+    }
   }
 };
 </script>
@@ -167,22 +183,22 @@ export default {
       height: 35px;
       line-height: 10px;
     }
-    .submit{
-        display: flex;
+    .submit {
+      display: flex;
     }
-    .from-date{
-        position: relative;
-        .textarea{
-            color: #00bc71;
-            position: absolute;
-            top: 60%;
-            right: 5%;
-        }
+    .from-date {
+      position: relative;
+      .textarea {
+        color: #00bc71;
+        position: absolute;
+        top: 60%;
+        right: 5%;
+      }
     }
   }
-  .transfer-table{
-      width: 98%;
-      margin: 0 auto;
+  .transfer-table {
+    width: 98%;
+    margin: 0 auto;
   }
 }
 </style>

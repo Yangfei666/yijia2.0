@@ -156,10 +156,8 @@ export default {
         this.$refs[formName].resetFields();
       },
       Selectchange(val){
-        console.log(val);
       },
      Selectchange2(val) {
-        console.log(val);
     },
     }
 }

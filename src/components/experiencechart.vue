@@ -92,9 +92,7 @@ export default {
       });
       this.sumStaffValue = sum;
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
+    handleClick(tab, event) {},
     drawPie({ exp_adviser, exp_experienceData, exp_staff }) {
       //饼图
       let myChart11 = echarts.init(document.getElementById("myChart11"));

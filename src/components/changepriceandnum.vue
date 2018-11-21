@@ -5,17 +5,17 @@
       <div class="tag">
         <em class="top"></em>
         <el-col :span="24" class="transfer">
-          <div class="transfer-main" v-if="this.$route.params.CARD.card_type.ctType == '次数卡'">
+          <div class="transfer-main" v-if="this.$route.query.CARD.card_type.ctType == '次数卡'">
             <span class="transfer-span">次卡变更使用次数</span>
-            <span class="transfer-span2">原剩余次数：{{this.$route.params.CARD.SYCS}}</span>
+            <span class="transfer-span2">原剩余次数：{{this.$route.query.CARD.SYCS}}</span>
           </div>
           <div class="transfer-main" v-else>
             <span class="transfer-span">次卡变更使用金额</span>
-            <span class="transfer-span2">原剩余金额：{{this.$route.params.CARD.SYJE}}</span>
+            <span class="transfer-span2">原剩余金额：{{this.$route.query.CARD.SYJE}}</span>
           </div>
         </el-col>
         <el-col :span="24">
-          <div class="transfer-from" v-if="this.$route.params.CARD.card_type.ctType == '次数卡'">
+          <div class="transfer-from" v-if="this.$route.query.CARD.card_type.ctType == '次数卡'">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
               <el-col :span="16">
                 <el-form-item label="变更后的总次数:" prop="num">
@@ -117,7 +117,7 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.params.CARD.id, //会员卡id
+          id: this.$route.query.CARD.id, //会员卡id
           num: this.ruleForm.num, //次数
           reason: this.ruleForm.desc //原因
         };
@@ -146,7 +146,7 @@ export default {
     submitForm2(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.params.CARD.id, //会员卡id
+          id: this.$route.query.CARD.id, //会员卡id
           money: this.ruleForm.price, //金额
           reason: this.ruleForm.desc2 //原因
         };

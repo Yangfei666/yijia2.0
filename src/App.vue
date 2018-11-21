@@ -42,9 +42,16 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
-.el-time-panel__btn.confirm{
-    font-weight: 800;
-    color: #00bc71;
+.el-button:active {
+  color: #00bc71;
+  outline: 0;
+}
+.el-button:focus {
+  color: #00bc71;
+}
+.el-time-panel__btn.confirm {
+  font-weight: 800;
+  color: #00bc71;
 }
 .el-radio__input.is-disabled.is-checked .el-radio__inner::after {
   background-color: #00bc71 !important;
@@ -305,7 +312,7 @@ body {
 .el-button--primary:hover {
   color: #fff;
   background-color: #00bc71 !important;
-  border-color: #00bc71!important;
+  border-color: #00bc71 !important;
 }
 .el-radio-button__inner:hover {
   color: #00bc71 !important;
@@ -358,7 +365,7 @@ body {
   border-radius: 3px;
 }
 .el-tabs__item:hover {
-  color: #00bc71;
+  color: #00bc71 !important;
   cursor: pointer;
 }
 .el-input__inner:hover {

@@ -82,12 +82,12 @@
         <el-form-item label="" :label-width="formLabelWidth"></el-form-item>
       </div>
       <div v-else>
-      <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
-          </el-transfer>
-        </el-col>
-      </el-form-item>
+        <el-form-item label="选择可用门店:" prop="shoproom" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-transfer filterable v-model="shoproom" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
+            </el-transfer>
+          </el-col>
+        </el-form-item>
       </div>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
@@ -105,11 +105,11 @@ const cityOptions = ["周一", "周二", "周三", "周四", "周五", "周六",
 export default {
   name: "foundmembercard",
   inject: ["reload"],
-  props:['ceshis'],
+  props: ["ceshis"],
   data() {
     return {
       data2: [],
-      shoproom:[],
+      shoproom: [],
       limitdate: [],
       startTime: "",
       endTime: "",
@@ -129,7 +129,7 @@ export default {
         status: "", //状态
         startTime: "", //限制时间段--开始
         endTime: "", //限制时间段--结束
-        number:"",//次数卡--次数
+        number: "", //次数卡--次数
         shoproom: [] //选择可用门店
       },
       rules: {
@@ -141,7 +141,7 @@ export default {
         date: validate.date,
         num: validate.num,
         status: validate.status,
-        number:validate.number
+        number: validate.number
       },
       limit: cityOptions
     };
@@ -150,13 +150,9 @@ export default {
     this.getallClub();
   },
   methods: {
-    radiochange(val){
-        console.log(val, 'val');
-        console.log(this.ruleForm.number, 'input的值');
-    },
+    radiochange(val) {},
     getSelectItem(val) {
       this.ruleForm.shoproom = val;
-      console.log(val)
     },
     //门店数据
     getallClub() {
@@ -176,7 +172,7 @@ export default {
     },
     //添加会员卡
     submitForm(formName) {
-      let _this=this;
+      let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
@@ -225,12 +221,10 @@ export default {
         }
       });
     },
-    handleCheckChange(val) {
-      console.log(this.ruleForm.limit);
-    },
+    handleCheckChange(val) {},
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.shoproom = ""
+      this.shoproom = "";
     }
   }
 };

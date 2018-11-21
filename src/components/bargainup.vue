@@ -61,10 +61,8 @@ export default {
   },
   created: function() {
     let _this = this;
-    console.log(this.$route);
-    console.log(this.$route.params.id);
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/deposit/" + this.$route.params.id,
+      "/CustomerFollowUp/getFollowUpRecord/deposit/" + this.$route.query.id,
       {},
       "get"
     )
@@ -89,7 +87,7 @@ export default {
             this.addLoading = true;
             var loginParams = {
               identity: 'deposit', //客户类别
-              id: this.$route.params.id, //客户id
+              id: this.$route.query.id, //客户id
               content:this.ruleForm.desc//内容
             };
             requestLogin("/CustomerFollowUp/addFollowUpRecord", loginParams, "post")

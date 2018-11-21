@@ -97,25 +97,25 @@
         <span class="oper">卡1操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
-            <router-link :to="{name:'Transfercard',params:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Returncard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/returncard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Upgradecard',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>升级</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/upgradecard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>升级</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Changevalidity',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>变更有效期</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/changevalidity',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更有效期</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Changepriceandnum',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>变更次数/金额</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/changepriceandnum',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更次数/金额</router-link>
           </div>
           <div class="oper-left">
-            <router-link :to="{name:'Enabledisabling',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>启用/禁用</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/enabledisabling',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>启用/禁用</router-link>
           </div>
           <div class="oper-left" v-if="membershipcards.State == '未激活'">
-            <router-link :to="{name:'Activate',params:{HYID:this.$route.params.HYID,CARD:membershipcards}}" class="link" exact>激活</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/activate',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>激活</router-link>
           </div>
         </el-col>
       </div>

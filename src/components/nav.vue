@@ -6,7 +6,7 @@
                 <el-button type="text" class="one-p" @click="dialogFormVisible = true">添加会员</el-button>
                 <template>
                     <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                        <Addmember></Addmember>
+                        <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
                     </el-dialog>
                 </template>
         </div>
@@ -16,7 +16,7 @@
                 <el-button type="text" class="one-p" @click="dialogFormVisible2 = true">添加定金客户</el-button>
                 <template>
                     <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                        <Addbargain></Addbargain>
+                        <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
                     </el-dialog>
                 </template>
         </div>
@@ -33,7 +33,7 @@
                 <el-button type="text" class="one-p" @click="dialogFormVisible3 = true">添加体验客户</el-button>
                 <template>
                     <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                        <Addpractice></Addpractice>
+                        <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
                     </el-dialog>
                 </template>
         </div>
@@ -66,7 +66,10 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
-      dialogFormVisible4: false
+      dialogFormVisible4: false,
+      Huiyuanqufen:{huiyuanqufen:'newCustomer'},
+      Dingjinqufen:{dingjinqufen:'newCustomer'},
+      Tiyanqufen:{tiyanqufen:'newCustomer'},
     };
   }
 };

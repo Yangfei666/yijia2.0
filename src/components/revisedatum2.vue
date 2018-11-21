@@ -13,7 +13,7 @@
                     <el-radio label="女" value="0"></el-radio>
                     <el-radio label="男" value="1"></el-radio>
                 </el-radio-group>
-                </el-col> 
+                </el-col>
             </el-form-item>
             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
           <el-col :span="22">
@@ -43,30 +43,33 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
-  name:'revisedatum2',
+  name: "revisedatum2",
   props: ["currentSelectRow"],
   inject: ["reload"],
-    data() {
+  data() {
     return {
-        dialogFormVisible: false,
-        formLabelWidth: '130px',
-       }
-    },
-     methods: {
-       //修改定金客户资料
+      dialogFormVisible: false,
+      formLabelWidth: "130px"
+    };
+  },
+  methods: {
+    //修改定金客户资料
     submitForm(formName) {
-      let _this=this;
+      let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
               name: _this.currentSelectRow.itName, //姓名
               tel: _this.currentSelectRow.itTel, //电话
-              sex: _this.currentSelectRow.itSex =='女'? 0 : 1, //性别
-              weChat: _this.currentSelectRow.itWeChat, //微信号
+              sex: _this.currentSelectRow.itSex == "女" ? 0 : 1, //性别
+              weChat: _this.currentSelectRow.itWeChat //微信号
             };
-            console.log(_this.currentSelectRow.id);
-            requestLogin("/setDepositCustomer/"+_this.currentSelectRow.id, loginParams, "put")
+            requestLogin(
+              "/setDepositCustomer/" + _this.currentSelectRow.id,
+              loginParams,
+              "put"
+            )
               .then(data => {
                 this.$message({
                   message: "修改成功",
@@ -92,13 +95,13 @@ export default {
         }
       });
     },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
-}
+  }
+};
 </script>
 <style lang="scss">
- @import '../styles/dialog.scss';
+@import "../styles/dialog.scss";
 </style>
 

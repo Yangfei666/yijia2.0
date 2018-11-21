@@ -3,11 +3,9 @@
     <!--请假操作-->
     <div class="health">
       <el-col :span="24" class="infor-head">
-        <router-link :to="{name:'Memberhome'}" style="text-decoration:none;">
-          <div class="infor-but">
-            <span class="goback el-icon-arrow-left">返回</span>
-          </div>
-        </router-link>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
+        </div>
         <div class="infor-title" v-if="membership_card.State === '请假'">
           <span>销假操作</span>
         </div>
@@ -22,20 +20,20 @@
         <div class="health-from">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
             <el-col :span="20" class="from-date">
-                <el-col :span="24">
-              <el-form-item label="请假时间：" prop="leavedate">
+              <el-col :span="24">
+                <el-form-item label="请假时间：" prop="leavedate">
                   <el-date-picker v-model="ruleForm.leavedate" value-format="yyyy-MM-dd" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:100%">
                   </el-date-picker>
-              </el-form-item>
-                </el-col>
+                </el-form-item>
+              </el-col>
             </el-col>
             <el-col :span="20" class="from-date">
-                <el-col :span="24">
-              <el-form-item label="请假原因：" prop="desc">
+              <el-col :span="24">
+                <el-form-item label="请假原因：" prop="desc">
                   <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
-              </el-form-item>
-                </el-col>
+                </el-form-item>
+              </el-col>
             </el-col>
             <el-col :span="20" class="from-date">
               <el-form-item>
@@ -90,9 +88,8 @@ export default {
           endTime: this.ruleForm.leavedate[1], //请假结束时间
           reason: this.ruleForm.desc //原因
         };
-        console.log(this.$route.params.HYID);
         requestLogin(
-          "/setDesignateMember/leaveAbsence/" + this.$route.params.HYID,
+          "/setDesignateMember/leaveAbsence/" + this.$route.query.HYID,
           loginParams,
           "post"
         )
@@ -119,7 +116,7 @@ export default {
     leave() {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/resumptionFromLeave/" + this.$route.params.HYID,
+          "/setDesignateMember/resumptionFromLeave/" + this.$route.query.HYID,
           {},
           "get"
         )
@@ -145,12 +142,9 @@ export default {
     //获取会员详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route);
-      console.log(this.$route.params.HYID);
-      requestLogin("/setMemberCustomers/" + this.$route.params.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.membership_card = res.membership_card[0];
-          console.log("status:" + _this.membership_card.State);
         })
         .catch(error => {
           if (error.res) {
@@ -167,6 +161,9 @@ export default {
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 666 - txtVal;
+    },
+    back() {
+      this.$router.go(-1); //返回上一层
     }
   }
 };

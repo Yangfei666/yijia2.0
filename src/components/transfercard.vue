@@ -114,8 +114,112 @@
                     </div>
                 </el-col>
             </div>
-        </el-row>
-    </div>
+            <template>
+              <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+                <!--添加新会员-->
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                  <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号码"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-radio-group v-model="ruleForm.sex" @change="ChangeSex">
+                        <el-radio label="女" value="女"></el-radio>
+                        <el-radio label="男" value="男"></el-radio>
+                      </el-radio-group>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-date-picker v-model="ruleForm.birthday" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.catenumber" placeholder="请输入18位身份证号码/护照均可"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.address" placeholder="汉字、字母、数字和下划线及逗号句号组成 长度2-20"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="职业:" prop="vocation" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.vocation" placeholder="长度2-10"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                        <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                      </el-select>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.contact" placeholder="长度2-6"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item class="dialog-footer">
+                    <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                      <el-button @click="resetForm('ruleForm')">重置</el-button>
+                      <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                    </el-col>
+                  </el-form-item>
+                </el-form>
+              </el-dialog>
+            </template>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-from">
+            <el-form :inline="true" :model="formInline" class="demo-form-inline">
+              <el-form-item label="被转卡人姓名:">
+                <el-input v-model="formInline.user" placeholder="请输入" @change="textinput"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">查询</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-table">
+            <el-table :data="tableData4" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+              <el-table-column prop="HYName" align="left" label="姓名" fixed></el-table-column>
+              <el-table-column prop="MotoTel" align="left" label="手机号"></el-table-column>
+              <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
+              <el-table-column fixed="right" align="left" label="操作">
+                <template slot-scope="scope">
+                  <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
+                    转卡
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </el-col>
+      </div>
+    </el-row>
+  </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";
@@ -153,14 +257,11 @@ export default {
       tableData4: [],
       staff_info: [],
       dialogFormVisible: false,
-      hyinfo:{}
+      hyinfo: {}
     };
   },
   created() {
     this.getCustomer();
-    console.log(this.$route);
-    console.log(this.$route.params.HYID);
-    console.log("CARD:" + this.$route.params.CARD.CardNO);
   },
   methods: {
     //获取会籍顾问
@@ -170,7 +271,6 @@ export default {
         .then(function(res) {
           let { staff_info } = res;
           _this.staff_info = staff_info;
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {
@@ -198,7 +298,7 @@ export default {
               hyContacts: _this.ruleForm.contact, //紧急联系人
               hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
               hyWeChat: _this.ruleForm.wechat, //微信
-              identity:'newCustomer'//新会员
+              identity: "newCustomer" //新会员
             };
             requestLogin(
               "/setMemberCustomers/onlyMemberInfo",
@@ -229,45 +329,39 @@ export default {
         }
       });
     },
-    textinput(val) {
-      console.log(val);
-    },
+    textinput(val) {},
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    Selectchange2(val) {
-      console.log(val);
-    },
-    ChangeSex(val) {
-      console.log(val);
-    },
+    Selectchange2(val) {},
+    ChangeSex(val) {},
     //转卡
     deleteRow(index, rows) {
       let _this = this;
       this.$confirm("确认提交吗？", "提示").then(() => {
-      var loginParams = {
-        id: _this.$route.params.CARD.id, //会员卡id
-        oldId:_this.$route.params.HYID, //原会员id
-        oldName: _this.$route.params.HYName, //原会员姓名
-        newId: _this.hyinfo.HYID, //新会员id
-        newName:_this.hyinfo.HYName //新会员姓名
-      };
-      requestLogin("/setDesignateMember/transferCard", loginParams, "post")
-        .then(function(res) {
-          this.$message({
-            message: "转卡成功",
-            type: "success"
-          });
-          this.reload();
-        })
-        .catch(error => {
-          if (error.res) {
+        var loginParams = {
+          id: _this.$route.query.CARD.id, //会员卡id
+          oldId: _this.$route.query.HYID, //原会员id
+          oldName: _this.$route.query.HYName, //原会员姓名
+          newId: _this.hyinfo.HYID, //新会员id
+          newName: _this.hyinfo.HYName //新会员姓名
+        };
+        requestLogin("/setDesignateMember/transferCard", loginParams, "post")
+          .then(function(res) {
             this.$message({
-              message: "提交数据失败",
-              type: "error"
+              message: "转卡成功",
+              type: "success"
             });
-          }
-        });
+            this.reload();
+          })
+          .catch(error => {
+            if (error.res) {
+              this.$message({
+                message: "提交数据失败",
+                type: "error"
+              });
+            }
+          });
       });
     },
     //查询
@@ -279,11 +373,10 @@ export default {
       };
       requestLogin("/getSearchName", loginParams, "post")
         .then(function(res) {
-          res.CardNO = _this.$route.params.CARD.CardNO;
-          res.CTName = _this.$route.params.CARD.card_type.CTName;
+          res.CardNO = _this.$route.query.CARD.CardNO;
+          res.CTName = _this.$route.query.CARD.card_type.CTName;
           _this.hyinfo = res;
           _this.tableData4.push(res);
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {

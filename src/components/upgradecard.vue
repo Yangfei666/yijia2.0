@@ -7,7 +7,7 @@
         <el-col :span="24" class="transfer">
           <div class="transfer-main">
             <span class="transfer-span">会员卡升级</span>
-            <span class="transfer-span2">当前卡种：{{this.$route.params.CARD.card_type.CTName}}</span>
+            <span class="transfer-span2">当前卡种：{{this.$route.query.CARD.card_type.CTName}}</span>
           </div>
         </el-col>
         <el-col :span="24">
@@ -76,7 +76,7 @@ export default {
         price: "",
         price2: "",
         mode: "",
-        cardseed: "",
+        cardseed: ""
       }
     };
   },
@@ -98,7 +98,6 @@ export default {
           for (var i = 0; i < relationCard.length; i++) {
             _this.selfCard.push(relationCard[i]);
           }
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {
@@ -116,11 +115,11 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              oldCardId: _this.$route.params.CARD.id, //会员卡id
+              oldCardId: _this.$route.query.CARD.id, //会员卡id
               newCardId: _this.ruleForm.cardseed, //新卡种id
               mode: _this.ruleForm.mode, //付款方式
               discount: _this.ruleForm.price, //旧卡折扣价
-              money: _this.ruleForm.price2, //新卡补交差价
+              money: _this.ruleForm.price2 //新卡补交差价
             };
             requestLogin("/setDesignateMember/upgradeCard", loginParams, "post")
               .then(data => {
@@ -128,7 +127,7 @@ export default {
                   message: "升级成功",
                   type: "success"
                 });
-               this.resetForm(formName);
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -150,12 +149,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    radiochange(val){
-      console.log(val);
-    },
-    Selectchange(val) {
-      console.log(val);
-    },
+    radiochange(val) {},
+    Selectchange(val) {},
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 666 - txtVal;

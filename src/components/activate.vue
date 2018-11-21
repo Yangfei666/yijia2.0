@@ -31,7 +31,7 @@ export default {
     onSubmit() {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/activationCard/" + this.$route.params.CARD.id,
+          "/setDesignateMember/activationCard/" + this.$route.query.CARD.id,
           {},
           "post"
         )

@@ -31,8 +31,8 @@
                 <el-form-item label="性别:" prop="exSex" label-width="130px">
                   <el-col :span="22">
                     <el-radio-group v-model="ruleForm.exSex">
-                    <el-radio label="女" value="1"></el-radio>
-                    <el-radio label="男" value="2"></el-radio>
+                      <el-radio label="女" value="1"></el-radio>
+                      <el-radio label="男" value="2"></el-radio>
                     </el-radio-group>
                   </el-col>
                 </el-form-item>
@@ -102,12 +102,9 @@ export default {
     //获取体验券详情
     getexperhome() {
       let _this = this;
-      console.log(this.$route);
-      console.log(this.$route.params.id);
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
           _this.club = res;
-          console.log(res);
         })
         .catch(error => {
           if (error.res) {
@@ -119,12 +116,7 @@ export default {
         });
     },
     back() {
-      let url = this.$route.path;
-      if (url === "/Customer/experiencehome/experhome") {
-        this.$router.push("/Customer/experiencehome/experhome");
-      } else {
-        this.$router.go(-1); //返回上一层
-      }
+      this.$router.go(-1); //返回上一层
     },
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
@@ -132,7 +124,7 @@ export default {
           exName: this.ruleForm.exName, //姓名
           exTel: this.ruleForm.exTel, //电话
           exWeChat: this.ruleForm.exWeChat, //微信
-          exSex: this.ruleForm.exSex=='女'? 1 : 2 //性别
+          exSex: this.ruleForm.exSex == "女" ? 1 : 2 //性别
         };
         requestLogin(
           "/setExperienceCustomer/" + this.$route.params.id,

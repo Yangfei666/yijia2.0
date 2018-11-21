@@ -7,7 +7,7 @@
                 <el-col :span="24" class="transfer">
                     <div class="transfer-main">
                         <span class="transfer-span">变更有效期</span>
-                        <span class="transfer-span2">原有效期：{{this.$route.params.CARD.eTime}}</span>
+                        <span class="transfer-span2">原有效期：{{this.$route.query.CARD.eTime}}</span>
                     </div>
                 </el-col>
                 <el-col :span="24">
@@ -69,7 +69,7 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.params.CARD.id, //会员卡id
+          id: this.$route.query.CARD.id, //会员卡id
           day: this.ruleForm.date, //有效期时间
           reason: this.ruleForm.desc //原因
         };

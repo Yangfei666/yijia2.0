@@ -42,7 +42,6 @@ export default {
           id:this.currentSelectRow.id, //定金客户id
           content: this.ruleForm.desc //变更原因
         };
-        console.log(this.currentSelectRow.id);
         requestLogin("/setDepositCustomer/giveUp", loginParams, "post")
           .then(data => {
             this.$message({

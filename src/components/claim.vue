@@ -77,18 +77,15 @@ export default {
           });
         }
       });
-    console.log(this.$route);
   },
   methods: {
     goback(){
       this.$router.go(-1)
     },
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
       claim(row) {

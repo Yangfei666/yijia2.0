@@ -257,9 +257,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route);
-    console.log(this.$route.query.id);
-    console.log(this.$route.query.potential);
     this.gethealth();
   },
   methods: {
@@ -274,7 +271,7 @@ export default {
         "get"
       )
         .then(function(res) {
-                _this.health_survey = res.health_survey;
+          _this.health_survey = res.health_survey;
         })
         .catch(error => {
           if (error.res) {
@@ -339,24 +336,12 @@ export default {
     //   this.$refs[formName].resetFields();
     // },
     //性别
-    sexchange(val) {
-      console.log(val);
-    },
-    Exercisecahnge(val) {
-      console.log(val);
-    },
-    htPraTimechange(val) {
-      console.log(val);
-    },
-    htExpendchange(val) {
-      console.log(val);
-    },
-    htHealthchange(val) {
-      console.log(val);
-    },
-    htPurposechange(val) {
-      console.log(val);
-    },
+    sexchange(val) {},
+    Exercisecahnge(val) {},
+    htPraTimechange(val) {},
+    htExpendchange(val) {},
+    htHealthchange(val) {},
+    htPurposechange(val) {},
     back() {
       this.$router.go(-1); //返回上一层
     }

@@ -17,7 +17,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="ruleForm.price" placeholder="0-1000之间"></el-input>
+                  <el-input v-model="this.tkPrice" placeholder="0-1000之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -63,7 +63,7 @@ export default {
   name: "experhome",
   inject: ["reload"],
   components: {
-    Securityone,
+    Securityone
   },
   data() {
     return {
@@ -77,7 +77,8 @@ export default {
       disabled: false,
       limitdate: [],
       header: [],
-      customercar:{},
+      customercar: {},
+      tkPrice:"",
       ruleForm: {
         type: [], //券类型
         price: "", //金额
@@ -87,16 +88,15 @@ export default {
       tkName: [],
       rules: {
         type: validate.type,
-        price: validate.price,
         mode: validate.mode
       }
     };
   },
   created: function() {
     this.getVouchers();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.getexperhome();
-    },1500)
+    }, 500);
   },
   methods: {
     //购买体验券
@@ -108,9 +108,8 @@ export default {
             var loginParams = {
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.ruleForm.price //价格
+              price: _this.tkPrice //价格
             };
-            console.log(this.$route.params.id);
             requestLogin(
               "/setExperienceCustomer/purchaseVoucher/" + this.$route.params.id,
               loginParams,
@@ -146,17 +145,17 @@ export default {
       let _this = this;
       requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
         .then(function(res) {
-          _this.clubs=res.customer_voucher;
-          _this.customercar=_this.clubs[0];
-          var customer_voucher=res.customer_voucher; 
-          for(var i=0;i<customer_voucher.length;i++){
-              var voucher={id:'',tkName:'',name:''};
-              voucher.id=customer_voucher[i].id;
-              voucher.tkName=customer_voucher[i].experience_voucher.tkName;
-              voucher.name=voucher.tkName+voucher.id;
-              _this.header.push(voucher);
+          _this.clubs = res.customer_voucher;
+          _this.customercar = _this.clubs[0];
+          var customer_voucher = res.customer_voucher;
+          for (var i = 0; i < customer_voucher.length; i++) {
+            var voucher = { id: "", tkName: "", name: "" };
+            voucher.id = customer_voucher[i].id;
+            voucher.tkName = customer_voucher[i].experience_voucher.tkName;
+            voucher.name = voucher.tkName + voucher.id;
+            _this.header.push(voucher);
           }
-          _this.TabsValue=String(_this.header[0].id);
+          _this.TabsValue = String(_this.header[0].id);
         })
         .catch(error => {
           if (error.res) {
@@ -184,21 +183,24 @@ export default {
         });
     },
     Selectchange(val) {
-      console.log(val);
+       let obj2 = {};
+      obj2 = this.tkName.find(item=>{
+        return item.id ===val;
+      });
+      this.tkPrice = obj2.tkPrice;
     },
     handleClick(tab, event) {
       let _this = this;
-      var eventId=event.currentTarget.id;
-      //tab-大众1137
-       for(var i=0;i<_this.clubs.length;i++){
-         var name=_this.clubs[i].experience_voucher.tkName;
-         var id=_this.clubs[i].id;
-         var eventIds='tab-'+id;
-         if(eventId==eventIds){
-           _this.customercar=_this.clubs[i];
-           return;
-         }
-       }
+      var eventId = event.currentTarget.id;
+      for (var i = 0; i < _this.clubs.length; i++) {
+        var name = _this.clubs[i].experience_voucher.tkName;
+        var id = _this.clubs[i].id;
+        var eventIds = "tab-" + id;
+        if (eventId == eventIds) {
+          _this.customercar = _this.clubs[i];
+          return;
+        }
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -30,7 +30,7 @@ import * as validate from "@/validate/Login";
 export default {
   name: "change",
   inject: ["reload"],
-  props:['currentSelectRow'],
+  props: ["currentSelectRow"],
   props: {
     potential: {
       type: Object,
@@ -74,12 +74,14 @@ export default {
       this.$confirm("确认要变更吗？", "提示").then(() => {
         var loginParams = {
           num: this.ruleForm.adviser, //会籍id
-          id:this.potential.id, //客户id 
+          id: this.potential.id, //客户id
           content: this.ruleForm.desc //变更原因
         };
-        console.log(this.potential.potential)
-        console.log(this.potential.id)
-        requestLogin("/" + this.potential.potential + "/changeAdviser", loginParams, "post")
+        requestLogin(
+          "/" + this.potential.potential + "/changeAdviser",
+          loginParams,
+          "post"
+        )
           .then(data => {
             this.$message({
               message: "变更成功",
@@ -106,9 +108,7 @@ export default {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 666 - txtVal;
     },
-    Selectchange2(val) {
-      console.log(val);
-    }
+    Selectchange2(val) {}
   }
 };
 </script>

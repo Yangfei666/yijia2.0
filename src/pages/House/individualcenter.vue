@@ -39,7 +39,7 @@
                             <span>岗位</span>
                           </el-col>
                           <el-col :span="17" class="table-gg">
-                            <span v-for="(item, index) in user.role" :key="index">{{index + 1}}.{{item.name}}; </span>
+                            <span v-for="(item, index) in user.role" :key="index">{{index + 1}}.{{item.name}}</span>
                           </el-col>
                         </div>
                         <div class="left-table-main">
@@ -185,7 +185,7 @@
                   </el-col>
                   <el-col :span="24">
                     <div class="table-room">
-                      <el-table v-loading="loading"  ref="singleTable"  @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                      <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                         <el-table-column align="center" prop="radio" fixed width="70px">
                           <template slot-scope="scope">
                             <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
@@ -254,7 +254,7 @@
                   </el-col>
                   <el-col :span="24">
                     <div class="table-room">
-                      <el-table v-loading="loading" ref="singleTable"  @current-change="handleCurrentChange3" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                      <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange3" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
                         <el-table-column align="center" prop="radio2" fixed width="70px">
                           <template slot-scope="scope">
                             <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
@@ -412,7 +412,6 @@ export default {
     this.user = JSON.parse(sessionStorage.getItem("userInfo"));
     let { role: [a, b, c] } = this.user;
     this.a = a;
-    console.log(a, b, c);
   },
   methods: {
     //获取个人资料
@@ -475,18 +474,14 @@ export default {
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
     },
-       getCurrentRow(val){
-          console.log(val);
-     },
-       getCurrentRow2(val){
-          console.log(val);
-     },
-        handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-        handleCurrentChange3(val,index) {
-        this.currentRow = val;
-     },
+    getCurrentRow(val) {},
+    getCurrentRow2(val) {},
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
+    handleCurrentChange3(val, index) {
+      this.currentRow = val;
+    },
     //删除禁用时间
     Deltime() {
       let _this = this;
@@ -504,7 +499,6 @@ export default {
       })
         .then(() => {
           _this.loading = true;
-          console.log(_this.currentSelectRow.id);
           requestLogin(
             "/PersonalCenter/" + _this.currentSelectRow.id,
             {},
@@ -668,19 +662,12 @@ export default {
     resetforbidden(formName) {
       this.$refs[formName].resetFields();
     },
-    radiochange(row) {
-      console.log(`当前: ${row}`);
-    },
-    handleClick(tab, event) {
-      console.log(tab, event);
-      console.log(event.target.getAttribute("id"));
-    },
+    radiochange(row) {},
+    handleClick(tab, event) {},
     handleSizeChange(size) {
-      console.log(`每页 ${size} 条`);
       this.pagesize = size;
     },
     handleCurrentChange(currentPage) {
-      console.log(`当前页: ${currentPage}`);
       this.currentPage = currentPage;
     },
     showToggle: function() {

@@ -115,8 +115,6 @@ export default {
   },
   created(){
     this.getCustomer();
-    console.log(this.dingjinqufen);
-    console.log(this.dingjinqufen.id);
   },
   methods: {
      //获取会籍顾问列表
@@ -162,7 +160,7 @@ export default {
             formData.append("adviserId", this.ruleForm.adviser);//会籍顾问id
             formData.append("adviserName", this.YGXX_NAME);//会籍顾问名字
             formData.append("weChat", this.ruleForm.wechat);//微信
-            formData.append("identity",this.dingjinqufen);//转换客户的身份
+            formData.append("identity",this.dingjinqufen.dingjinqufen);//转换客户的身份
             formData.append("oldId",this.dingjinqufen.id);//原客户类别的id
             requestLogin("/setDepositCustomer",formData,"post")
               .then(data => {
@@ -198,8 +196,6 @@ export default {
         return item.YGXX_YGID_NEI === val;
       });
       this.YGXX_NAME = obj.YGXX_NAME;
-      console.log(obj.YGXX_NAME);
-      console.log(val);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

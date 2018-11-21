@@ -7,9 +7,7 @@
       <div class="main-right">
         <div class="block">
           <el-col :span="24">
-            <el-date-picker
-            v-model="SelectDate" @change="changeSelectDate" value-format="yyyy-MM-dd" align="right" type="date"
-            placeholder="选择日期" :picker-options="pickerOptions1" :clearable="false" style="width:180px">
+            <el-date-picker v-model="SelectDate" @change="changeSelectDate" value-format="yyyy-MM-dd" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions1" :clearable="false" style="width:180px">
             </el-date-picker>
           </el-col>
         </div>
@@ -24,13 +22,13 @@
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane :label="`团课(共${groupList.length}节)`" name="league">
           <League ref='League' :groupList="groupList" @clickCourse="clickCourse" v-if="enterStadium"></League>
-          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
-          <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
+          <div v-else-if="enterStadium === 0" style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
+          <div v-else style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
         <el-tab-pane :label="`私教(共${privateList.length}节)`" name="private">
           <Private ref='private' :privateList="privateList" @clickCourse="clickCourse" v-if="enterStadium"></Private>
-          <div v-else-if="enterStadium === 0"  style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
-          <div v-else  style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
+          <div v-else-if="enterStadium === 0" style="padding:90px;color:#BFA808;">暂时还没有课程哦~~~</div>
+          <div v-else style="padding:90px;color:#BFA808;">对不起,昨天还有客户没有进场或者取消预约,请选择昨天的日期,操作完成后方可操作今日课程</div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -153,15 +151,15 @@ export default {
   },
   data() {
     return {
-      enterStadium : true,// 是否显示课程内容
-      enterTitle : '团课会员进场',//进场输入框的标题
+      enterStadium: true, // 是否显示课程内容
+      enterTitle: "团课会员进场", //进场输入框的标题
       dialogFormVisible: false,
       formLabelWidth: "130px",
       groupList: [], // 团课列表
       privateList: [], // 私教列表
       date: new Date(),
-      activeName: "league",// 团课/私教
-      bottomDay: "今天",// 时间按钮
+      activeName: "league", // 团课/私教
+      bottomDay: "今天", // 时间按钮
       pickerOptions1: {
         disabledDate(time) {
           const date = new Date();
@@ -199,42 +197,41 @@ export default {
       number: "0000", //进场手牌
       course: false, //选中课程
       userId: 0, //选中的客户id
-      identity : '',//要进场的身份
-      name2 : ''
+      identity: "", //要进场的身份
+      name2: ""
     };
   },
   computed: {
     // 当前选中的课程
     trainer() {
-      if(!this.course) return;
+      if (!this.course) return;
       if (this.course.JLID != this.course.JLIDs) {
-        request("/setStaffInfo/" + this.course.JLIDs, {}, "get")
-          .then(data => {
-            this.name2 = data.YGXX_NAME;
-          });
-          return [
-              {
-                img: this.course.staff_info.Photo,
-                name1: this.course.staff_info.YGXX_NAME,
-                tel: this.course.staff_info.YGXX_HOMETEL,
-                classroom: this.course.kcPlace,
-                name2:this.name2
-              }
-            ];
+        request("/setStaffInfo/" + this.course.JLIDs, {}, "get").then(data => {
+          this.name2 = data.YGXX_NAME;
+        });
+        return [
+          {
+            img: this.course.staff_info.Photo,
+            name1: this.course.staff_info.YGXX_NAME,
+            tel: this.course.staff_info.YGXX_HOMETEL,
+            classroom: this.course.kcPlace,
+            name2: this.name2
+          }
+        ];
       } else {
         return [
           {
-            img: this.course ? this.course.staff_info.Photo : '',
-            name1: this.course ? this.course.staff_info.YGXX_NAME : '',
-            tel: this.course ? this.course.staff_info.YGXX_HOMETEL : '',
-            classroom: this.course? this.course.kcPlace : '',
-            name2:this.course ? this.course.staff_info.YGXX_NAME : ''
+            img: this.course ? this.course.staff_info.Photo : "",
+            name1: this.course ? this.course.staff_info.YGXX_NAME : "",
+            tel: this.course ? this.course.staff_info.YGXX_HOMETEL : "",
+            classroom: this.course ? this.course.kcPlace : "",
+            name2: this.course ? this.course.staff_info.YGXX_NAME : ""
           }
         ];
       }
     },
     bool() {
-      return (this.activeName == "league") ? true : false;
+      return this.activeName == "league" ? true : false;
     }
   },
   created() {
@@ -242,8 +239,8 @@ export default {
     this.getCourseList(today);
   },
   watch: {
-    activeName (newValue, oldValue) {
-      if (newValue == 'league') {
+    activeName(newValue, oldValue) {
+      if (newValue == "league") {
         var course = this.privateList.slice(0, 1)[0];
       } else {
         var course = this.groupList.slice(0, 1)[0];
@@ -258,8 +255,9 @@ export default {
   },
   methods: {
     // 进场按钮点击
-    clickEnter (str, id) {
-      this.enterTitle = (this.activeName == "league" ? '团课' : '私教') + str + '进场';
+    clickEnter(str, id) {
+      this.enterTitle =
+        (this.activeName == "league" ? "团课" : "私教") + str + "进场";
       this.userId = id;
       this.dialogFormVisible = true;
     },
@@ -271,25 +269,28 @@ export default {
     },
     // 客户进场更改状态
     CustomerSuccess(hand) {
-      this.changeStatus('已进场', hand);
+      this.changeStatus("已进场", hand);
       this.dialogFormVisible = false;
     },
     // 页面进场/取消状态更改
     changeStatus(msg, num) {
-      let str = this.enterTitle.substring(2,4);
-      let array = str == '会员' ? this.leaguer : this.experience;
+      let str = this.enterTitle.substring(2, 4);
+      let array = str == "会员" ? this.leaguer : this.experience;
       for (let i = 0; i < array.length; i++) {
         const element = array[i];
-        if (msg == '已取消' && element.id == num) {
+        if (msg == "已取消" && element.id == num) {
           element.isTrue = msg;
         }
-        if (str == '会员') {
-          if (msg == '已进场' && element.member_customers.HYID == this.userId) {
+        if (str == "会员") {
+          if (msg == "已进场" && element.member_customers.HYID == this.userId) {
             element.isEnter = msg;
             element.hand = num;
           }
         } else {
-          if (msg == '已进场' && element.experience_customers.id == this.userId) {
+          if (
+            msg == "已进场" &&
+            element.experience_customers.id == this.userId
+          ) {
             element.isEnter = msg;
             element.hand = num;
           }
@@ -298,11 +299,12 @@ export default {
     },
     // 取消预约
     cancelReservation(id, str) {
-      this.enterTitle = (this.activeName == "league" ? '团课' : '私教') + str + '取消预约';
-      let params = { bool: this.bool, id:id };
+      this.enterTitle =
+        (this.activeName == "league" ? "团课" : "私教") + str + "取消预约";
+      let params = { bool: this.bool, id: id };
       request("/adminHomePage/cancelReservation", params)
         .then(data => {
-          this.changeStatus('已取消', id);
+          this.changeStatus("已取消", id);
           this.msgThen(data);
         })
         .catch(error => {
@@ -312,15 +314,15 @@ export default {
     // 时间按钮
     changeBottomDay() {
       if (this.bottomDay == "今天") {
-        let day = this.GetDateStr(0)
+        let day = this.GetDateStr(0);
         this.SelectDate = day;
         this.getCourseList(day);
       } else if (this.bottomDay == "明天") {
-        let day = this.GetDateStr(1)
+        let day = this.GetDateStr(1);
         this.SelectDate = day;
         this.getCourseList(day);
       } else {
-        let day = this.GetDateStr(2)
+        let day = this.GetDateStr(2);
         this.SelectDate = day;
         this.getCourseList(day);
       }
@@ -332,9 +334,9 @@ export default {
       date.setDate(date.getDate() + num);
       let y = date.getFullYear();
       let m = date.getMonth() + 1;
-      m = m < 10 ? '0' + m : m;
+      m = m < 10 ? "0" + m : m;
       let d = date.getDate();
-      d = d < 10 ? '0' + d : d;
+      d = d < 10 ? "0" + d : d;
       return y + "-" + m + "-" + d;
     },
     // 时间选择
@@ -354,8 +356,6 @@ export default {
     getCourseList(day) {
       request("/adminHomePage?day=" + day, {}, "get")
         .then(data => {
-          // console.log(data);
-          console.log(sessionStorage.getItem('access-token'));
           if (data.group === false && data.private === false) {
             this.enterStadium = false;
           } else {
@@ -420,7 +420,7 @@ export default {
           type: "error"
         });
       }
-    },
+    }
   }
 };
 </script>

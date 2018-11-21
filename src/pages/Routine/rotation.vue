@@ -34,17 +34,15 @@ export default {
   data() {
     return {
       dialogImageUrl: "",
-      dialogVisible: false,
+      dialogVisible: false
     };
   },
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
+    handleRemove(file, fileList) {},
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
-    },
+    }
   }
 };
 </script>

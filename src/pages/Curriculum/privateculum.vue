@@ -1,45 +1,42 @@
 <template>
-    <div>
-      <el-row>
-        <el-col :span="24">
-          <div class="practice-main">
-            <el-col :span="23" class="breadcrumb">
-              <el-breadcrumb separator="/">
-                  <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
-                  <el-breadcrumb-item>课程管理</el-breadcrumb-item>
-                  <el-breadcrumb-item>私教课程表</el-breadcrumb-item>
-              </el-breadcrumb>
-            </el-col>
-            <el-col :span="23" class="weber">
-              <span class="weber-span">私教课程表</span>
-            </el-col>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <div class="group-main">
-          <div class="group-head">
-            <div class="group-right">
-              <el-date-picker type="daterange" range-separator="至" :readonly="true" style="width:250px;margin-top:2px"
-              :start-placeholder="Monday" :end-placeholder="Sunday" ></el-date-picker>
-              <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false"
-              type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px;width:153px"></el-date-picker>
-            </div>
-            <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-                <el-tab-pane label="周一" name="Monday"></el-tab-pane>
-                <el-tab-pane label="周二" name="Tuesday"></el-tab-pane>
-                <el-tab-pane label="周三" name="Wednesday"></el-tab-pane>
-                <el-tab-pane label="周四" name="Thursday"></el-tab-pane>
-                <el-tab-pane label="周五" name="Friday"></el-tab-pane>
-                <el-tab-pane label="周六" name="Saturday"></el-tab-pane>
-                <el-tab-pane label="周日" name="Sunday"></el-tab-pane>
-                <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList"
-                v-if="hackReset"></Culum>
-            </el-tabs>
-          </div>
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <div class="practice-main">
+          <el-col :span="23" class="breadcrumb">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>课程管理</el-breadcrumb-item>
+              <el-breadcrumb-item>私教课程表</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <el-col :span="23" class="weber">
+            <span class="weber-span">私教课程表</span>
+          </el-col>
         </div>
-      </el-row>
-    </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <div class="group-main">
+        <div class="group-head">
+          <div class="group-right">
+            <el-date-picker type="daterange" range-separator="至" :readonly="true" style="width:250px;margin-top:2px" :start-placeholder="Monday" :end-placeholder="Sunday"></el-date-picker>
+            <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false" type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px;width:153px"></el-date-picker>
+          </div>
+          <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
+            <el-tab-pane label="周一" name="Monday"></el-tab-pane>
+            <el-tab-pane label="周二" name="Tuesday"></el-tab-pane>
+            <el-tab-pane label="周三" name="Wednesday"></el-tab-pane>
+            <el-tab-pane label="周四" name="Thursday"></el-tab-pane>
+            <el-tab-pane label="周五" name="Friday"></el-tab-pane>
+            <el-tab-pane label="周六" name="Saturday"></el-tab-pane>
+            <el-tab-pane label="周日" name="Sunday"></el-tab-pane>
+            <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList" v-if="hackReset"></Culum>
+          </el-tabs>
+        </div>
+      </div>
+    </el-row>
+  </div>
 </template>
 <script>
 import Culum from "@/components/culum";
@@ -59,7 +56,7 @@ export default {
       SystemSetup: {}, //会所设置
       week: {}, // 当前数据是哪一周的
       coachList: [], //本会所教练
-      dateValue: "",// 时间值-哪一周
+      dateValue: "" // 时间值-哪一周
     };
   },
   computed: {
@@ -68,16 +65,16 @@ export default {
       return this.week[this.activeName];
     },
     //周一
-    Monday () {
-      if (this.dateValue == '') {
+    Monday() {
+      if (this.dateValue == "") {
         return this.GetDateStr(0, this.getFirstDayOfWeek(new Date()));
       } else {
         return this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue));
       }
     },
     //周末
-    Sunday () {
-      if (this.dateValue == '') {
+    Sunday() {
+      if (this.dateValue == "") {
         return this.GetDateStr(0, this.getFirstDayOfWeek(new Date(), 2));
       } else {
         return this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue, 2));
@@ -156,7 +153,7 @@ export default {
       let d = date.getDate();
       d = d < 10 ? "0" + d : d;
       return y + "-" + m + "-" + d;
-    },
+    }
   }
 };
 </script>
