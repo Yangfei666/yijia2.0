@@ -164,9 +164,9 @@
     },
     methods: {
       //获取团课课程表数据
-      getGroup() {
+      async getGroup() {
         let _this = this;
-        requestLogin("/CurTableInfo", {}, "get")
+       await requestLogin("/CurTableInfo", {}, "get")
           .then(function (res) {
             _this.tdlist = res;
           })
@@ -220,9 +220,9 @@
             }
           });
       },
-      getUserInfo() {
+      async getUserInfo() {
         let _this = this;
-        group.getUserInfo()
+        await group.getUserInfo()
           .then(res => {
             _this.selectClubID = res.HSXX_HSID;
           });
