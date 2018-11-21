@@ -34,12 +34,14 @@
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
-                      <template>
-                        <el-dialog v-if="Object.keys(currentSelectRow).length>0"  title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                          <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
-                        </el-dialog>
-                      </template>
-                    </div> 
+                      <div v-if="dialogFormVisible2">
+                        <template>
+                          <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                          </el-dialog>
+                        </template>
+                      </div>
+                    </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
                       <template>
@@ -117,11 +119,13 @@
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
-                      <template>
-                        <el-dialog v-if="Object.keys(currentSelectRow).length>0" title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
-                          <Cardedit :currentSelectRow="currentSelectRow"  :hides='hide'></Cardedit>
-                        </el-dialog>
-                      </template>
+                      <div v-if="dialogFormVisible5" >
+                        <template>
+                          <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
+                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                          </el-dialog>
+                        </template>
+                      </div>
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
@@ -314,6 +318,10 @@ export default {
     getCurrentRow2(val){
       console.log(val);
      },
+    closeEdit(isClose){
+      this.dialogFormVisible2 = isClose;
+      this.dialogFormVisible5 = isClose;
+    },
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {

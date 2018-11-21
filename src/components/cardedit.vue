@@ -35,7 +35,7 @@
       </el-form-item>
       <el-form-item label="有效期:" prop="CTvalidity" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.CTvalidity"></el-input>
+          <el-input v-model="currentSelectRow.CTvalidity" placeholder="请输入数字"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="次数:" prop="Ctnum" :label-width="formLabelWidth" v-show="currentSelectRow.ctType == '次数卡'">
@@ -78,7 +78,7 @@
       <div v-else>
         <el-form-item label="选择可用门店:" prop="club_info" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-transfer filterable v-model="currentSelectRow.club_info" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
+            <el-transfer filterable v-model="club_info_id" filter-placeholder="请输入门店名称" @change="getSelectItem" :data="data2" :titles="['待选门店', '已选门店']" :props="{key: 'Hsxx_Hsid',label: 'Hsxx_Name'}">
             </el-transfer>
           </el-col>
         </el-form-item>
@@ -96,6 +96,22 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 const cityOptions = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+const radioDict = {
+  "期限卡": 1,
+  "次数卡": 2,
+  "金额卡": 3,
+  "团课卡": 1,
+  "私教卡": 2,
+  "白底": 1,
+  "灰底": 2,
+  "不限": 1,
+  "1次": 2,
+  "2次": 3,
+  "3次": 3,
+  "4次": 4,
+  "启用": 1,
+  "禁用": 2,
+}
 export default {
   name: "cardedit",
   props: ["currentSelectRow","hides"],
@@ -113,12 +129,18 @@ export default {
       formLabelWidth: "130px",
       value: "",
       limit: cityOptions,
-      club_info: []
+      club_info: [],
+      club_info_id:[],
     };
+  },
+  beforeDestroy(){
+    this.$emit('closeEdit', false)
   },
   mounted: function() {
     this.getallClub();
+    this.getClubInfoId()
   },
+
   methods: {
     //修改会员卡
     submitForm(formName) {
@@ -129,20 +151,20 @@ export default {
             var loginParams = {
               CTName: this.currentSelectRow.CTName, //卡名称
               CTjg: this.currentSelectRow.CTjg, //价格
-              CTstate: this.currentSelectRow.CTstate, //状态
-              CTxDate_Val: this.currentSelectRow.CTxDate_Val, //每周限用次数
+              CTstate: radioDict[this.currentSelectRow.CTstate], //状态
+              CTxDate_Val: radioDict[this.currentSelectRow.CTxDate_Val], //每周限用次数
               CTxTime_1S: this.currentSelectRow.CTxTime_1S, //限用时间段--开始
               CTxTime_1E: this.currentSelectRow.CTxTime_1E, //限用时间段--结束
-              ColorCard: this.currentSelectRow.ColorCard, //颜色
+              ColorCard: radioDict[this.currentSelectRow.ColorCard], //颜色
               ctNotes: this.currentSelectRow.ctNotes, //备注
-              ctType: this.currentSelectRow.ctType, //类型
-              CTdate: this.currentSelectRow.CTdate, //限制日期
-              CTvalidity: this.currentSelectRow.CTvalidity, //有效期
+              ctType: radioDict[this.currentSelectRow.ctType], //类型
+              CTdate: this.currentSelectRow.CTdate.filter(item => item), //限制日期
+              CTvalidity: parseInt(this.currentSelectRow.CTvalidity), //有效期
               Ctnum: this.currentSelectRow.Ctnum, //次数
-              ctIsIsPrivate: this.currentSelectRow.ctIsIsPrivate, //课程类别
-              clubRelation: this.currentSelectRow.club_info //连锁店id
+              ctIsIsPrivate: radioDict[this.currentSelectRow.ctIsIsPrivate], //课程类别
+              clubRelation:  this.club_info_id//连锁店id
             };
-            requestLogin("/setCardType", loginParams, "post")
+            requestLogin("/setCardType", loginParams, "put")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
@@ -186,16 +208,23 @@ export default {
           }
         });
     },
+    getClubInfoId(){
+      if(!this.currentSelectRow.club_info) return;
+      this.club_info_id = this.currentSelectRow.club_info.map(item=>item.Hsxx_Hsid)
+    },
+    radioHandler(value){
+
+    },
     radiochange(val) {
-      console.log(val, "val");
-      console.log(this.currentSelectRow.Ctnum, "input的值");
     },
     getSelectItem(val) {
-      this.currentSelectRow.club_info = val;
+      // this.currentSelectRow.club_info = val;
       console.log(val);
     },
+
     handleCheckChange(val) {
       console.log(this.currentSelectRow.CTdate);
+
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
