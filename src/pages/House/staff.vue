@@ -124,9 +124,9 @@
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
               <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
-              <el-table-column prop="role" align="left" label="角色" width="200px"></el-table-column>
+              <el-table-column prop="role" align="left" label="角色" width="220px"></el-table-column>
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
-              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px" fixed="right"></el-table-column>
+              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="210px" fixed="right"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -283,7 +283,6 @@ export default {
     },
      handleCurrentChange2(val,index) {
         this.currentRow = val;
-        // this.$emit('data',val.pkg);
      },
         getCurrentRow(val){
           console.log(val);

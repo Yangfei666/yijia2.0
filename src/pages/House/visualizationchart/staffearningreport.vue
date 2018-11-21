@@ -154,9 +154,6 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      onSubmit() {
-        console.log('submit!');
-      },
       drawBar(achievement) {
         let staffchart = echarts.init(document.getElementById('staffchart'));
         let option = {
@@ -397,6 +394,7 @@
           line-height: 50px;
           display: flex;
           justify-content: flex-end;
+          margin-right: 2%;
           .dsd {
             line-height: 34px;
             text-align: right;

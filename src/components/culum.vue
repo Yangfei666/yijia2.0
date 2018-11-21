@@ -5,7 +5,7 @@
                 <el-col :span="24">
                     <div class="purple">
                         <div class="add">
-                            <el-button type="text" class="add-p el-icon-plus" @click="reservationPage()">预约私教</el-button>
+                            <el-button type="text" class="add-p" @click="reservationPage()">预约私教</el-button>
                             <template>
                                 <el-dialog title="预约私教" :append-to-body="true" :visible.sync="dialogFormVisible">
                                     <Personal :startTime="startTime" :endTime="endTime" :classroom="classroom"

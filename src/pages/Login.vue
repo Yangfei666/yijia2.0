@@ -18,7 +18,7 @@
       </div>
     </el-form-item>
     <el-form-item class="form-main" v-if="!isAdmin">
-      <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="logining" >登录</el-button>
+      <el-button v-waves  style="width:100%;height:40px;" @click.native.prevent="handleLogin" :loading="logining" >登录</el-button>
     </el-form-item>
     <transition name="slide-fade">
     <el-form-item prop="door" class="form-item2" v-if="isAdmin">
@@ -28,7 +28,7 @@
     </el-form-item>
     </transition>
     <el-form-item class="form-main" v-if="isAdmin">
-      <el-button v-waves type="primary" style="width:100%;" @click.native.prevent="confirmClub" :loading="logining">确定</el-button>
+      <el-button v-waves  style="width:100%;;height:40px;" @click.native.prevent="confirmClub" :loading="logining">确定</el-button>
     </el-form-item>
   </el-form>
     </div>

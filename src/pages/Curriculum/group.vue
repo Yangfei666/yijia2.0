@@ -41,7 +41,7 @@
                             :start-placeholder="Monday" :end-placeholder="Sunday"></el-date-picker>
             <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false"
                             type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1"
-                            style="margin-top:-1px"></el-date-picker>
+                            style="margin-top:-1px;width:153px"></el-date-picker>
             <el-select v-model="value" placeholder="复制课表" style="width:140px;margin-top:-2px" @change="Changeselect">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>

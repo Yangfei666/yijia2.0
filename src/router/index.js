@@ -216,7 +216,7 @@ let router = new Router({
                     redirect: '/Customer/depositfollowup/bargainup',
                     children: [
                         { path: '/Customer/depositfollowup/bargainup/:id/:itName/:itSex', component: Bargainup, name: 'Bargainup' },//定金跟进记录
-                        { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey},//健康调查表
+                        { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/depositfollowup/staminaevaluating', component: Staminaevaluating, name: 'Staminaevaluating' },//体能评估表
                         { path: '/Customer/depositfollowup/postureevaluating', component: Postureevaluating, name: 'Postureevaluating' },//体态评估表
                     ]
@@ -229,9 +229,9 @@ let router = new Router({
                     redirect: '/Customer/potentialfollowup/memberup',
                     children: [
                         { path: '/Customer/potentialfollowup/memberup/:id/:prName/:prSex', component: Memberup, name: 'Memberup' },//潜在跟进记录
-                        { path: '/Customer/potentialfollowup/healthsurvey', component: Healthsurvey},//健康调查表
-                        { path: '/Customer/potentialfollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
-                        { path: '/Customer/potentialfollowup/postureevaluating', component: Postureevaluating},//体态评估表
+                        { path: '/Customer/potentialfollowup/healthsurvey', component: Healthsurvey },//健康调查表
+                        { path: '/Customer/potentialfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
+                        { path: '/Customer/potentialfollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]
                 },
                 {
@@ -242,9 +242,9 @@ let router = new Router({
                     redirect: '/Customer/tastefollowup/practiceup',
                     children: [
                         { path: '/Customer/tastefollowup/practiceup/:id/:exName/:exSex', component: Practiceup, name: 'Practiceup' },//体验跟进记录
-                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey},//健康调查表
-                        { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
-                        { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating},//体态评估表
+                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey },//健康调查表
+                        { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
+                        { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]
                 },
                 {
@@ -255,9 +255,9 @@ let router = new Router({
                     redirect: '/Customer/memberfollowup/insiderup',
                     children: [
                         { path: '/Customer/memberfollowup/insiderup/:id/:HYName/:Sex', component: Insiderup, name: 'Insiderup' },//会员跟进记录
-                        { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey},//健康调查表
-                        { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating},//体能评估表
-                        { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating},//体态评估表
+                        { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey },//健康调查表
+                        { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
+                        { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]
                 },
                 {
@@ -272,21 +272,21 @@ let router = new Router({
                             component: Memberhome,
                             name: 'Memberhome',
                             children: [
-                                { path: '/Customer/membershiphome/memberhome/transfercard/:HYID/:CARD', component: Transfercard, name: 'Transfercard' },//转卡
-                                { path: '/Customer/membershiphome/memberhome/returncard/:HYID/:CARD', component: Returncard, name: 'Returncard' },//退卡
-                                { path: '/Customer/membershiphome/memberhome/upgradecard/:HYID/:CARD', component: Upgradecard, name: 'Upgradecard' },//升级
-                                { path: '/Customer/membershiphome/memberhome/changevalidity/:HYID/:CARD', component: Changevalidity, name: 'Changevalidity' },//变更有效期
-                                { path: '/Customer/membershiphome/memberhome/changepriceandnum/:HYID/:CARD', component: Changepriceandnum, name: 'Changepriceandnum' },//变更次数和金额
-                                { path: '/Customer/membershiphome/memberhome/enabledisabling/:HYID/:CARD', component: Enabledisabling, name: 'Enabledisabling' },//启用禁用
-                                { path: '/Customer/membershiphome/memberhome/activate/:HYID/:CARD', component: Activate, name: 'Activate' },//激活
+                                { path: '/Customer/membershiphome/memberhome/transfercard/:HYID', component: Transfercard, name: 'Transfercard' },//转卡
+                                { path: '/Customer/membershiphome/memberhome/returncard/:HYID', component: Returncard, name: 'Returncard' },//退卡
+                                { path: '/Customer/membershiphome/memberhome/upgradecard/:HYID', component: Upgradecard, name: 'Upgradecard' },//升级
+                                { path: '/Customer/membershiphome/memberhome/changevalidity/:HYID', component: Changevalidity, name: 'Changevalidity' },//变更有效期
+                                { path: '/Customer/membershiphome/memberhome/changepriceandnum/:HYID', component: Changepriceandnum, name: 'Changepriceandnum' },//变更次数和金额
+                                { path: '/Customer/membershiphome/memberhome/enabledisabling/:HYID', component: Enabledisabling, name: 'Enabledisabling' },//启用禁用
+                                { path: '/Customer/membershiphome/memberhome/activate/:HYID', component: Activate, name: 'Activate' },//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/information/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Information, name: 'Information' },//综合信息
-                        { path: '/Customer/membershiphome/leave/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Leave, name: 'Leave' },//请假销假操作
-                        { path: '/Customer/membershiphome/unhook/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Unhook, name: 'Unhook' },//解挂--补卡--挂失
-                        { path: '/Customer/membershiphome/change/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Change },//换会籍
-                        { path: '/Customer/membershiphome/operationnote/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Operationnote, name: 'Operationnote' },//操作记录
-                        { path: '/Customer/membershiphome/classcard2/:HYID/:HYName/:MotoTel/:YGXX_NAME', component: Classcard2, name: 'Classcard2' },//上课记录
+                        { path: '/Customer/membershiphome/informations/:HYID', component: Information ,name:'Information'},//综合信息
+                        { path: '/Customer/membershiphome/leave/:HYID', component: Leave, name: 'Leave' },//请假销假操作
+                        { path: '/Customer/membershiphome/unhook/:HYID', component: Unhook, name: 'Unhook' },//解挂--补卡--挂失
+                        { path: '/Customer/membershiphome/change/:HYID', component: Change },//换会籍
+                        { path: '/Customer/membershiphome/operationnote/:HYID', component: Operationnote, name: 'Operationnote' },//操作记录
+                        { path: '/Customer/membershiphome/classcard2/:HYID', component: Classcard2, name: 'Classcard2' },//上课记录
                     ]
                 },
                 {
