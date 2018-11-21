@@ -161,7 +161,113 @@ export default {
           _this.tdlist = res;
         })
         .catch(error => {
-          if (error.res) {
+          console.log(error);
+        });
+    },
+    computed: {
+      whichDay() {//选择了哪一天
+        return this.week[this.activeName];
+      },
+      //周一
+      Monday() {
+        if (this.dateValue == '') {
+          this.mondayDate = this.GetDateStr(0, this.getFirstDayOfWeek(new Date()));
+          return this.mondayDate;
+        } else {
+          this.mondayDate = this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue));
+          return this.mondayDate;
+        }
+      },
+      //周末
+      Sunday() {
+        if (this.dateValue == '') {
+          return this.GetDateStr(0, this.getFirstDayOfWeek(new Date(), 2));
+        } else {
+          return this.GetDateStr(0, this.getFirstDayOfWeek(this.dateValue, 2));
+        }
+      }
+    },
+    methods: {
+      //获取团课课程表数据
+      async getGroup() {
+        let _this = this;
+       await requestLogin("/CurTableInfo", {}, "get")
+          .then(function (res) {
+            _this.tdlist = res;
+          })
+          .catch(error => {
+            if (error.res) {
+              this.$message({
+                message: "获取数据失败",
+                type: "error"
+              });
+            }
+          });
+      },
+      //添加课程数据(课程,教练,教室)
+      rolegourp() {
+        let _this = this;
+        requestLogin("/getCurTableBaseInfo", {}, "post")
+          .then(function (res) {
+            let {classroom, coach, subject} = res;
+            _this.classroom = classroom;
+            _this.coach = coach;
+            _this.subject = subject;
+          })
+          .catch(error => {
+            if (error.res) {
+              this.$message({
+                message: "获取数据失败",
+                type: "error"
+              });
+            }
+          });
+      },
+      //获取门店
+      getClub() {
+        let _this = this;
+        requestLogin("/allClub", {}, "get")
+          .then(function (res) {
+            _this.club = res;
+          })
+          .then(() => {
+            _this.selectClubIndex = _this.club.findIndex(item => item.Hsxx_Hsid === _this.selectClubID);
+            if (_this.selectClubIndex < 0) {
+              _this.selectClubIndex = 0;
+            }
+          })
+          .catch(error => {
+            if (error.res) {
+              this.$message({
+                message: "获取数据失败",
+                type: "error"
+              });
+            }
+          });
+      },
+      async getUserInfo() {
+        let _this = this;
+        await group.getUserInfo()
+          .then(res => {
+            _this.selectClubID = res.HSXX_HSID;
+          });
+      },
+      async changeClub(val) {
+        let _this = this;
+        let sortKinds = 'now';
+        let params = {
+          monday: this.mondayDate,
+          sort: sortKinds,
+          hsid: val,
+        };
+        await group.changeGroup(params)
+          .then(res => {
+            Object.assign(_this.tdlist, res);
+          })
+          .then(() => {
+            _this.selectClubID = val;
+          })
+          .catch((error) => {
             this.$message({
               message: "获取数据失败",
               type: "error"
