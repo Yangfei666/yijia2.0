@@ -79,7 +79,6 @@
                     </el-form-item>
                     <el-form-item class="dialog-footer">
                       <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
                         <el-button type="primary" @click="submitForm('ruleForm')"
                                    style="background-color: #00BC71;border-color: #00BC71;">确定
                         </el-button>
@@ -166,7 +165,6 @@
                       </el-form-item>
                       <el-form-item class="dialog-footer">
                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                          <el-button @click="resetForm('currentSelectRow')">重置</el-button>
                           <el-button type="primary" @click="editForm('currentSelectRow')"
                                      style="background-color: #00BC71;border-color: #00BC71;">确定
                           </el-button>
@@ -245,7 +243,6 @@
                       </el-form-item>
                       <el-form-item class="dialog-footer">
                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                          <el-button @click="resetForm('ruleForm2')">重置</el-button>
                           <el-button type="primary" @click="yuyueForm('ruleForm2')"
                                      style="background-color: #00BC71;border-color: #00BC71;">确定
                           </el-button>
@@ -685,9 +682,6 @@
             return false;
           }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
       },
       inputchange(val) {
         console.log(val);

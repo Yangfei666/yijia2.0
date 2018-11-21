@@ -256,7 +256,7 @@
                     <el-col :span="24" class="from-date4" v-if="show">
                         <el-form-item label-width="0px">
                             <el-button type="primary" @click="addposture('posture_assessment')">提交</el-button>
-                            <el-button @click="resetForm('posture_assessment')">重置</el-button>
+                            <!--<el-button @click="resetForm('posture_assessment')">重置</el-button>-->
                         </el-form-item>
                     </el-col>
                 </el-form>

@@ -32,14 +32,14 @@
                           <el-input v-model="ruleForm.rolename" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
+                      <!-- <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-select v-model="ruleForm.status" placeholder="请选择" style="width:100%">
                             <el-option label="启用" value="cishucard"></el-option>
                             <el-option label="禁用" value="jinecard"></el-option>
                           </el-select>
                         </el-col>
-                      </el-form-item>
+                      </el-form-item> -->
                       <el-form-item v-for="(items, index) in emptyOptions" :key="index" :prop="items.type"
                                     :label-width="formLabelWidth" style="margin-bottom:10px">
                         <el-col :span="22">
@@ -59,7 +59,7 @@
                       </el-form-item>
                       <el-form-item class="dialog-footer">
                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                          <el-button @click="resetForm('ruleForm')">重置</el-button>
+                          <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
                           <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading"
                                      style="background-color: #00BC71;border-color: #00BC71;">确定
                           </el-button>

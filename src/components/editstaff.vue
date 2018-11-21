@@ -25,8 +25,8 @@
       </el-form-item>
       <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-checkbox-group v-model="currentSelectRow.role" @change="handleCheckChange">
-            <el-checkbox v-for="i in role" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
+          <el-checkbox-group v-model="selectRoleId" @change="handleCheckChange">
+            <el-checkbox v-for="i in role" :checked="checkoutRole(i.id)" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
           </el-checkbox-group>
         </el-col>
       </el-form-item>
@@ -51,7 +51,6 @@
       </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <el-button @click="resetForm('currentSelectRow')">重置</el-button>
           <el-button type="primary" @click="submitForm('currentSelectRow')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -71,14 +70,19 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: "130px",
       disabled: false,
+      selectRoleId: [],
       role: [],
       brigades: [],
       groups: [],
       aaaaaaaaa: []
     };
   },
-  mounted: function() {
+  mounted() {
     this.rolegourp();
+    this.selectRoleId = this.getRoleId(this.currentSelectRow.role)
+  },
+  beforeDestroy(){
+    this.$emit('closeEdit', false);
   },
   methods: {
     rolegourp() {
@@ -89,7 +93,6 @@ export default {
           _this.loading = false;
           let { role, brigades } = res;
           _this.role = role;
-          console.log(brigades);
           _this.brigades = brigades;
         })
         .catch(error => {
@@ -100,6 +103,9 @@ export default {
             });
           }
         });
+    },
+    getRoleId(role){
+      return role.map(item=> item.id)
     },
     //编辑员工信息
     submitForm(formName) {
@@ -115,7 +121,7 @@ export default {
               ygIdentity: this.currentSelectRow.ygIdentity, //身份证
               Brigade: this.currentSelectRow.Brigade, //大队
               group: this.currentSelectRow.group, //小组
-              role: this.currentSelectRow.role //分配角色
+              role: this.selectRoleId //分配角色
             };
             requestLogin(
               "/setStaffInfo/" + this.currentSelectRow.YGXX_YGID_NEI,
@@ -149,11 +155,8 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    handleCheckChange(val) {
-      console.log(this.currentSelectRow.role);
+    handleCheckChange(value) {
+      Object.assign(this.selectRoleId, value)
     },
     xiaozu(val) {
       console.log(val);
@@ -164,7 +167,11 @@ export default {
           this.groups = item.club_info_group;
         }
       });
+    },
+    checkoutRole(id){
     }
+  },
+  filters:{
   }
 };
 </script>
