@@ -171,7 +171,7 @@ export default {
       radio: true,
       Customercategory: "deposit",
       Potential: { potential: "setDepositCustomer", id: "" },
-      Dingjinqufen: { dingjinqufen: "newCustomer" },
+      Dingjinqufen: { dingjinqufen: "newCustomer",id:""},
       Huiyuanqufen: { huiyuanqufen: "deposit", id: "" },
       formInline: {
         date: "",
@@ -296,8 +296,8 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name: "Bargainup",
-        params: {
+        path: "/Customer/depositfollowup/bargainup",
+        query: {
           id: this.currentSelectRow.id,
           itName: this.currentSelectRow.itName,
           itSex: this.currentSelectRow.itSex

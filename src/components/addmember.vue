@@ -81,7 +81,7 @@
       </el-form-item>
       <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.price" placeholder="0-100000元之间"></el-input>
+          <el-input v-model="this.CTjg" placeholder="0-100000元之间"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -151,6 +151,7 @@ export default {
       staff: [],
       cards: [],
       file: "",
+      CTjg:"",
       ruleForm: {
         name: "", //姓名
         phone: "", //手机号
@@ -180,7 +181,6 @@ export default {
         card: [{ validator: validatecard, trigger: "blur" }],
         cardaffirm: [{ validator: validatecardaffirm, trigger: "blur" }],
         sensitize: validate.sensitize,
-        price: validate.price
       }
     };
   },
@@ -230,10 +230,10 @@ export default {
             formData.append("hyWeChat", this.ruleForm.wechat); //微信
             formData.append("CardNO", this.ruleForm.card); //卡号
             formData.append("mode", this.ruleForm.mode); //付款方式
-            formData.append("money", this.ruleForm.price); //付款金额
+            formData.append("money", this.CTjg); //付款金额
             formData.append("CTID", this.ruleForm.cardname); //会员卡id
             formData.append("delay", this.ruleForm.sensitize); //激活时间选择
-            formData.append("identity",this.huiyuanqufen); //转换客户类别
+            formData.append("identity",this.huiyuanqufen.huiyuanqufen); //转换客户类别
             formData.append("delay", this.huiyuanqufen.id); //原客户类别的id
             requestLogin("/setMemberCustomers/newMember", formData, "post")
               .then(data => {
@@ -270,11 +270,11 @@ export default {
       this.YGXX_NAME = obj.YGXX_NAME;
     },
     Selectchange3(val) {
-      let obj = {};
-      obj = this.cards.find(item => {
+      let obj2 = {};
+      obj2 = this.cards.find(item => {
         return item.CTID === val;
       });
-      this.CTName = obj.CTName;
+      this.CTjg = obj2.CTjg;
     },
     ChangeSex(val) {
     },

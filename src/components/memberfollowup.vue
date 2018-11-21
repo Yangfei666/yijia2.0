@@ -47,9 +47,9 @@ export default {
     }
   },
   mounted(){
-    this.id = this.$route.params.HYID;
-    this.Name = this.$route.params.HYName || this.$route.params.prName;
-    this.Sex = this.$route.params.Sex || this.$route.params.prSex;
+    this.id = this.$route.query.HYID;
+    this.Name = this.$route.query.HYName || this.$route.query.prName;
+    this.Sex = this.$route.query.Sex || this.$route.query.prSex;
     this.Potential = 'member';
   }
 }

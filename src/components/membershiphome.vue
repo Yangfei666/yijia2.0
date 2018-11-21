@@ -25,11 +25,11 @@
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
-                <router-link :to="{path:'/Customer/membershiphome/informations',query:{HYID:this.HYID}}" class="link">综合信息</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/informations',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">综合信息</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                <router-link :to="{path:'/Customer/membershiphome/leave',query:{HYID:this.HYID}}" class="link">请假/销假</router-link>
+                <router-link :to="{path:'/Customer/membershiphome/leave',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">请假/销假</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">

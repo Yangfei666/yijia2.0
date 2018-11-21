@@ -46,9 +46,9 @@ export default {
     }
   },
   mounted(){
-    this.id = this.$route.params.id;
-    this.Name = this.$route.params.exName;
-    this.Sex = this.$route.params.exSex;
+    this.id = this.$route.query.id;
+    this.Name = this.$route.query.exName;
+    this.Sex = this.$route.query.exSex;
     this.Potential = 'experience';
   }
 }

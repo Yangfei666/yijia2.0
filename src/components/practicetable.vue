@@ -177,7 +177,7 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: "",
-      Tiyanqufen: { tiyanqufen: "newCustomer" },
+      Tiyanqufen: { tiyanqufen: "newCustomer",id:""},
       Customercategory: "experience",
       formInline: {
         user: "",
@@ -352,8 +352,8 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name: "Practiceup",
-        params: {
+        path: "/Customer/tastefollowup/practiceup",
+        query: {
           id: this.currentSelectRow.id,
           exName: this.currentSelectRow.exName,
           exSex: this.currentSelectRow.exSex

@@ -63,7 +63,7 @@ export default {
   created: function() {
     let _this = this;
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/potential/" + this.$route.params.id,
+      "/CustomerFollowUp/getFollowUpRecord/potential/" + this.$route.query.id,
       {},
       "get"
     )
@@ -88,7 +88,7 @@ export default {
             this.addLoading = true;
             var loginParams = {
               identity: "potential", //客户类别
-              id: this.$route.params.id, //客户id
+              id: this.$route.query.id, //客户id
               content: this.ruleForm.desc //内容
             };
             requestLogin(

@@ -188,7 +188,7 @@ export default {
       isShow: false,
       loading: true,
       Customercategory: "member",
-      Huiyuanqufen: { huiyuanqufen: "newCustomer" },
+      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:''},
       formInline: {
         membercard: "",
         date: "",
@@ -353,8 +353,8 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name: "Insiderup",
-        params: {
+        path: "/Customer/memberfollowup/insiderup",
+        query: {
           HYID: this.currentSelectRow.HYID,
           HYName: this.currentSelectRow.HYName,
           Sex: this.currentSelectRow.Sex

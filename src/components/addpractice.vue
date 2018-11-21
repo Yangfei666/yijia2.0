@@ -41,7 +41,7 @@
       </el-form-item>
       <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.price" placeholder="0-1000之间"></el-input>
+          <el-input v-model="this.tkPrice" placeholder="0-1000之间"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -104,13 +104,13 @@ export default {
         wechat: validate.wechat,
         adviser: validate.adviser,
         type: validate.type,
-        price: validate.price,
         mode: validate.mode,
         desc: validate.desc
       },
       staff_info: [],
       tkName: [],
-      YGXX_NAME: ""
+      YGXX_NAME: "",
+      tkPrice:""
     };
   },
   created: function() {
@@ -168,8 +168,8 @@ export default {
               exHjgwName: _this.YGXX_NAME, //会籍顾问姓名
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.ruleForm.price, //价格
-              identity: _this.tiyanqufen, //转换客户的身份
+              price: _this.tkPrice, //价格
+              identity: _this.tiyanqufen.tiyanqufen, //转换客户的身份
               oldId: _this.tiyanqufen.id //原客户类别的id
             };
             requestLogin("/setExperienceCustomer", loginParams, "post")
@@ -208,7 +208,13 @@ export default {
       });
       this.YGXX_NAME = obj.YGXX_NAME;
     },
-    Selectchange(val) {}
+    Selectchange(val) {
+      let obj2 = {};
+      obj2 = this.tkName.find(item=>{
+        return item.id ===val;
+      });
+      this.tkPrice = obj2.tkPrice;
+    }
   }
 };
 </script>

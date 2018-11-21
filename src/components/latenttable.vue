@@ -365,8 +365,8 @@ export default {
       }
       //跟进跳转
       this.$router.push({
-        name: "Memberup",
-        params: {
+        path: "/Customer/potentialfollowup/memberup",
+        query: {
           id: this.currentSelectRow.id,
           prName: this.currentSelectRow.prName,
           prSex: this.currentSelectRow.prSex
