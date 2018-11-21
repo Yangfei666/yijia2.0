@@ -25,7 +25,7 @@
       </el-form-item>
       <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-checkbox-group v-model="currentSelectRow.role" @change="handleCheckChange">
+          <el-checkbox-group v-model="selectRoleId" @change="handleCheckChange">
             <el-checkbox v-for="i in role" :checked="checkoutRole(i.id)" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
           </el-checkbox-group>
         </el-col>
@@ -70,6 +70,7 @@ export default {
       dialogFormVisible: false,
       formLabelWidth: "130px",
       disabled: false,
+      selectRoleId: [],
       role: [],
       brigades: [],
       groups: [],
@@ -78,9 +79,10 @@ export default {
   },
   mounted() {
     this.rolegourp();
+    this.selectRoleId = this.getRoleId(this.currentSelectRow.role)
   },
   beforeDestroy(){
-    this.$emit('closeEdit', false)
+    this.$emit('closeEdit', false);
   },
   methods: {
     rolegourp() {
@@ -102,6 +104,9 @@ export default {
           }
         });
     },
+    getRoleId(role){
+      return role.map(item=> item.id)
+    },
     //编辑员工信息
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -116,7 +121,7 @@ export default {
               ygIdentity: this.currentSelectRow.ygIdentity, //身份证
               Brigade: this.currentSelectRow.Brigade, //大队
               group: this.currentSelectRow.group, //小组
-              role: this.currentSelectRow.role //分配角色
+              role: this.selectRoleId //分配角色
             };
             requestLogin(
               "/setStaffInfo/" + this.currentSelectRow.YGXX_YGID_NEI,
@@ -150,8 +155,8 @@ export default {
         }
       });
     },
-    handleCheckChange(val) {
-      console.log(this.currentSelectRow.role);
+    handleCheckChange(value) {
+      Object.assign(this.selectRoleId, value)
     },
     xiaozu(val) {
       console.log(val);
@@ -164,9 +169,6 @@ export default {
       });
     },
     checkoutRole(id){
-      if(!Array.isArray(this.currentSelectRow.role)) return false;
-
-      return this.currentSelectRow.role.findIndex(item => item.id === id) !== -1 ? true : false
     }
   },
   filters:{
