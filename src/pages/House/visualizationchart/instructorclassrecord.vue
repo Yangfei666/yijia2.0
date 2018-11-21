@@ -160,7 +160,6 @@ export default {
         });
     },
     change1(val) {},
-    //下拉change
     Selectchange3(val) {
       this.jskey = val;
       this.getstaffdate();
