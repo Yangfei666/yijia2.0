@@ -149,7 +149,7 @@ let router = new Router({
             redirect: '/main',
             leaf: true,//只有一个节点
             menuShow: true,
-            iconCls: 'iconfont icon-bijibendiannao',// 图标样式class
+            iconCls: 'iconfont icon-bijibendiannao',
             children: [
                 { path: '/home/main', component: Main, name: '首页', menuShow: true }//首页
             ]

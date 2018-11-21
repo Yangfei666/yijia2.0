@@ -87,7 +87,7 @@
                     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
                       <el-form-item label="课程:" prop="kcName" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.kcno" :value="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
+                          <el-select v-model="currentSelectRow.kcno" :placeholder="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
                             <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName" :value="item.kcno"></el-option>
                           </el-select>
                         </el-col>
