@@ -35,7 +35,7 @@
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
                       <template>
-                        <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                        <el-dialog v-if="Object.keys(currentSelectRow).length>0"  title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
                           <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
@@ -118,7 +118,7 @@
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
                       <template>
-                        <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
+                        <el-dialog v-if="Object.keys(currentSelectRow).length>0" title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
                           <Cardedit :currentSelectRow="currentSelectRow"  :hides='hide'></Cardedit>
                         </el-dialog>
                       </template>
@@ -273,6 +273,9 @@ export default {
       }else{
         this.hide='yinchang';
       }
+      this.radio = -1;
+      this.radio2 = -1;
+      this.currentSelectRow = ''
       console.log('当前页:'+this.sign);
     },
     handleSizeChange(size) {
@@ -296,11 +299,11 @@ export default {
     },
     rowClick(row, event, column) {
       this.radio = row.index;
-      //获取表格数据
-      this.currentSelectRow = row;
-      console.log(row.index);
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
+      if(this.radio < 0 && this.radio2 < 0) return;
+      //获取表格数据
+      this.currentSelectRow = row;
     },
     handleCurrentChange2(val,index) {
         this.currentRow = val;
