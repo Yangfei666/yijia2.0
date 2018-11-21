@@ -6,7 +6,7 @@
         <el-col :span="24">
           <div class="purple">
             <div class="add">
-              <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程</el-button>
               <template>
                 <el-dialog title="添加课程" :append-to-body="true" :visible.sync="dialogFormVisible">
                   <!--添加课程-->
@@ -89,7 +89,7 @@
               </template>
             </div>
             <div class="add">
-              <el-button type="text" class="p" @click="changeInfo">修改课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="p" @click="changeInfo">修改课程</el-button>
               <template>
                 <el-dialog title="修改课程" :append-to-body="true" :visible.sync="dialogFormVisible3">
                   <template>
@@ -176,7 +176,7 @@
               </template>
             </div>
             <div class="add">
-              <el-button type="text" class="p" @click="changeInfo2">预约团课</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="p" @click="changeInfo2">预约团课</el-button>
               <template>
                 <el-dialog title="预约团课" :append-to-body="true" :visible.sync="dialogFormVisible2">
                   <template>
@@ -254,7 +254,7 @@
               </template>
             </div>
             <div class="add2">
-              <el-button type="text" class="p" @click="Delcourse">删除课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="p" @click="Delcourse">删除课程</el-button>
             </div>
           </div>
         </el-col>
@@ -308,7 +308,7 @@
   export default {
     name: "grouptimetable",
     inject: ["reload"],
-    props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs", "clubIndex"],
+    props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs", "clubIndex", "isSelfClub"],
     data() {
       return {
         jiaoshi: [],
