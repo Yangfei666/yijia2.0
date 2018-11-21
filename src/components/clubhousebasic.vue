@@ -305,10 +305,11 @@ export default {
     .hand-left {
       height: 100%;
       .left-table {
-        width: 90%;
+        width: 75%;
         height: 100%;
         border: solid 1px #e8e8e8;
         margin: 20px auto;
+        margin-left: 3%;
         .left-table-main {
           height: 50px;
           margin-top: 1px;

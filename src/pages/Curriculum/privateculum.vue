@@ -23,7 +23,7 @@
               <el-date-picker type="daterange" range-separator="至" :readonly="true" style="width:250px;margin-top:2px"
               :start-placeholder="Monday" :end-placeholder="Sunday" ></el-date-picker>
               <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false"
-              type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px"></el-date-picker>
+              type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px;width:153px"></el-date-picker>
             </div>
             <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                 <el-tab-pane label="周一" name="Monday"></el-tab-pane>

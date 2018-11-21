@@ -67,7 +67,7 @@
                   </el-col>
                 </el-form-item>
                 <el-form-item class="dialog-footer" style="margin-left:30px;">
-                  <el-col :span="24" style="display: flex;justify-content: flex-start;">
+                  <el-col :span="24" style="display: flex;justify-content: flex-end;">
                     <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                   </el-col>

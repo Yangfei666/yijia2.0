@@ -26,10 +26,10 @@
                               </div>
                               <div class="yuan-main">
                                   <div class="yuan">退还金额：
-                                      <div class="right">￥{{item.money}}</div>
+                                      <span class="right">￥{{item.money}}</span>
                                   </div>
                                   <div class="yuan">退卡原因：
-                                      <div class="right">{{item.yuanyin}}</div>
+                                      <span class="right">{{item.yuanyin}}</span>
                                   </div>
                               </div>
                               <div class="foot">
@@ -117,10 +117,11 @@
                                   <div class="yuan">变更后:
                                       <span>{{item.newcishu}}</span>
                                   </div>
-                                  <div class="yuan">原因:
+                                  <div class="yuan" v-show="isShow2">原因:
                                       <span>{{item.bgyuanyin}}</span>
                                   </div>
                               </div>
+                              <span class="corry-out" @click="showToggle2">{{btnText}}</span>
                               <div class="foot">
                                   <span class="foot1">操作人</span>
                                   <div class="foot2">{{item.czyname}}</div>
@@ -197,10 +198,11 @@
                                   <div class="yuan">新会籍:
                                       <span>{{item.newhjgwname}}</span>
                                   </div>
-                                  <div class="yuan">原因:
+                                  <div class="yuan" v-show="isShow3">原因:
                                       <span>{{item.bgyuanyin}}</span>
                                   </div>
                               </div>
+                              <span class="corry-out" @click="showToggle3">{{btnText}}</span>
                               <div class="foot">
                                   <span class="foot1">操作人</span>
                                   <div class="foot2">{{item.czyname}}</div>
@@ -328,6 +330,8 @@ export default {
     return {
       btnText: "展开",
       isShow: false,
+      isShow2: false,
+      isShow3: false,
       activeName:'RecordTransferCard',
       RecordTransferCard : [],//转卡记录
       RecordReportLoss : [], //挂失
@@ -374,6 +378,22 @@ export default {
     showToggle: function() {
       this.isShow = !this.isShow;
       if (this.isShow) {
+        this.btnText = "收起";
+      } else {
+        this.btnText = "展开";
+      }
+    },
+    showToggle2: function() {
+      this.isShow2 = !this.isShow2;
+      if (this.isShow2) {
+        this.btnText = "收起";
+      } else {
+        this.btnText = "展开";
+      }
+    },
+    showToggle3: function() {
+      this.isShow3 = !this.isShow3;
+      if (this.isShow3) {
         this.btnText = "收起";
       } else {
         this.btnText = "展开";
@@ -472,7 +492,6 @@ export default {
           .yuan {
             color: #8c8c8c;
             font-size: 14px;
-            display: flex;
             .right {
               color: #8c8c8c;
               font-size: 13.5px;
@@ -489,7 +508,6 @@ export default {
           .yuan {
             color: #8c8c8c;
             font-size: 14px;
-            display: flex;
             .right {
               color: #8c8c8c;
               font-size: 13.5px;
@@ -506,8 +524,6 @@ export default {
           .yuan {
             color: #8c8c8c;
             font-size: 14px;
-            display: flex;
-            justify-content: flex-start;
             .right {
               color: #8c8c8c;
               font-size: 13.5px;

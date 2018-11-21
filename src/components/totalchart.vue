@@ -176,7 +176,7 @@ export default {
             color: "#595959",
             fontSize: "34px"
           },
-          top: "1%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
@@ -443,16 +443,5 @@ export default {
   background-color: #ffffff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
-  .change-head {
-    height: 40px;
-    display: flex;
-    line-height: 40px;
-    margin-top: 15px;
-    span {
-      color: #595959;
-      font-size: 14px;
-      text-indent: 20px;
-    }
-  }
 }
 </style>

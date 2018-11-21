@@ -95,7 +95,7 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    drawPie({exp_adviser, exp_experienceData, exp_staff }) {
+    drawPie({ exp_adviser, exp_experienceData, exp_staff }) {
       //饼图
       let myChart11 = echarts.init(document.getElementById("myChart11"));
       let myChart22 = echarts.init(document.getElementById("myChart22"));
@@ -107,7 +107,7 @@ export default {
             color: "#595959",
             fontSize: "34px"
           },
-          top: "6%",
+          top: "1%",
           left: "1%"
         },
         tooltip: {
@@ -138,7 +138,7 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7",
+              "#1B0AD7"
             ],
             radius: ["53%", "70%"],
             avoidLabelOverlap: false,
@@ -182,14 +182,14 @@ export default {
             color: "#595959",
             fontSize: "34px"
           },
-          top: "6%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-         legend: {
+        legend: {
           x: "right",
           data: exp_adviser,
           orient: "vertical",
@@ -213,7 +213,7 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7",
+              "#1B0AD7"
             ],
             radius: ["53%", "70%"],
             center: ["50%", "50%"],
@@ -242,10 +242,12 @@ export default {
       };
       myChart11.setOption(option11);
       myChart22.setOption(option22);
-      window.onresize = function(){
+      window.onresize = function() {
         myChart11.resize();
-        myChart22.resize();
-      }
+        setTimeout(() => {
+          myChart22.resize();
+        }, 500);
+      };
     },
     drawLine({ exp_timeAchievement }) {
       //折线图
@@ -292,9 +294,9 @@ export default {
         },
         series: this.detailLineData(exp_timeAchievement)
       });
-      window.onresize = function(){
+      window.onresize = function() {
         myChart33.resize();
-      }
+      };
     },
     detailXAxis() {
       let [year, month, day] = this.dataDate.split("-");
@@ -384,9 +386,9 @@ export default {
         ],
         series: exp_staffTimeAchievement
       });
-      window.onresize = function(){
+      window.onresize = function() {
         myChart44.resize();
-      }
+      };
     }
   },
   filters: {
@@ -408,116 +410,41 @@ export default {
   display: flex;
   .Total-head {
     height: 100%;
-    .total-span {
-      height: 45px;
-      display: flex;
-      line-height: 45px;
-      color: #595959;
-      font-size: 14px;
-      text-indent: 15px;
-      margin-top: 20px;
+    #myChart11 {
+      position: absolute;
+      left: 37px;
+      top: 42px;
+      width: 41%;
+      height: 300px;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
     }
-    .total-main {
-      float: right;
-      position: relative;
-      top: -89%;
-      width: 62%;
-      display: block;
-      .total-right {
-        height: 40px;
-        float: right;
-        display: flex;
-        line-height: 40px;
-        color: #8c8c8c;
-        font-size: 14px;
-        .box0 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #d21dff;
-          position: relative;
-          top: 16px;
-        }
-        .box1 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #1890ff;
-          position: relative;
-          top: 16px;
-        }
-        .box2 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #2fc25b;
-          position: relative;
-          top: 16px;
-        }
-        .box3 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #13c2c2;
-          position: relative;
-          top: 16px;
-        }
-        .box4 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #facc14;
-          position: relative;
-          top: 16px;
-        }
-        .box5 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #f04864;
-          position: relative;
-          top: 16px;
-        }
-        .box6 {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #8543e0;
-          position: relative;
-          top: 16px;
-        }
-        .chart-span {
-          padding-left: 10px;
-        }
-        .bord {
-          width: 1px;
-          height: 35%;
-          background: #e8e8e8;
-          float: left;
-          position: relative;
-          top: 35%;
-          border-radius: 5px;
-          left: 2%;
-        }
-        .total-bai {
-          padding-left: 12px;
-        }
-        .total-num {
-          padding-left: 12px;
-        }
-      }
+    #myChart22 {
+      position: absolute;
+      right: 70px;
+      top: 42px;
+      width: 41%;
+      height: 300px;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
     }
   }
-     .box4 {
-      width: 1px;
-      height: 50%;
-      background: #e8e8e8;
-      float: left;
-      position: relative;
-      top: 23%;
-      border-radius: 5px;
-      left: -1%;
-    }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
 }
 
 .Performancechange {
@@ -527,90 +454,5 @@ export default {
   background-color: #ffffff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
-  .change-head {
-    height: 40px;
-    display: flex;
-    line-height: 40px;
-    margin-top: 15px;
-    span {
-      color: #595959;
-      font-size: 14px;
-      text-indent: 20px;
-    }
-    .change-right {
-      display: flex;
-      line-height: 32px;
-      margin: 0 auto;
-      .com {
-        width: 12px;
-        height: 2px;
-        background-color: #1890ff;
-        position: relative;
-        top: 18px;
-      }
-      .com2 {
-        width: 12px;
-        height: 2px;
-        background-color: #2fc25b;
-        position: relative;
-        top: 18px;
-      }
-      .com-span {
-        color: #8c8c8c;
-        font-size: 14px;
-      }
-    }
-    .change-right2 {
-      display: flex;
-      line-height: 32px;
-      margin: 0 auto;
-      .com {
-        width: 12px;
-        height: 2px;
-        background-color: #1890ff;
-        position: relative;
-        top: 18px;
-      }
-      .com2 {
-        width: 12px;
-        height: 2px;
-        background-color: #13c2c2;
-        position: relative;
-        top: 18px;
-      }
-      .com3 {
-        width: 12px;
-        height: 2px;
-        position: relative;
-        top: 18px;
-        background: #2fc25b;
-      }
-      .com4 {
-        width: 12px;
-        height: 2px;
-        position: relative;
-        top: 18px;
-        background: #facc14;
-      }
-      .com5 {
-        width: 12px;
-        height: 2px;
-        position: relative;
-        top: 18px;
-        background: #f04864;
-      }
-      .com6 {
-        width: 12px;
-        height: 2px;
-        position: relative;
-        top: 18px;
-        background: #ac7fea;
-      }
-      .com-span {
-        color: #8c8c8c;
-        font-size: 14px;
-      }
-    }
-  }
 }
 </style>

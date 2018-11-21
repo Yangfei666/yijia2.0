@@ -491,7 +491,8 @@ export default {
         border-radius: 30px;
         height: 32px;
         line-height: 32px;
-        margin-top: 4px;
+        margin-top: 2px;
+        margin-right: 1%;
         .el-radio-button__inner {
           color: #fff;
           background-color: #00bc71;

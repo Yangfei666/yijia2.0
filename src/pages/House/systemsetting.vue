@@ -7,7 +7,7 @@
                     <div class="health-main">
                         <el-col :span="24" class="outside">
                             <span class="outside-biao">系统设置</span>
-                            <span style="color:#00bc71;border-radius:20px;font-size:12px;width:40px;display:inline-block;border:1px solid;" @click="editAll">编辑</span>
+                            <span style="color:#00bc71;border-radius:20px;font-size:12px;width:40px;display:inline-block;border:1px solid;height:17px" @click="editAll">编辑</span>
                         </el-col>
                         <el-col :span="24">
                             <div class="box"></div>
@@ -17,14 +17,14 @@
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所开馆时间：" prop="openTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-time-picker v-model="ruleForm.openTime" value-format="HH:mm:ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认07:00:00"></el-time-picker>
+                                            <el-time-select v-model="ruleForm.openTime" value-format="HH:mm" style="width:250px" :picker-options="{ start: '05:00', step: '00:15', end: '24:00'}" placeholder="默认05:00"></el-time-select>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所闭馆时间：" prop="closeTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-time-picker v-model="ruleForm.closeTime" value-format="HH:mm:ss" style="width:250px" :picker-options="{selectableRange: '7:00:00 - 22:00:00'}" placeholder="默认22:00:00"></el-time-picker>
+                                            <el-time-select v-model="ruleForm.closeTime" value-format="HH:mm" style="width:250px" :picker-options="{ start: '05:00', step: '00:15', end: '24:00'}" placeholder="默认24:00"></el-time-select>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
@@ -109,7 +109,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-col>
-                             <el-col :span="24" class="from-date-border">
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="惩罚升级的次数：" prop="punishRscalation" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -157,7 +157,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-col>
-                             <el-col :span="24" class="from-date-border">
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="团课提前预约时间(天数)：" prop="leagueDate" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -197,22 +197,22 @@
                                     </el-form-item>
                                 </el-col>
                             </el-col>
-                            <el-col :span="24" class="from-date-border" v-if="ruleForm.isPunish != 0 && ruleForm.punishNum != 1">
-                                <el-col :span="8" class="from-date">
+                            <el-col :span="24" class="from-date-border2" v-if="ruleForm.isPunish != 0 && ruleForm.punishNum != 1">
+                                <el-col :span="8" class="from-date2">
                                     <el-form-item label="扣具体次数：" prop="num" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.num" style="width:100%" placeholder="默认1"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="8" class="from-date">
+                                <el-col :span="8" class="from-date2">
                                     <el-form-item label="扣具体金额(元)：" prop="price" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.price" style="width:100%" placeholder="默认100"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="8" class="from-date">
+                                <el-col :span="8" class="from-date2">
                                     <el-form-item label="扣具体时间(天数)：" prop="time" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.time" style="width:100%" placeholder="默认15"></el-input>
@@ -220,8 +220,8 @@
                                     </el-form-item>
                                 </el-col>
                             </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="24" class="from-date">
+                            <el-col :span="24" class="from-date-border3">
+                                <el-col :span="24" class="from-date3">
                                     <el-form-item label="客户至少提前多少时间取消预约(分钟)：" prop="punishTime" label-width="270px">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.punishTime" style="width:450px" placeholder="默认120分钟,最大999"></el-input>
@@ -250,36 +250,36 @@ export default {
   data() {
     return {
       disabled: false,
-      hide:false,
+      hide: false,
       formLabelWidth: "220px",
       ruleForm: {
-        openTime: new Date(2016, 9, 10, 18, 40),//会所开馆时间
-        closeTime:new Date(2016, 9, 10, 18, 40),//会所闭馆时间
-        activation: "",//会员卡激活时间
-        enterTime: "",//提前进场时间
-        punishTime: "",//客户至少提前多少时间取消预约
-        punishCount: "",//每月免于惩罚的次数
-        lengthOfTime: "",//私教课最大时长
-        punishNum: "",//会员惩罚措施编号
-        isPunish: "",//是否开启惩罚
-        date: "",//日期
-        num: "",//天数
-        price: "",//价格
-        time: "",//时间
-        leagueDate: "",//团课提前预约时间
-        apiLeagueDate: "",//客户端团课提前预约
-        apiPersonalDate: "",//客户端私教提前预约
-        apiLeagueTime: "",//客户端团课提前预约时间
-        apiPersonalTime: "",//客户端私教提前预约时间
-        punishRscalation: "",//惩罚升级的次数
-        numTwo: "",//惩罚升级的措施
-        personalDate1: "",//信用1级约私教天数
-        personalDate2: "",//信用2级约私教天数
-        personalDate3: "",//信用3级约私教天数
-        personalDate4: "",//信用4级约私教天数
-        personalDate5: "",//信用5级约私教天数
-        personalDate6: ""//信用6级约私教天数
-      },
+        openTime: new Date(2016, 9, 10, 18, 40), //会所开馆时间
+        closeTime: new Date(2016, 9, 10, 18, 40), //会所闭馆时间
+        activation: "", //会员卡激活时间
+        enterTime: "", //提前进场时间
+        punishTime: "", //客户至少提前多少时间取消预约
+        punishCount: "", //每月免于惩罚的次数
+        lengthOfTime: "", //私教课最大时长
+        punishNum: "", //会员惩罚措施编号
+        isPunish: "", //是否开启惩罚
+        date: "", //日期
+        num: "", //天数
+        price: "", //价格
+        time: "", //时间
+        leagueDate: "", //团课提前预约时间
+        apiLeagueDate: "", //客户端团课提前预约
+        apiPersonalDate: "", //客户端私教提前预约
+        apiLeagueTime: "", //客户端团课提前预约时间
+        apiPersonalTime: "", //客户端私教提前预约时间
+        punishRscalation: "", //惩罚升级的次数
+        numTwo: "", //惩罚升级的措施
+        personalDate1: "", //信用1级约私教天数
+        personalDate2: "", //信用2级约私教天数
+        personalDate3: "", //信用3级约私教天数
+        personalDate4: "", //信用4级约私教天数
+        personalDate5: "", //信用5级约私教天数
+        personalDate6: "" //信用6级约私教天数
+      }
     };
   },
   created() {
@@ -287,17 +287,17 @@ export default {
   },
   methods: {
     gethealth() {
-        let _this = this;
-      requestLogin("/getClubParams",{},"get")
+      let _this = this;
+      requestLogin("/getClubParams", {}, "get")
         .then(function(res) {
-            if(res == null){
+          if (res == null) {
             _this.disabled = false;
             _this.hide = true;
-            }else{
-                _this.ruleForm = res;
-                _this.disabled = true;
-                _this.hide = false;
-            }
+          } else {
+            _this.ruleForm = res;
+            _this.disabled = true;
+            _this.hide = false;
+          }
         })
         .catch(error => {
           if (error.res) {
@@ -308,71 +308,71 @@ export default {
           }
         });
     },
-    addhealthsurvey(formName){
-          this.$confirm("确认提交吗？", "提示").then(() => {
-            var loginParams = {
-              openTime: this.ruleForm.openTime, //会所开馆时间
-              closeTime: this.ruleForm.closeTime, //会所闭馆时间
-              activation: this.ruleForm.activation, //会员卡激活时间
-              enterTime: this.ruleForm.enterTime, //提前进场时间
-              punishTime: this.ruleForm.punishTime, //客户至少提前多少时间取消预约
-              punishCount: this.ruleForm.punishCount, //每月免于惩罚的次数
-              lengthOfTime: this.ruleForm.lengthOfTime, //私教课最大时长
-              punishNum: this.ruleForm.punishNum, //会员惩罚措施编号
-              isPunish: this.ruleForm.isPunish, //是否开启惩罚
-              date: this.ruleForm.date, //日期
-              num: this.ruleForm.num, //天数
-              price: this.ruleForm.price, // 价格
-              time: this.ruleForm.time, //时间
-              leagueDate: this.ruleForm.leagueDate, //团课提前预约时间
-              apiLeagueDate: this.ruleForm.apiLeagueDate, //客户端团课提前预约
-              apiPersonalDate: this.ruleForm.apiPersonalDate, //客户端私教提前预约
-              apiLeagueTime: this.ruleForm.apiLeagueTime, //客户端团课提前预约时间
-              apiPersonalTime: this.ruleForm.apiPersonalTime, //客户端私教提前预约时间
-              punishRscalation: this.ruleForm.punishRscalation, //惩罚升级的次数
-              numTwo: this.ruleForm.numTwo, //惩罚升级的措施
-              personalDate1: this.ruleForm.personalDate1, //信用1级约私教天数
-              personalDate2: this.ruleForm.personalDate2, //信用2级约私教天数
-              personalDate3: this.ruleForm.personalDate3, //信用3级约私教天数
-              personalDate4: this.ruleForm.personalDate4, //信用4级约私教天数
-              personalDate5: this.ruleForm.personalDate5, //信用5级约私教天数
-              personalDate6: this.ruleForm.personalDate6, //信用6级约私教天数
-            };
-            requestLogin("/setClubParams", loginParams, "post")
-              .then(data => {
-                this.$message({
-                  message: "提交成功",
-                  type: "success"
-                });
-                this.reload();
-              })
-              .catch(error => {
-                let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0) {
-                  this.$message({
-                    message: msg,
-                    type: "error"
-                  });
-                  return;
-                }
+    addhealthsurvey(formName) {
+      this.$confirm("确认提交吗？", "提示").then(() => {
+        var loginParams = {
+          openTime: this.ruleForm.openTime, //会所开馆时间
+          closeTime: this.ruleForm.closeTime, //会所闭馆时间
+          activation: this.ruleForm.activation, //会员卡激活时间
+          enterTime: this.ruleForm.enterTime, //提前进场时间
+          punishTime: this.ruleForm.punishTime, //客户至少提前多少时间取消预约
+          punishCount: this.ruleForm.punishCount, //每月免于惩罚的次数
+          lengthOfTime: this.ruleForm.lengthOfTime, //私教课最大时长
+          punishNum: this.ruleForm.punishNum, //会员惩罚措施编号
+          isPunish: this.ruleForm.isPunish, //是否开启惩罚
+          date: this.ruleForm.date, //日期
+          num: this.ruleForm.num, //天数
+          price: this.ruleForm.price, // 价格
+          time: this.ruleForm.time, //时间
+          leagueDate: this.ruleForm.leagueDate, //团课提前预约时间
+          apiLeagueDate: this.ruleForm.apiLeagueDate, //客户端团课提前预约
+          apiPersonalDate: this.ruleForm.apiPersonalDate, //客户端私教提前预约
+          apiLeagueTime: this.ruleForm.apiLeagueTime, //客户端团课提前预约时间
+          apiPersonalTime: this.ruleForm.apiPersonalTime, //客户端私教提前预约时间
+          punishRscalation: this.ruleForm.punishRscalation, //惩罚升级的次数
+          numTwo: this.ruleForm.numTwo, //惩罚升级的措施
+          personalDate1: this.ruleForm.personalDate1, //信用1级约私教天数
+          personalDate2: this.ruleForm.personalDate2, //信用2级约私教天数
+          personalDate3: this.ruleForm.personalDate3, //信用3级约私教天数
+          personalDate4: this.ruleForm.personalDate4, //信用4级约私教天数
+          personalDate5: this.ruleForm.personalDate5, //信用5级约私教天数
+          personalDate6: this.ruleForm.personalDate6 //信用6级约私教天数
+        };
+        requestLogin("/setClubParams", loginParams, "post")
+          .then(data => {
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
               });
+              return;
+            }
           });
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    chanegtext(val){
-        console.log(val);
+    chanegtext(val) {
+      console.log(val);
     },
     editAll() {
       this.disabled = false;
       this.hide = true;
-    },
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-// @import "@/styles/healthsurvey.scss";
+@import "@/styles/systemsetting.scss";
 .health {
   width: 97%;
   height: 100%;
@@ -403,26 +403,10 @@ export default {
       margin: 20px auto;
       width: 95%;
       height: 1px;
-      background: -webkit-linear-gradient(
-        to right,
-        #fff,
-        #00bc71,
-        #fff
-      ); /* Safari 5.1 - 6.0 */
-      background: -o-linear-gradient(
-        to right,
-        #fff,
-        #00bc71,
-        #fff
-      ); /* Opera 11.1 - 12.0 */
-      background: -moz-linear-gradient(
-        to right,
-        #fff,
-        #00bc71,
-        #fff
-      ); /* Firefox 3.6 - 15 */
+      background: -webkit-linear-gradient(to right, #fff, #00bc71, #fff);
+      background: -o-linear-gradient(to right, #fff, #00bc71, #fff);
+      background: -moz-linear-gradient(to right, #fff, #00bc71, #fff);
       background: linear-gradient(to right, #fff, #00bc71, #fff);
-      /* 标准的语法（必须放在最后） */
     }
     .health-from {
       .from-date-border {
@@ -435,65 +419,23 @@ export default {
           }
         }
       }
-      .from-date-border {
+      .from-date-border2 {
         width: 100%;
         .from-date2 {
-          .el-form-item {
-            margin-bottom: 10px;
-            margin-top: 10px;
-          }
-        }
-      }
-      .from-date-border2 {
-        border-bottom: 1px solid #e8e8e8;
-        .from-date3 {
           display: flex;
           .el-form-item {
             margin-bottom: 10px;
             margin-top: 10px;
-            .el-form-item__content {
-              .el-input {
-                .el-input__inner {
-                  border: none;
-                  background: #fafafa;
-                }
-              }
-            }
           }
         }
       }
       .from-date-border3 {
-        border-bottom: 1px solid #e8e8e8;
+        width: 100%;
         .from-date3 {
           display: flex;
           .el-form-item {
             margin-bottom: 10px;
             margin-top: 10px;
-            .el-form-item__content {
-              .el-input {
-                .el-input__inner {
-                  border: none;
-                  background: #fafafa;
-                }
-              }
-            }
-          }
-        }
-      }
-      .from-date-border4 {
-        .from-date3 {
-          display: flex;
-          .el-form-item {
-            margin-bottom: 10px;
-            margin-top: 10px;
-            .el-form-item__content {
-              .el-input {
-                .el-input__inner {
-                  border: none;
-                  background: #fafafa;
-                }
-              }
-            }
           }
         }
       }
