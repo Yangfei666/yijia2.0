@@ -85,15 +85,18 @@ export default {
     this.$emit('closeEdit', false);
   },
   methods: {
-    rolegourp() {
+   async rolegourp() {
       let _this = this;
       _this.loading = true;
-      requestLogin("/setStaffInfo/create", {}, "get")
+      await requestLogin("/setStaffInfo/create", {}, "get")
         .then(function(res) {
           _this.loading = false;
           let { role, brigades } = res;
           _this.role = role;
           _this.brigades = brigades;
+        })
+        .then(()=>{
+          _this.bigsVal(_this.currentSelectRow.Brigade)
         })
         .catch(error => {
           if (error.res) {
@@ -103,7 +106,7 @@ export default {
             });
           }
         });
-    },
+   },
     getRoleId(role){
       return role.map(item=> item.id)
     },
@@ -159,12 +162,13 @@ export default {
       Object.assign(this.selectRoleId, value)
     },
     xiaozu(val) {
-      console.log(val);
     },
     bigsVal(id) {
+      if(!id) return;
       this.brigades.map((item, index) => {
-        if (item.id === id) {
+        if (item.id === parseInt(id)) {
           this.groups = item.club_info_group;
+          this.currentSelectRow.group = item.club_info_group[0].group;
         }
       });
     },
