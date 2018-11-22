@@ -47,6 +47,8 @@ const HouseExperience = resolve => require(['@/pages/House/experience'], resolve
 
 const HouseMembership = resolve => require(['@/pages/House/membership'], resolve)//会员卡管理
 
+const Classroomsetting = resolve => require(['@/pages/House/classroomsetting'], resolve)//教室设置
+
 const Visualiza = resolve => require(['@/pages/House/visualiza'], resolve)//可视化数表
 
 const Visualization = resolve => require(['@/pages/House/visualizationchart/visualization'], resolve)//会所业绩图表
@@ -325,6 +327,7 @@ let router = new Router({
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
                 { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
+                { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
                 { path: '/House/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 {

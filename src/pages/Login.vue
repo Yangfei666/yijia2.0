@@ -47,8 +47,8 @@ export default {
     return {
       logining: false,
       checked: false,
-      img : 'http://api.yijiayoga.cn/pc/v1.Login/getVerification',
-      // img : 'http://192.168.2.111/pc/v1.Login/getVerification',
+      // img : 'http://api.yijiayoga.cn/pc/v1.Login/getVerification',
+      img : 'http://192.168.2.111/pc/v1.Login/getVerification',
       num:0,
         account: {
           username: '',
