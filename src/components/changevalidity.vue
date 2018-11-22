@@ -16,7 +16,7 @@
                             <el-col :span="16">
                            <el-form-item label="新的到期时间:" prop="date">
                                <el-col :span="24">
-                                <el-date-picker v-model="ruleForm.date" type="date" placeholder="请选择" style="width:100%"></el-date-picker>
+                                <el-date-picker v-model="ruleForm.date" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%"></el-date-picker>
                                 </el-col>
                             </el-form-item>
                             </el-col>
@@ -31,7 +31,7 @@
                             <el-col :span="16" class="submit">
                             <el-form-item>
                                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                                <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                                <el-button @click="resetForm('ruleForm')">重置</el-button>
                             </el-form-item>
                             </el-col>
                         </el-form>

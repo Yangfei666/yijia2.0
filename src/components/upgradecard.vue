@@ -53,7 +53,7 @@
               <el-col :span="16" class="submit">
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">升级</el-button>
-                  <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                  <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
               </el-col>
             </el-form>
@@ -67,6 +67,7 @@
 import { requestLogin } from "@/api/api";
 export default {
   name: "upgradecard",
+  inject: ["reload"],
   data() {
     return {
       remnant: 666,
@@ -127,6 +128,7 @@ export default {
                   message: "升级成功",
                   type: "success"
                 });
+                this.reload();
                 this.resetForm(formName);
               })
               .catch(error => {

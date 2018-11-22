@@ -47,6 +47,7 @@
 import { requestLogin } from "@/api/api";
 export default {
   name: "enabledisabling",
+  inject: ["reload"],
   data() {
     return {
       remnant: 666,
@@ -92,6 +93,7 @@ export default {
                   message: "操作成功",
                   type: "success"
                 });
+                this.reload();
                 this.resetForm(formName);
               })
               .catch(error => {

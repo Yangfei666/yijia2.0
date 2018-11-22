@@ -62,8 +62,8 @@
                                                     <div v-if="scope.row.isEnter == '已进场'">
                                                         <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
                                                     </div>
-                                                    <div v-else-if="scope.row.isTrue == '未取消'">
-                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    <div v-else-if="scope.row.isTrue == '已取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -133,8 +133,8 @@
                                                     <div v-if="scope.row.isEnter == '已进场'">
                                                         <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
                                                     </div>
-                                                    <div v-else-if="scope.row.isTrue == '未取消'">
-                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    <div v-else-if="scope.row.isTrue == '已取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -307,7 +307,7 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 1.3% !important;
+      top: 3.3% !important;
       z-index: 2;
       color: #262626;
       right: 78% !important;

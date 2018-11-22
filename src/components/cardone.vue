@@ -94,7 +94,7 @@
     </div>
     <el-col :span="24">
       <div class="operate">
-        <span class="oper">卡1操作：</span>
+        <span class="oper">卡{{this.idx+1}}操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
             <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
@@ -108,7 +108,7 @@
           <div class="oper-left">
             <router-link :to="{path:'/Customer/membershiphome/memberhome/changevalidity',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更有效期</router-link>
           </div>
-          <div class="oper-left">
+          <div class="oper-left" @click="open3">
             <router-link :to="{path:'/Customer/membershiphome/memberhome/changepriceandnum',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更次数/金额</router-link>
           </div>
           <div class="oper-left">
@@ -129,7 +129,7 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
   name: "cardone",
-  props: ["membershipcards", "chartId"],
+  props: ["membershipcards", "chartId","idx"],
   data() {
     return {
       tbdata: []
@@ -163,6 +163,14 @@ export default {
     }
   },
   methods: {
+     open3() {
+       if(this.membershipcards.card_type.ctType=='期限卡'){
+         this.$message({
+           message: '对不起~期限卡不能更改次数或金额',
+           type: 'warning'
+         });
+       }
+      },
     drawBar() {
       //初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.chartId));

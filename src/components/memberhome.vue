@@ -69,7 +69,7 @@
               </el-form-item>
               <el-form-item class="dialog-footer">
                 <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                  <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                  <el-button @click="resetForm('ruleForm')">重置</el-button>
                   <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                 </el-col>
               </el-form-item>
@@ -79,7 +79,7 @@
       </div>
       <el-tabs v-model="TabsValue" @tab-click="handleClick" type="card">
         <el-tab-pane v-for="(item,idx) in header" :label="item.CTName" :name="String(item.id)" :key="item.id+200" :data-idx='idx' style="font-size:16px" :lazy="false">
-          <Cardone :ref="'chart'+item.id" :membershipcards="membershipcard" :chartId="'chart'+item.id"></Cardone>
+          <Cardone :ref="'chart'+item.id" :membershipcards="membershipcard" :chartId="'chart'+item.id" :idx="idx"></Cardone>
         </el-tab-pane>
       </el-tabs>
     </div>
