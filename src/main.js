@@ -14,6 +14,7 @@ import 'swiper/dist/css/swiper.css';
 import router from './router'
 import VueProgressBar from 'vue-progressbar'
 import axios from 'axios';
+import 'babel-polyfill'
 Vue.prototype.$axios = axios;
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper)
