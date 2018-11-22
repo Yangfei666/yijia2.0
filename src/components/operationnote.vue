@@ -119,7 +119,7 @@
                                             <span>{{item.bgyuanyin}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle2">{{btnText}}</span>
+                                    <span class="corry-out" @click="showToggle2">{{btnText2}}</span>
                                     <div class="foot">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
@@ -200,7 +200,7 @@
                                             <span>{{item.bgyuanyin}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle3">{{btnText}}</span>
+                                    <span class="corry-out" @click="showToggle3">{{btnText3}}</span>
                                     <div class="foot">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
@@ -327,6 +327,8 @@ export default {
   data() {
     return {
       btnText: "展开",
+      btnText2: "展开",
+      btnText3: "展开",
       isShow: false,
       isShow2: false,
       isShow3: false,
@@ -387,17 +389,17 @@ export default {
     showToggle2: function() {
       this.isShow2 = !this.isShow2;
       if (this.isShow2) {
-        this.btnText = "收起";
+        this.btnText2 = "收起";
       } else {
-        this.btnText = "展开";
+        this.btnText2 = "展开";
       }
     },
     showToggle3: function() {
       this.isShow3 = !this.isShow3;
       if (this.isShow3) {
-        this.btnText = "收起";
+        this.btnText3 = "收起";
       } else {
-        this.btnText = "展开";
+        this.btnText3 = "展开";
       }
     },
     back() {

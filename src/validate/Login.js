@@ -358,3 +358,19 @@ export let leavedate = [
         trigger: "change"
     }
 ];
+/* 验证教室名称*/
+export let classroom = [
+    {
+        required: true,
+        message: "请输入教室名称",
+        trigger: "blur"
+    }
+];
+/* 验证教室类型*/
+export let sign = [
+    {
+        required: true,
+        message: "请选择教室类型",
+        trigger: "change"
+    }
+];
