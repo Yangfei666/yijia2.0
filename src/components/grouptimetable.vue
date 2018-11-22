@@ -6,7 +6,7 @@
         <el-col :span="24">
           <div class="purple">
             <div class="add">
-              <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加课程</el-button>
               <template>
                 <el-dialog title="添加课程" :append-to-body="true" :visible.sync="dialogFormVisible">
                   <!--添加课程-->
@@ -79,7 +79,7 @@
               </template>
             </div>
             <div class="add">
-              <el-button type="text" class="p" @click="changeInfo">修改课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="p" @click="changeInfo">修改课程</el-button>
               <template>
                 <el-dialog title="修改课程" :append-to-body="true" :visible.sync="dialogFormVisible3">
                   <template>
@@ -218,7 +218,7 @@
               </template>
             </div>
             <div class="add2">
-              <el-button type="text" class="p" @click="Delcourse">删除课程</el-button>
+              <el-button type="text" :disabled="isSelfClub" class="p" @click="Delcourse">删除课程</el-button>
             </div>
           </div>
         </el-col>
@@ -259,396 +259,389 @@
   </div>
 </template>
 <script>
-import { requestLogin } from "@/api/api";
-import * as validate from "@/validate/Login";
-export default {
-  name: "grouptimetable",
-  inject: ["reload"],
-  props: [
-    "floorGoods",
-    "weekDay",
-    "classrooms",
-    "subjects",
-    "coachs",
-    "clubs",
-    "clubIndex"
-  ],
-  data() {
-    return {
-      jiaoshi: [],
-      kecheng: [],
-      jiaolian: [],
-      tableData: [],
-      tablelength: 0,
-      mendian: [],
-      formLabelWidth: "130px",
-      radio: "",
-      startTime: "",
-      endTime: "",
-      ruleForm: {
-        course: "", //课程
-        courseclassify: "", //课程分类
-        train: "", //教练
-        room: "", //教室
-        attendtime: "", //上课时间
-        endtime: "", //结束时间
-        attenddate: "", //课程日期
-        galleryful: "", //容纳人数
-        difficulty: "", //难度
-        price: "" //价格
-      },
-      ruleForm2: {
-        door: "", //门店
-        date: "", //上课日期
-        time: "", //上课时间
-        yycourse: "", //预约课程
-        consumer: "", //会员/体验客户
-        name: "", //姓名
-        card: "" //卡种
-      },
-      rules: {
-        course: [{ required: true, message: "请选择课程", trigger: "change" }],
-        courseclassify: [
-          { required: true, message: "请选择课程分类", trigger: "change" }
-        ],
-        train: [{ required: true, message: "请选择教练", trigger: "change" }],
-        room: [{ required: true, message: "请选择教室", trigger: "change" }],
-        attendtime: [
-          { required: true, message: "请选择上课时间", trigger: "change" }
-        ],
-        endtime: [
-          { required: true, message: "请选择结束时间", trigger: "change" }
-        ],
-        attenddate: [
-          { required: true, message: "请选择课程日期", trigger: "change" }
-        ],
-        galleryful: [
-          { required: true, message: "请输入容纳人数", trigger: "blur" }
-        ],
-        difficulty: [
-          { required: true, message: "请输入课程难度", trigger: "blur" }
-        ],
-        price: [{ required: true, message: "请输入课程价格", trigger: "blur" }]
-      },
-      rules2: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-        consumer: [
-          { required: true, message: "请选择会员/体验客户", trigger: "change" }
-        ],
-        card: [{ required: true, message: "请选择卡种", trigger: "change" }]
-      },
-      currentSelectRow: "",
-      dialogFormVisible: false,
-      dialogFormVisible2: false,
-      dialogFormVisible3: false,
-      currentPage: 1,
-      pagesize: 10,
-      kazhong: []
-    };
-  },
-  watch: {
-    floorGoods: {
-      deep: true,
-      handler(val, oldVal) {
-        switch (this.weekDay) {
-          case 1:
-            this.tableData = val.list.Monday;
-            break;
-          case 2:
-            this.tableData = val.list.Tuesday;
-            break;
-          case 3:
-            this.tableData = val.list.Wednesday;
-            break;
-          case 4:
-            this.tableData = val.list.Thursday;
-            break;
-          case 5:
-            this.tableData = val.list.Friday;
-            break;
-          case 6:
-            this.tableData = val.list.Saturday;
-            break;
-          case 7:
-            this.tableData = val.list.Sunday;
-            break;
-        }
-        if (this.tableData != null) {
-          this.tableData.map((item, index) => {
-            item.kcName = item.curriculum_subject.kcName;
-            item.JLIDs = item.staff_info.YGXX_NAME;
-          });
-          this.tablelength = this.tableData.length;
-        } else {
-          this.tableData = [];
-        }
-      }
-    },
-    classrooms(val) {
-      this.jiaoshi = this.classrooms;
-    },
-    subjects(val) {
-      this.kecheng = this.subjects;
-    },
-    coachs(val) {
-      this.jiaolian = this.coachs;
-    },
-    clubs(val) {
-      this.mendian = this.clubs;
-    }
-  },
-  methods: {
-    radiochange(row) {},
-    handleSizeChange(size) {
-      this.pagesize = size;
-    },
-    handleCurrentChange(currentPage) {
-      this.currentPage = currentPage;
-    },
-    handleCurrentChange2(val, index) {
-      this.currentRow = val;
-    },
-    getCurrentRow(val) {},
-    rowClick(row, event, column) {
-      this.radio = row.index;
-      //获取表格数据
-      this.currentSelectRow = row;
-      this.radio = this.tableData.indexOf(row);
-    },
-    changeInfo() {
-      //先选择列表
-      if (this.currentSelectRow) {
-        this.dialogFormVisible3 = true;
-      } else {
-        this.$message({ message: "请先选择数据!", type: "warning" });
-      }
-    },
-    changeInfo2() {
-      //先选择列表
-      if (this.currentSelectRow) {
-        this.dialogFormVisible2 = true;
-      } else {
-        this.$message({ message: "请先选择数据!", type: "warning" });
-      }
-    },
-    //查询姓名
-    searchname() {
-      let _this = this;
-      var loginParams = {
-        name: _this.ruleForm2.name, //姓名
-        sign: _this.ruleForm2.consumer //类别experience  member
+  import {requestLogin} from "@/api/api";
+  import * as validate from "@/validate/Login";
+
+  export default {
+    name: "grouptimetable",
+    inject: ["reload"],
+    props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs", "clubIndex", "isSelfClub"],
+    data() {
+      return {
+        jiaoshi: [],
+        kecheng: [],
+        jiaolian: [],
+        tableData: [],
+        tablelength: 0,
+        mendian: [],
+        formLabelWidth: "130px",
+        radio: "",
+        startTime: "",
+        endTime: "",
+        ruleForm: {
+          course: "", //课程
+          courseclassify: "", //课程分类
+          train: "", //教练
+          room: "", //教室
+          attendtime: "", //上课时间
+          endtime: "", //结束时间
+          attenddate: "", //课程日期
+          galleryful: "", //容纳人数
+          difficulty: "", //难度
+          price: "" //价格
+        },
+        ruleForm2: {
+          door: "", //门店
+          date: "", //上课日期
+          time: "", //上课时间
+          yycourse: "", //预约课程
+          consumer: "", //会员/体验客户
+          name: "", //姓名
+          card: "" //卡种
+        },
+        rules: {
+          course: [{required: true, message: "请选择课程", trigger: "change"}],
+          courseclassify: [
+            {required: true, message: "请选择课程分类", trigger: "change"}
+          ],
+          train: [{required: true, message: "请选择教练", trigger: "change"}],
+          room: [{required: true, message: "请选择教室", trigger: "change"}],
+          attendtime: [
+            {required: true, message: "请选择上课时间", trigger: "change"}
+          ],
+          endtime: [
+            {required: true, message: "请选择结束时间", trigger: "change"}
+          ],
+          attenddate: [
+            {required: true, message: "请选择课程日期", trigger: "change"}
+          ],
+          galleryful: [
+            {required: true, message: "请输入容纳人数", trigger: "blur"}
+          ],
+          difficulty: [
+            {required: true, message: "请输入课程难度", trigger: "blur"}
+          ],
+          price: [{required: true, message: "请输入课程价格", trigger: "blur"}]
+        },
+        rules2: {
+          name: [{required: true, message: "请输入姓名", trigger: "blur"}],
+          consumer: [
+            {required: true, message: "请选择会员/体验客户", trigger: "change"}
+          ],
+          card: [{required: true, message: "请选择卡种", trigger: "change"}]
+        },
+        currentSelectRow: "",
+        dialogFormVisible: false,
+        dialogFormVisible2: false,
+        dialogFormVisible3: false,
+        currentPage: 1,
+        pagesize: 10,
+        kazhong: []
       };
-      requestLogin("/getSearchName", loginParams, "post")
-        .then(function(res) {
-          if (loginParams.sign == "member") {
-            _this.kazhong = [];
-            var membership_card = res.membership_card;
-            for (var i = 0; i < membership_card.length; i++) {
-              var cardType = { CTID: "", CTName: "" };
-              cardType.id = membership_card[i].id;
-              cardType.CTName = membership_card[i].card_type.CTName;
-              _this.kazhong.push(cardType);
-            }
+    },
+    watch: {
+      floorGoods: {
+        deep: true,
+        handler(val, oldVal) {
+          switch (this.weekDay) {
+            case 1:
+              this.tableData = val.list.Monday;
+              break;
+            case 2:
+              this.tableData = val.list.Tuesday;
+              break;
+            case 3:
+              this.tableData = val.list.Wednesday;
+              break;
+            case 4:
+              this.tableData = val.list.Thursday;
+              break;
+            case 5:
+              this.tableData = val.list.Friday;
+              break;
+            case 6:
+              this.tableData = val.list.Saturday;
+              break;
+            case 7:
+              this.tableData = val.list.Sunday;
+              break;
+          }
+          if (this.tableData != null) {
+            this.tableData.map((item, index) => {
+              item.kcName = item.curriculum_subject.kcName;
+              item.JLIDs = item.staff_info.YGXX_NAME;
+            });
+            this.tablelength = this.tableData.length;
           } else {
-            _this.kazhong = [];
-            var customer_voucher = res.customer_voucher;
-            for (var i = 0; i < customer_voucher.length; i++) {
-              var cardType = { CTID: "", CTName: "" };
-              cardType.id = customer_voucher[i].id;
-              cardType.CTName = customer_voucher[i].experience_voucher.tkName;
-              _this.kazhong.push(cardType);
+            this.tableData = [];
+          }
+        }
+      },
+      classrooms(val) {
+        this.jiaoshi = this.classrooms;
+      },
+      subjects(val) {
+        this.kecheng = this.subjects;
+      },
+      coachs(val) {
+        this.jiaolian = this.coachs;
+      },
+      clubs(val) {
+        this.mendian = this.clubs;
+      }
+    },
+    methods: {
+      radiochange(row) {},
+      handleSizeChange(size) {
+        this.pagesize = size;
+      },
+      handleCurrentChange(currentPage) {
+        this.currentPage = currentPage;
+      },
+      handleCurrentChange2(val, index) {
+        this.currentRow = val;
+      },
+      getCurrentRow(val) {},
+      rowClick(row, event, column) {
+        this.radio = row.index;
+        //获取表格数据
+        this.currentSelectRow = row;
+        this.radio = this.tableData.indexOf(row);
+      },
+      changeInfo() {
+        //先选择列表
+        if (this.currentSelectRow) {
+          this.dialogFormVisible3 = true;
+        } else {
+          this.$message({ message: "请先选择数据!", type: "warning" });
+        }
+      },
+      changeInfo2() {
+        //先选择列表
+        if (this.currentSelectRow) {
+          this.dialogFormVisible2 = true;
+        } else {
+          this.$message({ message: "请先选择数据!", type: "warning" });
+        }
+      },
+      //查询姓名
+      searchname() {
+        let _this = this;
+        var loginParams = {
+          name: _this.ruleForm2.name, //姓名
+          sign: _this.ruleForm2.consumer //类别experience  member
+        };
+        requestLogin("/getSearchName", loginParams, "post")
+          .then(function(res) {
+            if (loginParams.sign == "member") {
+              _this.kazhong = [];
+              var membership_card = res.membership_card;
+              for (var i = 0; i < membership_card.length; i++) {
+                var cardType = { CTID: "", CTName: "" };
+                cardType.id = membership_card[i].id;
+                cardType.CTName = membership_card[i].card_type.CTName;
+                _this.kazhong.push(cardType);
+              }
+            } else {
+              _this.kazhong = [];
+              var customer_voucher = res.customer_voucher;
+              for (var i = 0; i < customer_voucher.length; i++) {
+                var cardType = { CTID: "", CTName: "" };
+                cardType.id = customer_voucher[i].id;
+                cardType.CTName = customer_voucher[i].experience_voucher.tkName;
+                _this.kazhong.push(cardType);
+              }
             }
-          }
-        })
-        .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
-    },
-    //预约团课
-    yuyueForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$confirm("确认预约课程吗？", "提示").then(() => {
-            var formData = {
-              kcbId: this.currentSelectRow.ID, //课程编号
-              cardId: this.ruleForm2.card, //会员卡id
-              sign: this.ruleForm2.consumer, //查询类别
-              hsid: this.clubs[this.clubIndex].Hsxx_Hsid //会所id
-            };
-            requestLogin("/SetGroupReserve", formData, "post")
-              .then(data => {
-                this.addLoading = false;
-                this.$message({
-                  message: "预约成功",
-                  type: "success"
-                });
-                this.reload();
-              })
-              .catch(error => {
-                this.addLoading = false;
-                let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0) {
-                  this.$message({
-                    message: msg,
-                    type: "error"
-                  });
-                  return;
-                }
-              });
-          });
-        } else {
-          this.$message({ message: "提交失败!", type: "error" });
-          return false;
-        }
-      });
-    },
-    //修改课程
-    editForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$confirm("确认修改吗？", "提示").then(() => {
-            var formData = {
-              kcStime: this.currentSelectRow.kcStime, //课程日期
-              KCNO: this.currentSelectRow.KCNO, //所选课程id
-              kcbSort: this.currentSelectRow.kcbSort == "白底" ? 1 : 2, //灰底白底
-              JLID: this.currentSelectRow.JLID, //教练id
-              kcPlace: this.currentSelectRow.kcPlace, //教室
-              Stime: this.currentSelectRow.Stime, //开课时间
-              Etime: this.currentSelectRow.Etime, //结束时间
-              RenShu: this.currentSelectRow.RenShu, //容纳人数
-              kcDiff: this.currentSelectRow.kcDiff, //课程难度
-              price: this.currentSelectRow.price //价格
-            };
-            requestLogin(
-              "/CurTableInfo/" + this.currentSelectRow.ID,
-              formData,
-              "put"
-            )
-              .then(data => {
-                this.addLoading = false;
-                this.$message({
-                  message: "修改成功",
-                  type: "success"
-                });
-                this.reload();
-              })
-              .catch(error => {
-                this.addLoading = false;
-                let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0) {
-                  this.$message({
-                    message: msg,
-                    type: "error"
-                  });
-                  return;
-                }
-              });
-          });
-        } else {
-          this.$message({ message: "提交失败!", type: "error" });
-          return false;
-        }
-      });
-    },
-    Delcourse() {
-      //先选择列表
-      let _this = this;
-      if (!this.currentSelectRow) {
-        this.$message({
-          message: "请先选择数据!",
-          type: "warning"
-        });
-        return;
-      } else {
-        this.$confirm("确认删除该条记录吗？", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            requestLogin(
-              "/CurTableInfo/" + _this.currentSelectRow.KCNO,
-              {},
-              "delete"
-            ).then(response => {
-              this.$message({
-                message: "删除成功",
-                type: "success"
-              });
-            });
-            this.reload();
           })
           .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
+            if (error.res) {
               this.$message({
-                message: msg,
+                message: "获取数据失败",
                 type: "error"
               });
-              return;
             }
           });
-      }
-    },
-    //添加课程
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$confirm("确认提交吗？", "提示").then(() => {
-            var formData = {
-              kcStime: this.ruleForm.attenddate, //课程日期
-              KCNO: this.ruleForm.course, //所选课程id
-              kcbSort: this.ruleForm.courseclassify, //灰底白底
-              JLID: this.ruleForm.train, //教练id
-              kcPlace: this.ruleForm.room, //教室
-              Stime: this.ruleForm.attendtime, //开始时间
-              Etime: this.ruleForm.endtime, //结束时间
-              RenShu: this.ruleForm.galleryful, //容纳人数
-              kcDiff: this.ruleForm.difficulty, //课程难度
-              price: this.ruleForm.price //价格
-            };
-            requestLogin("/CurTableInfo", formData, "post")
-              .then(data => {
-                this.$message({
-                  message: "提交成功",
-                  type: "success"
-                });
-                this.reload();
-              })
-              .catch(error => {
-                let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0) {
-                  this.$message({ message: msg,  type: "error" });
+      },
+      //预约团课
+      yuyueForm(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.$confirm("确认预约课程吗？", "提示").then(() => {
+              var formData = {
+                kcbId: this.currentSelectRow.ID, //课程编号
+                cardId: this.ruleForm2.card, //会员卡id
+                sign: this.ruleForm2.consumer, //查询类别
+                hsid: this.clubs[this.clubIndex].Hsxx_Hsid //会所id
+              };
+              requestLogin("/SetGroupReserve", formData, "post")
+                .then(data => {
+                  this.addLoading = false;
+                  this.$message({
+                    message: "预约成功",
+                    type: "success"
+                  });
                   this.reload();
-                }
+                })
+                .catch(error => {
+                  this.addLoading = false;
+                  let { response: { data: { errorCode, msg } } } = error;
+                  if (errorCode != 0) {
+                    this.$message({
+                      message: msg,
+                      type: "error"
+                    });
+                    return;
+                  }
                 });
             });
           } else {
-            this.$message({message: "提交失败!", type: "error"});
+            this.$message({ message: "提交失败!", type: "error" });
             return false;
           }
         });
       },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    inputchange(val) {},
-    Selectchange2(val) {},
-    Selectchange3(val) {},
-    Selectchange4(val) {},
-    Selectchange5(val) {},
-    Selectchange6(val) {},
-    optionchange(val) {
-      this.searchname();
-    },
-    ceshihcange(val) {}
-  }
-};
+      //修改课程
+      editForm(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.$confirm("确认修改吗？", "提示").then(() => {
+              var formData = {
+                kcStime: this.currentSelectRow.kcStime, //课程日期
+                KCNO: this.currentSelectRow.KCNO, //所选课程id
+                kcbSort: this.currentSelectRow.kcbSort == "白底" ? 1 : 2, //灰底白底
+                JLID: this.currentSelectRow.JLID, //教练id
+                kcPlace: this.currentSelectRow.kcPlace, //教室
+                Stime: this.currentSelectRow.Stime, //开课时间
+                Etime: this.currentSelectRow.Etime, //结束时间
+                RenShu: this.currentSelectRow.RenShu, //容纳人数
+                kcDiff: this.currentSelectRow.kcDiff, //课程难度
+                price: this.currentSelectRow.price //价格
+              };
+              requestLogin(
+                "/CurTableInfo/" + this.currentSelectRow.ID,
+                formData,
+                "put"
+              )
+                .then(data => {
+                  this.addLoading = false;
+                  this.$message({
+                    message: "修改成功",
+                    type: "success"
+                  });
+                  this.reload();
+                })
+                .catch(error => {
+                  this.addLoading = false;
+                  let { response: { data: { errorCode, msg } } } = error;
+                  if (errorCode != 0) {
+                    this.$message({
+                      message: msg,
+                      type: "error"
+                    });
+                    return;
+                  }
+                });
+            });
+          } else {
+            this.$message({ message: "提交失败!", type: "error" });
+            return false;
+          }
+        });
+      },
+      Delcourse() {
+        //先选择列表
+        let _this = this;
+        if (!this.currentSelectRow) {
+          this.$message({
+            message: "请先选择数据!",
+            type: "warning"
+          });
+          return;
+        } else {
+          this.$confirm("确认删除该条记录吗？", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+            .then(() => {
+              requestLogin(
+                "/CurTableInfo/" + _this.currentSelectRow.KCNO,
+                {},
+                "delete"
+              ).then(response => {
+                this.$message({
+                  message: "删除成功",
+                  type: "success"
+                });
+              });
+              this.reload();
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
+            });
+        }
+      },
+      //添加课程
+      submitForm(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.$confirm("确认提交吗？", "提示").then(() => {
+              var formData = {
+                kcStime: this.ruleForm.attenddate, //课程日期
+                KCNO: this.ruleForm.course, //所选课程id
+                kcbSort: this.ruleForm.courseclassify, //灰底白底
+                JLID: this.ruleForm.train, //教练id
+                kcPlace: this.ruleForm.room, //教室
+                Stime: this.ruleForm.attendtime, //开始时间
+                Etime: this.ruleForm.endtime, //结束时间
+                RenShu: this.ruleForm.galleryful, //容纳人数
+                kcDiff: this.ruleForm.difficulty, //课程难度
+                price: this.ruleForm.price //价格
+              };
+              requestLogin("/CurTableInfo", formData, "post")
+                .then(data => {
+                  this.$message({
+                    message: "提交成功",
+                    type: "success"
+                  });
+                  this.reload();
+                })
+                .catch(error => {
+                  let { response: { data: { errorCode, msg } } } = error;
+                  if (errorCode != 0) {
+                    this.$message({ message: msg,  type: "error" });
+                    this.reload();
+                  }
+                  });
+              });
+            } else {
+              this.$message({message: "提交失败!", type: "error"});
+              return false;
+            }
+          });
+        },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      inputchange(val) {},
+      Selectchange2(val) {},
+      Selectchange3(val) {},
+      Selectchange4(val) {},
+      Selectchange5(val) {},
+      Selectchange6(val) {},
+      optionchange(val) {
+        this.searchname();
+      },
+      ceshihcange(val) {}
+    }
+  };
 </script>
 <style lang="scss" scoped>
 @import "@/styles/group.scss";

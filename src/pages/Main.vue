@@ -241,9 +241,9 @@ export default {
   watch: {
     activeName(newValue, oldValue) {
       if (newValue == "league") {
-        var course = this.privateList.slice(0, 1)[0];
-      } else {
         var course = this.groupList.slice(0, 1)[0];
+      } else {
+        var course = this.privateList.slice(0, 1)[0];
       }
       this.course = course;
       if (this.course) {

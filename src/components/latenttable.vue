@@ -20,7 +20,7 @@
               </el-col>
             </el-form-item>
           </div>
-          <div class="search-form" v-show="isShow">
+          <div class="search-form" v-show="isShow && isAdviser">
             <el-form-item label="所属会籍:">
               <el-col :span="24">
                 <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
@@ -34,6 +34,15 @@
               <el-col :span="24">
                 <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
                   <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="成交状态:">
+              <el-col :span="24">
+                <el-select v-model="formInline.cardstatus" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in cardstatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
               </el-col>
             </el-form-item>
@@ -179,6 +188,11 @@ export default {
   },
   data() {
     return {
+      cardstatus: [
+        //成交状态
+        { value: "0", label: "已成交" },
+        { value: "1", label: "跟进中" }
+      ],
       Potential: { potential: "setPotentialCustomer", id: "" },
       loading: true,
       downIcon: true,
@@ -232,6 +246,18 @@ export default {
       _this.getCustomer();
     }, 1500);
   },
+  computed: {
+    isAdviser () {
+      let user = JSON.parse(sessionStorage.getItem("userInfo"));
+      for (let index = 0; index < user.role.length; index++) {
+        const element = user.role[index];
+        if (element.name == '超级管理员' || element.name == '店长') {
+          return true;
+        }
+      }
+      return false;
+    }
+  },
   watch: {
     searchVal(val) {
       //姓名电话
@@ -271,11 +297,12 @@ export default {
           quality: _this.formInline.quality, //质量
           followUpTime: _this.formInline.follow, //多长时间未跟进
           registerTimeStart: _this.formInline.date[0], //登记时间区间--开始
-          registerTimeEnd: _this.formInline.date[1] //登记时间区间--结束
+          registerTimeEnd: _this.formInline.date[1], //登记时间区间--结束
+          status: _this.formInline.cardstatus //成交状态
         };
       }
       requestLogin(
-        "/setPotentialCustomer/searchPotentialCustomers/1",
+        "/setPotentialCustomer/searchPotentialCustomers/1/" + _this.formInline.adviser,
         params,
         "post"
       )

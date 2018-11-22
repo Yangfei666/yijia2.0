@@ -12,7 +12,7 @@
             </el-form-item>
           </div>
           <div class="search-form">
-            <el-form-item label="所属会籍:">
+            <el-form-item label="所属会籍:" v-show="isShow && isAdviser">
               <el-col :span="24">
                 <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
                   <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
@@ -29,11 +29,26 @@
               </el-col>
             </el-form-item>
           </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="成交状态:">
+              <el-col :span="24">
+                <el-select v-model="formInline.cardstatus" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in cardstatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
           <div class="search-form">
             <el-form-item label-width="40px">
               <el-button type="primary" @click="getTableData(false)">查询</el-button>
               <el-button @click="resetForm">重置</el-button>
             </el-form-item>
+          </div>
+          <div class="corry">
+            <el-button type="text" class="corry-out" @click="showToggle">{{btnText}}
+              <i class="el-icon-arrow-down" v-show="downIcon"></i>
+              <i class="el-icon-arrow-up" v-show="!downIcon"></i>
+            </el-button>
           </div>
         </div>
       </el-form>
@@ -159,6 +174,15 @@ export default {
   },
   data() {
     return {
+      cardstatus: [
+        //成交状态
+        { value: "0", label: "已成交" },
+        { value: "1", label: "跟进中" },
+        { value: "2", label: "放弃定金" }
+      ],
+      btnText: "展开",
+      isShow: false,
+      downIcon: true,
       currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
@@ -191,6 +215,18 @@ export default {
       ]
     };
   },
+  computed: {
+    isAdviser () {
+      let user = JSON.parse(sessionStorage.getItem("userInfo"));
+      for (let index = 0; index < user.role.length; index++) {
+        const element = user.role[index];
+        if (element.name == '超级管理员' || element.name == '店长') {
+          return true;
+        }
+      }
+      return false;
+    }
+  },
   watch: {
     searchVal(val) {
       //姓名电话
@@ -219,6 +255,15 @@ export default {
     }, 1000);
   },
   methods: {
+    showToggle: function() {
+      this.isShow = !this.isShow;
+      this.downIcon = !this.downIcon;
+      if (this.isShow) {
+        this.btnText = "收起";
+      } else {
+        this.btnText = "展开";
+      }
+    },
     //获取表格数据
     getTableData(type) {
       let _this = this;
@@ -230,11 +275,12 @@ export default {
           tel: _this.itTel, //电话
           followUpTime: _this.formInline.follow, //多长时间未跟进
           registerTimeStart: _this.formInline.date[0], //登记时间区间--开始
-          registerTimeEnd: _this.formInline.date[1] //登记时间区间--结束
+          registerTimeEnd: _this.formInline.date[1], //登记时间区间--结束
+          status: _this.formInline.cardstatus //成交状态
         };
       }
       requestLogin(
-        "/setDepositCustomer/searchDepositCustomers/1",
+        "/setDepositCustomer/searchDepositCustomers/1/" + _this.formInline.adviser,
         params,
         "post"
       )

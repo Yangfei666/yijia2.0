@@ -114,7 +114,7 @@ export default {
             })
             .catch(error => {
               this.$message({
-                message: "对不起,教练信息加载失败",
+                message: error.response.data.msg,
                 type: "error"
               });
             });
