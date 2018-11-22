@@ -24,8 +24,8 @@
             <el-col :span="20" class="from-date">
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
-              </el-form-item>
+                <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+            </el-form-item>
             </el-col>
           </el-form>
         </div>

@@ -1,43 +1,43 @@
 <template>
-  <div>
-    <!--定金修改资料-->
-    <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
-      <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-input v-model="currentSelectRow.itName" placeholder="请输入"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-radio-group v-model="currentSelectRow.itSex">
-            <el-radio label="女" value="0"></el-radio>
-            <el-radio label="男" value="1"></el-radio>
-          </el-radio-group>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-input v-model="currentSelectRow.itTel" placeholder="请输入"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-input v-model="currentSelectRow.itWeChat" placeholder="请输入"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="备注:" prop="desc" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-input type="textarea" v-model="currentSelectRow.itRemark"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item class="dialog-footer">
-        <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <el-button @click="resetForm('currentSelectRow')">重置</el-button>
-          <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-        </el-col>
-      </el-form-item>
-    </el-form>
-  </div>
+    <div>
+      <!--定金修改资料-->
+        <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
+        <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-input v-model="currentSelectRow.itName" placeholder="请输入"></el-input>
+            </el-col>
+        </el-form-item>
+         <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+            <el-col :span="22">
+                <el-radio-group v-model="currentSelectRow.itSex">
+                    <el-radio label="女" value="0"></el-radio>
+                    <el-radio label="男" value="1"></el-radio>
+                </el-radio-group>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-input v-model="currentSelectRow.itTel" placeholder="请输入"></el-input>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-input v-model="currentSelectRow.itWeChat" placeholder="请输入"></el-input>
+            </el-col>
+        </el-form-item>
+         <el-form-item label="备注:" prop="desc" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-input type="textarea" v-model="currentSelectRow.itRemark"></el-input>
+            </el-col>
+        </el-form-item>
+         <el-form-item class="dialog-footer">
+           <el-col :span="24" style="display: flex;justify-content: flex-end;">
+            <!--<el-button @click="resetForm('currentSelectRow')">重置</el-button>-->
+            <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+            </el-col>
+        </el-form-item>
+        </el-form>
+     </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";

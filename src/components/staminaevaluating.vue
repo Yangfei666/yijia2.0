@@ -272,13 +272,13 @@
                     <el-col :span="24" class="from-date4" v-if="show">
                         <el-form-item label-width="0px">
                             <el-button type="primary" @click="addposture('physical_energy_assessment')" style="height:37px">提交</el-button>
-                            <el-button @click="resetForm('physical_energy_assessment')">重置</el-button>
+                            <!--<el-button @click="resetForm('physical_energy_assessment')">重置</el-button>-->
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" class="from-date4" v-if="show2">
                         <el-form-item label-width="0px">
                             <el-button type="primary" @click="addposture2('physical_energy_assessment')" style="height:37px">修改提交</el-button>
-                            <el-button @click="resetForm('physical_energy_assessment')">重置</el-button>
+                            <!--<el-button @click="resetForm('physical_energy_assessment')">重置</el-button>-->
                         </el-form-item>
                     </el-col>
                 </el-form>

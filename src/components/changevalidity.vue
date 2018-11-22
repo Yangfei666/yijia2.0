@@ -31,7 +31,7 @@
                             <el-col :span="16" class="submit">
                             <el-form-item>
                                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                                <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
                             </el-form-item>
                             </el-col>
                         </el-form>

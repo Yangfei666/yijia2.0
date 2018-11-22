@@ -79,7 +79,7 @@
                       </el-form-item>
                       <el-form-item class="dialog-footer">
                         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                          <el-button @click="resetForm('ruleForm')">重置</el-button>
+                          <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
                           <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
                         </el-col>
                       </el-form-item>
@@ -89,11 +89,13 @@
               </div>
               <div class="add">
                 <el-button type="text" class="p" @click="changeInfo">编辑员工信息</el-button>
-                <template>
-                  <el-dialog title="编辑员工信息" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                    <Editstaff :currentSelectRow="currentSelectRow"></Editstaff>
-                  </el-dialog>
-                </template>
+                <div v-if="dialogFormVisible2">
+                  <template>
+                    <el-dialog title="编辑员工信息" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                      <Editstaff :currentSelectRow="currentSelectRow" @closeEdit="closeEdit"></Editstaff>
+                    </el-dialog>
+                  </template>
+                </div>
               </div>
               <div class="add">
                 <el-button type="text" class="p" @click.prevent="delstaff">员工离职</el-button>
@@ -124,7 +126,7 @@
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
               <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
-              <el-table-column prop="role" align="left" label="角色" width="220px"></el-table-column>
+              <el-table-column prop="strRole" align="left" label="角色" width="200px"></el-table-column>
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
               <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px"></el-table-column>
               <el-table-column align="left" label="操作" width="150px" fixed="right">
@@ -229,20 +231,13 @@ export default {
     let _this = this;
     _this.loading = true;
     requestLogin("/setStaffInfo", {}, "get")
-      .then(function(res) {
+      .then((res)=> {
         _this.loading = false;
         _this.tableData = res;
         _this.tableData2 = res;
         _this.rolegourp();
-        for (var i = 0; i < _this.tableData.length; i++) {
-          var rolestr = _this.tableData[i].role[0].name;
-          var role = _this.tableData[i].role;
-          if (role.length > 1) {
-            for (var j = 1; j < role.length; j++) {
-              rolestr = rolestr.concat("," + role[j].name);
-            }
-          }
-          _this.tableData[i].role = rolestr;
+        for(var i = 0; i<_this.tableData.length;i++){
+          _this.tableData[i].strRole = _this.transformRole(_this.tableData[i])
         }
       })
       .catch(error => {
@@ -348,24 +343,26 @@ export default {
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
     },
-    handleCurrentChange2(val, index) {
-      this.currentRow = val;
+     handleCurrentChange2(val,index) {
+        this.currentRow = val;
+     },
+        getCurrentRow(val){
+     },
+    xiaozu(val) {
+      console.log(val);
     },
     getCurrentRow(val) {},
     xiaozu(val) {},
     rowClick(row, event, column) {
-      this.radio = row.index;
+      // for (let index = 0; index < this.currentSelectRow.role.length; index++) {
+      //   const element = this.currentSelectRow.role[index];
+      //   if (element.name == '超级管理员') {
+      //     this.$message({ message: "不可以操作超级管理员!", type: "warning" });
+      //     return false;
+      //   }
+      // }
       this.currentSelectRow = row;
       this.radio = this.tableData.indexOf(row);
-      let roleIds = [];
-      row.role.map(i => {
-        if (i.id) {
-          roleIds.push(i.id);
-        }
-      });
-      if (row.role[0].id) {
-        row.role = roleIds;
-      }
     },
     //添加员工
     submitForm(formName) {
@@ -427,6 +424,9 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
+    closeEdit(isClose){
+      this.dialogFormVisible2 = isClose
+    },
     //员工离职
     delstaff() {
       let _this = this;
@@ -465,8 +465,18 @@ export default {
             return;
           }
         });
+    },
+    transformRole(roleArray) {
+      var rolestr = roleArray.role[0].name;
+      var role = roleArray.role;
+      if (role.length > 1) {
+        for (var j = 1; j < role.length; j++) {
+          rolestr = rolestr.concat(',' + role[j].name);
+        }
+      }
+      return rolestr
     }
-  }
+  },
 };
 </script>
 <style lang="scss">

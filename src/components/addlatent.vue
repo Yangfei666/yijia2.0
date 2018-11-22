@@ -13,7 +13,7 @@
                     <el-radio :label="1">女</el-radio>
                     <el-radio :label="2">男</el-radio>
                 </el-radio-group>
-                </el-col> 
+                </el-col>
             </el-form-item>
              <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
               <el-col :span="22">
@@ -45,8 +45,8 @@
                 </el-col>
             </el-form-item>
              <el-form-item class="dialog-footer">
-               <el-col :span="24" style="display: flex;justify-content: flex-end">
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
+               <el-col :span="24" style="display: flex;justify-content: flex-end;">
+            <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
             <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
             </el-col>
         </el-form-item>
@@ -66,8 +66,8 @@ export default {
         disabled:false,
         quality: [//客户质量
           {value: '1',label: 'A'},
-          {value: '2',label: 'B'}, 
-          {value: '3',label: 'C'}, 
+          {value: '2',label: 'B'},
+          {value: '3',label: 'C'},
           {value: '4',label: 'D'}],
         staff_info:[],
         ruleForm: {

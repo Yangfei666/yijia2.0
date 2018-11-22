@@ -21,16 +21,32 @@
               </el-col>
               <el-col :span="16" class="from-date">
                 <el-col :span="24">
-                  <el-form-item label="退卡原因:" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%;"></el-input>
-                    <span class="textarea">还可以输入{{remnant}}字</span>
-                  </el-form-item>
+                    <div class="transfer-from">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                            <el-col :span="16">
+                           <el-form-item label="退卡金额:" prop="price">
+                               <el-col :span="24">
+                                <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                                </el-col>
+                            </el-form-item>
+                            </el-col>
+                            <el-col :span="16" class="from-date">
+                                <el-col :span="24">
+                            <el-form-item label="退卡原因:" prop="desc">
+                                <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%;"></el-input>
+                                <span class="textarea">还可以输入{{remnant}}字</span>
+                            </el-form-item>
+                                </el-col>
+                            </el-col>
+
+                        </el-form>
+                    </div>
                 </el-col>
               </el-col>
               <el-col :span="16" class="submit">
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                  <el-button @click="resetForm('ruleForm')">重置</el-button>
+                  <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
                 </el-form-item>
               </el-col>
             </el-form>

@@ -34,11 +34,13 @@
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
-                      <template>
-                        <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                          <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
-                        </el-dialog>
-                      </template>
+                      <div v-if="dialogFormVisible2">
+                        <template>
+                          <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                          </el-dialog>
+                        </template>
+                      </div>
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
@@ -117,11 +119,13 @@
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
-                      <template>
-                        <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
-                          <Cardedit :currentSelectRow="currentSelectRow" :hides='hide'></Cardedit>
-                        </el-dialog>
-                      </template>
+                      <div v-if="dialogFormVisible5" >
+                        <template>
+                          <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
+                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                          </el-dialog>
+                        </template>
+                      </div>
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo2">会员卡详情</el-button>
@@ -269,6 +273,9 @@ export default {
       } else {
         this.hide = "yinchang";
       }
+      this.radio = -1;
+      this.radio2 = -1;
+      this.currentSelectRow = ''
     },
     handleSizeChange(size) {
       this.pagesize = size;
@@ -289,16 +296,25 @@ export default {
     },
     rowClick(row, event, column) {
       this.radio = row.index;
-      //获取表格数据
-      this.currentSelectRow = row;
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
+      if(this.radio < 0 && this.radio2 < 0) return;
+      //获取表格数据
+      this.currentSelectRow = row;
     },
-    handleCurrentChange2(val, index) {
-      this.currentRow = val;
+    handleCurrentChange2(val,index) {
+        this.currentRow = val;
+     },
+    getCurrentRow(val){
+      console.log(val);
+     },
+    getCurrentRow2(val){
+      console.log(val);
+     },
+    closeEdit(isClose){
+      this.dialogFormVisible2 = isClose;
+      this.dialogFormVisible5 = isClose;
     },
-    getCurrentRow(val) {},
-    getCurrentRow2(val) {},
     changeInfo() {
       //先选择列表
       if (this.currentSelectRow) {

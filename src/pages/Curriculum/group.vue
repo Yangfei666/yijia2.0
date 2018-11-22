@@ -161,12 +161,7 @@ export default {
           _this.tdlist = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          console.log(error);
         });
     },
     //添加课程数据(课程,教练,教室)

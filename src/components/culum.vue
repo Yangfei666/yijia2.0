@@ -255,19 +255,22 @@ export default {
       }
     },
     // 选中的时间中间的时间按钮样式
-    middleButtonStyle(param, status, num) {
+    middleButtonStyle (param, status, state) {
       status = status ? false : true;
-      num = num ? num : 1;
+      state = state ? true : false;
       for (let i = 0; i < this.privateList.length; i++) {
         const element = this.privateList[i];
         if (element.name == this.classroom) {
           for (let index = 0; index < element.time.length; index++) {
             const value = element.time[index];
-            if (num == 1) {
-              if (
-                this.CompareDate(value.time, this.startTime, status) &&
-                this.CompareDate(this.endTime, value.time, status)
-              ) {
+            if (this.CompareDate(value.time, this.startTime, status) && this.CompareDate(this.endTime, value.time, status)) {
+              value.staff = param;
+            }
+            if (state) {
+              if (value.time == this.startTime) {
+                value.staff = param;
+              }
+              if (value.time == this.endTime) {
                 value.staff = param;
               }
             }

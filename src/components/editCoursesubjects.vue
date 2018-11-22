@@ -34,7 +34,6 @@
       </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <el-button @click="resetForm('currentSelectRow')">重置</el-button>
           <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -111,9 +110,6 @@ export default {
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);

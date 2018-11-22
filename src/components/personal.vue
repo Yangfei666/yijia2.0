@@ -27,32 +27,37 @@
           <el-select v-model="ruleForm.consumer" @change="getCardInfo()" placeholder="请选择" style="width:100%">
             <el-option label="会员" value="member"></el-option>
             <el-option label="体验客户" value="experience"></el-option>
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="会员卡/体验券:" prop="card" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-select v-model="ruleForm.card" placeholder="请选择" style="width:100%">
-            <el-option v-for="item in cardList" :key="item.id" :value="item.id" :label="cardInfoHandle(item)"></el-option>
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="教练:" prop="trainer" :label-width="formLabelWidth">
-        <el-col :span="22">
-          <el-select v-model="ruleForm.trainer" placeholder="请选择" style="width:100%">
-            <el-option v-for="item in coachList" :key="item.YGXX_YGID_NEI" :value="item.YGXX_YGID_NEI" :label="item.YGXX_NAME">
-            </el-option>
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item class="dialog-footer">
-        <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-          <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-        </el-col>
-      </el-form-item>
-    </el-form>
-  </div>
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="会员卡/体验券:" prop="card" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-select v-model="ruleForm.card" placeholder="请选择" style="width:100%">
+              <el-option v-for="item in cardList" :key="item.id" :value="item.id"
+                 :label="cardInfoHandle(item)"
+              ></el-option>
+            </el-select>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="教练:" prop="trainer" :label-width="formLabelWidth">
+          <el-col :span="22">
+            <el-select v-model="ruleForm.trainer" placeholder="请选择" style="width:100%">
+              <el-option
+                v-for="item in coachList" :key="item.YGXX_YGID_NEI" :value="item.YGXX_YGID_NEI"
+                :label="item.YGXX_NAME"
+                >
+              </el-option>
+            </el-select>
+            </el-col>
+        </el-form-item>
+         <el-form-item class="dialog-footer">
+           <el-col :span="24" style="display: flex;justify-content: flex-end;">
+            <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+            <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+            </el-col>
+        </el-form-item>
+        </el-form>
+     </div>
 </template>
 <script>
 import { requestLogin as request } from "../api/api";
