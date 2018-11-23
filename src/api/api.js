@@ -16,36 +16,43 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-// /* 响应拦截器 */
-// axios.interceptors.response.use(function (response) {
-//   return response;
-// }, function (error) {
-//   if (error.response) {
-//     switch (error.response.status) {
-//       case 401:
-//         sessionStorage.removeItem('access-token');
-//         Message.error({
-//           message: '登录信息已失效，即将跳转至登录页面',
-//           type: 'error',
-//           duration: 3000
-//         });
-//         setTimeout(function () {
-//          location.replace("/#/login");
-//         }, 3000);
-//         break;
-//       case 500:
-//         location.replace('/#/House/500');
-//         break;
-//     }
-//     if (error.response.data.errorCode == 10001) {
-//       Message.error({
-//         message: '对不起,权限不够!',
-//         type: 'error',
-//       });
-//     }
-//   }
-//   return Promise.reject(error)
-// })
+/* 响应拦截器 */
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        sessionStorage.removeItem('access-token');
+        Message.error({
+          message: '登录信息已失效，即将跳转至登录页面',
+          type: 'error',
+          duration: 3000
+        });
+        setTimeout(function () {
+         location.replace("/#/login");
+        }, 3000);
+        break;
+        case 403:
+        Message.error({
+          message: '对不起,权限不够!',
+          type: 'error',
+          duration: 3000
+        });
+        break;
+      case 500:
+        location.replace('/#/House/500');
+        break;
+    }
+      // if (error.response.data.errorCode == 10001) {
+      //   Message.error({
+      //     message: '对不起,权限不够!',
+      //     type: 'error',
+      //   });
+      // }
+  }
+  return Promise.reject(error)
+})
 
 export const requestLogin = (url, params, method, baseURL, responseType) => {
   return axios({

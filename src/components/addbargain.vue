@@ -10,8 +10,8 @@
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-radio-group v-model="ruleForm.sex">
-            <el-radio :label="1">女</el-radio>
-            <el-radio :label="2">男</el-radio>
+            <el-radio label="女" value="1"></el-radio>
+            <el-radio label="男" value="2"></el-radio>
           </el-radio-group>
         </el-col>
       </el-form-item>
@@ -64,7 +64,7 @@
       </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
           <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -91,7 +91,7 @@ export default {
       staff_info: [],
       YGXX_NAME:'',
       ruleForm: {
-        name: "", //姓名
+        name:"", //姓名
         sex: "", //性别
         phone: "", //电话
         wechat: "", //微信
@@ -115,6 +115,12 @@ export default {
   },
   created(){
     this.getCustomer();
+    this.ruleForm.name=this.dingjinqufen.name;
+    this.ruleForm.sex=this.dingjinqufen.sex;
+    this.ruleForm.phone=this.dingjinqufen.tel;
+    this.ruleForm.wechat=this.dingjinqufen.wechat;
+    this.ruleForm.adviser=this.dingjinqufen.ygxxnameid;
+    this.YGXX_NAME=this.dingjinqufen.ygxxname;
   },
   methods: {
      //获取会籍顾问列表
@@ -152,7 +158,7 @@ export default {
             let formData = new FormData();
             formData.append("name", this.ruleForm.name);//姓名
             formData.append("file", this.file);//上传凭证
-            formData.append("sex", this.ruleForm.sex);//性别
+            formData.append("sex", this.ruleForm.sex=="女"?1:2);//性别
             formData.append("remark", this.ruleForm.desc);//备注
             formData.append("tel", this.ruleForm.phone);//电话
             formData.append("mode", this.ruleForm.mode);//付款方式

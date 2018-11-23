@@ -104,7 +104,7 @@ export default {
       } else {
         this.$message({
           message: "请先选择上课教室和时间",
-          type: "error"
+          type: "warning"
         });
       }
     },

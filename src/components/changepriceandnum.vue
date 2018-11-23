@@ -9,9 +9,12 @@
             <span class="transfer-span">次卡变更使用次数</span>
             <span class="transfer-span2">原剩余次数：{{this.$route.query.CARD.SYCS}}</span>
           </div>
-          <div class="transfer-main" v-else>
+          <div class="transfer-main" v-else-if="this.$route.query.CARD.card_type.ctType == '金额卡'">
             <span class="transfer-span">次卡变更使用金额</span>
             <span class="transfer-span2">原剩余金额：{{this.$route.query.CARD.SYJE}}</span>
+          </div>
+          <div class="transfer-main" v-else>
+            <span class="transfer-span"></span>
           </div>
         </el-col>
         <el-col :span="24">
@@ -35,12 +38,12 @@
               <el-col :span="16" class="submit">
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                  <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                  <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
               </el-col>
             </el-form>
           </div>
-          <div class="transfer-from" v-else>
+          <div class="transfer-from" v-else-if="this.$route.query.CARD.card_type.ctType == '金额卡'">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
               <el-col :span="16">
                 <el-form-item label="变更后的总金额:" prop="price">
@@ -64,6 +67,9 @@
                 </el-form-item>
               </el-col>
             </el-form>
+          </div>
+          <div class="transfer-from" style="margin-top:7%" v-else>
+            <span style="color:#D7690F">Sorry~~~期限卡不能更改金额或次数</span>
           </div>
         </el-col>
       </div>

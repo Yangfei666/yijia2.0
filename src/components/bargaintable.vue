@@ -196,7 +196,7 @@ export default {
       Customercategory: "deposit",
       Potential: { potential: "setDepositCustomer", id: "" },
       Dingjinqufen: { dingjinqufen: "newCustomer",id:""},
-      Huiyuanqufen: { huiyuanqufen: "deposit", id: "" },
+      Huiyuanqufen: { huiyuanqufen: "deposit", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"" },
       formInline: {
         date: "",
         adviser: [],
@@ -243,6 +243,12 @@ export default {
     follow(val) {
       //跟进
       if (!val) {
+        this.tableData = this.tableData2;
+      }
+    },
+    cardstatus(val){
+      //成交状态
+      if(!val){
         this.tableData = this.tableData2;
       }
     }
@@ -365,6 +371,7 @@ export default {
       downloadExcel(config, this.tableData);
     },
     radiochange(row) {},
+    Selectchange(val){},
     Selectchange2(val) {},
     Selectchange3(val) {},
     handleCurrentChange2(val, index) {
@@ -375,6 +382,7 @@ export default {
       this.formInline.date = "";
       this.formInline.adviser = "";
       this.formInline.follow = "";
+      this.formInline.cardstatus = "";
     },
     handleSizeChange(size) {
       this.pagesize = size;
@@ -388,6 +396,12 @@ export default {
       this.currentSelectRow = row;
       this.Potential.id = this.currentSelectRow.id;
       this.Huiyuanqufen.id = this.currentSelectRow.id;
+      this.Huiyuanqufen.name = this.currentSelectRow.itName;
+      this.Huiyuanqufen.tel = this.currentSelectRow.itTel;
+      this.Huiyuanqufen.ygxxname = this.currentSelectRow.itHjgwName;
+      this.Huiyuanqufen.ygxxnameid = this.currentSelectRow.itHjgwId;
+      this.Huiyuanqufen.wechat = this.currentSelectRow.itWeChat;
+      this.Huiyuanqufen.sex = this.currentSelectRow.itSex;
       this.radio = this.tableData.indexOf(row);
     },
     //定金认领跳转

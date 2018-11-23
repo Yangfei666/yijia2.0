@@ -10,8 +10,8 @@
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-radio-group v-model="ruleForm.sex">
-            <el-radio :label="1">女</el-radio>
-            <el-radio :label="2">男</el-radio>
+            <el-radio label="女" value="1"></el-radio>
+            <el-radio label="男" value="2"></el-radio>
           </el-radio-group>
         </el-col>
       </el-form-item>
@@ -62,7 +62,7 @@
       </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
           <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -98,7 +98,7 @@ export default {
         desc: "" //员工简介
       },
       rules: {
-        name: validate.name,
+        name:validate.name,
         sex: validate.sex,
         tel: validate.phone,
         wechat: validate.wechat,
@@ -118,6 +118,12 @@ export default {
     setTimeout(() => {
       this.getVouchers();
     }, 1000);
+    this.ruleForm.name = this.tiyanqufen.name;
+    this.ruleForm.sex = this.tiyanqufen.sex;
+    this.ruleForm.tel = this.tiyanqufen.tel;
+    this.ruleForm.wechat = this.tiyanqufen.wechat;
+    this.ruleForm.adviser = this.tiyanqufen.ygxxnameid;
+    this.YGXX_NAME = this.tiyanqufen.ygxxname;
   },
   methods: {
     //获取会籍顾问列表
@@ -163,7 +169,7 @@ export default {
               exName: _this.ruleForm.name, //姓名
               exTel: _this.ruleForm.tel, //电话
               exWeChat: _this.ruleForm.wechat, //微信
-              exSex: _this.ruleForm.sex, //性别
+              exSex: _this.ruleForm.sex=='女'?1:2, //性别
               exHjgwId: _this.ruleForm.adviser, //会籍顾问id
               exHjgwName: _this.YGXX_NAME, //会籍顾问姓名
               vid: _this.ruleForm.type, //体验券id
@@ -207,6 +213,7 @@ export default {
         return item.YGXX_YGID_NEI === val;
       });
       this.YGXX_NAME = obj.YGXX_NAME;
+      console.log(val);
     },
     Selectchange(val) {
       let obj2 = {};

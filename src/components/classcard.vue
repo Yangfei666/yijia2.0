@@ -15,7 +15,7 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
@@ -40,7 +40,7 @@
                                         <div class="from-class">
                                             <el-form-item label-width="40px">
                                                 <el-button type="primary" @click="getTableData">查询</el-button>
-                                                <el-button>重置</el-button>
+                                                <el-button @click="resetForm">重置</el-button>
                                             </el-form-item>
                                         </div>
                                     </el-form>
@@ -62,8 +62,8 @@
                                                     <div v-if="scope.row.isEnter == '已进场'">
                                                         <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
                                                     </div>
-                                                    <div v-else-if="scope.row.isTrue == '未取消'">
-                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    <div v-else-if="scope.row.isTrue == '已取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -88,14 +88,14 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
                                             <el-form-item label="券种:" style="text-align:center">
                                                 <el-col :span="24">
-                                                    <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                    <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
                                                         <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
@@ -113,7 +113,7 @@
                                         <div class="from-class">
                                             <el-form-item label-width="40px">
                                                 <el-button type="primary" @click="getTableData">查询</el-button>
-                                                <el-button>重置</el-button>
+                                                <el-button  @click="resetForm">重置</el-button>
                                             </el-form-item>
                                         </div>
                                     </el-form>
@@ -133,8 +133,8 @@
                                                     <div v-if="scope.row.isEnter == '已进场'">
                                                         <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
                                                     </div>
-                                                    <div v-else-if="scope.row.isTrue == '未取消'">
-                                                        <el-button type="text" size="small" style="color:#D7690F">未取消</el-button>
+                                                    <div v-else-if="scope.row.isTrue == '已取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -171,7 +171,7 @@ export default {
       header: [],
       formInline: {
         time: "",
-        header: "",
+        quan: "",
         status: ""
       },
       status: [
@@ -187,20 +187,17 @@ export default {
     };
   },
   watch: {
-    header(val) {
-      //券种
+    status(val) {
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
-    status(val) {
-      //状态
+    quan(val) {
       if (!val) {
         this.tableData = this.tableData3;
       }
     },
     time(val) {
-      //时间
       if (!val) {
         this.tableData = this.tableData3;
       }
@@ -210,13 +207,13 @@ export default {
     this.getTableData();
     setTimeout(() => {
       this.getexperhome();
-    }, 1500);
+    }, 1000);
   },
   methods: {
     //获取体验券详情
     getexperhome() {
       let _this = this;
-      requestLogin("/setExperienceCustomer/" + this.$route.params.id, {}, "get")
+      requestLogin("/setExperienceCustomer/" + _this.$route.params.id, {}, "get")
         .then(function(res) {
           var customer_voucher = [];
           customer_voucher = res.customer_voucher;
@@ -241,12 +238,12 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.params.id, //体验券id  this.$route.params.id
+        id: _this.$route.params.id, //体验券id 
         type: 3, //课程种类
         state: _this.formInline.status, //上课状态
-        cardId: _this.formInline.header, //券种id
-        startTime: _this.formInline.time, //预约时间
-        endTime: _this.formInline.time //结束
+        cardId: _this.formInline.quan, //券种id
+        startTime: _this.formInline.time[0], //开始
+        endTime: _this.formInline.time[1] //结束
       };
       requestLogin("/setExperienceCustomer/takeLessonsRecord", params, "post")
         .then(function(res) {
@@ -275,6 +272,12 @@ export default {
         this.tablelength = this.tableData.length;
         this.tablelength2 = this.tableData2.length;
       }
+    },
+    //重置
+    resetForm() {
+      this.formInline.time = "";
+      this.formInline.quan = "";
+      this.formInline.status = "";
     },
     handleClick(tab, event) {},
     Selectchange3(val) {},
@@ -307,10 +310,10 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 1.3% !important;
+      top: 11px;
       z-index: 2;
       color: #262626;
-      right: 78% !important;
+      right: 78%;
       .goback {
         font-size: 14px;
       }

@@ -202,9 +202,9 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: "",
-      Tiyanqufen: { tiyanqufen: "potential", id: "" },
-      Dingjinqufen: { dingjinqufen: "potential", id: "" },
-      Huiyuanqufen: { huiyuanqufen: "potential", id: "" },
+      Tiyanqufen: { tiyanqufen: "potential", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
+      Dingjinqufen: { dingjinqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
+      Huiyuanqufen: { huiyuanqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
       Customercategory: "potential",
       dialogFormVisible3: false,
       dialogFormVisible4: false,
@@ -422,8 +422,26 @@ export default {
       this.currentSelectRow = row;
       this.Potential.id = this.currentSelectRow.id;
       this.Tiyanqufen.id = this.currentSelectRow.id;
+      this.Tiyanqufen.name = this.currentSelectRow.prName;
+      this.Tiyanqufen.sex = this.currentSelectRow.prSex;
+      this.Tiyanqufen.tel = this.currentSelectRow.prTel;
+      this.Tiyanqufen.ygxxname = this.currentSelectRow.YGXX_NAME;
+      this.Tiyanqufen.ygxxnameid = this.currentSelectRow.prBelog;
+      this.Tiyanqufen.wechat = this.currentSelectRow.WeChat;
       this.Dingjinqufen.id = this.currentSelectRow.id;
+      this.Dingjinqufen.name = this.currentSelectRow.prName;
+      this.Dingjinqufen.sex = this.currentSelectRow.prSex;
+      this.Dingjinqufen.tel = this.currentSelectRow.prTel;
+      this.Dingjinqufen.ygxxname = this.currentSelectRow.YGXX_NAME;
+      this.Dingjinqufen.ygxxnameid = this.currentSelectRow.prBelog;
+      this.Dingjinqufen.wechat = this.currentSelectRow.WeChat;
       this.Huiyuanqufen.id = this.currentSelectRow.id;
+      this.Huiyuanqufen.name = this.currentSelectRow.prName;
+      this.Huiyuanqufen.tel = this.currentSelectRow.prTel;
+      this.Huiyuanqufen.ygxxname = this.currentSelectRow.YGXX_NAME;
+      this.Huiyuanqufen.ygxxnameid = this.currentSelectRow.prBelog;
+      this.Huiyuanqufen.wechat = this.currentSelectRow.WeChat;
+      this.Huiyuanqufen.sex = this.currentSelectRow.prSex;
       this.radio = this.tableData.indexOf(row);
     },
     //潜在认领跳转

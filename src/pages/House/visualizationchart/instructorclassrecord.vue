@@ -33,8 +33,8 @@
               </div>
               <div class="block2">
                 <el-col :span="24">
-                  <el-date-picker v-model="value4" type="month" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px"></el-date-picker>
-                  <el-date-picker v-model="value5" type="year" value-format="yyyy" @change="change1" placeholder="选择年" style="width:150px"></el-date-picker>
+                  <el-date-picker v-model="value4" type="month" format="yyyy-MM" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px"></el-date-picker>
+                  <el-date-picker v-model="value5" type="year" format="yyyy" value-format="yyyy" @change="change2" placeholder="选择年" style="width:150px"></el-date-picker>
                 </el-col>
               </div>
             </div>
@@ -49,14 +49,13 @@
             <template>
               <el-col :span="24" v-if="coachData.groupList !=null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.groupList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                  <el-table-column width="20px" fixed></el-table-column>
-                  <el-table-column prop="kcName" align="left" label="课程名称" width="240px" fixed></el-table-column>
-                  <el-table-column prop="Stime" align="left" label="开始时间" width="240px"></el-table-column>
-                  <el-table-column prop="Etime" align="left" label="结束时间" width="240px"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="240px" :formatter="formatkcIs"></el-table-column>
-                  <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="240px"></el-table-column>
-                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="240px"></el-table-column>
-                  <el-table-column prop="kcStime" align="left" label="开课日期" width="240px" fixed="right"></el-table-column>
+                  <el-table-column prop="kcName" align="left" label="课程名称" width="230px" fixed></el-table-column>
+                  <el-table-column prop="Stime" align="left" label="开始时间" width="220px"></el-table-column>
+                  <el-table-column prop="Etime" align="left" label="结束时间" width="220px"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="220px" :formatter="formatkcIs"></el-table-column>
+                  <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="230px"></el-table-column>
+                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="220px"></el-table-column>
+                  <el-table-column prop="kcStime" align="left" label="开课日期" width="220px" fixed="right"></el-table-column>
                 </el-table>
                 <div class="block">
                   <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="coachData.groupList.length">
@@ -159,7 +158,21 @@ export default {
           }
         });
     },
-    change1(val) {},
+    change1(val) {
+      let year = this.value4.split('-')[0];
+      if(year !== this.value5){
+        this.value5 = year;
+      }
+      this.getstaffdate();
+    },
+    change2(val){
+      let year = this.value4.split('-')[0];
+      let month = this.value4.split('-')[1];
+      if(year !== this.value5){
+        this.value4 = `${this.value5}-${month}`
+      }
+      this.getstaffdate();
+    },
     Selectchange3(val) {
       this.jskey = val;
       this.getstaffdate();
