@@ -231,8 +231,6 @@ export default {
   },
   created() {
     this.getCustomer();
-    console.log(this.$route);
-    console.log(this.$route.query.HYName);
   },
   methods: {
     //获取会籍顾问
