@@ -36,7 +36,7 @@
               </el-col>
             </el-form-item>
           </div>
-          <div class="search-form" v-show="isShow">
+          <div class="search-form" v-show="isShow && isAdviser">
             <el-form-item label="所属会籍:">
               <el-col :span="24">
                 <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
@@ -205,6 +205,18 @@ export default {
       ]
     };
   },
+  computed: {
+    isAdviser () {
+      let user = JSON.parse(sessionStorage.getItem("userInfo"));
+      for (let index = 0; index < user.role.length; index++) {
+        const element = user.role[index];
+        if (element.name == '超级管理员' || element.name == '店长') {
+          return true;
+        }
+      }
+      return false;
+    }
+  },
   watch: {
     searchVal(val) {
       //姓名电话
@@ -250,7 +262,7 @@ export default {
         };
       }
       requestLogin(
-        "/setExperienceCustomer/searchExperienceCustomers/1",
+        "/setExperienceCustomer/searchExperienceCustomers/1/" + _this.formInline.adviser,
         params,
         "post"
       )

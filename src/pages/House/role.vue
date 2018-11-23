@@ -240,10 +240,14 @@ export default {
     },
     getCurrentRow(val) {},
     rowClick(row, event, column) {
-      this.radio = row.index;
-      //获取表格数据
-      this.currentSelectRow = row;
-      this.radio = this.tableData.indexOf(row);
+      if (row.name == '超级管理员') {
+        this.$message({ message: "超级管理员不能操作!", type: "warning" });
+      } else {
+        this.radio = row.index;
+        //获取表格数据
+        this.currentSelectRow = row;
+        this.radio = this.tableData.indexOf(row);
+      }
     },
     changeInfo() {
       //先选择列表
