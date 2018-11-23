@@ -15,14 +15,14 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
-                                                    <el-select v-model="formInline.quan" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                    <el-select v-model="formInline.card" placeholder="请选择" style="width:200px" @change="Selectchange4">
                                                         <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
@@ -40,7 +40,7 @@
                                         <div class="from-class">
                                             <el-form-item label-width="40px">
                                                 <el-button type="primary" @click="getTableData">查询</el-button>
-                                                <el-button>重置</el-button>
+                                                <el-button @click="resetForm">重置</el-button>
                                             </el-form-item>
                                         </div>
                                     </el-form>
@@ -88,14 +88,14 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker value-format="yyyy-MM-dd" v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="formInline.time" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
                                         <div class="from-class">
                                             <el-form-item label="卡种:" style="text-align:center">
                                                 <el-col :span="24">
-                                                    <el-select v-model="formInline.header" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                    <el-select v-model="formInline.card" placeholder="请选择" style="width:200px" @change="Selectchange4">
                                                         <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
                                                     </el-select>
                                                 </el-col>
@@ -113,7 +113,7 @@
                                         <div class="from-class">
                                             <el-form-item label-width="40px">
                                                 <el-button type="primary" @click="getTableData">查询</el-button>
-                                                <el-button>重置</el-button>
+                                                <el-button @click="resetForm">重置</el-button>
                                             </el-form-item>
                                         </div>
                                     </el-form>
@@ -171,7 +171,7 @@ export default {
       header: [],
       formInline: {
         time: "",
-        header: "",
+        card: "",
         status: ""
       },
       status: [
@@ -187,7 +187,7 @@ export default {
     };
   },
   watch: {
-    header(val) {
+    card(val) {
       //卡种
       if (!val) {
         this.tableData = this.tableData3;
@@ -216,7 +216,7 @@ export default {
     //获取会员卡详情
     getexperhome() {
       let _this = this;
-      requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
+      requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
         .then(function(res) {          
           var membership_card = [];
           membership_card = res.membership_card;
@@ -241,12 +241,12 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.query.HYID, //体验券id 
+        id: _this.$route.query.HYID, //会员卡id 
         type: 3, //课程种类
         state: _this.formInline.status, //上课状态 
-        cardId: _this.formInline.header, //卡id 
-        startTime: _this.formInline.time, //预约时间
-        endTime: _this.formInline.time //结束
+        cardId: _this.formInline.card, //卡id 
+        startTime: _this.formInline.time[0], //预约时间
+        endTime: _this.formInline.time[1] //结束
       };
       requestLogin("/setDesignateMember/takeLessonsRecord", params, "post")
         .then(function(res) {
@@ -284,6 +284,12 @@ export default {
     },
     timechange(val) {
     },
+    //重置
+    resetForm() {
+      this.formInline.time = "";
+      this.formInline.card = "";
+      this.formInline.status = "";
+    },
     handleSizeChange(size) {
       this.pagesize = size;
     },
@@ -311,10 +317,10 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 1.5% !important;
+      top: 11px;
       z-index: 2;
       color: #262626;
-      right: 78% !important;
+      right: 78%;
       .goback {
         font-size: 14px;
       }

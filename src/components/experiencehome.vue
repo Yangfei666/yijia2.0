@@ -82,21 +82,33 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
-      Potential: {
-        potential: "setExperienceCustomer",
-        id: this.id,
-        exHjgwName: this.exHjgwName,
-        exName: this.exName,
-        exTel: this.exTel,
-        exSex: this.exSex
-      },
-      Huiyuanqufen: { huiyuanqufen: "experience", id: this.$route.params.id },
-      Dingjinqufen: { dingjinqufen: "experience", id: this.$route.params.id },
+      Potential: {potential: "setExperienceCustomer",id: this.$route.params.id,},
+      Huiyuanqufen: { 
+        huiyuanqufen: "experience", 
+        id: this.$route.params.id,
+        name:this.$route.params.exName,
+        sex:this.$route.params.exSex,
+        tel:this.$route.params.exTel,
+        wechat:this.$route.params.exWeChat,
+        ygxxnameid:this.$route.params.exHjgwId,
+        ygxxname:this.$route.params.exHjgwName
+        },
+      Dingjinqufen: { 
+        dingjinqufen: "experience", 
+        id: this.$route.params.id ,
+        name:this.$route.params.exName,
+        sex:this.$route.params.exSex,
+        tel:this.$route.params.exTel,
+        wechat:this.$route.params.exWeChat,
+        ygxxnameid:this.$route.params.exHjgwId,
+        ygxxname:this.$route.params.exHjgwName},
       id: "",
       exHjgwName: "",
+      exHjgwId:"",
       exName: "",
       exTel: "",
-      exSex: ""
+      exSex: "",
+      exWeChat:"",
     };
   },
   mounted() {
@@ -105,6 +117,8 @@ export default {
     this.exName = this.$route.params.exName;
     this.exTel = this.$route.params.exTel;
     this.exSex = this.$route.params.exSex;
+    this.exWeChat = this.$route.params.exWeChat;
+    this.exHjgwId = this.$route.params.exHjgwId;
   },
   methods: {}
 };

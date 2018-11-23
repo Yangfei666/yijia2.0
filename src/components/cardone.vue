@@ -42,12 +42,14 @@
           <el-col :span="12" class="chart-left">
             <div class="box"></div>
             <span class="chart-span" v-if="membershipcards.card_type.ctType=='次数卡'">已使用次数</span>
-            <span class="chart-span" v-else>已使用金额</span>
+            <span class="chart-span" v-else-if="membershipcards.card_type.ctType=='金额卡'">已使用金额</span>
+            <span class="chart-span" v-else>已使用天数</span>
           </el-col>
           <el-col :span="12" class="chart-left">
             <div class="box2"></div>
             <span class="chart-span" v-if="membershipcards.card_type.ctType=='次数卡'">剩余次数</span>
-            <span class="chart-span" v-else>剩余金额</span>
+            <span class="chart-span" v-else-if="membershipcards.card_type.ctType=='金额卡'">剩余金额</span>
+            <span class="chart-span" v-else>剩余天数</span>
           </el-col>
           <div class="chart-top">
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
@@ -56,10 +58,16 @@
                 <span class="ci">次</span>
               </p>
             </el-col>
-            <el-col class="box-top" v-else>
+            <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
               <span>总金额</span>
               <p>{{membershipcards.card_type.CTjg}}
                 <span class="ci">元</span>
+              </p>
+            </el-col>
+            <el-col class="box-top" v-else>
+              <span>总天数</span>
+              <p>{{membershipcards.card_type.CTjg}}
+                <span class="ci">天</span>
               </p>
             </el-col>
             <div class="box3"></div>
@@ -69,10 +77,16 @@
                 <span class="ci">次</span>
               </p>
             </el-col>
-            <el-col class="box-top" v-else>
+            <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
               <span>已使用金额{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
+              </p>
+            </el-col>
+            <el-col class="box-top" v-else>
+              <span>已使用天数{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
+              <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
+                <span class="ci">天</span>
               </p>
             </el-col>
             <div class="box3"></div>
@@ -82,10 +96,16 @@
                 <span class="ci">次</span>
               </p>
             </el-col>
-            <el-col class="box-top" v-else>
+            <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
               <span>剩余金额{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
+              </p>
+            </el-col>
+            <el-col class="box-top" v-else>
+              <span>剩余金额{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
+              <p>{{membershipcards.SYJE}}
+                <span class="ci">天</span>
               </p>
             </el-col>
           </div>
@@ -151,7 +171,7 @@ export default {
         },
         { value: this.membershipcards.SYCS, name: "剩余次数" }
       ];
-    } else {
+    } else if(this.membershipcards.card_type.ctType == "金额卡"){
       this.tbdata = [
         {
           value:
@@ -159,6 +179,15 @@ export default {
           name: "已使用金额"
         },
         { value: this.membershipcards.SYJE, name: "剩余金额" }
+      ];
+    }else{
+      this.tbdata = [
+        {
+          value:
+            this.membershipcards.card_type.CTjg - this.membershipcards.SYJE,
+          name: "已使用天数"
+        },
+        { value: this.membershipcards.SYJE, name: "剩余天数" }
       ];
     }
   },

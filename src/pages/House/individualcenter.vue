@@ -9,11 +9,11 @@
               <el-breadcrumb-item>个人中心</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
-          <el-col :span="23" class="weber">
+          <el-col :span="24" class="weber">
             <el-col :span="1" class="weber-img">
               <img :src="item.Photo" />
             </el-col>
-            <el-col :span="10" class="weber-left">
+            <el-col :span="13" class="weber-left">
               <span class="weber-span">{{item.YGXX_NAME}}</span>
               <p class="weber-p">岗位:{{a.name}}
                 <span class="weber-pp">电话:{{item.YGXX_HOMETEL}}</span>
@@ -123,6 +123,7 @@
                 </template>
               </el-tab-pane>
               <!--我的门店-->
+              <div v-if="this.a.name == '超级管理员'">
               <el-tab-pane label="我的门店" name="second">
                 <template>
                   <el-col :span="24" class="room-main">
@@ -208,7 +209,9 @@
                   </el-col>
                 </template>
               </el-tab-pane>
+              </div>
               <!--私教禁用时间-->
+              <div v-if="this.a.name == '教练'">
               <el-tab-pane label="私教禁用时间" name="forbidden">
                 <template>
                   <el-col :span="24" class="room-main">
@@ -216,26 +219,28 @@
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible2 = true">添加禁用时间</el-button>
                       <template>
                         <el-dialog title="添加新的禁用时间" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                          <!--添加门店-->
+                          <!--添加新的禁用时间-->
                           <el-form :model="ruleForm3" ref="ruleForm3" label-width="100px">
                             <el-form-item label="开始日期:" prop="startdate" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-date-picker value-format="yyyy-MM-dd" v-model="ruleForm3.startdate" type="date" placeholder="选择开始日期" style="width:100%"></el-date-picker>
+                                <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.startdate" type="date" placeholder="选择开始日期" style="width:100%"></el-date-picker>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="结束日期:" prop="enddate" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-date-picker value-format="yyyy-MM-dd" v-model="ruleForm3.enddate" type="date" placeholder="选择结束日期" style="width:100%"></el-date-picker>
+                                <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.enddate" type="date" placeholder="选择结束日期" style="width:100%"></el-date-picker>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="开始时间:" prop="starttime" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-time-picker value-format="HH:mm:ss" v-model="ruleForm3.starttime" :picker-options="{selectableRange: '18:30:00 - 20:30:00'}" placeholder="选择开始时间" style="width:100%"></el-time-picker>
+                                <el-time-select placeholder="起始时间" value-format="HH:mm" v-model="ruleForm3.starttime" :picker-options="{start: '07:00',step: '00:15', end: '24:00'}"  style="width:100%">
+                                </el-time-select>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="结束时间:" prop="endtime" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-time-picker value-format="HH:mm:ss" v-model="ruleForm3.endtime" :picker-options="{selectableRange: '18:30:00 - 20:30:00'}" placeholder="选择结束时间" style="width:100%"></el-time-picker>
+                                <el-time-select placeholder="结束时间" value-format="HH:mm" v-model="ruleForm3.endtime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: starttime}"  style="width:100%">
+                                </el-time-select>
                               </el-col>
                             </el-form-item>
                             <el-form-item class="dialog-footer">
@@ -273,6 +278,7 @@
                   </el-col>
                 </template>
               </el-tab-pane>
+              </div>
             </el-tabs>
           </el-col>
         </div>
@@ -330,6 +336,8 @@ export default {
       activeName: "first",
       dialogFormVisible: false,
       dialogFormVisible2: false,
+      starttime:"",
+      endtime:"",
       ruleForm: {
         roomname: "", //门店名称
         roombyname: "", //门店别名

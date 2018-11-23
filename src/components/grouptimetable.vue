@@ -162,7 +162,7 @@
                     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px">
                       <el-form-item label="门店:" prop="door" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-if="clubs[clubIndex]" disabled v-model="ruleForm2.door" :placeholder="clubs[clubIndex].Hsxx_Name" style="width:100%" @change="Selectchange5">
+                          <el-select v-if="clubs[clubIndex]" disabled v-model="clubs[clubIndex].Hsxx_Name" :placeholder="clubs[clubIndex].Hsxx_Name" style="width:100%" @change="Selectchange5">
                             <el-option v-for="item in mendian" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
                           </el-select>
                         </el-col>
@@ -261,7 +261,6 @@
 <script>
   import {requestLogin} from "@/api/api";
   import * as validate from "@/validate/Login";
-
   export default {
     name: "grouptimetable",
     inject: ["reload"],
@@ -462,6 +461,36 @@
             }
           });
       },
+      //卡信息显示
+      // cardInfoHandle(item){
+      //   if (this.ruleForm2.consumer == "member") {
+      //   let string =
+      //     item.cardType.CTName +
+      //     " (" +
+      //     (item.isEnabled == 1 ? "已启用" : "已禁用") +
+      //     "; 到期时间:" +
+      //     item.eTime +
+      //     "; 状态:" +
+      //     item.State +
+      //     "";
+      //   // if (item.SYCS > 0) {
+      //   //   return string + "; 剩余次数:" + item.SYCS + ")";
+      //   // } else if (item.SYJE > 0) {
+      //   //   return string + "; 剩余金额:" + item.SYJE + ")";
+      //   // } else {
+      //   //   return string + ")";
+      //   // }
+      // } else {
+      //   // return (
+      //   //   item.experience_voucher.tkName +
+      //   //   " (到期时间:" +
+      //   //   item.endTime +
+      //   //   "; 剩余次数:" +
+      //   //   item.surplus +
+      //   //   ")"
+      //   // );
+      // }
+      // },
       //预约团课
       yuyueForm(formName) {
         this.$refs[formName].validate(valid => {

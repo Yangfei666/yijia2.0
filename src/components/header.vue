@@ -13,15 +13,15 @@
     <el-col :span="12">
       <div class="grid-content bg-purple-light">
         <div class="inner">
-          <el-col :span="16" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
+          <el-col :span="12" v-if="options" class="inner-select" style="display: flex;justify-content: flex-end;">
             <el-select v-model="club.Hsxx_Hsid" @change="changeValue" :placeholder="club.Hsxx_Name" style="width:200px">
               <el-option v-for="item in options" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid" style="width:100%;height:100%"></el-option>
             </el-select>
           </el-col>
-          <el-col :span="16" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
+          <el-col :span="12" v-else class="inner-select" style="display: flex;justify-content: flex-end;">
             {{club.Hsxx_Name}}
           </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <div class="userinfo-inner">
               <img :src="user.Photo" />
               <span class="name">{{user.YGXX_NAME}}</span>
@@ -177,7 +177,7 @@ export default {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            margin-top: 6%;
+            margin-top: 5%;
             margin-right: 7%;
           }
           h5 {
@@ -244,7 +244,7 @@ export default {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              margin-top: 10%;
+              margin-top: 9%;
               margin-right: 7%;
             }
           }
@@ -283,7 +283,7 @@ export default {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              margin-top: 10%;
+              margin-top: 7%;
               margin-right: 7%;
             }
           }
@@ -322,7 +322,7 @@ export default {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              margin-top: 8%;
+              margin-top: 6%;
               margin-right: 7%;
             }
           }
@@ -361,7 +361,7 @@ export default {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              margin-top: 7%;
+              margin-top: 5%;
               margin-right: 7%;
             }
           }
@@ -403,7 +403,7 @@ export default {
               width: 40px;
               height: 40px;
               border-radius: 50%;
-              margin-top: 3%;
+              margin-top: 4%;
               margin-right: 7%;
             }
             .name {

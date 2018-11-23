@@ -33,16 +33,23 @@ axios.interceptors.response.use(function (response) {
          location.replace("/#/login");
         }, 3000);
         break;
+        case 403:
+        Message.error({
+          message: '对不起,权限不够!',
+          type: 'error',
+          duration: 3000
+        });
+        break;
       case 500:
         location.replace('/#/House/500');
         break;
     }
-      if (error.response.data.errorCode == 10001) {
-        Message.error({
-          message: '对不起,权限不够!',
-          type: 'error',
-        });
-      }
+      // if (error.response.data.errorCode == 10001) {
+      //   Message.error({
+      //     message: '对不起,权限不够!',
+      //     type: 'error',
+      //   });
+      // }
   }
   return Promise.reject(error)
 })

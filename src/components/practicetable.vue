@@ -100,27 +100,21 @@
                 </el-radio>
               </template>
             </el-table-column>
-            <el-table-column prop="exName" align="left" label="姓名" fixed width="150px"></el-table-column>
-            <el-table-column prop="exTel" align="left" label="手机号" width="180px"></el-table-column>
+            <el-table-column prop="exName" align="left" label="姓名" fixed width="140px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="150px"></el-table-column>
             <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
             <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
             <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
             <el-table-column prop="exHjgwName" align="left" label="会籍" width="180px"></el-table-column>
             <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
             <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
-            <el-table-column prop="exReason" align="left" label="未成交原因" width="230px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="230px">
+            <el-table-column prop="exReason" align="left" label="未成交原因" width="200px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="150px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
-                <el-button type="text" size="small" @click="dialogFormVisible2 = true">换会籍</el-button>
               </template>
             </el-table-column>
           </el-table>
-          <template>
-            <el-dialog title="换会籍" :append-to-body="true" :visible.sync="dialogFormVisible2">
-              <Change :potential="Potential"></Change>
-            </el-dialog>
-          </template>
           <div class="block">
             <el-button size="small" class="export" @click="exportExcel">导出</el-button>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -169,7 +163,6 @@ export default {
       downIcon: true,
       loading: true,
       dialogFormVisible: false,
-      dialogFormVisible2: false,
       input10: "",
       value6: "",
       currentPage: 1,
@@ -384,7 +377,9 @@ export default {
           exName: this.currentSelectRow.exName,
           exHjgwName: this.currentSelectRow.exHjgwName,
           exTel: this.currentSelectRow.exTel,
-          exSex: this.currentSelectRow.exSex
+          exSex: this.currentSelectRow.exSex,
+          exWeChat:this.currentSelectRow.exWeChat,
+          exHjgwId:this.currentSelectRow.exHjgwId
         }
       });
     },

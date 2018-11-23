@@ -10,8 +10,8 @@
          <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
             <el-col :span="22">
                 <el-radio-group v-model="currentSelectRow.itSex">
-                    <el-radio label="女" value="0"></el-radio>
-                    <el-radio label="男" value="1"></el-radio>
+                    <el-radio label="女" value="1"></el-radio>
+                    <el-radio label="男" value="2"></el-radio>
                 </el-radio-group>
                 </el-col>
             </el-form-item>
@@ -62,8 +62,9 @@ export default {
             var loginParams = {
               name: _this.currentSelectRow.itName, //姓名
               tel: _this.currentSelectRow.itTel, //电话
-              sex: _this.currentSelectRow.itSex == "女" ? 0 : 1, //性别
-              weChat: _this.currentSelectRow.itWeChat //微信号
+              sex: _this.currentSelectRow.itSex == "女" ? 1 : 2, //性别
+              weChat: _this.currentSelectRow.itWeChat, //微信号
+              remark:_this.currentSelectRow.itRemark//备注
             };
             requestLogin(
               "/setDepositCustomer/" + _this.currentSelectRow.id,

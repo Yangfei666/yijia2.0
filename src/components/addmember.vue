@@ -186,6 +186,11 @@ export default {
   },
   created() {
     this.getCustomer();
+    this.ruleForm.name = this.huiyuanqufen.name;
+    this.ruleForm.sex = this.huiyuanqufen.sex;
+    this.ruleForm.phone = this.huiyuanqufen.tel;
+    this.ruleForm.wechat = this.huiyuanqufen.wechat;
+    this.ruleForm.adviser = this.huiyuanqufen.ygxxnameid;
   },
   methods: {
     //获取会籍顾问和卡名称
@@ -234,7 +239,7 @@ export default {
             formData.append("CTID", this.ruleForm.cardname); //会员卡id
             formData.append("delay", this.ruleForm.sensitize); //激活时间选择
             formData.append("identity",this.huiyuanqufen.huiyuanqufen); //转换客户类别
-            formData.append("delay", this.huiyuanqufen.id); //原客户类别的id
+            formData.append("oldId", this.huiyuanqufen.id); //原客户类别的id
             requestLogin("/setMemberCustomers/newMember", formData, "post")
               .then(data => {
                 this.addLoading = false;

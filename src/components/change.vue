@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$confirm("确认要变更吗？", "提示").then(() => {
+      this.$confirm("确认要更换会籍吗？", "提示").then(() => {
         var loginParams = {
           num: this.ruleForm.adviser, //会籍id
           id: this.potential.id, //客户id
