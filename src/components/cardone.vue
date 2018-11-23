@@ -97,7 +97,7 @@
         <span class="oper">卡{{this.idx+1}}操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,HYName:this.$route.query.HYName,CARD:membershipcards}}" class="link" exact>转卡</router-link>
           </div>
           <div class="oper-left">
             <router-link :to="{path:'/Customer/membershiphome/memberhome/returncard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
