@@ -431,23 +431,38 @@
           sign: _this.ruleForm2.consumer //类别experience  member
         };
         requestLogin("/getSearchName", loginParams, "post")
-          .then(function(res) {
+          .then(function(res) {           
             if (loginParams.sign == "member") {
               _this.kazhong = [];
               var membership_card = res.membership_card;
               for (var i = 0; i < membership_card.length; i++) {
+                var item=membership_card[i];
                 var cardType = { CTID: "", CTName: "" };
-                cardType.id = membership_card[i].id;
-                cardType.CTName = membership_card[i].card_type.CTName;
+                cardType.id = item.id;
+                cardType.CTName = item.card_type.CTName+" (" +
+                                  (item.isEnabled == 1 ? "已启用" : "已禁用") +
+                                   "; 到期时间:" +item.eTime +"; 状态:" +item.State +"";
+                if (item.SYCS > 0) {
+                    cardType.CTName =cardType.CTName + "; 剩余次数:" + item.SYCS + ")";
+                } else if (item.SYJE > 0) {
+                   cardType.CTName =cardType.CTName +  "; 剩余金额:" + item.SYJE + ")";
+                } else {
+                   cardType.CTName =cardType.CTName + ")";
+                };
                 _this.kazhong.push(cardType);
               }
             } else {
               _this.kazhong = [];
               var customer_voucher = res.customer_voucher;
               for (var i = 0; i < customer_voucher.length; i++) {
+                var item=customer_voucher[i];
                 var cardType = { CTID: "", CTName: "" };
                 cardType.id = customer_voucher[i].id;
-                cardType.CTName = customer_voucher[i].experience_voucher.tkName;
+                cardType.CTName = item.experience_voucher.tkName+" (到期时间:" +
+                                  item.endTime +
+                                  "; 剩余次数:" +
+                                  item.surplus +
+                                  ")";
                 _this.kazhong.push(cardType);
               }
             }
@@ -461,36 +476,6 @@
             }
           });
       },
-      //卡信息显示
-      // cardInfoHandle(item){
-      //   if (this.ruleForm2.consumer == "member") {
-      //   let string =
-      //     item.cardType.CTName +
-      //     " (" +
-      //     (item.isEnabled == 1 ? "已启用" : "已禁用") +
-      //     "; 到期时间:" +
-      //     item.eTime +
-      //     "; 状态:" +
-      //     item.State +
-      //     "";
-      //   // if (item.SYCS > 0) {
-      //   //   return string + "; 剩余次数:" + item.SYCS + ")";
-      //   // } else if (item.SYJE > 0) {
-      //   //   return string + "; 剩余金额:" + item.SYJE + ")";
-      //   // } else {
-      //   //   return string + ")";
-      //   // }
-      // } else {
-      //   // return (
-      //   //   item.experience_voucher.tkName +
-      //   //   " (到期时间:" +
-      //   //   item.endTime +
-      //   //   "; 剩余次数:" +
-      //   //   item.surplus +
-      //   //   ")"
-      //   // );
-      // }
-      // },
       //预约团课
       yuyueForm(formName) {
         this.$refs[formName].validate(valid => {
