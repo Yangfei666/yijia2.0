@@ -509,7 +509,6 @@
                 });
             });
           } else {
-            this.$message({ message: "提交失败!", type: "error" });
             return false;
           }
         });
@@ -557,7 +556,6 @@
                 });
             });
           } else {
-            this.$message({ message: "提交失败!", type: "error" });
             return false;
           }
         });
@@ -636,7 +634,6 @@
                   });
               });
             } else {
-              this.$message({message: "提交失败!", type: "error"});
               return false;
             }
           });

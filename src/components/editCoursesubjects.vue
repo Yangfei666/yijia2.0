@@ -106,7 +106,6 @@ export default {
               });
           });
         } else {
-         this.$message({ message: "修改失败!", type: "error" });
           return false;
         }
       });

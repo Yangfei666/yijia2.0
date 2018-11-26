@@ -118,7 +118,6 @@ export default {
               });
           });
         } else {
-          this.$message({ message: "添加失败!", type: "error" });
           return false;
         }
       });

@@ -172,6 +172,59 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
+                                <el-col :span="24" class="from-date">
+                                    <el-form-item label="是否开启教练信用计算：" prop="calculationCredit" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.calculationCredit">
+                                                <el-radio :label="2">否</el-radio>
+                                                <el-radio :label="1">是</el-radio>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="教练信用1级最大私教取消次数：" prop="cancelNum1" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.cancelNum1" style="width:250px" placeholder="默认5"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="教练信用2级最大私教取消次数：" prop="cancelNum2" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.cancelNum2" style="width:250px" placeholder="默认10"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="教练信用3级最大私教取消次数：" prop="cancelNum3" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.cancelNum3" style="width:250px" placeholder="默认15"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="教练信用4级最大私教取消次数：" prop="cancelNum4" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.cancelNum4" style="width:250px" placeholder="默认20"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="24" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="教练信用5级最大私教取消次数：" prop="cancelNum5" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.cancelNum5" style="width:250px" placeholder="默认25"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="团课提前预约时间(天数)：" prop="leagueDate" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -235,7 +288,7 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border3">
-                                <el-col :span="24" class="from-date3">
+                                <el-col :span="12" class="from-date3">
                                     <el-form-item label="客户至少提前多少时间取消预约(分钟)：" prop="punishTime" label-width="270px">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.punishTime" style="width:450px" placeholder="默认120分钟,最大999"></el-input>
@@ -292,7 +345,13 @@ export default {
         personalDate3: "", //信用3级约私教天数
         personalDate4: "", //信用4级约私教天数
         personalDate5: "", //信用5级约私教天数
-        personalDate6: "" //信用6级约私教天数
+        personalDate6: "", //信用6级约私教天数
+        calculationCredit:"",//是否开启教练信用计算
+        cancelNum1:"",//教练信用1级
+        cancelNum2:"",//教练信用2级
+        cancelNum3:"",//教练信用3级
+        cancelNum4:"",//教练信用4级
+        cancelNum5:"",//教练信用5级
       }
     };
   },
@@ -350,7 +409,13 @@ export default {
           personalDate3: this.ruleForm.personalDate3, //信用3级约私教天数
           personalDate4: this.ruleForm.personalDate4, //信用4级约私教天数
           personalDate5: this.ruleForm.personalDate5, //信用5级约私教天数
-          personalDate6: this.ruleForm.personalDate6 //信用6级约私教天数
+          personalDate6: this.ruleForm.personalDate6, //信用6级约私教天数
+          calculationCredit:this.ruleForm.calculationCredit,//是否开启教练信用计算
+          cancelNum1:this.ruleForm.cancelNum1,//教练信用1级
+          cancelNum2:this.ruleForm.cancelNum2,//教练信用2级
+          cancelNum3:this.ruleForm.cancelNum3,//教练信用3级
+          cancelNum4:this.ruleForm.cancelNum4,//教练信用4级
+          cancelNum5:this.ruleForm.cancelNum5,//教练信用5级
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {

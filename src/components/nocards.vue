@@ -77,14 +77,17 @@ export default {
                 });
               })
               .catch(error => {
-                this.$message({
-                  message: "提交失败",
-                  type: "error"
-                });
+               let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
           });
         } else {
-          this.$message({ message: "提交失败!请检查是否有误!", type: "error" });
           return false;
         }
       });

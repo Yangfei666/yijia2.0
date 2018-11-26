@@ -28,7 +28,7 @@
     </div>
     <el-row class="tac">
       <el-col :span="12"> 
-        <el-menu :default-active="defaultActiveIndex" unique-opened router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed" @select="handleSelect" background-color="#323844" text-color="#fff" active-text-color="#fff">
+        <el-menu :default-active="defaultActiveIndex" unique-opened router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed" @select="handleSelect" :show-timeout="200" background-color="#323844" text-color="#fff" active-text-color="#fff">
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index + ''" v-bind:key="item.index">
               <template slot="title">
@@ -46,7 +46,7 @@
                 </el-menu-item>
               </el-submenu>
             </el-submenu>
-            <el-menu-item v-else-if="item.leaf && item.children && item.children.length" :index="item.children[0].path" v-bind:key="item.index" :class="$route.path == item.children[0].path?'is-active':''">
+            <el-menu-item v-else-if="item.leaf && item.children && item.children.length" :index="item.children[0].path" v-bind:key="item.index" class="item-demo">
               <i :class="item.iconCls"></i>
               <span slot="title">{{item.children[0].name}}</span>
             </el-menu-item>
@@ -214,6 +214,7 @@ export default {
           }
         }
         .el-menu-item {
+          background: #262626 !important;
           .el-menu-item [class^="el-icon-"] {
             margin-right: 5px;
             width: 24px;
@@ -224,6 +225,19 @@ export default {
           span {
             margin-left: 10px;
           }
+        }
+        .item-demo{
+          background-color:#323844 !important;
+        }
+        .item-demo:hover{
+          background-color:#22272e !important;
+        }
+        .item-demo.is-active{
+          border-left: 2px solid rgb(0, 188, 113);
+          background-color: #22272e !important;
+        }
+        .el-menu-item:hover{
+          background-color: #22272e !important;
         }
         .el-menu-item.is-active {
           border-left: 2px solid rgb(0, 188, 113);

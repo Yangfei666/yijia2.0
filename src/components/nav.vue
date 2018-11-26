@@ -1,53 +1,53 @@
 <template>
-    <!--首页选项卡-->
-    <div class="main-head">
-        <div class="head-one">
-            <img class="one-img" src="../assets/tianjiahuiyuan.png" />
-                <el-button type="text" class="one-p" @click="dialogFormVisible = true">添加会员</el-button>
-                <template>
-                    <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                        <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
-                    </el-dialog>
-                </template>
-        </div>
-        <div class="border"></div>
-        <div class="head-one">
-            <img class="one-img" src="../assets/dingjin.png" />
-                <el-button type="text" class="one-p" @click="dialogFormVisible2 = true">添加定金客户</el-button>
-                <template>
-                    <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                        <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
-                    </el-dialog>
-                </template>
-        </div>
-        <div class="border"></div>
-        <div class="head-one">
-            <img class="one-img" src="../assets/huiytuanguanli.png" />
-            <router-link :to="{path:'/Customer/leaguer/leaguermanage'}" style="text-decoration:none;">
-                <p class="one-pp">会员管理</p>
-            </router-link>
-        </div>
-        <div class="border"></div>
-        <div class="head-one">
-            <img class="one-img" src="../assets/tiyan.png" />
-                <el-button type="text" class="one-p" @click="dialogFormVisible3 = true">添加体验客户</el-button>
-                <template>
-                    <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible3">
-                        <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
-                    </el-dialog>
-                </template>
-        </div>
-        <div class="border"></div>
-        <div class="head-two">
-            <img class="two-img" src="../assets/qianzai.png" />
-                <el-button type="text" class="two-p" @click="dialogFormVisible4 = true">添加潜在客户</el-button>
-                <template>
-                    <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible4">
-                        <Addlatent></Addlatent>
-                    </el-dialog>
-                </template>
-        </div>
+  <!--首页选项卡-->
+  <div class="main-head">
+    <div class="head-one">
+      <img class="one-img" src="../assets/tianjiahuiyuan.png" />
+      <el-button type="text" class="one-p" @click="dialogFormVisible = true">添加会员</el-button>
+      <template>
+        <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+          <Addmember :huiyuanqufen='Huiyuanqufen'></Addmember>
+        </el-dialog>
+      </template>
     </div>
+    <div class="border"></div>
+    <div class="head-one">
+      <img class="one-img" src="../assets/dingjin.png" />
+      <el-button type="text" class="one-p" @click="dialogFormVisible2 = true">添加定金客户</el-button>
+      <template>
+        <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible2">
+          <Addbargain :dingjinqufen='Dingjinqufen'></Addbargain>
+        </el-dialog>
+      </template>
+    </div>
+    <div class="border"></div>
+    <div class="head-one">
+      <img class="one-img" src="../assets/huiytuanguanli.png" />
+      <router-link :to="{path:'/Customer/leaguer/leaguermanage'}" style="text-decoration:none;">
+        <p class="one-pp">会员管理</p>
+      </router-link>
+    </div>
+    <div class="border"></div>
+    <div class="head-one">
+      <img class="one-img" src="../assets/tiyan.png" />
+      <el-button type="text" class="one-p" @click="dialogFormVisible3 = true">添加体验客户</el-button>
+      <template>
+        <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible3">
+          <Addpractice :tiyanqufen='Tiyanqufen'></Addpractice>
+        </el-dialog>
+      </template>
+    </div>
+    <div class="border"></div>
+    <div class="head-two">
+      <img class="two-img" src="../assets/qianzai.png" />
+      <el-button type="text" class="two-p" @click="dialogFormVisible4 = true">添加潜在客户</el-button>
+      <template>
+        <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible4">
+          <Addlatent></Addlatent>
+        </el-dialog>
+      </template>
+    </div>
+  </div>
 </template>
 <script>
 import Addmember from "@/components/addmember";
@@ -67,9 +67,9 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-      Huiyuanqufen:{huiyuanqufen:'newCustomer'},
-      Dingjinqufen:{dingjinqufen:'newCustomer'},
-      Tiyanqufen:{tiyanqufen:'newCustomer'},
+      Huiyuanqufen: { huiyuanqufen: "newCustomer" },
+      Dingjinqufen: { dingjinqufen: "newCustomer" },
+      Tiyanqufen: { tiyanqufen: "newCustomer" }
     };
   }
 };
@@ -114,7 +114,7 @@ export default {
       text-align: center;
       width: 100%;
     }
-    .one-pp{
+    .one-pp {
       font-family: PingFang-SC-Regular;
       font-size: 18px;
       font-weight: normal;

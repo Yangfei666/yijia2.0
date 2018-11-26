@@ -86,16 +86,17 @@ export default {
               })
               .catch(error => {
                 this.addLoading = false;
-                if (error.response) {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
                   this.$message({
-                    message: "修改失败,请稍候再试",
+                    message: msg,
                     type: "error"
                   });
+                  return;
                 }
               });
           });
           } else {
-            console.log('error submit!!');
             return false;
           }
         });

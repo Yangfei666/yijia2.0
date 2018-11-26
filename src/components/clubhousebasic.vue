@@ -259,13 +259,6 @@ export default {
             }
           });
       })
-        .catch(()=>{
-          this.$message({
-            message: '取消提交',
-            type: "error"
-          });
-
-        })
     },
     editclub(){
        this.dialogFormVisible = true;

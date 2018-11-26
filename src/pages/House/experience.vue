@@ -202,15 +202,16 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;
-                if (error.response) {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
                   this.$message({
-                    message: "提交失败,请稍候再试",
+                    message: msg,
                     type: "error"
                   });
+                  return;
                 }
               });
           });

@@ -15,7 +15,7 @@
             </el-col>
             <el-col :span="13" class="weber-left">
               <span class="weber-span">{{item.YGXX_NAME}}</span>
-              <p class="weber-p">岗位:{{a.name}}
+              <p class="weber-p">岗位:{{this.rolename}}
                 <span class="weber-pp">电话:{{item.YGXX_HOMETEL}}</span>
               </p>
             </el-col>
@@ -39,7 +39,7 @@
                             <span>岗位</span>
                           </el-col>
                           <el-col :span="17" class="table-gg">
-                            <span v-for="(item, index) in user.role" :key="index">{{index + 1}}.{{item.name}}</span>
+                            <span>{{this.rolename}}</span>
                           </el-col>
                         </div>
                         <div class="left-table-main">
@@ -123,161 +123,161 @@
                 </template>
               </el-tab-pane>
               <!--我的门店-->
-              <div v-if="this.a.name == '超级管理员'">
-              <el-tab-pane label="我的门店" name="second">
-                <template>
-                  <el-col :span="24" class="room-main">
-                    <div class="add">
-                      <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加门店</el-button>
-                      <template>
-                        <el-dialog title="添加门店" :append-to-body="true" :visible.sync="dialogFormVisible">
-                          <!--添加门店-->
-                          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                            <el-form-item label="门店名称:" prop="roomname" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.roomname" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="门店别名:" prop="roombyname" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.roombyname" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.tel" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="邮编:" prop="zipcode" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.zipcode" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="法人:" prop="corporation" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.corporation" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="传真:" prop="portraiture" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.portraiture" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="城市:" prop="homecity" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.homecity" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="详细地址:" prop="detadaddress" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-input v-model="ruleForm.detadaddress" placeholder="请输入"></el-input>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item class="dialog-footer">
-                              <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                                <el-button @click="resetForm('ruleForm')">重置</el-button>
-                                <el-button type="primary" @click="addroom('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                              </el-col>
-                            </el-form-item>
-                          </el-form>
-                        </el-dialog>
-                      </template>
-                    </div>
-                  </el-col>
-                  <el-col :span="24">
-                    <div class="table-room">
-                      <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                        <el-table-column align="center" prop="radio" fixed width="70px">
-                          <template slot-scope="scope">
-                            <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-                          </template>
-                        </el-table-column>
-                        <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="220px"></el-table-column>
-                        <el-table-column prop="Hsxx_Name_jch" align="left" label="门店别名" width="200px"></el-table-column>
-                        <el-table-column prop="Hsxx_FR" align="left" label="法人" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_Tel" align="left" label="电话" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_YB" align="left" label="邮编" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_Fax" align="left" label="传真" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_City" align="left" label="所属城市" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_Add" align="left" label="详细地址" width="280px" fixed="right"></el-table-column>
-                      </el-table>
-                      <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-                        </el-pagination>
+              <div v-if="rolepd('超级管理员')">
+                <el-tab-pane label="我的门店" name="second">
+                  <template>
+                    <el-col :span="24" class="room-main">
+                      <div class="add">
+                        <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加门店</el-button>
+                        <template>
+                          <el-dialog title="添加门店" :append-to-body="true" :visible.sync="dialogFormVisible">
+                            <!--添加门店-->
+                            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                              <el-form-item label="门店名称:" prop="roomname" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.roomname" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="门店别名:" prop="roombyname" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.roombyname" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.tel" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="邮编:" prop="zipcode" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.zipcode" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="法人:" prop="corporation" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.corporation" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="传真:" prop="portraiture" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.portraiture" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="城市:" prop="homecity" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.homecity" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="详细地址:" prop="detadaddress" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-input v-model="ruleForm.detadaddress" placeholder="请输入"></el-input>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item class="dialog-footer">
+                                <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                                  <el-button @click="resetForm('ruleForm')">重置</el-button>
+                                  <el-button type="primary" @click="addroom('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                </el-col>
+                              </el-form-item>
+                            </el-form>
+                          </el-dialog>
+                        </template>
                       </div>
-                    </div>
-                  </el-col>
-                </template>
-              </el-tab-pane>
+                    </el-col>
+                    <el-col :span="24">
+                      <div class="table-room">
+                        <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                          <el-table-column align="center" prop="radio" fixed width="70px">
+                            <template slot-scope="scope">
+                              <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
+                            </template>
+                          </el-table-column>
+                          <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="220px"></el-table-column>
+                          <el-table-column prop="Hsxx_Name_jch" align="left" label="门店别名" width="200px"></el-table-column>
+                          <el-table-column prop="Hsxx_FR" align="left" label="法人" width="150px"></el-table-column>
+                          <el-table-column prop="Hsxx_Tel" align="left" label="电话" width="150px"></el-table-column>
+                          <el-table-column prop="Hsxx_YB" align="left" label="邮编" width="150px"></el-table-column>
+                          <el-table-column prop="Hsxx_Fax" align="left" label="传真" width="150px"></el-table-column>
+                          <el-table-column prop="Hsxx_City" align="left" label="所属城市" width="150px"></el-table-column>
+                          <el-table-column prop="Hsxx_Add" align="left" label="详细地址" width="280px" fixed="right"></el-table-column>
+                        </el-table>
+                        <div class="block">
+                          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                          </el-pagination>
+                        </div>
+                      </div>
+                    </el-col>
+                  </template>
+                </el-tab-pane>
               </div>
               <!--私教禁用时间-->
-              <div v-if="this.a.name == '教练'">
-              <el-tab-pane label="私教禁用时间" name="forbidden">
-                <template>
-                  <el-col :span="24" class="room-main">
-                    <div class="add">
-                      <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible2 = true">添加禁用时间</el-button>
-                      <template>
-                        <el-dialog title="添加新的禁用时间" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                          <!--添加新的禁用时间-->
-                          <el-form :model="ruleForm3" ref="ruleForm3" label-width="100px">
-                            <el-form-item label="开始日期:" prop="startdate" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.startdate" type="date" placeholder="选择开始日期" style="width:100%"></el-date-picker>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="结束日期:" prop="enddate" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.enddate" type="date" placeholder="选择结束日期" style="width:100%"></el-date-picker>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="开始时间:" prop="starttime" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-time-select placeholder="起始时间" value-format="HH:mm" v-model="ruleForm3.starttime" :picker-options="{start: '07:00',step: '00:15', end: '24:00'}"  style="width:100%">
-                                </el-time-select>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item label="结束时间:" prop="endtime" :label-width="formLabelWidth">
-                              <el-col :span="22">
-                                <el-time-select placeholder="结束时间" value-format="HH:mm" v-model="ruleForm3.endtime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: starttime}"  style="width:100%">
-                                </el-time-select>
-                              </el-col>
-                            </el-form-item>
-                            <el-form-item class="dialog-footer">
-                              <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                                <el-button @click="resetforbidden('ruleForm3')">重置</el-button>
-                                <el-button type="primary" @click="addforbidden('ruleForm3')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                              </el-col>
-                            </el-form-item>
-                          </el-form>
-                        </el-dialog>
-                      </template>
-                    </div>
-                    <div class="add2">
-                      <el-button type="text" class="p" @click="Deltime">删除禁用时间</el-button>
-                    </div>
-                  </el-col>
-                  <el-col :span="24">
-                    <div class="table-room">
-                      <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange3" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                        <el-table-column align="center" prop="radio2" fixed width="70px">
-                          <template slot-scope="scope">
-                            <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
-                          </template>
-                        </el-table-column>
-                        <el-table-column prop="StartDate" align="left" fixed label="开始日期"></el-table-column>
-                        <el-table-column prop="EndDate" align="left" label="结束日期"></el-table-column>
-                        <el-table-column prop="StartTime" align="left" label="开始时间"></el-table-column>
-                        <el-table-column prop="EndTime" align="left" label="结束时间"></el-table-column>
-                      </el-table>
-                      <div class="block">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
-                        </el-pagination>
+              <div v-if="rolepd('教练')">
+                <el-tab-pane label="私教禁用时间" name="forbidden">
+                  <template>
+                    <el-col :span="24" class="room-main">
+                      <div class="add">
+                        <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible2 = true">添加禁用时间</el-button>
+                        <template>
+                          <el-dialog title="添加新的禁用时间" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                            <!--添加新的禁用时间-->
+                            <el-form :model="ruleForm3" ref="ruleForm3" label-width="100px">
+                              <el-form-item label="开始日期:" prop="startdate" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.startdate" type="date" placeholder="选择开始日期" style="width:100%"></el-date-picker>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="结束日期:" prop="enddate" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="ruleForm3.enddate" type="date" placeholder="选择结束日期" style="width:100%"></el-date-picker>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="开始时间:" prop="starttime" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-time-select placeholder="起始时间" value-format="HH:mm" v-model="ruleForm3.starttime" :picker-options="{start: '07:00',step: '00:15', end: '24:00'}" style="width:100%">
+                                  </el-time-select>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item label="结束时间:" prop="endtime" :label-width="formLabelWidth">
+                                <el-col :span="22">
+                                  <el-time-select placeholder="结束时间" value-format="HH:mm" v-model="ruleForm3.endtime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: starttime}" style="width:100%">
+                                  </el-time-select>
+                                </el-col>
+                              </el-form-item>
+                              <el-form-item class="dialog-footer">
+                                <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                                  <el-button @click="resetforbidden('ruleForm3')">重置</el-button>
+                                  <el-button type="primary" @click="addforbidden('ruleForm3')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                                </el-col>
+                              </el-form-item>
+                            </el-form>
+                          </el-dialog>
+                        </template>
                       </div>
-                    </div>
-                  </el-col>
-                </template>
-              </el-tab-pane>
+                      <div class="add2">
+                        <el-button type="text" class="p" @click="Deltime">删除禁用时间</el-button>
+                      </div>
+                    </el-col>
+                    <el-col :span="24">
+                      <div class="table-room">
+                        <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange3" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                          <el-table-column align="center" prop="radio2" fixed width="70px">
+                            <template slot-scope="scope">
+                              <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
+                            </template>
+                          </el-table-column>
+                          <el-table-column prop="StartDate" align="left" fixed label="开始日期"></el-table-column>
+                          <el-table-column prop="EndDate" align="left" label="结束日期"></el-table-column>
+                          <el-table-column prop="StartTime" align="left" label="开始时间"></el-table-column>
+                          <el-table-column prop="EndTime" align="left" label="结束时间"></el-table-column>
+                        </el-table>
+                        <div class="block">
+                          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                          </el-pagination>
+                        </div>
+                      </div>
+                    </el-col>
+                  </template>
+                </el-tab-pane>
               </div>
             </el-tabs>
           </el-col>
@@ -336,8 +336,10 @@ export default {
       activeName: "first",
       dialogFormVisible: false,
       dialogFormVisible2: false,
-      starttime:"",
-      endtime:"",
+      starttime: "",
+      endtime: "",
+      role: [],
+      rolename: "",
       ruleForm: {
         roomname: "", //门店名称
         roombyname: "", //门店别名
@@ -375,8 +377,7 @@ export default {
         checkPass: [{ validator: validatePass2, trigger: "blur" }] //确认新密码
       },
       tableData: [], //我的门店
-      tableData2: [], //私教禁用时间
-      a: ""
+      tableData2: [] //私教禁用时间
     };
   },
   //获取门店表格信息
@@ -417,9 +418,11 @@ export default {
           }
         });
     }, 1500);
-    this.user = JSON.parse(sessionStorage.getItem("userInfo"));
-    let { role: [a, b, c] } = this.user;
-    this.a = a;
+    var roleInfoList = JSON.parse(sessionStorage.getItem("userInfo")).role;
+    for (var i = 0; i < roleInfoList.length; i++) {
+      _this.role.push(roleInfoList[i].name);
+    }
+    _this.rolename = _this.role.join(",");
   },
   methods: {
     //获取个人资料
@@ -441,6 +444,11 @@ export default {
             });
           }
         });
+    },
+    rolepd(name) {
+      if (this.role.indexOf(name) != -1) {
+        return true;
+      }
     },
     uploadOverrun: function() {
       this.$message({

@@ -84,7 +84,7 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用天数{{(datedifference(new Date,membershipcards.sTime)+1)/datedifference(membershipcards.sTime,membershipcards.eTime)*100}}%</span>
+              <span>已使用天数{{((datedifference(new Date,membershipcards.sTime)+1)/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(new Date,membershipcards.sTime)+1}}
                 <span class="ci">天</span>
               </p>
@@ -103,7 +103,7 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余天数{{datedifference(new Date,membershipcards.eTime)/datedifference(membershipcards.sTime,membershipcards.eTime)*100}}%</span>
+              <span>剩余天数{{(datedifference(new Date,membershipcards.eTime)/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
@@ -182,11 +182,7 @@ export default {
       ];
     }else{
       this.tbdata = [
-        {
-          value:
-            this.datedifference(new Date,this.membershipcards.sTime)+1,
-          name: "已使用天数"
-        },
+        { value: this.datedifference(new Date,this.membershipcards.sTime)+1,name: "已使用天数"},
         { value: this.datedifference(new Date,this.membershipcards.eTime), name: "剩余天数" }
       ];
     }
@@ -201,9 +197,7 @@ export default {
        }
       },
       datedifference(sDate1, sDate2) {    //sDate1和sDate2是2006-12-18格式  
-        var dateSpan,
-            tempDate,
-            iDays;
+        var dateSpan,tempDate,iDays;
         sDate1 = Date.parse(sDate1);
         sDate2 = Date.parse(sDate2);
         dateSpan = sDate2 - sDate1;
