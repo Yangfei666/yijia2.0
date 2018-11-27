@@ -12,7 +12,7 @@
       </el-col>
       <el-col :span="24">
         <div class="health-from">
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="115px" class="demo-ruleForm">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
             <el-col :span="17" class="from-date">
               <el-col :span="24">
                 <el-form-item label="不办卡原因：" prop="desc">
@@ -77,14 +77,17 @@ export default {
                 });
               })
               .catch(error => {
-                this.$message({
-                  message: "提交失败",
-                  type: "error"
-                });
+               let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
           });
         } else {
-          this.$message({ message: "提交失败!请检查是否有误!", type: "error" });
           return false;
         }
       });
@@ -141,8 +144,8 @@ export default {
       .textarea {
         color: #00bc71;
         position: absolute;
-        top: 75px;
-        right: 20px;
+        top: 65%;
+        right: 6%;
       }
     }
     .el-button--primary {
@@ -171,8 +174,8 @@ export default {
         .textarea {
           color: #00bc71;
           position: absolute;
-          top: 75px;
-          right: 20px;
+          top: 63%;
+          right: -42%;
         }
       }
       .el-button--primary {
@@ -205,8 +208,8 @@ export default {
         .textarea {
           color: #00bc71;
           position: absolute;
-          top: 75px;
-          right: 20px;
+          top: 65%;
+          right: -30%;
         }
       }
       .el-button--primary {
@@ -239,8 +242,8 @@ export default {
         .textarea {
           color: #00bc71;
           position: absolute;
-          top: 75px;
-          right: 20px;
+          top: 65%;
+          right: 3%;
         }
       }
       .el-button--primary {
@@ -273,8 +276,8 @@ export default {
         .textarea {
           color: #00bc71;
           position: absolute;
-          top: 75px;
-          right: 20px;
+          top: 65%;
+          right: 6%;
         }
       }
       .el-button--primary {
@@ -307,8 +310,8 @@ export default {
         .textarea {
           color: #00bc71;
           position: absolute;
-          top: 75px;
-          right: 20px;
+          top: 65%;
+          right: 20%;
         }
       }
       .el-button--primary {

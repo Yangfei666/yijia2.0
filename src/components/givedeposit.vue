@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      return true;
       this.$confirm("确认要变更吗？", "提示").then(() => {
         var loginParams = {
           id: this.currentSelectRow.id, //定金客户id

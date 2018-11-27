@@ -20,17 +20,45 @@
       <div class="group-main">
         <div class="group-head">
           <div class="group-right">
-            <el-date-picker type="daterange" range-separator="至" :readonly="true" style="width:250px;margin-top:2px" :start-placeholder="Monday" :end-placeholder="Sunday"></el-date-picker>
+            <!-- <el-date-picker type="daterange" range-separator="至" :readonly="true" style="width:250px;margin-top:2px" :start-placeholder="Monday" :end-placeholder="Sunday"></el-date-picker> -->
             <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false" type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px;width:153px"></el-date-picker>
           </div>
           <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-            <el-tab-pane label="周一" name="Monday"></el-tab-pane>
-            <el-tab-pane label="周二" name="Tuesday"></el-tab-pane>
-            <el-tab-pane label="周三" name="Wednesday"></el-tab-pane>
-            <el-tab-pane label="周四" name="Thursday"></el-tab-pane>
-            <el-tab-pane label="周五" name="Friday"></el-tab-pane>
-            <el-tab-pane label="周六" name="Saturday"></el-tab-pane>
-            <el-tab-pane label="周日" name="Sunday"></el-tab-pane>
+            <el-tab-pane name="Monday">
+              <span slot="label">周一
+                <b style="font-size:12px">({{this.getsubstr('Monday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Tuesday">
+              <span slot="label">周二
+                <b style="font-size:12px">({{this.getsubstr('Tuesday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Wednesday">
+              <span slot="label">周三
+                <b style="font-size:12px">({{this.getsubstr('Wednesday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Thursday">
+              <span slot="label">周四
+                <b style="font-size:12px">({{this.getsubstr('Thursday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Friday">
+              <span slot="label">周五
+                <b style="font-size:12px">({{this.getsubstr('Friday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Saturday">
+              <span slot="label">周六
+                <b style="font-size:12px">({{this.getsubstr('Saturday')}})</b>
+              </span>
+            </el-tab-pane>
+            <el-tab-pane name="Sunday">
+              <span slot="label">周日
+                <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
+              </span>
+            </el-tab-pane>
             <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList" v-if="hackReset"></Culum>
           </el-tabs>
         </div>
@@ -108,13 +136,40 @@ export default {
         .then(data => {
           this.courseTotal = data.list;
           this.SystemSetup = data.SystemSetup;
-          this.week = data.week;
-          this.activeName = "Monday";
           this.courseDaily = this.courseTotal.Monday;
+          this.week = data.week;
+          //根据week的value值得到它的key值
+          let findKey = (value, compare = (a, b) => a === b) => {
+            return Object.keys(data.week).find(k => compare(data.week[k], value));
+          };
+          //调用上述方法,把当前日期传过去,得到当前日期对应的星期,并把星期赋给activeName
+          this.activeName = findKey(this.getNowFormatDate());
         })
         .catch(error => {
-          this.msgCatch(error, "对不起,私教课程表加载失败");
+          this.msgCatch(error, "对不起,教练信息加载失败");
         });
+    },
+    //得到当前年月日yyyy-MM-dd
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
+    },
+    getsubstr(name) {
+      var dates = this.week[name];
+      if (dates != null) {
+        return dates.substring(5);
+      }
     },
     // 切换日期
     handleClick(tab, event) {
