@@ -120,7 +120,7 @@ export default {
         club: []
       },
       club: [],
-      activeName: "monday",
+      activeName: "Monday",
       value: "",
       options: [
         {
@@ -280,7 +280,7 @@ export default {
       let _this = this;
       let sortKinds = "now";
       let params = {
-        monday: this.mondayDate,
+        monday: this.Monday,
         sort: sortKinds,
         hsid: val
       };
@@ -316,7 +316,7 @@ export default {
     Changeselect(val) {
       let params = {
         classify: val,
-        monday: this.mondayDate
+        monday: this.Monday
       };
       group
         .copyTable(params)
