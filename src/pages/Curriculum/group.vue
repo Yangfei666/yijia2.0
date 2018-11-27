@@ -225,7 +225,6 @@ export default {
         return dates.substring(5);
       }
     },
-
     //添加课程数据(课程,教练,教室)
     rolegourp() {
       let _this = this;
@@ -288,6 +287,7 @@ export default {
         .changeGroup(params)
         .then(res => {
           Object.assign(_this.tdlist, res);
+          Object.assign(_this.week,res.week);
         })
         .then(() => {
           _this.selectClubID = val;
