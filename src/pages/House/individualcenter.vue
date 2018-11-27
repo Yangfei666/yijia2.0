@@ -123,8 +123,7 @@
                 </template>
               </el-tab-pane>
               <!--我的门店-->
-              <div v-if="rolepd('超级管理员')">
-                <el-tab-pane label="我的门店" name="second">
+                <el-tab-pane label="我的门店" name="second" v-if="rolepd('超级管理员')">
                   <template>
                     <el-col :span="24" class="room-main">
                       <div class="add">
@@ -209,10 +208,8 @@
                     </el-col>
                   </template>
                 </el-tab-pane>
-              </div>
               <!--私教禁用时间-->
-              <div v-if="rolepd('教练')">
-                <el-tab-pane label="私教禁用时间" name="forbidden">
+                <el-tab-pane label="私教禁用时间" name="forbidden" v-if="rolepd('教练')">
                   <template>
                     <el-col :span="24" class="room-main">
                       <div class="add">
@@ -278,7 +275,6 @@
                     </el-col>
                   </template>
                 </el-tab-pane>
-              </div>
             </el-tabs>
           </el-col>
         </div>

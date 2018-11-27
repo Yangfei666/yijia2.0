@@ -77,54 +77,6 @@
                             </el-col>
                             <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用1级约私教天数：" prop="personalDate1" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate1" style="width:250px" placeholder="默认30"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用2级约私教天数：" prop="personalDate2" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate2" style="width:250px" placeholder="默认25"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用3级约私教天数：" prop="personalDate3" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate3" style="width:250px" placeholder="默认20"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用4级约私教天数：" prop="personalDate4" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate4" style="width:250px" placeholder="默认15"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用5级约私教天数：" prop="personalDate5" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate5" style="width:250px" placeholder="默认10"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="信用6级约私教天数：" prop="personalDate6" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.personalDate6" style="width:250px" placeholder="默认5"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date">
                                     <el-form-item label="惩罚升级的次数：" prop="punishRscalation" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.punishRscalation" style="width:250px" placeholder="默认1"></el-input>
@@ -184,6 +136,61 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2">
+                                    <el-form-item label="私教提前预约时间(天数)：" prop="personalDate1" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate1" style="width:250px" placeholder="默认30"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2">
+                                    <el-form-item label="团课提前预约时间(天数)：" prop="leagueDate" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.leagueDate" style="width:250px" placeholder="默认3天,最大99"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="信用2级约私教天数：" prop="personalDate2" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate2" style="width:250px" placeholder="默认25"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="信用3级约私教天数：" prop="personalDate3" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate3" style="width:250px" placeholder="默认20"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="信用4级约私教天数：" prop="personalDate4" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate4" style="width:250px" placeholder="默认15"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="信用5级约私教天数：" prop="personalDate5" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate5" style="width:250px" placeholder="默认10"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                    <el-form-item label="信用6级约私教天数：" prop="personalDate6" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.personalDate6" style="width:250px" placeholder="默认5"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
                                 <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
                                     <el-form-item label="教练信用1级最大私教取消次数：" prop="cancelNum1" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -191,6 +198,8 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
                                     <el-form-item label="教练信用2级最大私教取消次数：" prop="cancelNum2" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -198,8 +207,6 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
                                     <el-form-item label="教练信用3级最大私教取消次数：" prop="cancelNum3" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -207,6 +214,8 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
                                     <el-form-item label="教练信用4级最大私教取消次数：" prop="cancelNum4" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -214,9 +223,7 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="24" class="from-date" v-if="ruleForm.calculationCredit == 1">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 1">
                                     <el-form-item label="教练信用5级最大私教取消次数：" prop="cancelNum5" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.cancelNum5" style="width:250px" placeholder="默认25"></el-input>
@@ -225,14 +232,7 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date">
-                                    <el-form-item label="团课提前预约时间(天数)：" prop="leagueDate" :label-width="formLabelWidth">
-                                        <el-col :span="24">
-                                            <el-input v-model="ruleForm.leagueDate" style="width:250px" placeholder="默认3天,最大99"></el-input>
-                                        </el-col>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" class="from-date">
+                                <el-col :span="24" class="from-date">
                                     <el-form-item label="是否开启惩罚：" prop="isPunish" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-radio-group v-model="ruleForm.isPunish" @change="chanegtext">
@@ -245,7 +245,7 @@
                             </el-col>
                             <el-col :span="24" class="from-date-border" v-if="ruleForm.isPunish != 0 && ruleForm.isPunish == 1">
                                 <el-col :span="24" class="from-date">
-                                    <el-form-item label="会员惩罚措施编号：" prop="punishNum" :label-width="formLabelWidth">
+                                    <el-form-item label="会员惩罚措施：" prop="punishNum" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-radio-group v-model="ruleForm.punishNum" @change="chanegtext">
                                                 <el-radio :label="1">几天内不能上课</el-radio>
@@ -346,12 +346,12 @@ export default {
         personalDate4: "", //信用4级约私教天数
         personalDate5: "", //信用5级约私教天数
         personalDate6: "", //信用6级约私教天数
-        calculationCredit:"",//是否开启教练信用计算
-        cancelNum1:"",//教练信用1级
-        cancelNum2:"",//教练信用2级
-        cancelNum3:"",//教练信用3级
-        cancelNum4:"",//教练信用4级
-        cancelNum5:"",//教练信用5级
+        calculationCredit: "", //是否开启教练信用计算
+        cancelNum1: "", //教练信用1级
+        cancelNum2: "", //教练信用2级
+        cancelNum3: "", //教练信用3级
+        cancelNum4: "", //教练信用4级
+        cancelNum5: "" //教练信用5级
       }
     };
   },
@@ -410,12 +410,12 @@ export default {
           personalDate4: this.ruleForm.personalDate4, //信用4级约私教天数
           personalDate5: this.ruleForm.personalDate5, //信用5级约私教天数
           personalDate6: this.ruleForm.personalDate6, //信用6级约私教天数
-          calculationCredit:this.ruleForm.calculationCredit,//是否开启教练信用计算
-          cancelNum1:this.ruleForm.cancelNum1,//教练信用1级
-          cancelNum2:this.ruleForm.cancelNum2,//教练信用2级
-          cancelNum3:this.ruleForm.cancelNum3,//教练信用3级
-          cancelNum4:this.ruleForm.cancelNum4,//教练信用4级
-          cancelNum5:this.ruleForm.cancelNum5,//教练信用5级
+          calculationCredit: this.ruleForm.calculationCredit, //是否开启教练信用计算
+          cancelNum1: this.ruleForm.cancelNum1, //教练信用1级
+          cancelNum2: this.ruleForm.cancelNum2, //教练信用2级
+          cancelNum3: this.ruleForm.cancelNum3, //教练信用3级
+          cancelNum4: this.ruleForm.cancelNum4, //教练信用4级
+          cancelNum5: this.ruleForm.cancelNum5 //教练信用5级
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {
