@@ -48,23 +48,23 @@
                     </el-form-item>
                     <el-form-item label="上课时间:" prop="attendtime" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-                        <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endtime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+                        <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+                        <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endtime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.galleryful" placeholder="请输入"></el-input>
+                        <el-input v-model="ruleForm.galleryful" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="难度:" prop="difficulty" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.difficulty" placeholder="请输入"></el-input>
+                        <el-input v-model="ruleForm.difficulty" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                        <el-input v-model="ruleForm.price" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item class="dialog-footer">
@@ -654,9 +654,9 @@
     }
   };
 </script>
-<style lang="scss" scoped>
-@import "@/styles/group.scss";
-</style>
 <style lang="scss">
 @import "@/styles/dialog.scss";
+</style>
+<style lang="scss" scoped>
+@import "@/styles/group.scss";
 </style>
