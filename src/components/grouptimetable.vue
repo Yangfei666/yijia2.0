@@ -87,7 +87,7 @@
                     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
                       <el-form-item label="课程:" prop="kcName" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.kcno" :placeholder="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
+                          <el-select v-model="currentSelectRow.KCNO" :placeholder="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
                             <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName" :value="item.kcno"></el-option>
                           </el-select>
                         </el-col>
@@ -312,9 +312,6 @@
           endtime: [
             {required: true, message: "请选择结束时间", trigger: "change"}
           ],
-          attenddate: [
-            {required: true, message: "请选择课程日期", trigger: "change"}
-          ],
           galleryful: [
             {required: true, message: "请输入容纳人数", trigger: "blur"}
           ],
@@ -346,31 +343,37 @@
           switch (this.weekDay) {
             case 1:
               this.tableData = val.list.Monday;
+              this.kcStime = val.week.Monday;
               break;
             case 2:
               this.tableData = val.list.Tuesday;
+              this.kcStime = val.week.Tuesday;
               break;
             case 3:
               this.tableData = val.list.Wednesday;
+              this.kcStime = val.week.Wednesday;
               break;
             case 4:
               this.tableData = val.list.Thursday;
+              this.kcStime = val.week.Thursday;
               break;
             case 5:
               this.tableData = val.list.Friday;
+              this.kcStime = val.week.Friday;
               break;
             case 6:
               this.tableData = val.list.Saturday;
+              this.kcStime = val.week.Saturday;
               break;
             case 7:
               this.tableData = val.list.Sunday;
+              this.kcStime = val.week.Sunday;
               break;
           }
           if (this.tableData != null) {
             this.tableData.map((item, index) => {
               item.kcName = item.curriculum_subject.kcName;
               item.JLIDs = item.staff_info.YGXX_NAME;
-              this.kcStime = item.kcStime;
             });
             this.tablelength = this.tableData.length;
           } else {
@@ -433,7 +436,7 @@
           sign: _this.ruleForm2.consumer //类别experience  member
         };
         requestLogin("/getSearchName", loginParams, "post")
-          .then(function(res) {           
+          .then(function(res) {
             if (loginParams.sign == "member") {
               _this.kazhong = [];
               var membership_card = res.membership_card;
