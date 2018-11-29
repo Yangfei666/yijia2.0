@@ -343,31 +343,37 @@
           switch (this.weekDay) {
             case 1:
               this.tableData = val.list.Monday;
+              this.kcStime = val.week.Monday;
               break;
             case 2:
               this.tableData = val.list.Tuesday;
+              this.kcStime = val.week.Tuesday;
               break;
             case 3:
               this.tableData = val.list.Wednesday;
+              this.kcStime = val.week.Wednesday;
               break;
             case 4:
               this.tableData = val.list.Thursday;
+              this.kcStime = val.week.Thursday;
               break;
             case 5:
               this.tableData = val.list.Friday;
+              this.kcStime = val.week.Friday;
               break;
             case 6:
               this.tableData = val.list.Saturday;
+              this.kcStime = val.week.Saturday;
               break;
             case 7:
               this.tableData = val.list.Sunday;
+              this.kcStime = val.week.Sunday;
               break;
           }
           if (this.tableData != null) {
             this.tableData.map((item, index) => {
               item.kcName = item.curriculum_subject.kcName;
               item.JLIDs = item.staff_info.YGXX_NAME;
-              this.kcStime = item.kcStime;
             });
             this.tablelength = this.tableData.length;
           } else {
