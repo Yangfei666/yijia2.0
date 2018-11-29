@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url('../assets/bg.png')no-repeat center center fixed;
+    background: url('http://www.yijiayoga.cn/static/img/loginBackground.png')no-repeat center center fixed;
     background-size: 100% 100%;
     position: relative;
     .login-mian {
@@ -33,7 +33,7 @@
             }
             .form-item {
                 width: 100%;
-                height: 32px;
+                height: 35px;
                 border-radius: 4px;
                 margin-top: 40px;
                 .input {
@@ -166,7 +166,7 @@
                 margin-top: 21%;
                 background: #fff;
                 border-radius: 4px;
-                .el-button--primary{
+                .el-button{
                     color: #262626;
                     background-color: #fff;
                     border-color: #fff;
@@ -192,4 +192,1066 @@
   /* .slide-fade-leave-active for below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+  @media screen and (min-width: 768px)and (max-width: 992px){
+    .login-mian {
+        position: absolute;
+        width: 28% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 17%;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                margin-top: 40px;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 35px;
+                        line-height: 35px;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                margin-top: 40px;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 35px;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 35px;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 10px;
+                .identifyform {
+                    width: 120px;
+                    height: 32px;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 35px;
+                        line-height: 35px;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 35px;
+                    position: absolute;
+                    top: 13px;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 21%;
+                background: #fff;
+                border-radius: 4px;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 35px;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+        }
+    }
+  }
+  @media screen and (min-width: 992px)and (max-width: 1280px){
+    .login-mian {
+        position: absolute;
+        width: 26% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 20%;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 30px!important;
+                border-radius: 4px;
+                margin-top: 30px;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 30px!important;
+                        line-height: 30px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 30px!important;
+                border-radius: 4px;
+                margin-top: 30px;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 30px!important;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 30px!important;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 30px!important;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 7px!important;
+                .identifyform {
+                    width: 120px;
+                    height: 30px!important;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 30px!important;
+                        line-height: 30px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 30px!important;
+                    position: absolute;
+                    top: 10px;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 20%!important;
+                background: #fff;
+                border-radius: 4px;
+                height: 30px!important;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 30px!important;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+            height: 30px!important;
+        }
+    }
+  }
+  @media screen and (min-width: 1280px)and (max-width: 1440px){
+    .login-mian {
+        position: absolute;
+        width: 26% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 20%!important;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 32px!important;
+                border-radius: 4px;
+                margin-top: 30px!important;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 32px!important;
+                        line-height: 32px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 32px!important;
+                border-radius: 4px;
+                margin-top: 30px!important;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 32px!important;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 32px!important;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 32px!important;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 10px!important;
+                .identifyform {
+                    width: 120px;
+                    height: 32px;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 32px!important;
+                        line-height: 32px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 32px!important;
+                    position: absolute;
+                    top: 13px;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 20%!important;
+                background: #fff;
+                border-radius: 4px;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 32px!important;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+            height:32px!important;
+        }
+    }
+  }
+  @media screen and (min-width: 1440px)and (max-width: 1680px){
+    .login-mian {
+        position: absolute;
+        width: 26% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 20%!important;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                margin-top: 40px;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 35px;
+                        line-height: 35px;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                margin-top: 40px;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 35px;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 35px;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 35px;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 13px!important;
+                .identifyform {
+                    width: 120px;
+                    height: 35px;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 35px;
+                        line-height: 35px;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 35px!important;
+                    position: absolute;
+                    top: 15px!important;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 20%!important;
+                background: #fff;
+                border-radius: 4px;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 35px!important;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+            height: 35px!important;
+        }
+    }
+  }
+  @media screen and (min-width: 1680px)and (max-width: 1920px){
+    .login-mian {
+        position: absolute;
+        width: 26% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 20%!important;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 40px!important;
+                border-radius: 4px;
+                margin-top: 50px!important;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 40px!important;
+                        line-height:40px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 40px!important;
+                border-radius: 4px;
+                margin-top: 50px!important;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 40px !important;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 40px!important;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 40px!important;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 15px!important;
+                .identifyform {
+                    width: 120px;
+                    height: 40px !important;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 40px!important;
+                        line-height: 40px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 40px !important;
+                    position: absolute;
+                    top: 15px !important;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 20%!important;
+                background: #fff;
+                border-radius: 4px;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 40px !important;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+            height: 40px !important;
+        }
+    }
+  }
+  @media screen and (min-width: 1920px)and (max-width: 2048px){
+    .login-mian {
+        position: absolute;
+        width: 26% !important;
+        background: #5E697E;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        opacity: 0.60;
+        overflow: hidden;
+        top: 17%!important;
+        right: 12%!important;
+        .login-container {
+            width: 90%;
+            margin: 2% auto;
+            height: 85%;
+            .title {
+                font-family: PingFang-SC-Medium;
+                font-size: 30px;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 24px;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-align: center;
+            }
+            .form-item {
+                width: 100%;
+                height: 50px!important;
+                border-radius: 4px;
+                margin-top: 50px!important;
+                .input {
+                    font-family: PingFang-SC-Regular;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    line-height: 0px;
+                    letter-spacing: 0px;
+                    color: #fff;
+                    .el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 50px!important;
+                        line-height:50px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+            }
+            .form-item2{
+                width: 100%;
+                height: 50px!important;
+                border-radius: 4px;
+                margin-top: 50px!important;
+                .el-select{
+                    background: #5F6B81;
+                    width: 100%;
+                    border-radius: 4px;
+                    height: 50px !important;
+                    .el-input__inner{
+                        background: #5F6B81;
+                        height: 50px!important;
+                        border: 1px solid #e8e8e8;
+                        color: #fff;
+                    }
+                }
+            }
+            .identifybox {
+                width: 100%;
+                height: 50px!important;
+                border-radius: 4px;
+                display: flex;
+                margin-top: 20px!important;
+                .identifyform {
+                    width: 120px;
+                    height: 50px !important;
+                    border-radius: 4px;
+                    position: relative;
+                    .identifyinput {
+                        font-family: PingFang-SC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        line-height: 0px;
+                        letter-spacing: 0px;
+                        color: #fff;
+                    }
+                    .el-input.el-input__inner {
+                        -webkit-appearance: none;
+                        background: #5F6B81;
+                        background-image: none;
+                        border-radius: 4px;
+                        border: 1px solid #e8e8e8;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: inherit;
+                        height: 50px!important;
+                        line-height:50px!important;
+                        outline: 0;
+                        padding: 0 15px;
+                        -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        transition: border-color .1s cubic-bezier(.645, .045, .355, 1);
+                        width: 100%;
+                    }
+                }
+                img {
+                    width: 50%;
+                    height: 50px !important;
+                    position: absolute;
+                    top: 20px !important;
+                    right: 0%;
+                    border-radius: 3px;
+                }
+            }
+            .remember {
+                margin-top: 3%;
+                color: #fff;
+                font-weight: 500;
+                font-size: 20px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                .el-checkbox__input {
+                    cursor: pointer;
+                    outline: 0;
+                    line-height: 1;
+                    float: left;
+                    .el-checkbox__inner {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+                .el-checkbox__label {
+                    // display: inline-block;
+                    padding-left: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
+                    float: left;
+                }
+            }
+            .form-main {
+                width: 100%;
+                margin-top: 20%!important;
+                background: #fff;
+                border-radius: 4px;
+                .el-button{
+                    color: #262626;
+                    background-color: #fff;
+                    border-color: #fff;
+                    height: 50px !important;
+                    line-height:1px;
+                }
+            }
+        }
+        .el-input .el-input__inner{
+            background: #5F6B81;
+            border: 1px solid #e8e8e8;
+            color: #fff;
+            height: 50px !important;
+        }
+    }
   }
