@@ -102,7 +102,7 @@
                       </el-form-item>
                       <el-form-item label="教练:" prop="JLIDs" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.YGXX_NAME" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange3">
+                          <el-select v-model="currentSelectRow.JLID" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange3">
                             <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                           </el-select>
                         </el-col>
