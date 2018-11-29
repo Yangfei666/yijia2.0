@@ -73,7 +73,7 @@
                       </el-form-item>
                       <el-form-item label="员工简介:" prop="desc" :label-width="formLabelWidth">
                         <el-col :span="22" class="from-date">
-                          <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
+                          <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="min-height:96px;width:100%;height:69px"></el-input>
                           <span class="textarea">还可以输入{{remnant}}字</span>
                         </el-col>
                       </el-form-item>

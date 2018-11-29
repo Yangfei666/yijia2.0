@@ -361,7 +361,7 @@ export default {
               width: 32px;
               height: 32px;
               border-radius: 50%;
-              margin-top: 5%;
+              margin-top: 4%;
               margin-right: 7%;
             }
           }
@@ -403,7 +403,7 @@ export default {
               width: 40px;
               height: 40px;
               border-radius: 50%;
-              margin-top: 4%;
+              margin-top: 3%;
               margin-right: 7%;
             }
             .name {

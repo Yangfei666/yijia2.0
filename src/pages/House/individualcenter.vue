@@ -230,7 +230,7 @@
                               </el-form-item>
                               <el-form-item label="开始时间:" prop="starttime" :label-width="formLabelWidth">
                                 <el-col :span="22">
-                                  <el-time-select placeholder="起始时间" value-format="HH:mm" v-model="ruleForm3.starttime" :picker-options="{start: '07:00',step: '00:15', end: '24:00'}" style="width:100%">
+                                  <el-time-select placeholder="起始时间" value-format="HH:mm" v-model="ruleForm3.starttime" :picker-options="{start: '05:00',step: '00:15', end: '24:00'}" style="width:100%">
                                   </el-time-select>
                                 </el-col>
                               </el-form-item>
