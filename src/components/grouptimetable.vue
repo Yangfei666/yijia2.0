@@ -42,7 +42,7 @@
                     </el-form-item>
                     <el-form-item label="课程日期:" prop="attenddate" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
+                        <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
                         </el-date-picker>
                       </el-col>
                     </el-form-item>
@@ -122,8 +122,8 @@
                       </el-form-item>
                       <el-form-item label="上课时间:" prop="Stime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="容纳人数:" prop="RenShu" :label-width="formLabelWidth">
@@ -174,8 +174,8 @@
                       </el-form-item>
                       <el-form-item prop="time" label="上课时间:" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Stime" :picker-options="{ start: '08:30',step: '00:15',end: '18:30'}" style="width:49%"></el-time-select>
-                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Etime" :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: startTime}" style="width:49%"></el-time-select>
+                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Stime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
+                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Etime" :picker-options="{start: '05:30',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="预约课程:" prop="yycourse" :label-width="formLabelWidth">
@@ -235,19 +235,19 @@
               </template>
             </el-table-column>
             <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称"></el-table-column>
-            <el-table-column align="left" label="开课时间" sortable>
+            <el-table-column align="left" label="开课时间">
               <template slot-scope="scope">
                 <span>{{scope.row.Stime.substring(0,5)}}--{{scope.row.Etime.substring(0,5)}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="kcbSort" align="left" sortable label="底色"></el-table-column>
             <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
-            <el-table-column align="left" label="已预约" sortable>
+            <el-table-column align="left" label="已预约">
               <template slot-scope="scope">
                 <span>{{scope.row.group_curriculum_appointment_count}}/{{scope.row.RenShu}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="kcDiff" align="left" label="难度" sortable fixed="right"></el-table-column>
+            <el-table-column prop="kcDiff" align="left" label="难度" fixed="right"></el-table-column>
           </el-table>
           <div class="block">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -277,6 +277,7 @@
         radio: "",
         startTime: "",
         endTime: "",
+        kcStime:"",
         ruleForm: {
           course: "", //课程
           courseclassify: "", //课程分类
@@ -369,6 +370,7 @@
             this.tableData.map((item, index) => {
               item.kcName = item.curriculum_subject.kcName;
               item.JLIDs = item.staff_info.YGXX_NAME;
+              this.kcStime = item.kcStime;
             });
             this.tablelength = this.tableData.length;
           } else {
@@ -606,7 +608,7 @@
           if (valid) {
             this.$confirm("确认提交吗？", "提示").then(() => {
               var formData = {
-                kcStime: this.ruleForm.attenddate, //课程日期
+                kcStime: this.kcStime, //课程日期
                 KCNO: this.ruleForm.course, //所选课程id
                 kcbSort: this.ruleForm.courseclassify, //灰底白底
                 JLID: this.ruleForm.train, //教练id
