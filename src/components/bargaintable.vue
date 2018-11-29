@@ -195,7 +195,7 @@ export default {
       radio: true,
       Customercategory: "deposit",
       Potential: { potential: "setDepositCustomer", id: "" },
-      Dingjinqufen: { dingjinqufen: "newCustomer",id:""},
+      Dingjinqufen: { dingjinqufen: "newCustomer",id:1},
       Huiyuanqufen: { huiyuanqufen: "deposit", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"" },
       formInline: {
         date: "",

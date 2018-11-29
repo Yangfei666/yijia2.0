@@ -67,9 +67,9 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-      Huiyuanqufen: { huiyuanqufen: "newCustomer" },
-      Dingjinqufen: { dingjinqufen: "newCustomer" },
-      Tiyanqufen: { tiyanqufen: "newCustomer" }
+      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:1},
+      Dingjinqufen: { dingjinqufen: "newCustomer",id:1},
+      Tiyanqufen: { tiyanqufen: "newCustomer",id:1}
     };
   }
 };

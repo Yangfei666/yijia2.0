@@ -188,7 +188,7 @@ export default {
       isShow: false,
       loading: true,
       Customercategory: "member",
-      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:''},
+      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:1},
       formInline: {
         membercard: "",
         date: "",
