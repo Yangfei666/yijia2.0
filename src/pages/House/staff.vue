@@ -333,7 +333,9 @@ export default {
           i.YGXX_HOMETEL.includes(this.searchVal)
       );
     },
-    handleCheckChange(val) {},
+    handleCheckChange(val) {
+      console.log(val);
+    },
     radiochange(row) {
       this.radio = row;
     },
