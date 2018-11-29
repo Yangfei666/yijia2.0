@@ -112,11 +112,11 @@ export let idnumber = [
 
 ];
 /* 验证分配角色 */
-export let role = [
+export let selectRoleId = [
     {
         required: true,
         message: "请选择分配角色",
-        trigger: "change"
+        trigger: "blur"
     }
 ];
 /* 验证所属权限 */
