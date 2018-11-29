@@ -312,9 +312,6 @@
           endtime: [
             {required: true, message: "请选择结束时间", trigger: "change"}
           ],
-          attenddate: [
-            {required: true, message: "请选择课程日期", trigger: "change"}
-          ],
           galleryful: [
             {required: true, message: "请输入容纳人数", trigger: "blur"}
           ],
