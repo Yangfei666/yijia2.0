@@ -50,9 +50,9 @@
                           <el-input v-model="ruleForm.idnumber" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
+                      <el-form-item label="分配角色:" prop="selectRoleId" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-checkbox-group v-model="ruleForm.role" @change="handleCheckChange">
+                          <el-checkbox-group v-model="ruleForm.selectRoleId" @change="handleCheckChange">
                             <el-checkbox v-for="i in role" :label="i.id" :key="i.id">{{i.name}}</el-checkbox>
                           </el-checkbox-group>
                         </el-col>
@@ -188,6 +188,7 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: true,
+      selectRoleId: [],
       form: {
         name: ""
       },
@@ -196,7 +197,7 @@ export default {
         sex: "", //性别
         phone: "", //电话
         idnumber: "", //身份证号
-        role: "", //分配角色
+        selectRoleId:[], //分配角色
         big: "", //所属大队
         small: "", //所属小组
         desc: "" //员工简介
@@ -209,7 +210,7 @@ export default {
         sex: validate.sex,
         phone: validate.phone,
         idnumber: validate.idnumber,
-        role: validate.role
+        selectRoleId: validate.selectRoleId
       },
       tableData: [],
       tableData2: [],
@@ -334,7 +335,7 @@ export default {
       );
     },
     handleCheckChange(val) {
-      console.log(val);
+       Object.assign(this.selectRoleId, val)
     },
     radiochange(row) {
       this.radio = row;
@@ -378,17 +379,16 @@ export default {
               ygIdentity: this.ruleForm.idnumber, //身份证
               Brigade: this.ruleForm.big, //大队
               group: this.ruleForm.small, //小组
-              role: this.ruleForm.role //分配角色
+              role: this.ruleForm.selectRoleId //分配角色
             };
             requestLogin("/setStaffInfo", loginParams, "post")
               .then(data => {
                 this.addLoading = false;
                 this.$message({
-                  message: "提交成功",
+                  message: "添加成功",
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;
@@ -403,7 +403,6 @@ export default {
               });
           });
         } else {
-          this.$message({ message: "提交失败!", type: "error" });
           return false;
         }
       });
