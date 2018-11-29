@@ -170,7 +170,7 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: "",
-      Tiyanqufen: { tiyanqufen: "newCustomer",id:""},
+      Tiyanqufen: { tiyanqufen: "newCustomer",id:1},
       Customercategory: "experience",
       formInline: {
         user: "",
