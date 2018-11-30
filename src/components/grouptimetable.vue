@@ -48,8 +48,8 @@
                     </el-form-item>
                     <el-form-item label="上课时间:" prop="attendtime" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
-                        <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endtime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
+                        <el-time-select placeholder="起始时间" value-format="HH:mm:ss" format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%"></el-time-select>
+                        <el-time-select placeholder="结束时间" value-format="HH:mm:ss" format="HH:mm:ss" v-model="ruleForm.endtime" arrow-control :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%"></el-time-select>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
@@ -185,7 +185,7 @@
                           </el-select>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
+                      <el-form-item label="姓名/电话:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-input v-model="ruleForm2.name" placeholder="请输入" @change="inputchange"></el-input>
                         </el-col>
@@ -200,7 +200,7 @@
                       </el-form-item>
                       <el-form-item label="卡种:" prop="card" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="ruleForm2.card" placeholder="请选择" style="width:100%" @change="Selectchange6">
+                          <el-select v-model="ruleForm2.card" placeholder="请选择" style="width:100%">
                             <el-option v-for="item in kazhong" :key="item.id" :label="item.CTName" :value="item.id"></el-option>
                           </el-select>
                         </el-col>
@@ -234,14 +234,14 @@
                 </el-radio>
               </template>
             </el-table-column>
-            <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称"></el-table-column>
+            <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
             <el-table-column align="left" label="开课时间">
               <template slot-scope="scope">
                 <span>{{scope.row.Stime.substring(0,5)}}--{{scope.row.Etime.substring(0,5)}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="kcbSort" align="left" sortable label="底色"></el-table-column>
-            <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+            <el-table-column prop="JLIDs" align="left" label="教练"></el-table-column>
             <el-table-column align="left" label="已预约">
               <template slot-scope="scope">
                 <span>{{scope.row.group_curriculum_appointment_count}}/{{scope.row.RenShu}}</span>
@@ -283,8 +283,8 @@
           courseclassify: "", //课程分类
           train: "", //教练
           room: "", //教室
-          attendtime: "", //上课时间
-          endtime: "", //结束时间
+          attendtime:"", //上课时间
+          endtime:"", //结束时间
           attenddate: "", //课程日期
           galleryful: "", //容纳人数
           difficulty: "", //难度
@@ -526,11 +526,11 @@
               var formData = {
                 kcStime: this.currentSelectRow.kcStime, //课程日期
                 KCNO: this.currentSelectRow.KCNO, //所选课程id
-                kcbSort: this.currentSelectRow.kcbSort == "白底" ? 1 : 2, //灰底白底
+                kcbSort: this.currentSelectRow.kcbSort, //灰底白底
                 JLID: this.currentSelectRow.JLID, //教练id
                 kcPlace: this.currentSelectRow.kcPlace, //教室
-                Stime: this.currentSelectRow.Stime, //开课时间
                 Etime: this.currentSelectRow.Etime, //结束时间
+                Stime: this.currentSelectRow.Stime, //开课时间
                 RenShu: this.currentSelectRow.RenShu, //容纳人数
                 kcDiff: this.currentSelectRow.kcDiff, //课程难度
                 price: this.currentSelectRow.price //价格
@@ -546,7 +546,9 @@
                     message: "修改成功",
                     type: "success"
                   });
-                  this.reload();
+                  this.dialogFormVisible3 = false;
+                  this.tableData.push(formData);
+                  // this.reload();
                 })
                 .catch(error => {
                   this.addLoading = false;
@@ -582,7 +584,7 @@
           })
             .then(() => {
               requestLogin(
-                "/CurTableInfo/" + _this.currentSelectRow.KCNO,
+                "/CurTableInfo/" + _this.currentSelectRow.ID,
                 {},
                 "delete"
               ).then(response => {
@@ -591,7 +593,7 @@
                   type: "success"
                 });
               });
-              this.reload();
+              _this.reload();
             })
             .catch(error => {
               let { response: { data: { errorCode, msg } } } = error;
@@ -628,7 +630,9 @@
                     message: "提交成功",
                     type: "success"
                   });
-                  this.reload();
+                  // this.reload();
+                  this.dialogFormVisible= false;
+                  this.tableData.push(formData);
                 })
                 .catch(error => {
                   let { response: { data: { errorCode, msg } } } = error;
@@ -651,11 +655,20 @@
       Selectchange3(val) {},
       Selectchange4(val) {},
       Selectchange5(val) {},
-      Selectchange6(val) {},
       optionchange(val) {
         this.searchname();
+        if(this.ruleForm2.consumer == 'experience'){
+          this.ruleForm2.card='';
+          this.kazhong = [];
+          this.$message({ message: "体验客户的唯一标识不是姓名,请输入电话号码", type: "warning" });
+        }else{
+          this.ruleForm2.card = '';
+          this.kazhong = [];
+        }
       },
-      ceshihcange(val) {}
+      ceshihcange(val) {
+        console.log(val);
+      }
     }
   };
 </script>

@@ -15,7 +15,7 @@
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
-                                                    <el-date-picker value-format="yyyy-MM-dd" format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                    <el-date-picker value-format="yyyy-MM-dd" :clearable="false" format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
                                                 </el-col>
                                             </el-form-item>
                                         </div>
