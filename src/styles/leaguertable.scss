@@ -26,21 +26,31 @@
             }
             .el-range-editor{
                 height: 35px;
-                width: 136px !important;
+                width:230px !important;
                 margin-top: 3px!important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 136px !important;
+                  width: 230px !important;
                   padding-right: 0px !important;
               }
               .el-input {
                 height: 35px;
-                width: 90px !important;
+                width: 220px !important;
               }
               .el-select{
                 height: 35px;
-                width: 113px !important;
+                width: 220px !important;
+              }
+          }
+          .search-form2 {
+            height: 35px;
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+              .el-input {
+                height: 35px;
+                width: 110px !important;
               }
           }
           .corry {
@@ -149,25 +159,39 @@
             }
             .el-range-editor{
                 height: 37px;
-                width: 220px !important;
+                width: 240px !important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 220px !important;
+                  width: 240px !important;
               }
               .el-input__inner {
                 height: 37px;
                 padding-right: 0px !important;
-                width:135px !important;
+                width:220px !important;
               }
               .el-input {
                 height: 37px;
-                width: 135px !important;
+                width: 220px !important;
               }
               .el-select{
                 height: 37px;
-                width: 177px !important;
+                width: 220px !important;
               }
+          }
+          .search-form2{
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-input__inner {
+              height: 37px;
+              padding-right: 0px !important;
+              width: 110px !important;
+            }
+            .el-input {
+              height: 37px;
+              width: 110px !important;
+            }
           }
           .corry {
             height: 37px;
@@ -275,25 +299,39 @@
             }
             .el-range-editor{
                 height: 37px;
-                width: 180px !important;
+                width: 200px !important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 180px !important;
+                  width: 200px !important;
               }
               .el-input__inner {
                 height: 37px;
                 padding-right: 0px !important;
-                width:100px !important;
+                width:135px !important;
               }
               .el-input {
                 height: 37px;
-                width:100px !important;
+                width:135px !important;
               }
               .el-select{
                 height: 37px;
                 width: 175px !important;
               }
+          }
+          .search-form2{
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-input__inner {
+              height: 37px;
+              padding-right: 0px !important;
+              width: 85px !important;
+            }
+            .el-input {
+              height: 37px;
+              width: 85px !important;
+            }
           }
           .corry {
             height: 37px;
@@ -373,7 +411,7 @@
         }
       }
 }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
     .practice-list {
         width: 97%;
         height: 100%;
@@ -401,25 +439,39 @@
             }
             .el-range-editor{
                 height: 37px;
-                width: 180px !important;
+                width: 220px !important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 180px !important;
+                  width: 220px !important;
               }
               .el-input__inner {
                 height: 37px;
                 padding-right: 0px !important;
-                width: 130px !important;
+                width: 200px !important;
               }
               .el-input {
                 height: 37px;
-                width: 130px !important;
+                width: 200px !important;
               }
               .el-select{
                 height: 37px;
-                width: 227px !important;
+                width: 200px !important;
               }
+          }
+          .search-form2{
+            display: flex;
+            float: left;
+            margin: 15px 0px auto;
+            .el-input__inner {
+              height: 37px;
+              padding-right: 0px !important;
+              width: 100px !important;
+            }
+            .el-input {
+              height: 37px;
+              width: 100px !important;
+            }
           }
           .corry {
             height: 37px;
@@ -499,6 +551,146 @@
         }
       }
 }
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+  .practice-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .quanbu {
+        display: block;
+        height: 100%!important;
+        .search-form {
+          height: 45px;
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-button--primary {
+            background-color: #00bc71;
+            border-color: #00bc71;
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button+.el-button{
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-range-editor{
+              height: 37px;
+              width: 250px !important;
+            }
+            .el-range-editor.el-input__inner{
+                font-size: 12px!important;
+                width: 250px !important;
+            }
+            .el-input__inner {
+              height: 37px;
+              padding-right: 0px !important;
+              width: 250px !important;
+            }
+            .el-input {
+              height: 37px;
+              width: 250px !important;
+            }
+            .el-select{
+              height: 37px;
+              width: 250px !important;
+            }
+        }
+        .search-form2{
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+            width: 125px !important;
+          }
+          .el-input {
+            height: 37px;
+            width: 125px !important;
+          }
+        }
+        .corry {
+          height: 37px;
+          line-height: 37px;
+          float: left;
+          margin-top: 15px;
+          .corry-out {
+            color: #00bc71;
+            font-size: 14px;
+          }
+        }
+        .el-input--suffix .el-input__inner {
+          height: 37px;
+          padding-right: 0px !important;
+        }
+      }
+      .practice-center {
+        height: 80px;
+        margin-top: 1%!important;
+        .purple {
+          height: 80px;
+          display: flex;
+          justify-content: flex-start;
+          .add {
+            border: 1px solid #00bc71;
+            width: 20%!important;
+            height: 35px;
+            border-radius: 4px;
+            line-height: 4px!important;
+            margin-top: 20px;
+            margin-left: 20px;
+            p {
+              color: #00bc71;
+              font-family: PingFang-SC-Regular;
+              font-size: 16px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+            }
+            .add-p {
+              color: #00bc71;
+              margin-top: 9px;
+            }
+            .add-b {
+              color: #00bc71;
+              margin-top: -4px!important;
+              font-size: 16px!important;
+            }
+          }
+        }
+        .purple2 {
+          height: 80px;
+          display: flex;
+          justify-content: flex-end;
+          .search {
+            width: 38%!important;
+            border: 1px solid #e8e8e8;
+            height: 32px;
+            display: flex;
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-right: 20px;
+            .search-input {
+              width: 100%;
+              border-radius: 16px;
+              border: none;
+              text-indent: 10px;
+              color: #8c8c8c;
+              font-size: 14px!important;
+            }
+            .search-icon {
+              margin-top: 8px;
+              margin-right: 13px;
+            }
+          }
+        }
+      }
+    }
+}
 @media screen and (min-width: 1920px)and (max-width: 2048px){
   .practice-list {
       width: 97%;
@@ -527,25 +719,39 @@
           }
           .el-range-editor{
               height: 37px;
-              width: 323px !important;
+              width: 300px !important;
             }
             .el-range-editor.el-input__inner{
                 font-size: 12px!important;
-                width: 323px !important;
+                width: 300px !important;
             }
             .el-input__inner {
               height: 37px;
               padding-right: 0px !important;
-              width: 195px !important;
+              width: 300px !important;
             }
             .el-input {
               height: 37px;
-              width: 195px !important;
+              width: 300px !important;
             }
             .el-select{
               height: 37px;
               width: 300px !important;
             }
+        }
+        .search-form2{
+          display: flex;
+          float: left;
+          margin: 15px 0px auto;
+          .el-input__inner {
+            height: 37px;
+            padding-right: 0px !important;
+            width: 150px !important;
+          }
+          .el-input {
+            height: 37px;
+            width: 150px !important;
+          }
         }
         .corry {
           height: 37px;
