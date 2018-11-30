@@ -53,6 +53,7 @@ export default {
       pagesize: 10,
       tableData: [],
       loading:true,
+      id:this.$route.query.id,
       name:this.$route.query.name,
       tel:this.$route.query.tel,
       customercategory:this.$route.query.customercategory
@@ -94,7 +95,7 @@ export default {
               identity:this.customercategory, //客户类别
               howMuch:1, //数据类型
               num:this.currentSelectRow.id, //数据id
-              id:this.currentSelectRow.id, //客户id
+              id:this.$route.query.id, //客户id
             };
             requestLogin("/CustomerFollowUp/confirmReceive", loginParams, "post")
               .then(data => {

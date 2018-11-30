@@ -84,8 +84,8 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用天数{{((datedifference(new Date,membershipcards.sTime)+1)/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
-              <p>{{datedifference(new Date,membershipcards.sTime)+1}}
+              <span>已使用天数{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <p>{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
             </el-col>
@@ -103,8 +103,8 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余天数{{(datedifference(new Date,membershipcards.eTime)/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
-              <p>{{datedifference(new Date,membershipcards.eTime)}}
+              <span>剩余天数{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
             </el-col>
@@ -149,7 +149,7 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
   name: "cardone",
-  props: ["membershipcards", "chartId","idx"],
+  props: ["membershipcards", "chartId", "idx"],
   data() {
     return {
       tbdata: []
@@ -171,7 +171,7 @@ export default {
         },
         { value: this.membershipcards.SYCS, name: "剩余次数" }
       ];
-    } else if(this.membershipcards.card_type.ctType == "金额卡"){
+    } else if (this.membershipcards.card_type.ctType == "金额卡") {
       this.tbdata = [
         {
           value:
@@ -180,30 +180,57 @@ export default {
         },
         { value: this.membershipcards.SYJE, name: "剩余金额" }
       ];
-    }else{
+    } else {
       this.tbdata = [
-        { value: this.datedifference(new Date,this.membershipcards.sTime)+1,name: "已使用天数"},
-        { value: this.datedifference(new Date,this.membershipcards.eTime), name: "剩余天数" }
+        {
+          value:
+            this.datedifference(this.membershipcards.sTime, new Date()) == 0
+              ? 0
+              : this.datedifference(this.membershipcards.sTime, new Date()) >
+                this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
+                ? this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
+                : this.datedifference(this.membershipcards.sTime, new Date()) + 1,
+          name: "已使用天数"
+        },
+        {
+          value:
+            this.datedifference(new Date(), this.membershipcards.eTime) >=
+            this.datedifference(
+              this.membershipcards.sTime,
+              this.membershipcards.eTime
+            )
+              ? this.datedifference(
+                  this.membershipcards.sTime,
+                  this.membershipcards.eTime
+                )
+              : this.datedifference(new Date(), this.membershipcards.eTime),
+          name: "剩余天数"
+        }
       ];
     }
   },
   methods: {
-     open3() {
-       if(this.membershipcards.card_type.ctType=='期限卡'){
-         this.$message({
-           message: '对不起~期限卡不能更改次数或金额',
-           type: 'warning'
-         });
-       }
-      },
-      datedifference(sDate1, sDate2) {    //sDate1和sDate2是2006-12-18格式  
-        var dateSpan,tempDate,iDays;
-        sDate1 = Date.parse(sDate1);
-        sDate2 = Date.parse(sDate2);
-        dateSpan = sDate2 - sDate1;
-        dateSpan = Math.abs(dateSpan);
+    open3() {
+      if (this.membershipcards.card_type.ctType == "期限卡") {
+        this.$message({
+          message: "对不起~期限卡不能更改次数或金额",
+          type: "warning"
+        });
+      }
+    },
+    datedifference(sDate1, sDate2) {
+      //sDate1和sDate2是2006-12-18格式
+      var dateSpan, tempDate, iDays;
+      sDate1 = Date.parse(sDate1);
+      sDate2 = Date.parse(sDate2);
+      dateSpan = sDate2 - sDate1;
+      // dateSpan = Math.abs(dateSpan);
+      if (dateSpan <= 0) {
+        return 0;
+      } else {
         iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
-        return iDays
+        return iDays;
+      }
     },
     drawBar() {
       //初始化echarts实例

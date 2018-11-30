@@ -14,11 +14,11 @@
           <div class="search-form">
             <el-form-item label="到期时间:">
               <el-col :span="24">
-                <el-date-picker v-model="formInline.date" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
               </el-col>
             </el-form-item>
           </div>
-          <div class="search-form" v-show="isShow">
+          <div class="search-form2" v-show="isShow">
             <el-form-item label="剩余次数:">
               <el-col :span="12">
                 <el-input v-model="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
@@ -28,7 +28,7 @@
               </el-col>
             </el-form-item>
           </div>
-          <div class="search-form" v-show="isShow">
+          <div class="search-form2" v-show="isShow">
             <el-form-item label="剩余金额:">
               <el-col :span="12">
                 <el-input v-model="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
@@ -57,7 +57,7 @@
             </el-form-item>
           </div>
           <div class="search-form" v-show="isShow">
-            <el-form-item label="多久未跟进:">
+            <el-form-item label="多久未跟进:" label-width="100px">
               <el-col :span="24">
                 <el-select v-model="formInline.follow" placeholder="请选择" style="width:200px" @change="Selectchange3">
                   <el-option v-for="item in follow" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -125,7 +125,6 @@
             <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
             <el-table-column prop="CardNO" align="left" label="卡号" width="180px"></el-table-column>
             <el-table-column prop="CTName" align="left" label="卡种" width="180px"></el-table-column>
-            <el-table-column prop="sTime" align="left" label="开卡时间" sortable width="200px"></el-table-column>
             <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
             <el-table-column prop="eTime" align="left" label="到期时间" sortable width="200px"></el-table-column>
             <el-table-column prop="SYCS" align="left" label="剩余次数" sortable width="130px"></el-table-column>
@@ -188,7 +187,7 @@ export default {
       isShow: false,
       loading: true,
       Customercategory: "member",
-      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:1},
+      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 },
       formInline: {
         membercard: "",
         date: "",
@@ -256,11 +255,11 @@ export default {
     }, 1000);
   },
   computed: {
-    isAdviser () {
+    isAdviser() {
       let user = JSON.parse(sessionStorage.getItem("userInfo"));
       for (let index = 0; index < user.role.length; index++) {
         const element = user.role[index];
-        if (element.name == '超级管理员' || element.name == '店长') {
+        if (element.name == "超级管理员" || element.name == "店长") {
           return true;
         }
       }
@@ -290,7 +289,8 @@ export default {
         };
       }
       requestLogin(
-        "/setMemberCustomers/searchMemberCustomers/1/" + _this.formInline.adviser,
+        "/setMemberCustomers/searchMemberCustomers/1/" +
+          _this.formInline.adviser,
         params,
         "post"
       )
@@ -424,6 +424,7 @@ export default {
       this.$router.push({
         path: "/Customer/leaguer/leaguermanage/claim",
         query: {
+          id: this.currentSelectRow.HYID,
           name: this.currentSelectRow.HYName,
           tel: this.currentSelectRow.MotoTel,
           customercategory: this.Customercategory
@@ -480,6 +481,15 @@ export default {
       .el-button + .el-button {
         height: 35px;
         line-height: 1px;
+      }
+    }
+    .search-form2 {
+      display: flex;
+      float: left;
+      margin: 15px 0px auto;
+      .el-input {
+        height: 35px;
+        width: 100px;
       }
     }
     .el-input--suffix .el-input__inner {

@@ -209,7 +209,7 @@ export default {
         name: validate.name,
         sex: validate.sex,
         phone: validate.phone,
-        idnumber: validate.idnumber,
+        // idnumber: validate.idnumber,
         selectRoleId: validate.selectRoleId
       },
       tableData: [],
