@@ -74,8 +74,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="limittime" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="ruleForm.startTime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
-          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="ruleForm.endTime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
+          <el-time-picker  v-model="ruleForm.startTime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.endTime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
         </el-col>
       </el-form-item>
       <div v-if="this.ceshis=='hide'">
@@ -176,7 +176,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
-            this.addLoading = true;
+            _this.addLoading = true;
             var loginParams = {
               CTName: _this.ruleForm.cardname, //卡名称
               CTjg: _this.ruleForm.price, //价格
@@ -195,16 +195,16 @@ export default {
             };
             requestLogin("/setCardType", loginParams, "post")
               .then(data => {
-                this.addLoading = false;
+                _this.addLoading = false;
                 this.$message({
                   message: "提交成功",
                   type: "success"
                 });
-                this.reload();
-                this.dialogFormVisible = false;
+                _this.reload();
+                _this.dialogFormVisible = false;
               })
               .catch(error => {
-                this.addLoading = false;
+                _this.addLoading = false;
                 let { response: { data: { errorCode, msg } } } = error;
                 if (errorCode != 0) {
                   this.$message({

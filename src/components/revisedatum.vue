@@ -25,14 +25,13 @@
       </el-form-item>
       <el-form-item label="客户质量:" prop="quality" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-select v-model="currentSelectRow.prQuality" placeholder="请选择" style="width:100%" @change="Selectchange">
-            <el-option v-for="item in quality" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="currentSelectRow.prQuality" style="width:100%" @change="Selectchange">
+            <el-option v-for="item in prQuality" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <!--<el-button @click="resetForm('currentSelectRow')">重置</el-button>-->
           <el-button type="primary" @click="submitForm('currentSelectRow')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -48,13 +47,14 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      num:0,
       dialogFormVisible: false,
       formLabelWidth: "130px",
-       quality: [//客户质量
-          {value: '1',label: 'A'},
-          {value: '2',label: 'B'}, 
-          {value: '3',label: 'C'}, 
-          {value: '4',label: 'D'}],
+       prQuality: [//客户质量
+          {value: "1",label: 'A'},
+          {value: "2",label: 'B'}, 
+          {value: "3",label: 'C'}, 
+          {value: "4",label: 'D'}],
     };
   },
   methods: {
@@ -64,12 +64,21 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            if(_this.currentSelectRow.prQuality == 'A' || _this.currentSelectRow.prQuality == 1){
+              _this.prQuality.value = "1";
+            }else if(_this.currentSelectRow.prQuality == 'B' || _this.currentSelectRow.prQuality == 2){
+              _this.prQuality.value = "2";
+            }else if(_this.currentSelectRow.prQuality == 'C' || _this.currentSelectRow.prQuality == 3){
+              _this.prQuality.value = "3";
+            }else{
+              _this.prQuality.value = "4";
+            }
             var loginParams = {
               prName: _this.currentSelectRow.prName, //姓名
               prTel: _this.currentSelectRow.prTel, //电话
-              prSex: _this.currentSelectRow.prSex =='女'? 1 : 2, //性别
-              prQuality: _this.currentSelectRow.prQuality, //客户质量
-              WeChat: _this.currentSelectRow.WeChat, //微信号
+              prSex: _this.currentSelectRow.prSex =='女'? 1 : 2, //性别  不用试了  都是4
+              prQuality:_this.prQuality.value, //客户质量
+              WeChat: _this.currentSelectRow.WeChat, //微信号              
             };
             requestLogin("/setPotentialCustomer/"+_this.currentSelectRow.id, loginParams, "put")
               .then(data => {
@@ -77,8 +86,8 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
-                this.reload();
-                this.dialogFormVisible = false;
+                _this.reload();
+                _this.dialogFormVisible = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
