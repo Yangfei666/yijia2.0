@@ -138,7 +138,6 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                this.dialogFormVisible = false;
               })
               .catch(error => {
                 this.addLoading = false;

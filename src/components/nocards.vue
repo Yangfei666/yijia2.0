@@ -63,10 +63,11 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
+              id: this.$route.params.id,//体验客户id
               content: this.ruleForm.desc //原因
             };
             requestLogin(
-              "/setExperienceCustomer/giveUp/" + this.$route.params.id,
+              "/setExperienceCustomer/giveUp",
               loginParams,
               "post"
             )

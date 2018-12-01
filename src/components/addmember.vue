@@ -178,8 +178,8 @@ export default {
         adviser: validate.adviser,
         mode: validate.mode,
         cardname: validate.cardname,
-        card: [{ validator: validatecard, trigger: "blur" }],
-        cardaffirm: [{ validator: validatecardaffirm, trigger: "blur" }],
+        card: [{ required: true,validator: validatecard, trigger: "blur" }],
+        cardaffirm: [{required: true, validator: validatecardaffirm, trigger: "blur" }],
         sensitize: validate.sensitize,
       }
     };

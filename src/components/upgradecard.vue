@@ -128,8 +128,8 @@ export default {
                   message: "升级成功",
                   type: "success"
                 });
-                this.reload();
-                this.resetForm(formName);
+                _this.reload();
+                _this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

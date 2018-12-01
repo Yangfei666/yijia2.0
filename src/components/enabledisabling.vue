@@ -93,8 +93,8 @@ export default {
                   message: "操作成功",
                   type: "success"
                 });
-                this.reload();
-                this.resetForm(formName);
+                _this.reload();
+                _this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

@@ -68,9 +68,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1S" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
-          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.CTxTime_1E" :picker-options="{start: '05:30',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
-        </el-col>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1S" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1E" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>        </el-col>
       </el-form-item>
       <div v-if="this.hides == 'yinchang'">
         <el-form-item label="" :label-width="formLabelWidth"></el-form-item>
@@ -182,7 +181,6 @@ export default {
                   type: "success"
                 });
                 this.reload();
-                // this.$emit('closeEdit',false)
                 this.dialogFormVisible = false;
               })
               .catch(error => {
