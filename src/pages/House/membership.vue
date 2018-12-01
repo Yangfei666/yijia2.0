@@ -245,6 +245,10 @@ export default {
   },
   created: function() {
     //表格列表数据
+    this.gettableData();
+  },
+  methods: {
+    gettableData(){
     let _this = this;
     _this.loading = true;
     requestLogin("/setCardType", {}, "get")
@@ -263,8 +267,7 @@ export default {
           });
         }
       });
-  },
-  methods: {
+    },
     radiochange(row) {},
     handleClick(tab, event) {
       this.sign = event.target.getAttribute("id");
@@ -353,7 +356,7 @@ export default {
             _this.loading = false;
             this.$message({ message: "删除成功", type: "success" });
           });
-          this.reload();
+          _this.reload();
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;

@@ -74,7 +74,7 @@ export default {
               kcName: this.currentSelectRow.kcName, //课程名称
               ZT: this.currentSelectRow.ZT == "启用" ? 1 : 2, //状态
               BZ: this.currentSelectRow.BZ, //备注
-              kcHot: this.currentSelectRow.kcHot == "普通" ? 1 : 2, //热度
+              kcHot: this.currentSelectRow.kcHot == "普通" ? 2 : 1, //热度
               price: this.currentSelectRow.price, //价格
               file: this.currentSelectRow.curriculum_subject_img.urlPic //课程封面
             };
@@ -84,7 +84,6 @@ export default {
               "put"
             )
               .then(data => {
-                this.dialogFormVisible = false;
                 this.addLoading = false;
                 this.$message({
                   message: "修改成功",

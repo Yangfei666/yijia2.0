@@ -522,7 +522,7 @@ export default {
               type: "success"
             });
           });
-          this.reload();
+          _this.reload();
         })
         .catch(error => {
           this.addLoading = false;

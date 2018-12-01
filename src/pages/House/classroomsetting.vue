@@ -210,7 +210,7 @@ export default {
               type: "success"
             });
           });
-          this.reload();
+          _this.reload();
         })
         .catch(() => {
           if (error.response) {

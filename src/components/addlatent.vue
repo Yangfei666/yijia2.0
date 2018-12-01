@@ -132,8 +132,8 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
-                this.reload();
-                this.dialogFormVisible = false;
+                _this.reload();
+                _this.dialogFormVisible = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

@@ -46,43 +46,43 @@
               <span slot="label">周一
                 <b style="font-size:12px">({{this.getsubstr('Monday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='1'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='1'  @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Tuesday">
               <span slot="label">周二
                 <b style="font-size:12px">({{this.getsubstr('Tuesday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='2'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='2' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Wednesday">
               <span slot="label">周三
                 <b style="font-size:12px">({{this.getsubstr('Wednesday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='3'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='3' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Thursday">
               <span slot="label">周四
                 <b style="font-size:12px">({{this.getsubstr('Thursday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='4'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='4' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Friday">
               <span slot="label">周五
                 <b style="font-size:12px">({{this.getsubstr('Friday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='5'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='5' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Saturday">
               <span slot="label">周六
                 <b style="font-size:12px">({{this.getsubstr('Saturday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='6'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='6' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Sunday">
               <span slot="label">周日
                 <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7'></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -187,7 +187,7 @@ export default {
           _this.tdlist = res;
           let { week } = res;
           _this.week = week;
-          //根据week的value值得到它的key值
+          //根据week的value值得到它的key值  
           let findKey = (value, compare = (a, b) => a === b) => {
             return Object.keys(week).find(k => compare(week[k], value));
           };
@@ -202,6 +202,9 @@ export default {
             });
           }
         });
+    },
+    getkcData(){
+       this.getGroup();
     },
     //得到当前年月日yyyy-MM-dd
     getNowFormatDate() {

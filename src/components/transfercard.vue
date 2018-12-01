@@ -206,7 +206,7 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
-                this.reload();
+                _this.reload();
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -247,7 +247,7 @@ export default {
               message: "转卡成功",
               type: "success"
             });
-            this.reload();
+            _this.reload();
           })
           .catch(error => {
             if (error.res) {

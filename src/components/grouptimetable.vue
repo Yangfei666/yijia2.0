@@ -48,8 +48,8 @@
                     </el-form-item>
                     <el-form-item label="上课时间:" prop="attendtime" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-time-select placeholder="起始时间" value-format="HH:mm:ss" format="HH:mm:ss" v-model="ruleForm.attendtime" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%"></el-time-select>
-                        <el-time-select placeholder="结束时间" value-format="HH:mm:ss" format="HH:mm:ss" v-model="ruleForm.endtime" arrow-control :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%"></el-time-select>
+                        <el-time-picker  v-model="ruleForm.attendtime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+                        <el-time-picker  v-model="ruleForm.endtime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
@@ -122,8 +122,8 @@
                       </el-form-item>
                       <el-form-item label="上课时间:" prop="Stime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" v-model="currentSelectRow.Stime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
-                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" v-model="currentSelectRow.Etime" :picker-options="{start: '05:00',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
+                          <el-time-picker  v-model="currentSelectRow.Stime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+                          <el-time-picker  v-model="currentSelectRow.Etime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="容纳人数:" prop="RenShu" :label-width="formLabelWidth">
@@ -174,8 +174,8 @@
                       </el-form-item>
                       <el-form-item prop="time" label="上课时间:" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-time-select placeholder="起始时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Stime" :picker-options="{ start: '05:00',step: '00:15',end: '24:00'}" style="width:49%"></el-time-select>
-                          <el-time-select placeholder="结束时间" value-format="HH:mm:ss" disabled v-model="currentSelectRow.Etime" :picker-options="{start: '05:30',step: '00:15',end: '24:00',minTime: startTime}" style="width:49%"></el-time-select>
+                          <el-time-picker  v-model="currentSelectRow.Stime" value-format="HH:mm" disabled format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+                          <el-time-picker  v-model="currentSelectRow.Etime" value-format="HH:mm" disabled format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="预约课程:" prop="yycourse" :label-width="formLabelWidth">
@@ -234,6 +234,7 @@
                 </el-radio>
               </template>
             </el-table-column>
+            <!---->
             <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
             <el-table-column align="left" label="开课时间">
               <template slot-scope="scope">
@@ -267,12 +268,14 @@
     props: ["floorGoods", "weekDay", "classrooms", "subjects", "coachs", "clubs", "clubIndex", "isSelfClub"],
     data() {
       return {
+        kechengname:"",
         jiaoshi: [],
         kecheng: [],
         jiaolian: [],
         tableData: [],
         tablelength: 0,
         mendian: [],
+        value2:"",
         formLabelWidth: "130px",
         radio: "",
         startTime: "",
@@ -394,6 +397,9 @@
         this.mendian = this.clubs;
       }
     },
+    created(){
+      // console.log(this.kecheng[0].kcName);
+    },
     methods: {
       radiochange(row) {},
       handleSizeChange(size) {
@@ -499,7 +505,8 @@
                     message: "预约成功",
                     type: "success"
                   });
-                  this.reload();
+                  this.dialogFormVisible2 = false;
+                  this.$emit('regetData');
                 })
                 .catch(error => {
                   this.addLoading = false;
@@ -526,7 +533,7 @@
               var formData = {
                 kcStime: this.currentSelectRow.kcStime, //课程日期
                 KCNO: this.currentSelectRow.KCNO, //所选课程id
-                kcbSort: this.currentSelectRow.kcbSort, //灰底白底
+                kcbSort: this.currentSelectRow.kcbSort=='白底'?1:2, //灰底白底
                 JLID: this.currentSelectRow.JLID, //教练id
                 kcPlace: this.currentSelectRow.kcPlace, //教室
                 Etime: this.currentSelectRow.Etime, //结束时间
@@ -547,8 +554,7 @@
                     type: "success"
                   });
                   this.dialogFormVisible3 = false;
-                  this.tableData.push(formData);
-                  // this.reload();
+                  this.$emit('regetData');
                 })
                 .catch(error => {
                   this.addLoading = false;
@@ -614,13 +620,13 @@
             this.$confirm("确认提交吗？", "提示").then(() => {
               var formData = {
                 kcStime: this.kcStime, //课程日期
-                KCNO: this.ruleForm.course, //所选课程id
+                KCNO: this.ruleForm.course, //所选课程id  
                 kcbSort: this.ruleForm.courseclassify, //灰底白底
                 JLID: this.ruleForm.train, //教练id
                 kcPlace: this.ruleForm.room, //教室
                 Stime: this.ruleForm.attendtime, //开始时间
                 Etime: this.ruleForm.endtime, //结束时间
-                RenShu: this.ruleForm.galleryful, //容纳人数
+                RenShu: this.ruleForm.galleryful, //容纳人数 
                 kcDiff: this.ruleForm.difficulty, //课程难度
                 price: this.ruleForm.price //价格
               };
@@ -630,15 +636,13 @@
                     message: "提交成功",
                     type: "success"
                   });
-                  // this.reload();
                   this.dialogFormVisible= false;
-                  this.tableData.push(formData);
+                  this.$emit('regetData');
                 })
                 .catch(error => {
                   let { response: { data: { errorCode, msg } } } = error;
                   if (errorCode != 0) {
                     this.$message({ message: msg,  type: "error" });
-                    this.reload();
                   }
                   });
               });
@@ -651,7 +655,13 @@
         this.$refs[formName].resetFields();
       },
       inputchange(val) {},
-      Selectchange2(val) {},
+      Selectchange2(val) {
+        this.kecheng.map((item,index) => {
+           if (val == item.kcno) {
+             this.kechengname = item.kcName;
+           }
+        })
+      },
       Selectchange3(val) {},
       Selectchange4(val) {},
       Selectchange5(val) {},
