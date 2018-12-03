@@ -49,7 +49,7 @@
                   </el-form-item>
                   <el-form-item label="课程封面:" prop="filecover" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+                      <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <span slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
                       </el-upload>
@@ -68,8 +68,16 @@
           <div class="add">
             <el-button type="text" class="p" @click.prevent="changeInfo">修改课程科目</el-button>
             <template>
-              <el-dialog title="修改课程科目" :append-to-body="true" :visible.sync="dialogFormVisible2">
+              <el-dialog v-if="dialogFormVisible2" title="修改课程科目" :append-to-body="true" :visible.sync="dialogFormVisible2">
                 <EditCoursesubjects :currentSelectRow="currentSelectRow"></EditCoursesubjects>
+              </el-dialog>
+            </template>
+          </div>
+          <div class="add">
+            <el-button type="text" class="p" @click.prevent="changeInfo2">课程科目详情</el-button>
+            <template>
+              <el-dialog v-if="dialogFormVisible3" title="课程科目详情" :append-to-body="true" :visible.sync="dialogFormVisible3">
+                <DetailsCoursesubjects :currentSelectRow="currentSelectRow"></DetailsCoursesubjects>
               </el-dialog>
             </template>
           </div>
@@ -121,11 +129,13 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 import EditCoursesubjects from "@/components/editCoursesubjects";
+import DetailsCoursesubjects from "@/components/detailsCoursesubjects";
 export default {
   name: "course",
   inject: ["reload"],
   components: {
-    EditCoursesubjects
+    EditCoursesubjects,
+    DetailsCoursesubjects
   },
   data() {
     return {
@@ -138,6 +148,7 @@ export default {
       currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
+      dialogFormVisible3: false,
       currentPage: 1,
       pagesize: 10,
       radio: true,
@@ -167,25 +178,28 @@ export default {
     }
   },
   created: function() {
-    //表格列表数据
-    let _this = this;
-    _this.loading = true;
-    requestLogin("/setCurSubInfo", {}, "get")
-      .then(function(res) {
-        _this.loading = false;
-        _this.tableData = res;
-        _this.tableData2 = res;
-      })
-      .catch(error => {
-        if (error.res) {
-          this.$message({
-            message: "获取数据失败",
-            type: "error"
-          });
-        }
-      });
+    this.getbiaoge();
   },
   methods: {
+    getbiaoge() {
+      //表格列表数据
+      let _this = this;
+      _this.loading = true;
+      requestLogin("/setCurSubInfo", {}, "get")
+        .then(function(res) {
+          _this.loading = false;
+          _this.tableData = res;
+          _this.tableData2 = res;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     getCurrentRow(val) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;
@@ -222,12 +236,36 @@ export default {
         this.$message({ message: "请先选择表格数据!", type: "warning" });
       }
     },
+    //课程科目详情
+    changeInfo2() {
+      //先选择列表
+      if (this.currentSelectRow) {
+        this.dialogFormVisible3 = true;
+      } else {
+        this.$message({ message: "请先选择表格数据!", type: "warning" });
+      }
+    },
     //查询表单
     search() {
       this.tableData = this.tableData2;
       this.tableData = this.tableData2.filter(
         i => i.kcName.indexOf(this.searchName) != -1
       );
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
     },
     //添加课程科目
     submitForm(formName) {

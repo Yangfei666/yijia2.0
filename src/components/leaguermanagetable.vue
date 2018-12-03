@@ -132,7 +132,8 @@
             <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
-                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>
+                <el-button type="text" size="small" v-else :disabled="true">认领</el-button>
               </template>
             </el-table-column>
           </el-table>
