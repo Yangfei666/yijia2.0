@@ -431,8 +431,15 @@ body {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-track {
-  /* background-color: #f1f1f1; */
   background-color: transparent;
+  border-radius: 10px;
+}
+.el-table .el-table__body-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 13px;
+}
+.el-table .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: #56e79e;/*#56e79e*/
   border-radius: 10px;
 }
 </style>

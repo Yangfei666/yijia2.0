@@ -121,17 +121,17 @@
                   <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
-              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="180px"></el-table-column>
+              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="150px"></el-table-column>
               <el-table-column prop="YGXX_HOMETEL" align="left" label="手机号" width="180px"></el-table-column>
-              <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
-              <el-table-column prop="YGXX_SEX" align="left" label="性别" width="160px"></el-table-column>
-              <el-table-column prop="YGXX_STATE" align="left" label="状态" width="160px"></el-table-column>
-              <el-table-column prop="strRole" align="left" label="角色" width="200px"></el-table-column>
+              <el-table-column prop="YGXX_SEX" align="left" label="性别" width="120px"></el-table-column>
+              <el-table-column prop="YGXX_STATE" align="left" label="状态" width="130px"></el-table-column>
+              <el-table-column prop="strRole" align="left" label="角色" width="280px"></el-table-column>
+              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="220px"></el-table-column>
+              <el-table-column prop="ygIdentity" align="left" label="身份证" width="220px"></el-table-column>
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
-              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="230px"></el-table-column>
-              <el-table-column align="left" label="操作" width="150px" fixed="right">
+              <el-table-column align="left" label="操作" fixed="right" width="120px">
                 <template slot-scope="scope">
-                  <el-button @click="dialogFormVisible3 = true" type="danger" plain :disabled="scope.row.role.indexOf('会籍顾问') == -1" size="small">客户转出
+                  <el-button @click="dialogFormVisible3 = true" type="danger" plain :disabled="scope.row.strRole.indexOf('会籍顾问') == -1" size="small">客户转出
                   </el-button>
                 </template>
               </el-table-column>
