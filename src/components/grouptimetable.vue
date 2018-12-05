@@ -670,7 +670,7 @@
         if(this.ruleForm2.consumer == 'experience'){
           this.ruleForm2.card='';
           this.kazhong = [];
-          this.$message({ message: "体验客户的唯一标识不是姓名,请输入电话号码", type: "warning" });
+          this.$message({ message: "体验客户的唯一标识非姓名,请输入电话号码,如已输入请忽略此提示!", type: "warning" });
         }else{
           this.ruleForm2.card = '';
           this.kazhong = [];

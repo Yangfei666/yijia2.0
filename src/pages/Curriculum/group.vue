@@ -17,7 +17,7 @@
                 <el-col :span="24">
                   <el-form-item label="所属门店:">
                     <el-col :span="24">
-                      <el-select v-model="formInline.club" @change="changeClub" v-if="club[selectClubIndex]" :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
+                      <el-select v-model="club[selectClubIndex].Hsxx_Name" @change="changeClub" v-if="club[selectClubIndex]" :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
                         <el-option v-for="item in club" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
                       </el-select>
                     </el-col>

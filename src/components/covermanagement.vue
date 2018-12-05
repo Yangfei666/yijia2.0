@@ -103,10 +103,14 @@ export default {
         })
         .catch(error => {
           _this.loading = false;
-          this.$message({
-            message: "修改失败",
-            type: "error"
-          });
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
           _this.cover[index].hsxxIsFirst = "非封面";
         });
     },
@@ -174,10 +178,17 @@ export default {
             .then(() => {
               _this.cover.splice(index, 1);
             });
-          rows.splice(index, 1);
         })
         .catch(error => {
           _this.loading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     handleRemove(file, fileList) {},

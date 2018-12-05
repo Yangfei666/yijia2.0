@@ -37,7 +37,7 @@
         <span>体验客户约课</span>
       </div>
       <div class="main-table">
-        <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+        <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick">
           <el-table-column align="left" fixed label="头像">
             <template slot-scope="scope">
               <img src="../assets/tianjiahuiyuan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
@@ -254,12 +254,24 @@ export default {
     }
   },
   methods: {
+    rowClick(row, event, column) {
+      this.currentSelectRow = row;
+    },
     // 进场按钮点击
     clickEnter(str, id) {
-      this.enterTitle =
-        (this.activeName == "league" ? "团课" : "私教") + str + "进场";
-      this.userId = id;
-      this.dialogFormVisible = true;
+      if (this.currentSelectRow.customer_voucher.mode == "未付款") {
+        this.dialogFormVisible = false;
+        this.$alert("该客户还未付款,确定要进场吗?", "提示消息", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.dialogFormVisible = true;
+        }
+      });
+      } else {
+        this.enterTitle =(this.activeName == "league" ? "团课" : "私教") + str + "进场";
+        this.userId = id;
+        this.dialogFormVisible = true;
+      }
     },
     // 教练进场成功更改状态
     caochSuccess(name2, JLIDs) {
