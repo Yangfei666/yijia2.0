@@ -466,14 +466,18 @@ export default {
         });
     },
     transformRole(roleArray) {
-      var rolestr = roleArray.role[0].name;
-      var role = roleArray.role;
-      if (role.length > 1) {
-        for (var j = 1; j < role.length; j++) {
-          rolestr = rolestr.concat(',' + role[j].name);
+      if (roleArray.role.length) {
+        var rolestr = roleArray.role[0].name;
+        var role = roleArray.role;
+        if (role.length > 1) {
+          for (var j = 1; j < role.length; j++) {
+            rolestr = rolestr.concat(',' + role[j].name);
+          }
         }
+        return rolestr
+      } else {
+        return '';
       }
-      return rolestr
     }
   },
 };
