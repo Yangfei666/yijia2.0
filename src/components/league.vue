@@ -1,7 +1,6 @@
 <template>
   <div>
     <!--首页团课卡片-->
-    <el-col :span="24" class="main-wp">
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item in groupList" :key="item.ID" @click="courseId(item)">
@@ -30,30 +29,16 @@
                 </div>
               </div>
             </template>
-            <!-- <div class="tea-weber"> -->
             <div class="weber-main">
               <div class="circle"></div>
               <span style="font-size:18px">{{item.Stime}}</span>
             </div>
-            <!-- </div> -->
           </div>
         </div>
       </div>
-      <!-- <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div> -->
-    </el-col>
-    <!-- 卡片下方时间 -->
-    <!-- <el-col :span="24">
-      <div class="tea-weber">
-        <div class="weber-main" v-for="item in groupList" :key="item.ID">
-          <div class="circle"></div>
-          <span style="font-size:18px">{{item.Stime}}</span>
-        </div>
-      </div>
-    </el-col> -->
   </div>
 </template>
-<!--<script src="swiper/dist/js/swiper.min.js"></script>-->
+<script src="swiper/dist/js/swiper.min.js"></script>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
@@ -72,22 +57,19 @@ export default {
     let that = this;
     setTimeout(function() {
       that.initSwiper();
-    }, 1500);
+    }, 1000);
   },
   methods: {
     initSwiper() {
       var appendNumber = 5;
       var prependNumber = this.page;
       new Swiper(".swiper-container", {
-        slidesPerView: 1, //同时显示的数量
-        spaceBetween: 15, //间距
+        slidesPerView: 5,
+        spaceBetween: 15,
+        centeredSlides: false,
         direction: "horizontal", //滑动方向
-        speed: 1500, //切换速度
+        speed: 1000, //切换速度
         grabCursor: true, //指针变成手掌
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        }
       });
     },
     courseId(course) {
@@ -99,19 +81,20 @@ export default {
 <style lang="scss" scoped>
 @import "swiper/dist/css/swiper.min.css";
 @import "@/styles/league.scss";
-.main-wp {
   .swiper-container {
-    width: 95%;
+    width: 97%;
     height: 310px;
     background-color: #fff;
     .swiper-slide {
       display: flex;
       align-items: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       background: #ccc;
       list-style: none;
       width: 18% !important;
       background: #fff;
-      // height: 89.236%;
       height: 75%;
       margin: 15px auto;
       transition: 500ms ease-in-out;
@@ -132,7 +115,7 @@ export default {
           margin-top: 20px;
           margin-left: 45%;
         }
-      } ///////////////////////
+      }
       .swiper-main {
         width: 100%;
         height: 55%;
@@ -271,44 +254,4 @@ export default {
       }
     }
   }
-}
-.tea-weber {
-  width: 95%;
-  margin: auto;
-  display: flex;
-  .weber-main {
-    width: 20%;
-    display: inline-block;
-    position: relative;
-    height: 91px;
-    .circle {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #00bc71;
-      margin: 12px auto;
-      margin-top: 20px;
-      margin-left: 45%;
-    }
-    span {
-      font-size: 20px;
-      color: #262626;
-      margin-left: -7%;
-    }
-    em {
-      width: 0;
-      height: 0;
-      font-size: 0;
-      overflow: hidden;
-      position: absolute;
-      &.top {
-        border-width: 12px;
-        border-style: solid dashed dashed;
-        border-color: transparent transparent #ddd transparent;
-        left: 42%;
-        top: 75%;
-      }
-    }
-  }
-}
 </style>

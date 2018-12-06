@@ -466,7 +466,7 @@ export default {
         });
     },
     transformRole(roleArray) {
-      var rolestr = roleArray.role[0].name;
+      var rolestr = roleArray.role[0].name; 
       var role = roleArray.role;
       if (role.length > 1) {
         for (var j = 1; j < role.length; j++) {

@@ -12,10 +12,10 @@
                 </el-dialog>
               </template>
             </div>
-            <el-col style="height: 35px; line-height: 0px;margin-top: 10px; margin-left: 20px;display: flex">
-              <el-button type="text">
+            <el-col class="purplecolor">
+              <el-button type="text" style="color:#00bc71;!important">
                 <b style="color:#747677;">当前教室:</b>{{classroom}}</el-button>
-              <el-button type="text">
+              <el-button type="text" style="color:#00bc71;!important">
                 <b style="color:#747677;">上课时间:</b>{{startTime}}~{{endTime}}</el-button>
             </el-col>
           </div>
@@ -255,7 +255,7 @@ export default {
       }
     },
     // 选中的时间中间的时间按钮样式
-    middleButtonStyle (param, status, state) {
+    middleButtonStyle(param, status, state) {
       status = status ? false : true;
       state = state ? true : false;
       for (let i = 0; i < this.privateList.length; i++) {
@@ -263,7 +263,10 @@ export default {
         if (element.name == this.classroom) {
           for (let index = 0; index < element.time.length; index++) {
             const value = element.time[index];
-            if (this.CompareDate(value.time, this.startTime, status) && this.CompareDate(this.endTime, value.time, status)) {
+            if (
+              this.CompareDate(value.time, this.startTime, status) &&
+              this.CompareDate(this.endTime, value.time, status)
+            ) {
               value.staff = param;
             }
             if (state) {
@@ -354,5 +357,12 @@ export default {
 span {
   color: #c7c7c7;
   font-size: 10px !important;
+}
+.purplecolor {
+  height: 35px;
+  line-height: 0px;
+  margin-top: 10px;
+  margin-left: 20px;
+  display: flex;
 }
 </style>

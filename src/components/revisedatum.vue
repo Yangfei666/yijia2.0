@@ -76,7 +76,7 @@ export default {
             var loginParams = {
               prName: _this.currentSelectRow.prName, //姓名
               prTel: _this.currentSelectRow.prTel, //电话
-              prSex: _this.currentSelectRow.prSex =='女'? 1 : 2, //性别  不用试了  都是4
+              prSex: _this.currentSelectRow.prSex =='女'? 1 : 2, //性别
               prQuality:_this.prQuality.value, //客户质量
               WeChat: _this.currentSelectRow.WeChat, //微信号              
             };
