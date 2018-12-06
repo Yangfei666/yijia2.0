@@ -1,8 +1,7 @@
 <template>
   <div>
     <!--首页私教卡片-->
-    <el-col :span="24" class="main-wp">
-      <div class="swiper-container">
+    <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item in privateList" :key="item.ID" @click="courseId(item)">
             <template>
@@ -10,8 +9,8 @@
                 <div class="dimback">
                   <img class="Img" :src="item.staff_info.Photo" />
                 </div>
-                <p class="time">{{item.Stime}}~{{item.Etime}}</p>
-                <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
+                 <p class="time">{{item.Stime}}~{{item.Etime}}</p>
+                 <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
               </div>
               <div class="box"></div>
               <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? '体验·' + item.private_curriculum_appointment.experience_customers.exName : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
@@ -21,26 +20,25 @@
                 </div>
               </div>
               <div class="star">
-                <div class="block">
+               <div class="block">
                   <p style="text-align:left;color:#f37489;font-size:14px;padding-left:12%;">
                     {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
                 </div>
                 <div class="but">
-                  <p>{{item.kcIsPrivate.substr(0,2)}}</p>
+                   <p>{{item.kcIsPrivate.substr(0,2)}}</p>
                 </div>
               </div>
             </template>
             <div class="weber-main">
               <div class="circle"></div>
-              <span style="font-size:18px;">{{item.Stime}}</span>
+              <span style="font-size:18px">{{item.Stime}}</span>
             </div>
           </div>
         </div>
       </div>
-    </el-col>
   </div>
 </template>
-<!--<script src="swiper/dist/js/swiper.min.js"></script>-->
+<script src="swiper/dist/js/swiper.min.js"></script>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
@@ -58,22 +56,19 @@ export default {
     let that = this;
     setTimeout(function() {
       that.initSwiper();
-    }, 1500);
+    }, 1000);
   },
   methods: {
     initSwiper() {
       var appendNumber = 5;
       var prependNumber = 1;
       new Swiper(".swiper-container", {
-        slidesPerView: 1, //同时显示的数量
-        spaceBetween: 15, //间距
+        slidesPerView: 3,
+        spaceBetween: 15,
+        centeredSlides: false,
         direction: "horizontal", //滑动方向
-        speed: 1500, //切换速度
+        speed: 1000, //切换速度
         grabCursor: true, //指针变成手掌
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        }
       });
     },
     courseId(course) {
@@ -85,29 +80,31 @@ export default {
 <style lang="scss" scoped>
 @import "swiper/dist/css/swiper.min.css";
 @import "@/styles/league.scss";
-.main-wp {
-  .swiper-container {
-    width: 95%;
+ .swiper-container {
+    width: 97%;
     height: 310px;
     background-color: #fff;
     .swiper-slide {
       display: flex;
       align-items: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       background: #ccc;
       list-style: none;
       width: 18% !important;
       background: #fff;
-      // height: 89.236%;
       height: 75%;
       margin: 15px auto;
       transition: 500ms ease-in-out;
       transform-origin: center center;
       position: relative;
+      z-index: 999;
       box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
       .weber-main {
         position: relative;
         left: 33%;
-        bottom: -65%;
+        bottom: -62%;
         .circle {
           width: 6px;
           height: 6px;
@@ -117,7 +114,7 @@ export default {
           margin-top: 20px;
           margin-left: 45%;
         }
-      } ///////////////////////
+      }
       .swiper-main {
         width: 100%;
         height: 55%;
@@ -162,20 +159,6 @@ export default {
         top: 54%;
         width: 100%;
       }
-      .bai {
-        width: 30%;
-        height: 24px;
-        border-radius: 11px;
-        background-color: #ffffff;
-        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-        position: absolute;
-        top: 50%;
-        left: 36%;
-        color: #000;
-        font-size: 14px;
-        line-height: 24px;
-        font-family: PingFang-SC-Regular;
-      }
       .yuyue {
         font-family: PingFang-SC-Regular;
         font-size: 14px;
@@ -201,7 +184,7 @@ export default {
         bottom: 48px;
       }
       div.progress {
-        background-color: #f37489;
+        background-color: #eed29b;
         border-radius: 10px;
         height: 1px;
       }
@@ -240,7 +223,7 @@ export default {
           float: right;
           margin-top: -11%;
           border-radius: 10px;
-          border: solid 1px #f37489;
+          border: solid 1px #eed29b;
           margin-right: 4%;
           p {
             font-family: PingFang-SC-Regular;
@@ -249,51 +232,11 @@ export default {
             font-stretch: normal;
             line-height: 0px;
             letter-spacing: 0px;
-            color: #f37489;
+            color: #eed29b;
             margin-top: 10px;
           }
         }
       }
     }
   }
-}
-.tea-weber {
-  width: 95%;
-  margin: auto;
-  display: flex;
-  .weber-main {
-    width: 20%;
-    display: inline-block;
-    position: relative;
-    height: 91px;
-    .circle {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #00bc71;
-      margin: 12px auto;
-      margin-top: 20px;
-      margin-left: 45%;
-    }
-    span {
-      font-size: 20px;
-      color: #262626;
-      margin-left: -7%;
-    }
-    em {
-      width: 0;
-      height: 0;
-      font-size: 0;
-      overflow: hidden;
-      position: absolute;
-      &.top {
-        border-width: 12px;
-        border-style: solid dashed dashed;
-        border-color: transparent transparent #ddd transparent;
-        left: 42%;
-        top: 75%;
-      }
-    }
-  }
-}
 </style>

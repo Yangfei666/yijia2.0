@@ -109,7 +109,7 @@
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="280px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.itHealth == 1">认领</el-button>
-                <el-button type="text" size="small" v-else :disabled="true">认领</el-button>
+                <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">办卡</el-button>
                 <el-button @click="dialogFormVisible4 = true" type="text" size="small">放弃定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>

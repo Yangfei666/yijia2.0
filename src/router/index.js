@@ -33,7 +33,7 @@ const CustomerBargain = resolve => require(['@/pages/Customer/bargain'], resolve
 
 const CustomerLatent = resolve => require(['@/pages/Customer/latent'], resolve)//潜在客户管理
 
-// const RoutineRotation = resolve => require(['@/pages/Routine/rotation'], resolve)//轮播图管理
+const RoutineRotation = resolve => require(['@/pages/Routine/rotation'], resolve)//轮播图管理
 
 const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会所信息管理
 
@@ -122,6 +122,8 @@ const Enabledisabling = resolve => require(['@/components/enabledisabling'], res
 const Activate = resolve => require(['@/components/activate'], resolve)//激活
 
 const Claim = resolve => require(['@/components/claim'], resolve)//认领
+
+const Lunbomanage = resolve => require(['@/components/lunbomanage'], resolve)//图片管理
 
 const Latenttable = resolve => require(['@/components/latenttable'], resolve)//潜在表格
 
@@ -313,8 +315,9 @@ let router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-lianjie',
             children: [
-                // { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true },//轮播图管理
-                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true }//会所信息管理
+                { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true },//轮播图管理
+                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true },//会所信息管理
+                { path: '/Routine/rotation/lunbomanage', component: Lunbomanage, name: '图片管理', menuShow: false }//图片管理
             ]
         }, {
             path: '/House',
