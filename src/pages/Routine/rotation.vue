@@ -77,7 +77,7 @@
                 </template>
               </div>
               <div class="add">
-                <el-button type="text" class="p" @click="changeInfo2">轮播图管理</el-button>
+                <el-button type="text" class="p" @click="changeInfo2">图片管理</el-button>
               </div>
               <div class="add2">
                 <el-button type="text" class="p" @click="delexper">删除轮播图</el-button>
