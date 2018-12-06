@@ -127,7 +127,10 @@ export default {
           this.coachList = data;
         })
         .catch(error => {
-          this.msgCatch(error, "对不起,教练信息加载失败");
+          this.$message({
+            message: "对不起,教练信息加载失败!",
+            type: "error"
+          });
         });
     },
     //获取课表数据
@@ -136,17 +139,25 @@ export default {
         .then(data => {
           this.courseTotal = data.list;
           this.SystemSetup = data.SystemSetup;
-          this.courseDaily = this.courseTotal.Monday;
           this.week = data.week;
           //根据week的value值得到它的key值
           let findKey = (value, compare = (a, b) => a === b) => {
-            return Object.keys(data.week).find(k => compare(data.week[k], value));
+            return Object.keys(data.week).find(k =>
+              compare(data.week[k], value)
+            );
           };
           //调用上述方法,把当前日期传过去,得到当前日期对应的星期,并把星期赋给activeName
           this.activeName = findKey(this.getNowFormatDate());
+          if(this.activeName==null){
+              this.activeName='Monday';
+          }
+          this.courseDaily = this.courseTotal[this.activeName];
         })
         .catch(error => {
-          this.msgCatch(error, "对不起,教练信息加载失败");
+          this.$message({
+            message: "对不起,教练信息加载失败",
+            type: "error"
+          });
         });
     },
     //得到当前年月日yyyy-MM-dd

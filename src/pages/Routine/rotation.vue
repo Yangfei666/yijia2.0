@@ -90,6 +90,7 @@
         <el-row>
           <el-col :span="24">
             <el-table ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+              <el-table-column align="left" label="" fixed width="10px"></el-table-column>
               <el-table-column prop="banTitle" align="left" fixed label="标题"></el-table-column>
               <el-table-column prop="banDes" align="left" label="描述"></el-table-column>
               <el-table-column prop="banState" align="left" label="分类"></el-table-column>
@@ -280,7 +281,7 @@ export default {
     changeInfo2() {
       if (!this.currentSelectRow) {
         this.$message({
-          message: "请先选择数据!",
+          message: "请先选择列表!",
           type: "warning"
         });
         return;

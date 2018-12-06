@@ -46,6 +46,10 @@ body {
   color: #00bc71;
   outline: 0;
 }
+.el-date-table td.current:not(.disabled) span{
+    color: #fff;
+    background-color: #00bc71;
+}
 .el-button:focus {
   color: #00bc71;
 }

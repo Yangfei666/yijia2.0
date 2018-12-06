@@ -273,10 +273,7 @@ export default {
         });
     },
     async getUserInfo() {
-      let _this = this;
-      await group.getUserInfo().then(res => {
-        _this.selectClubID = res.HSXX_HSID;
-      });
+      this.selectClubID = JSON.parse(sessionStorage.getItem('club')).Hsxx_Hsid;
     },
     async changeClub(val) {
       let _this = this;
@@ -308,6 +305,7 @@ export default {
           if (_this.selectClubIndex < 0) {
             _this.selectClubIndex = 0;
           }
+          console.log(_this.selectClubIndex)
           if (_this.selectClubIndex !== _this.copy_selectClubIndex) {
             _this.isSelfClub = true;
           } else {
@@ -328,6 +326,7 @@ export default {
             message: "复制课表成功",
             type: "success"
           });
+          this.value = '';
         })
         .catch(() => {
           this.$message({
