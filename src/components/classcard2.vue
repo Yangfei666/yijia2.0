@@ -56,7 +56,12 @@
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="250px"></el-table-column>
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="170px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度" width="170px"></el-table-column>
-                                            <el-table-column prop="hand" align="left" label="手牌" width="170px"></el-table-column>
+                                            <el-table-column prop="hand" align="left" label="手牌" width="170px">
+                                                <template slot-scope="scope">
+                                                  <div v-if="scope.row.hand == 0">未使用</div>
+                                                  <div v-else>{{scope.row.hand}}</div>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="170px">
                                                 <template slot-scope="scope">
                                                     <div v-if="scope.row.isEnter == '已进场'">
@@ -66,7 +71,7 @@
                                                         <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
-                                                        <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                        <el-button type="text" size="small" style="color:#FF002B">待上课</el-button>
                                                     </div>
                                                 </template>
                                             </el-table-column>
@@ -127,7 +132,12 @@
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="230px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="300px"></el-table-column>
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="230px"></el-table-column>
-                                            <el-table-column prop="hand" align="left" label="手牌" width="230px"></el-table-column>
+                                            <el-table-column prop="hand" align="left" label="手牌" width="230px">
+                                              <template slot-scope="scope">
+                                                  <div v-if="scope.row.hand == 0">未使用</div>
+                                                  <div v-else>{{scope.row.hand}}</div>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="status" align="left" label="上课状态" fixed="right" width="230px">
                                                 <template slot-scope="scope">
                                                     <div v-if="scope.row.isEnter == '已进场'">
@@ -137,7 +147,7 @@
                                                         <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
                                                     <div v-else>
-                                                        <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                        <el-button type="text" size="small" style="color:#FF002B">待上课</el-button>
                                                     </div>
                                                 </template>
                                             </el-table-column>
@@ -175,9 +185,9 @@ export default {
         status: ""
       },
       status: [
-        { value: "1", label: "取消预约" },
+        { value: "1", label: "已取消" },
         { value: "2", label: "待上课" },
-        { value: "3", label: "已完成" },
+        { value: "3", label: "已进场" },
         { value: "4", label: "全部" }
       ],
       tableData: [],
@@ -217,14 +227,14 @@ export default {
     getexperhome() {
       let _this = this;
       requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
-        .then(function(res) {          
+        .then(function(res) {
           var membership_card = [];
           membership_card = res.membership_card;
           for (var i = 0; i < membership_card.length; i++) {
               var xialaobj = { key: "", name: "" };
               xialaobj.key = membership_card[i].id;
               xialaobj.name = membership_card[i].card_type.CTName;
-              _this.header.push(xialaobj);            
+              _this.header.push(xialaobj);
           }
         })
         .catch(error => {
@@ -241,10 +251,10 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.query.HYID, //会员卡id 
+        id: _this.$route.query.HYID, //会员卡id
         type: 3, //课程种类
-        state: _this.formInline.status, //上课状态 
-        cardId: _this.formInline.card, //卡id 
+        state: _this.formInline.status, //上课状态
+        cardId: _this.formInline.card, //卡id
         startTime: _this.formInline.time[0], //预约时间
         endTime: _this.formInline.time[1] //结束
       };
