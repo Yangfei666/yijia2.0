@@ -43,7 +43,7 @@
               <i class="el-icon-plus"></i>
             </el-upload>
           </div>
-          <el-dialog title="" :visible.sync="isEnlargeImage" size="large" :modal-append-to-body="false" top="8%" width="60%">
+          <el-dialog title="" :visible.sync="isEnlargeImage" size="large" :show-close='false' :modal-append-to-body="false" top="8%" width="60%">
             <img @click="isEnlargeImage = false" style="width:100%;" :src="enlargeImage">
           </el-dialog>
         </div>
@@ -142,9 +142,10 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error("上传图片只能是 JPG 格式!");
+      if (!isJPG && !isPNG) {
+        this.$message.error("上传图片只能是 JPG 或者 PNG 格式!");
       }
       if (!isLt2M) {
         this.$message.error("上传图片大小不能超过 2MB!");

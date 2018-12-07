@@ -548,10 +548,17 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认修改吗？", "提示").then(() => {
+            var kcbSortid='1';
+            if(this.currentSelectRow.kcbSort=='灰底' || this.currentSelectRow.kcbSort=='2'){
+                kcbSortid='2'
+            }
+            if(this.currentSelectRow.kcbSort=='白底' || this.currentSelectRow.kcbSort=='1'){
+                kcbSortid='1'
+            }
             var formData = {
               kcStime: this.currentSelectRow.kcStime, //课程日期
               KCNO: this.currentSelectRow.KCNO, //所选课程id
-              kcbSort: this.currentSelectRow.kcbSort, //灰底白底
+              kcbSort: kcbSortid, //灰底白底
               JLID: this.currentSelectRow.JLID, //教练id
               kcPlace: this.currentSelectRow.kcPlace, //教室
               Etime: this.currentSelectRow.Etime, //结束时间
@@ -575,15 +582,15 @@ export default {
                 // this.$emit('regetData');
                 if(this.currentSelectRow.kcbSort=='1'){
                   this.currentSelectRow.kcbSort='白底';
-                }else{
+                }else if(this.currentSelectRow.kcbSort=='2'){
                   this.currentSelectRow.kcbSort='灰底';
                 }
-                console.log('kechengname:'+this.kechengname);
+                console.log('this.kechengname:'+this.kechengname);
                 for(var i=0;i<this.tableData.length;i++){
                    if(this.tableData[i].ID==this.currentSelectRow.ID){
                      this.tableData[i].kcbSort=this.currentSelectRow.kcbSort;//底色
-                     this.tableData[i].curriculum_subject.kcName = this.kechengname;//课程名称
-                     this.tableData[i].staff_info.YGXX_NAME = this.jiaolianname;//教练
+                     this.tableData[i].curriculum_subject.kcName = this.kechengname == '' ? this.tableData[i].curriculum_subject.kcName : this.kechengname;//课程名称
+                     this.tableData[i].staff_info.YGXX_NAME = this.jiaolianname == '' ? this.tableData[i].staff_info.YGXX_NAME : this.jiaolianname;//教练
                      this.tableData[i].Etime = this.currentSelectRow.Etime;//结束时间
                      this.tableData[i].Stime = this.currentSelectRow.Stime;//开始时间
                      this.tableData[i].kcDiff = this.currentSelectRow.kcDiff;//难度
