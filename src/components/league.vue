@@ -38,7 +38,6 @@
       </div>
   </div>
 </template>
-<script src="swiper/dist/js/swiper.min.js"></script>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
