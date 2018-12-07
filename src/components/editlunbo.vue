@@ -93,7 +93,6 @@ export default {
               this.fenlei = "2";
             }
             let banStateId = this.classify.filter(item => item.name === this.currentSelectRow.banState)[0]
-            console.log(banStateId)
             let banState = banStateId ? Number.parseInt(banStateId.id) : this.currentSelectRow.banState
             var loginParams = {
               banStatus: this.fenlei, //状态
