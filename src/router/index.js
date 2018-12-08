@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //懒加载方式，当路由被访问的时候才加载对应组件
+const Health = resolve => require(['@/pages/Health'], resolve)//健康表 
 
 const Login = resolve => require(['@/pages/Login'], resolve)//登录
 
@@ -13,7 +14,7 @@ const Forbidden = resolve => require(['@/pages/House/403'], resolve)//403
 
 const NotFound = resolve => require(['@/pages/House/404'], resolve)//404
 
-const ServerError = resolve => require(['@/pages/House/500'], resolve)//500
+const ServerError = resolve => require(['@/pages/500'], resolve)//500
 
 const CurriGroup = resolve => require(['@/pages/Curriculum/group'], resolve)//团课课程表
 
@@ -136,11 +137,12 @@ const Leaguermanagetable = resolve => require(['@/components/leaguermanagetable'
 Vue.use(Router)
 
 let router = new Router({
+    mode:'history',
     routes: [
         {
             path: '/',
-            name: 'Login',
-            component: Login,
+            name: 'Health',
+            component: Health,
         },
         {
             path: '/login',
@@ -355,31 +357,16 @@ let router = new Router({
                     component: NotFound,
                     name: '404',
                     menuShow: false
-                },
-                {
-                    path: '/House/500', //500
-                    component: ServerError,
-                    name: '500',
-                    menuShow: false
-                },
+                }
             ]
         },
+        {
+            path: '/500', //500
+            component: ServerError,
+            name: '500',
+            menuShow: false
+        },
     ]
-})
-
-// 访问之前，检查是否登录了
-router.beforeEach((to, from, next) => {
-    if (to.path.startsWith('/login')) {
-        window.sessionStorage.removeItem('access-token')
-        next()
-    } else {
-        let token = window.sessionStorage.getItem('access-token')
-        if (!token) {
-            next({ path: '/login' })
-        } else {
-            next()
-        }
-    }
 })
 
 export default router

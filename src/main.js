@@ -33,6 +33,22 @@ Vue.prototype.$store = new Vuex.Store({
     mutations: {}
 });
 
+router.beforeEach((to, from, next) => {
+    if (to.path.startsWith('/login')) {
+        window.sessionStorage.removeItem('access-token')
+        next()
+    }else if(to.path.startsWith('/')){
+        next()
+    }else {
+        let token = window.sessionStorage.getItem('access-token')
+        if (!token) {
+            next({ path: '/login' })
+        } else {
+            next()
+        }
+    }
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

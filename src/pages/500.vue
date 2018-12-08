@@ -4,7 +4,7 @@
             <el-col :span="24" class="forbidden">
                 <div class="forbidden-main">
                 <div class="Img">
-                    <img src="../../assets/500.png"/>
+                    <img src="../assets/500.png"/>
                 </div>
                 <div class="text">
                     <h1>500</h1>
@@ -16,7 +16,6 @@
         </el-row>
     </div>
 </template>
-
 <script>
 export default {
   data(){
@@ -35,10 +34,12 @@ export default {
 .forbidden{
     height: 100%;
     display: inline-block;
+    width: 100%;
     .forbidden-main{
         width: 70%;
         margin: 7% auto;
         display: inline-flex;
+        padding-left: 24%;
         .Img{
             img{
                 width: 100%;

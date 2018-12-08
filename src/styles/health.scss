@@ -1,0 +1,871 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 135px !important;
+            }
+
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                width: 170px !important;
+            }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 300px !important;
+              }
+              .el-checkbox-group{
+                width: 305px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width: 380px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
+@media screen and (min-width: 992px)and (max-width: 1028px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 180px !important;
+            }
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 170px !important;
+              }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 512px !important;
+              }
+              .el-checkbox-group{
+                width: 490px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width: 500px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
+@media screen and (min-width: 1280px)and (max-width:1440px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 200px !important;
+            }
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 170px !important;
+              }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 650px !important;
+              }
+              .el-checkbox-group{
+                width: 650px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width:712px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
+@media screen and (min-width: 1440px)and (max-width:1680px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 200px !important;
+            }
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 170px !important;
+              }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 650px !important;
+              }
+              .el-checkbox-group{
+                width: 760px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width:800px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
+@media screen and (min-width: 1680px)and (max-width:1920px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 200px !important;
+            }
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 170px !important;
+              }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 650px !important;
+              }
+              .el-checkbox-group{
+                width: 860px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width:950px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
+@media screen and (min-width: 1920px)and (max-width:2048px){
+    .health {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        .health-main {
+          width: 90%;
+          margin: 3% auto;
+          height: 970px;
+          border-radius: 5px;
+          background: #f7fffc;
+          border: 1px solid #e8e8e8;
+          .outside {
+            margin-top: 20px;
+            text-align: center;
+            .outside-biao {
+              font-size: 16px;
+              color: #262626;
+              .outside-biao2 {
+                font-size: 14px;
+                color: #262626;
+              }
+            }
+          }
+          .box {
+            margin: 20px auto;
+            width: 95%;
+            height: 1px;
+            background: -webkit-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(
+              to right,
+              #fff,
+              #00bc71,
+              #fff
+            ); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fff, #00bc71, #fff);
+            /* 标准的语法（必须放在最后） */
+          }
+          .health-from {
+            .from-date-border {
+              width: 100%;
+              .from-date {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+              .el-date-editor{
+                width: 200px !important;
+            }
+            }
+            .from-date-border {
+              width: 100%;
+              .from-date2 {
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                }
+              }
+            }
+            .from-date-border2 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 170px !important;
+              }
+            }
+            .from-date-border3 {
+              border-bottom: 1px solid #e8e8e8;
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-radio-group{
+                  width: 650px !important;
+              }
+              .el-checkbox-group{
+                width: 860px !important;
+            }
+            }
+            .from-date-border4 {
+              .from-date3 {
+                display: flex;
+                .el-form-item {
+                  margin-bottom: 10px;
+                  margin-top: 10px;
+                  .el-form-item__content {
+                    .el-input {
+                      .el-input__inner {
+                        border: none;
+                        background: #fafafa;
+                      }
+                    }
+                  }
+                }
+              }
+              .el-checkbox-group{
+                width:950px !important;
+            }
+            }
+          }
+          .from-date4 {
+            margin-top: 4%;
+            text-align: center;
+          }
+        }
+      }
+}
