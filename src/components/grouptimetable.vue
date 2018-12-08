@@ -42,7 +42,7 @@
                     </el-form-item>
                     <el-form-item label="课程日期:" prop="attenddate" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
+                        <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
                         </el-date-picker>
                       </el-col>
                     </el-form-item>
@@ -115,7 +115,7 @@
                       </el-form-item>
                       <el-form-item label="课程日期:" prop="kcStime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
+                          <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
                           </el-date-picker>
                         </el-col>
                       </el-form-item>
@@ -167,7 +167,7 @@
                       </el-form-item>
                       <el-form-item prop="date" label="上课日期:" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-date-picker type="date" placeholder="请选择" disabled v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
+                          <el-date-picker type="date" placeholder="请选择" format="yyyy-MM-dd" disabled v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
                         </el-col>
                       </el-form-item>
                       <el-form-item prop="time" label="上课时间:" :label-width="formLabelWidth">

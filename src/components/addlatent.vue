@@ -83,7 +83,6 @@ export default {
           name:validate.name,//姓名
           sex:validate.sex,//性别
           tel: validate.phone,//电话
-          wechat:validate.wechat,//微信
           adviser:validate.adviser,//会籍顾问
           quality:validate.quality,//客户质量
           desc:validate.desc,//备注

@@ -38,7 +38,7 @@
                 </el-form-item>
                 <el-form-item label="生日:" prop="Birthday" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-date-picker v-model="ruleForm.Birthday" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                    <el-date-picker v-model="ruleForm.Birthday" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="住址:" prop="HomeAdd" :label-width="formLabelWidth">

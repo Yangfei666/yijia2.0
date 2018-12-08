@@ -47,7 +47,6 @@
                       <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-radio-group v-model="ruleForm.status">
-                            <el-radio :label="0">未启用</el-radio>
                             <el-radio :label="2">启用</el-radio>
                             <el-radio :label="1">禁用</el-radio>
                           </el-radio-group>

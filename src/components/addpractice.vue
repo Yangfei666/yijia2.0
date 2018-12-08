@@ -101,7 +101,6 @@ export default {
         name:validate.name,
         sex: validate.sex,
         tel: validate.phone,
-        wechat: validate.wechat,
         adviser: validate.adviser,
         type: validate.type,
         mode: validate.mode,

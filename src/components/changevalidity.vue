@@ -16,14 +16,14 @@
                             <el-col :span="16">
                            <el-form-item label="新的到期时间:" prop="date">
                                <el-col :span="24">
-                                <el-date-picker v-model="ruleForm.date" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%"></el-date-picker>
+                                <el-date-picker v-model="ruleForm.date" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%"></el-date-picker>
                                 </el-col>
                             </el-form-item>
                             </el-col>
                             <el-col :span="16" class="from-date">
                                 <el-col :span="24">
                             <el-form-item label="变更原因:" prop="desc">
-                                <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                                <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                                 <span class="textarea">还可以输入{{remnant}}字</span>
                             </el-form-item>
                                 </el-col>
@@ -48,7 +48,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
-        remnant: 666,
+        remnant: 50,
       ruleForm: {
         date: '',
         desc: ''
@@ -59,7 +59,7 @@ export default {
           ],
            desc: [
             { required: true, message: '请填写变更原因', trigger: 'blur' },
-            { min: 1, max: 666, message: '长度在 1 到 666个字符', trigger: 'blur' }
+            { min: 1, max: 50, message: '长度在 1 到50个字符', trigger: 'blur' }
           ]
        }
     };

@@ -64,7 +64,7 @@
               </el-form-item>
               <el-form-item prop="attenddate" label="自定义到期时间:" :label-width="formLabelWidth" v-show="ruleForm.become == '1'">
                 <el-col :span="22">
-                  <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
+                  <el-date-picker type="date" value-format="yyyy-MM-dd" format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
               <el-form-item class="dialog-footer">

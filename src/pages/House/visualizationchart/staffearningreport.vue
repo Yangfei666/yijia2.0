@@ -16,7 +16,7 @@
       <el-col :span="24">
         <div class="practice-head">
           <el-col :span="24" class="weber">
-            <span class="weber-span">体验客户管理</span>
+            <span class="weber-span">员工业绩报表</span>
             <div class="main-right">
               <div class="block3">
                 <el-form ref="form" :model="form" label-width="85px">

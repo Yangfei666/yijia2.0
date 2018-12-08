@@ -72,38 +72,38 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用次数{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>已使用{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>已使用金额{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
+              <span>已使用{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用天数{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>已使用{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余次数{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>剩余{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余金额{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
+              <span>剩余{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余天数{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>剩余{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>

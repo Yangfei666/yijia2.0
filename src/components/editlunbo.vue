@@ -21,7 +21,6 @@
       </el-form-item>
       <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-radio label="未启用" value="0" v-model="currentSelectRow.banStatus"></el-radio>
           <el-radio label="启用" value="2" v-model="currentSelectRow.banStatus"></el-radio>
           <el-radio label="禁用" value="1" v-model="currentSelectRow.banStatus"></el-radio>
         </el-col>
@@ -79,23 +78,10 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
-            if (
-              this.currentSelectRow.banStatus == "未启用" ||
-              this.currentSelectRow.banStatus == 0
-            ) {
-              this.fenlei = "0";
-            } else if (
-              this.currentSelectRow.banStatus == "禁用" ||
-              this.currentSelectRow.banStatus == 1
-            ) {
-              this.fenlei = "1";
-            } else {
-              this.fenlei = "2";
-            }
             let banStateId = this.classify.filter(item => item.name === this.currentSelectRow.banState)[0]
             let banState = banStateId ? Number.parseInt(banStateId.id) : this.currentSelectRow.banState
             var loginParams = {
-              banStatus: this.fenlei, //状态
+              banStatus: this.currentSelectRow.banStatus == '启用'?2:1, //状态
               banState, //分类
               banTitle: this.currentSelectRow.banTitle, //标题
               banDes: this.currentSelectRow.banDes, //描述

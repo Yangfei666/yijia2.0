@@ -39,7 +39,7 @@
                                 </el-form-item>
                                 <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
                                     <el-col :span="22">
-                                        <el-date-picker v-model="ruleForm.birthday" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                                        <el-date-picker v-model="ruleForm.birthday" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">

@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="登记日期:">
               <el-col :span="24">
-                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
               </el-col>
             </el-form-item>
           </div>

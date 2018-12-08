@@ -16,7 +16,7 @@
             <el-col :span="17" class="from-date">
               <el-col :span="24">
                 <el-form-item label="不办卡原因：" prop="desc">
-                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
               </el-col>
@@ -39,7 +39,7 @@ export default {
   name: "nocards",
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       ruleForm: {
         desc: ""
       },
@@ -48,8 +48,8 @@ export default {
           { required: true, message: "请输入请假原因", trigger: "blur" },
           {
             min: 1,
-            max: 666,
-            message: "长度在 1 到 666个字符",
+            max: 50,
+            message: "长度在 1 到 50个字符",
             trigger: "blur"
           }
         ]
