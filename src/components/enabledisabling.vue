@@ -15,9 +15,9 @@
               <el-col :span="16">
                 <el-form-item label="启用或禁用该卡:" prop="enablecard">
                   <el-col :span="24">
-                    <el-select v-model="ruleForm.enablecard" placeholder="请选择" style="width:100%">
-                      <el-option label="禁用" value="2"></el-option>
+                    <el-select v-model="ruleForm.enablecard" style="width:100%" @change="asfa">
                       <el-option label="启用" value="1"></el-option>
+                      <el-option label="禁用" value="2"></el-option>
                     </el-select>
                   </el-col>
                 </el-form-item>
@@ -52,13 +52,10 @@ export default {
     return {
       remnant: 50,
       ruleForm: {
-        enablecard: "",
+        enablecard:"",
         desc: ""
       },
       rules: {
-        enablecard: [
-          { required: true, message: "请选择启用或禁用", trigger: "change" }
-        ],
         desc: [
           { required: true, message: "请填写变更原因", trigger: "blur" },
           {
@@ -71,16 +68,33 @@ export default {
       }
     };
   },
+  created() {
+    if (this.$route.query.CARD.isEnabled == 1) {
+      this.ruleForm.enablecard = "启用";
+    } else {
+      this.ruleForm.enablecard = "禁用";
+    }
+  },
   methods: {
+    asfa(val){
+      console.log(val);
+    },
     //启用禁用
     submitForm(formName) {
       let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            let enablecards = '1';
+            if(_this.ruleForm.enablecard == '启用' || _this.ruleForm.enablecard == '1'){
+              enablecards = '1';
+            }
+            if(_this.ruleForm.enablecard == '禁用' || _this.ruleForm.enablecard == '2'){
+              enablecards = '2';
+            }
             var loginParams = {
               id: _this.$route.query.CARD.id, //会员卡id
-              num: _this.ruleForm.enablecard, //启用禁用
+              num: enablecards, //启用禁用
               content: _this.ruleForm.desc //原因
             };
             requestLogin(
@@ -117,7 +131,7 @@ export default {
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     }
   }
 };

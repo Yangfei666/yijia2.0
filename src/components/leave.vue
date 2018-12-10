@@ -3,9 +3,6 @@
     <!--请假操作-->
     <div class="health">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title" v-if="membership_card.State === '请假'">
           <span>销假操作</span>
         </div>
@@ -14,6 +11,9 @@
         </div>
         <div class="infor-title" v-else>
           <span>请假操作</span>
+        </div>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
       </el-col>
       <el-col :span="24" v-if="membership_card.State != '未激活' && membership_card.State != '挂失' && membership_card.State != '请假'">
@@ -160,10 +160,18 @@ export default {
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+      path: "/Customer/membershiphome/memberhome",
+      query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     }
   }
 };
@@ -179,10 +187,11 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }

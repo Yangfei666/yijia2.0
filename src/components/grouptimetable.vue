@@ -405,9 +405,6 @@ export default {
       this.mendian = this.clubs;
     }
   },
-  created() {
-    // console.log(this.kecheng[0].kcName);
-  },
   methods: {
     radiochange(row) {},
     handleSizeChange(size) {

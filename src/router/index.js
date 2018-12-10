@@ -287,7 +287,7 @@ let router = new Router({
                                 { path: '/Customer/membershiphome/memberhome/activate', component: Activate},//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/informations', component: Information},//综合信息
+                        { path: '/Customer/membershiphome/information', component: Information},//综合信息
                         { path: '/Customer/membershiphome/leave', component: Leave},//请假销假操作
                         { path: '/Customer/membershiphome/unhook', component: Unhook},//解挂--补卡--挂失
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍

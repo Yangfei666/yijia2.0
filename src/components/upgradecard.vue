@@ -70,7 +70,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       radio2: "",
       selfCard: [],
       ruleForm: {
@@ -154,7 +154,7 @@ export default {
     Selectchange(val) {},
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     }
   }
 };

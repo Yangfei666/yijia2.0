@@ -9,7 +9,7 @@
                 <div class="text">
                     <h1>500</h1>
                     <span>抱歉 ，服务器出错了</span>
-                    <el-button type="primary" class="butt" @click="jump">返回首页</el-button>
+                    <el-button type="primary" class="butt" @click="jump">返回主页</el-button>
                 </div>
                 </div>
             </el-col>
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     jump(){
-    this.$router.push("/home/main")
+    this.$router.push("/")
     }
   }
 }

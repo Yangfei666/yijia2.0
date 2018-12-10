@@ -3,9 +3,6 @@
     <!--会员综合信息-->
     <div class="infor">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title">
           <span>会员综合信息</span>
           <img src="../assets/deit.png" @click="editclub" />
@@ -74,6 +71,9 @@
               </el-form>
             </el-dialog>
           </template>
+        </div>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
       </el-col>
       <el-col :span="24" class="infor-wp">
@@ -249,7 +249,14 @@ export default {
       });
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({ 
+      path: "/Customer/membershiphome/memberhome",
+      query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }});
     },
     editclub() {
       this.dialogFormVisible = true;
@@ -275,8 +282,9 @@ export default {
     display: flex;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
+    justify-content: space-between;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }

@@ -3,11 +3,11 @@
         <!--操作记录-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <div class="infor-but" @click="back">
-                    <span class="goback el-icon-arrow-left">返回</span>
-                </div>
                 <div class="infor-title">
                     <span>操作记录</span>
+                </div>
+                <div class="infor-but" @click="back">
+                    <span class="goback el-icon-arrow-left">返回</span>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -65,7 +65,7 @@
                                             <span class="yuan">{{item.lave}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle">{{btnText}}</span>
+                                    <span class="corry-out" @click="showToggle(index)">{{btnText}}</span>
                                     <div class="footss">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.CzyName}}</div>
@@ -292,7 +292,7 @@
                         <el-col :span="4" class="box-ul" v-for="(item, index) in RecordPunishment" :key='index+900'>
                             <el-card shadow="always">
                                 <div class="always-main">
-                                    <span class="always-span">{{item.time}}</span>
+                                    <span class="always-span">{{item.create_time}}</span>
                                     <div class="card-main">
                                         <div class="always-card">惩罚</div>
                                         <div class="always-cardone">{{item.membership_card.card_type.CTName}}</div>
@@ -378,8 +378,13 @@ export default {
           }
         });
     },
-    showToggle: function() {
-      this.isShow = !this.isShow;
+    showToggle: function(index) {
+      //this.showid = id;
+      for(var i=0;i<this.RecordUpgrade.length;i++){
+         if(index==i){
+           this.isShow = !this.isShow;
+         }
+      }   
       if (this.isShow) {
         this.btnText = "收起";
       } else {
@@ -403,7 +408,15 @@ export default {
       }
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+      path: "/Customer/membershiphome/memberhome",
+      query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     }
   }
 };
@@ -421,10 +434,11 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }

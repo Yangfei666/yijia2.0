@@ -206,7 +206,7 @@ export default {
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     }
   }
 };

@@ -141,16 +141,20 @@ export default {
       this.pass = true;
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isPNG = file.type === "image/png";
+      var testimg = file.name.substring(file.name.lastIndexOf('.')+1);
+      const isJPG = testimg === "jpg";
+      const isPNG = testimg === "png";
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG && !isPNG) {
-        this.$message.error("上传图片只能是 JPG 或者 PNG 格式!");
+        this.$message({  
+              message: '上传图片只能是 JPG、PNG格式!',  
+              type: 'warning'  
+          });  
       }
       if (!isLt2M) {
         this.$message.error("上传图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
+      return isJPG || isPNG && isLt2M;
     },
     uploadOnError(e, file) {
       this.pass = false;

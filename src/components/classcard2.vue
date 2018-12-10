@@ -217,14 +217,14 @@ export default {
     getexperhome() {
       let _this = this;
       requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
-        .then(function(res) {          
+        .then(function(res) {
           var membership_card = [];
           membership_card = res.membership_card;
           for (var i = 0; i < membership_card.length; i++) {
-              var xialaobj = { key: "", name: "" };
-              xialaobj.key = membership_card[i].id;
-              xialaobj.name = membership_card[i].card_type.CTName;
-              _this.header.push(xialaobj);            
+            var xialaobj = { key: "", name: "" };
+            xialaobj.key = membership_card[i].id;
+            xialaobj.name = membership_card[i].card_type.CTName;
+            _this.header.push(xialaobj);
           }
         })
         .catch(error => {
@@ -241,16 +241,16 @@ export default {
       let _this = this;
       _this.loading = true;
       var params = {
-        id: _this.$route.query.HYID, //会员卡id 
+        id: _this.$route.query.HYID, //会员卡id
         type: 3, //课程种类
-        state: _this.formInline.status, //上课状态 
-        cardId: _this.formInline.card, //卡id 
+        state: _this.formInline.status, //上课状态
+        cardId: _this.formInline.card, //卡id
         startTime: _this.formInline.time[0], //预约时间
         endTime: _this.formInline.time[1] //结束
       };
       requestLogin("/setDesignateMember/takeLessonsRecord", params, "post")
         .then(function(res) {
-            _this.loading = false;
+          _this.loading = false;
           let { group, privateList } = res;
           _this.tableData = group;
           _this.tableData2 = privateList;
@@ -269,21 +269,17 @@ export default {
           item.kcName = item.curriculum_table.curriculum_subject.kcName;
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
         });
-         _this.tableData2.map((item, index) => {
+        _this.tableData2.map((item, index) => {
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
         });
         this.tablelength = this.tableData.length;
         this.tablelength2 = this.tableData2.length;
       }
     },
-    handleClick(tab, event) {
-    },
-    Selectchange3(val) {
-    },
-    Selectchange4(val) {
-    },
-    timechange(val) {
-    },
+    handleClick(tab, event) {},
+    Selectchange3(val) {},
+    Selectchange4(val) {},
+    timechange(val) {},
     //重置
     resetForm() {
       this.formInline.time = "";
@@ -297,7 +293,15 @@ export default {
       this.currentPage = currentPage;
     },
     back() {
-        this.$router.go(-1); //返回上一层
+      this.$router.push({
+        path: "/Customer/membershiphome/memberhome",
+        query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     }
   }
 };
@@ -320,7 +324,7 @@ export default {
       top: 11px;
       z-index: 2;
       color: #262626;
-      right: 78%;
+      right: 2%;
       .goback {
         font-size: 14px;
       }
