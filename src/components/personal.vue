@@ -115,6 +115,7 @@ export default {
             .then(data => {
               this.$message({ message: "预约成功", type: "success" });
               this.$emit("success");
+              this.resetForm(formName);
             })
             .catch(error => {
               this.$message({

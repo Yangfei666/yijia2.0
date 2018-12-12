@@ -133,6 +133,7 @@ export default {
                 });
                 _this.reload();
                 _this.dialogFormVisible = false;
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

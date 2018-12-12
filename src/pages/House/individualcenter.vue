@@ -601,6 +601,7 @@ export default {
                 });
                 this.reload();
                 this.dialogFormVisible = false;
+                this.resetForm(formName);
               })
               .catch(error => {
                 this.addLoading = false;
@@ -648,6 +649,7 @@ export default {
                 });
                 this.reload();
                 this.dialogFormVisible2 = false;
+                this.resetforbidden(formName);
               })
               .catch(error => {
                 this.addLoading = false;

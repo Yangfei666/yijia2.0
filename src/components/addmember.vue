@@ -248,6 +248,7 @@ export default {
                   type: "success"
                 });
                 this.reload();
+                this.resetForm(formName);
               })
               .catch(error => {
                 this.addLoading = false;

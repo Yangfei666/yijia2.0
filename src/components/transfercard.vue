@@ -209,6 +209,7 @@ export default {
                   type: "success"
                 });
                 _this.reload();
+                _this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

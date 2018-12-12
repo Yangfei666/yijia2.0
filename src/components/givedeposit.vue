@@ -49,6 +49,7 @@ export default {
               type: "success"
             });
             this.reload();
+            this.resetForm(formName);
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

@@ -69,6 +69,7 @@
                     </el-form-item>
                     <el-form-item class="dialog-footer">
                       <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
                         <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定
                         </el-button>
                       </el-col>
@@ -522,6 +523,7 @@ export default {
                 });
                 this.dialogFormVisible2 = false;
                 this.$emit("regetData");
+                this.resetForm(formName);
               })
               .catch(error => {
                 this.addLoading = false;
@@ -689,6 +691,7 @@ export default {
                   formData.kcbSort='灰底';
                 }
                 this.tableData.push(formData);
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
