@@ -46,6 +46,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "returncard",
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {
       remnant: 50,
@@ -75,7 +76,7 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.query.CARD.id, //会员卡id
+          id: this.pathquery.CARD.id, //会员卡id
           num: this.ruleForm.price, //退款金额
           content: this.ruleForm.desc //原因
         };
@@ -117,7 +118,7 @@ export default {
 }
 .tag {
   width: 100%;
-  height: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;

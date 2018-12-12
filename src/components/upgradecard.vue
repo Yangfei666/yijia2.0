@@ -2,12 +2,13 @@
   <div>
     <!--会员卡升级操作-->
     <el-row>
+      <el-col :span="24" class="elcol"></el-col>
       <div class="tag">
         <em class="top"></em>
         <el-col :span="24" class="transfer">
           <div class="transfer-main">
             <span class="transfer-span">会员卡升级</span>
-            <span class="transfer-span2">当前卡种：{{this.$route.query.CARD.card_type.CTName}}</span>
+            <span class="transfer-span2">当前卡种：{{this.pathquery.CARD.card_type.CTName}}</span>
           </div>
         </el-col>
         <el-col :span="24">
@@ -68,6 +69,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "upgradecard",
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {
       remnant: 50,
@@ -116,7 +118,7 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              oldCardId: _this.$route.query.CARD.id, //会员卡id
+              oldCardId: _this.pathquery.CARD.id, //会员卡id
               newCardId: _this.ruleForm.cardseed, //新卡种id
               mode: _this.ruleForm.mode, //付款方式
               discount: _this.ruleForm.price, //旧卡折扣价
@@ -161,13 +163,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 20px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin: 0px auto;
   em {

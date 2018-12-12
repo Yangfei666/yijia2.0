@@ -2,12 +2,13 @@
     <div>
       <!--变更有效期-->
         <el-row>
+          <el-col :span="24" class="elcol"></el-col>
             <div class="tag">
                 <em class="top"></em>
                 <el-col :span="24" class="transfer">
                     <div class="transfer-main">
                         <span class="transfer-span">变更有效期</span>
-                        <span class="transfer-span2">原有效期：{{this.$route.query.CARD.eTime}}</span>
+                        <span class="transfer-span2">原有效期：{{this.pathquery.CARD.eTime}}</span>
                     </div>
                 </el-col>
                 <el-col :span="24">
@@ -46,6 +47,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name:'changevalidity',
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {
         remnant: 50,
@@ -69,7 +71,7 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.query.CARD.id, //会员卡id
+          id: this.pathquery.CARD.id, //会员卡id
           day: this.ruleForm.date, //有效期时间
           reason: this.ruleForm.desc //原因
         };
@@ -110,13 +112,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 20px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin: 0px auto;
   em {

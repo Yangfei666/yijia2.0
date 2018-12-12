@@ -2,23 +2,24 @@
   <div>
     <!--变更次数-->
     <el-row>
+      <el-col :span="24" class="elcol"></el-col>
       <div class="tag">
         <em class="top"></em>
         <el-col :span="24" class="transfer">
-          <div class="transfer-main" v-if="this.$route.query.CARD.card_type.ctType == '次数卡'">
+          <div class="transfer-main" v-if="this.pathquery.CARD.card_type.ctType == '次数卡'">
             <span class="transfer-span">次卡变更使用次数</span>
-            <span class="transfer-span2">原剩余次数：{{this.$route.query.CARD.SYCS}}</span>
+            <span class="transfer-span2">原剩余次数：{{this.pathquery.CARD.SYCS}}</span>
           </div>
-          <div class="transfer-main" v-else-if="this.$route.query.CARD.card_type.ctType == '金额卡'">
+          <div class="transfer-main" v-else-if="this.pathquery.CARD.card_type.ctType == '金额卡'">
             <span class="transfer-span">次卡变更使用金额</span>
-            <span class="transfer-span2">原剩余金额：{{this.$route.query.CARD.SYJE}}</span>
+            <span class="transfer-span2">原剩余金额：{{this.pathquery.CARD.SYJE}}</span>
           </div>
           <div class="transfer-main" v-else>
             <span class="transfer-span"></span>
           </div>
         </el-col>
         <el-col :span="24">
-          <div class="transfer-from" v-if="this.$route.query.CARD.card_type.ctType == '次数卡'">
+          <div class="transfer-from" v-if="this.pathquery.CARD.card_type.ctType == '次数卡'">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
               <el-col :span="16">
                 <el-form-item label="变更后的总次数:" prop="num">
@@ -43,7 +44,7 @@
               </el-col>
             </el-form>
           </div>
-          <div class="transfer-from" v-else-if="this.$route.query.CARD.card_type.ctType == '金额卡'">
+          <div class="transfer-from" v-else-if="this.pathquery.CARD.card_type.ctType == '金额卡'">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
               <el-col :span="16">
                 <el-form-item label="变更后的总金额:" prop="price">
@@ -81,6 +82,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "changepriceandnum",
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {
       remnant: 50,
@@ -123,7 +125,7 @@ export default {
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.query.CARD.id, //会员卡id
+          id: this.pathquery.CARD.id, //会员卡id
           num: this.ruleForm.num, //次数
           reason: this.ruleForm.desc //原因
         };
@@ -152,7 +154,7 @@ export default {
     submitForm2(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: this.$route.query.CARD.id, //会员卡id
+          id: this.pathquery.CARD.id, //会员卡id
           money: this.ruleForm.price, //金额
           reason: this.ruleForm.desc2 //原因
         };
@@ -189,13 +191,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 20px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height:500px;
+  width: 100%;
+  height:400px;
   display: inline-block;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin: 0px auto;
   em {

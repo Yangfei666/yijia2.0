@@ -188,6 +188,7 @@ export default {
         var id = _this.clubs[i].id;
         var eventIds = "tab-" + id;
         if (eventId == eventIds) {
+          console.log(eventIds);
           _this.membershipcard = _this.clubs[i];
           return;
         }
