@@ -52,20 +52,21 @@
                                         <div class="yuan">原激活时间:
                                             <span class="yuan2">{{item.YsTime}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow">原到期时间:
+                                        <div class="yuan" v-show="item.show">原到期时间:
                                             <span class="yuan2">{{item.YeTime}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow">原支付方式：
+                                        <div class="yuan" v-show="item.show">原支付方式：
                                             <span class="yuan">{{item.oldmode}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow">原付款金额：
+                                        <div class="yuan" v-show="item.show">原付款金额：
                                             <span class="yuan">￥{{item.oldmoney}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow">原卡剩余：
+                                        <div class="yuan" v-show="item.show">原卡剩余：
                                             <span class="yuan">{{item.lave}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle(index)">{{btnText}}</span>
+                                    <span class="corry-out" @click="showToggle(index)">{{item.btnText}}</span>
+                                    
                                     <div class="footss">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.CzyName}}</div>
@@ -115,11 +116,11 @@
                                         <div class="yuan">变更后:
                                             <span>{{item.newcishu}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow2">原因:
+                                        <div class="yuan" v-show="item.show2">原因:
                                             <span>{{item.bgyuanyin}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle2">{{btnText2}}</span>
+                                    <span class="corry-out" @click="showToggle2(index)">{{item.btnText2}}</span>
                                     <div class="foot">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
@@ -196,11 +197,11 @@
                                         <div class="yuan">新会籍:
                                             <span>{{item.newhjgwname}}</span>
                                         </div>
-                                        <div class="yuan" v-show="isShow3">原因:
+                                        <div class="yuan" v-show="item.show3">原因:
                                             <span>{{item.bgyuanyin}}</span>
                                         </div>
                                     </div>
-                                    <span class="corry-out" @click="showToggle3">{{btnText3}}</span>
+                                    <span class="corry-out" @click="showToggle3(index)">{{item.btnText3}}</span>
                                     <div class="foot">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
@@ -363,11 +364,23 @@ export default {
           _this.RecordSupplementCard = data.RecordSupplementCard; //补卡
           _this.RecordBackCard = data.RecordBackCard; //退卡
           _this.RecordUpgrade = data.RecordUpgrade; //升级
+          for(let item of _this.RecordUpgrade){
+              item.show = false;
+              item.btnText = '展开';
+          }
           _this.RecordChange = data.RecordChange; //变更有效期/金额/次数
+          for(let item of _this.RecordUpgrade){
+              item.show2 = false;
+              item.btnText2 = '展开';
+          }
           _this.RecordReplaceAdviser = data.RecordReplaceAdviser; //变更会籍顾问
+          for(let item of _this.RecordReplaceAdviser){
+              item.show3 = false;
+              item.btnText3 = '展开';
+          }
           _this.EnabledDisableRecord = data.EnabledDisableRecord; //启用/禁用
           _this.RecordPunishment = data.RecordPunishment; //惩罚
-          _this.RecordLeave = data.RecordLeave; //请假
+          _this.RecordLeave = data.RecordLeave; //请假  
         })
         .catch(error => {
           if (error.res) {
@@ -378,34 +391,23 @@ export default {
           }
         });
     },
-    showToggle: function(index) {
-      //this.showid = id;
-      for(var i=0;i<this.RecordUpgrade.length;i++){
-         if(index==i){
-           this.isShow = !this.isShow;
-         }
-      }   
-      if (this.isShow) {
-        this.btnText = "收起";
-      } else {
-        this.btnText = "展开";
-      }
+    showToggle(index) {
+      let copy = this.RecordUpgrade[index];
+      let changShow = !this.RecordUpgrade[index].show;
+      let merge = Object.assign({},copy,{show:changShow,btnText:changShow?'收起':'展开'});
+      this.$set(this.RecordUpgrade,index,merge);
     },
-    showToggle2: function() {
-      this.isShow2 = !this.isShow2;
-      if (this.isShow2) {
-        this.btnText2 = "收起";
-      } else {
-        this.btnText2 = "展开";
-      }
+    showToggle2: function(index) {
+      let copy = this.RecordChange[index];
+      let changShow = !this.RecordChange[index].show2;
+      let merge = Object.assign({},copy,{show2:changShow,btnText2:changShow?'收起':'展开'});
+      this.$set(this.RecordChange,index,merge);
     },
-    showToggle3: function() {
-      this.isShow3 = !this.isShow3;
-      if (this.isShow3) {
-        this.btnText3 = "收起";
-      } else {
-        this.btnText3 = "展开";
-      }
+    showToggle3: function(index) {
+     let copy = this.RecordReplaceAdviser[index];
+      let changShow = !this.RecordReplaceAdviser[index].show3;
+      let merge = Object.assign({},copy,{show3:changShow,btnText3:changShow?'收起':'展开'});
+      this.$set(this.RecordReplaceAdviser,index,merge);
     },
     back() {
       this.$router.push({

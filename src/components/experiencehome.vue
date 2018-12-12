@@ -63,7 +63,7 @@
         </div>
       </el-col>
     </el-row>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 <script>
@@ -125,12 +125,8 @@ export default {
     this.exWeChat = this.$route.params.exWeChat;
     this.exHjgwId = this.$route.params.exHjgwId;
   },
-  watch: {
-    '$route'(to, from) {
-      this.exSex = this.$route.params.exSex;
-    }
-  },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 <style lang="scss" scoped>

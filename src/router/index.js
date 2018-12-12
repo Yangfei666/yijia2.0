@@ -300,12 +300,12 @@ let router = new Router({
                     component: Experiencehome,
                     name: '体验客户主页',
                     menuShow: false,
-                    redirect: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex',
+                    redirect: '/Customer/experiencehome/experhome',
                     children: [
                         { path: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experhome, name: 'Experhome' },//体验主页
                         { path: '/Customer/experiencehome/information2/:id/:exHjgwName/:exName/:exTel/:exSex', component: Information2, name: 'Information2' },//综合信息
                         { path: '/Customer/experiencehome/nocards/:id/:exHjgwName/:exName/:exTel/:exSex', component: Nocards, name: 'Nocards' },//不办卡
-                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change },//换会籍
+                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change},//换会籍
                         { path: '/Customer/experiencehome/classcard/:id/:exHjgwName/:exName/:exTel/:exSex', component: Classcard, name: 'Classcard' },//上课记录
                     ]
                 }

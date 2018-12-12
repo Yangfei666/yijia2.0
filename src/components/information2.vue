@@ -84,7 +84,7 @@
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name: "information",
+  name: "information2",
   inject: ["reload"],
   data() {
     return {
@@ -131,7 +131,7 @@ export default {
     },
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
-        var loginParams = {
+        let params = {
           exName: this.ruleForm.exName, //姓名
           exTel: this.ruleForm.exTel, //电话
           exWeChat: this.ruleForm.exWeChat, //微信
@@ -139,7 +139,7 @@ export default {
         };
         requestLogin(
           "/setExperienceCustomer/" + this.$route.params.id,
-          loginParams,
+          params,
           "put"
         )
           .then(data => {
@@ -149,6 +149,8 @@ export default {
             });
             this.reload();
             this.dialogFormVisible = false;
+            params.exSex = params.exSex == 1?'女':'男';
+            this.$router.replace({name:'Information2',params:params});
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

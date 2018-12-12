@@ -112,12 +112,12 @@
         </el-col>
       </el-col>
     </div>
-    <el-col :span="24">
+    <!-- <el-col :span="24">
       <div class="operate">
         <span class="oper">卡{{this.idx+1}}操作：</span>
         <el-col :span="22" class="oper-main">
           <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,HYName:this.$route.query.HYName,CARD:membershipcards}}" class="link" exact>转卡</router-link>
+            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>转卡</router-link>
           </div>
           <div class="oper-left">
             <router-link :to="{path:'/Customer/membershiphome/memberhome/returncard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
@@ -139,7 +139,27 @@
           </div>
         </el-col>
       </div>
+    </el-col> -->
+    <el-col :span="24">
+      <div class="operate">
+        <span class="oper">卡{{this.idx+1}}操作：</span>
+        <el-col :span="22" class="oper-main">
+          <div class="operdiv" :class="{active:tab === 1}" @click="toggleTabs(1)">转卡</div>
+          <div class="operdiv" :class="{active:tab === 2}" @click="toggleTabs(2)">退卡</div>
+          <div class="operdiv">升级</div>
+          <div class="operdiv">变更有效期</div>
+          <div class="operdiv">变更次数/金额</div>
+          <div class="operdiv">启用/禁用</div>
+          <div class="operdiv">激活</div>
+        </el-col>
+      </div>
     </el-col>
+    <template>
+      <keep-alive>
+      <Transfercard v-show="tab === 1"></Transfercard>
+      <Returncard v-show="tab === 2"></Returncard>
+      </keep-alive>
+    </template>
   </div>
 </template>
 <script>
@@ -147,12 +167,22 @@ let echarts = require("echarts/lib/echarts");
 require("echarts/lib/chart/pie");
 require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
+import Transfercard from "@/components/transfercard";
+import Returncard from "@/components/returncard";
 export default {
   name: "cardone",
   props: ["membershipcards", "chartId", "idx"],
+  components: {
+    Transfercard,
+    Returncard
+  },
   data() {
     return {
-      tbdata: []
+      tab: null,
+      tbdata: [],
+      isShow: false,
+      boxshow: false,
+      boxshow2: false
     };
   },
   watch: {
@@ -187,9 +217,16 @@ export default {
             this.datedifference(this.membershipcards.sTime, new Date()) == 0
               ? 0
               : this.datedifference(this.membershipcards.sTime, new Date()) >
-                this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
-                ? this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
-                : this.datedifference(this.membershipcards.sTime, new Date()) + 1,
+                this.datedifference(
+                  this.membershipcards.sTime,
+                  this.membershipcards.eTime
+                )
+                ? this.datedifference(
+                    this.membershipcards.sTime,
+                    this.membershipcards.eTime
+                  )
+                : this.datedifference(this.membershipcards.sTime, new Date()) +
+                  1,
           name: "已使用天数"
         },
         {
@@ -210,6 +247,9 @@ export default {
     }
   },
   methods: {
+    toggleTabs(tab) {
+      this.tab = tab;
+    },
     open3() {
       if (this.membershipcards.card_type.ctType == "期限卡") {
         this.$message({
@@ -505,9 +545,9 @@ export default {
   }
 }
 .operate {
-  height: 30px;
+  height: 60px;
   display: flex;
-  line-height: 30px;
+  line-height: 55px;
   .oper {
     padding-left: 15px;
     font-family: PingFang-SC-Regular;
@@ -519,6 +559,23 @@ export default {
   }
   .oper-main {
     display: flex;
+    .operdiv {
+      background: #fafafa;
+      height: 30px;
+      line-height: 30px;
+      margin-top: 13px;
+      margin-left: 10px;
+      border-radius: 4px;
+      color: #595959;
+      font-size: 16px;
+      padding: 0px 15px;
+    }
+    .operdiv.active {
+      background: #facc14;
+      font-size: 16px;
+      border-radius: 4px;
+      color: #595959;
+    }
     .oper-left {
       background: #fafafa;
       border-radius: 4px;

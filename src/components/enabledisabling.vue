@@ -128,6 +128,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;

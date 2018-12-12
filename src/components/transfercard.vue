@@ -2,6 +2,7 @@
   <div>
     <!--转卡操作-->
     <el-row>
+       <el-col :span="24" class="elcol"></el-col>
         <div class="tag">
             <em class="top"></em>
             <el-col :span="24" class="transfer">
@@ -286,9 +287,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 20px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;

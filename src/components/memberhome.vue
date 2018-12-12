@@ -192,6 +192,7 @@ export default {
           return;
         }
       }
+      _this.reload();
     },
     //添加新卡
     submitForm(formName) {
@@ -256,7 +257,7 @@ export default {
 <style lang="scss" scoped>
 .memberhome {
   width: 97%;
-  height: 410px;
+  height: 100%;
   margin: 20px auto;
   background: #fff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);

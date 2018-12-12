@@ -149,6 +149,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     radiochange(val) {},
     Selectchange(val) {},
