@@ -247,6 +247,7 @@ export default {
       }
       this.course = course;
       if (this.course) {
+        this.enterStadium = true;
         this.getCourseDetails(course);
       } else {
         this.enterStadium = 0;
