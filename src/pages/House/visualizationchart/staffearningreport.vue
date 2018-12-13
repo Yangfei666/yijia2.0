@@ -34,8 +34,8 @@
               <div class="block2">
                 <div class="block">
                   <el-col :span="24">
-                    <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" type="month" placeholder="选择月"></el-date-picker>
-                    <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" type="year" placeholder="选择年"></el-date-picker>
+                    <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" :clearable="false" type="month" placeholder="选择月"></el-date-picker>
+                    <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" :clearable="false" type="year" placeholder="选择年"></el-date-picker>
                   </el-col>
                 </div>
               </div>
@@ -67,22 +67,22 @@
     <el-col :span="24">
       <div class="Totalachievement">
         <el-col :span="12" class="Total-head">
-          <div id="staffchart5" :style="{width: '515px', height: '300px'}"></div>
+          <div id="myChart11" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <div id="staffchart6" :style="{width: '515px', height: '300px'}"></div>
+          <div id="myChart22" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
       </div>
     </el-col>
     <el-col :span="24">
       <div class="Totalachievement2">
         <el-col :span="12" class="Total-head">
-          <div id="staffchart7" :style="{width: '515px', height: '300px'}"></div>
+          <div id="myChart33" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <div id="staffchart8" :style="{width: '515px', height: '300px'}"></div>
+          <div id="myChart44" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
       </div>
     </el-col>
@@ -91,8 +91,8 @@
 <script>
 // 引入基本模板
 let echarts = require("echarts/lib/echarts");
-// 引入饼图组件
 require("echarts/lib/chart/pie");
+// 引入饼图组件
 require("echarts/lib/chart/line");
 require("echarts/lib/chart/bar");
 // 引入提示框和title组件
@@ -116,6 +116,160 @@ function getDaysInMonth(year, month) {
   return temp.getDate();
 }
 
+const detailPie = legend => {
+  return Object.keys(legend)
+    .map(item => {
+      if (item === "private") {
+        return { name: "私教业绩", value: legend[item] };
+      }
+      if (item === "group") {
+        return { name: "团课业绩", value: legend[item] };
+      }
+    })
+    .filter(item => item);
+};
+const detailPie2 = legend => {
+  return Object.keys(legend)
+    .map(item => {
+      if (item === "private") {
+        return { name: "已成交", value: legend[item] };
+      }
+      if (item === "group") {
+        return { name: "跟进中", value: legend[item] };
+      }
+    })
+    .filter(item => item);
+};
+const detailPie3 = legend => {
+  return Object.keys(legend)
+    .map(item => {
+      if (item === "exDef") {
+        return { name: "已成交", value: legend[item] };
+      }
+      if (item === "exEro") {
+        return { name: "已放弃", value: legend[item] };
+      }
+      if (item === "exSuc") {
+        return { name: "跟进中", value: legend[item] };
+      }
+    })
+    .filter(item => item);
+};
+const detailBarData = (object, type = "bar") => {
+  let keys = Object.keys(object);
+  return keys
+    .map(item => {
+      let temp = {};
+      temp.name = "";
+      if (item === "private") {
+        temp.name = "私教";
+      }
+      if (item === "group") {
+        temp.name = "团课";
+      }
+      temp.data = object[item];
+      temp.type = type;
+      temp.barGap = 0;
+      return temp;
+    })
+    .filter(item => item.name);
+};
+const detailLegend = legend => {
+  return Object.keys(legend).map(item => {
+    if (item === "private") {
+      return "私教";
+    }
+    if (item === "group") {
+      return "团课";
+    }
+    // return item;
+  });
+};
+const detailLegend2 = legend => {
+  return Object.keys(legend).map(item => {
+    if (item === "private") {
+      return "A类客户";
+    }
+    if (item === "group") {
+      return "B类客户";
+    }
+    if (item === "suc") {
+      return "C类客户";
+    }
+    if (item === "sum") {
+      return "D类客户";
+    }
+    // return item;
+  });
+};
+const detailLegend3 = legend => {
+  return Object.keys(legend).map(item => {
+    if (item === "private") {
+      return "定金客户";
+    }
+    // return item;
+  });
+};
+const detailLineData = (object, type = "line") => {
+  let keys = Object.keys(object);
+  return keys
+    .map(item => {
+      let temp = {};
+      temp.name = "";
+      if (item === "private") {
+        temp.name = "私教";
+      }
+      if (item === "group") {
+        temp.name = "团课";
+      }
+      temp.data = object[item];
+      temp.type = type;
+      temp.stack = "总量";
+      return temp;
+    })
+    .filter(item => item.name);
+};
+const detailLineData2 = (object, type = "line") => {
+  let keys = Object.keys(object);
+  return keys
+    .map(item => {
+      let temp = {};
+      temp.name = "";
+      if (item === "private") {
+        temp.name = "A类客户";
+      }
+      if (item === "group") {
+        temp.name = "B类客户";
+      }
+      if (item === "suc") {
+        temp.name = "C类客户";
+      }
+      if (item === "sum") {
+        temp.name = "D类客户";
+      }
+      temp.data = object[item];
+      temp.type = type;
+      temp.stack = "总量";
+      return temp;
+    })
+    .filter(item => item.name);
+};
+const detailLineData3 = (object, type = "line") => {
+  let keys = Object.keys(object);
+  return keys
+    .map(item => {
+      let temp = {};
+      temp.name = "";
+      if (item === "private") {
+        temp.name = "定金客户";
+      }
+      temp.data = object[item];
+      temp.type = type;
+      temp.stack = "总量";
+      return temp;
+    })
+    .filter(item => item.name);
+};
 export default {
   name: "staffearningreport",
   data() {
@@ -142,9 +296,6 @@ export default {
   beforeMount() {
     this.getStaffList();
   },
-  mounted() {
-    this.drawPie();
-  },
   methods: {
     selectStaff(id) {
       this.selectStaffID = id;
@@ -163,8 +314,77 @@ export default {
         })
         .then(() => {
           setTimeout(() => {
-            _this.drawLine(_this.staffChartData.intention.timeAchievement);
-            _this.drawBar(_this.staffChartData.achievement.timeAchievement);
+            let achievementAch = {
+              Data: _this.staffChartData.achievement.timeAchievement,
+              chartID: "staffchart",
+              chartTitle: "私教/团课业绩构成柱状图",
+              yAName:"业绩",
+              dataFn: detailLegend,
+              seriesFn: detailBarData
+            };
+            _this.drawBar(achievementAch);
+
+            let intentionAch = {
+              Data: _this.staffChartData.intention.timeAchievement, //数据源
+              chartID: "staffchart2", //图表ID
+              chartTitle: "体验客户新增折线图", //图表标题
+              yAName:"人数",
+              dataFn: detailLegend, //图表legend
+              seriesFn: detailLineData //图表数据
+            };
+            _this.drawLine(intentionAch);
+
+            let prospectAch = {
+              Data: _this.staffChartData.prospect.timeAchievement,
+              chartID: "staffchart3",
+              chartTitle: "潜在客户变化折线图",
+              yAName:"业绩",
+              dataFn: detailLegend2,
+              seriesFn: detailLineData2
+            };
+            _this.drawLine(prospectAch);
+
+            let experienceAch2 = {
+              Data: _this.staffChartData.experience.timeAchievement,
+              chartID: "staffchart4",
+              chartTitle: "定金客户变化折线图",
+              yAName:"业绩",
+              dataFn: detailLegend3,
+              seriesFn: detailLineData3
+            };
+            _this.drawLine(experienceAch2);
+
+            let pieAch = {
+              Data: detailPie(_this.staffChartData.achievement), //图表数据
+              chartID: "myChart11",
+              chartTitle: "私教团课业绩占比图",
+              sername:"业绩构成"
+            };
+            _this.drawPie(pieAch);
+
+            let pieInt = {
+              Data: detailPie3(_this.staffChartData.intention),
+              chartID: "myChart22",
+              chartTitle: "体验客户成交量占比图",
+              sername:"体验客户成交量占比"
+            };
+            _this.drawPie(pieInt);
+
+            let piePro = {
+              Data: detailPie2(_this.staffChartData.prospect),
+              chartID: "myChart33",
+              chartTitle: "潜在客户成交量占比图",
+              sername:"潜在客户成交量占比"
+            };
+            _this.drawPie(piePro);
+
+            let pieExp = {
+              Data: detailPie3(_this.staffChartData.experience),
+              chartID: "myChart44",
+              chartTitle: "定金客户成交量占比图",
+              sername:"定金客户成交量占比"
+            };
+            _this.drawPie(pieExp);
           }, 500);
         });
     },
@@ -186,11 +406,86 @@ export default {
         });
     },
     handleClick(tab, event) {},
-    drawBar(achievement) {
-      let staffchart = echarts.init(document.getElementById("staffchart"));
+
+    drawPie({ Data, chartID, chartTitle, sername} = {}) {
+      //饼图
+      let myChart11 = echarts.init(document.getElementById(chartID));
+      let option11 = {
+        title: {
+          text: chartTitle,
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "1%",
+          left: "1%"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          x: "right",
+          data: Data.filter(item => item.name),
+          orient: "vertical",
+          right: 4,
+          top: 40,
+          bottom: 10
+        },
+        series: [
+          {
+            name: sername,
+            type: "pie",
+            color: [
+              "#2FC25B",
+              "#1890FF",
+              "#8378EA",
+              "#E062AE",
+              "#FFDB5C",
+              "#41EA17",
+              "#410544",
+              "#EA510F",
+              "#9C3205",
+              "#EB1330",
+              "#02374B",
+              "#1B0AD7"
+            ],
+            radius: ["53%", "70%"],
+            avoidLabelOverlap: false,
+            hoverAnimation: true,
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "20",
+                  fontWeight: "bold"
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: Data
+          }
+        ]
+      };
+      myChart11.setOption(option11);
+      window.onresize = function() {
+        myChart11.resize();
+      };
+    },
+    drawBar({ Data, chartID, chartTitle, dataFn, seriesFn ,yAName} = {}) {
+      let staffchart = echarts.init(document.getElementById(chartID));
       let option = {
         title: {
-          text: "私教/团课业绩构成柱状图",
+          text: chartTitle,
           textStyle: {
             color: "#595959",
             fontSize: "20px"
@@ -201,12 +496,11 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+            type: "shadow"
           }
         },
         legend: {
-          data: this.detailLegend(achievement),
+          data: dataFn(Data),
           top: "5%"
         },
         grid: {
@@ -224,20 +518,19 @@ export default {
         ],
         yAxis: [
           {
+            name:yAName,
             type: "value"
           }
         ],
-        series: this.detailBarData(achievement)
+        series: seriesFn(Data)
       };
       staffchart.setOption(option);
     },
-    drawLine(increased) {
-      let staffchart2 = echarts.init(document.getElementById("staffchart2"));
-      let staffchart3 = echarts.init(document.getElementById("staffchart3"));
-      let staffchart4 = echarts.init(document.getElementById("staffchart4"));
+    drawLine({ Data, chartID, chartTitle, dataFn, seriesFn ,yAName} = {}) {
+      let staffchart2 = echarts.init(document.getElementById(chartID));
       let option2 = {
         title: {
-          text: "体验客户新增折线图",
+          text: chartTitle,
           textStyle: {
             color: "#595959",
             fontSize: "20px"
@@ -249,7 +542,7 @@ export default {
           trigger: "axis"
         },
         legend: {
-          data: this.detailLegend(increased),
+          data: dataFn(Data),
           top: "5%"
         },
         grid: {
@@ -270,416 +563,12 @@ export default {
           data: this.detailXAxis()
         },
         yAxis: {
+          name:yAName,
           type: "value"
         },
-        series: this.detailLineData(increased)
-      };
-      let option3 = {
-        title: {
-          text: "潜在客户变化折线图",
-          textStyle: {
-            color: "#595959",
-            fontSize: "20px"
-          },
-          top: "5%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "axis"
-        },
-        legend: {
-          data: this.detailLegend2(increased),
-          top: "5%"
-        },
-        grid: {
-          left: "1%",
-          right: "2%",
-          bottom: "1%",
-          top: "20%",
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: this.detailXAxis()
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: this.detailLineData2(increased)
-      };
-      let option4 = {
-        title: {
-          text: "定金客户变化折线图",
-          textStyle: {
-            color: "#595959",
-            fontSize: "20px"
-          },
-          top: "5%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "axis"
-        },
-        legend: {
-          data: this.detailLegend3(increased),
-          top: "5%"
-        },
-        grid: {
-          left: "1%",
-          right: "2%",
-          bottom: "1%",
-          top: "20%",
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: this.detailXAxis()
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: this.detailLineData3(increased)
+        series: seriesFn(Data)
       };
       staffchart2.setOption(option2);
-      staffchart3.setOption(option3);
-      staffchart4.setOption(option4);
-    },
-    drawPie() {
-      //饼图
-      let staffchart5 = echarts.init(document.getElementById("staffchart5"));
-      let staffchart6 = echarts.init(document.getElementById("staffchart6"));
-      let staffchart7 = echarts.init(document.getElementById("staffchart7"));
-      let staffchart8 = echarts.init(document.getElementById("staffchart8"));
-      let option5 = {
-        title: {
-          text: "私教团课业绩占比图",
-          x: "left",
-          textStyle: {
-            color: "#595959",
-            fontSize: "34px"
-          },
-          top: "1%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-          x: "right",
-          data: ["私教业绩", "团课业绩"],
-          orient: "vertical",
-          right: 4,
-          top: 40,
-          bottom: 10
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            color: [
-              "#2FC25B",
-              "#1890FF",
-              "#8378EA",
-              "#E062AE",
-              "#FFDB5C",
-              "#41EA17",
-              "#410544",
-              "#EA510F",
-              "#9C3205",
-              "#EB1330",
-              "#02374B",
-              "#1B0AD7"
-            ],
-            radius: ["53%", "70%"],
-            avoidLabelOverlap: false,
-            hoverAnimation: true, //hover放大
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "20",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: [
-              {
-                value: 23,
-                name: "私教业绩"
-              },
-              {
-                value: 45,
-                name: "团课业绩"
-              }
-            ]
-          }
-        ]
-      };
-      let option6 = {
-        title: {
-          text: "体验客户成交量占比图",
-          x: "left",
-          textStyle: {
-            color: "#595959",
-            fontSize: "34px"
-          },
-          top: "1%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-          x: "right",
-          data: ["已成交", "已放弃", "跟进中"],
-          orient: "vertical",
-          right: 4,
-          top: 40,
-          bottom: 10
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            color: [
-              "#2FC25B",
-              "#1890FF",
-              "#8378EA",
-              "#E062AE",
-              "#FFDB5C",
-              "#41EA17",
-              "#410544",
-              "#EA510F",
-              "#9C3205",
-              "#EB1330",
-              "#02374B",
-              "#1B0AD7"
-            ],
-            radius: ["53%", "70%"],
-            avoidLabelOverlap: false,
-            hoverAnimation: true, //hover放大
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "20",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: [
-              {
-                value: 23,
-                name: "已成交"
-              },
-              {
-                value: 45,
-                name: "已放弃"
-              },
-              {
-                value: 65,
-                name: "跟进中"
-              }
-            ]
-          }
-        ]
-      };
-      let option7 = {
-        title: {
-          text: "潜在客户成交量占比图",
-          x: "left",
-          textStyle: {
-            color: "#595959",
-            fontSize: "34px"
-          },
-          top: "1%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-          x: "right",
-          data: ["已成交", "跟进中"],
-          orient: "vertical",
-          right: 4,
-          top: 40,
-          bottom: 10
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            color: [
-              "#2FC25B",
-              "#1890FF",
-              "#8378EA",
-              "#E062AE",
-              "#FFDB5C",
-              "#41EA17",
-              "#410544",
-              "#EA510F",
-              "#9C3205",
-              "#EB1330",
-              "#02374B",
-              "#1B0AD7"
-            ],
-            radius: ["53%", "70%"],
-            avoidLabelOverlap: false,
-            hoverAnimation: true, //hover放大
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "20",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: [
-              {
-                value: 74,
-                name: "已成交"
-              },
-              {
-                value: 45,
-                name: "跟进中"
-              }
-            ]
-          }
-        ]
-      };
-      let option8 = {
-        title: {
-          text: "定金客户成交量占比图",
-          x: "left",
-          textStyle: {
-            color: "#595959",
-            fontSize: "34px"
-          },
-          top: "1%",
-          left: "1%"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-          x: "right",
-          data: ["已成交", "已放弃", "跟进中"],
-          orient: "vertical",
-          right: 4,
-          top: 40,
-          bottom: 10
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            color: [
-              "#2FC25B",
-              "#1890FF",
-              "#8378EA",
-              "#E062AE",
-              "#FFDB5C",
-              "#41EA17",
-              "#410544",
-              "#EA510F",
-              "#9C3205",
-              "#EB1330",
-              "#02374B",
-              "#1B0AD7"
-            ],
-            radius: ["53%", "70%"],
-            avoidLabelOverlap: false,
-            hoverAnimation: true, //hover放大
-            label: {
-              normal: {
-                show: false,
-                position: "center"
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: "20",
-                  fontWeight: "bold"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: [
-              {
-                value: 45,
-                name: "已成交"
-              },
-              {
-                value: 75,
-                name: "已放弃"
-              },
-              {
-                value: 64,
-                name: "跟进中"
-              }
-            ]
-          }
-        ]
-      };
-      staffchart5.setOption(option5);
-      staffchart6.setOption(option6);
-      staffchart7.setOption(option7);
-      staffchart8.setOption(option8);
-      window.onresize = function() {
-        staffchart5.resize();
-        setTimeout(() => {
-          staffchart6.resize();
-        }, 500);
-      };
     },
     detailXAxis() {
       let [year, month, day] = this.selectDate.split("-");
@@ -696,121 +585,7 @@ export default {
         return temp;
       }
     },
-    detailBarData(object, type = "bar") {
-      let keys = Object.keys(object);
-      return keys
-        .map(item => {
-          let temp = {};
-          temp.name = "";
-          if (item === "private") {
-            temp.name = "私教";
-          }
-          if (item === "group") {
-            temp.name = "团课";
-          }
-          temp.data = object[item];
-          temp.type = type;
-          temp.barGap = 0;
-          return temp;
-        })
-        .filter(item => item.name);
-    },
-    detailLegend(legend) {
-      return Object.keys(legend).map(item => {
-        if (item === "private") {
-          return "私教";
-        }
-        if (item === "group") {
-          return "团课";
-        }
-        // return item;
-      });
-    },
-    detailLegend2(legend) {
-      return Object.keys(legend).map(item => {
-        if (item === "private") {
-          return "A类客户";
-        }
-        if (item === "group") {
-          return "B类客户";
-        }
-        if (item === "suc") {
-          return "C类客户";
-        }
-        if (item === "sum") {
-          return "D类客户";
-        }
-        // return item;
-      });
-    },
-    detailLegend3(legend) {
-      return Object.keys(legend).map(item => {
-        if (item === "private") {
-          return "定金客户";
-        }
-        // return item;
-      });
-    },
-    detailLineData(object, type = "line") {
-      let keys = Object.keys(object);
-      return keys
-        .map(item => {
-          let temp = {};
-          temp.name = "";
-          if (item === "private") {
-            temp.name = "私教";
-          }
-          if (item === "group") {
-            temp.name = "团课";
-          }
-          temp.data = object[item];
-          temp.type = type;
-          temp.stack = "总量";
-          return temp;
-        })
-        .filter(item => item.name);
-    },
-    detailLineData2(object, type = "line") {
-      let keys = Object.keys(object);
-      return keys
-        .map(item => {
-          let temp = {};
-          temp.name = "";
-          if (item === "private") {
-            temp.name = "A类客户";
-          }
-          if (item === "group") {
-            temp.name = "B类客户";
-          }
-          if (item === "suc") {
-            temp.name = "C类客户";
-          }
-          if (item === "sum") {
-            temp.name = "D类客户";
-          }
-          temp.data = object[item];
-          temp.type = type;
-          temp.stack = "总量";
-          return temp;
-        })
-        .filter(item => item.name);
-    },
-    detailLineData3(object, type = "line") {
-      let keys = Object.keys(object);
-      return keys
-        .map(item => {
-          let temp = {};
-          temp.name = "";
-          if (item === "private") {
-            temp.name = "定金客户";
-          }
-          temp.data = object[item];
-          temp.type = type;
-          temp.stack = "总量";
-          return temp;
-        })
-        .filter(item => item.name);
-    },
+
     getSelectDate(val) {
       if (val.length > 5) {
         this.value5 = "";
@@ -954,7 +729,7 @@ export default {
   position: relative;
   .Total-head {
     height: 100%;
-    #staffchart5 {
+    #myChart11 {
       position: absolute;
       left: 37px;
       top: 42px;
@@ -966,7 +741,7 @@ export default {
       margin: 0px;
       border-width: 0px;
     }
-    #staffchart6 {
+    #myChart22 {
       position: absolute;
       right: 70px;
       top: 42px;
@@ -1001,7 +776,7 @@ export default {
   position: relative;
   .Total-head {
     height: 100%;
-    #staffchart7 {
+    #myChart33 {
       position: absolute;
       left: 37px;
       top: 42px;
@@ -1013,7 +788,7 @@ export default {
       margin: 0px;
       border-width: 0px;
     }
-    #staffchart8 {
+    #myChart44 {
       position: absolute;
       right: 70px;
       top: 42px;
