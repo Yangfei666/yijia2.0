@@ -751,9 +751,9 @@
             }
             .form-item {
                 width: 100%;
-                height: 35px;
+                height: 35px !important;
                 border-radius: 4px;
-                margin-top: 40px;
+                margin-top: 40px !important;
                 .input {
                     font-family: PingFang-SC-Regular;
                     font-size: 14px;
@@ -773,8 +773,8 @@
                         color: #ffffff;
                         display: inline-block;
                         font-size: inherit;
-                        height: 35px;
-                        line-height: 35px;
+                        height: 35px !important;
+                        line-height: 35px !important;
                         outline: 0;
                         padding: 0 15px;
                         -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
@@ -785,14 +785,14 @@
             }
             .form-item2{
                 width: 100%;
-                height: 35px;
+                height: 35px !important;
                 border-radius: 4px;
-                margin-top: 40px;
+                margin-top: 40px !important;
                 .el-select{
                     background: #5F6B81;
                     width: 100%;
                     border-radius: 4px;
-                    height: 35px;
+                    height: 35px !important;
                     .el-input__inner{
                         background: #5F6B81;
                         height: 35px;
@@ -803,13 +803,13 @@
             }
             .identifybox {
                 width: 100%;
-                height: 35px;
+                height: 35px !important;
                 border-radius: 4px;
                 display: flex;
                 margin-top: 13px!important;
                 .identifyform {
                     width: 120px;
-                    height: 35px;
+                    height: 35px !important;
                     border-radius: 4px;
                     position: relative;
                     .identifyinput {
@@ -832,8 +832,8 @@
                         color: #ffffff;
                         display: inline-block;
                         font-size: inherit;
-                        height: 35px;
-                        line-height: 35px;
+                        height: 35px !important;
+                        line-height: 35px !important;
                         outline: 0;
                         padding: 0 15px;
                         -webkit-transition: border-color .1s cubic-bezier(.645, .045, .355, 1);

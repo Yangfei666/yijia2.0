@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="登记日期:">
               <el-col :span="24">
-                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                <el-date-picker v-model="formInline.date" :clearable="false" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
               </el-col>
             </el-form-item>
           </div>
@@ -108,15 +108,16 @@
                 <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
               </template>
             </el-table-column>
-            <el-table-column prop="prName" align="left" label="姓名" fixed width="150px"></el-table-column>
-            <el-table-column prop="prTel" align="left" label="手机号" width="200px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="200px"></el-table-column>
-            <el-table-column prop="prDate" align="left" label="登记日期" sortable width="200px"></el-table-column>
-            <el-table-column prop="prQuality" align="left" label="质量" width="200px"></el-table-column>
-            <el-table-column prop="prSuc" align="left" label="成交状态" width="200px"></el-table-column>
-            <el-table-column align="left" label="操作" fixed="right" width="300px">
+            <el-table-column prop="prName" align="left" label="姓名" fixed width="160px"></el-table-column>
+            <el-table-column prop="prTel" align="left" label="手机号" width="180px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
+            <el-table-column prop="prDate" align="left" label="登记日期" sortable width="180px"></el-table-column>
+            <el-table-column prop="prQuality" align="left" label="质量" width="160px"></el-table-column>
+            <el-table-column prop="prSuc" align="left" label="成交状态" width="180px"></el-table-column>
+            <el-table-column align="left" label="操作" fixed="right" width="280px">
               <template slot-scope="scope">
-                <el-button @click="go(scope.$index, scope.row)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.prHealth == 1">认领</el-button>
+                <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>

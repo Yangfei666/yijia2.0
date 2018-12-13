@@ -64,7 +64,7 @@
               </el-form-item>
               <el-form-item prop="attenddate" label="自定义到期时间:" :label-width="formLabelWidth" v-show="ruleForm.become == '1'">
                 <el-col :span="22">
-                  <el-date-picker type="date" value-format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
+                  <el-date-picker type="date" value-format="yyyy-MM-dd" format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
               <el-form-item class="dialog-footer">
@@ -192,6 +192,7 @@ export default {
           return;
         }
       }
+      _this.reload();
     },
     //添加新卡
     submitForm(formName) {
@@ -256,7 +257,7 @@ export default {
 <style lang="scss" scoped>
 .memberhome {
   width: 97%;
-  height: 410px;
+  height: 100%;
   margin: 20px auto;
   background: #fff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);

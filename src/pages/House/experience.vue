@@ -269,11 +269,13 @@ export default {
           this.reload();
         })
         .catch(() => {
-          if (error.response) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "对不起,该员工还有正在跟进的定金客户没有交接",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     }

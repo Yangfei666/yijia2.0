@@ -105,7 +105,6 @@ export default {
         name: validate.name,
         sex: validate.sex,
         phone: validate.phone,
-        wechat: validate.wechat,
         adviser: validate.adviser,
         price: validate.price,
         mode: validate.mode,

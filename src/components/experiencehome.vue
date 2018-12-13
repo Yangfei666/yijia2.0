@@ -63,7 +63,7 @@
         </div>
       </el-col>
     </el-row>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 <script>
@@ -72,6 +72,7 @@ import Addbargain from "@/components/addbargain";
 import Change from "@/components/change";
 export default {
   name: "experiencehome",
+  inject: ["reload"],
   components: {
     Addmember,
     Addbargain,
@@ -82,33 +83,37 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogFormVisible3: false,
-      Potential: {potential: "setExperienceCustomer",id: this.$route.params.id,},
-      Huiyuanqufen: { 
-        huiyuanqufen: "experience", 
+      Potential: {
+        potential: "setExperienceCustomer",
+        id: this.$route.params.id
+      },
+      Huiyuanqufen: {
+        huiyuanqufen: "experience",
         id: this.$route.params.id,
-        name:this.$route.params.exName,
-        sex:this.$route.params.exSex,
-        tel:this.$route.params.exTel,
-        wechat:this.$route.params.exWeChat,
-        ygxxnameid:this.$route.params.exHjgwId,
-        ygxxname:this.$route.params.exHjgwName
-        },
-      Dingjinqufen: { 
-        dingjinqufen: "experience", 
-        id: this.$route.params.id ,
-        name:this.$route.params.exName,
-        sex:this.$route.params.exSex,
-        tel:this.$route.params.exTel,
-        wechat:this.$route.params.exWeChat,
-        ygxxnameid:this.$route.params.exHjgwId,
-        ygxxname:this.$route.params.exHjgwName},
+        name: this.$route.params.exName,
+        sex: this.$route.params.exSex,
+        tel: this.$route.params.exTel,
+        wechat: this.$route.params.exWeChat,
+        ygxxnameid: this.$route.params.exHjgwId,
+        ygxxname: this.$route.params.exHjgwName
+      },
+      Dingjinqufen: {
+        dingjinqufen: "experience",
+        id: this.$route.params.id,
+        name: this.$route.params.exName,
+        sex: this.$route.params.exSex,
+        tel: this.$route.params.exTel,
+        wechat: this.$route.params.exWeChat,
+        ygxxnameid: this.$route.params.exHjgwId,
+        ygxxname: this.$route.params.exHjgwName
+      },
       id: "",
       exHjgwName: "",
-      exHjgwId:"",
+      exHjgwId: "",
       exName: "",
       exTel: "",
       exSex: "",
-      exWeChat:"",
+      exWeChat: ""
     };
   },
   mounted() {
@@ -120,7 +125,8 @@ export default {
     this.exWeChat = this.$route.params.exWeChat;
     this.exHjgwId = this.$route.params.exHjgwId;
   },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 <style lang="scss" scoped>

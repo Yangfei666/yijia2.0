@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //懒加载方式，当路由被访问的时候才加载对应组件
+const Health = resolve => require(['@/pages/Health'], resolve)//健康表 
 
 const Login = resolve => require(['@/pages/Login'], resolve)//登录
 
@@ -13,7 +14,7 @@ const Forbidden = resolve => require(['@/pages/House/403'], resolve)//403
 
 const NotFound = resolve => require(['@/pages/House/404'], resolve)//404
 
-const ServerError = resolve => require(['@/pages/House/500'], resolve)//500
+const ServerError = resolve => require(['@/pages/500'], resolve)//500
 
 const CurriGroup = resolve => require(['@/pages/Curriculum/group'], resolve)//团课课程表
 
@@ -33,7 +34,7 @@ const CustomerBargain = resolve => require(['@/pages/Customer/bargain'], resolve
 
 const CustomerLatent = resolve => require(['@/pages/Customer/latent'], resolve)//潜在客户管理
 
-// const RoutineRotation = resolve => require(['@/pages/Routine/rotation'], resolve)//轮播图管理
+const RoutineRotation = resolve => require(['@/pages/Routine/rotation'], resolve)//轮播图管理
 
 const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会所信息管理
 
@@ -123,6 +124,8 @@ const Activate = resolve => require(['@/components/activate'], resolve)//激活
 
 const Claim = resolve => require(['@/components/claim'], resolve)//认领
 
+const Lunbomanage = resolve => require(['@/components/lunbomanage'], resolve)//图片管理
+
 const Latenttable = resolve => require(['@/components/latenttable'], resolve)//潜在表格
 
 const Bargaintable = resolve => require(['@/components/bargaintable'], resolve)//定金表格
@@ -134,11 +137,12 @@ const Leaguermanagetable = resolve => require(['@/components/leaguermanagetable'
 Vue.use(Router)
 
 let router = new Router({
+    mode:'history',
     routes: [
         {
             path: '/',
-            name: 'Login',
-            component: Login,
+            name: 'Health',
+            component: Health,
         },
         {
             path: '/login',
@@ -283,7 +287,7 @@ let router = new Router({
                                 { path: '/Customer/membershiphome/memberhome/activate', component: Activate},//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/informations', component: Information},//综合信息
+                        { path: '/Customer/membershiphome/information', component: Information},//综合信息
                         { path: '/Customer/membershiphome/leave', component: Leave},//请假销假操作
                         { path: '/Customer/membershiphome/unhook', component: Unhook},//解挂--补卡--挂失
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍
@@ -296,12 +300,12 @@ let router = new Router({
                     component: Experiencehome,
                     name: '体验客户主页',
                     menuShow: false,
-                    redirect: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex',
+                    redirect: '/Customer/experiencehome/experhome',
                     children: [
                         { path: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experhome, name: 'Experhome' },//体验主页
                         { path: '/Customer/experiencehome/information2/:id/:exHjgwName/:exName/:exTel/:exSex', component: Information2, name: 'Information2' },//综合信息
                         { path: '/Customer/experiencehome/nocards/:id/:exHjgwName/:exName/:exTel/:exSex', component: Nocards, name: 'Nocards' },//不办卡
-                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change },//换会籍
+                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change},//换会籍
                         { path: '/Customer/experiencehome/classcard/:id/:exHjgwName/:exName/:exTel/:exSex', component: Classcard, name: 'Classcard' },//上课记录
                     ]
                 }
@@ -313,8 +317,9 @@ let router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-lianjie',
             children: [
-                // { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true },//轮播图管理
-                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true }//会所信息管理
+                { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true },//轮播图管理
+                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true },//会所信息管理
+                { path: '/Routine/rotation/lunbomanage', component: Lunbomanage, name: '图片管理', menuShow: false }//图片管理
             ]
         }, {
             path: '/House',
@@ -352,31 +357,16 @@ let router = new Router({
                     component: NotFound,
                     name: '404',
                     menuShow: false
-                },
-                {
-                    path: '/House/500', //500
-                    component: ServerError,
-                    name: '500',
-                    menuShow: false
-                },
+                }
             ]
         },
+        {
+            path: '/500', //500
+            component: ServerError,
+            name: '500',
+            menuShow: false
+        },
     ]
-})
-
-// 访问之前，检查是否登录了
-router.beforeEach((to, from, next) => {
-    if (to.path.startsWith('/login')) {
-        window.sessionStorage.removeItem('access-token')
-        next()
-    } else {
-        let token = window.sessionStorage.getItem('access-token')
-        if (!token) {
-            next({ path: '/login' })
-        } else {
-            next()
-        }
-    }
 })
 
 export default router

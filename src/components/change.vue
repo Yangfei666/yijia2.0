@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="变更原因:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22" class="from-date">
-          <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
+          <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
           <span class="textarea">还可以输入{{remnant}}字</span>
         </el-col>
       </el-form-item>
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       staff_info: [],
       formLabelWidth: "130px",
       ruleForm: {
@@ -103,10 +103,11 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     },
     Selectchange2(val) {}
   }

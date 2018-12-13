@@ -30,7 +30,7 @@
               <el-col :span="16" class="from-date">
                   <el-col :span="24">
                 <el-form-item label="变更原因:" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                     <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
                   </el-col>
@@ -55,7 +55,7 @@
               <el-col :span="16" class="from-date">
                   <el-col :span="24">
                 <el-form-item label="变更原因:" prop="desc2">
-                    <el-input type="textarea" v-model="ruleForm.desc2" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                    <el-input type="textarea" v-model="ruleForm.desc2" maxlength="50" @input="descInput" style="width:100%"></el-input>
                     <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
                   </el-col>
@@ -83,7 +83,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       ruleForm: {
         num: "",
         price: "",
@@ -98,8 +98,8 @@ export default {
           { required: true, message: "请填写变更原因", trigger: "blur" },
           {
             min: 1,
-            max: 666,
-            message: "长度在 1 到 666个字符",
+            max: 50,
+            message: "长度在 1 到 50个字符",
             trigger: "blur"
           }
         ],
@@ -110,8 +110,8 @@ export default {
           { required: true, message: "请填写变更原因", trigger: "blur" },
           {
             min: 1,
-            max: 666,
-            message: "长度在 1 到 666个字符",
+            max: 50,
+            message: "长度在 1 到 50个字符",
             trigger: "blur"
           }
         ]
@@ -179,10 +179,11 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     }
   }
 };

@@ -49,12 +49,13 @@
             <template>
               <el-col :span="24" v-if="coachData.groupList !=null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.groupList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                  <el-table-column prop="kcName" align="left" label="课程名称" width="230px" fixed></el-table-column>
-                  <el-table-column prop="Stime" align="left" label="开始时间" width="220px"></el-table-column>
-                  <el-table-column prop="Etime" align="left" label="结束时间" width="220px"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="220px" :formatter="formatkcIs"></el-table-column>
-                  <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="230px"></el-table-column>
-                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="220px"></el-table-column>
+                  <el-table-column prop="kcName" align="left" label="课程名称" width="200px" fixed></el-table-column>
+                  <el-table-column prop="Stime" align="left" label="开始时间" width="200px"></el-table-column>
+                  <el-table-column prop="Etime" align="left" label="结束时间" width="200px"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="200px" :formatter="formatkcIs"></el-table-column>
+                  <el-table-column prop="YGXX_NAME" align="left" label="教练" width="200px"></el-table-column>
+                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="200px"></el-table-column>
+                  <el-table-column prop="hand" align="left" label="手牌" width="200px"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期" width="220px" fixed="right"></el-table-column>
                 </el-table>
                 <div class="block">
@@ -68,13 +69,14 @@
             <template>
               <el-col :span="24" v-if="coachData.privateList != null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.privateList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                  <el-table-column width="20px" fixed></el-table-column>
-                  <el-table-column prop="Stime" align="left" label="开始时间" width="260px" fixed></el-table-column>
-                  <el-table-column prop="Etime" align="left" label="结束时间" width="260px"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="260px" :formatter="formatkcIs"></el-table-column>
-                  <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="260px"></el-table-column>
-                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="260px"></el-table-column>
-                  <el-table-column prop="kcStime" align="left" label="开课日期" width="260px" fixed="right"></el-table-column>
+                  <el-table-column width="20px"></el-table-column>
+                  <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
+                  <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" :formatter="formatkcIs"></el-table-column>
+                  <el-table-column prop="YGXX_NAME" align="left" label="教练"></el-table-column>
+                  <el-table-column prop="kcPerson" align="left" label="上课人数"></el-table-column>
+                  <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
+                  <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>
                 </el-table>
                 <div class="block">
                   <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="coachData.privateList.length">
@@ -159,17 +161,17 @@ export default {
         });
     },
     change1(val) {
-      let year = this.value4.split('-')[0];
-      if(year !== this.value5){
+      let year = this.value4.split("-")[0];
+      if (year !== this.value5) {
         this.value5 = year;
       }
       this.getstaffdate();
     },
-    change2(val){
-      let year = this.value4.split('-')[0];
-      let month = this.value4.split('-')[1];
-      if(year !== this.value5){
-        this.value4 = `${this.value5}-${month}`
+    change2(val) {
+      let year = this.value4.split("-")[0];
+      let month = this.value4.split("-")[1];
+      if (year !== this.value5) {
+        this.value4 = `${this.value5}-${month}`;
       }
       this.getstaffdate();
     },
@@ -221,7 +223,7 @@ export default {
     .main-right {
       width: 75%;
       position: absolute;
-      right: 0px;
+      right: 1%;
       z-index: 2;
       top: 0px;
       .block2 {
@@ -229,9 +231,7 @@ export default {
         line-height: 32px;
         height: 50px;
         line-height: 37px;
-        display: flex;
-        justify-content: flex-end;
-        padding-left: 29%;
+        float: right;
         .dsd {
           line-height: 34px;
           text-align: right;
@@ -277,6 +277,402 @@ export default {
       margin-right: 40px;
       .el-pager li.active {
         color: #00bc71;
+      }
+    }
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 154px !important;
+        }
+        .el-date-editor {
+          width: 120px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1280px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 200px !important;
+        }
+        .el-date-editor {
+          width: 130px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 240px !important;
+        }
+        .el-date-editor {
+          width: 150px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 250px !important;
+        }
+        .el-date-editor {
+          width: 150px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1680px) and (max-width: 1920px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 260px !important;
+        }
+        .el-date-editor {
+          width: 160px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1920px) and (max-width: 2048px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      position: relative;
+      display: flex;
+      height: 50px;
+      line-height: 45px;
+      .weber-span {
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        text-indent: 20px;
+      }
+      .main-right {
+        width: 75%;
+        position: absolute;
+        right: 1%;
+        z-index: 2;
+        top: 0px;
+        .block2 {
+          height: 32px;
+          line-height: 32px;
+          height: 50px;
+          line-height: 37px;
+          float: right;
+          .dsd {
+            line-height: 34px;
+            text-align: right;
+          }
+          .block1 {
+            line-height: 38px;
+          }
+          .el-radio-button__inner {
+            color: #fff;
+            background-color: #00bc71;
+            border-color: #00bc71;
+            -webkit-box-shadow: -1px 0 0 0 #00bc71;
+            box-shadow: -1px 0 0 0 #00bc71;
+          }
+        }
+        .el-select {
+          width: 280px !important;
+        }
+        .el-date-editor {
+          width: 180px !important;
+        }
+        .block3 {
+          height: 50px;
+          line-height: 50px;
+          display: flex;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 8px;
+          }
+        }
       }
     }
   }

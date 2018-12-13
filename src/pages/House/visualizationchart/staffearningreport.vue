@@ -16,7 +16,7 @@
       <el-col :span="24">
         <div class="practice-head">
           <el-col :span="24" class="weber">
-            <span class="weber-span">体验客户管理</span>
+            <span class="weber-span">员工业绩报表</span>
             <div class="main-right">
               <div class="block3">
                 <el-form ref="form" :model="form" label-width="85px">
@@ -52,6 +52,11 @@
     <el-col :span="24" class="staffchart">
       <div class="staff-main">
         <div id="staffchart2" :style="{width: '100%', height: '415px'}"></div>
+      </div>
+    </el-col>
+    <el-col :span="24" class="staffchart">
+      <div class="staff-main">
+        <div id="staffchart3" :style="{width: '100%', height: '415px'}"></div>
       </div>
     </el-col>
   </div>
@@ -128,6 +133,7 @@ export default {
         .then(() => {
           setTimeout(() => {
             _this.drawLine(_this.staffChartData.intention.timeAchievement);
+            _this.drawLine(_this.staffChartData.prospect.timeAchievement);
             _this.drawBar(_this.staffChartData.achievement.timeAchievement);
           }, 500);
         });
@@ -197,6 +203,7 @@ export default {
     },
     drawLine(increased) {
       let staffchart2 = echarts.init(document.getElementById("staffchart2"));
+      let staffchart3 = echarts.init(document.getElementById("staffchart3"));
       let option2 = {
         title: {
           text: "体验客户新增折线图",
@@ -236,7 +243,47 @@ export default {
         },
         series: this.detailLineData(increased)
       };
+      let option3 = {
+        title: {
+          text: "潜在客户变化折线图",
+          textStyle: {
+            color: "#595959",
+            fontSize: "20px"
+          },
+          top: "5%",
+          left: "1%"
+        },
+        tooltip: {
+          trigger: "axis"
+        },
+        legend: {
+          data: this.detailLegend2(increased),
+          top: "5%"
+        },
+        grid: {
+          left: "1%",
+          right: "2%",
+          bottom: "1%",
+          top: "20%",
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: this.detailXAxis()
+        },
+        yAxis: {
+          type: "value"
+        },
+        series: this.detailLineData2(increased)
+      };
       staffchart2.setOption(option2);
+      staffchart3.setOption(option3);
     },
     detailXAxis() {
       let [year, month, day] = this.selectDate.split("-");
@@ -283,6 +330,23 @@ export default {
         // return item;
       });
     },
+    detailLegend2(legend) {
+      return Object.keys(legend).map(item => {
+        if (item === "private") {
+          return "A类客户";
+        }
+        if (item === "group") {
+          return "B类客户";
+        }
+        if (item === "suc") {
+          return "C类客户";
+        }
+        if (item === "sum") {
+          return "D类客户";
+        }
+        // return item;
+      });
+    },
     detailLineData(object, type = "line") {
       let keys = Object.keys(object);
       return keys
@@ -294,6 +358,31 @@ export default {
           }
           if (item === "group") {
             temp.name = "团课";
+          }
+          temp.data = object[item];
+          temp.type = type;
+          temp.stack = "总量";
+          return temp;
+        })
+        .filter(item => item.name);
+    },
+    detailLineData2(object, type = "line") {
+      let keys = Object.keys(object);
+      return keys
+        .map(item => {
+          let temp = {};
+          temp.name = "";
+          if (item === "private") {
+            temp.name = "A类客户";
+          }
+          if (item === "group") {
+            temp.name = "B类客户";
+          }
+          if (item === "suc") {
+            temp.name = "C类客户";
+          }
+          if (item === "sum") {
+            temp.name = "D类客户";
           }
           temp.data = object[item];
           temp.type = type;

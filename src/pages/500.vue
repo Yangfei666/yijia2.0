@@ -4,19 +4,18 @@
             <el-col :span="24" class="forbidden">
                 <div class="forbidden-main">
                 <div class="Img">
-                    <img src="../../assets/500.png"/>
+                    <img src="../assets/500.png"/>
                 </div>
                 <div class="text">
                     <h1>500</h1>
                     <span>抱歉 ，服务器出错了</span>
-                    <el-button type="primary" class="butt" @click="jump">返回首页</el-button>
+                    <el-button type="primary" class="butt" @click="jump">返回主页</el-button>
                 </div>
                 </div>
             </el-col>
         </el-row>
     </div>
 </template>
-
 <script>
 export default {
   data(){
@@ -25,7 +24,7 @@ export default {
   },
   methods: {
     jump(){
-    this.$router.push("/home/main")
+    this.$router.push("/")
     }
   }
 }
@@ -35,10 +34,12 @@ export default {
 .forbidden{
     height: 100%;
     display: inline-block;
+    width: 100%;
     .forbidden-main{
         width: 70%;
         margin: 7% auto;
         display: inline-flex;
+        padding-left: 24%;
         .Img{
             img{
                 width: 100%;

@@ -136,14 +136,14 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2 || ruleForm.calculationCredit == 1">
                                     <el-form-item label="私教提前预约时间(天数)：" prop="personalDate1" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.personalDate1" style="width:250px" placeholder="默认30"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.calculationCredit == 2 || ruleForm.calculationCredit == 1">
                                     <el-form-item label="团课提前预约时间(天数)：" prop="leagueDate" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.leagueDate" style="width:250px" placeholder="默认3天,最大99"></el-input>

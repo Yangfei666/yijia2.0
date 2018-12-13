@@ -14,7 +14,7 @@
           <div class="search-form">
             <el-form-item label="登记日期:">
               <el-col :span="24">
-                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                <el-date-picker v-model="formInline.date" :clearable="false" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
               </el-col>
             </el-form-item>
           </div>
@@ -101,17 +101,18 @@
               </template>
             </el-table-column>
             <el-table-column prop="exName" align="left" label="姓名" fixed width="140px"></el-table-column>
-            <el-table-column prop="exTel" align="left" label="手机号" width="150px"></el-table-column>
-            <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
-            <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="160px"></el-table-column>
+            <el-table-column prop="tkName" align="left" label="劵种" width="160px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="160px"></el-table-column>
             <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
-            <el-table-column prop="exHjgwName" align="left" label="会籍" width="180px"></el-table-column>
+            <el-table-column prop="exHjgwName" align="left" label="会籍" width="150px"></el-table-column>
             <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
             <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
             <el-table-column prop="exReason" align="left" label="未成交原因" width="200px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="150px">
+            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="100px">
               <template slot-scope="scope">
-                <el-button @click="go(scope.$index,scope.row)" type="text" size="small">认领</el-button>
+                <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.exHealth == 1">认领</el-button>
+                <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
               </template>
             </el-table-column>
           </el-table>

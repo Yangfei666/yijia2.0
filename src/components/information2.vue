@@ -3,9 +3,6 @@
     <!--体验综合信息-->
     <div class="infor">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title">
           <span>体验综合信息</span>
           <img src="../assets/deit.png" @click="editclub" />
@@ -44,6 +41,9 @@
               </el-form>
             </el-dialog>
           </template>
+        </div>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
       </el-col>
       <el-col :span="24">
@@ -84,7 +84,7 @@
 <script>
 import { requestLogin } from "@/api/api";
 export default {
-  name: "information",
+  name: "information2",
   inject: ["reload"],
   data() {
     return {
@@ -116,11 +116,22 @@ export default {
         });
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+        name: "Experhome",
+        params: {
+          id: this.$route.params.id,
+          exName: this.$route.params.exName,
+          exHjgwName: this.$route.params.exHjgwName,
+          exTel: this.$route.params.exTel,
+          exSex: this.$route.params.exSex,
+          exWeChat:this.$route.params.exWeChat,
+          exHjgwId:this.$route.params.exHjgwId
+        }
+      });
     },
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {
-        var loginParams = {
+        let params = {
           exName: this.ruleForm.exName, //姓名
           exTel: this.ruleForm.exTel, //电话
           exWeChat: this.ruleForm.exWeChat, //微信
@@ -128,7 +139,7 @@ export default {
         };
         requestLogin(
           "/setExperienceCustomer/" + this.$route.params.id,
-          loginParams,
+          params,
           "put"
         )
           .then(data => {
@@ -138,6 +149,8 @@ export default {
             });
             this.reload();
             this.dialogFormVisible = false;
+            params.exSex = params.exSex == 1?'女':'男';
+            this.$router.replace({name:'Information2',params:params});
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;
@@ -172,10 +185,11 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content:space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }

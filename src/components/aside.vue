@@ -18,6 +18,12 @@
         </div>
         <el-button type="text" class="two-p" @click="Group">约团课</el-button>
       </div>
+      <div class="cen-two">
+        <div class="two-img">
+          <img src="../assets/49.png" @click="showIC"/>
+        </div>
+        <el-button type="text" class="two-p" @click="showIC">刷卡</el-button>
+      </div>
     </div>
     <div class="left-head" v-show="collapsed">
       <img class="mm" src="../assets/logo.png" />
@@ -25,9 +31,10 @@
     <div v-show="collapsed" class="collapsed-icon">
       <img src="../assets/51.png" alt="约私教" title="约私教" @click="personal"/>
       <img src="../assets/49.png" alt="约团课" title="约团课" @click="Group"/>
+      <img src="../assets/49.png" alt="刷卡" title="刷卡" @click="showIC"/>
     </div>
     <el-row class="tac">
-      <el-col :span="12"> 
+      <el-col :span="12">
         <el-menu :default-active="defaultActiveIndex" unique-opened router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed" @select="handleSelect" :show-timeout="200" background-color="#323844" text-color="#fff" active-text-color="#fff">
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index + ''" v-bind:key="item.index">
@@ -54,22 +61,30 @@
         </el-menu>
       </el-col>
     </el-row>
+
+    <el-dialog  class="icCard-wrapper" :close-on-click-modal="true" title="刷卡" :append-to-body="true" :visible.sync="showICDialog">
+      <keep-alive>
+        <IC></IC>
+      </keep-alive>
+    </el-dialog>
   </div>
 </template>
 <script>
 import Personal from "../components/personal";
 import Group from "../components/group";
+import IC from './icCard'
 export default {
   props: ["collapsed"],
   components: {
     Personal,
-    Group
+    Group,
+    IC
   },
   data() {
     return {
       defaultActiveIndex: "0",
       dialogFormVisible: false,
-      dialogFormVisible2: false
+      showICDialog: false,
     };
   },
   methods: {
@@ -78,6 +93,9 @@ export default {
     },
     Group(){
       this.$router.push("/Curriculum/group");
+    },
+    showIC(){
+     this.showICDialog = true;
     },
     handleSelect(index) {
       this.defaultActiveIndex = index;
@@ -90,6 +108,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  .icCard-wrapper{
+    width: 120%;
+    margin-left: -10%;
+  }
 .left {
   .left-head {
     width: 100%;

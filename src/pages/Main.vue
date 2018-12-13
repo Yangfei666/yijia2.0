@@ -37,7 +37,7 @@
         <span>体验客户约课</span>
       </div>
       <div class="main-table">
-        <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
+        <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick">
           <el-table-column align="left" fixed label="头像">
             <template slot-scope="scope">
               <img src="../assets/tianjiahuiyuan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
@@ -52,7 +52,7 @@
           <el-table-column align="left" label="操作" fixed="right">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
-                <el-button type="text" size="small" @click="clickEnter('体验客户', scope.row.experience_customers.id)">进场</el-button>
+                <el-button type="text" size="small" @click="clickEnter2('体验客户', scope.row.experience_customers.id)">进场</el-button>
                 <el-button type="text" size="small" @click="cancelReservation(scope.row.id, '体验客户')">取消预约</el-button>
               </div>
               <div v-if="scope.row.isTrue == '已取消'">
@@ -255,12 +255,31 @@ export default {
     }
   },
   methods: {
+    rowClick(row, event, column) {
+      this.currentSelectRow = row;
+    },
     // 进场按钮点击
     clickEnter(str, id) {
       this.enterTitle =
         (this.activeName == "league" ? "团课" : "私教") + str + "进场";
       this.userId = id;
       this.dialogFormVisible = true;
+    },
+    clickEnter2(str, id) {
+      if (this.currentSelectRow.customer_voucher.mode == "未付款") {
+        this.dialogFormVisible = false;
+        this.$alert("该客户还未付款,确定要进场吗?", "提示消息", {
+          confirmButtonText: "确定",
+          callback: action => {
+            this.dialogFormVisible = true;
+          }
+        });
+      } else {
+        this.enterTitle =
+          (this.activeName == "league" ? "团课" : "私教") + str + "进场";
+        this.userId = id;
+        this.dialogFormVisible = true;
+      }
     },
     // 教练进场成功更改状态
     caochSuccess(name2, JLIDs) {
@@ -300,17 +319,30 @@ export default {
     },
     // 取消预约
     cancelReservation(id, str) {
-      this.enterTitle =
-        (this.activeName == "league" ? "团课" : "私教") + str + "取消预约";
-      let params = { bool: this.bool, id: id };
-      request("/adminHomePage/cancelReservation", params)
-        .then(data => {
-          this.changeStatus("已取消", id);
-          this.msgThen(data);
-        })
-        .catch(error => {
-          this.msgCatch(error, "对不起,取消预约失败");
-        });
+      this.$confirm("确定取消预约吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.enterTitle =
+          (this.activeName == "league" ? "团课" : "私教") + str + "取消预约";
+        let params = { bool: this.bool, id: id };
+        request("/adminHomePage/cancelReservation", params)
+          .then(data => {
+            this.changeStatus("已取消", id);
+            this.msgThen(data);
+            this.$message({
+              message: "取消成功",
+              type: "success"
+            });
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({ message: msg, type: "error" });
+            }
+          });
+      });
     },
     // 时间按钮
     changeBottomDay() {
@@ -372,7 +404,10 @@ export default {
           }
         })
         .catch(error => {
-          this.msgCatch(error, "对不起,课程数据加载失败");
+          this.$message({
+            message: "课程数据加载失败!",
+            type: "error"
+          });
         });
     },
     // 获取课程预约详情

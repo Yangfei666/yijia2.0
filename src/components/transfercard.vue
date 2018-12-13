@@ -2,6 +2,7 @@
   <div>
     <!--转卡操作-->
     <el-row>
+       <el-col :span="24" class="elcol"></el-col>
         <div class="tag">
             <em class="top"></em>
             <el-col :span="24" class="transfer">
@@ -39,7 +40,7 @@
                                 </el-form-item>
                                 <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
                                     <el-col :span="22">
-                                        <el-date-picker v-model="ruleForm.birthday" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                                        <el-date-picker v-model="ruleForm.birthday" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
@@ -286,9 +287,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 20px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;
