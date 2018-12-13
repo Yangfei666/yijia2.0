@@ -522,7 +522,7 @@ export default {
                   type: "success"
                 });
                 this.dialogFormVisible2 = false;
-                this.$emit("regetData");
+                // this.$emit("regetData");
                 this.resetForm(formName);
               })
               .catch(error => {
