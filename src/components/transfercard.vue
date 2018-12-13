@@ -295,7 +295,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .elcol {
-  height: 20px;
+  height: 25px;
   background: #e9eef3;
 }
 .tag {

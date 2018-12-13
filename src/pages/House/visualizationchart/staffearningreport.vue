@@ -67,22 +67,22 @@
     <el-col :span="24">
       <div class="Totalachievement">
         <el-col :span="12" class="Total-head">
-          <div id="staffchart5" :style="{width: '100%', height: '300px'}"></div>
+          <div id="staffchart5" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <div id="staffchart6" :style="{width: '100%', height: '300px'}"></div>
+          <div id="staffchart6" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
       </div>
     </el-col>
-        <el-col :span="24">
-      <div class="Totalachievement">
+    <el-col :span="24">
+      <div class="Totalachievement2">
         <el-col :span="12" class="Total-head">
-          <div id="staffchart5" :style="{width: '100%', height: '300px'}"></div>
+          <div id="staffchart7" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
         <div class="box4"></div>
         <el-col :span="12" class="Total-head">
-          <div id="staffchart6" :style="{width: '100%', height: '300px'}"></div>
+          <div id="staffchart8" :style="{width: '515px', height: '300px'}"></div>
         </el-col>
       </div>
     </el-col>
@@ -141,6 +141,9 @@ export default {
   },
   beforeMount() {
     this.getStaffList();
+  },
+  mounted() {
+    this.drawPie();
   },
   methods: {
     selectStaff(id) {
@@ -357,6 +360,8 @@ export default {
       //饼图
       let staffchart5 = echarts.init(document.getElementById("staffchart5"));
       let staffchart6 = echarts.init(document.getElementById("staffchart6"));
+      let staffchart7 = echarts.init(document.getElementById("staffchart7"));
+      let staffchart8 = echarts.init(document.getElementById("staffchart8"));
       let option5 = {
         title: {
           text: "私教团课业绩占比图",
@@ -374,7 +379,7 @@ export default {
         },
         legend: {
           x: "right",
-          data: ['私教业绩','团课业绩'],
+          data: ["私教业绩", "团课业绩"],
           orient: "vertical",
           right: 4,
           top: 40,
@@ -425,7 +430,7 @@ export default {
                 name: "私教业绩"
               },
               {
-                value:45,
+                value: 45,
                 name: "团课业绩"
               }
             ]
@@ -440,7 +445,7 @@ export default {
             color: "#595959",
             fontSize: "34px"
           },
-          top: "2%",
+          top: "1%",
           left: "1%"
         },
         tooltip: {
@@ -449,9 +454,9 @@ export default {
         },
         legend: {
           x: "right",
-          data: pro_adviser,
+          data: ["已成交", "已放弃", "跟进中"],
           orient: "vertical",
-          right: 5,
+          right: 4,
           top: 40,
           bottom: 10
         },
@@ -475,6 +480,7 @@ export default {
             ],
             radius: ["53%", "70%"],
             avoidLabelOverlap: false,
+            hoverAnimation: true, //hover放大
             label: {
               normal: {
                 show: false,
@@ -493,16 +499,181 @@ export default {
                 show: false
               }
             },
-            data:[
-                {value:335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
+            data: [
+              {
+                value: 23,
+                name: "已成交"
+              },
+              {
+                value: 45,
+                name: "已放弃"
+              },
+              {
+                value: 65,
+                name: "跟进中"
+              }
+            ]
+          }
+        ]
+      };
+      let option7 = {
+        title: {
+          text: "潜在客户成交量占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "1%",
+          left: "1%"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          x: "right",
+          data: ["已成交", "跟进中"],
+          orient: "vertical",
+          right: 4,
+          top: 40,
+          bottom: 10
+        },
+        series: [
+          {
+            name: "访问来源",
+            type: "pie",
+            color: [
+              "#2FC25B",
+              "#1890FF",
+              "#8378EA",
+              "#E062AE",
+              "#FFDB5C",
+              "#41EA17",
+              "#410544",
+              "#EA510F",
+              "#9C3205",
+              "#EB1330",
+              "#02374B",
+              "#1B0AD7"
+            ],
+            radius: ["53%", "70%"],
+            avoidLabelOverlap: false,
+            hoverAnimation: true, //hover放大
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "20",
+                  fontWeight: "bold"
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              {
+                value: 74,
+                name: "已成交"
+              },
+              {
+                value: 45,
+                name: "跟进中"
+              }
+            ]
+          }
+        ]
+      };
+      let option8 = {
+        title: {
+          text: "定金客户成交量占比图",
+          x: "left",
+          textStyle: {
+            color: "#595959",
+            fontSize: "34px"
+          },
+          top: "1%",
+          left: "1%"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+          x: "right",
+          data: ["已成交", "已放弃", "跟进中"],
+          orient: "vertical",
+          right: 4,
+          top: 40,
+          bottom: 10
+        },
+        series: [
+          {
+            name: "访问来源",
+            type: "pie",
+            color: [
+              "#2FC25B",
+              "#1890FF",
+              "#8378EA",
+              "#E062AE",
+              "#FFDB5C",
+              "#41EA17",
+              "#410544",
+              "#EA510F",
+              "#9C3205",
+              "#EB1330",
+              "#02374B",
+              "#1B0AD7"
+            ],
+            radius: ["53%", "70%"],
+            avoidLabelOverlap: false,
+            hoverAnimation: true, //hover放大
+            label: {
+              normal: {
+                show: false,
+                position: "center"
+              },
+              emphasis: {
+                show: true,
+                textStyle: {
+                  fontSize: "20",
+                  fontWeight: "bold"
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              }
+            },
+            data: [
+              {
+                value: 45,
+                name: "已成交"
+              },
+              {
+                value: 75,
+                name: "已放弃"
+              },
+              {
+                value: 64,
+                name: "跟进中"
+              }
             ]
           }
         ]
       };
       staffchart5.setOption(option5);
       staffchart6.setOption(option6);
+      staffchart7.setOption(option7);
+      staffchart8.setOption(option8);
       window.onresize = function() {
         staffchart5.resize();
         setTimeout(() => {
@@ -780,6 +951,7 @@ export default {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
   display: flex;
+  position: relative;
   .Total-head {
     height: 100%;
     #staffchart5 {
@@ -795,6 +967,53 @@ export default {
       border-width: 0px;
     }
     #staffchart6 {
+      position: absolute;
+      right: 70px;
+      top: 42px;
+      width: 41%;
+      height: 300px;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #staffchart7 {
+      position: absolute;
+      left: 37px;
+      top: 42px;
+      width: 41%;
+      height: 300px;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #staffchart8 {
       position: absolute;
       right: 70px;
       top: 42px;

@@ -164,7 +164,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .elcol{
-  height: 20px;
+  height: 25px;
   background: #E9EEF3;
 }
 .tag {
