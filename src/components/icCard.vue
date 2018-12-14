@@ -3,7 +3,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" @submit.native.prevent>
       <el-form-item label="" prop="" :label-width="formLabelWidth">
         <el-col :span="22" class="card__number">
-          <el-input ref="inputID" @blur="blur" @focus="focus" :autofocus="!showInfo" v-model="cardID"
+          <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo" v-model="cardID"
                     placeholder="卡号/姓名/手机号" clearable></el-input>
           <el-button class="card__number_sure-btn" @click.native="sureCard">确定</el-button>
         </el-col>
@@ -93,12 +93,12 @@
         if (newV.length === 0) {
           this.showInfo = false;
         }
-        if (newV.length - oldV.length > 4) {
-          this.sureCard();
-        }
       }
     },
     methods: {
+      enterResult(){
+        this.sureCard()
+      },
       clickEnter(index) {
         let curCourse = this.course[index];
         let params = {
