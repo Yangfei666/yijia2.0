@@ -18,10 +18,10 @@
               <img :src="club.Photo" />
             </el-col>
             <el-col :span="10" class="weber-left">
-              <span class="weber-span">{{club.HYName}}·{{club.Sex}}</span>
-              <p class="weber-p">会籍顾问:{{this.YGXX_NAME}}
+              <div class="weber-span">{{club.HYName}}·{{club.Sex}}</div>
+              <div class="weber-p">会籍顾问:{{this.YGXX_NAME}}
                 <span class="weber-pp">电话:{{club.MotoTel}}</span>
-              </p>
+              </div>
             </el-col>
             <el-col :span="12" class="weber-right">
               <div class="right-span">
