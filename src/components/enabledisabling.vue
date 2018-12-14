@@ -2,6 +2,7 @@
   <div>
     <!--启用禁用操作-->
     <el-row>
+      <el-col :span="24" class="elcol"></el-col>
       <div class="tag">
         <em class="top"></em>
         <el-col :span="24" class="transfer">
@@ -15,9 +16,9 @@
               <el-col :span="16">
                 <el-form-item label="启用或禁用该卡:" prop="enablecard">
                   <el-col :span="24">
-                    <el-select v-model="ruleForm.enablecard" placeholder="请选择" style="width:100%">
-                      <el-option label="禁用" value="2"></el-option>
+                    <el-select v-model="ruleForm.enablecard" style="width:100%" @change="asfa">
                       <el-option label="启用" value="1"></el-option>
+                      <el-option label="禁用" value="2"></el-option>
                     </el-select>
                   </el-col>
                 </el-form-item>
@@ -25,7 +26,7 @@
               <el-col :span="16" class="from-date">
                 <el-col :span="24">
                   <el-form-item label="变更原因:" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                     <span class="textarea">还可以输入{{remnant}}字</span>
                   </el-form-item>
                 </el-col>
@@ -48,39 +49,54 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "enabledisabling",
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       ruleForm: {
-        enablecard: "",
+        enablecard:"",
         desc: ""
       },
       rules: {
-        enablecard: [
-          { required: true, message: "请选择启用或禁用", trigger: "change" }
-        ],
         desc: [
           { required: true, message: "请填写变更原因", trigger: "blur" },
           {
             min: 1,
-            max: 666,
-            message: "长度在 1 到 666个字符",
+            max: 50,
+            message: "长度在 1 到 50个字符",
             trigger: "blur"
           }
         ]
       }
     };
   },
+  created() {
+    if (this.pathquery.CARD.isEnabled == 1) {
+      this.ruleForm.enablecard = "启用";
+    } else {
+      this.ruleForm.enablecard = "禁用";
+    }
+  },
   methods: {
+    asfa(val){
+      console.log(val);
+    },
     //启用禁用
     submitForm(formName) {
       let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            let enablecards = '1';
+            if(_this.ruleForm.enablecard == '启用' || _this.ruleForm.enablecard == '1'){
+              enablecards = '1';
+            }
+            if(_this.ruleForm.enablecard == '禁用' || _this.ruleForm.enablecard == '2'){
+              enablecards = '2';
+            }
             var loginParams = {
-              id: _this.$route.query.CARD.id, //会员卡id
-              num: _this.ruleForm.enablecard, //启用禁用
+              id: _this.pathquery.CARD.id, //会员卡id
+              num: enablecards, //启用禁用
               content: _this.ruleForm.desc //原因
             };
             requestLogin(
@@ -114,22 +130,27 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 25px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin: 0px auto;
   em {

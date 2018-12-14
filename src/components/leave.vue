@@ -3,9 +3,6 @@
     <!--请假操作-->
     <div class="health">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title" v-if="membership_card.State === '请假'">
           <span>销假操作</span>
         </div>
@@ -15,6 +12,9 @@
         <div class="infor-title" v-else>
           <span>请假操作</span>
         </div>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
+        </div>
       </el-col>
       <el-col :span="24" v-if="membership_card.State != '未激活' && membership_card.State != '挂失' && membership_card.State != '请假'">
         <div class="health-from">
@@ -22,7 +22,7 @@
             <el-col :span="20" class="from-date">
               <el-col :span="24">
                 <el-form-item label="请假时间：" prop="leavedate">
-                  <el-date-picker v-model="ruleForm.leavedate" value-format="yyyy-MM-dd" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:100%">
+                  <el-date-picker v-model="ruleForm.leavedate" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:100%">
                   </el-date-picker>
                 </el-form-item>
               </el-col>
@@ -30,7 +30,7 @@
             <el-col :span="20" class="from-date">
               <el-col :span="24">
                 <el-form-item label="请假原因：" prop="desc">
-                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
               </el-col>
@@ -64,7 +64,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       membership_card: "",
       ruleForm: {
         leavedate: "",
@@ -157,13 +157,22 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+      path: "/Customer/membershiphome/memberhome",
+      query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     }
   }
 };
@@ -179,10 +188,11 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }

@@ -55,6 +55,7 @@
                   <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="200px" :formatter="formatkcIs"></el-table-column>
                   <el-table-column prop="YGXX_NAME" align="left" label="教练" width="200px"></el-table-column>
                   <el-table-column prop="kcPerson" align="left" label="上课人数" width="200px"></el-table-column>
+                  <el-table-column prop="hand" align="left" label="手牌" width="200px"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期" width="220px" fixed="right"></el-table-column>
                 </el-table>
                 <div class="block">
@@ -74,6 +75,7 @@
                   <el-table-column prop="kcIsPrivate" align="left" label="课程分类" :formatter="formatkcIs"></el-table-column>
                   <el-table-column prop="YGXX_NAME" align="left" label="教练"></el-table-column>
                   <el-table-column prop="kcPerson" align="left" label="上课人数"></el-table-column>
+                  <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>
                 </el-table>
                 <div class="block">

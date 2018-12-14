@@ -2,118 +2,119 @@
   <div>
     <!--转卡操作-->
     <el-row>
-        <div class="tag">
-            <em class="top"></em>
-            <el-col :span="24" class="transfer">
-                <div class="transfer-main">
-                    <span class="transfer-span">转卡给老客户</span>
-                    <div class="transfer-div">
-                        <span @click="dialogFormVisible = true">转卡给新客户</span>
-                    </div>
-                    <template>
-                        <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                            <!--添加新会员-->
-                            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                                <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号码"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-radio-group v-model="ruleForm.sex" @change="ChangeSex">
-                                            <el-radio label="女" value="女"></el-radio>
-                                            <el-radio label="男" value="男"></el-radio>
-                                        </el-radio-group>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-date-picker v-model="ruleForm.birthday" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.catenumber" placeholder="请输入18位身份证号码/护照均可"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.address" placeholder="汉字、字母、数字和下划线及逗号句号组成 长度2-20"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="职业:" prop="vocation" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.vocation" placeholder="长度2-10"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                                            <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                                        </el-select>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.contact" placeholder="长度2-6"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
-                                    <el-col :span="22">
-                                        <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                                <el-form-item class="dialog-footer">
-                                    <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                                        <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                                    </el-col>
-                                </el-form-item>
-                            </el-form>
-                        </el-dialog>
-                    </template>
-                </div>
-            </el-col>
-            <el-col :span="24">
-                <div class="transfer-from">
-                    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-                        <el-form-item label="被转卡人姓名:">
-                            <el-input v-model="formInline.user" placeholder="请输入" @change="textinput"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit">查询</el-button>
-                        </el-form-item>
-                    </el-form>
-                </div>
-            </el-col>
-            <el-col :span="24">
-                <div class="transfer-table">
-                    <el-table :data="tableData4" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-                        <el-table-column prop="HYName" align="left" label="姓名" fixed></el-table-column>
-                        <el-table-column prop="MotoTel" align="left" label="手机号"></el-table-column>
-                        <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
-                        <el-table-column fixed="right" align="left" label="操作">
-                            <template slot-scope="scope">
-                                <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
-                                    转卡
-                                </el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </div>
-            </el-col>
-        </div>
+      <el-col :span="24" class="elcol"></el-col>
+      <div class="tag">
+        <em class="top"></em>
+        <el-col :span="24" class="transfer">
+          <div class="transfer-main">
+            <span class="transfer-span">转卡给老客户</span>
+            <div class="transfer-div">
+              <span @click="dialogFormVisible = true">转卡给新客户</span>
+            </div>
+            <template>
+              <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
+                <!--添加新会员-->
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                  <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号码"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-radio-group v-model="ruleForm.sex" @change="ChangeSex">
+                        <el-radio label="女" value="女"></el-radio>
+                        <el-radio label="男" value="男"></el-radio>
+                      </el-radio-group>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="生日:" prop="birthday" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-date-picker v-model="ruleForm.birthday" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.catenumber" placeholder="请输入18位身份证号码/护照均可"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.address" placeholder="汉字、字母、数字和下划线及逗号句号组成 长度2-20"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="职业:" prop="vocation" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.vocation" placeholder="长度2-10"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                        <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                      </el-select>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.contact" placeholder="长度2-6"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item class="dialog-footer">
+                    <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                      <el-button @click="resetForm('ruleForm')">重置</el-button>
+                      <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                    </el-col>
+                  </el-form-item>
+                </el-form>
+              </el-dialog>
+            </template>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-from">
+            <el-form :inline="true" :model="formInline" class="demo-form-inline">
+              <el-form-item label="被转卡人姓名:">
+                <el-input v-model="formInline.user" placeholder="请输入" @change="textinput"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">查询</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-col>
+        <el-col :span="24">
+          <div class="transfer-table">
+            <el-table :data="tableData4" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+              <el-table-column prop="HYName" align="left" label="姓名" fixed></el-table-column>
+              <el-table-column prop="MotoTel" align="left" label="手机号"></el-table-column>
+              <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
+              <el-table-column fixed="right" align="left" label="操作">
+                <template slot-scope="scope">
+                  <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
+                    转卡
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </el-col>
+      </div>
     </el-row>
   </div>
 </template>
@@ -123,6 +124,7 @@ import * as validate from "@/validate/Login";
 export default {
   name: "transfercard",
   inject: ["reload"],
+  props: ["pathquery"],
   data() {
     return {
       formInline: {
@@ -146,7 +148,7 @@ export default {
         name: validate.name,
         sex: validate.sex,
         phone: validate.phone,
-        adviser: validate.adviser,
+        adviser: validate.adviser
         // catenumber: validate.idnumber
       },
       formLabelWidth: "130px",
@@ -207,6 +209,7 @@ export default {
                   type: "success"
                 });
                 _this.reload();
+                _this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -235,7 +238,7 @@ export default {
       let _this = this;
       this.$confirm("确认提交吗？", "提示").then(() => {
         var loginParams = {
-          id: _this.$route.query.CARD.id, //会员卡id
+          id: _this.pathquery.CARD.id, //会员卡id
           oldId: _this.$route.query.HYID, //原会员id
           oldName: _this.$route.query.HYName, //原会员姓名
           newId: _this.hyinfo.HYID, //新会员id
@@ -250,11 +253,13 @@ export default {
             _this.reload();
           })
           .catch(error => {
-            if (error.res) {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
               this.$message({
-                message: "操作失败",
+                message: msg,
                 type: "error"
               });
+              return;
             }
           });
       });
@@ -268,17 +273,20 @@ export default {
       };
       requestLogin("/getSearchName", loginParams, "post")
         .then(function(res) {
-          res.CardNO = _this.$route.query.CARD.CardNO;
-          res.CTName = _this.$route.query.CARD.card_type.CTName;
+          _this.tableData4 = [];
+          res.CardNO = _this.pathquery.CARD.CardNO;
+          res.CTName = _this.pathquery.CARD.card_type.CTName;
           _this.hyinfo = res;
           _this.tableData4.push(res);
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     }
@@ -286,9 +294,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol {
+  height: 25px;
+  background: #e9eef3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   display: inline-block;
   position: relative;
   background-color: #fff;

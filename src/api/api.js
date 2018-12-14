@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 8000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 /* 请求拦截器 */
@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
           duration: 3000
         });
         setTimeout(function () {
-         location.replace("/#/login");
+         location.replace("/login");
         }, 3000);
         break;
         case 403:
@@ -41,7 +41,7 @@ axios.interceptors.response.use(function (response) {
         });
         break;
       case 500:
-        location.replace('/#/House/500');
+        location.replace('/500');
         break;
     }
       // if (error.response.data.errorCode == 10001) {

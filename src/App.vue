@@ -47,7 +47,7 @@ body {
   outline: 0;
 }
 .el-date-table td.current:not(.disabled) span{
-    color: #fff;
+    color: #fff !important;
     background-color: #00bc71;
 }
 .el-button:focus {

@@ -130,7 +130,7 @@ export default {
     },
     getimg() {
       this.img = this.img + "?num=" + this.num + "&random=" + Math.random();
-    }
+    },
   },
   mounted() {
     this.num = Math.ceil(Math.random() * 10);

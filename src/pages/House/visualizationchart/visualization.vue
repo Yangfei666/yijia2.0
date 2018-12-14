@@ -220,7 +220,7 @@ export default {
           }
           .el-date-editor.el-input,
           .el-date-editor.el-input__inner {
-            width: 110px !important;
+            width: 120px !important;
           }
           .el-input {
             position: relative;
@@ -277,7 +277,7 @@ export default {
           }
           .el-date-editor.el-input,
           .el-date-editor.el-input__inner {
-            width: 120px !important;
+            width: 130px !important;
           }
           .el-input {
             position: relative;
@@ -290,7 +290,7 @@ export default {
     }
   }
 }
-@media screen and (min-width: 1280px) and (max-width: 1680px) {
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
   .practice-head {
     height: 50px;
     background: #fff;
@@ -334,7 +334,64 @@ export default {
           }
           .el-date-editor.el-input,
           .el-date-editor.el-input__inner {
-            width: 120px !important;
+            width: 130px !important;
+          }
+          .el-input {
+            position: relative;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
+  .practice-head {
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    .weber {
+      margin-top: 10px;
+      position: relative;
+      .main-right {
+        // width: 29%;
+        position: absolute;
+        right: 2%;
+        z-index: 2;
+        .block {
+          float: right;
+          margin-top: -5px;
+          line-height: 40px;
+          .el-date-editor {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            .el-input__inner {
+              -webkit-appearance: none;
+              background-color: #fff;
+              background-image: none;
+              border-radius: 16px;
+              border: 1px solid #e8e8e8;
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              color: #606266;
+              display: inline-block;
+              font-size: inherit;
+              height: 32px;
+              line-height: 32px;
+              outline: 0;
+              padding: 0 15px;
+              -webkit-transition: border-color 0.2s
+                cubic-bezier(0.645, 0.045, 0.355, 1);
+              transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+              width: 100%;
+            }
+          }
+          .el-date-editor.el-input,
+          .el-date-editor.el-input__inner {
+            width: 140px !important;
           }
           .el-input {
             position: relative;
@@ -391,7 +448,7 @@ export default {
           }
           .el-date-editor.el-input,
           .el-date-editor.el-input__inner {
-            width: 140px !important;
+            width: 150px !important;
           }
           .el-input {
             position: relative;

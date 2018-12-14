@@ -9,7 +9,7 @@
             </el-form-item>
             <el-form-item prop="attenddate" label="上课日期:" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-date-picker type="date" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
+                <el-date-picker type="date" format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
                 </el-col>
             </el-form-item>
             <el-form-item prop="attendtime" label="上课时间:" :label-width="formLabelWidth">

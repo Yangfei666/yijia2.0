@@ -38,7 +38,6 @@
       </div>
   </div>
 </template>
-<script src="swiper/dist/js/swiper.min.js"></script>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import Swiper from "swiper";
@@ -61,7 +60,7 @@ export default {
   },
   methods: {
     initSwiper() {
-      var appendNumber = 5;
+      var appendNumber = 10;
       var prependNumber = this.page;
       new Swiper(".swiper-container", {
         slidesPerView: 5,

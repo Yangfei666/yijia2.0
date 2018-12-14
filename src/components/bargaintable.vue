@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="登记日期:">
               <el-col :span="24">
-                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
+                <el-date-picker v-model="formInline.date" :clearable="false" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:230px"></el-date-picker>
               </el-col>
             </el-form-item>
           </div>
@@ -70,6 +70,14 @@
               <template>
                 <el-dialog title="修改定金客户资料" :append-to-body="true" :visible.sync="dialogFormVisible2">
                   <Revisedatum2 :currentSelectRow="currentSelectRow"></Revisedatum2>
+                </el-dialog>
+              </template>
+            </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="changeInfo2">定金凭证</el-button>
+              <template>
+                <el-dialog title="定金凭证" :append-to-body="true" :visible.sync="isEnlargeImage" size="large" :show-close='true' :modal-append-to-body="false">
+                  <img style="width:100%" :src="enlargeImage">
                 </el-dialog>
               </template>
             </div>
@@ -187,17 +195,28 @@ export default {
       currentSelectRow: "",
       dialogFormVisible: false,
       dialogFormVisible2: false,
+      isEnlargeImage: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
+      enlargeImage:"", //放大图片地址
       currentPage: 1,
       pagesize: 10,
       loading: true,
       radio: true,
       Customercategory: "deposit",
       Potential: { potential: "setDepositCustomer", id: "" },
-      Dingjinqufen: { dingjinqufen: "newCustomer",id:1},
-      Huiyuanqufen: { huiyuanqufen: "deposit", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"" },
+      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 },
+      Huiyuanqufen: {
+        huiyuanqufen: "deposit",
+        id: "",
+        name: "",
+        sex: "",
+        tel: "",
+        ygxxname: "",
+        wechat: "",
+        ygxxnameid: ""
+      },
       formInline: {
         date: "",
         adviser: [],
@@ -217,11 +236,11 @@ export default {
     };
   },
   computed: {
-    isAdviser () {
+    isAdviser() {
       let user = JSON.parse(sessionStorage.getItem("userInfo"));
       for (let index = 0; index < user.role.length; index++) {
         const element = user.role[index];
-        if (element.name == '超级管理员' || element.name == '店长') {
+        if (element.name == "超级管理员" || element.name == "店长") {
           return true;
         }
       }
@@ -247,9 +266,9 @@ export default {
         this.tableData = this.tableData2;
       }
     },
-    cardstatus(val){
+    cardstatus(val) {
       //成交状态
-      if(!val){
+      if (!val) {
         this.tableData = this.tableData2;
       }
     }
@@ -287,7 +306,8 @@ export default {
         };
       }
       requestLogin(
-        "/setDepositCustomer/searchDepositCustomers/1/" + _this.formInline.adviser,
+        "/setDepositCustomer/searchDepositCustomers/1/" +
+          _this.formInline.adviser,
         params,
         "post"
       )
@@ -372,7 +392,7 @@ export default {
       downloadExcel(config, this.tableData);
     },
     radiochange(row) {},
-    Selectchange(val){},
+    Selectchange(val) {},
     Selectchange2(val) {},
     Selectchange3(val) {},
     handleCurrentChange2(val, index) {
@@ -411,18 +431,27 @@ export default {
       this.$router.push({
         path: "/Customer/bargain/claim",
         query: {
-          id:this.currentSelectRow.id,
+          id: this.currentSelectRow.id,
           name: this.currentSelectRow.itName,
           tel: this.currentSelectRow.itTel,
           customercategory: this.Customercategory
         }
       });
     },
+    //先选择列表
     changeInfo() {
-      //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+      }
+    },
+    //放大图片
+    changeInfo2() {
+      this.enlargeImage = this.currentSelectRow.voucher;
+      if (this.currentSelectRow) {
+        this.isEnlargeImage = true;
+      }else{
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
     }

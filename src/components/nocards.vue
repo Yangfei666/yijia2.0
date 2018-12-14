@@ -3,11 +3,11 @@
     <!--不办卡操作-->
     <div class="health">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" @click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title">
           <span>不办卡</span>
+        </div>
+        <div class="infor-but" @click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
       </el-col>
       <el-col :span="24">
@@ -16,7 +16,7 @@
             <el-col :span="17" class="from-date">
               <el-col :span="24">
                 <el-form-item label="不办卡原因：" prop="desc">
-                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="666" @input="descInput" style="width:100%"></el-input>
+                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
               </el-col>
@@ -25,7 +25,7 @@
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
-            </el-form-item>
+              </el-form-item>
             </el-col>
           </el-form>
         </div>
@@ -39,7 +39,7 @@ export default {
   name: "nocards",
   data() {
     return {
-      remnant: 666,
+      remnant: 50,
       ruleForm: {
         desc: ""
       },
@@ -48,8 +48,8 @@ export default {
           { required: true, message: "请输入请假原因", trigger: "blur" },
           {
             min: 1,
-            max: 666,
-            message: "长度在 1 到 666个字符",
+            max: 50,
+            message: "长度在 1 到 50个字符",
             trigger: "blur"
           }
         ]
@@ -63,14 +63,10 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              id: this.$route.params.id,//体验客户id
+              id: this.$route.params.id, //体验客户id
               content: this.ruleForm.desc //原因
             };
-            requestLogin(
-              "/setExperienceCustomer/giveUp",
-              loginParams,
-              "post"
-            )
+            requestLogin("/setExperienceCustomer/giveUp", loginParams, "post")
               .then(data => {
                 this.$message({
                   message: "提交成功",
@@ -78,7 +74,7 @@ export default {
                 });
               })
               .catch(error => {
-               let { response: { data: { errorCode, msg } } } = error;
+                let { response: { data: { errorCode, msg } } } = error;
                 if (errorCode != 0) {
                   this.$message({
                     message: msg,
@@ -95,13 +91,25 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.remnant = 50;
     },
     descInput() {
       var txtVal = this.ruleForm.desc.length;
-      this.remnant = 666 - txtVal;
+      this.remnant = 50 - txtVal;
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+        name: "Experhome",
+        params: {
+          id: this.$route.params.id,
+          exName: this.$route.params.exName,
+          exHjgwName: this.$route.params.exHjgwName,
+          exTel: this.$route.params.exTel,
+          exSex: this.$route.params.exSex,
+          exWeChat:this.$route.params.exWeChat,
+          exHjgwId:this.$route.params.exHjgwId
+        }
+      });
     }
   }
 };
@@ -117,10 +125,11 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }
