@@ -20,7 +20,7 @@
       </div>
       <div class="cen-two">
         <div class="two-img">
-          <img src="../assets/49.png" @click="showIC"/>
+          <img src="../assets/52.png" @click="showIC"/>
         </div>
         <el-button type="text" class="two-p" @click="showIC">刷卡</el-button>
       </div>
@@ -31,7 +31,7 @@
     <div v-show="collapsed" class="collapsed-icon">
       <img src="../assets/51.png" alt="约私教" title="约私教" @click="personal"/>
       <img src="../assets/49.png" alt="约团课" title="约团课" @click="Group"/>
-      <img src="../assets/49.png" alt="刷卡" title="刷卡" @click="showIC"/>
+      <img src="../assets/52.png" alt="刷卡" title="刷卡" @click="showIC"/>
     </div>
     <el-row class="tac">
       <el-col :span="12">
@@ -62,7 +62,7 @@
       </el-col>
     </el-row>
 
-    <el-dialog  class="icCard-wrapper" :close-on-click-modal="true" title="刷卡" :append-to-body="true" :visible.sync="showICDialog">
+    <el-dialog v-if="showICDialog" class="icCard-wrapper" :close-on-click-modal="true" title="刷卡" :append-to-body="true" :visible.sync="showICDialog">
       <keep-alive>
         <IC></IC>
       </keep-alive>
@@ -146,7 +146,7 @@ export default {
     display: flex;
     justify-content: space-between;
     .cen-one {
-      width: 49%;
+      width: 33%;
       height: 100%;
       background: #395b56;
       .one-img {
@@ -173,7 +173,7 @@ export default {
       }
     }
     .cen-two {
-      width: 49%;
+      width: 33%;
       height: 100%;
       background: #395b56;
       .two-img {

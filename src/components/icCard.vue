@@ -57,7 +57,6 @@
 </template>
 <script>
   import {requestLogin} from "@/api/api";
-
   export default {
     name: "ic",
     inject: ["reload"],
@@ -65,10 +64,6 @@
     data() {
       return {
         file: "",
-        fileList: [],
-        addLoading: false,
-        loading: false,
-        imageUrl: "",
         formLabelWidth: "130px",
         currentSelectRow: "",
         dialogFormVisible: this.isShowDialog,
@@ -79,16 +74,12 @@
           status: "",
         },
         rules: {},
-        tableData: [],
-        tableData2: [],
         showInfo: false,
         cardID: '',
         info: {},
         course: [],
         handCardNumber: 0,
       };
-    },
-    created: function () {
     },
     mounted() {
       if (this.$refs.inputID) {
@@ -136,7 +127,6 @@
           });
       },
       sureCard() {
-
         let formData = {
           content: this.cardID
         };
@@ -163,74 +153,6 @@
           this.$refs.inputID&&this.$refs.inputID.focus();
         }, 300);
       },
-      getCurrentRow(val) {
-      },
-      handleCurrentChange2(val, index) {
-        this.currentRow = val;
-      },
-      submitUpload: function (content) {
-        this.file = content.file;
-      },
-      radiochange(row) {
-      },
-      handleSizeChange(size) {
-        this.pagesize = size;
-      },
-      handleCurrentChange(currentPage) {
-        this.currentPage = currentPage;
-      },
-      //获取表格数据
-      rowClick(row, event, column) {
-        this.radio = row.index;
-        this.currentSelectRow = row;
-        this.radio = this.tableData.indexOf(row);
-      },
-      submitForm(formName) {
-        this.$refs[formName].validate(valid => {
-          if (valid) {
-            this.$confirm("确认提交吗？", "提示").then(() => {
-              this.addLoading = true;
-              let formData = new FormData();
-              formData.append("kcName", this.ruleForm.classname); //课程名称
-              formData.append("ZT", this.ruleForm.status); //状态
-              formData.append("BZ", this.ruleForm.desc); //备注
-              formData.append("kcHot", this.ruleForm.heat); //热度
-              formData.append("price", this.ruleForm.price); //价格
-              formData.append("file", this.file); //课程封面
-              requestLogin("/setCurSubInfo", formData, "post")
-                .then(data => {
-                  this.addLoading = false;
-                  this.$message({
-                    message: "提交成功",
-                    type: "success"
-                  });
-                  this.reload();
-                  this.dialogFormVisible = false;
-                })
-                .catch(error => {
-                  this.addLoading = false;
-                  let {response: {data: {errorCode, msg}}} = error;
-                  if (errorCode != 0) {
-                    this.$message({
-                      message: msg,
-                      type: "error"
-                    });
-                    return;
-                  }
-                });
-            });
-          } else {
-            this.$message({message: "提交失败!", type: "error"});
-            return false;
-          }
-        });
-      },
-      //重置
-      resetForm(formName) {
-        // this.$refs[formName].resetFields();
-        // this.$refs.imgupload.clearFiles();
-        // this.file = "";
-      }
     }
   };
 </script>

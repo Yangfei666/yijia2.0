@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     initSwiper() {
-      var appendNumber = 5;
+      var appendNumber = 10;
       var prependNumber = this.page;
       new Swiper(".swiper-container", {
         slidesPerView: 5,

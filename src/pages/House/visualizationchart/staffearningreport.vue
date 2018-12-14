@@ -132,10 +132,16 @@ const detailPie2 = legend => {
   return Object.keys(legend)
     .map(item => {
       if (item === "private") {
-        return { name: "已成交", value: legend[item] };
+        return { name: "A类客户", value: legend[item] };
       }
       if (item === "group") {
-        return { name: "跟进中", value: legend[item] };
+        return { name: "B类客户", value: legend[item] };
+      }
+      if (item === "exSuc") {
+        return { name: "C类客户", value: legend[item] };
+      }
+      if (item === "exEro") {
+        return { name: "D类客户", value: legend[item] };
       }
     })
     .filter(item => item);
@@ -143,13 +149,13 @@ const detailPie2 = legend => {
 const detailPie3 = legend => {
   return Object.keys(legend)
     .map(item => {
-      if (item === "exDef") {
+      if (item === "exSuc") {
         return { name: "已成交", value: legend[item] };
       }
       if (item === "exEro") {
         return { name: "已放弃", value: legend[item] };
       }
-      if (item === "exSuc") {
+      if (item === "exDef") {
         return { name: "跟进中", value: legend[item] };
       }
     })
@@ -204,7 +210,7 @@ const detailLegend2 = legend => {
 };
 const detailLegend3 = legend => {
   return Object.keys(legend).map(item => {
-    if (item === "private") {
+    if (item === "sum") {
       return "定金客户";
     }
     // return item;
@@ -260,7 +266,7 @@ const detailLineData3 = (object, type = "line") => {
     .map(item => {
       let temp = {};
       temp.name = "";
-      if (item === "private") {
+      if (item === "sum") {
         temp.name = "定金客户";
       }
       temp.data = object[item];
@@ -324,15 +330,15 @@ export default {
             };
             _this.drawBar(achievementAch);
 
-            let intentionAch = {
-              Data: _this.staffChartData.intention.timeAchievement, //数据源
+            let experienceAch = {
+              Data: _this.staffChartData.experience.timeAchievement, //数据源
               chartID: "staffchart2", //图表ID
               chartTitle: "体验客户新增折线图", //图表标题
               yAName:"人数",
               dataFn: detailLegend, //图表legend
               seriesFn: detailLineData //图表数据
             };
-            _this.drawLine(intentionAch);
+            _this.drawLine(experienceAch);
 
             let prospectAch = {
               Data: _this.staffChartData.prospect.timeAchievement,
@@ -344,15 +350,15 @@ export default {
             };
             _this.drawLine(prospectAch);
 
-            let experienceAch2 = {
-              Data: _this.staffChartData.experience.timeAchievement,
+            let intentionAch2 = {
+              Data: _this.staffChartData.intention.timeAchievement,
               chartID: "staffchart4",
               chartTitle: "定金客户变化折线图",
               yAName:"业绩",
               dataFn: detailLegend3,
               seriesFn: detailLineData3
             };
-            _this.drawLine(experienceAch2);
+            _this.drawLine(intentionAch2);
 
             let pieAch = {
               Data: detailPie(_this.staffChartData.achievement), //图表数据
@@ -363,7 +369,7 @@ export default {
             _this.drawPie(pieAch);
 
             let pieInt = {
-              Data: detailPie3(_this.staffChartData.intention),
+              Data: detailPie3(_this.staffChartData.experience),
               chartID: "myChart22",
               chartTitle: "体验客户成交量占比图",
               sername:"体验客户成交量占比"
@@ -379,7 +385,7 @@ export default {
             _this.drawPie(piePro);
 
             let pieExp = {
-              Data: detailPie3(_this.staffChartData.experience),
+              Data: detailPie3(_this.staffChartData.intention),
               chartID: "myChart44",
               chartTitle: "定金客户成交量占比图",
               sername:"定金客户成交量占比"
