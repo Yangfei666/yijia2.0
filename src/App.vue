@@ -46,9 +46,9 @@ body {
   color: #00bc71;
   outline: 0;
 }
-.el-date-table td.current:not(.disabled) span{
-    color: #fff !important;
-    background-color: #00bc71;
+.el-date-table td.current:not(.disabled) span {
+  color: #fff !important;
+  background-color: #00bc71;
 }
 .el-button:focus {
   color: #00bc71;
@@ -443,7 +443,7 @@ body {
   height: 13px;
 }
 .el-table .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  background-color: #56e79e;/*#56e79e*/
+  background-color: #56e79e; /*#56e79e*/
   border-radius: 10px;
 }
 </style>
