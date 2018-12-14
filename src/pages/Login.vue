@@ -1,6 +1,6 @@
 <template>
   <div class="mian">
-    <el-dialog v-if="isIE1" :visible.sync="dialogVisible" width="100%" :show-close='false' :fullscreen="true">
+    <el-dialog v-if="isIE1" :visible.sync="dialogVisible" width="70%" :close-on-click-modal="false" :show-close='false'>
       <el-alert title="抱歉!该浏览器暂不支持浏览本网站，建议更换谷歌浏览器，360浏览器，或者其他浏览器" type="warning" show-icon center></el-alert>
     </el-dialog>
     <div class="login-mian">
