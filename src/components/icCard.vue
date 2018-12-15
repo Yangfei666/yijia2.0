@@ -1,15 +1,21 @@
 <template>
   <div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" @submit.native.prevent>
-      <el-form-item label="" prop="" :label-width="formLabelWidth">
+      <el-form-item label="" prop="cardID" :label-width="formLabelWidth">
         <el-col :span="22" class="card__number">
-          <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo" v-model="cardID"
+          <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo"
+                    v-model="ruleForm.cardID"
                     placeholder="卡号/姓名/手机号" clearable></el-input>
           <el-button class="card__number_sure-btn" @click.native="sureCard">确定</el-button>
         </el-col>
+        <el-col :span="22"><span
+          style="color: rgba(0,0,0,0.3); font-size: 0.2em;">备注：卡号能查询本店和连锁店客户，姓名和手机号只能查询本店客户</span></el-col>
       </el-form-item>
     </el-form>
     <div v-show="showInfo">
+      <div class="customer" style="margin-left: 10px;">
+        <span>客户信息</span>
+      </div>
       <div class="cardInfo">
         <div class="cardInfo__photo">
           <img :src="info.Photo" alt="photo"
@@ -57,6 +63,7 @@
 </template>
 <script>
   import {requestLogin} from "@/api/api";
+
   export default {
     name: "ic",
     inject: ["reload"],
@@ -68,14 +75,17 @@
         currentSelectRow: "",
         dialogFormVisible: this.isShowDialog,
         ruleForm: {
+          cardID: '',
           ICNumber: "", //
           price: "", //
           heat: "", //
           status: "",
         },
-        rules: {},
+        rules: {
+          cardID: [{required: true,message: "输入卡号/姓名/手机号码",}]
+        },
         showInfo: false,
-        cardID: '',
+        // cardID: '',
         info: {},
         course: [],
         handCardNumber: 0,
@@ -96,8 +106,8 @@
       }
     },
     methods: {
-      enterResult(){
-        this.sureCard()
+      enterResult() {
+        this.sureCard();
       },
       clickEnter(index) {
         let curCourse = this.course[index];
@@ -128,29 +138,34 @@
       },
       sureCard() {
         let formData = {
-          content: this.cardID
+          content: this.ruleForm.cardID
         };
         let _this = this;
-        requestLogin("/getMemberInfoByParams", formData, "post")
-          .then(res => {
-            _this.info = res.info;
-            _this.course = [...res.group, ...res.private];
-            this.showInfo = true;
-          })
-          .catch(error => {
-            let {response: {data: {errorCode, msg}}} = error;
-            if (errorCode != 0) {
-              this.$message({message: msg, type: "error"});
-            }
+        this.$refs.ruleForm.validate(valid => {
+          if (valid) {
+            console.log(valid);
+            requestLogin("/getMemberInfoByParams", formData, "post")
+              .then(res => {
+                _this.info = res.info;
+                _this.course = [...res.group, ...res.private];
+                this.showInfo = true;
+              })
+              .catch(error => {
+                let {response: {data: {errorCode, msg}}} = error;
+                if (errorCode != 0) {
+                  this.$message({message: msg, type: "error"});
+                }
 
-          });
+              });
+          }
+        });
       },
       focus() {
       },
       blur() {
         if (this.showInfo) return;
         setTimeout(() => {
-          this.$refs.inputID&&this.$refs.inputID.focus();
+          this.$refs.inputID && this.$refs.inputID.focus();
         }, 300);
       },
     }
@@ -172,12 +187,28 @@
   }
 
   $photo-width: 20vh;
+  .customer {
+    height: 20px;
+    border-left: 2px solid #00bc71;
+    margin-top: 15px;
+    line-height: 20px;
+    text-align: left;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    span {
+      margin-left: 20px;
+    }
+  }
+
   .cardInfo {
     display: flex;
     align-items: center;
-    margin-left: 100px;
+    margin-left: 10px;
     margin-right: 9px;
+    position: relative;
     &__photo {
+      margin-left: 100px;
       display: flex;
       height: $photo-width;
       justify-content: center;
@@ -185,14 +216,14 @@
         display: block;
         height: $photo-width;
         width: $photo-width;
-        border-radius: 50%;
+        border-radius: 10%;
       }
     }
     &__detail {
       display: flex;
       flex-wrap: wrap;
       margin: 0;
-      margin-left: 20px;
+      margin-left: 65px;
       padding: 0;
       &_item {
         width: 100%;
