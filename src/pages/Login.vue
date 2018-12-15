@@ -174,4 +174,15 @@ export default {
 <style lang="scss">
 @import "@/styles/login.scss";
 </style>
+<style scoped>
+.v-modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .9;
+    background: #000;
+}
+</style>
 
