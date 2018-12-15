@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" @submit.native.prevent>
-      <el-form-item label="" prop="cardID" :label-width="formLabelWidth">
+      <el-form-item label="" prop="" :label-width="formLabelWidth">
         <el-col :span="22" class="card__number">
           <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo"
-                    v-model="ruleForm.cardID"
+                    v-model="cardID"
                     placeholder="卡号/姓名/手机号" clearable></el-input>
           <el-button class="card__number_sure-btn" @click.native="sureCard">确定</el-button>
         </el-col>
@@ -68,6 +68,12 @@
     name: "ic",
     inject: ["reload"],
     components: {},
+    props: {
+      ICCardNumber: {
+        type: String,
+        default: '',
+      }
+    },
     data() {
       return {
         file: "",
@@ -82,10 +88,10 @@
           status: "",
         },
         rules: {
-          cardID: [{required: true,message: "输入卡号/姓名/手机号码",}]
+          cardID: [{required: true, message: "输入卡号/姓名/手机号码",}]
         },
         showInfo: false,
-        // cardID: '',
+        cardID: '',
         info: {},
         course: [],
         handCardNumber: 0,
@@ -96,6 +102,10 @@
         setTimeout(() => {
           this.$refs.inputID.focus();
         }, 300);
+      }
+      this.cardID = this.ICCardNumber.trim();
+      if (this.cardID.length >= 5) {
+        this.sureCard();
       }
     },
     watch: {
@@ -138,27 +148,31 @@
       },
       sureCard() {
         let formData = {
-          content: this.ruleForm.cardID
+          content: this.cardID
         };
         let _this = this;
-        this.$refs.ruleForm.validate(valid => {
-          if (valid) {
-            console.log(valid);
-            requestLogin("/getMemberInfoByParams", formData, "post")
-              .then(res => {
-                _this.info = res.info;
-                _this.course = [...res.group, ...res.private];
-                this.showInfo = true;
-              })
-              .catch(error => {
-                let {response: {data: {errorCode, msg}}} = error;
-                if (errorCode != 0) {
-                  this.$message({message: msg, type: "error"});
-                }
+        if (!this.cardID) {
+          this.$message({message: '输入卡号/姓名/手机号码', type: "error"});
+          return;
+        }
+        // this.$refs.ruleForm.validate(valid => {
+        //   if (valid) {
+        //     console.log(valid);
+        requestLogin("/getMemberInfoByParams", formData, "post")
+          .then(res => {
+            _this.info = res.info;
+            _this.course = [...res.group, ...res.private];
+            this.showInfo = true;
+          })
+          .catch(error => {
+            let {response: {data: {errorCode, msg}}} = error;
+            if (errorCode != 0) {
+              this.$message({message: msg, type: "error"});
+            }
 
-              });
-          }
-        });
+          });
+        // }
+        // });
       },
       focus() {
       },
