@@ -59,12 +59,12 @@
                                 </el-form-item>
                                 <el-form-item label="预售开始时间:" prop="starttime" :label-width="formLabelWidth">
                                     <el-col :span="22">
-                                        <el-date-picker v-model="ruleForm.startTime" value-format="yyyy-MM-dd" type="datetime" style="width:100%"></el-date-picker>
+                                        <el-date-picker v-model="ruleForm.startTime" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="datetime" style="width:100%"></el-date-picker>
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="预售结束时间:" prop="preSaleTime" :label-width="formLabelWidth">
                                     <el-col :span="22">
-                                        <el-date-picker v-model="ruleForm.preSaleTime" value-format="yyyy-MM-dd" type="datetime" style="width:100%"></el-date-picker>
+                                        <el-date-picker v-model="ruleForm.preSaleTime" format="yyyy-MM-dd" value-format="yyyy-MM-dd" type="datetime" style="width:100%"></el-date-picker>
                                     </el-col>
                                 </el-form-item>
                                 <el-form-item label="邀请码:" prop="invite" :label-width="formLabelWidth">

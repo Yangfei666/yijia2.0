@@ -101,7 +101,6 @@ export default {
         name:validate.name,
         sex: validate.sex,
         tel: validate.phone,
-        wechat: validate.wechat,
         adviser: validate.adviser,
         type: validate.type,
         mode: validate.mode,
@@ -186,6 +185,7 @@ export default {
                 });
                 _this.reload();
                 _this.dialogFormVisible = false;
+                _this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-row>
+      <el-col :span="24" class="elcol"></el-col>
       <div class="tag">
         <em class="top"></em>
         <el-col :span="24" class="transfer">
@@ -23,6 +24,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "activate",
   inject: ["reload"],
+  props:['pathquery'],
   data() {
     return {};
   },
@@ -31,7 +33,7 @@ export default {
     onSubmit() {
       this.$confirm("确认提交吗？", "提示").then(() => {
         requestLogin(
-          "/setDesignateMember/activationCard/" + this.$route.query.CARD.id,
+          "/setDesignateMember/activationCard/" + this.pathquery.CARD.id,
           {},
           "post"
         )
@@ -58,12 +60,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.elcol{
+  height: 25px;
+  background: #E9EEF3;
+}
 .tag {
-  width: 97%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
+  display: inline-block;
   position: relative;
   background-color: #fff;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin: 0px auto;
   em {

@@ -300,7 +300,18 @@ export default {
       this.currentPage = currentPage;
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+        name: "Experhome",
+        params: {
+          id: this.$route.params.id,
+          exName: this.$route.params.exName,
+          exHjgwName: this.$route.params.exHjgwName,
+          exTel: this.$route.params.exTel,
+          exSex: this.$route.params.exSex,
+          exWeChat:this.$route.params.exWeChat,
+          exHjgwId:this.$route.params.exHjgwId
+        }
+      });
     }
   }
 };
@@ -323,7 +334,7 @@ export default {
       top: 11px;
       z-index: 2;
       color: #262626;
-      right: 78%;
+      right: 2%;
       .goback {
         font-size: 14px;
       }

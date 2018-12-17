@@ -7,7 +7,17 @@
           <span class="goback el-icon-arrow-left">返回</span>
         </div>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-          <el-tab-pane label="解挂操作" name="first">
+          <el-tab-pane label="挂失操作" name="unhook" v-if="membership_card.State !== '挂失'">
+            <template>
+              <el-col :span="24">
+                <div class="first-from">
+                  <span>点击右侧按钮挂失<img class="from-img" src="../assets/shou.png" /></span>
+                  <el-button class="first-but" type="primary" @click="ReportLoss">确定</el-button>
+                </div>
+              </el-col>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane label="解挂操作" name="first" v-if="membership_card.State === '挂失'">
             <template>
               <el-col :span="24">
                 <div class="first-from">
@@ -17,7 +27,7 @@
               </el-col>
             </template>
           </el-tab-pane>
-          <el-tab-pane label="补卡操作" name="second">
+          <el-tab-pane label="补卡操作" name="second" v-if="membership_card.State === '挂失'">
             <template>
               <el-col :span="24">
                 <div class="health-from">
@@ -39,20 +49,10 @@
                     <el-col :span="20" class="from-date">
                       <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                        <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
                       </el-form-item>
                     </el-col>
                   </el-form>
-                </div>
-              </el-col>
-            </template>
-          </el-tab-pane>
-          <el-tab-pane label="挂失操作" name="unhook">
-            <template>
-              <el-col :span="24">
-                <div class="first-from">
-                  <span>点击右侧按钮挂失<img class="from-img" src="../assets/shou.png" /></span>
-                  <el-button class="first-but" type="primary" @click="ReportLoss">确定</el-button>
                 </div>
               </el-col>
             </template>
@@ -88,7 +88,8 @@ export default {
       }
     };
     return {
-      activeName: "first",
+      activeName: "unhook",
+      membership_card: "",
       ruleForm: {
         card: "",
         confirmcard: ""
@@ -99,40 +100,74 @@ export default {
       }
     };
   },
+  created() {
+    this.getexperhome();
+  },
   methods: {
+    //获取会员详情
+    getexperhome() {
+      let _this = this;
+      requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
+        .then(function(res) {
+          _this.membership_card = res.membership_card[0];
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     handleClick(tab, event) {},
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+        path: "/Customer/membershiphome/memberhome",
+        query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     },
     //补卡
     submitForm(formName) {
-      this.$confirm("确认提交吗？", "提示").then(() => {
-        requestLogin(
-          "/setDesignateMember/SupplementCard/" +
-            this.$route.query.HYID +
-            "/" +
-            this.ruleForm.card,
-          {},
-          "get"
-        )
-          .then(data => {
-            this.$message({
-              message: "补卡成功",
-              type: "success"
-            });
-            this.reload();
-          })
-          .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
+      if (this.ruleForm.confirmcard !== this.ruleForm.card) {
+        this.$message({
+          message: "两次输入卡号不一致",
+          type: "error"
+        });
+      } else {
+        this.$confirm("确认提交吗？", "提示").then(() => {
+          requestLogin(
+            "/setDesignateMember/SupplementCard/" +
+              this.$route.query.HYID +
+              "/" +
+              this.ruleForm.card,
+            {},
+            "get"
+          )
+            .then(data => {
               this.$message({
-                message: msg,
-                type: "error"
+                message: "补卡成功",
+                type: "success"
               });
-              return;
-            }
-          });
-      });
+              this.reload();
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
+            });
+        });
+      }
     },
     //解挂
     Unhook(formName) {
@@ -210,7 +245,7 @@ export default {
       top: 1.8%;
       z-index: 2;
       color: #262626;
-      right: 69%;
+      right: 2%;
       .goback {
         font-size: 14px;
       }

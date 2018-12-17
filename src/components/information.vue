@@ -3,9 +3,6 @@
     <!--会员综合信息-->
     <div class="infor">
       <el-col :span="24" class="infor-head">
-        <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
-        </div>
         <div class="infor-title">
           <span>会员综合信息</span>
           <img src="../assets/deit.png" @click="editclub" />
@@ -38,7 +35,7 @@
                 </el-form-item>
                 <el-form-item label="生日:" prop="Birthday" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-date-picker v-model="ruleForm.Birthday" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
+                    <el-date-picker v-model="ruleForm.Birthday" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="请选择" style="width:100%;"></el-date-picker>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="住址:" prop="HomeAdd" :label-width="formLabelWidth">
@@ -74,6 +71,9 @@
               </el-form>
             </el-dialog>
           </template>
+        </div>
+        <div class="infor-but" v-on:click="back">
+          <span class="goback el-icon-arrow-left">返回</span>
         </div>
       </el-col>
       <el-col :span="24" class="infor-wp">
@@ -118,12 +118,9 @@
         <div class="infor-center2">
           <el-col :span="24" class="hand-right">
             <div class="head_img">
-              <img :src="imageUrl" />
+              <Fileupload2 ref="fileUpload" :imageUrl="imageUrl"></Fileupload2>
             </div>
-            <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
-              <el-button type="success" class="successbut" plain>更换头像</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
+            <el-button type="success" class="successbut" plain @click="changeUserIcon">更换头像</el-button>
           </el-col>
         </div>
       </el-col>
@@ -132,9 +129,13 @@
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import Fileupload2 from "@/components/fileupload2";
 export default {
   name: "information",
   inject: ["reload"],
+  components: {
+    Fileupload2
+  },
   data() {
     return {
       dialogFormVisible: false,
@@ -151,6 +152,9 @@ export default {
     this.getexperhome();
   },
   methods: {
+    changeUserIcon() {
+      this.$refs.fileUpload.openFile();
+    },
     uploadOverrun: function() {
       this.$message({
         type: "error",
@@ -235,6 +239,7 @@ export default {
             });
             this.reload();
             this.dialogFormVisible = false;
+            this.$router.replace({path:'/Customer/membershiphome/information',query:{HYID:this.$route.query.HYID,YGXX_NAME:this.$route.query.YGXX_NAME}});
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;
@@ -249,7 +254,15 @@ export default {
       });
     },
     back() {
-      this.$router.go(-1); //返回上一层
+      this.$router.push({
+        path: "/Customer/membershiphome/memberhome",
+        query: {
+          HYID: this.$route.query.HYID,
+          HYName: this.$route.query.HYName,
+          YGXX_NAME: this.$route.query.YGXX_NAME,
+          MotoTel: this.$route.query.MotoTel
+        }
+      });
     },
     editclub() {
       this.dialogFormVisible = true;
@@ -275,8 +288,9 @@ export default {
     display: flex;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
+    justify-content: space-between;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 20px;
       font-size: 16px;
       color: #262626;
     }
@@ -346,20 +360,12 @@ export default {
         height: 100%;
         .head_img {
           margin-top: 4%;
-          img {
-            width: 28%;
-            height: 100%;
-            border-radius: 50%;
-          }
         }
-        .setting_right {
+        .successbut {
+          width: 17%;
           height: 35px;
-          margin-top: 4%;
-          .successbut {
-            width: 17%;
-            height: 35px;
-            padding: 10px;
-          }
+          margin-top: 15px;
+          padding:10px;
         }
       }
     }

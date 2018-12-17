@@ -72,38 +72,38 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用次数{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>已使用{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>已使用金额{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
+              <span>已使用{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用天数{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>已使用{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余次数{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>剩余{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余金额{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
+              <span>剩余{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余天数{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>剩余{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
@@ -116,29 +116,38 @@
       <div class="operate">
         <span class="oper">卡{{this.idx+1}}操作：</span>
         <el-col :span="22" class="oper-main">
-          <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/transfercard',query:{HYID:this.$route.query.HYID,HYName:this.$route.query.HYName,CARD:membershipcards}}" class="link" exact>转卡</router-link>
-          </div>
-          <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/returncard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>退卡</router-link>
-          </div>
-          <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/upgradecard',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>升级</router-link>
-          </div>
-          <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/changevalidity',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更有效期</router-link>
-          </div>
-          <div class="oper-left" @click="open3">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/changepriceandnum',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>变更次数/金额</router-link>
-          </div>
-          <div class="oper-left">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/enabledisabling',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>启用/禁用</router-link>
-          </div>
-          <div class="oper-left" v-if="membershipcards.State == '未激活'">
-            <router-link :to="{path:'/Customer/membershiphome/memberhome/activate',query:{HYID:this.$route.query.HYID,CARD:membershipcards}}" class="link" exact>激活</router-link>
-          </div>
+          <div class="operdiv" :class="{active:tab == 1}" @click="toggleTabs(1)">转卡</div>
+          <div class="operdiv" :class="{active:tab == 2}" @click="toggleTabs(2)">退卡</div>
+          <div class="operdiv" :class="{active:tab == 3}" @click="toggleTabs(3)">升级</div>
+          <div class="operdiv" :class="{active:tab == 4}" @click="toggleTabs(4)">变更有效期</div>
+          <div class="operdiv" :class="{active:tab == 5}" @click="toggleTabs(5);open3()">变更次数/金额</div>
+          <div class="operdiv" :class="{active:tab == 6}" @click="toggleTabs(6)">启用/禁用</div>
+          <div class="operdiv" :class="{active:tab == 7}" @click="toggleTabs(7)" v-if="membershipcards.State == '未激活'">激活</div>
         </el-col>
       </div>
+      <template>
+        <keep-alive v-if="tab == 1">
+          <Transfercard :pathquery='pathquerys'></Transfercard>
+        </keep-alive>
+        <keep-alive v-if="tab == 2">
+          <Returncard :pathquery='pathquerys'></Returncard>
+        </keep-alive>
+        <keep-alive v-if="tab == 3">
+          <Upgradecard :pathquery='pathquerys'></Upgradecard>
+        </keep-alive>
+        <keep-alive v-if="tab == 4">
+          <Changevalidity :pathquery='pathquerys'></Changevalidity>
+        </keep-alive>
+        <keep-alive v-if="tab == 5">
+          <Changepriceandnum :pathquery='pathquerys'></Changepriceandnum>
+        </keep-alive>
+        <keep-alive v-if="tab == 6">
+          <Enabledisabling :pathquery='pathquerys'></Enabledisabling>
+        </keep-alive>
+        <keep-alive v-if="tab == 7">
+          <Activate :pathquery='pathquerys'></Activate>
+        </keep-alive>
+      </template>
     </el-col>
   </div>
 </template>
@@ -147,12 +156,33 @@ let echarts = require("echarts/lib/echarts");
 require("echarts/lib/chart/pie");
 require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
+import Transfercard from "@/components/transfercard";
+import Returncard from "@/components/returncard";
+import Upgradecard from "@/components/upgradecard";
+import Changevalidity from "@/components/changevalidity";
+import Changepriceandnum from "@/components/changepriceandnum";
+import Enabledisabling from "@/components/enabledisabling";
+import Activate from "@/components/activate";
 export default {
   name: "cardone",
   props: ["membershipcards", "chartId", "idx"],
+  components: {
+    Transfercard,
+    Returncard,
+    Upgradecard,
+    Changevalidity,
+    Changepriceandnum,
+    Enabledisabling,
+    Activate
+  },
   data() {
     return {
-      tbdata: []
+      tab: null,
+      tbdata: [],
+      isShow: false,
+      boxshow: false,
+      boxshow2: false,
+      pathquerys:{},
     };
   },
   watch: {
@@ -187,9 +217,16 @@ export default {
             this.datedifference(this.membershipcards.sTime, new Date()) == 0
               ? 0
               : this.datedifference(this.membershipcards.sTime, new Date()) >
-                this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
-                ? this.datedifference(this.membershipcards.sTime, this.membershipcards.eTime)
-                : this.datedifference(this.membershipcards.sTime, new Date()) + 1,
+                this.datedifference(
+                  this.membershipcards.sTime,
+                  this.membershipcards.eTime
+                )
+                ? this.datedifference(
+                    this.membershipcards.sTime,
+                    this.membershipcards.eTime
+                  )
+                : this.datedifference(this.membershipcards.sTime, new Date()) +
+                  1,
           name: "已使用天数"
         },
         {
@@ -210,6 +247,11 @@ export default {
     }
   },
   methods: {
+    toggleTabs(tab) {
+      this.tab = tab;
+      this.pathquerys.HYID=this.$route.query.HYID;
+      this.pathquerys.CARD=this.membershipcards;
+    },
     open3() {
       if (this.membershipcards.card_type.ctType == "期限卡") {
         this.$message({
@@ -505,9 +547,9 @@ export default {
   }
 }
 .operate {
-  height: 30px;
+  height: 60px;
   display: flex;
-  line-height: 30px;
+  line-height: 55px;
   .oper {
     padding-left: 15px;
     font-family: PingFang-SC-Regular;
@@ -519,6 +561,23 @@ export default {
   }
   .oper-main {
     display: flex;
+    .operdiv {
+      background: #fafafa;
+      height: 30px;
+      line-height: 30px;
+      margin-top: 13px;
+      margin-left: 10px;
+      border-radius: 4px;
+      color: #595959;
+      font-size: 16px;
+      padding: 0px 15px;
+    }
+    .operdiv.active {
+      background: #facc14;
+      font-size: 16px;
+      border-radius: 4px;
+      color: #595959;
+    }
     .oper-left {
       background: #fafafa;
       border-radius: 4px;

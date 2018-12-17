@@ -73,6 +73,9 @@
                         width: 330px!important;
                         text-align: left!important;
                     }
+                    .el-radio-group{
+                        width:273px !important;
+                    }
                   }
                   .from-date-border4{
                         .from-date3{
@@ -166,8 +169,11 @@
                     }
                     }
                     .el-checkbox-group{
-                        width: 460px!important;
+                        width: 512px!important;
                         text-align: left!important;
+                    }
+                    .el-radio-group{
+                        width:555px !important;
                     }
                   }
                   .from-date-border4{
@@ -265,6 +271,9 @@
                         width: 460px!important;
                         text-align: left!important;
                     }
+                    .el-radio-group{
+                        width:286px !important;
+                    }
                   }
                   .from-date-border4{
                         .from-date3{
@@ -360,8 +369,11 @@
                     }
                     }
                     .el-checkbox-group{
-                        width: 500px!important;
+                        width: 505px!important;
                         text-align: left!important;
+                    }
+                    .el-radio-group{
+                        width:530px !important;
                     }
                   }
                   .from-date-border4{
@@ -463,6 +475,9 @@
                         width: 540px!important;
                         text-align: left!important;
                     }
+                    .el-radio-group{
+                        width:530px !important;
+                    }
                   }
                   .from-date-border4{
                     display: flex;
@@ -562,8 +577,11 @@
                     }
                     }
                     .el-checkbox-group{
-                        width: 540px!important;
+                        width: 605px!important;
                         text-align: left!important;
+                    }
+                    .el-radio-group{
+                        width:530px !important;
                     }
                   }
                   .from-date-border4{
@@ -578,7 +596,7 @@
                     }
                     }
                     .el-checkbox-group{
-                        width: 600px!important;
+                        width: 680px!important;
                     }
                   }
             }
@@ -667,6 +685,9 @@
                         width: 800px!important;
                         text-align: left!important;
                     }
+                    .el-radio-group{
+                        width:530px !important;
+                    }
                   }
                   .from-date-border4{
                     display: flex;
@@ -680,7 +701,112 @@
                     }
                     }
                     .el-checkbox-group{
-                        width: 710px!important;
+                        width: 790px!important;
+                    }
+                  }
+            }
+        }
+        .from-date4{
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (min-width:1920px)and (max-width: 2048px){
+    .health{
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%;
+            display: inline-block;
+            width: 90%;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-from{
+                .from-date-border{
+                    width: 100%;
+                     .from-date{
+                    display: flex;
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    .el-input{
+                        width: 265px!important;
+                    }
+                    .el-radio-group{
+                        width: 210px!important;
+                        margin-left: -40px!important;
+                    }
+                    }
+                }
+                 .from-date-border{
+                    width: 100%;
+                     .from-date2{
+                     .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                }
+                  .from-date-border2{
+                          border-bottom: 1px solid #e8e8e8;
+                          display: flex;
+                          justify-content: space-between;
+                        .from-date3{
+                            display: flex;
+                            width: 265px!important;
+                        .el-form-item {
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                    .el-input{
+                        width: 154px!important;
+                    }
+                    .el-radio-group{
+                        width: 145px!important;
+                        margin-left: -25px!important;
+                    }
+                  }
+                   .from-date-border3{
+                    border-bottom: 1px solid #e8e8e8;
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 280px!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width:935px!important;
+                        text-align: left!important;
+                    }
+                    .el-radio-group{
+                        width:530px !important;
+                    }
+                  }
+                  .from-date-border4{
+                    display: flex;
+                    justify-content: space-between;
+                        .from-date3{
+                       display: flex;
+                       width: 223!important;
+                        .el-form-item {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
+                    }
+                    }
+                    .el-checkbox-group{
+                        width: 980px!important;
                     }
                   }
             }

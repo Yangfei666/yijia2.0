@@ -42,7 +42,7 @@
                     </el-form-item>
                     <el-form-item label="课程日期:" prop="attenddate" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
+                        <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
                         </el-date-picker>
                       </el-col>
                     </el-form-item>
@@ -69,6 +69,7 @@
                     </el-form-item>
                     <el-form-item class="dialog-footer">
                       <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
                         <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定
                         </el-button>
                       </el-col>
@@ -115,7 +116,7 @@
                       </el-form-item>
                       <el-form-item label="课程日期:" prop="kcStime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" type="date" style="width:100%;">
+                          <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
                           </el-date-picker>
                         </el-col>
                       </el-form-item>
@@ -167,7 +168,7 @@
                       </el-form-item>
                       <el-form-item prop="date" label="上课日期:" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-date-picker type="date" placeholder="请选择" disabled v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
+                          <el-date-picker type="date" placeholder="请选择" format="yyyy-MM-dd" disabled v-model="currentSelectRow.kcStime" style="width: 100%;"></el-date-picker>
                         </el-col>
                       </el-form-item>
                       <el-form-item prop="time" label="上课时间:" :label-width="formLabelWidth">
@@ -405,9 +406,6 @@ export default {
       this.mendian = this.clubs;
     }
   },
-  created() {
-    // console.log(this.kecheng[0].kcName);
-  },
   methods: {
     radiochange(row) {},
     handleSizeChange(size) {
@@ -524,7 +522,8 @@ export default {
                   type: "success"
                 });
                 this.dialogFormVisible2 = false;
-                this.$emit("regetData");
+                // this.$emit("regetData");
+                this.resetForm(formName);
               })
               .catch(error => {
                 this.addLoading = false;
@@ -692,6 +691,7 @@ export default {
                   formData.kcbSort='灰底';
                 }
                 this.tableData.push(formData);
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

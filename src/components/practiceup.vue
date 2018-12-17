@@ -104,6 +104,7 @@ export default {
                 });
                 this.reload();
                 this.dialogFormVisible = false;
+                this.resetForm(formName);
               })
               .catch(error => {
                 this.addLoading = false;
