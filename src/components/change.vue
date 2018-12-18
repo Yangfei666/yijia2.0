@@ -71,35 +71,41 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      let _this = this;
       this.$confirm("确认要更换会籍吗？", "提示").then(() => {
         var loginParams = {
-          num: this.ruleForm.adviser, //会籍id
-          id: this.potential.id, //客户id
-          content: this.ruleForm.desc //变更原因
+          num: _this.ruleForm.adviser, //会籍id
+          id: _this.potential.id, //客户id
+          content: _this.ruleForm.desc //变更原因
         };
         requestLogin(
-          "/" + this.potential.potential + "/changeAdviser",
+          "/" + _this.potential.potential + "/changeAdviser",
           loginParams,
           "post"
         )
           .then(data => {
+            let { path, query } = _this.$route;
+            let findStaff = _this.staff_info.filter(
+              item => item.YGXX_YGID_NEI === _this.ruleForm.adviser
+            );
+            if (Object.keys(query).length === 0) {
+              let pathArray = path.split("/");
+              pathArray[pathArray.length - 4] = encodeURI(
+                findStaff[0].YGXX_NAME
+              );
+              pathArray = pathArray.join("/");
+              _this.$router.replace({ path: pathArray });
+            } else {
+              let newQuery = JSON.parse(JSON.stringify(query));
+              newQuery.YGXX_NAME = findStaff[0].YGXX_NAME;
+              _this.$router.replace({ path, query: newQuery });
+            }
             this.$message({
               message: "变更成功",
               type: "success"
             });
-            this.reload();
-            this.resetForm(formName);
-            // if (this.potential.potential == "setDesignateMember") {
-              // this.$router.replace({
-              //   path: "/Customer/membershiphome/memberhome",
-              //   query: {
-              //     HYID: this.$route.query.HYID,
-              //     HYName: this.$route.query.HYName,
-              //     YGXX_NAME: this.$route.query.YGXX_NAME,
-              //     MotoTel: this.$route.query.MotoTel
-              //   }
-              // });
-            // }
+            _this.reload();
+            _this.resetForm(formName);
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

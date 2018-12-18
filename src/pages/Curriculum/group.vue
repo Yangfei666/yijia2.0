@@ -311,7 +311,6 @@ export default {
           if (_this.selectClubIndex < 0) {
             _this.selectClubIndex = 0;
           }
-          console.log(_this.selectClubIndex)
           if (_this.selectClubIndex !== _this.copy_selectClubIndex) {
             _this.isSelfClub = true;
           } else {
