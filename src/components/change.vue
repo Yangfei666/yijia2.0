@@ -90,11 +90,13 @@ export default {
             );
             if (Object.keys(query).length === 0) {
               let pathArray = path.split("/");
-              pathArray[pathArray.length - 4] = encodeURI(
-                findStaff[0].YGXX_NAME
-              );
-              pathArray = pathArray.join("/");
-              _this.$router.replace({ path: pathArray });
+              if(pathArray.length >= 5){
+                pathArray[pathArray.length - 4] = encodeURI(
+                  findStaff[0].YGXX_NAME
+                );
+                pathArray = pathArray.join("/");
+                _this.$router.replace({ path: pathArray });
+              }
             } else {
               let newQuery = JSON.parse(JSON.stringify(query));
               newQuery.YGXX_NAME = findStaff[0].YGXX_NAME;

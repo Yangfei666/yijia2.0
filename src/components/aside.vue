@@ -107,6 +107,7 @@ export default {
       defaultActiveIndex: "0",
       dialogFormVisible: false,
       showICDialog: false,
+      cardID:""
     };
   },
   created(){
