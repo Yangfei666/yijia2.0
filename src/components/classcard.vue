@@ -4,7 +4,7 @@
         <el-col :span="24">
             <div class="class-main">
                 <div class="infor-but" v-on:click="back">
-                    <span class="goback el-icon-arrow-left">返回</span>
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
                 <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="团课记录" name="1">
@@ -321,12 +321,14 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 11px;
+      top: 0px;
       z-index: 2;
       color: #262626;
-      right: 2%;
+      right: 1%;
       .goback {
-        font-size: 14px;
+        font-size: 16px;
+        border: none;
+        background: #fff;
       }
     }
     .infor-but:hover {

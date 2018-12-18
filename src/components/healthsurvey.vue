@@ -3,12 +3,11 @@
         <!--健康调查表-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <div class="infor-but" v-on:click="back">
-                    <i class="el-icon-arrow-left"></i>
-                    <span class="goback">返回</span>
-                </div>
                 <div class="infor-title">
                     <span>健康调查表</span>
+                </div>
+                <div class="infor-but" v-on:click="back">
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -272,7 +271,9 @@ export default {
         "get"
       )
         .then(function(res) {
-          _this.health_survey = res.health_survey;
+          if (res.health_survey != null) {
+            _this.health_survey = res.health_survey;
+          }
         })
         .catch(error => {
           if (error.res) {
@@ -302,12 +303,18 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 10px;
       font-size: 16px;
       color: #262626;
+      .goback {
+        border: none;
+        background: #fff;
+        font-size: 16px;
+      }
     }
     .infor-but:hover {
       color: #00bc71;

@@ -45,10 +45,10 @@ export default {
       Potential:'potential',
     }
   },
-  mounted(){
+  created(){
     this.id = this.$route.query.id;
-    this.Name = this.$route.query.prName;
-    this.Sex = this.$route.query.prSex;
+    this.Name = this.$route.query.Name;
+    this.Sex = this.$route.query.Sex;
     this.Potential = 'potential';
   }
 }

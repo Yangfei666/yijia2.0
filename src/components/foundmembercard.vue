@@ -39,12 +39,12 @@
       </el-form-item>
       <el-form-item label="有效期:" prop="date" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.date" placeholder="请输入"></el-input>
+          <el-input v-model="ruleForm.date" placeholder="请输入月数"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="次数:" prop="number" :label-width="formLabelWidth" v-if="ruleForm.type == 2">
         <el-col :span="22">
-          <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
+          <el-input v-model="ruleForm.number" placeholder="大于0"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="一周次数限制:" prop="num" :label-width="formLabelWidth">
@@ -74,8 +74,8 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="limittime" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-picker  v-model="ruleForm.startTime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
-          <el-time-picker  v-model="ruleForm.endTime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.startTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.endTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
         </el-col>
       </el-form-item>
       <div v-if="this.ceshis=='hide'">
@@ -141,7 +141,8 @@ export default {
         date: validate.date,
         num: validate.num,
         status: validate.status,
-        number: validate.number
+        number: validate.number,
+        shoproom:validate.shoproom
       },
       limit: cityOptions
     };
@@ -201,7 +202,6 @@ export default {
                   type: "success"
                 });
                 _this.reload();
-                _this.dialogFormVisible = false;
                 _this.resetForm(formName);
               })
               .catch(error => {

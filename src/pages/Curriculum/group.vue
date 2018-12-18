@@ -17,8 +17,8 @@
                 <el-col :span="24">
                   <el-form-item label="所属门店:">
                     <el-col :span="24">
-                      <el-select v-model="club[selectClubIndex].Hsxx_Name" @change="changeClub" v-if="club[selectClubIndex]" :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
-                        <el-option v-for="item in club" :key="item.Hsxx_Hsid" :label="item.Hsxx_Name" :value="item.Hsxx_Hsid"></el-option>
+                      <el-select v-model="chooseClub" @change="changeClub" v-if="club[selectClubIndex]" :placeholder="club[selectClubIndex].Hsxx_Name" style="width:230px">
+                        <el-option v-for="item in club" :key="item.Hsxx_Hsid" :value="item.Hsxx_Name"></el-option>
                       </el-select>
                     </el-col>
                   </el-form-item>
@@ -92,6 +92,7 @@
 </template>
 <script>
 import Grouptimetable from "@/components/grouptimetable";
+import Bus from "@/common/eventBus";
 import { requestLogin } from "@/api/api";
 let group = {
   copyTable(params) {
@@ -107,7 +108,8 @@ let group = {
 export default {
   name: "group",
   components: {
-    Grouptimetable
+    Grouptimetable,
+    Bus
   },
   data() {
     return {
@@ -137,7 +139,8 @@ export default {
       dateValue: "", // 时间值-哪一周
       mondayDate: "",
       isSelfClub: false,
-      copy_selectClubIndex: -1
+      copy_selectClubIndex: -1,
+      chooseClub:''
     };
   },
   created() {
@@ -276,16 +279,19 @@ export default {
       this.selectClubID = JSON.parse(sessionStorage.getItem('club')).Hsxx_Hsid;
     },
     async changeClub(val) {
+      this.chooseClub = val;
       let _this = this;
+      this.selectClubIndex = this.club.findIndex(item=>item.Hsxx_Name === val);
       let sortKinds = "now";
       let params = {
         monday: this.Monday,
         sort: sortKinds,
-        hsid: val
+        hsid: this.club[this.selectClubIndex].Hsxx_Hsid
       };
       await group
         .changeGroup(params)
         .then(res => {
+          Bus.$emit('changeClub',params.hsid);
           Object.assign(_this.tdlist, res);
           Object.assign(_this.week,res.week);
         })

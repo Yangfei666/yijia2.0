@@ -7,7 +7,7 @@
                     <span>操作记录</span>
                 </div>
                 <div class="infor-but" @click="back">
-                    <span class="goback el-icon-arrow-left">返回</span>
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -440,9 +440,14 @@ export default {
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-right: 20px;
+      padding-right: 10px;
       font-size: 16px;
       color: #262626;
+      .goback{
+          border: none;
+          background: #fff;
+          font-size: 16px;
+      }
     }
     .infor-but:hover {
       color: #00bc71;

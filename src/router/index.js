@@ -248,7 +248,7 @@ let router = new Router({
                     redirect: '/Customer/tastefollowup/practiceup',
                     children: [
                         { path: '/Customer/tastefollowup/practiceup', component: Practiceup},//体验跟进记录
-                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey },//健康调查表
+                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey},//健康调查表
                         { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]

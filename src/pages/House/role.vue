@@ -32,7 +32,6 @@
                           <el-input v-model="ruleForm.rolename" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
-
                       <el-form-item v-for="(items, index) in emptyOptions" :key="index" :prop="items.type" :label-width="formLabelWidth" style="margin-bottom:10px">
                         <el-col :span="22">
                           <i class="el-icon-caret-bottom" @click="isShowToggle(index)"></i>
@@ -223,7 +222,7 @@ export default {
       this.$confirm("确认删除吗？", "提示")
         .then(() => {
           role.deleteById(row.id).then(() => {
-            _this.$message({
+            this.$message({
               message: "删除成功",
               type: "success"
             });
@@ -231,7 +230,14 @@ export default {
           });
         })
         .catch(error => {
-          this.$message({ message: "已取消删除!", type: "error" });
+          let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
         });
     },
     radiochange(row) {},

@@ -114,15 +114,15 @@
     </div>
     <el-col :span="24">
       <div class="operate">
-        <span class="oper">卡{{this.idx+1}}操作：</span>
-        <el-col :span="22" class="oper-main">
-          <div class="operdiv" :class="{active:tab == 1}" @click="toggleTabs(1)">转卡</div>
-          <div class="operdiv" :class="{active:tab == 2}" @click="toggleTabs(2)">退卡</div>
-          <div class="operdiv" :class="{active:tab == 3}" @click="toggleTabs(3)">升级</div>
-          <div class="operdiv" :class="{active:tab == 4}" @click="toggleTabs(4)">变更有效期</div>
-          <div class="operdiv" :class="{active:tab == 5}" @click="toggleTabs(5);open3()">变更次数/金额</div>
-          <div class="operdiv" :class="{active:tab == 6}" @click="toggleTabs(6)">启用/禁用</div>
-          <div class="operdiv" :class="{active:tab == 7}" @click="toggleTabs(7)" v-if="membershipcards.State == '未激活'">激活</div>
+        <div class="oper">{{this.membershipcards.card_type.CTName}}操作：</div>
+        <el-col :span="20" class="oper-main">
+          <el-button class="operdiv" :class="{active:tab == 1}" @click="toggleTabs(1)">转卡</el-button>
+          <el-button class="operdiv" :class="{active:tab == 2}" @click="toggleTabs(2)">退卡</el-button>
+          <el-button class="operdiv" :class="{active:tab == 3}" @click="toggleTabs(3)">升级</el-button>
+          <el-button class="operdiv" :class="{active:tab == 4}" @click="toggleTabs(4)">变更有效期</el-button>
+          <el-button class="operdiv" :class="{active:tab == 5}" @click="toggleTabs(5);open3()">变更次数/金额</el-button>
+          <el-button class="operdiv" :class="{active:tab == 6}" @click="toggleTabs(6)">启用/禁用</el-button>
+          <el-button class="operdiv" :class="{active:tab == 7}" @click="toggleTabs(7)" v-if="membershipcards.State == '未激活'">激活</el-button>
         </el-col>
       </div>
       <template>
@@ -571,6 +571,7 @@ export default {
       color: #595959;
       font-size: 16px;
       padding: 0px 15px;
+      border: none;
     }
     .operdiv.active {
       background: #facc14;

@@ -85,7 +85,6 @@ export default {
           tel: validate.phone,//电话
           adviser:validate.adviser,//会籍顾问
           quality:validate.quality,//客户质量
-          desc:validate.desc,//备注
         }
      }
     },

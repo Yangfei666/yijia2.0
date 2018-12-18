@@ -68,8 +68,9 @@
       </el-form-item>
       <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-picker  v-model="currentSelectRow.CTxTime_1S" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
-          <el-time-picker  v-model="currentSelectRow.CTxTime_1E" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>        </el-col>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1S" value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1E" value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>        
+        </el-col>
       </el-form-item>
       <div v-if="this.hides == 'yinchang'">
         <el-form-item label="" :label-width="formLabelWidth"></el-form-item>
@@ -99,13 +100,12 @@ const radioDict = {
   "期限卡": 1,
   "次数卡": 2,
   "金额卡": 3,
-  "团课卡": 1,
-  "私教卡": 2,
+  "团课卡": 2,
+  "私教卡": 1,
   "白底": 1,
   "灰底": 2,
   "不限": 1,
-  "1次": 2,
-  "2次": 3,
+  "2次": 2,
   "3次": 3,
   "4次": 4,
   "启用": 1,
@@ -157,6 +157,10 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             this.addLoading = true;
+            if(this.currentSelectRow.CTxTime_1S == null || this.currentSelectRow.CTxTime_1E == null){
+              this.currentSelectRow.CTxTime_1S = '00:00:00';
+              this.currentSelectRow.CTxTime_1E = '00:00:00';
+            }
             var loginParams = {
               CTName: this.currentSelectRow.CTName, //卡名称
               CTjg: this.currentSelectRow.CTjg, //价格
@@ -177,11 +181,11 @@ export default {
               .then(data => {
                 this.addLoading = false;
                 this.$message({
-                  message: "提交成功",
+                  message: "修改成功",
                   type: "success"
                 });
-                this.reload();
-                this.dialogFormVisible = false;
+                this.$emit("regetData");
+                this.$emit('closeEdit', false)
               })
               .catch(error => {
                 this.addLoading = false;

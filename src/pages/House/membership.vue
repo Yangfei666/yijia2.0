@@ -28,7 +28,7 @@
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">创建会员卡</el-button>
                       <template>
                         <el-dialog title="创建会员卡" :append-to-body="true" :visible.sync="dialogFormVisible">
-                          <Foundmembercard :ceshis='ceshi'></Foundmembercard>
+                          <Foundmembercard :ceshis='ceshi' @closeEdit="closeEdit"></Foundmembercard>
                         </el-dialog>
                       </template>
                     </div>
@@ -37,7 +37,7 @@
                       <div v-if="dialogFormVisible2">
                         <template>
                           <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                            <Cardedit :currentSelectRow="currentSelectRow" @regetData="getkcData" @closeEdit="closeEdit" :hides='hide'></Cardedit>
                           </el-dialog>
                         </template>
                       </div>
@@ -113,16 +113,16 @@
                       <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible4 = true">创建会员卡</el-button>
                       <template>
                         <el-dialog title="创建会员卡" :append-to-body="true" :visible.sync="dialogFormVisible4">
-                          <Foundmembercard></Foundmembercard>
+                          <Foundmembercard @closeEdit="closeEdit"></Foundmembercard>
                         </el-dialog>
                       </template>
                     </div>
                     <div class="add">
                       <el-button type="text" class="p" @click="changeInfo">编辑会员卡</el-button>
-                      <div v-if="dialogFormVisible5" >
+                      <div v-if="dialogFormVisible5">
                         <template>
                           <el-dialog title="会员卡信息编辑" :append-to-body="true" :visible.sync="dialogFormVisible5">
-                            <Cardedit :currentSelectRow="currentSelectRow" @closeEdit="closeEdit" :hides='hide'></Cardedit>
+                            <Cardedit :currentSelectRow="currentSelectRow" @regetData="getkcData" @closeEdit="closeEdit" :hides='hide'></Cardedit>
                           </el-dialog>
                         </template>
                       </div>
@@ -248,25 +248,28 @@ export default {
     this.gettableData();
   },
   methods: {
-    gettableData(){
-    let _this = this;
-    _this.loading = true;
-    requestLogin("/setCardType", {}, "get")
-      .then(function(res) {
-        _this.tableData = res.selfCard;
-        _this.tableData2 = res.relationCard;
-        _this.tableData3 = res.selfCard;
-        _this.tableData4 = res.relationCard;
-        _this.loading = false;
-      })
-      .catch(error => {
-        if (error.res) {
-          this.$message({
-            message: "获取数据失败",
-            type: "error"
-          });
-        }
-      });
+    getkcData() {
+      this.gettableData();
+    },
+    gettableData() {
+      let _this = this;
+      _this.loading = true;
+      requestLogin("/setCardType", {}, "get")
+        .then(function(res) {
+          _this.tableData = res.selfCard;
+          _this.tableData2 = res.relationCard;
+          _this.tableData3 = res.selfCard;
+          _this.tableData4 = res.relationCard;
+          _this.loading = false;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
     },
     radiochange(row) {},
     handleClick(tab, event) {
@@ -278,7 +281,7 @@ export default {
       }
       this.radio = -1;
       this.radio2 = -1;
-      this.currentSelectRow = ''
+      this.currentSelectRow = "";
     },
     handleSizeChange(size) {
       this.pagesize = size;
@@ -301,20 +304,20 @@ export default {
       this.radio = row.index;
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
-      if(this.radio < 0 && this.radio2 < 0) return;
+      if (this.radio < 0 && this.radio2 < 0) return;
       //获取表格数据
       this.currentSelectRow = row;
     },
-    handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
-    getCurrentRow(val){
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
+    getCurrentRow(val) {
       console.log(val);
-     },
-    getCurrentRow2(val){
+    },
+    getCurrentRow2(val) {
       console.log(val);
-     },
-    closeEdit(isClose){
+    },
+    closeEdit(isClose) {
       this.dialogFormVisible2 = isClose;
       this.dialogFormVisible5 = isClose;
     },
@@ -355,8 +358,8 @@ export default {
           ).then(response => {
             _this.loading = false;
             this.$message({ message: "删除成功", type: "success" });
+            _this.reload();
           });
-          _this.reload();
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;

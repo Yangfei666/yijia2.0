@@ -183,11 +183,6 @@
                   <el-col :span="24">
                     <div class="table-room">
                       <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                        <el-table-column align="center" prop="radio" fixed width="70px">
-                          <template slot-scope="scope">
-                            <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-                          </template>
-                        </el-table-column>
                         <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="250px"></el-table-column>
                         <el-table-column prop="Hsxx_Name_jch" align="left" label="门店别名" width="250px"></el-table-column>
                         <el-table-column prop="Hsxx_Tel" align="left" label="电话" width="150px"></el-table-column>
@@ -490,7 +485,6 @@ export default {
       this.radio = this.tableData.indexOf(row);
       this.radio2 = this.tableData2.indexOf(row);
     },
-    getCurrentRow(val) {},
     getCurrentRow2(val) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;

@@ -234,10 +234,10 @@ export default {
     Selectchange2(val) {},
     ChangeSex(val) {},
     //转卡
-    deleteRow(index, rows) {
+    deleteRow(index) {
       let _this = this;
       this.$confirm("确认提交吗？", "提示").then(() => {
-        var loginParams = {
+        let loginParams = {
           id: _this.pathquery.CARD.id, //会员卡id
           oldId: _this.$route.query.HYID, //原会员id
           oldName: _this.$route.query.HYName, //原会员姓名
@@ -245,12 +245,12 @@ export default {
           newName: _this.hyinfo.HYName //新会员姓名
         };
         requestLogin("/setDesignateMember/transferCard", loginParams, "post")
-          .then(function(res) {
+          .then(data => {
             this.$message({
               message: "转卡成功",
               type: "success"
             });
-            _this.reload();
+            _this.$router.push('/Customer/leaguer/leaguermanage/leaguermanagetable')
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;
@@ -267,17 +267,22 @@ export default {
     //查询
     onSubmit() {
       let _this = this;
-      var loginParams = {
+      let loginParams = {
         name: _this.formInline.user, //姓名
         sign: "member" //类别
       };
       requestLogin("/getSearchName", loginParams, "post")
         .then(function(res) {
-          _this.tableData4 = [];
-          res.CardNO = _this.pathquery.CARD.CardNO;
-          res.CTName = _this.pathquery.CARD.card_type.CTName;
-          _this.hyinfo = res;
-          _this.tableData4.push(res);
+          if(res == null){
+            alert('没有查到该客户,请检查输入是否有误！');
+            _this.tableData4 = [];
+          }else{
+            _this.tableData4 = [];
+            res.CardNO = _this.pathquery.CARD.CardNO;
+            res.CTName = _this.pathquery.CARD.card_type.CTName;
+            _this.hyinfo = res;
+            _this.tableData4.push(res);
+          }
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;

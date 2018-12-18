@@ -149,6 +149,12 @@
       }
     }
   }
+  .el-checkbox + .el-checkbox {
+    margin-left: 0px;
+  }
+  .el-checkbox {
+    margin-right: 25px;
+  }
   @media screen and (min-width: 768px) and (max-width: 992px) {
     .practice-center {
       height: 80px;

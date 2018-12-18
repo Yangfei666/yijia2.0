@@ -3,16 +3,15 @@
         <!--体能评估表-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <div class="infor-but" v-on:click="back">
-                    <i class="el-icon-arrow-left"></i>
-                    <span class="goback">返回</span>
-                </div>
                 <div class="infor-title">
                     <span>体能评估表（
                         <span style="color:#00bc71;font-size:16px">最新日期Date:</span>
-                        <el-date-picker v-model="timeDefaultShow" format="yyyy年MM月dd日" disabled :default-value="timeDefaultShow" type="date" style="width:190px" value-format="yyyy-MM-dd">
+                        <el-date-picker v-model="timeDefaultShow" value-format="yyyy-MM-dd" format="yyyy年MM月dd日" disabled :default-value="timeDefaultShow" type="date" style="width:190px">
                         </el-date-picker>）</span>
                     <img src="../assets/deit.png" @click="editAll" v-show="hide" />
+                </div>
+                <div class="infor-but" v-on:click="back">
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -277,7 +276,7 @@
                     </el-col>
                     <el-col :span="24" class="from-date4" v-if="show2">
                         <el-form-item label-width="0px">
-                            <el-button type="primary" @click="addposture2('physical_energy_assessment')" style="height:37px">修改提交</el-button>
+                            <el-button type="primary" @click="addposture2('physical_energy_assessment')" style="height:37px">提交</el-button>
                             <!--<el-button @click="resetForm('physical_energy_assessment')">重置</el-button>-->
                         </el-form-item>
                     </el-col>
@@ -288,6 +287,7 @@
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import moment from "moment";
 export default {
   name: "staminaevaluating",
   inject: ["reload"],
@@ -298,17 +298,20 @@ export default {
       edit: false,
       show: true,
       show2: false,
-      timeDefaultShow: "",
+      timeDefaultShow: null,
       hide: true
     };
   },
   mounted() {
-    this.timeDefaultShow = new Date();
     setTimeout(() => {
       this.gethealth();
     }, 500);
+    this.timeDefaultShow = this.getCurrentDateTime();
   },
   methods: {
+    getCurrentDateTime() {
+      return moment(new Date()).format("YYYY-MM-DD");
+    },
     gethealth() {
       let _this = this;
       requestLogin(
@@ -342,136 +345,164 @@ export default {
     },
     //添加体能数据
     addposture(formName) {
-      this.$confirm("确认提交吗？", "提示").then(() => {
-        var loginParams = {
-          stDate: this.timeDefaultShow, //测试日期
-          stHeartRate0: this.physical_energy_assessment.stHeartRate0, //静态心率
-          stHeartRate1: this.physical_energy_assessment.stHeartRate1, //静态心率
-          stHeartRate2: this.physical_energy_assessment.stHeartRate2, //静态心率
-          stHeartRate3: this.physical_energy_assessment.stHeartRate3, //静态心率
-          stHeartRate4: this.physical_energy_assessment.stHeartRate4, //静态心率
-          stBlopre0: this.physical_energy_assessment.stBlopre0, //血压
-          stBlopre1: this.physical_energy_assessment.stBlopre1, //血压
-          stBlopre2: this.physical_energy_assessment.stBlopre2, //血压
-          stBlopre3: this.physical_energy_assessment.stBlopre3, //血压
-          stBlopre4: this.physical_energy_assessment.stBlopre4, //血压
-          stHeight0: this.physical_energy_assessment.stHeight0, //身高
-          stHeight1: this.physical_energy_assessment.stHeight1, //身高
-          stHeight2: this.physical_energy_assessment.stHeight2, //身高
-          stHeight3: this.physical_energy_assessment.stHeight3, //身高
-          stHeight4: this.physical_energy_assessment.stHeight4, //身高
-          stWeight0: this.physical_energy_assessment.stWeight0, //体重
-          stWeight1: this.physical_energy_assessment.stWeight1, //体重
-          stWeight2: this.physical_energy_assessment.stWeight2, //体重
-          stWeight3: this.physical_energy_assessment.stWeight3, //体重
-          stWeight4: this.physical_energy_assessment.stWeight4, //体重
-          stNeck0: this.physical_energy_assessment.stNeck0, //颈围
-          stNeck1: this.physical_energy_assessment.stNeck1, //颈围
-          stNeck2: this.physical_energy_assessment.stNeck2, //颈围
-          stNeck3: this.physical_energy_assessment.stNeck3, //颈围
-          stNeck4: this.physical_energy_assessment.stNeck4, //颈围
-          stShoulder0: this.physical_energy_assessment.stShoulder0, //肩围
-          stShoulder1: this.physical_energy_assessment.stShoulder1, //肩围
-          stShoulder2: this.physical_energy_assessment.stShoulder2, //肩围
-          stShoulder3: this.physical_energy_assessment.stShoulder3, //肩围
-          stShoulder4: this.physical_energy_assessment.stShoulder4, //肩围
-          stChest0: this.physical_energy_assessment.stChest0, //胸围
-          stChest1: this.physical_energy_assessment.stChest1, //胸围
-          stChest2: this.physical_energy_assessment.stChest2, //胸围
-          stChest3: this.physical_energy_assessment.stChest3, //胸围
-          stChest4: this.physical_energy_assessment.stChest4, //胸围
-          stArms0: this.physical_energy_assessment.stArms0, //臂围
-          stArms1: this.physical_energy_assessment.stArms1, //臂围
-          stArms2: this.physical_energy_assessment.stArms2, //臂围
-          stArms3: this.physical_energy_assessment.stArms3, //臂围
-          stArms4: this.physical_energy_assessment.stArms4, //臂围
-          stAbdominal0: this.physical_energy_assessment.stAbdominal0, //腹围
-          stAbdominal1: this.physical_energy_assessment.stAbdominal1, //腹围
-          stAbdominal2: this.physical_energy_assessment.stAbdominal2, //腹围
-          stAbdominal3: this.physical_energy_assessment.stAbdominal3, //腹围
-          stAbdominal4: this.physical_energy_assessment.stAbdominal4, //腹围
-          stWaistline0: this.physical_energy_assessment.stWaistline0, //腰围
-          stWaistline1: this.physical_energy_assessment.stWaistline1, //腰围
-          stWaistline2: this.physical_energy_assessment.stWaistline2, //腰围
-          stWaistline3: this.physical_energy_assessment.stWaistline3, //腰围
-          stWaistline4: this.physical_energy_assessment.stWaistline4, //腰围
-          stHipline0: this.physical_energy_assessment.stHipline0, //臀围
-          stHipline1: this.physical_energy_assessment.stHipline1, //臀围
-          stHipline2: this.physical_energy_assessment.stHipline2, //臀围
-          stHipline3: this.physical_energy_assessment.stHipline3, //臀围
-          stHipline4: this.physical_energy_assessment.stHipline4, //臀围
-          stThigh0: this.physical_energy_assessment.stThigh0, //大腿圈
-          stThigh1: this.physical_energy_assessment.stThigh1, //大腿圈
-          stThigh2: this.physical_energy_assessment.stThigh2, //大腿圈
-          stThigh3: this.physical_energy_assessment.stThigh3, //大腿圈
-          stThigh4: this.physical_energy_assessment.stThigh4, //大腿圈
-          stCrus0: this.physical_energy_assessment.stCrus0, //小退圈
-          stCrus1: this.physical_energy_assessment.stCrus1, //小退圈
-          stCrus2: this.physical_energy_assessment.stCrus2, //小退圈
-          stCrus3: this.physical_energy_assessment.stCrus3, //小退圈
-          stCrus4: this.physical_energy_assessment.stCrus4, //小退圈
-          stFatRate0: this.physical_energy_assessment.stFatRate0, //体质百分比
-          stFatRate1: this.physical_energy_assessment.stFatRate1, //体质百分比
-          stFatRate2: this.physical_energy_assessment.stFatRate2, //体质百分比
-          stFatRate3: this.physical_energy_assessment.stFatRate3, //体质百分比
-          stFatRate4: this.physical_energy_assessment.stFatRate4, //体质百分比
-          stWaist0: this.physical_energy_assessment.stWaist0, //腰臀比
-          stWaist1: this.physical_energy_assessment.stWaist1, //腰臀比
-          stWaist2: this.physical_energy_assessment.stWaist2, //腰臀比
-          stWaist3: this.physical_energy_assessment.stWaist3, //腰臀比
-          stWaist4: this.physical_energy_assessment.stWaist4, //腰臀比
-          stBmi0: this.physical_energy_assessment.stBmi0, //体质指数
-          stBmi1: this.physical_energy_assessment.stBmi1, //体质指数
-          stBmi2: this.physical_energy_assessment.stBmi2, //体质指数
-          stBmi3: this.physical_energy_assessment.stBmi3, //体质指数
-          stBmi4: this.physical_energy_assessment.stBmi4, //体质指数
-          stMetabolism0: this.physical_energy_assessment.stMetabolism0, //基础代谢
-          stMetabolism1: this.physical_energy_assessment.stMetabolism1, //基础代谢
-          stMetabolism2: this.physical_energy_assessment.stMetabolism2, //基础代谢
-          stMetabolism3: this.physical_energy_assessment.stMetabolism3, //基础代谢
-          stMetabolism4: this.physical_energy_assessment.stMetabolism4, //基础代谢
-          stFlexibility0: this.physical_energy_assessment.stFlexibility0, //柔韧性测试
-          stFlexibility1: this.physical_energy_assessment.stFlexibility1, //柔韧性测试
-          stFlexibility2: this.physical_energy_assessment.stFlexibility2, //柔韧性测试
-          stFlexibility3: this.physical_energy_assessment.stFlexibility3, //柔韧性测试
-          stFlexibility4: this.physical_energy_assessment.stFlexibility4, //柔韧性测试
-          stAbdomen0: this.physical_energy_assessment.stAbdomen0, //肌肉耐力
-          stAbdomen1: this.physical_energy_assessment.stAbdomen1, //肌肉耐力
-          stAbdomen2: this.physical_energy_assessment.stAbdomen2, //肌肉耐力
-          stAbdomen3: this.physical_energy_assessment.stAbdomen3, //肌肉耐力
-          stAbdomen4: this.physical_energy_assessment.stAbdomen4, //肌肉耐力
-          stAdvice0: this.physical_energy_assessment.stAdvice0, //教练建议
-          stAdvice1: this.physical_energy_assessment.stAdvice1, //教练建议
-          stAdvice2: this.physical_energy_assessment.stAdvice2, //教练建议
-          stAdvice3: this.physical_energy_assessment.stAdvice3, //教练建议
-          stAdvice4: this.physical_energy_assessment.stAdvice4 //教练建议
-        };
-        requestLogin(
-          "/CustomerFollowUp/addPhysicalEnergy/" +
-            this.$route.query.id +
-            "/" +
-            this.$route.query.potential,
-          loginParams,
-          "post"
-        )
-          .then(data => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
-            this.reload();
-          })
-          .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
+      if (
+          this.physical_energy_assessment.stHeartRate0 == null &&
+          this.physical_energy_assessment.stBlopre0==null &&
+          this.physical_energy_assessment.stHeight0==null &&
+          this.physical_energy_assessment.stWeight0 == null &&
+          this.physical_energy_assessment.stNeck0 == null &&
+          this.physical_energy_assessment.stShoulder0 == null &&
+          this.physical_energy_assessment.stChest0 == null &&
+          this.physical_energy_assessment.stArms0 == null &&
+          this.physical_energy_assessment.stAbdominal0 == null &&
+          this.physical_energy_assessment.stWaistline0 == null &&
+          this.physical_energy_assessment.stHipline0 == null &&
+          this.physical_energy_assessment.stThigh0 == null &&
+          this.physical_energy_assessment.stCrus0 == null &&
+          this.physical_energy_assessment.stFatRate0 == null &&
+          this.physical_energy_assessment.stWaist0 == null &&
+          this.physical_energy_assessment.stBmi0 == null &&
+          this.physical_energy_assessment.stMetabolism0 == null &&
+          this.physical_energy_assessment.stFlexibility0 == null &&
+          this.physical_energy_assessment.stAbdomen0 == null &&
+          this.physical_energy_assessment.stAdvice0 == null
+         ) {
+        this.$message({
+          message: "请先填写原始数据",
+          type: "warning"
+        });
+      } else {
+        this.$confirm("确认提交吗？", "提示").then(() => {
+          var loginParams = {
+            stDate: this.timeDefaultShow, //测试日期
+            stHeartRate0: this.physical_energy_assessment.stHeartRate0, //静态心率
+            stHeartRate1: this.physical_energy_assessment.stHeartRate1==null?"":this.physical_energy_assessment.stHeartRate1, //静态心率
+            stHeartRate2: this.physical_energy_assessment.stHeartRate2==null?"":this.physical_energy_assessment.stHeartRate2, //静态心率
+            stHeartRate3: this.physical_energy_assessment.stHeartRate3==null?"":this.physical_energy_assessment.stHeartRate3, //静态心率
+            stHeartRate4: this.physical_energy_assessment.stHeartRate4==null?"":this.physical_energy_assessment.stHeartRate4, //静态心率
+            stBlopre0: this.physical_energy_assessment.stBlopre0, //血压
+            stBlopre1: this.physical_energy_assessment.stBlopre1==null?"":this.physical_energy_assessment.stBlopre1, //血压
+            stBlopre2: this.physical_energy_assessment.stBlopre2==null?"":this.physical_energy_assessment.stBlopre2, //血压
+            stBlopre3: this.physical_energy_assessment.stBlopre3==null?"":this.physical_energy_assessment.stBlopre3, //血压
+            stBlopre4: this.physical_energy_assessment.stBlopre4==null?"":this.physical_energy_assessment.stBlopre4, //血压
+            stHeight0: this.physical_energy_assessment.stHeight0, //身高
+            stHeight1: this.physical_energy_assessment.stHeight1==null?"":this.physical_energy_assessment.stHeight1, //身高
+            stHeight2: this.physical_energy_assessment.stHeight2==null?"":this.physical_energy_assessment.stHeight2, //身高
+            stHeight3: this.physical_energy_assessment.stHeight3==null?"":this.physical_energy_assessment.stHeight3, //身高
+            stHeight4: this.physical_energy_assessment.stHeight4==null?"":this.physical_energy_assessment.stHeight4, //身高
+            stWeight0: this.physical_energy_assessment.stWeight0, //体重
+            stWeight1: this.physical_energy_assessment.stWeight1==null?"":this.physical_energy_assessment.stWeight1, //体重
+            stWeight2: this.physical_energy_assessment.stWeight2==null?"":this.physical_energy_assessment.stWeight2, //体重
+            stWeight3: this.physical_energy_assessment.stWeight3==null?"":this.physical_energy_assessment.stWeight3, //体重
+            stWeight4: this.physical_energy_assessment.stWeight4==null?"":this.physical_energy_assessment.stWeight4, //体重
+            stNeck0: this.physical_energy_assessment.stNeck0, //颈围
+            stNeck1: this.physical_energy_assessment.stNeck1==null?"":this.physical_energy_assessment.stNeck1, //颈围
+            stNeck2: this.physical_energy_assessment.stNeck2==null?"":this.physical_energy_assessment.stNeck2, //颈围
+            stNeck3: this.physical_energy_assessment.stNeck3==null?"":this.physical_energy_assessment.stNeck3, //颈围
+            stNeck4: this.physical_energy_assessment.stNeck4==null?"":this.physical_energy_assessment.stNeck4, //颈围
+            stShoulder0: this.physical_energy_assessment.stShoulder0, //肩围
+            stShoulder1: this.physical_energy_assessment.stShoulder1==null?"":this.physical_energy_assessment.stShoulder1, //肩围
+            stShoulder2: this.physical_energy_assessment.stShoulder2==null?"":this.physical_energy_assessment.stShoulder2, //肩围
+            stShoulder3: this.physical_energy_assessment.stShoulder3==null?"":this.physical_energy_assessment.stShoulder3, //肩围
+            stShoulder4: this.physical_energy_assessment.stShoulder4==null?"":this.physical_energy_assessment.stShoulder4, //肩围
+            stChest0: this.physical_energy_assessment.stChest0, //胸围
+            stChest1: this.physical_energy_assessment.stChest1==null?"":this.physical_energy_assessment.stChest1, //胸围
+            stChest2: this.physical_energy_assessment.stChest2==null?"":this.physical_energy_assessment.stChest2, //胸围
+            stChest3: this.physical_energy_assessment.stChest3==null?"":this.physical_energy_assessment.stChest3, //胸围
+            stChest4: this.physical_energy_assessment.stChest4==null?"":this.physical_energy_assessment.stChest4, //胸围
+            stArms0: this.physical_energy_assessment.stArms0, //臂围
+            stArms1: this.physical_energy_assessment.stArms1==null?"":this.physical_energy_assessment.stArms1, //臂围
+            stArms2: this.physical_energy_assessment.stArms2==null?"":this.physical_energy_assessment.stArms2, //臂围
+            stArms3: this.physical_energy_assessment.stArms3==null?"":this.physical_energy_assessment.stArms3, //臂围
+            stArms4: this.physical_energy_assessment.stArms4==null?"":this.physical_energy_assessment.stArms4, //臂围
+            stAbdominal0: this.physical_energy_assessment.stAbdominal0, //腹围
+            stAbdominal1: this.physical_energy_assessment.stAbdominal1==null?"":this.physical_energy_assessment.stAbdominal1, //腹围
+            stAbdominal2: this.physical_energy_assessment.stAbdominal2==null?"":this.physical_energy_assessment.stAbdominal2, //腹围
+            stAbdominal3: this.physical_energy_assessment.stAbdominal3==null?"":this.physical_energy_assessment.stAbdominal3, //腹围
+            stAbdominal4: this.physical_energy_assessment.stAbdominal4==null?"":this.physical_energy_assessment.stAbdominal4, //腹围
+            stWaistline0: this.physical_energy_assessment.stWaistline0, //腰围
+            stWaistline1: this.physical_energy_assessment.stWaistline1==null?"":this.physical_energy_assessment.stWaistline1, //腰围
+            stWaistline2: this.physical_energy_assessment.stWaistline2==null?"":this.physical_energy_assessment.stWaistline2, //腰围
+            stWaistline3: this.physical_energy_assessment.stWaistline3==null?"":this.physical_energy_assessment.stWaistline3, //腰围
+            stWaistline4: this.physical_energy_assessment.stWaistline4==null?"":this.physical_energy_assessment.stWaistline4, //腰围
+            stHipline0: this.physical_energy_assessment.stHipline0, //臀围
+            stHipline1: this.physical_energy_assessment.stHipline1==null?"":this.physical_energy_assessment.stHipline1, //臀围
+            stHipline2: this.physical_energy_assessment.stHipline2==null?"":this.physical_energy_assessment.stHipline2, //臀围
+            stHipline3: this.physical_energy_assessment.stHipline3==null?"":this.physical_energy_assessment.stHipline3, //臀围
+            stHipline4: this.physical_energy_assessment.stHipline4==null?"":this.physical_energy_assessment.stHipline4, //臀围
+            stThigh0: this.physical_energy_assessment.stThigh0, //大腿圈
+            stThigh1: this.physical_energy_assessment.stThigh1==null?"":this.physical_energy_assessment.stThigh1, //大腿圈
+            stThigh2: this.physical_energy_assessment.stThigh2==null?"":this.physical_energy_assessment.stThigh2, //大腿圈
+            stThigh3: this.physical_energy_assessment.stThigh3==null?"":this.physical_energy_assessment.stThigh3, //大腿圈
+            stThigh4: this.physical_energy_assessment.stThigh4==null?"":this.physical_energy_assessment.stThigh4, //大腿圈
+            stCrus0: this.physical_energy_assessment.stCrus0, //小退圈
+            stCrus1: this.physical_energy_assessment.stCrus1==null?"":this.physical_energy_assessment.stCrus1, //小退圈
+            stCrus2: this.physical_energy_assessment.stCrus2==null?"":this.physical_energy_assessment.stCrus2, //小退圈
+            stCrus3: this.physical_energy_assessment.stCrus3==null?"":this.physical_energy_assessment.stCrus3, //小退圈
+            stCrus4: this.physical_energy_assessment.stCrus4==null?"":this.physical_energy_assessment.stCrus4, //小退圈
+            stFatRate0: this.physical_energy_assessment.stFatRate0, //体质百分比
+            stFatRate1: this.physical_energy_assessment.stFatRate1==null?"":this.physical_energy_assessment.stFatRate1, //体质百分比
+            stFatRate2: this.physical_energy_assessment.stFatRate2==null?"":this.physical_energy_assessment.stFatRate2, //体质百分比
+            stFatRate3: this.physical_energy_assessment.stFatRate3==null?"":this.physical_energy_assessment.stFatRate3, //体质百分比
+            stFatRate4: this.physical_energy_assessment.stFatRate4==null?"":this.physical_energy_assessment.stFatRate4, //体质百分比
+            stWaist0: this.physical_energy_assessment.stWaist0, //腰臀比
+            stWaist1: this.physical_energy_assessment.stWaist1==null?"":this.physical_energy_assessment.stWaist1, //腰臀比
+            stWaist2: this.physical_energy_assessment.stWaist2==null?"":this.physical_energy_assessment.stWaist2, //腰臀比
+            stWaist3: this.physical_energy_assessment.stWaist3==null?"":this.physical_energy_assessment.stWaist3, //腰臀比
+            stWaist4: this.physical_energy_assessment.stWaist4==null?"":this.physical_energy_assessment.stWaist4, //腰臀比
+            stBmi0: this.physical_energy_assessment.stBmi0, //体质指数
+            stBmi1: this.physical_energy_assessment.stBmi1==null?"":this.physical_energy_assessment.stBmi1, //体质指数
+            stBmi2: this.physical_energy_assessment.stBmi2==null?"":this.physical_energy_assessment.stBmi2, //体质指数
+            stBmi3: this.physical_energy_assessment.stBmi3==null?"":this.physical_energy_assessment.stBmi3, //体质指数
+            stBmi4: this.physical_energy_assessment.stBmi4==null?"":this.physical_energy_assessment.stBmi4, //体质指数
+            stMetabolism0: this.physical_energy_assessment.stMetabolism0, //基础代谢
+            stMetabolism1: this.physical_energy_assessment.stMetabolism1==null?"":this.physical_energy_assessment.stMetabolism1, //基础代谢
+            stMetabolism2: this.physical_energy_assessment.stMetabolism2==null?"":this.physical_energy_assessment.stMetabolism2, //基础代谢
+            stMetabolism3: this.physical_energy_assessment.stMetabolism3==null?"":this.physical_energy_assessment.stMetabolism3, //基础代谢
+            stMetabolism4: this.physical_energy_assessment.stMetabolism4==null?"":this.physical_energy_assessment.stMetabolism4, //基础代谢
+            stFlexibility0: this.physical_energy_assessment.stFlexibility0, //柔韧性测试
+            stFlexibility1: this.physical_energy_assessment.stFlexibility1==null?"":this.physical_energy_assessment.stFlexibility1, //柔韧性测试
+            stFlexibility2: this.physical_energy_assessment.stFlexibility2==null?"":this.physical_energy_assessment.stFlexibility2, //柔韧性测试
+            stFlexibility3: this.physical_energy_assessment.stFlexibility3==null?"":this.physical_energy_assessment.stFlexibility3, //柔韧性测试
+            stFlexibility4: this.physical_energy_assessment.stFlexibility4==null?"":this.physical_energy_assessment.stFlexibility4, //柔韧性测试
+            stAbdomen0: this.physical_energy_assessment.stAbdomen0, //肌肉耐力
+            stAbdomen1: this.physical_energy_assessment.stAbdomen1==null?"":this.physical_energy_assessment.stAbdomen1, //肌肉耐力
+            stAbdomen2: this.physical_energy_assessment.stAbdomen2==null?"":this.physical_energy_assessment.stAbdomen2, //肌肉耐力
+            stAbdomen3: this.physical_energy_assessment.stAbdomen3==null?"":this.physical_energy_assessment.stAbdomen3, //肌肉耐力
+            stAbdomen4: this.physical_energy_assessment.stAbdomen4==null?"":this.physical_energy_assessment.stAbdomen4, //肌肉耐力
+            stAdvice0: this.physical_energy_assessment.stAdvice0, //教练建议
+            stAdvice1: this.physical_energy_assessment.stAdvice1==null?"":this.physical_energy_assessment.stAdvice1, //教练建议
+            stAdvice2: this.physical_energy_assessment.stAdvice2==null?"":this.physical_energy_assessment.stAdvice2, //教练建议
+            stAdvice3: this.physical_energy_assessment.stAdvice3==null?"":this.physical_energy_assessment.stAdvice3, //教练建议
+            stAdvice4: this.physical_energy_assessment.stAdvice4==null?"":this.physical_energy_assessment.stAdvice4 //教练建议
+          };
+          requestLogin(
+            "/CustomerFollowUp/addPhysicalEnergy/" +
+              this.$route.query.id +
+              "/" +
+              this.$route.query.potential,
+            loginParams,
+            "post"
+          )
+            .then(data => {
               this.$message({
-                message: msg,
-                type: "error"
+                message: "提交成功",
+                type: "success"
               });
-              return;
-            }
-          });
-      });
+              this.reload();
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
+            });
+        });
+      }
     },
     //编辑体能数据
     addposture2(formName) {
@@ -635,12 +666,18 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 10px;
       font-size: 16px;
       color: #262626;
+      .goback {
+        border: none;
+        background: #fff;
+        font-size: 16px;
+      }
     }
     .infor-but:hover {
       color: #00bc71;

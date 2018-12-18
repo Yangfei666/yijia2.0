@@ -374,3 +374,11 @@ export let sign = [
         trigger: "change"
     }
 ];
+/* 验证门店*/
+export let shoproom = [
+    {
+        required: true,
+        message: "请选择门店 ( 包括自己所在的门店,至少2个 )",
+        trigger: "change"
+    }
+];

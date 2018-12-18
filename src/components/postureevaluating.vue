@@ -3,12 +3,11 @@
         <!--体态评估表-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                <div class="infor-but" v-on:click="back">
-                    <i class="el-icon-arrow-left"></i>
-                    <span class="goback">返回</span>
-                </div>
                 <div class="infor-title">
                     <span>体态评估表</span>
+                </div>
+                <div class="infor-but" v-on:click="back">
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
             </el-col>
             <el-col :span="24">
@@ -291,7 +290,7 @@ export default {
         "get"
       )
         .then(function(res) {
-          if (res == null) {
+          if (res.posture_assessment == null) {
             _this.disabled = false;
             _this.show = true;
           } else {
@@ -310,49 +309,71 @@ export default {
         });
     },
     addposture(formName) {
-      this.$confirm("确认提交吗？", "提示").then(() => {
-        var loginParams = {
-          poNeck: this.posture_assessment.poNeck, //颈前引
-          poShoulder: this.posture_assessment.poShoulder, //圆肩
-          poThoracic: this.posture_assessment.poThoracic, //胸椎曲度
-          poLumbar: this.posture_assessment.poLumbar, //腰椎曲度
-          poPelvis: this.posture_assessment.poPelvis, //盆骨
-          poKnee: this.posture_assessment.poKnee, //膝关节
-          poHeadInc: this.posture_assessment.poHeadInc, //头部(侧倾)
-          poHeadRot: this.posture_assessment.poHeadRot, //头部(旋转)
-          poShrug: this.posture_assessment.poShrug, //耸肩
-          poScapular: this.posture_assessment.poScapular, //肩胛
-          poSpine: this.posture_assessment.poSpine, //脊柱
-          poPelvisInc: this.posture_assessment.poPelvisInc, // 骨盆(侧倾)
-          poPelvisRot: this.posture_assessment.poPelvisRot, //骨盆(旋转)
-          poRemark: this.posture_assessment.poRemark //备注
-        };
-        requestLogin(
-          "/CustomerFollowUp/addPosture/" +
-            this.$route.query.id +
-            "/" +
-            this.$route.query.potential,
-          loginParams,
-          "post"
-        )
-          .then(data => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
-            this.reload();
-          })
-          .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
+      if (
+        this.posture_assessment.poNeck == null &&
+        this.posture_assessment.poShoulder == null &&
+        this.posture_assessment.poThoracic == null &&
+        this.posture_assessment.poLumbar == null &&
+        this.posture_assessment.poPelvis == null &&
+        this.posture_assessment.poKnee == null &&
+        this.posture_assessment.poHeadInc == null &&
+        this.posture_assessment.poHeadRot == null &&
+        this.posture_assessment.poShrug == null &&
+        this.posture_assessment.poScapular == null &&
+        this.posture_assessment.poSpine == null &&
+        this.posture_assessment.poPelvisInc == null &&
+        this.posture_assessment.poPelvisRot == null &&
+        this.posture_assessment.poRemark == null
+      ) {
+        this.$message({
+          message: "请先填写数据！",
+          type: "warning"
+        });
+      }else{
+        this.$confirm("确认提交吗？", "提示").then(() => {
+          var loginParams = {
+            poNeck: this.posture_assessment.poNeck, //颈前引
+            poShoulder: this.posture_assessment.poShoulder, //圆肩
+            poThoracic: this.posture_assessment.poThoracic, //胸椎曲度
+            poLumbar: this.posture_assessment.poLumbar, //腰椎曲度
+            poPelvis: this.posture_assessment.poPelvis, //盆骨
+            poKnee: this.posture_assessment.poKnee, //膝关节
+            poHeadInc: this.posture_assessment.poHeadInc, //头部(侧倾
+            poHeadRot: this.posture_assessment.poHeadRot, //头部(旋转)
+            poShrug: this.posture_assessment.poShrug, //耸肩
+            poScapular: this.posture_assessment.poScapular, //肩胛
+            poSpine: this.posture_assessment.poSpine, //脊柱
+            poPelvisInc: this.posture_assessment.poPelvisInc, // 骨盆(侧倾)
+            poPelvisRot: this.posture_assessment.poPelvisRot, //骨盆(旋转)
+            poRemark: this.posture_assessment.poRemark //备注
+          };
+          requestLogin(
+            "/CustomerFollowUp/addPosture/" +
+              this.$route.query.id +
+              "/" +
+              this.$route.query.potential,
+            loginParams,
+            "post"
+          )
+            .then(data => {
               this.$message({
-                message: msg,
-                type: "error"
+                message: "提交成功",
+                type: "success"
               });
-              return;
-            }
-          });
-      });
+              this.reload();
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
+            });
+        });
+        }
     },
     resetForm(formName) {
       this.posture_assessment = "";
@@ -377,12 +398,18 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 10px;
       font-size: 16px;
       color: #262626;
+      .goback {
+        border: none;
+        background: #fff;
+        font-size: 16px;
+      }
     }
     .infor-but:hover {
       color: #00bc71;

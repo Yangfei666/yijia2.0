@@ -15,8 +15,9 @@
                 <!--添加跟进记录-->
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                   <el-form-item label="跟进内容:" prop="desc" :label-width="formLabelWidth">
-                    <el-col :span="22">
-                      <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入"></el-input>
+                    <el-col :span="22" class="from-date">
+                      <el-input type="textarea" v-model="ruleForm.desc" maxlength="100" @input="descInput" placeholder="请输入"></el-input>
+                      <span class="textarea">还可以输入{{remnant}}字</span>
                     </el-col>
                   </el-form-item>
                   <el-form-item class="dialog-footer">
@@ -57,7 +58,8 @@ export default {
       rules: {
         desc: [{ required: true, message: "请输入跟进内容", trigger: "blur" }]
       },
-      taste: []
+      taste: [],
+      remnant:100
     };
   },
   created: function() {
@@ -125,7 +127,12 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+      this.remnant = 100;
+    },
+     descInput() {
+      var txtVal = this.ruleForm.desc.length;
+      this.remnant = 100 - txtVal;
+    },
   }
 };
 </script>

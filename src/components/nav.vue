@@ -2,7 +2,7 @@
   <!--首页选项卡-->
   <div class="main-head">
     <div class="head-one">
-      <img class="one-img" src="../assets/tianjiahuiyuan.png" />
+      <img class="one-img" src="../assets/tianjiahuiyuan.png" @click="dialogFormVisible = true" />
       <el-button type="text" class="one-p" @click="dialogFormVisible = true">添加会员</el-button>
       <template>
         <el-dialog title="添加会员" :append-to-body="true" :visible.sync="dialogFormVisible">
@@ -12,7 +12,7 @@
     </div>
     <div class="border"></div>
     <div class="head-one">
-      <img class="one-img" src="../assets/dingjin.png" />
+      <img class="one-img" src="../assets/dingjin.png" @click="dialogFormVisible2 = true" />
       <el-button type="text" class="one-p" @click="dialogFormVisible2 = true">添加定金客户</el-button>
       <template>
         <el-dialog title="添加定金客户" :append-to-body="true" :visible.sync="dialogFormVisible2">
@@ -22,14 +22,14 @@
     </div>
     <div class="border"></div>
     <div class="head-one">
-      <img class="one-img" src="../assets/huiytuanguanli.png" />
       <router-link :to="{path:'/Customer/leaguer/leaguermanage'}" style="text-decoration:none;">
+        <img class="one-img" src="../assets/huiytuanguanli.png" />
         <p class="one-pp">会员管理</p>
       </router-link>
     </div>
     <div class="border"></div>
     <div class="head-one">
-      <img class="one-img" src="../assets/tiyan.png" />
+      <img class="one-img" src="../assets/tiyan.png" @click="dialogFormVisible3 = true"/>
       <el-button type="text" class="one-p" @click="dialogFormVisible3 = true">添加体验客户</el-button>
       <template>
         <el-dialog title="添加体验客户" :append-to-body="true" :visible.sync="dialogFormVisible3">
@@ -39,7 +39,7 @@
     </div>
     <div class="border"></div>
     <div class="head-two">
-      <img class="two-img" src="../assets/qianzai.png" />
+      <img class="two-img" src="../assets/qianzai.png" @click="dialogFormVisible4 = true"/>
       <el-button type="text" class="two-p" @click="dialogFormVisible4 = true">添加潜在客户</el-button>
       <template>
         <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible4">
@@ -67,9 +67,9 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-      Huiyuanqufen: { huiyuanqufen: "newCustomer",id:1},
-      Dingjinqufen: { dingjinqufen: "newCustomer",id:1},
-      Tiyanqufen: { tiyanqufen: "newCustomer",id:1}
+      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 },
+      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 },
+      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 }
     };
   }
 };

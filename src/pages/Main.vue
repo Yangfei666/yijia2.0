@@ -350,14 +350,20 @@ export default {
         let day = this.GetDateStr(0);
         this.SelectDate = day;
         this.getCourseList(day);
+        this.groupList = [];
+        this.privateList = [];
       } else if (this.bottomDay == "明天") {
         let day = this.GetDateStr(1);
         this.SelectDate = day;
         this.getCourseList(day);
+        this.groupList = [];
+        this.privateList = [];
       } else {
         let day = this.GetDateStr(2);
         this.SelectDate = day;
         this.getCourseList(day);
+        this.groupList = [];
+        this.privateList = [];
       }
     },
     // 获取指定天数后的时间

@@ -372,8 +372,8 @@ export default {
         path: "/Customer/depositfollowup/bargainup",
         query: {
           id: this.currentSelectRow.id,
-          itName: this.currentSelectRow.itName,
-          itSex: this.currentSelectRow.itSex
+          Name: this.currentSelectRow.itName,
+          Sex: this.currentSelectRow.itSex
         }
       });
     },

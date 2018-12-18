@@ -89,6 +89,17 @@ export default {
             });
             this.reload();
             this.resetForm(formName);
+            // if (this.potential.potential == "setDesignateMember") {
+              // this.$router.replace({
+              //   path: "/Customer/membershiphome/memberhome",
+              //   query: {
+              //     HYID: this.$route.query.HYID,
+              //     HYName: this.$route.query.HYName,
+              //     YGXX_NAME: this.$route.query.YGXX_NAME,
+              //     MotoTel: this.$route.query.MotoTel
+              //   }
+              // });
+            // }
           })
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;

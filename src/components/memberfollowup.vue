@@ -17,15 +17,15 @@
             <span class="weber-span">{{this.Name}}·{{this.Sex}}</span>
             <el-col :span="10" class="weber-right">
                <div class="right-span">
-                 <router-link :to="{path:'/Customer/memberfollowup/healthsurvey',query:{id:this.id,potential:this.Potential}}" class="link">健康调查表</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/healthsurvey',query:{id:this.id,Name:this.Name,Sex:this.Sex,potential:this.Potential}}" class="link">健康调查表</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link :to="{path:'/Customer/memberfollowup/staminaevaluating',query:{id:this.id,potential:this.Potential}}" class="link">体能评估</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/staminaevaluating',query:{id:this.id,Name:this.Name,Sex:this.Sex,potential:this.Potential}}" class="link">体能评估</router-link>
               </div>
               <div class="border"></div>
               <div class="right-span">
-                 <router-link :to="{path:'/Customer/memberfollowup/postureevaluating',query:{id:this.id,potential:this.Potential}}" class="link">体态评估</router-link>
+                 <router-link :to="{path:'/Customer/memberfollowup/postureevaluating',query:{id:this.id,Name:this.Name,Sex:this.Sex,potential:this.Potential}}" class="link">体态评估</router-link>
               </div>
             </el-col>
         </el-col>
@@ -46,10 +46,10 @@ export default {
       Potential:'member',
     }
   },
-  mounted(){
-    this.id = this.$route.query.HYID;
-    this.Name = this.$route.query.HYName || this.$route.query.prName;
-    this.Sex = this.$route.query.Sex || this.$route.query.prSex;
+  created(){
+    this.id = this.$route.query.id;
+    this.Name = this.$route.query.Name;
+    this.Sex = this.$route.query.Sex;
     this.Potential = 'member';
   }
 }

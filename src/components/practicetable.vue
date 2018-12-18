@@ -359,8 +359,8 @@ export default {
         path: "/Customer/tastefollowup/practiceup",
         query: {
           id: this.currentSelectRow.id,
-          exName: this.currentSelectRow.exName,
-          exSex: this.currentSelectRow.exSex
+          Name: this.currentSelectRow.exName,
+          Sex: this.currentSelectRow.exSex
         }
       });
     },

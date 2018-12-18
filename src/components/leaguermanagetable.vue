@@ -368,8 +368,8 @@ export default {
       this.$router.push({
         path: "/Customer/memberfollowup/insiderup",
         query: {
-          HYID: this.currentSelectRow.HYID,
-          HYName: this.currentSelectRow.HYName,
+          id: this.currentSelectRow.HYID,
+          Name: this.currentSelectRow.HYName,
           Sex: this.currentSelectRow.Sex
         }
       });

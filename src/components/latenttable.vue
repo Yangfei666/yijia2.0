@@ -396,8 +396,8 @@ export default {
         path: "/Customer/potentialfollowup/memberup",
         query: {
           id: this.currentSelectRow.id,
-          prName: this.currentSelectRow.prName,
-          prSex: this.currentSelectRow.prSex
+          Name: this.currentSelectRow.prName,
+          Sex: this.currentSelectRow.prSex
         }
       });
     },

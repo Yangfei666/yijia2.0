@@ -4,10 +4,10 @@
     <el-col :span="24">
       <div class="class-main">
         <div class="infor-but" v-on:click="back">
-          <span class="goback el-icon-arrow-left">返回</span>
+          <el-button class="goback el-icon-arrow-left">返回</el-button>
         </div>
-        <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-          <el-tab-pane label="挂失操作" name="unhook" v-if="membership_card.State !== '挂失'">
+        <el-tabs v-model="activeName" @tab-click="handleClick" type="card" v-show="membership_card.State !== '挂失'">
+          <el-tab-pane label="挂失操作" name="unhook">
             <template>
               <el-col :span="24">
                 <div class="first-from">
@@ -17,7 +17,9 @@
               </el-col>
             </template>
           </el-tab-pane>
-          <el-tab-pane label="解挂操作" name="first" v-if="membership_card.State === '挂失'">
+        </el-tabs>
+        <el-tabs v-model="activeName2" @tab-click="handleClick" type="card" v-show="membership_card.State === '挂失'">
+          <el-tab-pane label="解挂操作" name="first">
             <template>
               <el-col :span="24">
                 <div class="first-from">
@@ -89,6 +91,7 @@ export default {
     };
     return {
       activeName: "unhook",
+      activeName2: "first",
       membership_card: "",
       ruleForm: {
         card: "",
@@ -242,12 +245,15 @@ export default {
     height: 100%;
     .infor-but {
       position: absolute;
-      top: 1.8%;
+      top: 0px;
       z-index: 2;
       color: #262626;
-      right: 2%;
+      right: 1%;
+      font-size: 16px;
       .goback {
-        font-size: 14px;
+        font-size: 16px;
+        border: none;
+        background: #fff;
       }
     }
     .infor-but:hover {

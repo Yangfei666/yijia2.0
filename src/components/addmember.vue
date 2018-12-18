@@ -221,6 +221,12 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            if(this.ruleForm.birthday == null){
+              this.ruleForm.birthday = '0000-00-00'
+            }
+            if(this.ruleForm.wechat == undefined){
+              this.ruleForm.wechat = ''
+            }
             let formData = new FormData();
             formData.append("id", this.ruleForm.adviser); //会籍顾问id
             formData.append("HYName", this.ruleForm.name); //姓名

@@ -8,7 +8,7 @@
           <template>
             <el-dialog title="添加会所图片" :append-to-body="true" :visible.sync="dialogFormVisible">
               <!--添加会所图片-->
-              <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='5' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true">
+              <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :before-upload="beforeAvatarUpload" :auto-upload="true">
                 <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                 <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
               </el-upload>
@@ -118,7 +118,7 @@ export default {
     uploadOverrun: function() {
       this.$message({
         type: "error",
-        message: "上传文件个数超出限制!最多上传5张图片!"
+        message: "上传文件个数超出限制!最多上传1张图片!"
       });
     },
     //自定义的上传图片的方法
@@ -131,6 +131,7 @@ export default {
       requestLogin("/setClubInfoImg", formData, "post")
         .then(() => {
           _this.getClub();
+          _this.fileList = [];
         })
         .catch(function(error) {});
     },
@@ -190,6 +191,22 @@ export default {
             return;
           }
         });
+    },
+    beforeAvatarUpload(file) {
+      var testimg = file.name.substring(file.name.lastIndexOf(".") + 1);
+      const isJPG = testimg === "jpg";
+      const isPNG = testimg === "png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG && !isPNG) {
+        this.$message({
+          message: "上传图片只能是 JPG、PNG格式!",
+          type: "warning"
+        });
+      }
+      if (!isLt2M) {
+        this.$message.error("上传图片大小不能超过 2MB!");
+      }
+      return isJPG || (isPNG && isLt2M);
     },
     handleRemove(file, fileList) {},
     handlePreview(file) {},

@@ -45,8 +45,12 @@
 </template>
 <script>
 import { requestLogin } from "../api/api";
+import Bus from "@/common/eventBus";
 export default {
   inject: ["reload"],
+  components:{
+    Bus
+  },
   data() {
     return {
       downIcon: true,
@@ -66,6 +70,11 @@ export default {
   //     this.getUser();
   //   },500)
   // },
+  created(){
+    Bus.$on('changeClub',clubID=>{
+      this.club.Hsxx_Hsid = clubID;
+    })
+  },
   methods: {
     //获取个人资料
     getUser() {

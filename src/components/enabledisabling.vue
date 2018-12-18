@@ -72,9 +72,9 @@ export default {
   },
   created() {
     if (this.pathquery.CARD.isEnabled == 1) {
-      this.ruleForm.enablecard = "启用";
-    } else {
       this.ruleForm.enablecard = "禁用";
+    } else {
+      this.ruleForm.enablecard = "启用";
     }
   },
   methods: {

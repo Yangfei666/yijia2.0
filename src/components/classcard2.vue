@@ -4,7 +4,7 @@
         <el-col :span="24">
             <div class="class-main">
                 <div class="infor-but" v-on:click="back">
-                    <span class="goback el-icon-arrow-left">返回</span>
+                    <el-button class="goback el-icon-arrow-left">返回</el-button>
                 </div>
                 <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="团课记录" name="1">
@@ -49,7 +49,7 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
+                                        <el-table  @row-click="rowClick" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
                                             <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="170px"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" sortable width="220px"></el-table-column>
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="220px"></el-table-column>
@@ -67,6 +67,7 @@
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                        <el-button type="success" size="small" plain @click="cancelReservation">取消</el-button>
                                                     </div>
                                                 </template>
                                             </el-table-column>
@@ -160,6 +161,7 @@
 import { requestLogin } from "@/api/api";
 export default {
   name: "classcard",
+  inject: ["reload"],
   data() {
     return {
       activeName: "1",
@@ -236,6 +238,34 @@ export default {
           }
         });
     },
+    //取消预约
+    cancelReservation() {
+      this.$confirm("确定取消预约吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        let params = { bool: true, id:this.currentSelectRow.id};
+        requestLogin("/adminHomePage/cancelReservation" , params, "post")
+          .then(data => {
+            this.$message({
+              message: "取消成功",
+              type: "success"
+            });
+            this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
     //获取表格页面
     getTableData() {
       let _this = this;
@@ -275,6 +305,9 @@ export default {
         this.tablelength = this.tableData.length;
         this.tablelength2 = this.tableData2.length;
       }
+    },
+    rowClick(row, event, column) {
+        this.currentSelectRow = row;
     },
     handleClick(tab, event) {},
     Selectchange3(val) {},
@@ -321,12 +354,14 @@ export default {
     position: relative;
     .infor-but {
       position: absolute;
-      top: 11px;
+      top: 0px;
       z-index: 2;
       color: #262626;
-      right: 2%;
+      right: 1%;
       .goback {
-        font-size: 14px;
+        font-size: 16px;
+        border: none;
+        background: #fff;
       }
     }
     .infor-but:hover {

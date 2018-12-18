@@ -3,12 +3,12 @@
         <!--认领-->
         <div class="health">
             <el-col :span="24" class="infor-head">
-                    <div class="infor-but" @click="goback">
-                        <el-button type="text" class="goback el-icon-arrow-left">返回</el-button>
-                    </div>
                 <div class="infor-title">
                     <span>认领</span>
                 </div>
+                <div class="infor-but" @click="goback">
+                        <el-button class="goback el-icon-arrow-left">返回</el-button>
+                    </div>
             </el-col>
             <el-col :span="24" class="infor-dd">
                 <span>姓名：<span>{{this.name}}</span></span>
@@ -136,15 +136,18 @@ export default {
   .infor-head {
     height: 50px;
     display: flex;
+    justify-content: space-between;
     line-height: 50px;
     border-bottom: 1px solid #e8e8e8;
     .infor-but {
-      padding-left: 10px;
+      padding-right: 10px;
       font-size: 16px;
       color: #262626;
       .goback{
         color: #262626;
         font-size: 16px;
+        background: #fff;
+        border: none;
       }
       .goback:hover{
         color: #00bc71;
