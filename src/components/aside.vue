@@ -64,12 +64,34 @@
 
     <el-dialog v-if="showICDialog" class="icCard-wrapper" :close-on-click-modal="true" title="刷卡" :append-to-body="true" :visible.sync="showICDialog">
       <keep-alive>
-        <IC></IC>
+        <IC :i-c-card-number="cardID"></IC>
       </keep-alive>
     </el-dialog>
   </div>
 </template>
 <script>
+  let vmm = null;
+  window.onload = () => {
+    let startTime, endTime, saveString;
+    document.onkeypress = (e) => {
+      let _key = e.which;
+      if (!startTime&&_key>=48&&_key<=57) {
+        startTime = new Date().getTime();
+        saveString = '';
+      }
+      if (_key === 13) {
+        endTime = new Date().getTime();
+        if (endTime - startTime < 100) {
+          vmm.showICDialog = true;
+          vmm.cardID = saveString
+        }
+        startTime = null;
+      } else {
+        saveString += e.key;
+      }
+    };
+  };
+
 import Personal from "../components/personal";
 import Group from "../components/group";
 import IC from './icCard'
@@ -86,6 +108,9 @@ export default {
       dialogFormVisible: false,
       showICDialog: false,
     };
+  },
+  created(){
+    vmm = this;
   },
   methods: {
     personal(){
