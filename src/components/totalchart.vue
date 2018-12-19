@@ -129,7 +129,18 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7"
+              "#1B0AD7",
+              "#F47378",
+              "#B84A5B",
+              "#660010",
+              "#803A0A",
+              "#7A297B",
+              "#5C63CB",
+              "#2B4B58",
+              "#02042C",
+              "#6C6710",
+              "#43694E",
+              "#461214",
             ],
             radius: ["53%", "70%"],
             center: ["50%", "50%"],
@@ -175,7 +186,7 @@ export default {
             fontSize: "34px"
           },
           top: "2%",
-          left: "1%"
+          left: "4%"
         },
         tooltip: {
           trigger: "item",
@@ -185,7 +196,7 @@ export default {
           x: "right",
           data: ach_adviser,
           orient: "vertical",
-          right: 5,
+          right: 10,
           top: 40,
           bottom: 10
         },
@@ -205,7 +216,18 @@ export default {
               "#9C3205",
               "#EB1330",
               "#02374B",
-              "#1B0AD7"
+              "#1B0AD7",
+              "#F47378",
+              "#B84A5B",
+              "#660010",
+              "#803A0A",
+              "#7A297B",
+              "#5C63CB",
+              "#2B4B58",
+              "#02042C",
+              "#6C6710",
+              "#43694E",
+              "#461214",
             ],
             radius: ["53%", "70%"],
             center: ["50%", "50%"],
@@ -413,7 +435,7 @@ export default {
       position: absolute;
       right: 70px;
       top: 42px;
-      width: 41%;
+      width: 45%;
       height: 300px;
       user-select: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -433,7 +455,6 @@ export default {
     left: -1%;
   }
 }
-
 .Performancechange {
   width: 97%;
   height: 440px;
