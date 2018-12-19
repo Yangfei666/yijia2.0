@@ -67,15 +67,13 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="12" class="from-date">
+                                <!-- <el-col :span="12" class="from-date">
                                     <el-form-item label="私教课最大时长：" prop="lengthOfTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.lengthOfTime" style="width:250px" placeholder="默认120分钟"></el-input>
                                         </el-col>
                                     </el-form-item>
-                                </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
+                                </el-col> -->
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="惩罚升级的次数：" prop="punishRscalation" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -83,6 +81,8 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="惩罚升级的措施：" prop="numTwo" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -90,8 +90,6 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端团课提前预约(天数)：" prop="apiLeagueDate" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -99,6 +97,8 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端私教提前预约(天数)：" prop="apiPersonalDate" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -106,15 +106,15 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="12" class="from-date">
+                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端团课提前预约时间(分钟)：" prop="apiLeagueTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.apiLeagueTime" style="width:250px" placeholder="默认120分钟"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端私教提前预约时间(分钟)：" prop="apiPersonalTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
@@ -122,9 +122,7 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                            </el-col>
-                            <el-col :span="24" class="from-date-border">
-                                <el-col :span="24" class="from-date">
+                                <el-col :span="12" class="from-date">
                                     <el-form-item label="是否开启教练信用计算：" prop="calculationCredit" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-radio-group v-model="ruleForm.calculationCredit">

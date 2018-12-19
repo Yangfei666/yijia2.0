@@ -38,6 +38,7 @@ router.beforeEach((to, from, next) => {
         window.sessionStorage.removeItem('access-token')
         next()
     }else if(to.path.startsWith('/')){
+        console.log('is/page')
         next()
     }else {
         let token = window.sessionStorage.getItem('access-token')
