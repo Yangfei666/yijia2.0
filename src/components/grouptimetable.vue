@@ -522,8 +522,12 @@ export default {
                   type: "success"
                 });
                 this.dialogFormVisible2 = false;
-                // this.$emit("regetData");
                 this.resetForm(formName);
+                  for(var i=0;i<this.tableData.length;i++){
+                     if(this.tableData[i].ID==this.currentSelectRow.ID){
+                       this.tableData[i].group_curriculum_appointment_count++;
+                     }
+                  }
               })
               .catch(error => {
                 this.addLoading = false;
@@ -584,7 +588,6 @@ export default {
                 }else if(this.currentSelectRow.kcbSort=='2'){
                   this.currentSelectRow.kcbSort='灰底';
                 }
-                console.log('this.kechengname:'+this.kechengname);
                 for(var i=0;i<this.tableData.length;i++){
                    if(this.tableData[i].ID==this.currentSelectRow.ID){
                      this.tableData[i].kcbSort=this.currentSelectRow.kcbSort;//底色

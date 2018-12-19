@@ -140,7 +140,12 @@ let router = new Router({
     mode:'history',
     routes: [
         {
-            path: '/',
+            path:'/',
+            name:'Health',
+            component: Health,
+        },
+        {
+            path: '/health',
             name: 'Health',
             component: Health,
         },

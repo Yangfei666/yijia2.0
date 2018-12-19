@@ -6,10 +6,10 @@
           <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo"
                     v-model="cardID"
                     placeholder="卡号/姓名/手机号" clearable></el-input>
-          <el-button class="card__number_sure-btn" @click.native="sureCard">确定</el-button>
+          <el-button class="card__number_sure-btn" plain @click.native="sureCard">确定</el-button>
         </el-col>
         <el-col :span="22"><span
-          style="color: rgba(0,0,0,0.3); font-size: 0.2em;">备注：卡号能查询本店和连锁店客户，姓名和手机号只能查询本店客户</span></el-col>
+          style="color:#aaa; font-size: 0.9rem;">备注：卡号能查询本店和连锁店客户，姓名和手机号只能查询本店客户</span></el-col>
       </el-form-item>
     </el-form>
     <div v-show="showInfo">
@@ -190,13 +190,13 @@
 </style>
 <style lang="scss" scoped>
   @import "@/styles/course.scss";
-
   .card__number {
     display: flex;
     align-items: center;
     &_sure-btn {
       margin-top: 7px;
       margin-left: 20px;
+      line-height:1px;
     }
   }
 

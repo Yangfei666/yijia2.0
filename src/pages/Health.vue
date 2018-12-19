@@ -182,7 +182,7 @@
                     <el-col :span="24" class="from-date4">
                         <el-form-item label-width="0px">
                             <el-button type="primary" @click="addhealthsurvey('health_survey')">提交</el-button>
-                            <el-button @click="resetForm('health_survey')">重置</el-button>
+                            <el-button @click="resetForm('health_survey')" plain>重置</el-button>
                         </el-form-item>
                     </el-col>
                 </div>
