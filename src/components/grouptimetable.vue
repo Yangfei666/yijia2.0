@@ -333,11 +333,11 @@ export default {
         price: [{ required: true, message: "请输入课程价格", trigger: "blur" }]
       },
       rules2: {
-        name: [{ required: true, message: "请输入姓名/电话", trigger: "blur" }],
+        name: [{ required: true, message: "请输入会员姓名/体验电话", trigger: "blur" }],
         consumer: [
           { required: true, message: "请选择会员/体验客户", trigger: "change" }
         ],
-        card: [{ required: true, message: "请选择卡种", trigger: "change" }]
+        card: [{ required: true, message: "请选择卡种/体验券", trigger: "change" }]
       },
       currentSelectRow: "",
       dialogFormVisible: false,
