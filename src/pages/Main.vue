@@ -440,11 +440,13 @@ export default {
           this.leaguer = data.member;
         })
         .catch(error => {
-          if (error.response) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "对不起,课预约详情获取失败!",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
