@@ -131,8 +131,9 @@
               <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
               <el-table-column align="left" label="操作" fixed="right" width="120px">
                 <template slot-scope="scope">
-                  <el-button @click="dialogFormVisible3 = true" type="danger" plain :disabled="scope.row.strRole.indexOf('会籍顾问') == -1" size="small">客户转出
+                  <el-button @click="dialogFormVisible3 = true" type="danger" plain v-if="scope.row.strRole != null" :disabled="scope.row.strRole !=null ? scope.row.strRole.indexOf('会籍顾问') == -1 : false" size="small">客户转出
                   </el-button>
+                  <el-button type="danger" plain  size="small" v-else disabled>客户转出</el-button>
                 </template>
               </el-table-column>
             </el-table>
