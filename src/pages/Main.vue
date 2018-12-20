@@ -339,7 +339,11 @@ export default {
           .catch(error => {
             let { response: { data: { errorCode, msg } } } = error;
             if (errorCode != 0) {
-              this.$message({ message: msg, type: "error" });
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
             }
           });
       });
@@ -410,10 +414,14 @@ export default {
           }
         })
         .catch(error => {
-          this.$message({
-            message: "课程数据加载失败!",
-            type: "error"
-          });
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     // 获取课程预约详情
