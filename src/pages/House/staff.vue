@@ -98,7 +98,7 @@
                 </div>
               </div>
               <div class="add">
-                <el-button type="text" class="p" @click.prevent="delstaff">员工离职</el-button>
+                <el-button type="text" class="p" @click="delstaff">员工离职</el-button>
               </div>
             </div>
           </el-col>
@@ -197,7 +197,7 @@ export default {
         sex: "", //性别
         phone: "", //电话
         idnumber: "", //身份证号
-        selectRoleId:[], //分配角色
+        selectRoleId: [], //分配角色
         big: "", //所属大队
         small: "", //所属小组
         desc: "" //员工简介
@@ -232,13 +232,13 @@ export default {
     let _this = this;
     _this.loading = true;
     requestLogin("/setStaffInfo", {}, "get")
-      .then((res)=> {
+      .then(res => {
         _this.loading = false;
         _this.tableData = res;
         _this.tableData2 = res;
         _this.rolegourp();
-        for(var i = 0; i<_this.tableData.length;i++){
-          _this.tableData[i].strRole = _this.transformRole(_this.tableData[i])
+        for (var i = 0; i < _this.tableData.length; i++) {
+          _this.tableData[i].strRole = _this.transformRole(_this.tableData[i]);
         }
       })
       .catch(error => {
@@ -335,7 +335,7 @@ export default {
       );
     },
     handleCheckChange(val) {
-       Object.assign(this.selectRoleId, val)
+      Object.assign(this.selectRoleId, val);
     },
     radiochange(row) {
       this.radio = row;
@@ -346,9 +346,9 @@ export default {
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
     },
-     handleCurrentChange2(val,index) {
-        this.currentRow = val;
-     },
+    handleCurrentChange2(val, index) {
+      this.currentRow = val;
+    },
     xiaozu(val) {
       console.log(val);
     },
@@ -425,8 +425,8 @@ export default {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
     },
-    closeEdit(isClose){
-      this.dialogFormVisible2 = isClose
+    closeEdit(isClose) {
+      this.dialogFormVisible2 = isClose;
     },
     //员工离职
     delstaff() {
@@ -439,45 +439,45 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(() => {
-          _this.loading = true;
-          requestLogin(
-            "/setStaffInfo/" + _this.currentSelectRow.YGXX_YGID_NEI,
-            {},
-            "delete"
-          ).then(response => {
+      }).then(() => {
+        _this.loading = true;
+        requestLogin(
+          "/setStaffInfo/" + _this.currentSelectRow.YGXX_YGID_NEI,
+          {},
+          "delete"
+        )
+          .then(response => {
             _this.loading = false;
             this.$message({
               message: "删除成功",
               type: "success"
             });
+            this.reload();
+          })
+          .catch(error => {
+            _this.loading = false;
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
           });
-          _this.reload();
-        })
-        .catch(error => {
-          this.addLoading = false;
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
+      });
     },
     transformRole(roleArray) {
-      var rolestr = roleArray.role[0].name; 
+      var rolestr = roleArray.role[0].name;
       var role = roleArray.role;
       if (role.length > 1) {
         for (var j = 1; j < role.length; j++) {
-          rolestr = rolestr.concat(',' + role[j].name);
+          rolestr = rolestr.concat("," + role[j].name);
         }
       }
-      return rolestr
+      return rolestr;
     }
-  },
+  }
 };
 </script>
 <style lang="scss">

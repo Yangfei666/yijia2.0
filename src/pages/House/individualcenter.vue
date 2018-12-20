@@ -506,33 +506,33 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(() => {
-          _this.loading = true;
-          requestLogin(
-            "/PersonalCenter/" + _this.currentSelectRow.id,
-            {},
-            "delete"
-          ).then(response => {
+      }).then(() => {
+        _this.loading = true;
+        requestLogin(
+          "/PersonalCenter/" + _this.currentSelectRow.id,
+          {},
+          "delete"
+        )
+          .then(response => {
             _this.loading = false;
             this.$message({
               message: "删除成功",
               type: "success"
             });
+            _this.reload();
+          })
+          .catch(error => {
+            _this.addLoading = false;
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
           });
-          _this.reload();
-        })
-        .catch(error => {
-          this.addLoading = false;
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
+      });
     },
     //修改密码
     Modifypsd(formName) {

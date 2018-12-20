@@ -234,27 +234,27 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(() => {
-          requestLogin(
-            "/setBannerInfo/" + _this.currentSelectRow.id,
-            {},
-            "delete"
-          ).then(response => {
+      }).then(() => {
+        requestLogin(
+          "/setBannerInfo/" + _this.currentSelectRow.id,
+          {},
+          "delete"
+        )
+          .then(response => {
             this.$message({ message: "删除成功", type: "success" });
+            _this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
           });
-          _this.reload();
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
+      });
     },
     editlunbo() {
       if (this.currentSelectRow) {

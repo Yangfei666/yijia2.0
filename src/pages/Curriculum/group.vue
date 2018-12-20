@@ -277,6 +277,7 @@ export default {
     },
     async getUserInfo() {
       this.selectClubID = JSON.parse(sessionStorage.getItem('club')).Hsxx_Hsid;
+      this.chooseClub = JSON.parse(sessionStorage.getItem('club')).Hsxx_Name;
     },
     async changeClub(val) {
       this.chooseClub = val;
@@ -291,9 +292,9 @@ export default {
       await group
         .changeGroup(params)
         .then(res => {
-          Bus.$emit('changeClub',params.hsid);
           Object.assign(_this.tdlist, res);
           Object.assign(_this.week,res.week);
+          Bus.$emit('changeClub',params.hsid);
         })
         .then(() => {
           _this.selectClubID = val;
@@ -372,7 +373,7 @@ export default {
     },
     // 改变时间
     changeWeek(val) {
-      this.changeClub(this.selectClubID);
+      this.changeClub(this.chooseClub);
     }
   }
 };

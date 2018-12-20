@@ -348,29 +348,30 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(() => {
-          _this.loading = true;
-          requestLogin(
-            "/setCardType/" + _this.currentSelectRow.CTID,
-            {},
-            "delete"
-          ).then(response => {
+      }).then(() => {
+        _this.loading = true;
+        requestLogin(
+          "/setCardType/" + _this.currentSelectRow.CTID,
+          {},
+          "delete"
+        )
+          .then(response => {
             _this.loading = false;
             this.$message({ message: "删除成功", type: "success" });
             _this.reload();
+          })
+          .catch(error => {
+            _this.loading = false;
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
           });
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
+      });
     }
   }
 };

@@ -523,11 +523,11 @@ export default {
                 });
                 this.dialogFormVisible2 = false;
                 this.resetForm(formName);
-                  for(var i=0;i<this.tableData.length;i++){
-                     if(this.tableData[i].ID==this.currentSelectRow.ID){
-                       this.tableData[i].group_curriculum_appointment_count++;
-                     }
+                for (var i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].ID == this.currentSelectRow.ID) {
+                    this.tableData[i].group_curriculum_appointment_count++;
                   }
+                }
               })
               .catch(error => {
                 this.addLoading = false;
@@ -551,12 +551,18 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认修改吗？", "提示").then(() => {
-            var kcbSortid='1';
-            if(this.currentSelectRow.kcbSort=='灰底' || this.currentSelectRow.kcbSort=='2'){
-                kcbSortid='2'
+            var kcbSortid = "1";
+            if (
+              this.currentSelectRow.kcbSort == "灰底" ||
+              this.currentSelectRow.kcbSort == "2"
+            ) {
+              kcbSortid = "2";
             }
-            if(this.currentSelectRow.kcbSort=='白底' || this.currentSelectRow.kcbSort=='1'){
-                kcbSortid='1'
+            if (
+              this.currentSelectRow.kcbSort == "白底" ||
+              this.currentSelectRow.kcbSort == "1"
+            ) {
+              kcbSortid = "1";
             }
             var formData = {
               kcStime: this.currentSelectRow.kcStime, //课程日期
@@ -583,21 +589,27 @@ export default {
                 });
                 this.dialogFormVisible3 = false;
                 // this.$emit('regetData');
-                if(this.currentSelectRow.kcbSort=='1'){
-                  this.currentSelectRow.kcbSort='白底';
-                }else if(this.currentSelectRow.kcbSort=='2'){
-                  this.currentSelectRow.kcbSort='灰底';
+                if (this.currentSelectRow.kcbSort == "1") {
+                  this.currentSelectRow.kcbSort = "白底";
+                } else if (this.currentSelectRow.kcbSort == "2") {
+                  this.currentSelectRow.kcbSort = "灰底";
                 }
-                for(var i=0;i<this.tableData.length;i++){
-                   if(this.tableData[i].ID==this.currentSelectRow.ID){
-                     this.tableData[i].kcbSort=this.currentSelectRow.kcbSort;//底色
-                     this.tableData[i].curriculum_subject.kcName = this.kechengname == '' ? this.tableData[i].curriculum_subject.kcName : this.kechengname;//课程名称
-                     this.tableData[i].staff_info.YGXX_NAME = this.jiaolianname == '' ? this.tableData[i].staff_info.YGXX_NAME : this.jiaolianname;//教练
-                     this.tableData[i].Etime = this.currentSelectRow.Etime;//结束时间
-                     this.tableData[i].Stime = this.currentSelectRow.Stime;//开始时间
-                     this.tableData[i].kcDiff = this.currentSelectRow.kcDiff;//难度
-                     this.tableData[i].RenShu = this.currentSelectRow.RenShu;//人数
-                   }
+                for (var i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].ID == this.currentSelectRow.ID) {
+                    this.tableData[i].kcbSort = this.currentSelectRow.kcbSort; //底色
+                    this.tableData[i].curriculum_subject.kcName =
+                      this.kechengname == ""
+                        ? this.tableData[i].curriculum_subject.kcName
+                        : this.kechengname; //课程名称
+                    this.tableData[i].staff_info.YGXX_NAME =
+                      this.jiaolianname == ""
+                        ? this.tableData[i].staff_info.YGXX_NAME
+                        : this.jiaolianname; //教练
+                    this.tableData[i].Etime = this.currentSelectRow.Etime; //结束时间
+                    this.tableData[i].Stime = this.currentSelectRow.Stime; //开始时间
+                    this.tableData[i].kcDiff = this.currentSelectRow.kcDiff; //难度
+                    this.tableData[i].RenShu = this.currentSelectRow.RenShu; //人数
+                  }
                 }
               })
               .catch(error => {
@@ -631,34 +643,34 @@ export default {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        })
-          .then(() => {
-            requestLogin(
-              "/CurTableInfo/" + _this.currentSelectRow.ID,
-              {},
-              "delete"
-            ).then(response => {
+        }).then(() => {
+          requestLogin(
+            "/CurTableInfo/" + _this.currentSelectRow.ID,
+            {},
+            "delete"
+          )
+            .then(response => {
               this.$message({
                 message: "删除成功",
                 type: "success"
               });
-              for(var i=0;i<this.tableData.length;i++){
-                   if(this.tableData[i].ID==this.currentSelectRow.ID){
-                     this.tableData.splice(i,1);
-                   }
+              for (var i = 0; i < this.tableData.length; i++) {
+                if (this.tableData[i].ID == this.currentSelectRow.ID) {
+                  this.tableData.splice(i, 1);
                 }
+              }
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
             });
-          })
-          .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
-              this.$message({
-                message: msg,
-                type: "error"
-              });
-              return;
-            }
-          });
+        });
       }
     },
     //添加课程
@@ -688,10 +700,10 @@ export default {
                 formData.kcName = this.kechengname;
                 formData.JLIDs = this.jiaolianname;
                 formData.kcbSort = this.ruleForm.courseclassify;
-                if(this.ruleForm.courseclassify=='1'){
-                  formData.kcbSort='白底';
-                }else{
-                  formData.kcbSort='灰底';
+                if (this.ruleForm.courseclassify == "1") {
+                  formData.kcbSort = "白底";
+                } else {
+                  formData.kcbSort = "灰底";
                 }
                 this.tableData.push(formData);
                 this.resetForm(formName);
