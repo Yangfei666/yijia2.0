@@ -46,7 +46,7 @@
               <span slot="label">周一
                 <b style="font-size:12px">({{this.getsubstr('Monday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='1'  @regetData="getkcData"></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='1' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
             <el-tab-pane name="Tuesday">
               <span slot="label">周二
@@ -92,7 +92,7 @@
 </template>
 <script>
 import Grouptimetable from "@/components/grouptimetable";
-import Bus from "@/common/eventBus";
+// import Bus from "@/common/eventBus";
 import { requestLogin } from "@/api/api";
 let group = {
   copyTable(params) {
@@ -109,7 +109,7 @@ export default {
   name: "group",
   components: {
     Grouptimetable,
-    Bus
+    // Bus
   },
   data() {
     return {
@@ -140,7 +140,7 @@ export default {
       mondayDate: "",
       isSelfClub: false,
       copy_selectClubIndex: -1,
-      chooseClub:''
+      chooseClub: ""
     };
   },
   created() {
@@ -190,7 +190,7 @@ export default {
           _this.tdlist = res;
           let { week } = res;
           _this.week = week;
-          //根据week的value值得到它的key值  
+          //根据week的value值得到它的key值
           let findKey = (value, compare = (a, b) => a === b) => {
             return Object.keys(week).find(k => compare(week[k], value));
           };
@@ -206,8 +206,8 @@ export default {
           }
         });
     },
-    getkcData(){
-       this.getGroup();
+    getkcData() {
+      this.getGroup();
     },
     //得到当前年月日yyyy-MM-dd
     getNowFormatDate() {
@@ -276,13 +276,15 @@ export default {
         });
     },
     async getUserInfo() {
-      this.selectClubID = JSON.parse(sessionStorage.getItem('club')).Hsxx_Hsid;
-      this.chooseClub = JSON.parse(sessionStorage.getItem('club')).Hsxx_Name;
+      this.selectClubID = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
+      this.chooseClub = JSON.parse(sessionStorage.getItem("club")).Hsxx_Name;
     },
     async changeClub(val) {
       this.chooseClub = val;
       let _this = this;
-      this.selectClubIndex = this.club.findIndex(item=>item.Hsxx_Name === val);
+      this.selectClubIndex = this.club.findIndex(
+        item => item.Hsxx_Name === val
+      );
       let sortKinds = "now";
       let params = {
         monday: this.Monday,
@@ -293,17 +295,21 @@ export default {
         .changeGroup(params)
         .then(res => {
           Object.assign(_this.tdlist, res);
-          Object.assign(_this.week,res.week);
-          Bus.$emit('changeClub',params.hsid);
+          Object.assign(_this.week, res.week);
+          // Bus.$emit('changeClub',params.hsid);
         })
         .then(() => {
-          _this.selectClubID = val;
+          _this.selectClubID = this.club[this.selectClubIndex].Hsxx_Hsid;
         })
         .catch(error => {
-          this.$message({
-            message: "操作失败！",
-            type: "error"
-          });
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         })
         .finally(() => {
           _this.selectClubIndex = _this.club.findIndex(
@@ -332,7 +338,7 @@ export default {
             message: "复制课表成功",
             type: "success"
           });
-          this.value = '';
+          this.value = "";
         })
         .catch(() => {
           this.$message({
@@ -374,6 +380,7 @@ export default {
     // 改变时间
     changeWeek(val) {
       this.changeClub(this.chooseClub);
+      // this.changeClub(this.selectClubID);
     }
   }
 };
