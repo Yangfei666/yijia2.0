@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号码"></el-input>
+          <el-input v-model="ruleForm.phone" maxlength="11" placeholder="请输入11位手机号码"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -32,7 +32,7 @@
       </el-form-item>
       <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.catenumber" placeholder="请输入18位身份证号码/护照均可"></el-input>
+          <el-input v-model="ruleForm.catenumber" maxlength="18" placeholder="请输入18位身份证号码/护照均可"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
@@ -59,7 +59,7 @@
       </el-form-item>
       <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
+          <el-input v-model="ruleForm.contacttel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -69,19 +69,24 @@
           </el-select>
         </el-col>
       </el-form-item>
+            <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-input v-model="ruleForm.price" placeholder="0-100000元之间"></el-input>
+        </el-col>
+      </el-form-item>
       <el-form-item label="卡号:" prop="card" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.card" placeholder="长度6-12位"></el-input>
+          <el-input v-model="ruleForm.card" maxlength="12" placeholder="长度6-12位"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="卡号确认:" prop="cardaffirm" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.cardaffirm" placeholder="长度6-12位"></el-input>
+          <el-input v-model="ruleForm.cardaffirm" maxlength="12" placeholder="长度6-12位"></el-input>
         </el-col>
       </el-form-item>
-      <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
+      <el-form-item label="IC卡序列号:" prop="seriesnumber" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="this.CTjg" placeholder="0-100000元之间"></el-input>
+          <el-input v-model="ruleForm.seriesnumber" maxlength="30" placeholder="数字或字母，长度6-30位"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -169,6 +174,7 @@ export default {
         cardaffirm: "", //卡号确认
         price: "", //金额
         mode: "", //付款方式
+        seriesnumber: "", //IC卡序列号
         sensitize: "" //激活时间
       },
       rules: {
@@ -181,6 +187,7 @@ export default {
         card: [{ required: true,validator: validatecard, trigger: "blur" }],
         cardaffirm: [{required: true, validator: validatecardaffirm, trigger: "blur" }],
         sensitize: validate.sensitize,
+        price:validate.price
       }
     };
   },
@@ -241,7 +248,8 @@ export default {
             formData.append("hyWeChat", this.ruleForm.wechat); //微信
             formData.append("CardNO", this.ruleForm.card); //卡号
             formData.append("mode", this.ruleForm.mode); //付款方式
-            formData.append("money", this.CTjg); //付款金额
+            formData.append("money", this.ruleForm.price); //付款金额
+            formData.append("serialNumber", this.ruleForm.seriesnumber); //序列号
             formData.append("CTID", this.ruleForm.cardname); //会员卡id
             formData.append("delay", this.ruleForm.sensitize); //激活时间选择
             formData.append("identity",this.huiyuanqufen.huiyuanqufen); //转换客户类别
@@ -285,7 +293,7 @@ export default {
       obj2 = this.cards.find(item => {
         return item.CTID === val;
       });
-      this.CTjg = obj2.CTjg;
+      this.ruleForm.price = obj2.CTjg;
     },
     ChangeSex(val) {
     },

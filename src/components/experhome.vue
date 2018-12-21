@@ -17,7 +17,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="this.tkPrice" placeholder="0-1000之间"></el-input>
+                  <el-input v-model="ruleForm.price" placeholder="0-1000之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -88,7 +88,8 @@ export default {
       tkName: [],
       rules: {
         type: validate.type,
-        mode: validate.mode
+        mode: validate.mode,
+        price:validate.price
       }
     };
   },
@@ -108,7 +109,7 @@ export default {
             var loginParams = {
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.tkPrice //价格
+              price: _this.ruleForm.price //价格
             };
             requestLogin(
               "/setExperienceCustomer/purchaseVoucher/" + this.$route.params.id,
@@ -187,7 +188,7 @@ export default {
       obj2 = this.tkName.find(item=>{
         return item.id ===val;
       });
-      this.tkPrice = obj2.tkPrice;
+      this.ruleForm.price = obj2.tkPrice;
     },
     handleClick(tab, event) {
       let _this = this;

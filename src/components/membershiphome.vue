@@ -17,13 +17,13 @@
             <el-col :span="1" class="weber-img">
               <img :src="club.Photo" />
             </el-col>
-            <el-col :span="10" class="weber-left">
+            <el-col :span="8" class="weber-left">
               <div class="weber-span">{{club.HYName}}·{{club.Sex}}</div>
               <div class="weber-p">会籍顾问:{{this.YGXX_NAME}}
                 <span class="weber-pp">电话:{{club.MotoTel}}</span>
               </div>
             </el-col>
-            <el-col :span="12" class="weber-right">
+            <el-col :span="14" class="weber-right">
               <div class="right-span">
                 <router-link :to="{path:'/Customer/membershiphome/information',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">综合信息</router-link>
               </div>
@@ -34,6 +34,27 @@
               <div class="border"></div>
               <div class="right-span">
                 <router-link :to="{path:'/Customer/membershiphome/unhook',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">挂失/解挂/补卡</router-link>
+              </div>
+              <div class="border"></div>
+              <div class="right-span">
+                <el-button type="text" class="add-p link" @click="dialogFormVisible2 = true">IC卡序列号</el-button>
+                <template>
+                  <el-dialog title="IC卡序列号" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                    <el-form :model="ruleForm" ref="ruleForm" label-width="100px">
+                      <el-form-item label="IC卡序列号:" prop="seriesnumber" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-input v-model="ruleForm.seriesnumber" placeholder=""></el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item class="dialog-footer">
+                        <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                          <el-button @click="resetForm('ruleForm')">重置</el-button>
+                          <el-button type="primary" @click="submitForm('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                        </el-col>
+                      </el-form-item>
+                    </el-form>
+                  </el-dialog>
+                </template>
               </div>
               <div class="border"></div>
               <div class="right-span">
@@ -65,12 +86,14 @@ import { requestLogin } from "@/api/api";
 import Change from "@/components/change";
 export default {
   name: "membershiphome",
+  inject: ["reload"],
   components: {
     Change
   },
   data() {
     return {
       dialogFormVisible: false,
+      dialogFormVisible2: false,
       Potential: {
         potential: "setDesignateMember",
         id: this.$route.query.HYID,
@@ -80,7 +103,11 @@ export default {
       YGXX_NAME: "",
       HYName: "",
       HYID: "",
-      MotoTel: ""
+      MotoTel: "",
+      ruleForm: {
+        seriesnumber: ""
+      },
+      formLabelWidth: "130px"
     };
   },
   created() {
@@ -93,12 +120,54 @@ export default {
     this.MotoTel = this.$route.query.MotoTel;
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            requestLogin(
+              "/setDesignateMember/supplementSerialNumber/" +
+                this.$route.query.HYID +
+                "/" +
+                this.ruleForm.seriesnumber,
+              {},
+              "get"
+            )
+              .then(data => {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.reload();
+                this.dialogFormVisible2 = false;
+                this.resetForm(formName);
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.ruleForm.seriesnumber = "";
+    },
     //获取个人中心详情
     getexperhome() {
       let _this = this;
       requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
+          _this.ruleForm.seriesnumber=res.membership_card[0].serialNumber;
         })
         .catch(error => {
           if (error.res) {
@@ -112,6 +181,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "../styles/dialog.scss";
+</style>
 <style lang="scss" scoped>
 .practice-main {
   height: 140px;

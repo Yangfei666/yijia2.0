@@ -17,7 +17,7 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.tel" placeholder="请输入11位手机号码"></el-input>
+          <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -41,7 +41,7 @@
       </el-form-item>
       <el-form-item label="金额:" prop="prices" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="this.tkPrice" placeholder="请输入金额"></el-input>
+          <el-input v-model="ruleForm.prices" placeholder="请输入金额"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -93,7 +93,7 @@ export default {
         wechat: "", //微信
         adviser: "", //会籍顾问
         type: [], //体验券
-        tkPrice:"", //金额
+        prices:"", //金额
         mode: "", //付款方式
         desc: "" //员工简介
       },
@@ -104,6 +104,7 @@ export default {
         adviser: validate.adviser,
         type: validate.type,
         mode: validate.mode,
+        prices:validate.price
       },
       staff_info: [],
       tkName: [],
@@ -172,7 +173,7 @@ export default {
               exHjgwName: _this.YGXX_NAME, //会籍顾问姓名
               vid: _this.ruleForm.type, //体验券id
               mode: _this.ruleForm.mode, //付款方式
-              price: _this.tkPrice, //价格
+              price: _this.ruleForm.prices, //价格
               identity: _this.tiyanqufen.tiyanqufen, //转换客户的身份
               oldId: _this.tiyanqufen.id //原客户类别的id
             };
@@ -217,7 +218,7 @@ export default {
       obj2 = this.tkName.find(item=>{
         return item.id ===val;
       });
-      this.tkPrice = obj2.tkPrice;
+      this.ruleForm.prices = obj2.tkPrice;
     }
   }
 };

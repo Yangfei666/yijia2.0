@@ -17,7 +17,7 @@
             </el-form-item>
              <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="ruleForm.tel" placeholder="请输入11位手机号码"></el-input>
+                <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">

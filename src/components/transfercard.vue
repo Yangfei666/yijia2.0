@@ -22,7 +22,7 @@
                   </el-form-item>
                   <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-input v-model="ruleForm.phone" placeholder="请输入11位手机号码"></el-input>
+                      <el-input v-model="ruleForm.phone" maxlength="11" placeholder="请输入11位手机号码"></el-input>
                     </el-col>
                   </el-form-item>
                   <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -45,7 +45,7 @@
                   </el-form-item>
                   <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-input v-model="ruleForm.catenumber" placeholder="请输入18位身份证号码/护照均可"></el-input>
+                      <el-input v-model="ruleForm.catenumber" maxlength="18" placeholder="请输入18位身份证号码/护照均可"></el-input>
                     </el-col>
                   </el-form-item>
                   <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
@@ -72,7 +72,7 @@
                   </el-form-item>
                   <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-input v-model="ruleForm.contacttel" placeholder="请输入11位手机号码"></el-input>
+                      <el-input v-model="ruleForm.contacttel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
                     </el-col>
                   </el-form-item>
                   <el-form-item class="dialog-footer">

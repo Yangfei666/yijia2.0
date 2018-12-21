@@ -49,6 +49,13 @@
                       </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
+                      <el-col :span="24">
+                        <el-form-item label="IC卡序列号：" prop="seriesnumber">
+                          <el-input v-model="ruleForm.seriesnumber" placeholder="请输入" maxlength="30" style="width:100%"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-col>
+                    <el-col :span="20" class="from-date">
                       <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -95,7 +102,8 @@ export default {
       membership_card: "",
       ruleForm: {
         card: "",
-        confirmcard: ""
+        confirmcard: "",
+        seriesnumber: ""
       },
       rules: {
         card: [{ validator: validatecard, trigger: "blur" }],
@@ -148,7 +156,9 @@ export default {
             "/setDesignateMember/SupplementCard/" +
               this.$route.query.HYID +
               "/" +
-              this.ruleForm.card,
+              this.ruleForm.card +
+              "/" +
+              this.ruleForm.seriesnumber,
             {},
             "get"
           )

@@ -22,7 +22,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="money" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="this.CTjg" placeholder="0-100000元之间"></el-input>
+                  <el-input v-model="ruleForm.money" placeholder="0-100000元之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="payment" :label-width="formLabelWidth">
@@ -121,7 +121,8 @@ export default {
         payment: validate.mode,
         start: validate.start,
         activate: validate.sensitize,
-        become: validate.become
+        become: validate.become,
+        money:validate.price
       }
     };
   },
@@ -139,9 +140,9 @@ export default {
         .then(function(res) {
           _this.clubs = res.membership_card;
           _this.membershipcard = _this.clubs[0];
-          var membership_card = res.membership_card;
-          for (var i = 0; i < membership_card.length; i++) {
-            var voucher = { id: "", CTName: "", name: "" };
+          let membership_card = res.membership_card;
+          for (let i = 0; i < membership_card.length; i++) {
+            let voucher = { id: "", CTName: "", name: "" };
             voucher.id = membership_card[i].id;
             voucher.CTName = membership_card[i].card_type.CTName;
             voucher.name = voucher.CTName + voucher.id;
@@ -204,7 +205,7 @@ export default {
               id: _this.$route.query.HYID, //会员id
               CTID: _this.ruleForm.cardname, //会员卡id
               mode: _this.ruleForm.payment, //付款方式
-              money: _this.CTjg, //价格
+              money: _this.ruleForm.money, //价格
               eTime: _this.ruleForm.attenddate, //自定义到期时间
               bool: _this.ruleForm.start, //是否立即启用
               delay: _this.ruleForm.activate //激活时间选择
@@ -243,7 +244,7 @@ export default {
       obj2 = this.selfCard.find(item => {
         return item.CTID === val;
       });
-      this.CTjg = obj2.CTjg;
+      this.ruleForm.money = obj2.CTjg;
     },
     Selectchange2(val) {},
     Selectchange3(val) {},
