@@ -106,8 +106,10 @@ export default {
         seriesnumber: ""
       },
       rules: {
-        card: [{ validator: validatecard, trigger: "blur" }],
-        confirmcard: [{ validator: validateconfirmcard, trigger: "blur" }]
+        card: [{ required: true, validator: validatecard, trigger: "blur" }],
+        confirmcard: [
+          { required: true, validator: validateconfirmcard, trigger: "blur" }
+        ]
       }
     };
   },
@@ -145,20 +147,26 @@ export default {
     },
     //补卡
     submitForm(formName) {
-      if (this.ruleForm.confirmcard !== this.ruleForm.card) {
+      if (this.ruleForm.confirmcard == "" || this.ruleForm.card == "") {
+        this.$message({
+          message: "请先输入卡号",
+          type: "error"
+        });
+      } else if (this.ruleForm.confirmcard !== this.ruleForm.card) {
         this.$message({
           message: "两次输入卡号不一致",
           type: "error"
         });
       } else {
         this.$confirm("确认提交吗？", "提示").then(() => {
+          let aa = this.ruleForm.seriesnumber == '' ? '12345678' : this.ruleForm.seriesnumber;
           requestLogin(
             "/setDesignateMember/SupplementCard/" +
               this.$route.query.HYID +
               "/" +
               this.ruleForm.card +
               "/" +
-              this.ruleForm.seriesnumber,
+              aa,
             {},
             "get"
           )

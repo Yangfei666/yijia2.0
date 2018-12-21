@@ -271,6 +271,8 @@ export default {
         this.$alert("该客户还未付款,确定要进场吗?", "提示消息", {
           confirmButtonText: "确定",
           callback: action => {
+            this.enterTitle = (this.activeName == "league" ? "团课" : "私教") + str + "进场";
+            this.userId = id;
             this.dialogFormVisible = true;
           }
         });
