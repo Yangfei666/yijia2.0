@@ -23,7 +23,7 @@
           </el-col>
           <el-col :span="12">
             <div class="userinfo-inner">
-              <img :src="user.Photo" />
+              <div style="margin-right:25px;margin-top:10px"><img :src="user.Photo" /></div>
               <span class="name">{{user.YGXX_NAME}}</span>
               <span class="tuichu">
                 <el-dropdown trigger="click">

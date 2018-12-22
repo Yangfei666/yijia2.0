@@ -628,10 +628,9 @@ export default {
       }
     }
   }
-  /deep/ .main-list {
+ .main-list {
     width: 97%;
     margin: 20px auto;
-    height: 100%;
     background-color: #ffffff;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
     border-radius: 4px;
@@ -719,7 +718,6 @@ export default {
   }
   .nav-list {
     width: 97%;
-    height: 100%;
     background-color: #ffffff;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
     border-radius: 4px;

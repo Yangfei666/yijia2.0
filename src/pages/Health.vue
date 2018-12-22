@@ -369,7 +369,6 @@ export default {
   .health-main {
     width: 90%;
     margin: 3% auto;
-    height: 100%;
     display: flow-root;
     border-radius: 5px;
     background: #f7fffc;
