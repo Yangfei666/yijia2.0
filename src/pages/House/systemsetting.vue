@@ -106,7 +106,7 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                 <el-col :span="12" class="from-date">
+                                <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端团课提前预约时间(分钟)：" prop="apiLeagueTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.apiLeagueTime" style="width:250px" placeholder="默认120分钟"></el-input>
@@ -293,6 +293,16 @@
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
+                                <el-col :span="12" class="from-date3">
+                                    <el-form-item label="本会所是否使用IC卡：" prop="isICCard" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.isICCard" @change="chanegtext">
+                                                <el-radio :label="2">否</el-radio>
+                                                <el-radio :label="1">是</el-radio>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
                             </el-col>
                         </el-col>
                     </div>
@@ -349,7 +359,8 @@ export default {
         cancelNum2: "", //教练信用2级
         cancelNum3: "", //教练信用3级
         cancelNum4: "", //教练信用4级
-        cancelNum5: "" //教练信用5级
+        cancelNum5: "", //教练信用5级
+        isICCard: "" //是否开启IC卡
       }
     };
   },
@@ -413,7 +424,8 @@ export default {
           cancelNum2: this.ruleForm.cancelNum2, //教练信用2级
           cancelNum3: this.ruleForm.cancelNum3, //教练信用3级
           cancelNum4: this.ruleForm.cancelNum4, //教练信用4级
-          cancelNum5: this.ruleForm.cancelNum5 //教练信用5级
+          cancelNum5: this.ruleForm.cancelNum5, //教练信用5级
+          isICCard: this.ruleForm.isICCard //是否开启IC卡
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {

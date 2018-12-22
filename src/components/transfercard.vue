@@ -13,7 +13,7 @@
             </div>
             <template>
               <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
-                <!--添加新会员-->
+                <!--转卡给新客户-->
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                   <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
                     <el-col :span="22">
@@ -106,12 +106,33 @@
               <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
               <el-table-column fixed="right" align="left" label="操作">
                 <template slot-scope="scope">
-                  <el-button @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
+                  <el-button @click="deleteRow(scope.$index)" type="text" size="small">
                     转卡
                   </el-button>
                 </template>
               </el-table-column>
             </el-table>
+            <el-dialog title="添加新卡号" :append-to-body="true" :visible.sync="dialogFormVisible2">
+              <!--添加新卡号-->
+              <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px">
+                <el-form-item label="卡号：" prop="card">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm2.card" placeholder="请输入" style="width:100%"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="IC卡序列号：" prop="seriesnumber">
+                  <el-col :span="22">
+                    <el-input v-model="ruleForm2.seriesnumber" placeholder="请输入" maxlength="30" style="width:100%"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item class="dialog-footer">
+                  <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                    <el-button @click="resetForm2('ruleForm2')">重置</el-button>
+                    <el-button type="primary" @click="submitForm2('ruleForm2')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+            </el-dialog>
           </div>
         </el-col>
       </div>
@@ -149,12 +170,20 @@ export default {
         sex: validate.sex,
         phone: validate.phone,
         adviser: validate.adviser
-        // catenumber: validate.idnumber
+      },
+      ruleForm2: {
+        card: "",
+        seriesnumber: ""
+      },
+      rules2: {
+        card: [{ required: true, message: "请输入卡号", trigger: "blur" }]
       },
       formLabelWidth: "130px",
       tableData4: [],
       staff_info: [],
+      membership_card: [],
       dialogFormVisible: false,
+      dialogFormVisible2: false,
       hyinfo: {}
     };
   },
@@ -227,8 +256,59 @@ export default {
         }
       });
     },
+    //添加新卡号
+    submitForm2(formName) {
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            let loginParams = {
+              id: _this.pathquery.CARD.id, //会员卡id
+              oldId: _this.$route.query.HYID, //原会员id
+              oldName: _this.$route.query.HYName, //原会员姓名
+              newId: _this.hyinfo.HYID, //新会员id
+              newName: _this.hyinfo.HYName, //新会员姓名
+              cardNo: _this.ruleForm2.card == "" ? "" : _this.ruleForm2.card, //卡号
+              serialNumber:
+                _this.ruleForm2.seriesnumber == ""
+                  ? "12345678"
+                  : _this.ruleForm2.seriesnumber //IC卡序列号
+            };
+            requestLogin(
+              "/setDesignateMember/transferCard",
+              loginParams,
+              "post"
+            )
+              .then(data => {
+                this.$message({
+                  message: "转卡成功",
+                  type: "success"
+                });
+                _this.$router.push(
+                  "/Customer/leaguer/leaguermanage/leaguermanagetable"
+                );
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
     textinput(val) {},
     resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    resetForm2(formName) {
       this.$refs[formName].resetFields();
     },
     Selectchange2(val) {},
@@ -236,33 +316,39 @@ export default {
     //转卡
     deleteRow(index) {
       let _this = this;
-      this.$confirm("确认提交吗？", "提示").then(() => {
-        let loginParams = {
-          id: _this.pathquery.CARD.id, //会员卡id
-          oldId: _this.$route.query.HYID, //原会员id
-          oldName: _this.$route.query.HYName, //原会员姓名
-          newId: _this.hyinfo.HYID, //新会员id
-          newName: _this.hyinfo.HYName //新会员姓名
-        };
-        requestLogin("/setDesignateMember/transferCard", loginParams, "post")
-          .then(data => {
-            this.$message({
-              message: "转卡成功",
-              type: "success"
-            });
-            _this.$router.push('/Customer/leaguer/leaguermanage/leaguermanagetable')
-          })
-          .catch(error => {
-            let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
+      if (_this.membership_card == "") {
+        _this.dialogFormVisible2 = true;
+      } else {
+        this.$confirm("确认提交吗？", "提示").then(() => {
+          let loginParams = {
+            id: _this.pathquery.CARD.id, //会员卡id
+            oldId: _this.$route.query.HYID, //原会员id
+            oldName: _this.$route.query.HYName, //原会员姓名
+            newId: _this.hyinfo.HYID, //新会员id
+            newName: _this.hyinfo.HYName //新会员姓名
+          };
+          requestLogin("/setDesignateMember/transferCard", loginParams, "post")
+            .then(data => {
               this.$message({
-                message: msg,
-                type: "error"
+                message: "转卡成功",
+                type: "success"
               });
-              return;
-            }
-          });
-      });
+              _this.$router.push(
+                "/Customer/leaguer/leaguermanage/leaguermanagetable"
+              );
+            })
+            .catch(error => {
+              let { response: { data: { errorCode, msg } } } = error;
+              if (errorCode != 0) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+                return;
+              }
+            });
+        });
+      }
     },
     //查询
     onSubmit() {
@@ -273,15 +359,17 @@ export default {
       };
       requestLogin("/getSearchName", loginParams, "post")
         .then(function(res) {
-          if(res == null){
-            alert('没有查到该客户,请检查输入是否有误！');
+          if (res == null) {
+            alert("没有查到该客户,请检查输入是否有误！");
             _this.tableData4 = [];
-          }else{
+          } else {
             _this.tableData4 = [];
             res.CardNO = _this.pathquery.CARD.CardNO;
             res.CTName = _this.pathquery.CARD.card_type.CTName;
             _this.hyinfo = res;
             _this.tableData4.push(res);
+            let { membership_card } = res;
+            _this.membership_card = membership_card;
           }
         })
         .catch(error => {
