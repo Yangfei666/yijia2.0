@@ -72,13 +72,13 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用{{(membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>已使用{{((membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum).toFixed(2)*100}}%</span>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>已使用{{(membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg*100}}%</span>
+              <span>已使用{{((membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg).toFixed(2)*100}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
@@ -94,13 +94,13 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余{{this.membershipcards.SYCS/membershipcards.card_type.Ctnum*100}}%</span>
+              <span>剩余{{(this.membershipcards.SYCS/membershipcards.card_type.Ctnum).toFixed(2)*100}}%</span>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余{{membershipcards.SYJE/membershipcards.card_type.CTjg*100}}%</span>
+              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(3)*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>

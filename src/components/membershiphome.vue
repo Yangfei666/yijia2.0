@@ -124,11 +124,15 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            let aa =
+              this.ruleForm.seriesnumber == ""
+                ? "12345678"
+                : this.ruleForm.seriesnumber;
             requestLogin(
               "/setDesignateMember/supplementSerialNumber/" +
                 this.$route.query.HYID +
                 "/" +
-                this.ruleForm.seriesnumber,
+                aa,
               {},
               "get"
             )
@@ -167,7 +171,7 @@ export default {
       requestLogin("/setMemberCustomers/" + this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.club = res;
-          _this.ruleForm.seriesnumber=res.membership_card[0].serialNumber;
+          _this.ruleForm.seriesnumber = res.membership_card[0].serialNumber;
         })
         .catch(error => {
           if (error.res) {
