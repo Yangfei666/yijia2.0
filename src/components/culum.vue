@@ -137,11 +137,11 @@ export default {
       recPoint.rightLength = this.recPointLength({point:recPoint.rightLength,node,type:'nextSibling'})
       return Object.assign({},recPoint)
     },
-    justTimeDurtion({time,noNullTime,allowLength, arrow='right'}={}){
+    justTimeDurtion({startTime,endTime,allowLength, arrow='right'}={}){
       let durtionLength = 0
       {
-        let [startHard,startTail] = noNullTime.split(':')
-        let [endHard,endTail] = time.split(':')
+        let [startHard,startTail] = startTime.split(':')
+        let [endHard,endTail] = endTime.split(':')
         let hourLength = Math.abs(endHard - startHard) * 2
         if(startTail === endTail){
           durtionLength = hourLength
@@ -191,7 +191,7 @@ export default {
           let noNullTime = this.endTime == "" ? this.startTime : this.endTime;
           if (this.CompareDate(time, noNullTime)) {
 
-            let result = this.justTimeDurtion({time,noNullTime,allowLength:maxDurtionLength.rightLength})
+            let result = this.justTimeDurtion({endTime:time,startTime:noNullTime,allowLength:maxDurtionLength.rightLength})
             if(!result) return;
             // 比有值的时间大
             let minTime = time.substring(0, 2) - 2 + time.substring(2);
@@ -218,7 +218,7 @@ export default {
             }
           } else {
 
-            let result = this.justTimeDurtion({time,noNullTime,allowLength:maxDurtionLength.leftLength, arrow:'left'})
+            let result = this.justTimeDurtion({endTime:time,startTime:noNullTime,allowLength:maxDurtionLength.leftLength, arrow:'left'})
             if(!result) return;
             // 比有值的时间小
             let minTime =
@@ -250,6 +250,8 @@ export default {
         } else {
           // 第三个时间按钮
           if (this.CompareDate(time, this.endTime)) {
+            let result = this.justTimeDurtion({startTime:this.startTime,endTime:time,allowLength:maxDurtionLength.rightLength, arrow:'right'})
+            if(!result) return;
             // 比结束时间大
             let minTime = time.substring(0, 2) - 2 + time.substring(2);
             let maxTime = time.substring(0, 2) - 1 + time.substring(2);
@@ -257,6 +259,7 @@ export default {
               this.CompareDate(this.startTime, minTime) &&
               this.CompareDate(maxTime, this.startTime)
             ) {
+              this.lastClick= this.timeDisableClickLength({event})
               //默认增加时长
               this.endTime = time;
               this.middleButtonStyle(null);
@@ -265,6 +268,8 @@ export default {
               return false;
             }
           } else if (this.CompareDate(this.startTime, time)) {
+            let result = this.justTimeDurtion({startTime:time ,endTime:this.endTime,allowLength:maxDurtionLength.leftLength, arrow:'left'})
+            if(!result) return;
             // 比开始时间小
             let minTime =
               parseInt(time.substring(0, 2)) + 1 + time.substring(2);
@@ -274,6 +279,7 @@ export default {
               this.CompareDate(this.endTime, minTime) &&
               this.CompareDate(maxTime, this.endTime)
             ) {
+              this.firstClick= this.timeDisableClickLength({event})
               //默认增加时长
               this.startTime = time;
               this.middleButtonStyle(null);
