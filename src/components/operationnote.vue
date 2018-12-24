@@ -224,7 +224,7 @@
                                             <span>{{item.yuanyin}}</span>
                                         </div>
                                     </div>
-                                    <div class="foot">
+                                    <div class="foo">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
                                     </div>
@@ -247,7 +247,7 @@
                             </el-card>
                         </el-col>
                         <!-- 启用 -->
-                        <el-col :span="4" class="box-ul" v-for="(item, index) in EnabledDisableRecord" :key='index+800'>
+                        <el-col :span="4" class="box-ul" v-for="(item, index) in RecordEnabledDisable" :key='index+800'>
                             <el-card shadow="always" v-if="item.enabledTime != null">
                                 <div class="always-main">
                                     <span class="always-span">{{item.enabledTime}}</span>
@@ -260,7 +260,7 @@
                                             <span>{{item.rereason}}</span>
                                         </div>
                                     </div>
-                                    <div class="foot">
+                                    <div class="footsss">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.rename}}</div>
                                     </div>
@@ -268,7 +268,7 @@
                             </el-card>
                         </el-col>
                         <!-- 禁用 -->
-                        <el-col :span="4" class="box-ul" v-for="(item, index) in EnabledDisableRecord" :key='index+850'>
+                        <el-col :span="4" class="box-ul" v-for="(item, index) in RecordEnabledDisable" :key='index+850'>
                             <el-card shadow="always">
                                 <div class="always-main">
                                     <span class="always-span">{{item.disabledTime}}</span>
@@ -281,7 +281,7 @@
                                             <span>{{item.reason}}</span>
                                         </div>
                                     </div>
-                                    <div class="foot">
+                                    <div class="footsss">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.name}}</div>
                                     </div>
@@ -340,7 +340,7 @@ export default {
       RecordUpgrade: [], //升级
       RecordChange: [], //变更有效期/金额/次数
       RecordReplaceAdviser: [], //变更会籍顾问
-      EnabledDisableRecord: [], //启用/禁用
+      RecordEnabledDisable: [], //启用/禁用
       RecordPunishment: [], //惩罚
       RecordLeave: [] //请假/销假
     };
@@ -377,7 +377,7 @@ export default {
               item.show3 = false;
               item.btnText3 = '展开';
           }
-          _this.EnabledDisableRecord = data.EnabledDisableRecord; //启用/禁用
+          _this.RecordEnabledDisable = data.RecordEnabledDisable; //启用/禁用
           _this.RecordPunishment = data.RecordPunishment; //惩罚
           _this.RecordLeave = data.RecordLeave; //请假  
         })
@@ -581,7 +581,7 @@ export default {
           font-size: 14px;
         }
         .foot {
-          margin-top: 30px;
+          margin-top: 10px;
           line-height: 25px;
           .foot1 {
             font-size: 14px;
@@ -606,6 +606,30 @@ export default {
         }
         .fo {
           margin-top: 90px;
+          line-height: 25px;
+          .foot1 {
+            font-size: 14px;
+            color: #eca110;
+          }
+          .foot2 {
+            font-size: 20px;
+            color: #262626;
+          }
+        }
+        .foo {
+          margin-top: 30px;
+          line-height: 25px;
+          .foot1 {
+            font-size: 14px;
+            color: #eca110;
+          }
+          .foot2 {
+            font-size: 20px;
+            color: #262626;
+          }
+        }
+        .footsss {
+          margin-top: 55px;
           line-height: 25px;
           .foot1 {
             font-size: 14px;
