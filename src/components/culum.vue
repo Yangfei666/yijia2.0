@@ -49,6 +49,7 @@
 </template>
 <script>
 import Personal from "@/components/personal";
+const MAXLENGTH = 4  // 最大可点击长度
 export default {
   name: "culum",
   inject: ["reload"],
@@ -73,7 +74,9 @@ export default {
       dialogFormVisible: false,
       startTime: "",
       endTime: "",
-      classroom: ""
+      classroom: "",
+      firstClick: 0,
+      lastClick: 0,
     };
   },
   computed: {
@@ -108,6 +111,60 @@ export default {
         });
       }
     },
+    recPointLength({point, node, type}={}){
+      for(let i = 0; i<=MAXLENGTH;i++){
+        if(!node) {
+          point = --i
+          break;
+        }
+        let nextTimeStyle = node.firstChild.getAttribute("class")
+        if(nextTimeStyle === 'wer-div3'){
+          point = --i
+          break;
+        }
+        node = node[type]
+        point = i
+      }
+     return point
+    },
+    timeDisableClickLength({event} = {}){
+      let node = event.currentTarget.parentNode
+      let recPoint = {
+        leftLength: 0,
+        rightLength:0,
+      }
+      recPoint.leftLength = this.recPointLength({point:recPoint.leftLength,node,type:'previousSibling'})
+      recPoint.rightLength = this.recPointLength({point:recPoint.rightLength,node,type:'nextSibling'})
+      return Object.assign({},recPoint)
+    },
+    justTimeDurtion({startTime,endTime,allowLength, arrow='right'}={}){
+      let durtionLength = 0
+      {
+        let [startHard,startTail] = startTime.split(':')
+        let [endHard,endTail] = endTime.split(':')
+        let hourLength = Math.abs(endHard - startHard) * 2
+        if(startTail === endTail){
+          durtionLength = hourLength
+        }else{
+          if(arrow === 'right'){
+           durtionLength = startTail - endTail > 0 ? hourLength -1 : hourLength + 1
+          }else{
+            durtionLength = startTail - endTail > 0 ? hourLength +1 : hourLength -1
+          }
+        }
+      }
+      if(durtionLength <= allowLength){
+        return true;
+      }else if(durtionLength - MAXLENGTH <= 0){
+        this.$message({
+          message: "当前时间段教练已有安排~",
+          type: "error"
+        });
+        return false;
+      }else{
+        return true;
+      }
+    },
     // 点击时间按钮
     clickTimeButtom(time, classroom, event) {
       if (event.currentTarget.getAttribute("class") == "wer-div3") {
@@ -119,11 +176,13 @@ export default {
         this.$message({ message: "请选择同一个教室的时间", type: "error" });
         return false;
       } else if (classStyle == "wer-div2") {
+        let maxDurtionLength = this.firstClick
         //说明是添加选择
         if (this.startTime == "" && this.endTime == "") {
           //默认先给开始时间
           this.startTime = time;
           this.classroom = classroom;
+          this.firstClick = this.timeDisableClickLength({event})
         } else if (
           (this.endTime == "" && this.startTime != "") ||
           (this.endTime != "" && this.startTime == "")
@@ -131,6 +190,9 @@ export default {
           //第二个时间按钮
           let noNullTime = this.endTime == "" ? this.startTime : this.endTime;
           if (this.CompareDate(time, noNullTime)) {
+
+            let result = this.justTimeDurtion({endTime:time,startTime:noNullTime,allowLength:maxDurtionLength.rightLength})
+            if(!result) return;
             // 比有值的时间大
             let minTime = time.substring(0, 2) - 2 + time.substring(2);
             let maxTime = time.substring(0, 2) - 1 + time.substring(2);
@@ -138,6 +200,7 @@ export default {
               this.CompareDate(noNullTime, minTime) &&
               this.CompareDate(maxTime, noNullTime)
             ) {
+              this.lastClick= this.timeDisableClickLength({event})
               //1-2小时
               if (this.endTime == "") {
                 this.endTime = time;
@@ -154,6 +217,9 @@ export default {
               return false;
             }
           } else {
+
+            let result = this.justTimeDurtion({endTime:time,startTime:noNullTime,allowLength:maxDurtionLength.leftLength, arrow:'left'})
+            if(!result) return;
             // 比有值的时间小
             let minTime =
               parseInt(time.substring(0, 2)) + 1 + time.substring(2);
@@ -163,6 +229,8 @@ export default {
               this.CompareDate(noNullTime, minTime) &&
               this.CompareDate(maxTime, noNullTime)
             ) {
+              this.lastClick = {...this.firstClick}
+              this.firstClick= this.timeDisableClickLength({event})
               //1-2小时
               if (this.endTime == "") {
                 this.endTime = this.startTime;
@@ -182,6 +250,8 @@ export default {
         } else {
           // 第三个时间按钮
           if (this.CompareDate(time, this.endTime)) {
+            let result = this.justTimeDurtion({startTime:this.startTime,endTime:time,allowLength:maxDurtionLength.rightLength, arrow:'right'})
+            if(!result) return;
             // 比结束时间大
             let minTime = time.substring(0, 2) - 2 + time.substring(2);
             let maxTime = time.substring(0, 2) - 1 + time.substring(2);
@@ -189,6 +259,7 @@ export default {
               this.CompareDate(this.startTime, minTime) &&
               this.CompareDate(maxTime, this.startTime)
             ) {
+              this.lastClick= this.timeDisableClickLength({event})
               //默认增加时长
               this.endTime = time;
               this.middleButtonStyle(null);
@@ -197,6 +268,8 @@ export default {
               return false;
             }
           } else if (this.CompareDate(this.startTime, time)) {
+            let result = this.justTimeDurtion({startTime:time ,endTime:this.endTime,allowLength:maxDurtionLength.leftLength, arrow:'left'})
+            if(!result) return;
             // 比开始时间小
             let minTime =
               parseInt(time.substring(0, 2)) + 1 + time.substring(2);
@@ -206,6 +279,7 @@ export default {
               this.CompareDate(this.endTime, minTime) &&
               this.CompareDate(maxTime, this.endTime)
             ) {
+              this.firstClick= this.timeDisableClickLength({event})
               //默认增加时长
               this.startTime = time;
               this.middleButtonStyle(null);
@@ -221,6 +295,7 @@ export default {
           //取消的是开始时间
           this.middleButtonStyle("");
           this.startTime = "";
+          this.firstClick = Object.assign({},this.lastClick)
           if (this.endTime == "") {
             this.classroom = "";
           }

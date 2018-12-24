@@ -268,7 +268,7 @@ export default {
             });
             this.reload();
           })
-          .catch(() => {
+          .catch((error) => {
             let { response: { data: { errorCode, msg } } } = error;
             if (errorCode != 0) {
               this.$message({
