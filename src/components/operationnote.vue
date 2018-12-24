@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="yuan-main3">
                                         <div class="yuan">请假时段:
-                                            <span>{{item.qjsTime}} ~ {{item.qjeTime}}</span>
+                                            <span>{{item.qjsTime}}~{{item.qjeTime}}</span>
                                         </div>
                                         <div class="yuan">原因:
                                             <span>{{item.yuanyin}}</span>
