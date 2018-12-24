@@ -457,7 +457,7 @@
         }
       }
 }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
     .practice-table {
         width: 98%;
         height: 100%;
@@ -489,7 +489,7 @@
                 height: 32px;
                 background: #00bc71;
                 border-radius: 4px;
-                font-size: 16px!important;
+                font-size: 14px!important;
                 text-align: center;
                 line-height: 32px;
                 color: #fff;
@@ -499,7 +499,7 @@
                 height: 32px;
                 background: #facc14;
                 border-radius: 4px;
-                font-size: 16px!important;
+                font-size: 14px!important;
                 text-align: center;
                 line-height: 32px;
                 margin-left: 10px;
@@ -609,6 +609,159 @@
         margin-top: 20px;
         }
       }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+  .practice-table {
+      width: 98%;
+      height: 100%;
+      margin: 2% auto;
+      .item-wrap {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: inherit;
+        flex-wrap: wrap;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+      .box-ul {
+        width: 20%;
+        margin-bottom: 10px;
+        .always-main {
+          text-align: left;
+          .always-span {
+            font-size: 18px!important;
+            color: #262626;
+          }
+          .card-main {
+            width: 100%;
+            display: flex;
+            margin-top: 10px;
+            .always-card {
+              width: 56px;
+              height: 32px;
+              background: #00bc71;
+              border-radius: 4px;
+              font-size: 16px!important;
+              text-align: center;
+              line-height: 32px;
+              color: #fff;
+            }
+            .always-cardone {
+              width: 56px;
+              height: 32px;
+              background: #facc14;
+              border-radius: 4px;
+              font-size: 16px!important;
+              text-align: center;
+              line-height: 32px;
+              margin-left: 10px;
+              color: #fff;
+            }
+          }
+          .yuan-main {
+            padding-left: 0px;
+            text-align: left;
+            height: 100%;
+            margin-top: 10px;
+            line-height: 25px;
+            .yuan {
+              color: #8c8c8c;
+              font-size: 16px!important;
+              .right {
+                color: #8c8c8c;
+                font-size: 16px!important;
+                width: 64%;
+              }
+            }
+          }
+          .yuan-main4 {
+            padding-left: 0px;
+            text-align: left;
+            height: 100%;
+            margin-top: 15px;
+            line-height: 35px;
+            .yuan {
+              color: #8c8c8c;
+              font-size: 16px!important;
+              .right {
+                color: #8c8c8c;
+                font-size: 16px!important;
+                width: 64%;
+              }
+            }
+          }
+          .yuan-main3 {
+            padding-left: 0px;
+            text-align: left;
+            height: 100%;
+            margin-top: 10px;
+            line-height: 25px;
+            .yuan {
+              color: #8c8c8c;
+              font-size: 16px!important;
+              .right {
+                color: #8c8c8c;
+                font-size: 16px!important;
+                width: 64%;
+              }
+              .yuan2 {
+                color: #8c8c8c;
+                font-size: 16px!important;
+              }
+            }
+          }
+          .yuan-main2 {
+            padding-left: 0px;
+            text-align: left;
+            height: 100%;
+            margin-top: 10px;
+            line-height: 25px;
+            .yuan {
+              color: #262626;
+              font-size: 16px!important;
+              .yuan2 {
+                color: #262626;
+                font-size: 16px!important;
+              }
+            }
+          }
+          .corry-out {
+            color: #00bc71;
+            font-size: 16px!important;
+          }
+          .foot {
+            margin-top: 30px;
+            line-height: 25px;
+            .foot1 {
+              font-size: 18px!important;
+              color: #eca110;
+            }
+            .foot2 {
+              font-size: 22px!important;
+              color: #262626;
+            }
+          }
+          .footss {
+            margin-top: 10px;
+            line-height: 25px;
+            .foot1 {
+              font-size: 16px!important;
+              color: #eca110;
+            }
+            .foot2 {
+              font-size: 18px!important;
+              color: #262626;
+            }
+          }
+        }
+      }
+      .block{
+          display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      }
+    }
 }
 @media screen and (min-width: 1920px)and (max-width: 2048px){
   .practice-table {

@@ -66,7 +66,6 @@
                                         </div>
                                     </div>
                                     <span class="corry-out" @click="showToggle(index)">{{item.btnText}}</span>
-                                    
                                     <div class="footss">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.CzyName}}</div>
@@ -136,7 +135,7 @@
                                     <div class="card-main">
                                         <div class="always-card">挂失</div>
                                     </div>
-                                    <div class="footss">
+                                    <div class="fo">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
                                     </div>
@@ -151,7 +150,7 @@
                                     <div class="card-main">
                                         <div class="always-card">解挂</div>
                                     </div>
-                                    <div class="footss">
+                                    <div class="fo">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.czyname}}</div>
                                     </div>
@@ -240,7 +239,7 @@
                                     <div class="card-main">
                                         <div class="always-card">销假</div>
                                     </div>
-                                    <div class="foot">
+                                    <div class="fo">
                                         <span class="foot1">操作人</span>
                                         <div class="foot2">{{item.xjrname}}</div>
                                     </div>
@@ -369,7 +368,7 @@ export default {
               item.btnText = '展开';
           }
           _this.RecordChange = data.RecordChange; //变更有效期/金额/次数
-          for(let item of _this.RecordUpgrade){
+          for(let item of _this.RecordChange){
               item.show2 = false;
               item.btnText2 = '展开';
           }
@@ -404,7 +403,7 @@ export default {
       this.$set(this.RecordChange,index,merge);
     },
     showToggle3: function(index) {
-     let copy = this.RecordReplaceAdviser[index];
+      let copy = this.RecordReplaceAdviser[index];
       let changShow = !this.RecordReplaceAdviser[index].show3;
       let merge = Object.assign({},copy,{show3:changShow,btnText3:changShow?'收起':'展开'});
       this.$set(this.RecordReplaceAdviser,index,merge);
@@ -493,7 +492,7 @@ export default {
             height: 32px;
             background: #00bc71;
             border-radius: 4px;
-            font-size: 20px;
+            font-size: 14px;
             text-align: center;
             line-height: 32px;
             color: #fff;
@@ -503,7 +502,7 @@ export default {
             height: 32px;
             background: #facc14;
             border-radius: 4px;
-            font-size: 20px;
+            font-size: 14px;
             text-align: center;
             line-height: 32px;
             margin-left: 10px;
@@ -595,6 +594,18 @@ export default {
         }
         .footss {
           margin-top: 10px;
+          line-height: 25px;
+          .foot1 {
+            font-size: 14px;
+            color: #eca110;
+          }
+          .foot2 {
+            font-size: 20px;
+            color: #262626;
+          }
+        }
+        .fo {
+          margin-top: 90px;
           line-height: 25px;
           .foot1 {
             font-size: 14px;
