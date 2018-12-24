@@ -22,17 +22,17 @@
             <el-col :span="24">
                 <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
                     <el-tab-pane label="会所基本信息" name="first">
-                        <template>
+                        <template v-if="activeName === 'first'">
                          <Clubhousebasic></Clubhousebasic>
                         </template>
                     </el-tab-pane>
                     <el-tab-pane label="会所人员架构" name="second">
-                        <template>
+                        <template v-if="activeName === 'second'">
                             <Personnelstructure></Personnelstructure>
                         </template>
                     </el-tab-pane>
-                    <el-tab-pane label="会所图片" name="cover">
-                        <template>
+                    <el-tab-pane label="会所图片"  name="cover">
+                        <template v-if="activeName === 'cover'">
                             <Covermanagement></Covermanagement>
                         </template>
                     </el-tab-pane>
