@@ -134,6 +134,7 @@
               </el-form>
             </el-dialog>
           </div>
+          <div style="text-align: left; padding-left: 24px; font-size: 14px; color: #666;margin-top:20px;">备注：1,转给老客户请直接搜索老客户姓名&nbsp;&nbsp;2,转给新客户请先添加新客户的基本资料再搜索新客户完成转卡</div>
         </el-col>
       </div>
     </el-row>
@@ -182,6 +183,7 @@ export default {
       tableData4: [],
       staff_info: [],
       membership_card: [],
+      membershipcard: [],
       dialogFormVisible: false,
       dialogFormVisible2: false,
       hyinfo: {}
@@ -189,8 +191,25 @@ export default {
   },
   created() {
     this.getCustomer();
+    this.getexperhome();
   },
   methods: {
+    //获取个人中心详情
+    getexperhome() {
+      let _this = this;
+      requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
+        .then(function(res) {
+          _this.membershipcard = res.membership_card;
+        })
+        .catch(error => {
+          if (error.res) {
+            this.$message({
+              message: "获取数据失败",
+              type: "error"
+            });
+          }
+        });
+    },
     //获取会籍顾问
     getCustomer() {
       let _this = this;
@@ -313,41 +332,54 @@ export default {
     },
     Selectchange2(val) {},
     ChangeSex(val) {},
+    transformCard() {
+      let _this = this;
+      let loginParams = {
+        id: _this.pathquery.CARD.id, //会员卡id
+        oldId: _this.$route.query.HYID, //原会员id
+        oldName: _this.$route.query.HYName, //原会员姓名
+        newId: _this.hyinfo.HYID, //新会员id
+        newName: _this.hyinfo.HYName //新会员姓名
+      };
+      requestLogin("/setDesignateMember/transferCard", loginParams, "post")
+        .then(data => {
+          this.$message({
+            message: "转卡成功",
+            type: "success"
+          });
+          _this.$router.push(
+            "/Customer/leaguer/leaguermanage/leaguermanagetable"
+          );
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     //转卡
     deleteRow(index) {
       let _this = this;
-      if (_this.membership_card == "") {
-        _this.dialogFormVisible2 = true;
+      let oldMemberCard = _this.membershipcard;
+      let newMemberCard = _this.membership_card;
+      if (newMemberCard.length === 0) {
+        if (oldMemberCard.length >= 1) {
+          _this.dialogFormVisible2 = true;
+        }
       } else {
-        this.$confirm("确认提交吗？", "提示").then(() => {
-          let loginParams = {
-            id: _this.pathquery.CARD.id, //会员卡id
-            oldId: _this.$route.query.HYID, //原会员id
-            oldName: _this.$route.query.HYName, //原会员姓名
-            newId: _this.hyinfo.HYID, //新会员id
-            newName: _this.hyinfo.HYName //新会员姓名
-          };
-          requestLogin("/setDesignateMember/transferCard", loginParams, "post")
-            .then(data => {
-              this.$message({
-                message: "转卡成功",
-                type: "success"
-              });
-              _this.$router.push(
-                "/Customer/leaguer/leaguermanage/leaguermanagetable"
-              );
-            })
-            .catch(error => {
-              let { response: { data: { errorCode, msg } } } = error;
-              if (errorCode != 0) {
-                this.$message({
-                  message: msg,
-                  type: "error"
-                });
-                return;
-              }
-            });
-        });
+        if (oldMemberCard.length === 1) {
+          _this.dialogFormVisible2 = true;
+        } else {
+          _this.dialogFormVisible2 = false;
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            _this.transformCard();
+          });
+        }
       }
     },
     //查询
