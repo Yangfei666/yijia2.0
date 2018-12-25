@@ -388,7 +388,7 @@ export default {
             fontSize: "24px"
           },
           top: "2%",
-          left: "1%"
+          left: "0%"
         },
         tooltip: {
           trigger: "axis",

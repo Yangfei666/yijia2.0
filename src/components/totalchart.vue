@@ -380,7 +380,7 @@ export default {
             fontSize: "24px"
           },
           top: "2%",
-          left: "1%"
+          left: "0%"
         },
         tooltip: {
           trigger: "axis",
@@ -393,7 +393,7 @@ export default {
           data: ach_adviser,
           top: "1%",
           width:"90%",
-          right: "1%",
+          right: "0%",
         },
         grid: {
           left: "1%",

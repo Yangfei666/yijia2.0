@@ -430,7 +430,7 @@ export default {
             fontSize: "20px"
           },
           top: "2%",
-          left: "1%"
+          left: "0%"
         },
         tooltip: {
           trigger: "axis",
