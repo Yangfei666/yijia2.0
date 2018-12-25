@@ -40,7 +40,7 @@
                 <el-button type="text" class="add-p link" @click="dialogFormVisible2 = true">IC卡序列号</el-button>
                 <template>
                   <el-dialog title="IC卡序列号" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                    <el-form :model="ruleForm" ref="ruleForm" label-width="100px">
+                    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" @submit.native.prevent>
                       <el-form-item label="IC卡序列号:" prop="seriesnumber" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-input v-model="ruleForm.seriesnumber" placeholder=""></el-input>
