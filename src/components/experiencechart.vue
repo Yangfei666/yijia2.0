@@ -15,14 +15,14 @@
     <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
-          <div id="myChart33" :style="{width: '100%', height: '410px'}"></div>
+          <div id="myChart33" :style="{width: '100%', height: '430px'}"></div>
         </el-col>
       </div>
     </el-col>
     <el-col v-show="dataDate.length <= 7" :span="24">
-      <div class="Performancechange">
+      <div class="Performancechange2">
         <el-col :span="24" class="charts">
-          <div id="myChart44" :style="{width: '100%', height: '410px'}"></div>
+          <div id="myChart44" :style="{width: '100%', height: '450px'}"></div>
         </el-col>
       </div>
     </el-col>
@@ -100,6 +100,7 @@ export default {
       let option11 = {
         title: {
           text: "私教团课体验客户占比图",
+          subtext: '2018-12 体验总人数20',
           x: "left",
           textStyle: {
             color: "#595959",
@@ -186,13 +187,14 @@ export default {
       let option22 = {
         title: {
           text: "员工开发体验客户占比图",
+          subtext: '2018-12 体验总人数20',
           x: "left",
           textStyle: {
             color: "#595959",
             fontSize: "34px"
           },
           top: "2%",
-          left: "4%"
+          left: "25%"
         },
         tooltip: {
           trigger: "item",
@@ -203,7 +205,7 @@ export default {
           data: exp_adviser,
           orient: "vertical",
           right: 10,
-          top: 40,
+          top: 10,
           bottom: 10
         },
         series: [
@@ -275,11 +277,12 @@ export default {
       myChart33.setOption({
         title: {
           text: "团课/私教体验客户变化折线图",
+          subtext: '2018-12 体验总人数20',
           textStyle: {
             color: "#595959",
             fontSize: "20px"
           },
-          top: "4%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
@@ -296,7 +299,7 @@ export default {
           left: "1%",
           right: "2%",
           bottom: "3%",
-          top: "14%",
+          top: "20%",
           containLabel: true
         },
         toolbox: {
@@ -310,6 +313,7 @@ export default {
           data: this.detailXAxis()
         },
         yAxis: {
+          name : '人数',
           type: "value"
         },
         series: this.detailLineData(exp_timeAchievement)
@@ -369,11 +373,12 @@ export default {
       myChart44.setOption({
         title: {
           text: "员工开发体验客户柱状图",
+          subtext: '2018-12 体验总人数30',
           textStyle: {
             color: "#595959",
-            fontSize: "20px"
+            fontSize: "24px"
           },
-          top: "4%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
@@ -384,13 +389,15 @@ export default {
         },
         legend: {
           data: exp_adviser,
-          top: "4%"
+          top: "1%",
+          width:"90%",
+          right: "1%",
         },
         grid: {
           left: "1%",
           right: "2%",
           bottom: "3%",
-          top: "14%",
+          top: "22%",
           containLabel: true
         },
         xAxis: [
@@ -401,6 +408,7 @@ export default {
         ],
         yAxis: [
           {
+            name:"人数",
             type: "value"
           }
         ],
@@ -446,7 +454,7 @@ export default {
       position: absolute;
       right: 70px;
       top: 42px;
-      width: 45%;
+      width: 50%;
       height: 300px;
       user-select: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -469,7 +477,15 @@ export default {
 
 .Performancechange {
   width: 97%;
-  height: 440px;
+  height: 450px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+}
+.Performancechange2 {
+  width: 97%;
+  height: 470px;
   margin: 10px auto;
   background-color: #ffffff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);

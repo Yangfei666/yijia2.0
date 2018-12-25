@@ -47,6 +47,7 @@ import Totalchart from "@/components/totalchart";
 import Experiencechart from "@/components/experiencechart";
 import Latentchart from "@/components/latentchart";
 import { requestLogin } from "@/api/api";
+import moment from "moment";
 let clubDate = {
   getChart(date, params) {
     return requestLogin(`/chart/getClubData/${date}`, params, "get");
@@ -77,8 +78,12 @@ export default {
   created() {
     let _this = this;
     _this.getChartDate();
+    this.value4 = this.getCurrentDateTime();
   },
   methods: {
+    getCurrentDateTime() {
+      return moment(new Date()).format("YYYY-MM");
+    },
     async getChartDate() {
       let _this = this;
       let date = this.selectDate;

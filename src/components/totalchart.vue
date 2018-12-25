@@ -15,14 +15,14 @@
     <el-col v-show="dataDate.length <= 7" :span="24">
       <div class="Performancechange">
         <el-col :span="24" class="charts">
-          <div id="myChart3" :style="{width: '100%', height: '410px'}"></div>
+          <div id="myChart3" :style="{width: '100%', height: '430px'}"></div>
         </el-col>
       </div>
     </el-col>
     <el-col v-show="dataDate.length <= 7" :span="24">
-      <div class="Performancechange">
+      <div class="Performancechange2">
         <el-col :span="24" class="charts">
-          <div id="myChart4" :style="{width: '100%', height: '410px'}"></div>
+          <div id="myChart4" :style="{width: '100%', height: '450px'}"></div>
         </el-col>
       </div>
     </el-col>
@@ -93,6 +93,7 @@ export default {
       let option = {
         title: {
           text: "私教团课业绩占比图",
+          subtext: '2018-12 总业绩123213',
           x: "left",
           textStyle: {
             color: "#595959",
@@ -180,13 +181,14 @@ export default {
       let option2 = {
         title: {
           text: "员工业绩占比图",
+          subtext: '2018-12 总业绩123213',
           x: "left",
           textStyle: {
             color: "#595959",
             fontSize: "34px"
           },
           top: "2%",
-          left: "4%"
+          left: "25%"
         },
         tooltip: {
           trigger: "item",
@@ -196,8 +198,8 @@ export default {
           x: "right",
           data: ach_adviser,
           orient: "vertical",
-          right: 10,
-          top: 40,
+          right:5,
+          top: 10,
           bottom: 10
         },
         series: [
@@ -267,11 +269,12 @@ export default {
       myChart3.setOption({
         title: {
           text: "团课/私教业绩变化折线图",
+          subtext: '2018-12 总业绩123213',
           textStyle: {
             color: "#595959",
             fontSize: "20px"
           },
-          top: "4%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
@@ -283,13 +286,13 @@ export default {
         },
         legend: {
           data: this.detailLegend(ach_timeAchievement),
-          top: "4%"
+          top: "4%",
         },
         grid: {
           left: "1%",
           right: "2%",
           bottom: "3%",
-          top: "14%",
+          top: "20%",
           containLabel: true
         },
         toolbox: {
@@ -303,6 +306,7 @@ export default {
           data: this.detailXAxis()
         },
         yAxis: {
+          name : '业绩',
           type: "value"
         },
         series: this.detailLineData(ach_timeAchievement)
@@ -362,11 +366,12 @@ export default {
       myChart4.setOption({
         title: {
           text: "员工业绩柱状图",
+          subtext: '2018-12 总业绩123213',
           textStyle: {
-            color: "#595959",
-            fontSize: "20px"
+            color: "#555",
+            fontSize: "24px"
           },
-          top: "4%",
+          top: "2%",
           left: "1%"
         },
         tooltip: {
@@ -378,13 +383,15 @@ export default {
         },
         legend: {
           data: ach_adviser,
-          top: "4%"
+          top: "1%",
+          width:"90%",
+          right: "1%",
         },
         grid: {
           left: "1%",
           right: "2%",
           bottom: "3%",
-          top: "14%",
+          top: "22%",
           containLabel: true
         },
         xAxis: [
@@ -395,7 +402,8 @@ export default {
         ],
         yAxis: [
           {
-            type: "value"
+            name : '业绩',
+            type : 'value',
           }
         ],
         series: ach_staffTimeAchievement
@@ -435,7 +443,7 @@ export default {
       position: absolute;
       right: 70px;
       top: 42px;
-      width: 45%;
+      width: 50%;
       height: 300px;
       user-select: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -457,7 +465,15 @@ export default {
 }
 .Performancechange {
   width: 97%;
-  height: 440px;
+  height: 450px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+}
+.Performancechange2 {
+  width: 97%;
+  height: 470px;
   margin: 10px auto;
   background-color: #ffffff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
