@@ -19,9 +19,9 @@
             <div class="main-right">
               <div class="block">
                 <el-col :span="24">
-                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM-dd" value="2018-01-1" v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" type="month" placeholder="选择月"></el-date-picker>
-                  <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" type="year" placeholder="选择年"></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM-dd" value="2018-01-1" v-model="value1" type="date" placeholder="选择日期" :clearable='false'></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy-MM" v-model="value4" type="month" placeholder="选择月" :clearable='false'></el-date-picker>
+                  <el-date-picker @change="getSelectDate" value-format="yyyy" v-model="value5" type="year" placeholder="选择年" :clearable='false'></el-date-picker>
                 </el-col>
               </div>
             </div>
