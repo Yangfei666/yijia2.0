@@ -97,10 +97,11 @@ export default {
       //饼图
       let myChart11 = echarts.init(document.getElementById("myChart11"));
       let myChart22 = echarts.init(document.getElementById("myChart22"));
+      let subtext1 = `${this.dataDate}   体验总人数: ${exp_experienceData.count}`
       let option11 = {
         title: {
           text: "私教团课体验客户占比图",
-          subtext: '2018-12 体验总人数20',
+          subtext: subtext1,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -184,10 +185,13 @@ export default {
           }
         ]
       };
+
+      let allStaffSum =  exp_staff.map(item => item.value).reduce((pre,cur)=>pre+cur)
+      let subtext2 = `${this.dataDate}   体验总人数: ${allStaffSum}`
       let option22 = {
         title: {
           text: "员工开发体验客户占比图",
-          subtext: '2018-12 体验总人数20',
+          subtext: subtext2,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -272,12 +276,15 @@ export default {
       };
     },
     drawLine({ exp_timeAchievement }) {
+      let allGroupTimeSum = exp_timeAchievement.group.reduce((pre,cur)=>pre+cur)
+      let allPrivateTimeSum = exp_timeAchievement.private.reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  总人数: ${allPrivateTimeSum+allGroupTimeSum}`
       //折线图
       let myChart33 = echarts.init(document.getElementById("myChart33"));
       myChart33.setOption({
         title: {
           text: "团课/私教体验客户变化折线图",
-          subtext: '2018-12 体验总人数20',
+          subtext,
           textStyle: {
             color: "#595959",
             fontSize: "20px"
@@ -368,12 +375,14 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ exp_adviser, exp_staffTimeAchievement }) {
+      let allStaffSum= exp_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  体验总人数: ${allStaffSum}`
       //柱状图
       let myChart44 = echarts.init(document.getElementById("myChart44"));
       myChart44.setOption({
         title: {
           text: "员工开发体验客户柱状图",
-          subtext: '2018-12 体验总人数30',
+          subtext: subtext,
           textStyle: {
             color: "#595959",
             fontSize: "24px"

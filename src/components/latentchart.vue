@@ -102,10 +102,11 @@ export default {
       //饼图
       let myChart111 = echarts.init(document.getElementById("myChart111"));
       let myChart222 = echarts.init(document.getElementById("myChart222"));
+      let subtext1 = `${this.dataDate}   潜在总人数: ${pro_prospectData.count}`
       let option111 = {
         title: {
           text: "潜在客户成交量占比图",
-          subtext: '2018-12 潜在总人数20',
+          subtext: subtext1,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -214,10 +215,13 @@ export default {
           }
         ]
       };
+
+      let allStaffSum =  pro_staff.map(item => item.value).reduce((pre,cur)=>pre+cur)
+      let subtext2 = `${this.dataDate}   潜在总人数: ${allStaffSum}`
       let option222 = {
         title: {
           text: "员工开发潜在客户占比图",
-          subtext: '2018-12 潜在总人数20',
+          subtext: subtext2,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -301,12 +305,15 @@ export default {
       };
     },
     drawLine({ pro_timeAchievement }) {
+      let allGroupTimeSum = pro_timeAchievement.group.reduce((pre,cur)=>pre+cur)
+      let allPrivateTimeSum = pro_timeAchievement.private.reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  潜在总人数: ${allPrivateTimeSum+allGroupTimeSum}`
       //折线图
       let myChart333 = echarts.init(document.getElementById("myChart333"));
       myChart333.setOption({
         title: {
           text: "潜在客户变化折线图",
-          subtext: '2018-12 潜在总人数20',
+          subtext: subtext,
           textStyle: {
             color: "#595959",
             fontSize: "20px"
@@ -410,12 +417,14 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ pro_adviser, pro_staffTimeAchievement }) {
+      let allStaffSum= pro_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  潜在总人数: ${allStaffSum}`
       //柱状图
       let myChart444 = echarts.init(document.getElementById("myChart444"));
       myChart444.setOption({
         title: {
           text: "潜在人数构成柱状图",
-          subtext: '2018-12 潜在总人数30',
+          subtext: subtext,
           textStyle: {
             color: "#595959",
             fontSize: "20px"

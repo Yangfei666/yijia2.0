@@ -87,13 +87,14 @@ export default {
     },
     handleClick(tab, event) {},
     drawPie({ ach_adviser, ach_achievementData, ach_staff }) {
+      let subtext1 = `${this.dataDate}   总业绩: ${ach_achievementData.count}`
       //饼图
       let myChart = echarts.init(document.getElementById("myChart"));
       let myChart2 = echarts.init(document.getElementById("myChart2"));
       let option = {
         title: {
           text: "私教团课业绩占比图",
-          subtext: '2018-12 总业绩123213',
+          subtext: subtext1,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -178,10 +179,12 @@ export default {
           }
         ]
       };
+     let allStaffSum =  ach_staff.map(item => item.value).reduce((pre,cur)=>pre+cur)
+      let subtext2 = `${this.dataDate}   总业绩: ${allStaffSum}`
       let option2 = {
         title: {
           text: "员工业绩占比图",
-          subtext: '2018-12 总业绩123213',
+          subtext: subtext2,
           x: "left",
           textStyle: {
             color: "#595959",
@@ -264,12 +267,15 @@ export default {
       };
     },
     drawLine({ ach_timeAchievement }) {
+      let allGroupTimeSum = ach_timeAchievement.group.reduce((pre,cur)=>pre+cur)
+      let allPrivateTimeSum = ach_timeAchievement.private.reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  总业绩: ${allPrivateTimeSum+allGroupTimeSum}`
       //折线图
       let myChart3 = echarts.init(document.getElementById("myChart3"));
       myChart3.setOption({
         title: {
           text: "团课/私教业绩变化折线图",
-          subtext: '2018-12 总业绩123213',
+          subtext,
           textStyle: {
             color: "#595959",
             fontSize: "20px"
@@ -361,12 +367,14 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ ach_adviser, ach_staffTimeAchievement }) {
+      let allStaffSum= ach_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  总业绩: ${allStaffSum}`
       //柱状图
       let myChart4 = echarts.init(document.getElementById("myChart4"));
       myChart4.setOption({
         title: {
           text: "员工业绩柱状图",
-          subtext: '2018-12 总业绩123213',
+          subtext: subtext,
           textStyle: {
             color: "#555",
             fontSize: "24px"

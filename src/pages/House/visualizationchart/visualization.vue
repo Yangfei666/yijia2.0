@@ -72,7 +72,7 @@ export default {
         prospectData: {}
       },
       selectChartData: {},
-      selectDate: "2018"
+      selectDate: moment(new Date()).format('YYYY-MM')
     };
   },
   created() {
