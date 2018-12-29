@@ -183,14 +183,14 @@
                   <el-col :span="24">
                     <div class="table-room">
                       <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                        <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="250px"></el-table-column>
-                        <el-table-column prop="Hsxx_Name_jch" align="left" label="门店别名" width="250px"></el-table-column>
-                        <el-table-column prop="Hsxx_Tel" align="left" label="电话" width="150px"></el-table-column>
-                        <el-table-column prop="Hsxx_YB" align="left" label="邮编" width="120px"></el-table-column>
-                        <el-table-column prop="Hsxx_FR" align="left" label="法人" width="130px"></el-table-column>
-                        <el-table-column prop="Hsxx_Fax" align="left" label="传真" width="130px"></el-table-column>
-                        <el-table-column prop="Hsxx_City" align="left" label="所属城市" width="260px"></el-table-column>
-                        <el-table-column prop="Hsxx_Add" align="left" label="详细地址" width="280px" fixed="right"></el-table-column>
+                        <el-table-column prop="Hsxx_Name" align="left" fixed label="门店名称" width="200px"></el-table-column>
+                        <el-table-column prop="Hsxx_Name_jch" align="left" label="门店别名" width="200px"></el-table-column>
+                        <el-table-column prop="Hsxx_Tel" align="left" label="电话" width="120px"></el-table-column>
+                        <el-table-column prop="Hsxx_YB" align="left" label="邮编" width="110px"></el-table-column>
+                        <el-table-column prop="Hsxx_FR" align="left" label="法人" width="110px"></el-table-column>
+                        <el-table-column prop="Hsxx_City" align="left" label="所属城市" width="150px"></el-table-column>
+                        <el-table-column prop="Hsxx_Fax" align="left" label="传真" width="120px"></el-table-column>
+                        <el-table-column prop="Hsxx_Add" align="left" label="详细地址" width="240px" fixed="right"></el-table-column>
                       </el-table>
                       <div class="block">
                         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">

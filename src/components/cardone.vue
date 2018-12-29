@@ -5,8 +5,8 @@
       <el-col :span="10" class="one-left">
         <div class="card-left">
           <el-col :span="22" class="cardseed">
-            <span class="seed1">卡种</span>
             <span class="seed2">ID:{{membershipcards.CardNO}}</span>
+            <span class="seed1">{{membershipcards.mode}}:{{membershipcards.money}}元</span>
           </el-col>
           <el-col :span="12" class="carddate">
             <p class="date1">开卡时间:{{membershipcards.fkTime}}</p>
@@ -84,7 +84,7 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用{{(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>已使用{{Number(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(3)*100}}%</span>
               <p v-if="membershipcards.State == '未激活'">{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
@@ -100,13 +100,13 @@
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(3)*100}}%</span>
+              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(2)*100}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余{{((datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>剩余{{(Number(datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
               <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
@@ -126,6 +126,7 @@
           <el-button class="operdiv" :class="{active:tab == 5}" @click="toggleTabs(5);open3()">变更次数/金额</el-button>
           <el-button class="operdiv" :class="{active:tab == 6}" @click="toggleTabs(6)">启用/禁用</el-button>
           <el-button class="operdiv" :class="{active:tab == 7}" @click="toggleTabs(7)" v-if="membershipcards.State == '未激活'">激活</el-button>
+          <el-button class="operdiv" :class="{active:tab == 8}" @click="toggleTabs(8)">办卡说明</el-button>
         </el-col>
       </div>
       <template>
@@ -150,6 +151,9 @@
         <keep-alive v-if="tab == 7">
           <Activate :pathquery='pathquerys'></Activate>
         </keep-alive>
+        <keep-alive v-if="tab == 8">
+          <Businesscarddes :pathquery='pathquerys'></Businesscarddes>
+        </keep-alive>
       </template>
     </el-col>
   </div>
@@ -166,6 +170,7 @@ import Changevalidity from "@/components/changevalidity";
 import Changepriceandnum from "@/components/changepriceandnum";
 import Enabledisabling from "@/components/enabledisabling";
 import Activate from "@/components/activate";
+import Businesscarddes from "@/components/businesscarddes";
 export default {
   name: "cardone",
   props: ["membershipcards", "chartId", "idx"],
@@ -176,7 +181,8 @@ export default {
     Changevalidity,
     Changepriceandnum,
     Enabledisabling,
-    Activate
+    Activate,
+    Businesscarddes
   },
   data() {
     return {

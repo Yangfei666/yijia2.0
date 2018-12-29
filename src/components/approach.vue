@@ -83,12 +83,18 @@ export default {
         .then(data => {
           this.CustomerSuccess(params.number);
           this.msgThen(data);
+          this.ruleForm.approach = "";
         })
         .catch(error => {
-          this.$message({
-            message: "对不起,客户进场失败",
-            type: "error"
-          });
+          this.addLoading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     CustomerSuccess(hand) {
@@ -110,12 +116,18 @@ export default {
           }
           this.caochSuccess(name2, params.userId);
           this.msgThen(data);
+          this.ruleForm.approach = "";
         })
         .catch(error => {
-          this.$message({
-            message: "对不起,教练进场失败",
-            type: "error"
-          });
+          this.addLoading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     caochSuccess(name2, JLIDs) {

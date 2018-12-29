@@ -110,6 +110,11 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
+      <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
+        </el-col>
+      </el-form-item>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
           <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -175,7 +180,8 @@ export default {
         price: "", //金额
         mode: "", //付款方式
         seriesnumber: "", //IC卡序列号
-        sensitize: "" //激活时间
+        sensitize: "", //激活时间
+        desc:"",//办卡说明
       },
       rules: {
         name: validate.name,
@@ -250,6 +256,7 @@ export default {
             formData.append("mode", this.ruleForm.mode); //付款方式
             formData.append("money", this.ruleForm.price); //付款金额
             formData.append("serialNumber", this.ruleForm.seriesnumber); //序列号
+            formData.append("remark", this.ruleForm.desc); //序列号
             formData.append("CTID", this.ruleForm.cardname); //会员卡id
             formData.append("delay", this.ruleForm.sensitize); //激活时间选择
             formData.append("identity",this.huiyuanqufen.huiyuanqufen); //转换客户类别

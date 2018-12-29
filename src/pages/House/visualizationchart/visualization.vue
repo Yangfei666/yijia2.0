@@ -35,6 +35,9 @@
               <el-tab-pane label="潜在图表" name="third" :lazy="true">
                 <Latentchart v-if="Object.keys(chartTypeData.prospectData).length !== 0" :chart-data.sync="chartTypeData.prospectData" :data-date.sync="selectDate"></Latentchart>
               </el-tab-pane>
+              <el-tab-pane label="办卡明细" name="detail" :lazy="true">
+                <Carddetail v-if="Object.keys(detailedData).length !== 0" :chart-data.sync="detailedData" :data-date.sync="selectDate"></Carddetail>
+              </el-tab-pane>
             </el-tabs>
           </el-col>
         </div>
@@ -46,6 +49,7 @@
 import Totalchart from "@/components/totalchart";
 import Experiencechart from "@/components/experiencechart";
 import Latentchart from "@/components/latentchart";
+import Carddetail from "@/components/carddetail";
 import { requestLogin } from "@/api/api";
 import moment from "moment";
 let clubDate = {
@@ -58,7 +62,8 @@ export default {
   components: {
     Totalchart,
     Experiencechart,
-    Latentchart
+    Latentchart,
+    Carddetail
   },
   data() {
     return {
@@ -69,10 +74,11 @@ export default {
       chartTypeData: {
         achievementData: {},
         experienceData: {},
-        prospectData: {}
+        prospectData: {},
       },
+      detailedData: [],
       selectChartData: {},
-      selectDate: moment(new Date()).format('YYYY-MM')
+      selectDate: moment(new Date()).format("YYYY-MM")
     };
   },
   created() {
@@ -97,6 +103,7 @@ export default {
         );
         _this.chartTypeData.experienceData = Object.assign({}, res.experience);
         _this.chartTypeData.prospectData = Object.assign({}, res.prospect);
+        _this.detailedData = Object.assign([],res.detailed);
       });
     },
     getSelectDate(val) {

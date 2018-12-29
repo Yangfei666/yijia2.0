@@ -119,14 +119,15 @@ export default {
         height: 55%;
         position: absolute;
         top: 0px;
+        overflow: hidden;
         .dimback {
           background: rgba(0, 0, 0, 0.822);
           border-radius: 4px;
           display: flex;
-          height: 100%;
+          // height: 100%;
           width: 100%;
           .Img {
-            width: 100%;
+            width: 209px;
             height: 100%;
             opacity: 0.3;
             filter: alpha(opacity=30);

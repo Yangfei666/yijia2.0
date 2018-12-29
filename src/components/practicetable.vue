@@ -78,6 +78,28 @@
             <div class="add">
               <el-button type="text" class="add-p" @click="exper()">体验客户主页</el-button>
             </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="removeBatch()">变更会籍</el-button>
+              <template>
+                <el-dialog title="批量变更会籍" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" @submit.native.prevent>
+                    <el-form-item label="会籍顾问:" prop="changemembership" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                        <el-select v-model="ruleForm.changemembership" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                          <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                        </el-select>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item class="dialog-footer">
+                      <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="chongzhi('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="auditServer('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                      </el-col>
+                    </el-form-item>
+                  </el-form>
+                </el-dialog>
+              </template>
+            </div>
           </div>
         </el-col>
         <el-col :span="12">
@@ -93,23 +115,18 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row :default-sort="{order: 'descending'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
-            <el-table-column align="center" prop="radio" fixed width="70px">
-              <template slot-scope="scope">
-                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;
-                </el-radio>
-              </template>
-            </el-table-column>
-            <el-table-column prop="exName" align="left" label="姓名" fixed width="140px"></el-table-column>
-            <el-table-column prop="exTel" align="left" label="手机号" width="160px"></el-table-column>
-            <el-table-column prop="tkName" align="left" label="劵种" width="160px"></el-table-column>
-            <el-table-column prop="mode" align="left" label="付款方式" width="160px"></el-table-column>
-            <el-table-column prop="price" align="left" label="金额" sortable width="150px"></el-table-column>
-            <el-table-column prop="exHjgwName" align="left" label="会籍" width="150px"></el-table-column>
-            <el-table-column prop="exRegister" align="left" label="登记日期" sortable width="180px"></el-table-column>
-            <el-table-column prop="exSuc" align="left" label="成交状态" width="150px"></el-table-column>
-            <el-table-column prop="exReason" align="left" label="未成交原因" width="200px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="100px">
+          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
+            <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
+            <el-table-column prop="exName" align="left" label="姓名" fixed width="100px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="125px"></el-table-column>
+            <el-table-column prop="tkName" align="left" label="劵种" width="150px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="130px"></el-table-column>
+            <el-table-column prop="price" align="left" label="金额" width="120px"></el-table-column>
+            <el-table-column prop="exHjgwName" align="left" label="会籍" width="100px"></el-table-column>
+            <el-table-column prop="exRegister" align="left" label="登记日期" width="130px"></el-table-column>
+            <el-table-column prop="exSuc" align="left" label="成交状态" width="100px"></el-table-column>
+            <el-table-column prop="exReason" align="left" label="未成交原因" width="120px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.exHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -130,6 +147,7 @@
 import Addpractice from "@/components/addpractice";
 import Change from "@/components/change";
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
 function downloadExcel(config, sourceData) {
@@ -164,6 +182,7 @@ export default {
       downIcon: true,
       loading: true,
       dialogFormVisible: false,
+      dialogFormVisible2: false,
       input10: "",
       value6: "",
       currentPage: 1,
@@ -171,7 +190,14 @@ export default {
       btnText: "展开",
       isShow: false,
       radio: "",
-      Tiyanqufen: { tiyanqufen: "newCustomer",id:1},
+      formLabelWidth: "130px",
+      ruleForm: {
+        changemembership: ""
+      },
+      rules:{
+        changemembership:validate.adviser
+      },
+      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 },
       Customercategory: "experience",
       formInline: {
         user: "",
@@ -184,6 +210,7 @@ export default {
       tableData2: [],
       searchVal: "",
       staff_info: [],
+      sels: [],
       follow: [
         //多久未跟进
         { value: "1", label: "一周以内" },
@@ -200,11 +227,11 @@ export default {
     };
   },
   computed: {
-    isAdviser () {
+    isAdviser() {
       let user = JSON.parse(sessionStorage.getItem("userInfo"));
       for (let index = 0; index < user.role.length; index++) {
         const element = user.role[index];
-        if (element.name == '超级管理员' || element.name == '店长') {
+        if (element.name == "超级管理员" || element.name == "店长") {
           return true;
         }
       }
@@ -239,6 +266,62 @@ export default {
     }, 1000);
   },
   methods: {
+    getRowKeys(row) {
+      return row.id;
+    },
+    selsChange(sels) {
+      this.sels=[];
+      if(sels.length>0){
+          for(var i=0;i<sels.length;i++){
+           this.sels.push(sels[i].id);
+        }
+      }
+    },
+    //批量变更会籍
+    removeBatch() {
+      if (this.sels != "") {
+        this.dialogFormVisible2 = true;
+      } else {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+      }
+    },
+    auditServer(formName) {
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var Params = {
+              identity: "experience", //身份
+              id: _this.ruleForm.changemembership, //新会籍顾问编号
+              data: _this.sels //需要变更客户编号
+            };
+            requestLogin("/setChangeAdviser", Params, "post")
+              .then(data => {
+                this.$message({
+                  message: "变更会籍成功",
+                  type: "success"
+                });
+                _this.reload();
+                _this.dialogFormVisible2 = false;
+                _this.chongzhi(formName);
+                _this.$refs.singleTable.clearSelection();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
     //获取表格数据
     getTableData(type) {
       let _this = this;
@@ -256,7 +339,8 @@ export default {
         };
       }
       requestLogin(
-        "/setExperienceCustomer/searchExperienceCustomers/1/" + _this.formInline.adviser,
+        "/setExperienceCustomer/searchExperienceCustomers/1/" +
+          _this.formInline.adviser,
         params,
         "post"
       )
@@ -309,7 +393,13 @@ export default {
       );
     },
     Selectchange3(val) {},
-    Selectchange2(val) {},
+    Selectchange2(val) {
+      let obj = {};
+      obj = this.staff_info.find(item => {
+        return item.YGXX_YGID_NEI === val;
+      });
+      this.YGXX_NAME = obj.YGXX_NAME;
+    },
     Selectchange(val) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;
@@ -321,6 +411,9 @@ export default {
     },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+    },
+    chongzhi() {
+      this.ruleForm.changemembership = "";
     },
     resetForm() {
       this.formInline.user = "";
@@ -335,6 +428,7 @@ export default {
       this.currentSelectRow = row;
       this.Potential.id = this.currentSelectRow.id;
       this.radio = this.tableData.indexOf(row);
+      this.$refs.singleTable.toggleRowSelection(row);
     },
     //体验认领跳转
     go(index, row) {
@@ -342,7 +436,7 @@ export default {
       this.$router.push({
         path: "/Customer/practice/claim",
         query: {
-          id:this.currentSelectRow.id,
+          id: this.currentSelectRow.id,
           name: this.currentSelectRow.exName,
           tel: this.currentSelectRow.exTel,
           customercategory: this.Customercategory
@@ -377,8 +471,8 @@ export default {
           exHjgwName: this.currentSelectRow.exHjgwName,
           exTel: this.currentSelectRow.exTel,
           exSex: this.currentSelectRow.exSex,
-          exWeChat:this.currentSelectRow.exWeChat,
-          exHjgwId:this.currentSelectRow.exHjgwId
+          exWeChat: this.currentSelectRow.exWeChat,
+          exHjgwId: this.currentSelectRow.exHjgwId
         }
       });
     },
@@ -406,6 +500,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "../styles/dialog.scss";
+</style>
 <style lang="scss" scoped>
 @import "@/styles/latenttable.scss";
 .practice-list {

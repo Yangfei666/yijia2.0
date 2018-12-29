@@ -100,6 +100,28 @@
             <div class="add">
               <el-button type="text" class="add-b" @click="zhuye()">会员主页</el-button>
             </div>
+            <div class="add">
+              <el-button type="text" class="add-b" @click="removeBatch()">变更会籍</el-button>
+              <template>
+                <el-dialog title="批量变更会籍" :append-to-body="true" :visible.sync="dialogFormVisible7">
+                  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" @submit.native.prevent>
+                    <el-form-item label="会籍顾问:" prop="changemembership" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                        <el-select v-model="ruleForm.changemembership" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                          <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                        </el-select>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item class="dialog-footer">
+                      <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="chongzhi('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="auditServer('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                      </el-col>
+                    </el-form-item>
+                  </el-form>
+                </el-dialog>
+              </template>
+            </div>
           </div>
         </el-col>
         <el-col :span="12">
@@ -115,21 +137,17 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-            <el-table-column align="center" prop="radio" fixed width="80px">
-              <template slot-scope="scope">
-                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-              </template>
-            </el-table-column>
-            <el-table-column prop="HYName" align="left" label="姓名" fixed width="150px"></el-table-column>
-            <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
-            <el-table-column prop="CardNO" align="left" label="卡号" width="180px"></el-table-column>
-            <el-table-column prop="CTName" align="left" label="卡种" width="180px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="180px"></el-table-column>
-            <el-table-column prop="eTime" align="left" label="到期时间" sortable width="200px"></el-table-column>
-            <el-table-column prop="SYCS" align="left" label="剩余次数" sortable width="130px"></el-table-column>
-            <el-table-column prop="SYJE" align="left" label="剩余金额" sortable width="130px"></el-table-column>
-            <el-table-column prop="State" align="left" label="卡状态" width="140px"></el-table-column>
+          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+            <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
+            <el-table-column prop="HYName" align="left" label="姓名" fixed width="100px"></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="120px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="120px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡种" width="150px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="100px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" width="130px"></el-table-column>
+            <el-table-column prop="SYCS" align="left" label="剩余次数" width="100px"></el-table-column>
+            <el-table-column prop="SYJE" align="left" label="剩余金额" width="100px"></el-table-column>
+            <el-table-column prop="State" align="left" label="卡状态" width="100px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>
@@ -150,6 +168,7 @@
 <script>
 import Addmember from "@/components/addmember";
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
 function downloadExcel(config, sourceData) {
@@ -181,12 +200,21 @@ export default {
     return {
       downIcon: true,
       dialogFormVisible: false,
+      dialogFormVisible7: false,
       radio: true,
       currentPage: 1,
       pagesize: 10,
       btnText: "展开",
       isShow: false,
       loading: true,
+      formLabelWidth: "130px",
+      sels: [],
+      ruleForm: {
+        changemembership: ""
+      },
+      rules: {
+        changemembership: validate.adviser
+      },
       Customercategory: "member",
       Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 },
       formInline: {
@@ -268,6 +296,65 @@ export default {
     }
   },
   methods: {
+    getRowKeys(row) {
+      return row.HYID;
+    },
+    selsChange(sels) {
+      this.sels = [];
+      if (sels.length > 0) {
+        for (var i = 0; i < sels.length; i++) {
+          this.sels.push(sels[i].HYID);
+        }
+      }
+    },
+    //批量变更会籍
+    removeBatch() {
+      if (this.sels != "") {
+        this.dialogFormVisible7 = true;
+      } else {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+      }
+    },
+    auditServer(formName) {
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var Params = {
+              identity: "member", //身份
+              id: _this.ruleForm.changemembership, //新会籍顾问编号
+              data: _this.sels //需要变更客户编号
+            };
+            requestLogin("/setChangeAdviser", Params, "post")
+              .then(data => {
+                this.$message({
+                  message: "变更会籍成功",
+                  type: "success"
+                });
+                _this.reload();
+                _this.dialogFormVisible7 = false;
+                _this.chongzhi(formName);
+                _this.$refs.singleTable.clearSelection();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    chongzhi() {
+      this.ruleForm.changemembership = "";
+    },
     //获取表格数据
     getTableData(type) {
       let _this = this;
@@ -409,6 +496,7 @@ export default {
       this.radio = this.tableData.indexOf(row);
       //获取表格数据
       this.currentSelectRow = row;
+      this.$refs.singleTable.toggleRowSelection(row);
     },
     handleClick3(row) {
       alert("点击了");
@@ -456,6 +544,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "../styles/dialog.scss";
+</style>
 <style lang="scss" scoped>
 @import "@/styles/leaguertable.scss";
 .practice-list {

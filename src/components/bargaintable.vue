@@ -55,7 +55,7 @@
     </el-row>
     <div class="practice-center">
       <el-row>
-        <el-col :span="12">
+        <el-col :span="14">
           <div class="purple">
             <div class="add">
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加定金客户</el-button>
@@ -84,9 +84,31 @@
             <div class="add">
               <el-button type="text" class="add-p" @click="func2()">客户跟进</el-button>
             </div>
+            <div class="add">
+              <el-button type="text" class="add-p" @click="removeBatch()">变更会籍</el-button>
+              <template>
+                <el-dialog title="批量变更会籍" :append-to-body="true" :visible.sync="dialogFormVisible7">
+                  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" @submit.native.prevent>
+                    <el-form-item label="会籍顾问:" prop="changemembership" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                        <el-select v-model="ruleForm.changemembership" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                          <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                        </el-select>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item class="dialog-footer">
+                      <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="chongzhi('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="auditServer('ruleForm')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                      </el-col>
+                    </el-form-item>
+                  </el-form>
+                </el-dialog>
+              </template>
+            </div>
           </div>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="10">
           <div class="purple2">
             <el-col :span="10" class="search">
               <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
@@ -100,21 +122,17 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
-            <el-table-column align="center" prop="radio" fixed width="70px">
-              <template slot-scope="scope">
-                <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
-              </template>
-            </el-table-column>
-            <el-table-column prop="itName" align="left" label="姓名" fixed width="150px"></el-table-column>
-            <el-table-column prop="itTel" align="left" label="手机号" width="150px"></el-table-column>
-            <el-table-column prop="itHjgwName" align="left" label="会籍" width="150px"></el-table-column>
-            <el-table-column prop="itDepositTime" align="left" label="登记日期" sortable width="150px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式" width="150px"></el-table-column>
-            <el-table-column prop="itPrice" align="left" label="金额" sortable width="150px"></el-table-column>
-            <el-table-column prop="itSuc" align="left" label="成交状态" width="150px"></el-table-column>
-            <el-table-column prop="itRemark" align="left" label="备注" width="150px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="280px">
+          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
+            <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>            
+            <el-table-column prop="itName" align="left" label="姓名" fixed width="100px"></el-table-column>
+            <el-table-column prop="itTel" align="left" label="手机号" width="130px"></el-table-column>
+            <el-table-column prop="itHjgwName" align="left" label="会籍" width="100px"></el-table-column>
+            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="130px"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式" width="140px"></el-table-column>
+            <el-table-column prop="itPrice" align="left" label="金额" width="130px"></el-table-column>
+            <el-table-column prop="itSuc" align="left" label="成交状态" width="100px"></el-table-column>
+            <el-table-column prop="itRemark" align="left" label="备注" width="130px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="270px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.itHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -150,6 +168,7 @@ import Revisedatum2 from "@/components/revisedatum2";
 import Change from "@/components/change";
 import Givedeposit from "@/components/givedeposit";
 import { requestLogin } from "@/api/api";
+import * as validate from "@/validate/Login";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
 function downloadExcel(config, sourceData) {
@@ -199,6 +218,15 @@ export default {
       dialogFormVisible3: false,
       dialogFormVisible4: false,
       dialogFormVisible5: false,
+      dialogFormVisible7: false,
+      formLabelWidth: "130px",
+      sels: [],
+      ruleForm: {
+        changemembership: ""
+      },
+      rules:{
+        changemembership:validate.adviser
+      },
       enlargeImage:"", //放大图片地址
       currentPage: 1,
       pagesize: 10,
@@ -281,6 +309,65 @@ export default {
     }, 1000);
   },
   methods: {
+     getRowKeys(row) {
+      return row.id;
+    },
+    selsChange(sels) {
+      this.sels=[];
+      if(sels.length>0){
+          for(var i=0;i<sels.length;i++){
+           this.sels.push(sels[i].id);
+        }
+      }
+    },
+    //批量变更会籍
+    removeBatch() {
+      if (this.sels != "") {
+        this.dialogFormVisible7 = true;
+      } else {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+      }
+    },
+    auditServer(formName) {
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            var Params = {
+              identity: "deposit", //身份
+              id: _this.ruleForm.changemembership, //新会籍顾问编号
+              data: _this.sels //需要变更客户编号
+            };
+            requestLogin("/setChangeAdviser", Params, "post")
+              .then(data => {
+                this.$message({
+                  message: "变更会籍成功",
+                  type: "success"
+                });
+                _this.reload();
+                _this.dialogFormVisible7 = false;
+                _this.chongzhi(formName);
+                _this.$refs.singleTable.clearSelection();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+     chongzhi() {
+      this.ruleForm.changemembership = "";
+    },
     showToggle: function() {
       this.isShow = !this.isShow;
       this.downIcon = !this.downIcon;
@@ -424,6 +511,7 @@ export default {
       this.Huiyuanqufen.wechat = this.currentSelectRow.itWeChat;
       this.Huiyuanqufen.sex = this.currentSelectRow.itSex;
       this.radio = this.tableData.indexOf(row);
+      this.$refs.singleTable.toggleRowSelection(row);
     },
     //定金认领跳转
     go(index, row) {
@@ -458,6 +546,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "../styles/dialog.scss";
+</style>
 <style lang="scss" scoped>
 @import "@/styles/bargaintable.scss";
 .practice-list {

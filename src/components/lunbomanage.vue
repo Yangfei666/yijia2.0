@@ -183,11 +183,15 @@ export default {
             this.getUpload();
           });
         })
-        .catch(() => {
-          this.$message({
-            message: "操作失败",
-            type: "error"
-          });
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     //删除图片

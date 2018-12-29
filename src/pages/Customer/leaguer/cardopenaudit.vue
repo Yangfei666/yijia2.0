@@ -30,16 +30,16 @@
         </el-col>
         <el-col :span="24">
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" v-loading="loading" element-loading-text="拼命加载中..." :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-            <el-table-column prop="HYName" align="left" label="客户姓名" width="150px" fixed></el-table-column>
-            <el-table-column prop="MotoTel" align="left" label="手机号" width="160px"></el-table-column>
-            <el-table-column prop="CardNO" align="left" label="卡号" width="160px"></el-table-column>
-            <el-table-column prop="CTName" align="left" label="卡名称" width="200px"></el-table-column>
-            <el-table-column prop="fkTime" align="left" label="发卡时间" sortable width="160px"></el-table-column>
-            <el-table-column prop="eTime" align="left" label="到期时间" sortable width="160px"></el-table-column>
-            <el-table-column prop="mode" align="left" label="付款方式" width="160px"></el-table-column>
-            <el-table-column prop="money" align="left" label="付款金额" sortable width="160px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="150px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="150px">
+            <el-table-column prop="HYName" align="left" label="客户姓名" width="100px" fixed></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="120px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="120px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡名称" width="150px"></el-table-column>
+            <el-table-column prop="fkTime" align="left" label="发卡时间" sortable width="130px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" sortable width="130px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="130px"></el-table-column>
+            <el-table-column prop="money" align="left" label="付款金额" sortable width="120px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍顾问" width="100px"></el-table-column>
+            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="120px">
               <template slot-scope="scope">
                 <el-button @click.native.prevent="go(scope.row,1)" type="text" size="small">通过</el-button>
                 <el-button @click.native.prevent="go(scope.row,2)" type="text" size="small">不通过</el-button>

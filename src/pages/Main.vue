@@ -56,7 +56,7 @@
                 <el-button type="text" size="small" @click="cancelReservation(scope.row.id, '体验客户')">取消预约</el-button>
               </div>
               <div v-if="scope.row.isTrue == '已取消'">
-                <el-button type="text" size="small" disabled style="color:red">已取消</el-button>
+                <el-button type="text" size="small" disabled style="color:#333">已取消</el-button>
               </div>
               <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>
@@ -89,7 +89,7 @@
                 <el-button type="text" size="small" @click="cancelReservation(scope.row.id, '会员客户')">取消预约</el-button>
               </div>
               <div v-if="scope.row.isTrue == '已取消'">
-                <el-button type="text" size="small" disabled style="color:red">已取消</el-button>
+                <el-button type="text" size="small" disabled style="color:#333">已取消</el-button>
               </div>
               <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>

@@ -67,6 +67,11 @@
                   <el-date-picker type="date" value-format="yyyy-MM-dd" format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
+              <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
+                <el-col :span="22">
+                  <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
+                </el-col>
+              </el-form-item>
               <el-form-item class="dialog-footer">
                 <el-col :span="24" style="display: flex;justify-content: flex-end;">
                   <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -105,7 +110,7 @@ export default {
       club: [],
       header: [],
       membershipcard: {},
-      CTjg:"",
+      CTjg: "",
       ruleForm: {
         userid: "", //编号
         cardname: "", //卡名称
@@ -114,7 +119,8 @@ export default {
         start: "", //是否立即启用
         activate: "", //激活时间
         become: "", //到期时间
-        attenddate: "" //自定义到期时间
+        attenddate: "", //自定义到期时间
+        desc:"",//办卡说明
       },
       rules: {
         cardname: validate.cardname,
@@ -122,7 +128,7 @@ export default {
         start: validate.start,
         activate: validate.sensitize,
         become: validate.become,
-        money:validate.price
+        money: validate.price
       }
     };
   },
@@ -208,7 +214,8 @@ export default {
               money: _this.ruleForm.money, //价格
               eTime: _this.ruleForm.attenddate, //自定义到期时间
               bool: _this.ruleForm.start, //是否立即启用
-              delay: _this.ruleForm.activate //激活时间选择
+              delay: _this.ruleForm.activate, //激活时间选择
+              remark:_this.ruleForm.desc
             };
             requestLogin("/setMemberCustomers/saveCard", loginParams, "post")
               .then(data => {
