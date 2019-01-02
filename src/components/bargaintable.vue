@@ -122,16 +122,16 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick">
+          <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @select="selectClick" @row-click="rowClick">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>            
-            <el-table-column prop="itName" align="left" label="姓名" fixed width="100px"></el-table-column>
-            <el-table-column prop="itTel" align="left" label="手机号" width="130px"></el-table-column>
-            <el-table-column prop="itHjgwName" align="left" label="会籍" width="100px"></el-table-column>
-            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="130px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式" width="140px"></el-table-column>
+            <el-table-column prop="itName" align="left" label="姓名" fixed width="120px"></el-table-column>
+            <el-table-column prop="itTel" align="left" label="手机号" width="150px"></el-table-column>
+            <el-table-column prop="itHjgwName" align="left" label="会籍" width="120px"></el-table-column>
+            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="150px"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式" width="160px"></el-table-column>
             <el-table-column prop="itPrice" align="left" label="金额" width="130px"></el-table-column>
-            <el-table-column prop="itSuc" align="left" label="成交状态" width="100px"></el-table-column>
-            <el-table-column prop="itRemark" align="left" label="备注" width="130px"></el-table-column>
+            <el-table-column prop="itSuc" align="left" label="成交状态" width="120px"></el-table-column>
+            <el-table-column prop="itRemark" align="left" label="备注" width="150px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="270px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.itHealth == 1">认领</el-button>
@@ -309,6 +309,8 @@ export default {
     }, 1000);
   },
   methods: {
+    tableRowClassName({row, rowIndex}){
+    },
      getRowKeys(row) {
       return row.id;
     },
@@ -447,6 +449,10 @@ export default {
       );
     },
     func2() {
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -454,6 +460,7 @@ export default {
         });
         return;
       }
+       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/depositfollowup/bargainup",
@@ -498,6 +505,9 @@ export default {
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
     },
+    selectClick(selection, row){
+      this.currentSelectRow = row;
+    },
     rowClick(row, event, column) {
       this.radio = row.index;
       //获取表格数据
@@ -516,6 +526,10 @@ export default {
     //定金认领跳转
     go(index, row) {
       this.currentSelectRow = row;
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       this.$router.push({
         path: "/Customer/bargain/claim",
         query: {
@@ -528,6 +542,11 @@ export default {
     },
     //先选择列表
     changeInfo() {
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
@@ -537,6 +556,11 @@ export default {
     //放大图片
     changeInfo2() {
       this.enlargeImage = this.currentSelectRow.voucher;
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       if (this.currentSelectRow) {
         this.isEnlargeImage = true;
       }else{
@@ -551,6 +575,9 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import "@/styles/bargaintable.scss";
+.el-table .selected-row {
+    background: #00bc71;
+  }
 .practice-list {
   width: 97%;
   height: 100%;

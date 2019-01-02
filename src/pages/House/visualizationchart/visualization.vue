@@ -37,6 +37,7 @@
               </el-tab-pane>
               <el-tab-pane label="办卡明细" name="detail" :lazy="true">
                 <Carddetail v-if="Object.keys(detailedData).length !== 0" :chart-data.sync="detailedData" :data-date.sync="selectDate"></Carddetail>
+                <div v-else-if="Object.keys(detailedData).length === 0" style="width: 97%;background: #fff;height: 500px; margin: 0 auto;color: #999; line-height: 12; margin-top: 10px;">~~~~暂时没有数据~~~~</div>
               </el-tab-pane>
             </el-tabs>
           </el-col>

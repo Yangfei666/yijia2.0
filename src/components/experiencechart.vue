@@ -412,7 +412,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: this.detailXAxis()
+            data: exp_adviser
           }
         ],
         yAxis: [

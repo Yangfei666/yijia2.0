@@ -405,7 +405,10 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: this.detailXAxis()
+            data: ach_adviser,
+            axisTick: {
+                alignWithLabel: true
+            }
           }
         ],
         yAxis: [

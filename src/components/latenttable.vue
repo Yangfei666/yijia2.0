@@ -124,7 +124,7 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+          <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed ></el-table-column>
             <el-table-column prop="prName" align="left" label="姓名"></el-table-column>
             <el-table-column prop="prTel" align="left" label="手机号"></el-table-column>
@@ -315,6 +315,8 @@ export default {
     }
   },
   methods: {
+    tableRowClassName({row, rowIndex}){
+    },
     getRowKeys(row) {
       return row.id;
     },
@@ -477,6 +479,10 @@ export default {
     },
     //跟进记录
     func() {
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -484,6 +490,7 @@ export default {
         });
         return;
       }
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/potentialfollowup/memberup",
@@ -509,6 +516,9 @@ export default {
     },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+    },
+     selectClick(selection, row){
+      this.currentSelectRow = row;
     },
     rowClick(row, event, column) {
       this.radioData = row.index;
@@ -542,6 +552,10 @@ export default {
     //潜在认领跳转
     go(index, row) {
       this.currentSelectRow = row;
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       this.$router.push({
         path: "/Customer/latent/claim",
         query: {
@@ -554,6 +568,11 @@ export default {
     },
     changeInfo() {
       //先选择列表
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
@@ -568,6 +587,9 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import "@/styles/latenttable.scss";
+.el-table .selected-row {
+    background: #00bc71;
+  }
 .practice-list {
   width: 97%;
   height: 100%;

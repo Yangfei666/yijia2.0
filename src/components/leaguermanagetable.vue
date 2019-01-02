@@ -137,17 +137,17 @@
     <div class="practice-table">
       <el-row>
         <el-col :span="24">
-          <el-table id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+          <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
-            <el-table-column prop="HYName" align="left" label="姓名" fixed width="100px"></el-table-column>
-            <el-table-column prop="MotoTel" align="left" label="手机号" width="120px"></el-table-column>
-            <el-table-column prop="CardNO" align="left" label="卡号" width="120px"></el-table-column>
-            <el-table-column prop="CTName" align="left" label="卡种" width="150px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="100px"></el-table-column>
-            <el-table-column prop="eTime" align="left" label="到期时间" width="130px"></el-table-column>
-            <el-table-column prop="SYCS" align="left" label="剩余次数" width="100px"></el-table-column>
-            <el-table-column prop="SYJE" align="left" label="剩余金额" width="100px"></el-table-column>
-            <el-table-column prop="State" align="left" label="卡状态" width="100px"></el-table-column>
+            <el-table-column prop="HYName" align="left" label="姓名" fixed width="120px"></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="140px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="150px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡种" width="170px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="110px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" width="140px"></el-table-column>
+            <el-table-column prop="SYCS" align="left" label="剩余次数" width="110px"></el-table-column>
+            <el-table-column prop="SYJE" align="left" label="剩余金额" width="110px"></el-table-column>
+            <el-table-column prop="State" align="left" label="卡状态" width="110px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>
@@ -296,6 +296,8 @@ export default {
     }
   },
   methods: {
+    tableRowClassName({row, rowIndex}){
+    },
     getRowKeys(row) {
       return row.HYID;
     },
@@ -444,6 +446,10 @@ export default {
       this.formInline.fundbig = "";
     },
     func2() {
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -451,6 +457,7 @@ export default {
         });
         return;
       }
+      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[0])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/memberfollowup/insiderup",
@@ -463,6 +470,10 @@ export default {
     },
     //会员主页
     zhuye() {
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
       if (!this.currentSelectRow) {
         this.$message({
           message: "请先选择数据!",
@@ -470,6 +481,7 @@ export default {
         });
         return;
       }
+      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[0])[0]
       this.$router.push({
         path: "/Customer/membershiphome/memberhome",
         query: {
@@ -492,6 +504,9 @@ export default {
       return row.address;
     },
     radiochange(row) {},
+    selectClick(selection, row){
+      this.currentSelectRow = row;
+    },
     rowClick(row, event, column) {
       this.radio = this.tableData.indexOf(row);
       //获取表格数据
@@ -549,6 +564,9 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import "@/styles/leaguertable.scss";
+.el-table .selected-row {
+    background: #00bc71;
+  }
 .practice-list {
   width: 97%;
   height: 100%;

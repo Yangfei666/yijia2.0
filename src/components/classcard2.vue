@@ -50,13 +50,13 @@
                                 <div class="practice-table">
                                     <div class="table-tuan">
                                         <el-table  @row-click="rowClick" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
-                                            <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed width="150px"></el-table-column>
-                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间" width="130px"></el-table-column>
-                                            <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种" width="150px"></el-table-column>
-                                            <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室" width="200px"></el-table-column>
-                                            <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练" width="120px"></el-table-column>
-                                            <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度" width="120px"></el-table-column>
-                                            <el-table-column prop="hand" align="left" label="手牌" width="120px"></el-table-column>
+                                            <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间"></el-table-column>
+                                            <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室"></el-table-column>
+                                            <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度"></el-table-column>
+                                            <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                                             <el-table-column prop="status" align="left" label="上课状态" fixed="right">
                                                 <template slot-scope="scope">
                                                     <div v-if="scope.row.isEnter == '已进场'">
@@ -123,8 +123,8 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
-                                            <el-table-column prop="curriculum_table.kcStime" align="left" sortable label="上课时间"></el-table-column>
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间"></el-table-column>
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室"></el-table-column>
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
