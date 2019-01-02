@@ -417,7 +417,7 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ pro_adviser, pro_staffTimeAchievement }) {
-      let allStaffSum= pro_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let allStaffSum = pro_staffTimeAchievement.data.reduce((pre,cur)=>pre+cur)
       let subtext = `${this.dataDate}  潜在总人数: ${allStaffSum}`
       //柱状图
       let myChart444 = echarts.init(document.getElementById("myChart444"));
@@ -455,7 +455,10 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: pro_adviser
+            data: pro_staffTimeAchievement.name,
+            axisTick: {
+                alignWithLabel: true
+            }
           }
         ],
         yAxis: [
@@ -464,7 +467,12 @@ export default {
             type: "value"
           }
         ],
-        series: pro_staffTimeAchievement
+        series: [{
+          data:pro_staffTimeAchievement.data,
+          type:'bar',
+          color:'#B84A5B',
+          barWidth: '50%',
+        }]
       });
       window.onresize = function() {
         myChart444.resize();

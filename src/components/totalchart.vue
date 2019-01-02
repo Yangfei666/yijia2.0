@@ -367,7 +367,7 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ ach_adviser, ach_staffTimeAchievement }) {
-      let allStaffSum= ach_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let allStaffSum = ach_staffTimeAchievement.data.reduce((pre,cur)=>pre+cur)
       let subtext = `${this.dataDate}  总业绩: ${allStaffSum}`
       //柱状图
       let myChart4 = echarts.init(document.getElementById("myChart4"));
@@ -405,7 +405,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ach_adviser,
+            data: ach_staffTimeAchievement.name,
             axisTick: {
                 alignWithLabel: true
             }
@@ -417,7 +417,12 @@ export default {
             type : 'value',
           }
         ],
-        series: ach_staffTimeAchievement
+        series: [{
+          data:ach_staffTimeAchievement.data,
+          type:'bar',
+          color:'#B84A5B',
+          barWidth: '50%',
+        }]
       });
       window.onresize = function() {
         myChart4.resize();

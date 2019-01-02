@@ -375,7 +375,7 @@ export default {
         .filter(item => item.name);
     },
     drawBar({ exp_adviser, exp_staffTimeAchievement }) {
-      let allStaffSum= exp_staffTimeAchievement.map(item=>item.data.reduce((pre,cur)=>pre+cur)).reduce((pre,cur)=>pre+cur)
+      let allStaffSum = exp_staffTimeAchievement.data.reduce((pre,cur)=>pre+cur)
       let subtext = `${this.dataDate}  体验总人数: ${allStaffSum}`
       //柱状图
       let myChart44 = echarts.init(document.getElementById("myChart44"));
@@ -412,7 +412,10 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: exp_adviser
+            data: exp_staffTimeAchievement.name,
+            axisTick: {
+                alignWithLabel: true
+            }
           }
         ],
         yAxis: [
@@ -421,7 +424,12 @@ export default {
             type: "value"
           }
         ],
-        series: exp_staffTimeAchievement
+        series: [{
+          data:exp_staffTimeAchievement.data,
+          type:'bar',
+          color:'#B84A5B',
+          barWidth: '50%',
+        }]
       });
       window.onresize = function() {
         myChart44.resize();
