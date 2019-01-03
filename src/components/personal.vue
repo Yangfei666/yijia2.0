@@ -115,11 +115,11 @@ export default {
             request("/SetPrivateReserve", params)
               .then(data => {
                 this.$message({ message: "预约成功", type: "success" });
-                this.$emit("success");
+                this.$emit("success",{staff:this.ruleForm.trainer, name:this.ruleForm.name});
                 this.resetForm(formName);
-                this.startTime = "";
-                this.endTime = "";
-                this.classroom = "";
+                // this.startTime = "";
+                // this.endTime = "";
+                // this.classroom = "";
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

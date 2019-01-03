@@ -96,8 +96,26 @@ export default {
   },
   methods: {
     // 预约成功
-    success() {
+    success(obj) {
       this.dialogFormVisible = false;
+      let index = this.courseDaily[this.classroom].time.findIndex(item=> JSON.stringify(item.staff) === 'null')
+
+      if(index !== 0 || index !== this.courseDaily[this.classroom].time.length){
+        obj.staff = this.coachList.filter(item=>item.YGXX_YGID_NEI === obj.staff)[0].YGXX_NAME
+        let [startHard,startTail] = this.startTime.split(':')
+        let [endHard,endTail] = this.endTime.split(':')
+        let hourLength = Math.abs(endHard - startHard) * 2 - 1
+        if(startTail === endTail){
+        }else if(startTail > endTail){
+          hourLength -= 1
+        }else {
+          hourLength += 1
+        }
+        for(let i = index-1,length=index+hourLength ; i<= length; i++) {
+          this.courseDaily[this.classroom].time[i].staff = obj.staff
+          this.courseDaily[this.classroom].time[i].name = obj.name
+        }
+      }
       this.startTime = "";
       this.endTime = "";
       this.classroom = "";
