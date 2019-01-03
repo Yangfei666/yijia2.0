@@ -102,27 +102,36 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          let params = {
-            kcStime: this.whichDay,
-            Stime: this.startTime,
-            Etime: this.endTime,
-            kcPlace: this.classroom,
-            JLID: this.ruleForm.trainer,
-            cardId: this.ruleForm.card,
-            sign: this.ruleForm.consumer
-          };
-          request("/SetPrivateReserve", params)
-            .then(data => {
-              this.$message({ message: "预约成功", type: "success" });
-              this.$emit("success");
-              this.resetForm(formName);
-            })
-            .catch(error => {
-              this.$message({
-                message: error.response.data.msg,
-                type: "error"
+          this.$confirm("确认预约该课程吗？", "提示").then(() => {
+            let params = {
+              kcStime: this.whichDay,
+              Stime: this.startTime,
+              Etime: this.endTime,
+              kcPlace: this.classroom,
+              JLID: this.ruleForm.trainer,
+              cardId: this.ruleForm.card,
+              sign: this.ruleForm.consumer
+            };
+            request("/SetPrivateReserve", params)
+              .then(data => {
+                this.$message({ message: "预约成功", type: "success" });
+                this.$emit("success");
+                this.resetForm(formName);
+                this.startTime = "";
+                this.endTime = "";
+                this.classroom = "";
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
-            });
+          });
         } else {
           return false;
         }
@@ -206,11 +215,13 @@ export default {
           }
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     }

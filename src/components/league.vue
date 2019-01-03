@@ -128,7 +128,7 @@ export default {
           // height: 100%;
           width: 100%;
           .Img {
-            width: 209px;
+            width: 100% !important;
             height: 100%;
             opacity: 0.4;
             filter: alpha(opacity=30);

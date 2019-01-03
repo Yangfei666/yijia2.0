@@ -133,7 +133,7 @@ export default {
         .catch(error => {
           if (error.res) {
             this.$message({
-              message: "获取数据失败",
+              message: "获取门店数据失败",
               type: "error"
             });
           }

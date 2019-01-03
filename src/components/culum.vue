@@ -24,7 +24,7 @@
     </div>
     <div class="practice-table">
       <template>
-        <el-table :data="privateList" :header-cell-style="{background:'#fafafa'}" border highlight-current-row style="width: 100%">
+        <el-table :data="privateList" :header-cell-style="{background:'#fafafa'}" border style="width: 100%">
           <el-table-column fixed label="教室" width="130" align="center">
             <template slot-scope="scope">
               <el-col class="wer-col">
@@ -98,7 +98,9 @@ export default {
     // 预约成功
     success() {
       this.dialogFormVisible = false;
-      this.reload();
+      this.startTime = "";
+      this.endTime = "";
+      this.classroom = "";
     },
     // 预约界面
     reservationPage() {
@@ -430,8 +432,9 @@ export default {
   cursor: default;
 }
 span {
-  color: #c7c7c7;
+  color: #777;
   font-size: 10px !important;
+  margin-left: 12%;
 }
 .purplecolor {
   height: 35px;

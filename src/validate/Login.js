@@ -382,3 +382,19 @@ export let shoproom = [
         trigger: "change"
     }
 ];
+/* 验证优先级*/
+export let priority = [
+    {
+        required: true,
+        message: "请选择优先级",
+        trigger: "change"
+    }
+];
+/* 验证储物柜编号*/
+export let priorityid = [
+    {
+        required: true,
+        message: "请输入储物柜编号",
+        trigger: "blur"
+    }
+];

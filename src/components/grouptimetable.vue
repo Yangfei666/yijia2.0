@@ -507,7 +507,7 @@ export default {
     yuyueForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$confirm("确认预约课程吗？", "提示").then(() => {
+          this.$confirm("确认预约该课程吗？", "提示").then(() => {
             var formData = {
               kcbId: this.currentSelectRow.ID, //课程编号
               cardId: this.ruleForm2.card, //会员卡id
