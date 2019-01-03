@@ -202,11 +202,21 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
-                                <el-col :span="24" class="from-date">
+                                <el-col :span="12" class="from-date">
                                     <el-form-item label="是否开启惩罚：" prop="isPunish" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-radio-group v-model="ruleForm.isPunish" @change="chanegtext">
                                                 <el-radio :label="0">否</el-radio>
+                                                <el-radio :label="1">是</el-radio>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="是否自动分配储物柜：" prop="locker" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.locker" @change="chanegtext">
+                                                <el-radio :label="2">否</el-radio>
                                                 <el-radio :label="1">是</el-radio>
                                             </el-radio-group>
                                         </el-col>
@@ -356,7 +366,8 @@ export default {
         cancelNum3: "", //教练信用3级
         cancelNum4: "", //教练信用4级
         cancelNum5: "", //教练信用5级
-        isICCard: "" //是否开启IC卡
+        isICCard: "" ,//是否开启IC卡
+        locker:"",//是否自动分配储物柜
       }
     };
   },
@@ -421,7 +432,8 @@ export default {
           cancelNum3: this.ruleForm.cancelNum3, //教练信用3级
           cancelNum4: this.ruleForm.cancelNum4, //教练信用4级
           cancelNum5: this.ruleForm.cancelNum5, //教练信用5级
-          isICCard: this.ruleForm.isICCard //是否开启IC卡
+          isICCard: this.ruleForm.isICCard, //是否开启IC卡
+          locker:this.ruleForm.locker,//是否自动分配储物柜
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {
