@@ -72,10 +72,54 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
-      <el-form-item label="限时段(可用):" prop="limittime" :label-width="formLabelWidth">
+      <el-form-item label="是否限制时段:" prop="limittime" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-picker  v-model="ruleForm.startTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
-          <el-time-picker  v-model="ruleForm.endTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+           <el-radio-group v-model="ruleForm.limittime">
+            <el-radio :label="1">不限</el-radio>
+            <el-radio :label="2">限用</el-radio>
+          </el-radio-group>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周一:" prop="one" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.onestartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.oneendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周二:" prop="two" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.twostartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.twoendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周三:" prop="three" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.threestartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.threeendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周四:" prop="four" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.fourstartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.fourendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周五:" prop="five" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.fivestartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.fiveendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周六:" prop="six" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.sixstartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.sixendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周日:" prop="sun" :label-width="formLabelWidth" v-show="ruleForm.limittime === 2">
+        <el-col :span="22">
+          <el-time-picker  v-model="ruleForm.sunstartTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="ruleForm.sunendTime" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
         </el-col>
       </el-form-item>
       <div v-if="this.ceshis=='hide'">
@@ -127,10 +171,23 @@ export default {
         num: "", //限制次数
         limitdate: [], //限制日期
         status: "", //状态
-        startTime: "", //限制时间段--开始
-        endTime: "", //限制时间段--结束
         number: "", //次数卡--次数
-        shoproom: [] //选择可用门店
+        shoproom: [], //选择可用门店
+        limittime:"",//是否限制时段
+        onestartTime:"",//周一
+        oneendTime:"",//周一
+        twostartTime:"",//周二
+        twoendTime:"",//周二
+        threestartTime:"",//周三
+        threeendTime:"",//周三
+        fourstartTime:"",//周四
+        fourendTime:"",//周四
+        fivestartTime:"",//周五
+        fiveendTime:"",//周五
+        sixstartTime:"",//周六
+        sixendTime:"",//周六
+        sunstartTime:"",//周日
+        sunendTime:"",//周日
       },
       rules: {
         cardname: validate.cardname,
@@ -142,7 +199,8 @@ export default {
         num: validate.num,
         status: validate.status,
         number: validate.number,
-        shoproom:validate.shoproom
+        shoproom:validate.shoproom,
+        limittime:validate.limittime
       },
       limit: cityOptions
     };
@@ -183,14 +241,27 @@ export default {
               CTjg: _this.ruleForm.price, //价格
               CTstate: _this.ruleForm.status, //状态
               CTxDate_Val: _this.ruleForm.num, //每周限用次数
-              CTxTime_1S: _this.ruleForm.startTime, //限用时间段--开始
-              CTxTime_1E: _this.ruleForm.endTime, //限用时间段--结束
+              CTxTime_1S: _this.ruleForm.onestartTime, //周一
+              CTxTime_1E: _this.ruleForm.oneendTime, //周一
+              CTxTime_2S: _this.ruleForm.twostartTime, //周二
+              CTxTime_2E: _this.ruleForm.twoendTime, //周二
+              CTxTime_3S: _this.ruleForm.threestartTime, //周三
+              CTxTime_3E: _this.ruleForm.threeendTime, //周三
+              CTxTime_4S: _this.ruleForm.fourstartTime, //周四
+              CTxTime_4E: _this.ruleForm.fourendTime, //周四
+              CTxTime_5S: _this.ruleForm.fivestartTime, //周五
+              CTxTime_5E: _this.ruleForm.fiveendTime, //周五
+              CTxTime_6S: _this.ruleForm.sixstartTime, //周六
+              CTxTime_6E: _this.ruleForm.sixendTime, //周六
+              CTxTime_7S: _this.ruleForm.sunstartTime, //周日
+              CTxTime_7E: _this.ruleForm.sunendTime, //周日
               ColorCard: _this.ruleForm.memcolor, //颜色
               ctNotes: _this.ruleForm.role, //备注
               ctType: _this.ruleForm.type, //类型
               CTdate: _this.ruleForm.limitdate, //限制日期
               CTvalidity: _this.ruleForm.date, //有效期
               Ctnum: _this.ruleForm.number, //次数
+              CTxTime_YN:_this.ruleForm.limittime,//是否限制时段
               ctIsIsPrivate: _this.ruleForm.classtype, //课程类别
               clubRelation: _this.ruleForm.shoproom //连锁店id
             };

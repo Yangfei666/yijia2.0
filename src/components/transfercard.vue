@@ -14,7 +14,7 @@
             <template>
               <el-dialog title="添加新会员" :append-to-body="true" :visible.sync="dialogFormVisible">
                 <!--转卡给新客户-->
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" @submit.native.prevent>
                   <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
                     <el-col :span="22">
                       <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>

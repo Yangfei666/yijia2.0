@@ -57,7 +57,7 @@
                 </el-col>
                 <el-col :span="11">
                   <div class="purple2">
-                    <el-form ref="form" label-width="90px">
+                    <el-form ref="form" label-width="90px" @submit.native.prevent>
                       <el-col :span="22" class="purple-name">
                         <el-form-item label="卡名称:">
                           <el-col :span="24">
@@ -142,7 +142,7 @@
                 </el-col>
                 <el-col :span="11">
                   <div class="purple2">
-                    <el-form ref="form" label-width="90px">
+                    <el-form ref="form" label-width="90px" @submit.native.prevent>
                       <el-col :span="22" class="purple-name">
                         <el-form-item label="卡名称:">
                           <el-col :span="24">
@@ -163,7 +163,7 @@
             <div class="practice-table">
               <el-row>
                 <el-col :span="24">
-                  <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" @row-click="rowClick" fixed style="width: 100%">
+                  <el-table v-loading="loading" ref="singleTable" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" @row-click="rowClick" fixed style="width: 100%">
                     <el-table-column align="center" prop="radio" fixed width="70px">
                       <template slot-scope="scope">
                         <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
@@ -180,7 +180,7 @@
                     <el-table-column prop="CTstate" align="left" label="状态" fixed="right"></el-table-column>
                   </el-table>
                   <div class="block">
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                    <el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2" :current-page="currentPage2" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize2" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
                     </el-pagination>
                   </div>
                 </el-col>
@@ -217,7 +217,9 @@ export default {
       dialogFormVisible5: false,
       dialogFormVisible6: false,
       currentPage: 1,
+      currentPage2: 1,
       pagesize: 10,
+      pagesize2: 10,
       radio: true,
       radio2: true,
       sign: "",
@@ -286,8 +288,14 @@ export default {
     handleSizeChange(size) {
       this.pagesize = size;
     },
+    handleSizeChange2(size) {
+      this.pagesize2 = size;
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+    },
+    handleCurrentChange2(currentPage2) {
+      this.currentPage2 = currentPage2;
     },
     //查询表格数据
     searchName() {
@@ -307,9 +315,6 @@ export default {
       if (this.radio < 0 && this.radio2 < 0) return;
       //获取表格数据
       this.currentSelectRow = row;
-    },
-    handleCurrentChange2(val, index) {
-      this.currentRow = val;
     },
     getCurrentRow(val) {
       console.log(val);

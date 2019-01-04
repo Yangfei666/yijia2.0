@@ -11,7 +11,7 @@
                         <template>
                             <el-col :span="24">
                                 <div class="class-form">
-                                    <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="80px">
+                                    <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="80px" @submit.native.prevent>
                                         <div class="from-class">
                                             <el-form-item label="时间段:" style="text-align:center;">
                                                 <el-col :span="24">
@@ -123,7 +123,7 @@
                             <el-col :span="24">
                                 <div class="practice-table">
                                     <div class="table-tuan">
-                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
+                                        <el-table highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData2.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" style="width: 100%">
                                             <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间"></el-table-column>
                                             <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种"></el-table-column>
                                             <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室"></el-table-column>
@@ -144,7 +144,7 @@
                                             </el-table-column>
                                         </el-table>
                                         <div class="block">
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                                            <el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2" :current-page="currentPage2" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize2" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
                                             </el-pagination>
                                         </div>
                                     </div>
@@ -167,6 +167,8 @@ export default {
       activeName: "1",
       currentPage: 1,
       pagesize: 10,
+      currentPage2: 1,
+      pagesize2: 10,
       loading: true,
       tablelength: 0,
       tablelength2: 0,
@@ -322,8 +324,14 @@ export default {
     handleSizeChange(size) {
       this.pagesize = size;
     },
+    handleSizeChange2(size) {
+      this.pagesize2 = size;
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+    },
+    handleCurrentChange2(currentPage2) {
+      this.currentPage2 = currentPage2;
     },
     back() {
       this.$router.push({

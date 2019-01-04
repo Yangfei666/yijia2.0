@@ -66,10 +66,52 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
-      <el-form-item label="限时段(可用):" prop="CTxTime_YN" :label-width="formLabelWidth">
+      <el-form-item label="是否限制时段:" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-time-picker  v-model="currentSelectRow.CTxTime_1S" value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
-          <el-time-picker  v-model="currentSelectRow.CTxTime_1E" value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>        
+          <el-radio label="不限" value="1" v-model="currentSelectRow.CTxTime_YN"></el-radio>
+          <el-radio label="限用" value="2" v-model="currentSelectRow.CTxTime_YN"></el-radio>       
+        </el-col>
+      </el-form-item>
+       <el-form-item label="周一:" prop="one" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_1E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周二:" prop="two" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_2S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_2E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周三:" prop="three" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_3S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_3E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周四:" prop="four" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_4S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_4E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周五:" prop="five" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_5S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_5E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周六:" prop="six" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_6S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_6E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="周日:" prop="sun" :label-width="formLabelWidth" v-show="currentSelectRow.CTxTime_YN === '限用'">
+        <el-col :span="22">
+          <el-time-picker  v-model="currentSelectRow.CTxTime_7S" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
+          <el-time-picker  v-model="currentSelectRow.CTxTime_7E" :clearable='false' value-format="HH:mm:ss" format="HH:mm:ss" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
         </el-col>
       </el-form-item>
       <div v-if="this.hides == 'yinchang'">
@@ -85,7 +127,6 @@
       </div>
       <el-form-item class="dialog-footer">
         <el-col :span="24" style="display: flex;justify-content: flex-end;">
-          <!--<el-button @click="resetForm('currentSelectRow')">重置</el-button>-->
           <el-button type="primary" @click="submitForm('currentSelectRow')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
         </el-col>
       </el-form-item>
@@ -159,15 +200,52 @@ export default {
             this.addLoading = true;
             if(this.currentSelectRow.CTxTime_1S == null || this.currentSelectRow.CTxTime_1E == null){
               this.currentSelectRow.CTxTime_1S = '00:00:00';
-              this.currentSelectRow.CTxTime_1E = '00:00:00';
+              this.currentSelectRow.CTxTime_1E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_2S == null || this.currentSelectRow.CTxTime_2E == null){
+              this.currentSelectRow.CTxTime_2S = '00:00:00';
+              this.currentSelectRow.CTxTime_2E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_3S == null || this.currentSelectRow.CTxTime_3E == null){
+              this.currentSelectRow.CTxTime_3S = '00:00:00';
+              this.currentSelectRow.CTxTime_3E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_4S == null || this.currentSelectRow.CTxTime_4E == null){
+              this.currentSelectRow.CTxTime_4S = '00:00:00';
+              this.currentSelectRow.CTxTime_4E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_5S == null || this.currentSelectRow.CTxTime_5E == null){
+              this.currentSelectRow.CTxTime_5S = '00:00:00';
+              this.currentSelectRow.CTxTime_5E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_6S == null || this.currentSelectRow.CTxTime_6E == null){
+              this.currentSelectRow.CTxTime_6S = '00:00:00';
+              this.currentSelectRow.CTxTime_6E = '23:59:00';
+            }
+            if(this.currentSelectRow.CTxTime_7S == null || this.currentSelectRow.CTxTime_7E == null){
+              this.currentSelectRow.CTxTime_7S = '00:00:00';
+              this.currentSelectRow.CTxTime_7E = '23:59:00';
             }
             var loginParams = {
               CTName: this.currentSelectRow.CTName, //卡名称
               CTjg: this.currentSelectRow.CTjg, //价格
               CTstate: radioDict[this.currentSelectRow.CTstate], //状态
               CTxDate_Val: radioDict[this.currentSelectRow.CTxDate_Val], //每周限用次数
-              CTxTime_1S: this.currentSelectRow.CTxTime_1S, //限用时间段--开始
-              CTxTime_1E: this.currentSelectRow.CTxTime_1E, //限用时间段--结束
+              CTxTime_YN:this.currentSelectRow.CTxTime_YN == '限用'? 2 :1,//是否限制时段
+              CTxTime_1S: this.currentSelectRow.CTxTime_1S, //周一
+              CTxTime_1E: this.currentSelectRow.CTxTime_1E, //周一
+              CTxTime_2S: this.currentSelectRow.CTxTime_2S, //周二
+              CTxTime_2E: this.currentSelectRow.CTxTime_2E, //周二
+              CTxTime_3S: this.currentSelectRow.CTxTime_3S, //周三
+              CTxTime_3E: this.currentSelectRow.CTxTime_3E, //周三
+              CTxTime_4S: this.currentSelectRow.CTxTime_4S, //周四
+              CTxTime_4E: this.currentSelectRow.CTxTime_4E, //周四
+              CTxTime_5S: this.currentSelectRow.CTxTime_5S, //周五
+              CTxTime_5E: this.currentSelectRow.CTxTime_5E, //周五
+              CTxTime_6S: this.currentSelectRow.CTxTime_6S, //周六
+              CTxTime_6E: this.currentSelectRow.CTxTime_6E, //周六
+              CTxTime_7S: this.currentSelectRow.CTxTime_7S, //周日
+              CTxTime_7E: this.currentSelectRow.CTxTime_7E, //周日
               ColorCard: radioDict[this.currentSelectRow.ColorCard], //颜色
               ctNotes: this.currentSelectRow.ctNotes, //备注
               ctType: radioDict[this.currentSelectRow.ctType], //类型

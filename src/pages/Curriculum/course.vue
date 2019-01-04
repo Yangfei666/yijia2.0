@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="purple2">
-          <el-form ref="form" label-width="90px">
+          <el-form ref="form" label-width="90px" @submit.native.prevent>
             <el-col :span="23" class="purple-name">
               <el-form-item label="课程名称:">
                 <el-col :span="24">

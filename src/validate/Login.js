@@ -398,3 +398,11 @@ export let priorityid = [
         trigger: "blur"
     }
 ];
+/* 验证时段*/
+export let limittime = [
+    {
+        required: true,
+        message: "请选择是否限用时段",
+        trigger: "change"
+    }
+];

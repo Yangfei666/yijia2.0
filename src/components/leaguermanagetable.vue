@@ -2,7 +2,7 @@
   <!--会员表格-->
   <div class="practice-list">
     <el-row>
-      <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px">
+      <el-form ref="formInline" :model="formInline" class="demo-form-inline" label-width="90px" @submit.native.prevent>
         <div class="quanbu">
           <div class="search-form">
             <el-form-item label="会员卡种:">
