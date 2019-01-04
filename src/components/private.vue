@@ -48,7 +48,8 @@ export default {
   },
   data() {
     return {
-      progress: 20
+      progress: 20,
+      page:1
     };
   },
   mounted() {
@@ -59,15 +60,15 @@ export default {
   },
   methods: {
     initSwiper() {
-      var appendNumber = 5;
-      var prependNumber = 1;
+      var appendNumber = 25;
+      var prependNumber = this.page;
       new Swiper(".swiper-container", {
-        slidesPerView: 3,
-        spaceBetween: 15,
+        slidesPerView: 5,
+        spaceBetween: 2,
         centeredSlides: false,
         direction: "horizontal", //滑动方向
         speed: 1000, //切换速度
-        grabCursor: true, //指针变成手掌
+        grabCursor: true //指针变成手掌
       });
     },
     courseId(course) {
@@ -80,163 +81,164 @@ export default {
 @import "swiper/dist/css/swiper.min.css";
 @import "@/styles/league.scss";
  .swiper-container {
-    width: 97%;
-    height: 310px;
-    background-color: #fff;
-    .swiper-slide {
-      display: flex;
-      align-items: center;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      background: #ccc;
-      list-style: none;
-      width: 18% !important;
-      background: #fff;
-      height: 75%;
-      margin: 15px auto;
-      transition: 500ms ease-in-out;
-      transform-origin: center center;
+  width: 97%;
+  height: 310px;
+  background-color: #fff;
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    background: #ccc;
+    list-style: none;
+    width: 18% !important;
+    margin-left: 13px !important;
+    background: #fff;
+    height: 75%;
+    margin: 15px auto;
+    transition: 500ms ease-in-out;
+    transform-origin: center center;
+    position: relative;
+    z-index: 999;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+    .weber-main {
       position: relative;
-      z-index: 999;
-      box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-      .weber-main {
-        position: relative;
-        left: 33%;
-        bottom: -62%;
-        .circle {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #00bc71;
-          margin: 12px auto;
-          margin-top: 20px;
-          margin-left: 45%;
-        }
+      left: 33%;
+      bottom: -62%;
+      .circle {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #00bc71;
+        margin: 12px auto;
+        margin-top: 20px;
+        margin-left: 45%;
       }
-      .swiper-main {
+    }
+    .swiper-main {
+      width: 100%;
+      height: 55%;
+      position: absolute;
+      top: 0px;
+      overflow: hidden;
+      .dimback {
+        background: rgba(0, 0, 0, 0.822);
+        border-radius: 4px;
+        display: flex;
+        // height: 100%;
         width: 100%;
-        height: 55%;
-        position: absolute;
-        top: 0px;
-        overflow: hidden;
-        .dimback {
-          background: rgba(0, 0, 0, 0.822);
+        .Img {
+          width: 100% !important;
+          height: 100%;
+          opacity: 0.4;
+          filter: alpha(opacity=30);
           border-radius: 4px;
-          display: flex;
-          // height: 100%;
-          width: 100%;
-          .Img {
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-            filter: alpha(opacity=30);
-            border-radius: 4px;
-          }
-        }
-        .time {
-          color: #fff;
-          font-size: 20px;
-          position: absolute;
-          top: 13%;
-          left: 10%;
-        }
-        .name {
-          color: #fff;
-          font-size: 20px;
-          position: absolute;
-          top: 37%;
-          left: 10%;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
         }
       }
-      .box {
-        height: 3px;
-        background: #fff;
+      .time {
+        color: #fff;
+        font-size: 20px;
         position: absolute;
-        top: 54%;
-        width: 100%;
-      }
-      .yuyue {
-        font-family: PingFang-SC-Regular;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: 25px;
-        letter-spacing: 0px;
-        color: #262626;
-        width: 80%;
-        height: 25px;
-        text-align: left;
-        position: absolute;
-        top: 58%;
+        top: 13%;
         left: 10%;
       }
-      div.progressContainer {
-        height: 1px;
-        width: 13%;
-        border-radius: 10px;
-        background-color: #fff;
-        margin-left: 10%;
-        position: absolute;
-        bottom: 48px;
-      }
-      div.progress {
-        background-color: #eed29b;
-        border-radius: 10px;
-        height: 1px;
-      }
-      b {
+      .name {
         color: #fff;
-        font-weight: 100;
-        font-size: 12px;
+        font-size: 20px;
         position: absolute;
-        left: 40%;
+        top: 37%;
+        left: 10%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
-      .star {
-        width: 100%;
-        height: 40px;
-        position: absolute;
-        bottom: 0px;
-        .block {
-          width: 70%;
+    }
+    .box {
+      height: 3px;
+      background: #fff;
+      position: absolute;
+      top: 54%;
+      width: 100%;
+    }
+    .yuyue {
+      font-family: PingFang-SC-Regular;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 25px;
+      letter-spacing: 0px;
+      color: #262626;
+      width: 80%;
+      height: 25px;
+      text-align: left;
+      position: absolute;
+      top: 58%;
+      left: 10%;
+    }
+    div.progressContainer {
+      height: 1px;
+      width: 13%;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-left: 10%;
+      position: absolute;
+      bottom: 48px;
+    }
+    div.progress {
+      background-color: #eed29b;
+      border-radius: 10px;
+      height: 1px;
+    }
+    b {
+      color: #fff;
+      font-weight: 100;
+      font-size: 12px;
+      position: absolute;
+      left: 40%;
+    }
+    .star {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      bottom: 0px;
+      .block {
+        width: 70%;
+        height: 21px;
+        .el-rate {
           height: 21px;
-          .el-rate {
-            height: 21px;
-            line-height: 1;
-            transform: scale(0.7);
-            .el-rate__item {
-              .el-rate__icon {
-                font-size: 14px;
-                margin: 0;
-                -webkit-transition: 0.3s;
-                transition: 0.3s;
-              }
+          line-height: 1;
+          transform: scale(0.7);
+          .el-rate__item {
+            .el-rate__icon {
+              font-size: 14px;
+              margin: 0;
+              -webkit-transition: 0.3s;
+              transition: 0.3s;
             }
           }
         }
-        .but {
-          width: 40px;
-          height: 21px;
-          float: right;
-          margin-top: -11%;
-          border-radius: 10px;
-          border: solid 1px #eed29b;
-          margin-right: 4%;
-          p {
-            font-family: PingFang-SC-Regular;
-            font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
-            line-height: 0px;
-            letter-spacing: 0px;
-            color: #eed29b;
-            margin-top: 10px;
-          }
+      }
+      .but {
+        width: 40px;
+        height: 21px;
+        float: right;
+        margin-top: -11%;
+        border-radius: 10px;
+        border: solid 1px #eed29b;
+        margin-right: 4%;
+        p {
+          font-family: PingFang-SC-Regular;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          line-height: 0px;
+          letter-spacing: 0px;
+          color: #eed29b;
+          margin-top: 10px;
         }
       }
     }
   }
+}
 </style>

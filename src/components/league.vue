@@ -1,77 +1,41 @@
 <template>
   <div>
     <!--首页团课卡片-->
-    <!-- <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in groupList" :key="item.ID" @click="courseId(item)">
-            <template>
-              <div class="swiper-main">
-                <div class="dimback">
-                  <img class="Img" :src="item.staff_info.Photo" />
-                </div>
-                <p class="time">{{item.Stime}}~{{item.Etime}}</p>
-                <p class="name">{{item.curriculum_subject.kcName}}.{{item.staff_info.YGXX_NAME}}</p>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in groupList" :key="item.ID" @click="courseId(item)">
+          <template>
+            <div class="swiper-main">
+              <div class="dimback">
+                <img class="Img" :src="item.staff_info.Photo" />
               </div>
-              <div class="box"></div>
-              <div class="bai">{{item.kcbSort.substring(0,1)}}</div>
-              <p class="yuyue">已预约:{{item.group_curriculum_appointment_count}}/{{item.RenShu}}</p>
-              <div class="progressContainer">
-                <div class="progress">
-                  <b>{{progress}}</b>
-                </div>
-              </div>
-              <div class="star">
-                <div class="block">
-                  <el-rate v-model="item.kcDiff" disabled></el-rate>
-                </div>
-                <div class="but">
-                  <p>{{item.kcIsPrivate.substr(0,2)}}</p>
-                </div>
-              </div>
-            </template>
-            <div class="weber-main">
-              <div class="circle"></div>
-              <span style="font-size:18px">{{item.Stime}}</span>
+              <p class="time">{{item.Stime}}~{{item.Etime}}</p>
+              <p class="name">{{item.curriculum_subject.kcName}}.{{item.staff_info.YGXX_NAME}}</p>
             </div>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in groupList" :key="item.ID" @click="courseId(item)">
-            <template>
-              <div class="swiper-main">
-                <div class="dimback">
-                  <img class="Img" :src="item.staff_info.Photo" />
-                </div>
-                <p class="time">{{item.Stime}}~{{item.Etime}}</p>
-                <p class="name">{{item.curriculum_subject.kcName}}.{{item.staff_info.YGXX_NAME}}</p>
+            <div class="box"></div>
+            <div class="bai">{{item.kcbSort.substring(0,1)}}</div>
+            <p class="yuyue">已预约:{{item.group_curriculum_appointment_count}}/{{item.RenShu}}</p>
+            <div class="progressContainer">
+              <div class="progress">
+                <b>{{progress}}</b>
               </div>
-              <div class="box"></div>
-              <div class="bai">{{item.kcbSort.substring(0,1)}}</div>
-              <p class="yuyue">已预约:{{item.group_curriculum_appointment_count}}/{{item.RenShu}}</p>
-              <div class="progressContainer">
-                <div class="progress">
-                  <b>{{progress}}</b>
-                </div>
-              </div>
-              <div class="star">
-                <div class="block">
-                  <el-rate v-model="item.kcDiff" disabled></el-rate>
-                </div>
-                <div class="but">
-                  <p>{{item.kcIsPrivate.substr(0,2)}}</p>
-                </div>
-              </div>
-            </template>
-            <div class="weber-main">
-              <div class="circle"></div>
-              <span style="font-size:18px">{{item.Stime}}</span>
             </div>
+            <div class="star">
+              <div class="block">
+                <el-rate v-model="item.kcDiff" disabled></el-rate>
+              </div>
+              <div class="but">
+                <p>{{item.kcIsPrivate.substr(0,2)}}</p>
+              </div>
+            </div>
+          </template>
+          <div class="weber-main">
+            <div class="circle"></div>
+            <span style="font-size:18px">{{item.Stime}}</span>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -92,15 +56,15 @@ export default {
     let that = this;
     setTimeout(function() {
       that.initSwiper();
-    }, 800);
+    }, 1000);
   },
   methods: {
     initSwiper() {
-      var appendNumber = 10;
+      var appendNumber = 25;
       var prependNumber = this.page;
       new Swiper(".swiper-container", {
         slidesPerView: 5,
-        spaceBetween: 15,
+        spaceBetween: 2,
         centeredSlides: false,
         direction: "horizontal", //滑动方向
         speed: 1000, //切换速度
@@ -129,6 +93,7 @@ export default {
     background: #ccc;
     list-style: none;
     width: 18% !important;
+    margin-left: 13px !important;
     background: #fff;
     height: 75%;
     margin: 15px auto;
