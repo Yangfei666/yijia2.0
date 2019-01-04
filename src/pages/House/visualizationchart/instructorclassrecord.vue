@@ -49,12 +49,12 @@
             <template>
               <el-col :span="24" v-if="coachData.groupList !=null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.groupList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                  <el-table-column prop="kcName" align="left" label="课程名称" width="160px" fixed></el-table-column>
+                  <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称" width="160px" fixed></el-table-column>
                   <el-table-column prop="Stime" align="left" label="开始时间" width="150px"></el-table-column>
                   <el-table-column prop="Etime" align="left" label="结束时间" width="150px"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="130px" :formatter="formatkcIs"></el-table-column>
-                  <el-table-column prop="YGXX_NAME" align="left" label="教练" width="140px"></el-table-column>
-                  <el-table-column prop="kcPerson" align="left" label="上课人数" width="120px"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="130px"></el-table-column>
+                  <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练" width="140px"></el-table-column>
+                  <el-table-column prop="group_curriculum_appointment_count" align="left" label="上课人数" width="120px"></el-table-column>
                   <el-table-column prop="hand" align="left" label="手牌" width="120px"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期" fixed="right"></el-table-column>
                 </el-table>
@@ -72,9 +72,9 @@
                   <el-table-column width="20px"></el-table-column>
                   <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
                   <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" :formatter="formatkcIs"></el-table-column>
-                  <el-table-column prop="YGXX_NAME" align="left" label="教练"></el-table-column>
-                  <el-table-column prop="kcPerson" align="left" label="上课人数"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类"></el-table-column>
+                  <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+                  <!-- <el-table-column prop="kcPerson" align="left" label="上课人数"></el-table-column> -->
                   <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>
                 </el-table>
