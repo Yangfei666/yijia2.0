@@ -34,7 +34,7 @@
               <div class="block2">
                 <el-col :span="24">
                   <el-date-picker v-model="value4" type="month" format="yyyy-MM" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px"></el-date-picker>
-                  <el-date-picker v-model="value5" type="year" format="yyyy" value-format="yyyy" @change="change2" placeholder="选择年" style="width:150px"></el-date-picker>
+                  <!-- <el-date-picker v-model="value5" type="year" format="yyyy" value-format="yyyy" @change="change2" placeholder="选择年" style="width:150px"></el-date-picker> -->
                 </el-col>
               </div>
             </div>
@@ -92,6 +92,7 @@
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import moment from "moment";
 export default {
   name: "instructorclassrecord",
   data() {
@@ -101,7 +102,7 @@ export default {
       },
       activeName: "tuanke",
       value1: "",
-      value4: "2018-06",
+      value4: moment(new Date()).format("YYYY-MM"),
       value5: "2018",
       loading: false,
       Coach: [],
@@ -117,8 +118,12 @@ export default {
     setTimeout(() => {
       this.getstaffdate();
     }, 500);
+    this.value4 = this.getCurrentDateTime();
   },
   methods: {
+    getCurrentDateTime() {
+      return moment(new Date()).format("YYYY-MM");
+    },
     //课程分类
     formatkcIs(row, column, cellValue) {
       if (cellValue === 1) {
