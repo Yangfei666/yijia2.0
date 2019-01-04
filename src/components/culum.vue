@@ -110,14 +110,22 @@ export default {
         } else {
           hourLength += 1;
         }
-        for (let i = index - 1, length = index + hourLength; i <= length; i++) {
+        for (let i = index, length = index + hourLength; i < length; i++) {
           this.courseDaily[this.classroom].time[i].staff = obj.staff;
           this.courseDaily[this.classroom].time[i].name = obj.name;
         }
       }
+      while(true){
+        if(this.clearWerDivClass()) break;
+      }
       this.startTime = "";
       this.endTime = "";
       this.classroom = "";
+    },
+    clearWerDivClass(){
+      let htmlArray = document.getElementsByClassName('wer-div');
+      if(htmlArray.length === 0) return true;
+      htmlArray[0].setAttribute('class','wer-div2')
     },
     // 预约界面
     reservationPage() {
