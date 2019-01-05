@@ -51,14 +51,14 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top">
-              <span>已使用{{((customercars.experience_voucher.frequency-customercars.surplus)/customercars.experience_voucher.frequency).toFixed(4)*100}}%</span>
+              <span>已使用{{((customercars.experience_voucher.frequency-customercars.surplus)/customercars.experience_voucher.frequency).toFixed(2)*100 | numFilter}}%</span>
               <p>{{customercars.experience_voucher.frequency-customercars.surplus}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top">
-              <span>剩余{{(customercars.surplus/customercars.experience_voucher.frequency).toFixed(4)*100}}%</span>
+              <span>剩余{{(customercars.surplus/customercars.experience_voucher.frequency).toFixed(2)*100 | numFilter}}%</span>
               <p>{{customercars.surplus}}
                 <span class="ci">次</span>
               </p>
@@ -83,6 +83,12 @@ export default {
   },
   watch: {
     customercars(val) {}
+  },
+    filters: {
+    numFilter(value) {
+      let realVal = parseFloat(value).toFixed(2);
+      return parseFloat(realVal);
+    }
   },
   mounted() {
     setTimeout(() => {

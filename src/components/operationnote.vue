@@ -64,6 +64,15 @@
                                         <div class="yuan" v-show="item.show">原卡剩余：
                                             <span class="yuan">{{item.lave}}</span>
                                         </div>
+                                        <div class="yuan" v-show="item.show">原卡折算：
+                                            <span class="yuan">{{item.oldConversion}}</span>
+                                        </div>
+                                        <div class="yuan" v-show="item.show">新卡名称：
+                                            <span class="yuan">{{item.newCardName}}</span>
+                                        </div>
+                                        <div class="yuan" v-show="item.show">新卡补缴金额：
+                                            <span class="yuan">{{item.newmoney}}</span>
+                                        </div>
                                     </div>
                                     <span class="corry-out" @click="showToggle(index)">{{item.btnText}}</span>
                                     <div class="footss">
@@ -131,9 +140,14 @@
                         <el-col :span="4" class="box-ul" v-for="(item, index) in RecordReportLoss" :key='index+400'>
                             <el-card shadow="always">
                                 <div class="always-main">
-                                    <span class="always-span">{{item.gshTime}}</span>
+                                    <span class="always-span">{{item.czrq}}</span>
                                     <div class="card-main">
                                         <div class="always-card">挂失</div>
+                                    </div>
+                                    <div class="yuan-main3">
+                                        <div class="yuan">挂失时间:
+                                            <span>{{item.gshTime}}</span>
+                                        </div>
                                     </div>
                                     <div class="fo">
                                         <span class="foot1">操作人</span>
@@ -146,9 +160,14 @@
                         <el-col :span="4" class="box-ul" v-for="(item, index) in RecordReportLoss" :key='index+450'>
                             <el-card shadow="always" v-if="item.state == '解除挂失'">
                                 <div class="always-main">
-                                    <span class="always-span">{{item.qxgsTime}}</span>
+                                    <span class="always-span">{{item.czrq}}</span>
                                     <div class="card-main">
                                         <div class="always-card">解挂</div>
+                                    </div>
+                                    <div class="yuan-main3">
+                                        <div class="yuan">解挂时间:
+                                            <span>{{item.qxgsTime}}</span>
+                                        </div>
                                     </div>
                                     <div class="fo">
                                         <span class="foot1">操作人</span>
@@ -235,9 +254,14 @@
                         <el-col :span="4" class="box-ul" v-for="(item, index) in RecordLeave" :key='index+750'>
                             <el-card shadow="always" v-if="item.xjrname != ''">
                                 <div class="always-main">
-                                    <span class="always-span">{{item.xjTime}}</span>
+                                    <span class="always-span">{{item.czrq}}</span>
                                     <div class="card-main">
                                         <div class="always-card">销假</div>
+                                    </div>
+                                    <div class="yuan-main3">
+                                        <div class="yuan">销假时间:
+                                            <span>{{item.xjTime}}</span>
+                                        </div>
                                     </div>
                                     <div class="fo">
                                         <span class="foot1">操作人</span>
@@ -605,7 +629,7 @@ export default {
           }
         }
         .fo {
-          margin-top: 90px;
+          margin-top: 55px;
           line-height: 25px;
           .foot1 {
             font-size: 14px;

@@ -33,7 +33,7 @@
               </div>
               <div class="block2">
                 <el-col :span="24">
-                  <el-date-picker v-model="value4" type="month" format="yyyy-MM" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px"></el-date-picker>
+                  <el-date-picker v-model="value4" type="month" format="yyyy-MM" value-format="yyyy-MM" @change="change1" placeholder="选择月" style="width:150px" :clearable='false'></el-date-picker>
                   <!-- <el-date-picker v-model="value5" type="year" format="yyyy" value-format="yyyy" @change="change2" placeholder="选择年" style="width:150px"></el-date-picker> -->
                 </el-col>
               </div>
@@ -49,13 +49,13 @@
             <template>
               <el-col :span="24" v-if="coachData.groupList !=null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.groupList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                  <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称" width="160px" fixed></el-table-column>
-                  <el-table-column prop="Stime" align="left" label="开始时间" width="150px"></el-table-column>
-                  <el-table-column prop="Etime" align="left" label="结束时间" width="150px"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类" width="130px"></el-table-column>
-                  <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练" width="140px"></el-table-column>
-                  <el-table-column prop="group_curriculum_appointment_count" align="left" label="上课人数" width="120px"></el-table-column>
-                  <el-table-column prop="hand" align="left" label="手牌" width="120px"></el-table-column>
+                  <el-table-column prop="curriculum_subject.kcName" align="left" label="课程名称" fixed></el-table-column>
+                  <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
+                  <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
+                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类"></el-table-column>
+                  <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+                  <el-table-column prop="group_curriculum_appointment_count" align="left" label="上课人数"></el-table-column>
+                  <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期" fixed="right"></el-table-column>
                 </el-table>
                 <div class="block">
@@ -74,7 +74,6 @@
                   <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
                   <el-table-column prop="kcIsPrivate" align="left" label="课程分类"></el-table-column>
                   <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
-                  <!-- <el-table-column prop="kcPerson" align="left" label="上课人数"></el-table-column> -->
                   <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>
                 </el-table>
@@ -184,7 +183,15 @@ export default {
     },
     Selectchange3(val) {
       this.jskey = val;
-      this.getstaffdate();
+      let num = 0;
+      if (this.jskey != "") {
+        for (var i = 0; i < this.Coach.length; i++) {
+          if (this.jskey == this.Coach[i]) {
+            num = i;
+          }
+        }
+      }
+      this.getCoachData(num);
     },
     rowClick(row, event, column) {
       this.currentSelectRow = row;
@@ -234,9 +241,9 @@ export default {
       text-indent: 20px;
     }
     .main-right {
-      width: 75%;
+      width: 66%;
       position: absolute;
-      right: 1%;
+      right: 2%;
       z-index: 2;
       top: 0px;
       .block2 {
@@ -314,9 +321,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {
@@ -380,9 +387,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {
@@ -446,9 +453,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {
@@ -512,9 +519,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {
@@ -578,9 +585,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {
@@ -644,9 +651,9 @@ export default {
         text-indent: 20px;
       }
       .main-right {
-        width: 75%;
+        width: 67% !important;
         position: absolute;
-        right: 1%;
+        right: 2% !important;
         z-index: 2;
         top: 0px;
         .block2 {

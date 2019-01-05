@@ -19,12 +19,12 @@
             <img src="../assets/JINYONG.png">
           </el-col>
           <el-col :span="21" class="cardfoot">
-            <el-col :span="18" class="cardplace" v-if="membershipcards.card_type.CTxTime_YN == '限用'">
-              <span class="place1">卡的使用限制</span>
-              <span class="place2">{{membershipcards.card_type.CTxTime_1S}}~{{membershipcards.card_type.CTxTime_1E}}</span>
+            <el-col :span="18" class="cardplace" v-if="membershipcards.shenhe == '已审' ">
+              <span class="place1">是否审核：{{membershipcards.shenhe}}</span>
+              <span class="place2">审核人：{{membershipcards.shenheRen}}</span>
             </el-col>
             <el-col :span="18" class="cardplace" v-else>
-              <span class="place1">卡的使用限制</span>
+              <span class="place1">是否审核：{{membershipcards.shenhe}}</span>
             </el-col>
             <el-col :span="6" class="cardstatus">
               <span class="status1">卡状态</span>
@@ -72,19 +72,19 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用{{((membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum).toFixed(2)*100}}%</span>
+              <span>已使用{{((membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</span>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>已使用{{((membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg).toFixed(2)*100}}%</span>
+              <span>已使用{{((membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</span>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用{{Number(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(3)*100}}%</span>
+              <span>已使用{{Number(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</span>
               <p v-if="membershipcards.State == '未激活'">{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
@@ -94,19 +94,19 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余{{(this.membershipcards.SYCS/membershipcards.card_type.Ctnum).toFixed(2)*100}}%</span>
+              <span>剩余{{(this.membershipcards.SYCS/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</span>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(2)*100}}%</span>
+              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</span>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余{{(Number(datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100}}%</span>
+              <span>剩余{{(Number(datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</span>
               <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
@@ -191,11 +191,17 @@ export default {
       isShow: false,
       boxshow: false,
       boxshow2: false,
-      pathquerys:{},
+      pathquerys: {}
     };
   },
   watch: {
     membershipcards(val) {}
+  },
+  filters: {
+    numFilter(value) {
+      let realVal = parseFloat(value).toFixed(2);
+      return parseFloat(realVal);
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -258,8 +264,8 @@ export default {
   methods: {
     toggleTabs(tab) {
       this.tab = tab;
-      this.pathquerys.HYID=this.$route.query.HYID;
-      this.pathquerys.CARD=this.membershipcards;
+      this.pathquerys.HYID = this.$route.query.HYID;
+      this.pathquerys.CARD = this.membershipcards;
     },
     open3() {
       if (this.membershipcards.card_type.ctType == "期限卡") {
