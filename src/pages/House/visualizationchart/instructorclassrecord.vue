@@ -68,7 +68,7 @@
           <el-tab-pane label="私教" name="sijiao">
             <template>
               <el-col :span="24" v-if="coachData.privateList != null">
-                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.privateList.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+                <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.privateList.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" style="width: 100%" @row-click="rowClick">
                   <el-table-column width="20px"></el-table-column>
                   <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
                   <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
@@ -79,7 +79,7 @@
                   <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>
                 </el-table>
                 <div class="block">
-                  <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="coachData.privateList.length">
+                  <el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2" :current-page="currentPage2" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize2" layout="total, sizes, prev, pager, next, jumper" :total="coachData.privateList.length">
                   </el-pagination>
                 </div>
               </el-col>
@@ -109,6 +109,8 @@ export default {
       tableData: [],
       currentPage: 1,
       pagesize: 10,
+      currentPage2: 1,
+      pagesize2: 10,
       jskey: "",
       Coachclass: [], //全部数据
       coachData: [] //当前选中的教练数据
@@ -194,6 +196,12 @@ export default {
     },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+    },
+    handleSizeChange2(size) {
+      this.pagesize2 = size;
+    },
+    handleCurrentChange2(currentPage2) {
+      this.currentPage2 = currentPage2;
     }
   }
 };
