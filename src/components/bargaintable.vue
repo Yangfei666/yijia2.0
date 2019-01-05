@@ -722,7 +722,7 @@ export default {
       }
       .export {
         height: 30px;
-        margin-top: 3.2%;
+        margin-top: 2.1%;
         padding: 6px 13px;
         font-size: 14px;
         border: 1px solid #00bc6a;
