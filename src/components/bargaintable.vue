@@ -555,14 +555,14 @@ export default {
     },
     //放大图片
     changeInfo2() {
-      this.enlargeImage = this.currentSelectRow.voucher;
       if(this.sels.length > 1){
         this.$message({ message: "只能选择一条数据!", type: "warning" });
         return;
       }
-       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
       if (this.currentSelectRow) {
         this.isEnlargeImage = true;
+        this.enlargeImage = this.currentSelectRow.voucher;
       }else{
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
