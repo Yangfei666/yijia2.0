@@ -14,10 +14,10 @@
               <img :src="item.Photo" />
             </el-col>
             <el-col :span="13" class="weber-left">
-              <span class="weber-span">{{item.YGXX_NAME}}</span>
-              <p class="weber-p">岗位:{{this.rolename}}
+              <div class="weber-span">{{item.YGXX_NAME}}</div>
+              <div class="weber-p">岗位:{{this.rolename}}
                 <span class="weber-pp">电话:{{item.YGXX_HOMETEL}}</span>
-              </p>
+              </div>
             </el-col>
           </el-col>
         </div>

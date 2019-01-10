@@ -1,46 +1,41 @@
 <template>
   <div>
     <!--首页私教卡片-->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in privateList" :key="item.ID" @click="courseId(item)">
-            <template>
-              <div class="swiper-main">
-                <div class="dimback">
-                  <img class="Img" :src="item.staff_info.Photo" />
-                </div>
-                 <p class="time">{{item.Stime}}~{{item.Etime}}</p>
-                 <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
-              </div>
-              <div class="box"></div>
-              <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? '体验·' + item.private_curriculum_appointment.experience_customers.exName : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
-              <div class="progressContainer">
-                <div class="progress">
-                  <b>{{progress}}</b>
-                </div>
-              </div>
-              <div class="star">
-               <div class="block">
-                  <p style="text-align:left;color:#f37489;font-size:14px;padding-left:12%;">
-                    {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
-                </div>
-                <div class="but">
-                   <p>{{item.kcIsPrivate.substr(0,2)}}</p>
-                </div>
-              </div>
-            </template>
-            <div class="weber-main">
-              <div class="circle"></div>
-              <span style="font-size:18px">{{item.Stime}}</span>
-            </div>
+    <swiper class="swiper-container" :options="swiperOption" v-if="showSwiper">
+      <div class="swiper-slide" v-for="item in privateList" :key="item.ID" @click="courseId(item)">
+        <div class="swiper-main">
+          <div class="dimback">
+            <img class="Img" :src="item.staff_info.Photo" />
+          </div>
+          <p class="time">{{item.Stime}}~{{item.Etime}}</p>
+          <p class="name">{{item.staff_info.YGXX_NAME}}-{{item.kcPlace}}</p>
+        </div>
+        <div class="box"></div>
+        <p class="yuyue">{{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? '体验·' + item.private_curriculum_appointment.experience_customers.exName : '会员·' + item.private_curriculum_appointment.member_customers.HYName}}</p>
+        <div class="progressContainer">
+          <div class="progress">
+            <b>{{progress}}</b>
           </div>
         </div>
+        <div class="star">
+          <div class="block">
+            <p style="text-align:left;color:#f37489;font-size:14px;padding-left:12%;">
+              {{item.private_curriculum_appointment.isExperience.substring(0,2) == '体验' ? item.private_curriculum_appointment.customer_voucher.experience_voucher.tkName : item.private_curriculum_appointment.membership_card.card_type.CTName}}</p>
+          </div>
+          <div class="but">
+            <p>{{item.kcIsPrivate.substr(0,2)}}</p>
+          </div>
+        </div>
+        <div class="weber-main">
+          <div class="circle"></div>
+          <span style="font-size:18px">{{item.Stime}}</span>
+        </div>
       </div>
+    </swiper>
   </div>
 </template>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import Swiper from "swiper";
 export default {
   name: "private",
   props: {
@@ -49,28 +44,26 @@ export default {
   data() {
     return {
       progress: 20,
-      page:1
-    };
-  },
-  mounted() {
-    let that = this;
-    setTimeout(function() {
-      that.initSwiper();
-    }, 1000);
-  },
-  methods: {
-    initSwiper() {
-      var appendNumber = 25;
-      var prependNumber = this.page;
-      new Swiper(".swiper-container", {
+      page: 1,
+      //设置属性
+      swiperOption: {
         slidesPerView: 5,
         spaceBetween: 2,
         centeredSlides: false,
         direction: "horizontal", //滑动方向
         speed: 1000, //切换速度
+        preventClicksPropagation: true,
+        watchOverflow: true,
         grabCursor: true //指针变成手掌
-      });
-    },
+      }
+    };
+  },
+  computed: {
+    showSwiper() {
+      return this.privateList.length;
+    }
+  },
+  methods: {
     courseId(course) {
       this.$emit("clickCourse", course);
     }
@@ -78,9 +71,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "swiper/dist/css/swiper.min.css";
+@import "swiper/dist/css/swiper.css";
 @import "@/styles/league.scss";
- .swiper-container {
+.swiper-container {
   width: 97%;
   height: 310px;
   background-color: #fff;

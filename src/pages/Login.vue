@@ -78,7 +78,7 @@ export default {
       dialogVisible:true,
       checked: false,
       // img : 'http://api.yijiayoga.cn/pc/v1.Login/getVerification',
-      img: "http://192.168.2.105/pc/v1.Login/getVerification",
+      img: "http://192.168.2.107/pc/v1.Login/getVerification",
       num: 0,
       account: {
         username: "",
@@ -167,7 +167,7 @@ export default {
     this.num = Math.ceil(Math.random() * 10);
     this.getimg();
     console.log(IEVersion());
-    this.isIE1 = IEVersion();
+    // this.isIE1 = IEVersion();
   }
 };
 </script>
