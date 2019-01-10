@@ -1,8 +1,8 @@
 <template>
   <div class="mian">
-    <el-dialog v-if="isIE1" :visible.sync="dialogVisible" width="70%" :close-on-click-modal="false" :show-close='false'>
+    <!-- <el-dialog v-if="isIE1" :visible.sync="dialogVisible" width="70%" :close-on-click-modal="false" :show-close='false'>
       <el-alert title="抱歉!该浏览器暂不支持浏览本网站，建议更换谷歌浏览器，360浏览器，或者其他浏览器" type="warning" show-icon center></el-alert>
-    </el-dialog>
+    </el-dialog> -->
     <div class="login-mian">
       <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
         <h3 class="title">易伽欢迎你</h3>
@@ -41,32 +41,32 @@
 import { requestLogin } from "../api/api";
 import * as validate from "../validate/Login";
 import waves from "@/directive/waves/index.js"; // 水波纹指令
-function IEVersion() {
-  var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-  var isIE =
-    userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
-  var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
-  var isIE11 =
-    userAgent.indexOf("Trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
-  if (isIE) {
-    var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-    reIE.test(userAgent);
-    var fIEVersion = parseFloat(RegExp["$1"]);
-    if (fIEVersion > 6) {
-      // IE版本：7,8,9,10
-      return true;
-    } else {
-      //IE版本<=6
-      return true;
-    }
-  } else if (isEdge) {
-    return false; //edge
-  } else if (isIE11) {
-    return true; //IE11
-  } else {
-    return false; //不是ie浏览器
-  }
-}
+// function IEVersion() {
+//   var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+//   var isIE =
+//     userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+//   var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+//   var isIE11 =
+//     userAgent.indexOf("Trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+//   if (isIE) {
+//     var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+//     reIE.test(userAgent);
+//     var fIEVersion = parseFloat(RegExp["$1"]);
+//     if (fIEVersion > 6) {
+//       // IE版本：7,8,9,10
+//       return true;
+//     } else {
+//       //IE版本<=6
+//       return true;
+//     }
+//   } else if (isEdge) {
+//     return false; //edge
+//   } else if (isIE11) {
+//     return true; //IE11
+//   } else {
+//     return false; //不是ie浏览器
+//   }
+// }
 export default {
   name: "Login",
   directives: {
@@ -166,7 +166,7 @@ export default {
   mounted() {
     this.num = Math.ceil(Math.random() * 10);
     this.getimg();
-    console.log(IEVersion());
+    // console.log(IEVersion());
     // this.isIE1 = IEVersion();
   }
 };

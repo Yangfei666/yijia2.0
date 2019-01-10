@@ -14,10 +14,10 @@
           </el-col>
           <el-col :span="23" class="weber">
             <el-col :span="10" class="weber-left">
-              <span class="weber-span">体验客户·{{this.exName}}·{{this.exSex}}</span>
-              <p class="weber-p">会籍顾问:{{this.exHjgwName}}
+              <div class="weber-span">体验客户·{{this.exName}}·{{this.exSex}}</div>
+              <div class="weber-p">会籍顾问:{{this.exHjgwName}}
                 <span class="weber-pp">电话:{{this.exTel}}</span>
-              </p>
+              </div>
             </el-col>
             <el-col :span="14" class="weber-right">
               <div class="right-span">

@@ -110,7 +110,7 @@ export default {
           x: "left",
           textStyle: {
             color: "#595959",
-            fontSize: "34px"
+            fontSize: "20px"
           },
           top: "1%",
           left: "1%"
@@ -225,7 +225,7 @@ export default {
           x: "left",
           textStyle: {
             color: "#595959",
-            fontSize: "34px"
+            fontSize: "20px"
           },
           top: "2%",
           left: "25%"
