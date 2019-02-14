@@ -281,7 +281,7 @@ export default {
       let user = JSON.parse(sessionStorage.getItem("userInfo"));
       for (let index = 0; index < user.role.length; index++) {
         const element = user.role[index];
-        if (element.name == '超级管理员' || element.name == '店长') {
+        if (element.name == '超级管理员' || element.name == '店长' || element.name == "前台") {
           return true;
         }
       }

@@ -154,6 +154,79 @@
                             </el-col>
                         </template>
                     </el-tab-pane>
+                    <el-tab-pane label="排队记录" name="3">
+                        <template>
+                            <el-col :span="24">
+                                <div class="class-form">
+                                    <el-form ref="form" :model="formInline" class="demo-form-inline" label-width="80px" @submit.native.prevent>
+                                        <div class="from-class">
+                                            <el-form-item label="时间段:" style="text-align:center;">
+                                                <el-col :span="24">
+                                                    <el-date-picker value-format="yyyy-MM-dd" :clearable="false" format="yyyy-MM-dd" v-model="formInline.time" @change="timechange" type="daterange" range-separator="~" start-placeholder="起始日期" end-placeholder="截止日期" style="width:245px;margin-top:3px;z-index:3"></el-date-picker>
+                                                </el-col>
+                                            </el-form-item>
+                                        </div>
+                                        <div class="from-class">
+                                            <el-form-item label="卡种:" style="text-align:center">
+                                                <el-col :span="24">
+                                                    <el-select v-model="formInline.card" placeholder="请选择" style="width:200px" @change="Selectchange4">
+                                                        <el-option v-for="item in header" :key="item.key" :label="item.name" :value="item.key"></el-option>
+                                                    </el-select>
+                                                </el-col>
+                                            </el-form-item>
+                                        </div>
+                                        <div class="from-class">
+                                            <el-form-item label="排队状态:" style="text-align:center">
+                                                <el-col :span="24">
+                                                    <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange3">
+                                                        <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                                    </el-select>
+                                                </el-col>
+                                            </el-form-item>
+                                        </div>
+                                        <div class="from-class">
+                                            <el-form-item label-width="40px">
+                                                <el-button type="primary" @click="getTableData">查询</el-button>
+                                                <el-button @click="resetForm">重置</el-button>
+                                            </el-form-item>
+                                        </div>
+                                    </el-form>
+                                </div>
+                            </el-col>
+                            <el-col :span="24">
+                                <div class="practice-table">
+                                    <div class="table-tuan">
+                                        <el-table  @row-click="rowClick" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." :header-cell-style="{background:'#fafafa'}" :data="tableData5.slice((currentPage3-1)*pagesize3,currentPage3*pagesize3)" style="width: 100%">
+                                            <el-table-column prop="curriculum_table.curriculum_subject.kcName" align="left" label="课程" fixed></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcStime" align="left" label="上课时间"></el-table-column>
+                                            <el-table-column prop="membership_card.card_type.CTName" align="left" label="卡种"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcPlace" align="left" label="教室"></el-table-column>
+                                            <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
+                                            <el-table-column prop="curriculum_table.kcDiff" align="left" label="难度"></el-table-column>
+                                            <el-table-column prop="status" align="left" label="排队状态" fixed="right">
+                                                <template slot-scope="scope">
+                                                    <div v-if="scope.row.isEnter == '已进场'">
+                                                        <el-button type="text" size="small" style="color:#00bc71">已进场</el-button>
+                                                    </div>
+                                                    <div v-else-if="scope.row.isTrue == '已取消'">
+                                                        <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
+                                                    </div>
+                                                    <div v-else>
+                                                        <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
+                                                        <el-button type="success" size="small" plain @click="cancelReservation">取消</el-button>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                        <div class="block">
+                                            <el-pagination @size-change="handleSizeChange3" @current-change="handleCurrentChange3" :current-page="currentPage3" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize3" layout="total, sizes, prev, pager, next, jumper" :total="tableData5.length">
+                                            </el-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </template>
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </el-col>
@@ -171,9 +244,12 @@ export default {
       pagesize: 10,
       currentPage2: 1,
       pagesize2: 10,
+      currentPage3:1,
+      pagesize3:10,
       loading: true,
       tablelength: 0,
       tablelength2: 0,
+      tablelength3: 0,
       header: [],
       formInline: {
         time: "",
@@ -189,7 +265,9 @@ export default {
       tableData: [],
       tableData2: [],
       tableData3: [],
-      tableData4: []
+      tableData4: [],
+      tableData5: [],
+      tableData6: []
     };
   },
   watch: {
@@ -288,6 +366,7 @@ export default {
           let { group, privateList } = res;
           _this.tableData = group;
           _this.tableData2 = privateList;
+          _this.tableData5 = group;
         })
         .catch(error => {
           _this.loading = false;
@@ -298,7 +377,7 @@ export default {
             });
           }
         });
-      if (null != this.tableData || null != this.tableData2) {
+      if (null != this.tableData || null != this.tableData2 || null != this.tableData5) {
         _this.tableData.map((item, index) => {
           item.kcName = item.curriculum_table.curriculum_subject.kcName;
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
@@ -306,8 +385,13 @@ export default {
         _this.tableData2.map((item, index) => {
           item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
         });
+        _this.tableData5.map((item, index) => {
+          item.kcName = item.curriculum_table.curriculum_subject.kcName;
+          item.YGXX_NAME = item.curriculum_table.staff_info.YGXX_NAME;
+        });
         this.tablelength = this.tableData.length;
         this.tablelength2 = this.tableData2.length;
+        this.tablelength3 = this.tableData5.length;
       }
     },
     rowClick(row, event, column) {
@@ -329,11 +413,17 @@ export default {
     handleSizeChange2(size) {
       this.pagesize2 = size;
     },
+    handleSizeChange3(size) {
+      this.pagesize3 = size;
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
     },
     handleCurrentChange2(currentPage2) {
       this.currentPage2 = currentPage2;
+    },
+    handleCurrentChange3(currentPage3) {
+      this.currentPage3 = currentPage3;
     },
     back() {
       this.$router.push({
