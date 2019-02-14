@@ -154,7 +154,7 @@
                             </el-col>
                         </template>
                     </el-tab-pane>
-                    <el-tab-pane label="排队记录" name="3">
+                    <el-tab-pane label="排队记录" name="3" v-if="hide == true">
                         <template>
                             <el-col :span="24">
                                 <div class="class-form">
@@ -251,6 +251,7 @@ export default {
       tablelength2: 0,
       tablelength3: 0,
       header: [],
+      hide:false,
       formInline: {
         time: "",
         card: "",
