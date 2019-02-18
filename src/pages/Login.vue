@@ -7,10 +7,10 @@
       <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
         <h3 class="title">易伽欢迎你</h3>
         <el-form-item prop="username" class="form-item">
-          <el-input type="text" class="input" autofocus="autofocus" v-model="account.username" auto-complete="off" placeholder="用户名"></el-input>
+          <el-input type="text" class="input" autofocus="autofocus" v-model="account.username" :disabled="disabled" auto-complete="off" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item prop="pwd" class="form-item">
-          <el-input type="password" class="input" auto-complete="off" v-model="account.pwd" placeholder="密码"></el-input>
+          <el-input type="password" class="input" auto-complete="off" v-model="account.pwd" :disabled="disabled" placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item prop="verifycode" class="identifyform" v-if="!isAdmin">
           <div class="identifybox">
@@ -74,11 +74,12 @@ export default {
   },
   data() {
     return {
+      disabled:false,
       logining: false,
       dialogVisible:true,
       checked: false,
       // img : 'http://api.yijiayoga.cn/pc/v1.Login/getVerification',
-      img: "http://192.168.2.104/pc/v1.Login/getVerification",
+      img: "http://192.168.2.105/pc/v1.Login/getVerification",
       num: 0,
       account: {
         username: "",
@@ -115,6 +116,7 @@ export default {
               if (data.sign == "super") {
                 this.clubList = data.club;
                 this.isAdmin = !this.isAdmin;
+                this.disabled = true;
                 sessionStorage.setItem("clubList", JSON.stringify(data.club)); //缓存名下门店
               } else {
                 sessionStorage.setItem("club", JSON.stringify(data.club)); //缓存所属门店
