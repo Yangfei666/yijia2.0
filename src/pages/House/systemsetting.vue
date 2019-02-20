@@ -310,6 +310,22 @@
                                     </el-form-item>
                                 </el-col>
                             </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="高级会员卡预约天数：" prop="grade1" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.grade1" style="width:250px" placeholder="默认3"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="普通会员卡预约天数：" prop="grade2" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.grade2" style="width:250px" placeholder="默认2"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
                         </el-col>
                     </div>
                     <el-col :span="24" class="from-date4" v-show="hide">
@@ -368,6 +384,8 @@ export default {
         cancelNum5: "", //教练信用5级
         isICCard: "" ,//是否开启IC卡
         locker:"",//是否自动分配储物柜
+        grade1:"",//高级会员卡预约天数
+        grade2:"",//普通会员卡预约天数
       }
     };
   },
@@ -434,6 +452,8 @@ export default {
           cancelNum5: this.ruleForm.cancelNum5, //教练信用5级
           isICCard: this.ruleForm.isICCard, //是否开启IC卡
           locker:this.ruleForm.locker,//是否自动分配储物柜
+          grade1:this.ruleForm.grade1,//高级会员卡预约天数
+          grade2:this.ruleForm.grade2,//普通会员卡预约天数
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {

@@ -68,6 +68,15 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
+      <el-form-item label="约课天数等级:" prop="appointmentTime" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-radio-group v-model="currentSelectRow.appointmentTime">
+            <el-radio label="高级" value="1"></el-radio>
+            <el-radio label="普通" value="2"></el-radio>
+            <el-radio label="跟随系统" value="0"></el-radio>
+          </el-radio-group>
+        </el-col>
+      </el-form-item>
       <el-form-item label="是否限制时段:" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-radio label="不限" value="1" v-model="currentSelectRow.CTxTime_YN"></el-radio>

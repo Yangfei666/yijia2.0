@@ -84,14 +84,15 @@
                         <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="CTName" align="left" fixed label="卡名称" width="160px"></el-table-column>
-                    <el-table-column prop="ctType" align="left" label="类型" width="100px"></el-table-column>
+                    <el-table-column prop="CTName" align="left" fixed label="卡名称" width="200px"></el-table-column>
+                    <el-table-column prop="ctType" align="left" label="类型" width="120px"></el-table-column>
                     <el-table-column prop="CTjg" align="left" label="售价" width="120px"></el-table-column>
-                    <el-table-column prop="ColorCard" align="left" label="底色" width="100px"></el-table-column>
-                    <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="100px"></el-table-column>
-                    <el-table-column prop="CTdate" align="left" label="限制星期" width="230px"></el-table-column>
-                    <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="100px"></el-table-column>
-                    <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="100px"></el-table-column>
+                    <el-table-column prop="ColorCard" align="left" label="底色" width="120px"></el-table-column>
+                    <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="120px"></el-table-column>
+                    <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="120px"></el-table-column>
+                    <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="120px"></el-table-column>
+                    <el-table-column prop="appointmentTime" align="left" label="等级" width="120px"></el-table-column>
+                    <el-table-column prop="CTdate" align="left" label="限制星期" width="250px"></el-table-column>
                     <el-table-column prop="CTstate" align="left" label="状态" fixed="right"></el-table-column>
                   </el-table>
                   <div class="block">
@@ -169,14 +170,15 @@
                         <el-radio class="radio" v-model="radio2" :label="scope.$index" @change.native="getCurrentRow2(scope.$index)">&nbsp;</el-radio>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="CTName" align="left" fixed label="卡名称" width="160px"></el-table-column>
-                    <el-table-column prop="ctType" align="left" label="类型" width="100px"></el-table-column>
+                    <el-table-column prop="CTName" align="left" fixed label="卡名称" width="180px"></el-table-column>
+                    <el-table-column prop="ctType" align="left" label="类型" width="120px"></el-table-column>
                     <el-table-column prop="CTjg" align="left" label="售价" width="120px"></el-table-column>
-                    <el-table-column prop="ColorCard" align="left" label="底色" width="100px"></el-table-column>
-                    <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="100px"></el-table-column>
-                    <el-table-column prop="CTdate" align="left" label="限制星期" width="230px"></el-table-column>
-                    <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="100px"></el-table-column>
-                    <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="100px"></el-table-column>
+                    <el-table-column prop="ColorCard" align="left" label="底色" width="120px"></el-table-column>
+                    <el-table-column prop="ctIsIsPrivate" align="left" label="团课/私教" width="120px"></el-table-column>
+                    <el-table-column prop="CTxTime_YN" align="left" label="限制时段" width="120px"></el-table-column>
+                    <el-table-column prop="CTxDate_YN" align="left" label="周限次数" width="120px"></el-table-column>
+                    <el-table-column prop="appointmentTime" align="left" label="等级" width="120px"></el-table-column>
+                    <el-table-column prop="CTdate" align="left" label="限制星期" width="250px"></el-table-column>
                     <el-table-column prop="CTstate" align="left" label="状态" fixed="right"></el-table-column>
                   </el-table>
                   <div class="block">

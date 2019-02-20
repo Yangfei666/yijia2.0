@@ -151,6 +151,14 @@ export let type = [
         trigger: "blur"
     }
 ];
+/* 验证等级*/
+export let appointmentTime = [
+    {
+        required: true,
+        message: "请选择约课等级",
+        trigger: "blur"
+    }
+];
 /* 验证价格*/
 export let price = [
     {

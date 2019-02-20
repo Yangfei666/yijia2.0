@@ -66,6 +66,15 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
+      <el-form-item label="约课天数等级:" prop="appointmentTime" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-radio-group v-model="currentSelectRow.appointmentTime" @change="radiochange">
+            <el-radio label="高级" value="1"></el-radio>
+            <el-radio label="普通" value="2"></el-radio>
+            <el-radio label="跟随系统" value="0"></el-radio>
+          </el-radio-group>
+        </el-col>
+      </el-form-item>
       <el-form-item label="是否限制时段:" prop="CTxTime_YN" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-radio label="不限" value="1" v-model="currentSelectRow.CTxTime_YN"></el-radio>
@@ -151,6 +160,9 @@ const radioDict = {
   "4次": 4,
   "启用": 1,
   "禁用": 2,
+  "高级": 1,
+  "普通": 2,
+  "跟随系统": 0,
 }
 export default {
   name: "cardedit",
@@ -249,6 +261,7 @@ export default {
               ColorCard: radioDict[this.currentSelectRow.ColorCard], //颜色
               ctNotes: this.currentSelectRow.ctNotes, //备注
               ctType: radioDict[this.currentSelectRow.ctType], //类型
+              appointmentTime: radioDict[this.currentSelectRow.appointmentTime], //约课等级
               CTdate: this.currentSelectRow.CTdate.filter(item => item), //限制日期
               CTvalidity: parseInt(this.currentSelectRow.CTvalidity), //有效期
               Ctnum: this.currentSelectRow.Ctnum, //次数

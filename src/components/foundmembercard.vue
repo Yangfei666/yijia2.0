@@ -72,6 +72,15 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
+      <el-form-item label="约课天数等级:" prop="appointmentTime" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-radio-group v-model="ruleForm.appointmentTime" @change="radiochange">
+            <el-radio :label="1">高级</el-radio>
+            <el-radio :label="2">普通</el-radio>
+            <el-radio :label="0">跟随系统</el-radio>
+          </el-radio-group>
+        </el-col>
+      </el-form-item>
       <el-form-item label="是否限制时段:" prop="limittime" :label-width="formLabelWidth">
         <el-col :span="22">
            <el-radio-group v-model="ruleForm.limittime">
@@ -164,6 +173,7 @@ export default {
       ruleForm: {
         cardname: "", //卡名称
         type: "", //类型
+        appointmentTime:"",//约课等级
         classtype: "", //课程种类
         memcolor: "", //会员卡底色
         price: "", //售价
@@ -200,7 +210,8 @@ export default {
         status: validate.status,
         number: validate.number,
         shoproom:validate.shoproom,
-        limittime:validate.limittime
+        limittime:validate.limittime,
+        appointmentTime:validate.appointmentTime
       },
       limit: cityOptions
     };
@@ -209,7 +220,8 @@ export default {
     this.getallClub();
   },
   methods: {
-    radiochange(val) {},
+    radiochange(val) {
+    },
     getSelectItem(val) {
       this.ruleForm.shoproom = val;
     },
@@ -258,6 +270,7 @@ export default {
               ColorCard: _this.ruleForm.memcolor, //颜色
               ctNotes: _this.ruleForm.role, //备注
               ctType: _this.ruleForm.type, //类型
+              appointmentTime: _this.ruleForm.appointmentTime, //约课等级
               CTdate: _this.ruleForm.limitdate, //限制日期
               CTvalidity: _this.ruleForm.date, //有效期
               Ctnum: _this.ruleForm.number, //次数
