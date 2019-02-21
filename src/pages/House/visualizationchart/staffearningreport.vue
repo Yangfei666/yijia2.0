@@ -100,6 +100,7 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 require("echarts/lib/component/legend");
 import { requestLogin } from "@/api/api";
+import moment from "moment";
 
 let staff = {
   getList() {
@@ -295,14 +296,20 @@ export default {
         prospect: {}
       },
       staffList: [],
-      selectDate: "2018-8",
+      selectDate: moment(new Date()).format("YYYY-MM"),
       selectStaffID: 0
     };
   },
   beforeMount() {
     this.getStaffList();
   },
+  created() {
+    this.value4 = this.getCurrentDateTime();
+  },
   methods: {
+    getCurrentDateTime() {
+      return moment(new Date()).format("YYYY-MM");
+    },
     selectStaff(id) {
       this.selectStaffID = id;
       this.getStaffChart(id, this.selectDate);
