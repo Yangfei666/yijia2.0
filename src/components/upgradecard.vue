@@ -13,7 +13,7 @@
         </el-col>
         <el-col :span="24">
           <div class="transfer-from">
-            <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="text-align: left;">
               <el-col :span="16">
                 <el-form-item label="旧卡折算:" prop="price">
                   <el-col :span="24">
@@ -51,6 +51,23 @@
                   </el-col>
                 </el-form-item>
               </el-col>
+              <el-col :span="16">
+                <el-form-item label="到期时间:" prop="become">
+                  <el-col :span="24">
+                    <el-radio-group v-model="ruleForm.become">
+                      <el-radio :label="1">自定义</el-radio>
+                      <el-radio :label="2">默认有效期</el-radio>
+                    </el-radio-group>
+                  </el-col>
+                </el-form-item>
+              </el-col>
+              <el-col :span="16">
+                <el-form-item prop="attenddate" label-width="130px" label="自定义到期时间:" v-show="ruleForm.become == '1'">
+                  <el-col :span="24">
+                    <el-date-picker type="date" value-format="yyyy-MM-dd" format="yyyy-MM-dd" placeholder="请选择" v-model="ruleForm.attenddate" style="width: 100%;"></el-date-picker>
+                  </el-col>
+                </el-form-item>
+              </el-col>
               <el-col :span="16" class="submit">
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">升级</el-button>
@@ -69,7 +86,7 @@ import { requestLogin } from "@/api/api";
 export default {
   name: "upgradecard",
   inject: ["reload"],
-  props:['pathquery'],
+  props: ["pathquery"],
   data() {
     return {
       remnant: 50,
@@ -79,7 +96,9 @@ export default {
         price: "",
         price2: "",
         mode: "",
-        cardseed: ""
+        cardseed: "",
+        become:"",
+        attenddate:""
       }
     };
   },
@@ -122,7 +141,8 @@ export default {
               newCardId: _this.ruleForm.cardseed, //新卡种id
               mode: _this.ruleForm.mode, //付款方式
               discount: _this.ruleForm.price, //旧卡折扣价
-              money: _this.ruleForm.price2 //新卡补交差价
+              money: _this.ruleForm.price2, //新卡补交差价
+              eTime: _this.ruleForm.attenddate, //自定义到期时间
             };
             requestLogin("/setDesignateMember/upgradeCard", loginParams, "post")
               .then(data => {
@@ -163,13 +183,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.elcol{
+.elcol {
   height: 25px;
-  background: #E9EEF3;
+  background: #e9eef3;
 }
 .tag {
   width: 100%;
-  height: 400px;
+  height: 500px;
   display: inline-block;
   position: relative;
   background-color: #fff;
