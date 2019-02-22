@@ -464,6 +464,8 @@ export default {
                 item.eTime +
                 "; 状态:" +
                 item.State +
+                "; 约课等级:" +
+                item.card_type.appointmentTime +
                 "";
               if (item.SYCS > 0) {
                 cardType.CTName =

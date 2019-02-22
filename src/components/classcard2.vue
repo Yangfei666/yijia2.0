@@ -154,7 +154,7 @@
                             </el-col>
                         </template>
                     </el-tab-pane>
-                    <el-tab-pane label="排队记录" name="3">
+                    <el-tab-pane label="排队记录" name="3" v-if="hide == false">
                         <template>
                             <el-col :span="24">
                                 <div class="class-form">
@@ -243,6 +243,7 @@ export default {
     return {
       activeName: "1",
       currentPage: 1,
+      hide:false,
       pagesize: 10,
       currentPage2: 1,
       pagesize2: 10,
@@ -321,6 +322,7 @@ export default {
   created() {
     this.getTableData();
     this.getTableData2();
+    this.hide = true;
     setTimeout(() => {
       this.getexperhome();
     }, 1500);
