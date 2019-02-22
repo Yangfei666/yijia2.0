@@ -9,9 +9,15 @@
               <el-table-column prop="HYName" align="left" fixed label="姓名"></el-table-column>
               <el-table-column prop="MotoTel" align="left" label="电话"></el-table-column>
               <el-table-column prop="CardNO" align="left" label="卡号"></el-table-column>
-              <el-table-column prop="money" align="left" label="金额"></el-table-column>
+              <el-table-column prop="money" align="left" label="金额">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.update == '新卡'">{{scope.row.money}}</span>
+                  <span v-else-if="scope.row.update == '升级卡'">{{scope.row.newmoney}}</span>
+                </template>
+              </el-table-column>
               <el-table-column prop="CTName" align="left" label="卡种"></el-table-column>
               <el-table-column prop="YGXX_NAME" align="left" label="会籍"></el-table-column>
+              <el-table-column prop="update" align="left" label="类型"></el-table-column>
               <el-table-column prop="fkTime" align="left" label="发卡时间"></el-table-column>
             </el-table>
             <div class="block">
