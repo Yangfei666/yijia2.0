@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //懒加载方式，当路由被访问的时候才加载对应组件
-const Health = resolve => require(['@/pages/Health'], resolve)//健康表 
+const Health = resolve => require(['@/pages/Health'], resolve)//健康表
+
+const Register = resolve => require(['@/pages/Register'], resolve)//注册
 
 const Login = resolve => require(['@/pages/Login'], resolve)//登录
 
@@ -149,12 +151,17 @@ let router = new Router({
         {
             path: '/health',
             name: 'Health',
-            component: Health,
+            component: Health,//健康表
         },
         {
             path: '/login',
             name: 'Login',
             component: Login,//登录
+        },
+        {
+            path:'/register',
+            name:'Register',
+            component:Register,//注册
         }, {
             path: '/home',
             name: 'Home',

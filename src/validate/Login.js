@@ -10,6 +10,22 @@ export let tel = [
         message: "格式错误"
     }
 ];
+/* 验证城市 */
+export let city = [
+    {
+        required: true,
+        message: "请输入城市",
+        trigger: "blur"
+    }
+];
+/* 验证门店 */
+export let door = [
+    {
+        required: true,
+        message: "请输入门店",
+        trigger: "blur"
+    }
+];
 
 /* 验证密码 */
 export let pwd = [
@@ -19,7 +35,7 @@ export let pwd = [
         trigger: "blur"
     },
     {
-        min: 5,
+        min: 6,
         message: "密码长度最低为6位",
         trigger: "blur"
     }
@@ -236,8 +252,8 @@ export let detadaddress = [
         trigger: "blur"
     },
     {
-        min: 8,
-        message: "地址长度最低为8位",
+        max: 10,
+        message: "地址长度最低为10位",
         trigger: "blur"
     }
 ];
