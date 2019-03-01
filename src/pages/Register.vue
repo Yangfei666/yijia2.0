@@ -106,16 +106,17 @@ export default {
       clubList: [],
       isIE1: false,
       dataid: "",
-      dianhua:this.$route.query.dianhua,
-      mima:this.$route.query.mima,
+      ygid: "",
+      dianhua: this.$route.query.dianhua,
+      mima: this.$route.query.mima
     };
   },
-  mounted(){
+  mounted() {
     this.loginreg();
   },
   methods: {
-    loginreg(){
-      if(this.$route.query.shezhi == 'shezhi'){
+    loginreg() {
+      if (this.$route.query.shezhi == "shezhi") {
         this.account2.tel2 = this.$route.query.dianhua;
         this.account2.pwd2 = this.$route.query.mima;
         this.disabled = true;
@@ -136,13 +137,22 @@ export default {
           {},
           "get"
         )
-          .then(data => {
+          .then(data =>{
             this.logining = true;
-            let { response: { data: { errorCode } } } = error;
-            if (data != "" && errorCode != 0) {
+            this.ygid = data;
+            if(this.ygid > 0 && data != ''){
+            this.$message({
+                message: "手机号码已经注册，请直接登录",
+                type: "warning"
+              });
               this.sendAuthCode = true;
               this.logining = false;
               this.hide = false;
+              let { errorCode, msg } = res;
+            }else if (errorCode == 0) {
+              this.sendAuthCode = false;
+              this.logining = false;
+              this.hide = true;
             }
           })
           .catch(error => {
@@ -182,10 +192,11 @@ export default {
       requestLogin("/register/save/register", loginParams)
         .then(data => {
           this.logining = false;
+          this.dataid = data;
+          sessionStorage.setItem("dataid", this.dataid);
           if (data !== "") {
             this.isAdmin = !this.isAdmin;
             this.disabled = true;
-            this.dataid = data;
           }
         })
         .catch(error => {
@@ -207,17 +218,20 @@ export default {
     },
     //注册提交门店
     confirmClub2() {
+      if (this.$route.query.shezhi == "shezhi") {
+        this.dataid = sessionStorage.getItem("dataid");
+      }
       let loginParams = {
         Hsxx_Name: this.account2.doorname,
         Hsxx_City: this.account2.city
       };
       requestLogin("/register/saveClubInfo/" + this.dataid, loginParams)
         .then(data => {
-            this.$message({
+          this.$message({
             message: "注册成功",
             type: "success"
           });
-         this.$router.push({ path: "/login" });
+          this.$router.push({ path: "/login" });
         })
         .catch(error => {
           this.logining = false;
@@ -230,8 +244,8 @@ export default {
             return;
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

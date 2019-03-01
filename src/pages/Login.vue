@@ -171,9 +171,6 @@ export default {
       dataid: ""
     };
   },
-  // created(){
-  //     this.reload();
-  // },
   methods: {
     //获取验证码重置
     getAuthCode2: function() {
@@ -252,15 +249,15 @@ export default {
                   type: "error"
                 });
               }
-              if(msg == '请完善资料后再登录,谢谢!'){
+              if (msg == "请完善资料后再登录,谢谢!") {
                 this.$router.push({
-                   path: "/register" ,
-                   query:{
-                     dianhua:this.account.username,
-                     mima:this.account.pwd,
-                     shezhi:'shezhi'
-                   }
-                   });
+                  path: "/register",
+                  query: {
+                    dianhua: this.account.username,
+                    mima: this.account.pwd,
+                    shezhi: "shezhi"
+                  }
+                });
               }
             });
         } else {
