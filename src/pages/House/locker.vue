@@ -38,7 +38,13 @@
                                                         <el-radio :label="1">优先使用</el-radio>
                                                         <el-radio :label="2">一般</el-radio>
                                                         <el-radio :label="3">最后</el-radio>
+                                                        <el-radio :label="4">VIP专用柜</el-radio>
                                                     </el-radio-group>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="VIP姓名:" prop="priorityname" :label-width="formLabelWidth" v-show="ruleForm.priority == 4">
+                                                <el-col :span="22">
+                                                    <el-input v-model="ruleForm.priorityname" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item class="dialog-footer">
@@ -68,7 +74,13 @@
                                                         <el-radio label="优先使用" value="1"></el-radio>
                                                         <el-radio label="一般" value="2"></el-radio>
                                                         <el-radio label="最后" value="3"></el-radio>
+                                                        <el-radio label="vip专用" value="4"></el-radio>
                                                     </el-radio-group>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="VIP姓名:" prop="vipName" :label-width="formLabelWidth" v-show="currentSelectRow.priority == 'vip专用'">
+                                                <el-col :span="22">
+                                                    <el-input v-model="currentSelectRow.vipName" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item class="dialog-footer">
@@ -95,6 +107,11 @@
                             </el-table-column>
                             <el-table-column prop="name" align="left" label="储物柜编号"></el-table-column>
                             <el-table-column prop="priority" align="left" label="优先级"></el-table-column>
+                            <el-table-column prop="vipName" align="left" label="VIP姓名">
+                              <template slot-scope="scope">
+                                <span v-show="scope.row.priority == 'vip专用'">{{scope.row.vipName}}</span>
+                              </template>
+                            </el-table-column>
                             <el-table-column align="left" label="操作">
                                 <template slot-scope="scope">
                                     <el-button type="danger" plain size="small" @click="delexper">删除</el-button>
@@ -118,6 +135,7 @@ const radioDict = {
   "优先使用": 1,
   "一般": 2,
   "最后": 3,
+  "vip专用":4
 }
 export default {
   inject: ["reload"],
@@ -133,15 +151,18 @@ export default {
       pagesize: 10,
       ruleForm: {
         priorityid: "",
-        priority: ""
+        priority: "",
+        priorityname:""
       },
       ruleForm2: {
         name: "",
-        priority:""
+        priority:"",
+        vipName:""
       },
       rules: {
         priorityid: validate.priorityid,
-        priority: validate.priority
+        priority: validate.priority,
+        vipName:{ required: true, message: '请输入vip姓名', trigger: 'blur' },
       },
       tableData: []
     };
@@ -150,7 +171,7 @@ export default {
     this.getclassroom();
     this.ruleForm2.name = this.currentSelectRow.name;
     this.ruleForm2.priority = this.currentSelectRow.priority;
-    
+    this.ruleForm2.vipName = this.currentSelectRow.vipName;
   },
   methods: {
     //获取储物柜数据
@@ -191,7 +212,8 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
               name: this.ruleForm.priorityid,
-              priority: this.ruleForm.priority
+              priority: this.ruleForm.priority,
+              vipName:this.ruleForm.priorityname,
             };
             requestLogin("/setLocker", loginParams, "post")
               .then(data => {
@@ -224,7 +246,8 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
               name: this.currentSelectRow.name,
-              priority:radioDict[this.currentSelectRow.priority]
+              priority:radioDict[this.currentSelectRow.priority],
+              vipName:this.currentSelectRow.vipName,
             };
             requestLogin("/editLocker", loginParams, "put")
               .then(data => {
