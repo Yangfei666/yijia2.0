@@ -47,6 +47,14 @@
                                                     <el-input v-model="ruleForm.priorityname" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
+                                            <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+                                                <el-col :span="22">
+                                                    <el-radio-group v-model="ruleForm.sex" @change="cahngesen">
+                                                        <el-radio :label="1">女</el-radio>
+                                                        <el-radio :label="2">男</el-radio>
+                                                    </el-radio-group>
+                                                </el-col>
+                                            </el-form-item>
                                             <el-form-item class="dialog-footer">
                                                 <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                                     <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -83,6 +91,14 @@
                                                     <el-input v-model="currentSelectRow.vipName" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
+                                            <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
+                                                <el-col :span="22">
+                                                    <el-radio-group v-model="currentSelectRow.sex" @change="cahngesen">
+                                                        <el-radio label="女" value="1"></el-radio>
+                                                        <el-radio label="男" value="2"></el-radio>
+                                                    </el-radio-group>
+                                                </el-col>
+                                            </el-form-item>
                                             <el-form-item class="dialog-footer">
                                                 <el-col :span="24" style="display: flex;justify-content: flex-end;">
                                                     <el-button type="primary" @click="submitForm2('ruleForm2')" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
@@ -112,6 +128,7 @@
                                 <span v-show="scope.row.priority == 'vip专用'">{{scope.row.vipName}}</span>
                               </template>
                             </el-table-column>
+                            <el-table-column prop="sex" align="left" label="性别"></el-table-column>
                             <el-table-column align="left" label="操作">
                                 <template slot-scope="scope">
                                     <el-button type="danger" plain size="small" @click="delexper">删除</el-button>
@@ -152,17 +169,20 @@ export default {
       ruleForm: {
         priorityid: "",
         priority: "",
-        priorityname:""
+        priorityname:"",
+        sex:""
       },
       ruleForm2: {
         name: "",
         priority:"",
-        vipName:""
+        vipName:"",
+        sex:""
       },
       rules: {
         priorityid: validate.priorityid,
         priority: validate.priority,
-        vipName:{ required: true, message: '请输入vip姓名', trigger: 'blur' },
+        priorityname:{ required: true, message: '请输入vip姓名', trigger: 'blur' },
+        sex:{ required: true, message: '请选择性别', trigger: 'change' },
       },
       tableData: []
     };
@@ -172,6 +192,7 @@ export default {
     this.ruleForm2.name = this.currentSelectRow.name;
     this.ruleForm2.priority = this.currentSelectRow.priority;
     this.ruleForm2.vipName = this.currentSelectRow.vipName;
+    this.ruleForm2.sex = this.currentSelectRow.sex;
   },
   methods: {
     //获取储物柜数据
@@ -214,6 +235,7 @@ export default {
               name: this.ruleForm.priorityid,
               priority: this.ruleForm.priority,
               vipName:this.ruleForm.priorityname,
+              sex:this.ruleForm.sex,
             };
             requestLogin("/setLocker", loginParams, "post")
               .then(data => {
@@ -248,6 +270,7 @@ export default {
               name: this.currentSelectRow.name,
               priority:radioDict[this.currentSelectRow.priority],
               vipName:this.currentSelectRow.vipName,
+              sex:this.currentSelectRow.sex == '女' ? 1 : 2,
             };
             requestLogin("/editLocker", loginParams, "put")
               .then(data => {
