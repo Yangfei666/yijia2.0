@@ -242,6 +242,7 @@
             </el-table-column>
             <el-table-column prop="kcbSort" align="left" sortable label="底色"></el-table-column>
             <el-table-column prop="JLIDs" align="left" label="教练"></el-table-column>
+            <el-table-column prop="kcPlace" align="left" label="教室"></el-table-column>
             <el-table-column align="left" label="已预约">
               <template slot-scope="scope">
                 <span>{{scope.row.group_curriculum_appointment_count}}/{{scope.row.RenShu}}</span>
