@@ -25,8 +25,8 @@
           <el-form-item class="form-main" v-if="!isAdmin">
             <el-button v-waves style="width:100%;height:40px;" @click.native.prevent="handleLogin" :disabled="account.username==''&&account.verifycode==''&&account.pwd==''" :loading="logining">登录</el-button>
           </el-form-item>
-          <div class="frombutt" v-if="!isAdmin">忘记密码了?《
-            <el-button class="butt" @click="showcont3">找回密码</el-button>》</div>
+          <!-- <div class="frombutt" v-if="!isAdmin">忘记密码了?《
+            <el-button class="butt" @click="showcont3">找回密码</el-button>》</div> -->
           <transition name="slide-fade">
             <el-form-item prop="door" class="form-item2" v-if="isAdmin">
               <el-select v-model="account.door" placeholder="请选择门店">
@@ -64,8 +64,8 @@
           <el-form-item class="form-main" v-if="!isAdmin">
             <el-button v-waves style="width:100%;height:40px;" @click.native.prevent="handleResetting" :disabled="account3.tel3==''&&account3.verifycode3==''&&account3.pwd3==''" :loading="logining">重置</el-button>
           </el-form-item>
-          <div class="frombutt" v-if="!isAdmin">已经有账号？《
-            <el-button class="butt" @click="showcont2">点击登录</el-button>》</div>
+          <!-- <div class="frombutt" v-if="!isAdmin">已经有账号？《
+            <el-button class="butt" @click="showcont2">点击登录</el-button>》</div> -->
         </el-form>
       </div>
     </transition>
