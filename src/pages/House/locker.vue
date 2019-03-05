@@ -181,7 +181,6 @@ export default {
       rules: {
         priorityid: validate.priorityid,
         priority: validate.priority,
-        priorityname:{ required: true, message: '请输入vip姓名', trigger: 'blur' },
         sex:{ required: true, message: '请选择性别', trigger: 'change' },
       },
       tableData: []
