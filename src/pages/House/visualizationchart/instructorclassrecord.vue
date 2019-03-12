@@ -70,6 +70,17 @@
               <el-col :span="24" v-if="coachData.privateList != null">
                 <el-table v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="coachData.privateList.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" style="width: 100%" @row-click="rowClick">
                   <el-table-column width="20px"></el-table-column>
+                  <el-table-column prop="private_curriculum_appointment.isExperience" align="left" label="客户类型"></el-table-column>
+                  <el-table-column prop="private_curriculum_appointment.member_customers.HYName" align="left" label="客户姓名">
+                    <template slot-scope="scope">
+                      <span v-if="scope.row.private_curriculum_appointment.isExperience == '会员客户'">{{scope.row.private_curriculum_appointment.member_customers.HYName}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="private_curriculum_appointment.membership_card.card_type.CTName" align="left" label="上课卡种">
+                    <template slot-scope="scope">
+                      <span v-if="scope.row.private_curriculum_appointment.isExperience == '会员客户'">{{scope.row.private_curriculum_appointment.membership_card.card_type.CTName}}</span>
+                    </template>
+                  </el-table-column>
                   <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
                   <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
                   <el-table-column prop="kcIsPrivate" align="left" label="课程分类"></el-table-column>
