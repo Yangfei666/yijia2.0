@@ -8,8 +8,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>客户管理</el-breadcrumb-item>
-            <el-breadcrumb-item>会员客户管理</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/Customer/leaguer/leaguermanage' }">会员管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Customer/leaguermanage' }">会员管理</el-breadcrumb-item>
             <el-breadcrumb-item>会员跟进</el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>

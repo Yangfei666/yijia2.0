@@ -24,11 +24,9 @@ const CurriPrivateCulum = resolve => require(['@/pages/Curriculum/privateculum']
 
 const CurriCourse = resolve => require(['@/pages/Curriculum/course'], resolve)//课程科目管理
 
-const League = resolve => require(['@/pages/Customer/league'], resolve)//会员客户管理
+const Leaguermanage = resolve => require(['@/pages/Customer/leaguermanage'], resolve)//会员管理
 
-const Leaguermanage = resolve => require(['@/pages/Customer/leaguer/leaguermanage'], resolve)//会员客户管理---会员管理
-
-const Cardopenaudit = resolve => require(['@/pages/Customer/leaguer/cardopenaudit'], resolve)//会员客户管理---开卡审核
+const Cardopenaudit = resolve => require(['@/pages/Customer/cardopenaudit'], resolve)//开卡审核
 
 const CustomerPractice = resolve => require(['@/pages/Customer/practice'], resolve)//体验客户管理
 
@@ -42,7 +40,9 @@ const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会�
 
 const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工管理
 
-const Systemsetting = resolve => require(['@/pages/House/systemsetting'], resolve)//系统设置
+const Systemsetting = resolve => require(['@/pages/Operating/systemsetting'], resolve)//系统设置
+
+// const Arrangemage = resolve => require(['@/pages/Operating/arrangemage'], resolve)//排班管理
 
 const HouseRole = resolve => require(['@/pages/House/role'], resolve)//角色权限管理
 
@@ -141,11 +141,11 @@ const Leaguermanagetable = resolve => require(['@/components/leaguermanagetable'
 Vue.use(Router)
 
 let router = new Router({
-    mode:'history',
+    mode: 'history',
     routes: [
         {
-            path:'/',
-            name:'Health',
+            path: '/',
+            name: 'Health',
             component: Health,
         },
         {
@@ -159,9 +159,9 @@ let router = new Router({
             component: Login,//登录
         },
         {
-            path:'/register',
-            name:'Register',
-            component:Register,//注册
+            path: '/register',
+            name: 'Register',
+            component: Register,//注册
         }, {
             path: '/home',
             name: 'Home',
@@ -192,21 +192,13 @@ let router = new Router({
             iconCls: 'iconfont icon-yonghu',
             children: [
                 {
-                    path: '/Customer/leaguer',//会员客户管理
-                    name: '会员客户管理',
-                    menuShow: true,
-                    component: League,
+                    path: '/Customer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguermanage/leaguermanagetable',//会员管理
                     children: [
-                        {
-                            path: '/Customer/leaguer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguer/leaguermanage/leaguermanagetable',//会员管理
-                            children: [
-                                { path: '/Customer/leaguer/leaguermanage/leaguermanagetable', component: Leaguermanagetable },//会员表格
-                                { path: '/Customer/leaguer/leaguermanage/claim', component: Claim },//认领
-                            ]
-                        },
-                        { path: '/Customer/leaguer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
+                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable },//会员表格
+                        { path: '/Customer/leaguermanage/claim', component: Claim },//认领
                     ]
                 },
+                { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
                 {
                     path: '/Customer/practice', component: CustomerPractice, name: '体验客户管理', menuShow: true, redirect: '/Customer/practice/practicetable',//体验客户管理
                     children: [
@@ -235,10 +227,10 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/depositfollowup/bargainup',
                     children: [
-                        { path: '/Customer/depositfollowup/bargainup', component: Bargainup},//定金跟进记录
+                        { path: '/Customer/depositfollowup/bargainup', component: Bargainup },//定金跟进记录
                         { path: '/Customer/depositfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/depositfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
-                        { path: '/Customer/depositfollowup/postureevaluating', component: Postureevaluating},//体态评估表
+                        { path: '/Customer/depositfollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]
                 },
                 {
@@ -261,8 +253,8 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/tastefollowup/practiceup',
                     children: [
-                        { path: '/Customer/tastefollowup/practiceup', component: Practiceup},//体验跟进记录
-                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey},//健康调查表
+                        { path: '/Customer/tastefollowup/practiceup', component: Practiceup },//体验跟进记录
+                        { path: '/Customer/tastefollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/tastefollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/tastefollowup/postureevaluating', component: Postureevaluating },//体态评估表
                     ]
@@ -274,7 +266,7 @@ let router = new Router({
                     menuShow: false,
                     redirect: '/Customer/memberfollowup/insiderup',
                     children: [
-                        { path: '/Customer/memberfollowup/insiderup', component: Insiderup},//会员跟进记录
+                        { path: '/Customer/memberfollowup/insiderup', component: Insiderup },//会员跟进记录
                         { path: '/Customer/memberfollowup/healthsurvey', component: Healthsurvey },//健康调查表
                         { path: '/Customer/memberfollowup/staminaevaluating', component: Staminaevaluating },//体能评估表
                         { path: '/Customer/memberfollowup/postureevaluating', component: Postureevaluating },//体态评估表
@@ -292,21 +284,21 @@ let router = new Router({
                             component: Memberhome,
                             name: 'Memberhome',
                             children: [
-                                { path: '/Customer/membershiphome/memberhome/transfercard', component: Transfercard},//转卡
-                                { path: '/Customer/membershiphome/memberhome/returncard', component: Returncard},//退卡
-                                { path: '/Customer/membershiphome/memberhome/upgradecard', component: Upgradecard},//升级
-                                { path: '/Customer/membershiphome/memberhome/changevalidity', component: Changevalidity},//变更有效期
-                                { path: '/Customer/membershiphome/memberhome/changepriceandnum', component: Changepriceandnum},//变更次数和金额
-                                { path: '/Customer/membershiphome/memberhome/enabledisabling', component: Enabledisabling},//启用禁用
-                                { path: '/Customer/membershiphome/memberhome/activate', component: Activate},//激活
+                                { path: '/Customer/membershiphome/memberhome/transfercard', component: Transfercard },//转卡
+                                { path: '/Customer/membershiphome/memberhome/returncard', component: Returncard },//退卡
+                                { path: '/Customer/membershiphome/memberhome/upgradecard', component: Upgradecard },//升级
+                                { path: '/Customer/membershiphome/memberhome/changevalidity', component: Changevalidity },//变更有效期
+                                { path: '/Customer/membershiphome/memberhome/changepriceandnum', component: Changepriceandnum },//变更次数和金额
+                                { path: '/Customer/membershiphome/memberhome/enabledisabling', component: Enabledisabling },//启用禁用
+                                { path: '/Customer/membershiphome/memberhome/activate', component: Activate },//激活
                             ]
                         },
-                        { path: '/Customer/membershiphome/information', component: Information},//综合信息
-                        { path: '/Customer/membershiphome/leave', component: Leave},//请假销假操作
-                        { path: '/Customer/membershiphome/unhook', component: Unhook},//解挂--补卡--挂失
+                        { path: '/Customer/membershiphome/information', component: Information },//综合信息
+                        { path: '/Customer/membershiphome/leave', component: Leave },//请假销假操作
+                        { path: '/Customer/membershiphome/unhook', component: Unhook },//解挂--补卡--挂失
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍
-                        { path: '/Customer/membershiphome/operationnote', component: Operationnote},//操作记录
-                        { path: '/Customer/membershiphome/classcard2', component: Classcard2},//上课记录
+                        { path: '/Customer/membershiphome/operationnote', component: Operationnote },//操作记录
+                        { path: '/Customer/membershiphome/classcard2', component: Classcard2 },//上课记录
                     ]
                 },
                 {
@@ -319,7 +311,7 @@ let router = new Router({
                         { path: '/Customer/experiencehome/experhome/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experhome, name: 'Experhome' },//体验主页
                         { path: '/Customer/experiencehome/information2/:id/:exHjgwName/:exName/:exTel/:exSex', component: Information2, name: 'Information2' },//综合信息
                         { path: '/Customer/experiencehome/nocards/:id/:exHjgwName/:exName/:exTel/:exSex', component: Nocards, name: 'Nocards' },//不办卡
-                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change},//换会籍
+                        { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change },//换会籍
                         { path: '/Customer/experiencehome/classcard/:id/:exHjgwName/:exName/:exTel/:exSex', component: Classcard, name: 'Classcard' },//上课记录
                     ]
                 }
@@ -349,7 +341,6 @@ let router = new Router({
                 { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
-                { path: '/House/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 {
                     path: '/House/visualizationchart',//可视化数表
                     component: Visualiza,
@@ -373,6 +364,17 @@ let router = new Router({
                     name: '404',
                     menuShow: false
                 }
+            ]
+        },
+        {
+            path: '/Operating',
+            component: Home,
+            name: '经营管理',
+            menuShow: true,
+            iconCls: 'iconfont icon-heguiguanli',
+            children: [
+                { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
+                // { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
             ]
         },
         {

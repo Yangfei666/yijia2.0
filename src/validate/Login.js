@@ -109,7 +109,7 @@ export let phone = [
         trigger: "blur"
     },
     {
-        pattern: /^[1][3,5,6,7,8,9][0-9]{9}$/,
+        pattern: /^[1][3,4,5,6,7,8,9][0-9]{9}$/,
         message: "格式错误"
     }
 ];

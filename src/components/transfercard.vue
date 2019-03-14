@@ -304,7 +304,7 @@ export default {
                   type: "success"
                 });
                 _this.$router.push(
-                  "/Customer/leaguer/leaguermanage/leaguermanagetable"
+                  "/Customer/leaguermanage/leaguermanagetable"
                 );
               })
               .catch(error => {
@@ -348,7 +348,7 @@ export default {
             type: "success"
           });
           _this.$router.push(
-            "/Customer/leaguer/leaguermanage/leaguermanagetable"
+            "/Customer/leaguermanage/leaguermanagetable"
           );
         })
         .catch(error => {

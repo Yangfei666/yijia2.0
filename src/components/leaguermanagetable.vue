@@ -526,7 +526,7 @@ export default {
     go(index, row) {
       this.currentSelectRow = row;
       this.$router.push({
-        path: "/Customer/leaguer/leaguermanage/claim",
+        path: "/Customer/leaguermanage/claim",
         query: {
           id: this.currentSelectRow.HYID,
           name: this.currentSelectRow.HYName,

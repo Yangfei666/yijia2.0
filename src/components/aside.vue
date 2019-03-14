@@ -42,11 +42,11 @@
                 <i :class="item.iconCls"></i>
                 <span slot="title">{{item.name}}</span>
               </template>
-              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow &&(term.name != '会员客户管理')&&(term.name != '可视化数表')" :class="$route.path==term.path?'is-active':''">
+              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow && (term.name != '可视化数表')" :class="$route.path==term.path?'is-active':''">
                 <i :class="term.iconCls"></i>
                 <span slot="title">{{term.name}}</span>
               </el-menu-item>
-              <el-submenu v-else-if="term.menuShow&&((term.name=='会员客户管理')||(term.name == '可视化数表'))" :index="term.path">
+              <el-submenu v-else-if="term.menuShow&&(term.name == '可视化数表')" :index="term.path">
                 <template slot="title">{{term.name}}</template>
                 <el-menu-item v-for="(i,index) in term.children" :key="index" :index="i.path">
                   {{i.name}}

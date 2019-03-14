@@ -40,7 +40,7 @@
         <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick">
           <el-table-column align="left" fixed label="头像">
             <template slot-scope="scope">
-              <img src="../assets/tianjiahuiyuan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <img src="../assets/tiyan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
           </el-table-column>
           <el-table-column align="left" prop="experience_customers.exName" label="客户姓名">

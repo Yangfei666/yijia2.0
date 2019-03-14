@@ -22,7 +22,7 @@
     </div>
     <div class="border"></div>
     <div class="head-one">
-      <router-link :to="{path:'/Customer/leaguer/leaguermanage'}" style="text-decoration:none;">
+      <router-link :to="{path:'/Customer/leaguermanage'}" style="text-decoration:none;">
         <img class="one-img" src="../assets/huiytuanguanli.png" />
         <p class="one-pp">会员管理</p>
       </router-link>
