@@ -198,11 +198,13 @@ export default {
           _this.activeName = findKey(_this.getNowFormatDate());
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
@@ -242,11 +244,13 @@ export default {
           _this.subject = subject;
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
@@ -267,11 +271,13 @@ export default {
           }
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
@@ -340,11 +346,15 @@ export default {
           });
           this.value = "";
         })
-        .catch(() => {
-          this.$message({
-            message: "复制课表失败",
-            type: "error"
-          });
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     // 获取指日期的周一/日时间

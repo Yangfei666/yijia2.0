@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.prTel" placeholder="请输入"></el-input>
+          <el-input v-model="currentSelectRow.prTel" maxlength="11" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">

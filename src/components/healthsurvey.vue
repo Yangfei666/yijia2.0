@@ -31,7 +31,7 @@
                                 <el-col :span="8" class="from-date">
                                     <el-form-item label="联系电话：" prop="tel">
                                         <el-col :span="24">
-                                            <el-input v-model="health_survey.htTel" style="width:100%"></el-input>
+                                            <el-input v-model="health_survey.htTel" maxlength="11" style="width:100%"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>

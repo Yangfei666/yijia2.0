@@ -42,7 +42,7 @@ const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工�
 
 const Systemsetting = resolve => require(['@/pages/Operating/systemsetting'], resolve)//系统设置
 
-// const Arrangemage = resolve => require(['@/pages/Operating/arrangemage'], resolve)//排班管理
+const Arrangemage = resolve => require(['@/pages/Operating/arrangemage'], resolve)//排班管理
 
 const HouseRole = resolve => require(['@/pages/House/role'], resolve)//角色权限管理
 
@@ -374,7 +374,7 @@ let router = new Router({
             iconCls: 'iconfont icon-heguiguanli',
             children: [
                 { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
-                // { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
+                { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
             ]
         },
         {

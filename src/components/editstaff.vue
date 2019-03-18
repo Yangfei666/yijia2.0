@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="电话:" prop="YGXX_HOMETEL" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.YGXX_HOMETEL" placeholder="请输入"></el-input>
+          <el-input v-model="currentSelectRow.YGXX_HOMETEL" maxlength="11" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="身份证号:" prop="ygIdentity" :label-width="formLabelWidth">
@@ -42,6 +42,12 @@
           <el-select v-model="currentSelectRow.group" placeholder="请选择" style="width:100%" @change="xiaozu">
             <el-option v-for="item in groups" :key="item.id" :label="item.group" :value="item.group"></el-option>
           </el-select>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="状态:" prop="YGXX_STATE" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-radio label="全职" value="1" v-model="currentSelectRow.YGXX_STATE"></el-radio>
+          <el-radio label="兼职" value="3" v-model="currentSelectRow.YGXX_STATE"></el-radio>
         </el-col>
       </el-form-item>
       <el-form-item label="员工简介:" prop="ygIntro" :label-width="formLabelWidth">
@@ -124,6 +130,7 @@ export default {
               ygIdentity: this.currentSelectRow.ygIdentity, //身份证
               Brigade: this.currentSelectRow.Brigade, //大队
               group: this.currentSelectRow.group, //小组
+              YGXX_STATE:this.currentSelectRow.YGXX_STATE == "全职" ? 1 : 3,//状态
               role: this.selectRoleId //分配角色
             };
             requestLogin(

@@ -141,7 +141,7 @@
                             </el-form-item>
                             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.tel" placeholder="请输入"></el-input>
+                                <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="邮编:" prop="zipcode" :label-width="formLabelWidth">

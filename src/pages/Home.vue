@@ -109,13 +109,13 @@ export default {
     width: 60px;
   }
   .expand {
-    width: 200px;
+    width: 230px;
   }
   .coll2 {
-    width: calc(100% - 60px) !important;
+    width: calc(100% - 90px) !important;
   }
   .expand2 {
-    width: calc(100% - 200px) !important;
+    width: calc(100% - 230px) !important;
   }
 }
 body > .el-container {

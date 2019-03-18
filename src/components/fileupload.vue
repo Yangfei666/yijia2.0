@@ -5,9 +5,9 @@
       <input ref="input" type="file" accept="image/png,image/jpeg,image/gif" @change="change" v-show="!openCrop">
     </a>
     <div class="crop-container" v-show="openCrop">
-      <div class="crop-container__source" @mouseup="mouseup" @mousemove="mousemove">
+      <div class="crop-container__source" @mouseup="mouseup" @mousemove="mousemove" @touchmove="mousemove" @touchend="mouseup">
         <img class="crop-container__source__image" :src="imgSrc" ref="img"/>
-        <div class="crop-box" :style="cropBoxStyle" @mousedown="mousedown" ref="cropbox">
+        <div class="crop-box" :style="cropBoxStyle" @mousedown="mousedown" ref="cropbox" @touchstart="mousedown">
           <span class="crop-line-h"></span>
           <span class="crop-line-v"></span>
           <!-- border  -->
@@ -312,8 +312,8 @@ export default {
     mousedown: function(e) {
       // 在鼠标按下之后到抬起之前都可以移动，按下只能是指定的元素，抬起是在crop-container__source内，或者移出crop-container__source则算做抬起
       this.isMousedown = true;
-      this.enterPoint.x = e.pageX;
-      this.enterPoint.y = e.pageY;
+      this.enterPoint.x = e.pageX || e.touches[0].clientX;
+      this.enterPoint.y = e.pageY || e.touches[0].clientY;
       this.target = e.target;
     },
     mouseup: function(e) {
@@ -326,8 +326,8 @@ export default {
     // TODO 支持指定不同比例的裁剪
     mousemove: function(e) {
       if (this.isMousedown) {
-        var px = e.pageX;
-        var py = e.pageY;
+        var px = e.pageX || e.touches[0].clientX;
+        var py = e.pageY || e.touches[0].clientY;
         var offsetX = px - this.enterPoint.x;
         var offsetY = py - this.enterPoint.y;
         if (

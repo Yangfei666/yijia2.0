@@ -186,7 +186,7 @@
                       </el-form-item>
                       <el-form-item label="姓名/电话:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm2.name" placeholder="请输入" @change="inputchange"></el-input>
+                          <el-input v-model="ruleForm2.name" placeholder="请输入" maxlength="11" @change="inputchange"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">

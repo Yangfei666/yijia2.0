@@ -42,7 +42,7 @@
                       </el-form-item>
                       <el-form-item label="电话:" prop="phone" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.phone" placeholder="请输入"></el-input>
+                          <el-input v-model="ruleForm.phone" maxlength="11" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="身份证号:" prop="idnumber" :label-width="formLabelWidth">
@@ -69,6 +69,14 @@
                           <el-select v-model="ruleForm.small" placeholder="请选择" style="width:100%" @change="xiaozu">
                             <el-option v-for="item in groups" :key="item.id" :label="item.group" :value="item.group"></el-option>
                           </el-select>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-radio-group v-model="ruleForm.status">
+                            <el-radio :label="1">全职</el-radio>
+                            <el-radio :label="3">兼职</el-radio>
+                          </el-radio-group>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="员工简介:" prop="desc" :label-width="formLabelWidth">
@@ -201,6 +209,7 @@ export default {
         selectRoleId: [], //分配角色
         big: "", //所属大队
         small: "", //所属小组
+        status: "", //状态
         desc: "" //员工简介
       },
       ruleForm2: {
@@ -210,6 +219,7 @@ export default {
         name: validate.name,
         sex: validate.sex,
         phone: validate.phone,
+        status:validate.status,
         // idnumber: validate.idnumber,
         selectRoleId: validate.selectRoleId
       },
@@ -380,6 +390,7 @@ export default {
               ygIdentity: this.ruleForm.idnumber, //身份证
               Brigade: this.ruleForm.big, //大队
               group: this.ruleForm.small, //小组
+              YGXX_STATE: this.ruleForm.status, //状态
               role: this.ruleForm.selectRoleId //分配角色
             };
             requestLogin("/setStaffInfo", loginParams, "post")
