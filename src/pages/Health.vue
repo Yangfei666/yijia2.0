@@ -70,7 +70,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-col>
-                        <el-col :span="24" class="from-date-border2">
+                        <el-col :span="24" class="from-date-border2" style="border-bottom: 1px solid #fff">
                             <el-col :span="7" class="from-date3">
                                 <el-form-item label="您曾有坚持体育锻炼吗：" prop="htIsExercise" label-width="185px">
                                     <el-col :span="24">
@@ -81,24 +81,26 @@
                                     </el-col>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="6" class="from-date3" v-show="health_survey.htIsExercise == 1">
-                                <el-form-item label="何种体育项目：" prop="htExeName" label-width="120px">
-                                    <el-col :span="24">
-                                        <el-input v-model="health_survey.htExeName" style="width:130px;opacity: 0.6;"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6" class="from-date3" v-show="health_survey.htIsExercise == 1">
-                                <el-form-item label="练习了多长时间：" prop="htExeTime" label-width="140px">
-                                    <el-col :span="24">
-                                        <el-input v-model="health_survey.htExeTime" style="width:130px;opacity: 0.6;"></el-input>
-                                    </el-col>
-                                </el-form-item>
-                            </el-col>
                             <el-col :span="5" class="from-date3" style="float:right">
                                 <el-form-item label="备注：" prop="htPurRmk" label-width="70px">
                                     <el-col :span="24">
                                         <el-input v-model="health_survey.htPurRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                    </el-col>
+                                </el-form-item>
+                            </el-col>
+                        </el-col>
+                        <el-col :span="24" class="from-date-border2">
+                            <el-col :span="10" class="from-date3" v-show="health_survey.htIsExercise == 1">
+                                <el-form-item label="何种体育项目：" prop="htExeName" label-width="185px">
+                                    <el-col :span="24">
+                                        <el-input v-model="health_survey.htExeName" style="width:140px;opacity: 0.6;"></el-input>
+                                    </el-col>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="10" class="from-date3" v-show="health_survey.htIsExercise == 1">
+                                <el-form-item label="练习了多长时间：" prop="htExeTime" label-width="185px">
+                                    <el-col :span="24">
+                                        <el-input v-model="health_survey.htExeTime" style="width:140px;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -126,7 +128,7 @@
                                 <el-form-item label="您打算在瑜伽养生方面每年投资多少：" prop="htExpend" label-width="200px">
                                     <el-col :span="24">
                                         <el-radio-group v-model="health_survey.htExpend" style="width: 540px;" @change="htExpendchange">
-                                            <el-radio :label="1">6000以下</el-radio>
+                                            <el-radio :label="1" style="margin-left:20px">6000以下</el-radio>
                                             <el-radio :label="2">6000-10000元</el-radio>
                                             <el-radio :label="3">10000-18000元</el-radio>
                                             <el-radio :label="4">18000以上</el-radio>
@@ -278,7 +280,7 @@ export default {
         htTel: [
           { required: true, message: "请输入电话", trigger: "blur" },
           {
-            pattern: /^[1][3,5,6,7,8,9][0-9]{9}$/,
+            pattern: /^[1][2,3,4,5,6,7,8,9][0-9]{9}$/,
             message: "格式错误"
           }
         ],
@@ -325,10 +327,14 @@ export default {
                 this.resetForm(formName);
               })
               .catch(error => {
-                this.$message({
-                  message: "提交成功",
-                  type: "success"
-                });
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
               });
           });
         } else {
@@ -369,6 +375,7 @@ export default {
   .health-main {
     width: 90%;
     margin: 3% auto;
+    height: 100%;
     display: flow-root;
     border-radius: 5px;
     background: #f7fffc;

@@ -7,12 +7,14 @@
           <el-col :span="24">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p" @click="changeInfo2">复制排班表</el-button>
-              </div>
-            </div>
-              <div class="add3">
                   <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false" type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1"></el-date-picker>
               </div>
+              <div class="add2">
+                  <el-select v-model="value" placeholder="复制课表" @change="changeInfo2">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                  </el-select>
+              </div>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -25,7 +27,7 @@
               <el-table-column align="center" :label="'周一('+this.getsubstr('Monday')+')'">
                   <template slot-scope="scope">
                       <span v-if="edit_id !== scope.row.id || (cur_date >= scope.row.week[0]) || hides[0]">{{scope.row.shift[0]}}</span>
-                      <el-select v-else v-model="scope.row.shift[0]" :clearable='false' @change="handleEdit">
+                      <el-select v-else v-model="scope.row.shift[0]" :clearable='false' @change="handleEdit(scope,0)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -33,7 +35,7 @@
               <el-table-column align="center" :label="'周二('+this.getsubstr('Tuesday')+')'">
                    <template slot-scope="scope">
                        <span v-if="edit_id !== scope.row.id  || (cur_date >= scope.row.week[1]) || hides[1]">{{scope.row.shift[1]}}</span>
-                     <el-select v-else v-model="scope.row.shift[1]" :clearable='false' @change="handleEdit2" >
+                     <el-select v-else v-model="scope.row.shift[1]" :clearable='false' @change="handleEdit(scope,1,$event)" >
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -41,16 +43,15 @@
               <el-table-column align="center" :label="'周三('+this.getsubstr('Wednesday')+')'">
                    <template slot-scope="scope">
                        <span v-if="edit_id !== scope.row.id  || (cur_date >= scope.row.week[2]) || hides[2]">{{scope.row.shift[2]}}</span>
-                       <el-select v-else v-model="scope.row.shift[2]" :clearable='false' @change="handleEdit3">
+                       <el-select v-else v-model="scope.row.shift[2]" :clearable='false' @change="handleEdit(scope,2,$event)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
               </el-table-column>
               <el-table-column align="center" :label="'周四('+this.getsubstr('Thursday')+')'">
                    <template slot-scope="scope">
-        
                        <span v-if="edit_id !== scope.row.id  || (cur_date >= scope.row.week[3]) || hides[3]">{{scope.row.shift[3]}}</span>
-                       <el-select v-else v-model="scope.row.shift[3]" :clearable='false' @change="handleEdit4">
+                       <el-select v-else v-model="scope.row.shift[3]" :clearable='false' @change="handleEdit(scope,3,$event)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -58,7 +59,7 @@
               <el-table-column align="center" :label="'周五('+this.getsubstr('Friday')+')'">
                    <template slot-scope="scope">
                        <span v-if="edit_id !== scope.row.id  || (cur_date >= scope.row.week[4]) || hides[4]">{{scope.row.shift[4]}}</span>
-                       <el-select v-else v-model="scope.row.shift[4]" :clearable='false' @change="handleEdit5">
+                       <el-select v-else v-model="scope.row.shift[4]" :clearable='false' @change="handleEdit(scope,4,$event)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -66,7 +67,7 @@
               <el-table-column align="center" :label="'周六('+this.getsubstr('Saturday')+')'">
                    <template slot-scope="scope">
                        <span v-if="edit_id !== scope.row.id  || (cur_date >= scope.row.week[5]) || hides[5]">{{scope.row.shift[5]}}</span>
-                      <el-select v-else v-model="scope.row.shift[5]" :clearable='false' @change="handleEdit6">
+                      <el-select v-else v-model="scope.row.shift[5]" :clearable='false' @change="handleEdit(scope,5,$event)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -74,7 +75,7 @@
               <el-table-column align="center" :label="'周日('+this.getsubstr('Sunday')+')'">
                    <template slot-scope="scope">
                        <span v-if="edit_id !== scope.row.id || (cur_date >= scope.row.week[6]) || hides[6]">{{scope.row.shift[6]}}</span>
-                       <el-select v-else v-model="scope.row.shift[6]" :clearable='false' @change="handleEdit7">
+                       <el-select v-else v-model="scope.row.shift[6]" :clearable='false' @change="handleEdit(scope,6,$event)">
                         <el-option v-for="(item,index) in classify" :key="index" :label="item.name" :value="item.name"></el-option>
                       </el-select>
                   </template>
@@ -117,6 +118,19 @@ export default {
       idd:'',
       edit_id:'',
       cur_date: moment(new Date()).format("YYYY-MM-DD").toString(),
+      value: "",
+      options: [
+        {
+          value: "1",
+          label: "复制本周"
+        },
+        {
+          value: "2",
+          label: "复制本月"
+        }
+      ],
+      riqi:"",
+      hangid:"",
     };
   },
   created() {
@@ -159,79 +173,20 @@ export default {
       return moment(new Date()).format("YYYY-MM-DD");
     },
     editRow(index,row){
-       this.edit_id = row.id
+       this.edit_id = row.id;
         var curDate = this.getCurrentDateTime();
         var weeks = this.tableData[index].week;
-        let x = this.cur_date > weeks[0]
-        console.log(x, weeks[0], this.cur_date)
-        var staffShiftIds = this.tableData[index].staffShiftId;
-        for ( var i = 0; i <staffShiftIds.length; i++){
-            // console.log(staffShiftIds[i]);
-        }
         this.hides = [false, false, false, false, false, false,false]
     },
-    handleEdit(val) {
+    handleEdit(rowdata,num,val) {
+        this.hides[num] = !this.hides[num];
+        this.riqi = rowdata.row.week[num];
+        this.hangid = rowdata.row.staffShiftId[num];
         this.classify.map((item, index) => {
             if (val == item.name) {
                 this.idd = item.id;
         }
       });
-      
-        this.hides[0] = !this.hides[0];
-        this.Editarrange();
-    },
-    handleEdit2(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-       this.hides[1] = !this.hides[1];
-        this.Editarrange();
-    },
-    handleEdit3(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-        this.hides[2] = !this.hides[2];
-        this.Editarrange();
-    },
-    handleEdit4(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-        this.hides[3] = !this.hides[3];
-        this.Editarrange();
-    },
-    handleEdit5(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-        this.hides[4] = !this.hides[4];
-        this.Editarrange();
-    },
-    handleEdit6(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-        this.hides[5] = !this.hides[5];
-        this.Editarrange();
-    },
-    handleEdit7(val) {
-        this.classify.map((item, index) => {
-            if (val == item.name) {
-                this.idd = item.id;
-        }
-      });
-        this.hides[6] = !this.hides[6];
         this.Editarrange();
     },
     changeWeek(val) {
@@ -278,11 +233,11 @@ export default {
       let _this = this;
       let editarrange = {
           staffId:_this.currentSelectRow.id,//员工编号
-          date:_this.currentSelectRow.week[1],//排班日期
+          date:this.riqi,//排班日期
           shiftId:this.idd,//班次编号
           type:'教练',//员工岗位
       };
-      requestLogin("/staffShift/"+this.currentSelectRow.staffShiftId[1],editarrange, "put")
+      requestLogin("/staffShift/"+this.hangid,editarrange, "put")
         .then(res => {
           this.$message({
               message: "修改成功",
@@ -301,7 +256,7 @@ export default {
           });
     },
     //班次下拉框
-    Rotationselect() {
+    Rotationselect() { 
       let _this = this;
       requestLogin("/getShiftBySort/2", {}, "get")
         .then(res => {
@@ -339,7 +294,6 @@ export default {
             }
           });
     },
-    Selectchange2(val) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;
     },
@@ -352,15 +306,27 @@ export default {
     rowClick(row, event, column) {
       this.currentSelectRow = row;
     },
-    //轮播图管理
-    changeInfo2() {
-      if (!this.currentSelectRow) {
-        this.$message({
-          message: "请先选择列表!",
-          type: "warning"
-        });
-        return;
-      }
+    //复制排班表
+    changeInfo2(val) {
+      let _this = this;
+      requestLogin("/copyStaffShift/"+_this.Monday+'/'+_this.value+'/2', {}, "get")
+        .then(res => {
+          this.$message({
+            message: "复制排班表成功",
+            type: "success"
+          });
+          _this.value = "";
+        })
+        .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     }
   }
 };
@@ -383,58 +349,17 @@ export default {
       display: flex;
       justify-content: flex-start;
       .add {
-        border: 1px solid #00bc71;
-        width: 13%;
-        height: 35px;
-        border-radius: 4px;
-        line-height: 0px;
-        margin-top: 20px;
-        margin-left: 13px;
-        .p {
-          color: #00bc71;
-          font-family: PingFang-SC-Regular;
-          font-size: 16px;
-          font-weight: normal;
-          font-stretch: normal;
-          letter-spacing: 0px;
-          line-height: 9px;
-        }
-        .add-p {
-          color: #00bc71;
-          font-family: PingFang-SC-Regular;
-          font-size: 16px;
-          font-weight: normal;
-          font-stretch: normal;
-          letter-spacing: 0px;
-          line-height: 9px;
-        }
+          height: 35px;
+          margin-top: 20px;
+          margin-right: 27px;
+          margin-left: 10px;
       }
       .add2 {
-        border: 1px solid #ff2366;
-        width: 13%;
-        height: 35px;
-        border-radius: 4px;
-        line-height: 0px;
-        margin-top: 20px;
-        margin-left: 13px;
-        .p {
-          color: #ff2366;
-          font-family: PingFang-SC-Regular;
-          font-size: 16px;
-          font-weight: normal;
-          font-stretch: normal;
-          letter-spacing: 0px;
-          line-height: 9px;
-        }
+          height: 35px;
+          margin-top: 20px;
+          margin-right: 27px;
+          margin-left: 10px;
       }
-    }
-    .add3 {
-    height: 35px;
-    border-radius: 4px;
-    line-height: 0px;
-    float: right;
-    margin-top: -60px;
-    margin-right: 15px;
     }
   }
   .practice-table {
