@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //懒加载方式，当路由被访问的时候才加载对应组件
+const IndexSearch = resolve => require(['@/pages/indexSearch'], resolve)
+
 const Health = resolve => require(['@/pages/Health'], resolve)//健康表
 
 const Register = resolve => require(['@/pages/Register'], resolve)//注册
@@ -145,8 +147,8 @@ let router = new Router({
     routes: [
         {
             path: '/',
-            name: 'Health',
-            component: Health,
+            name: 'IndexSearch',
+            component: IndexSearch,
         },
         {
             path: '/health',

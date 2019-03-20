@@ -4,6 +4,7 @@
             <el-form :model="health_survey" :rules="rules" ref="health_survey" label-width="100px" class="demo-ruleForm">
                 <div class="health-main">
                     <el-col :span="24" class="outside">
+                      <span style="margin-right: 30px;"><strong>{{clubAndStaff.clubName}}</strong> - <strong>{{clubAndStaff.staffName}}</strong></span>
                         <span class="outside-biao">健康调查表
                             <span class="outside-biao2">(
                                 <b style="color:#ff0000">*</b>号必填)</span>
@@ -164,7 +165,7 @@
                         </el-col>
                         <el-col :span="24" class="from-date-border4">
                             <el-col :span="19" class="from-date3">
-                                <el-form-item label="您练习瑜伽的目的是：" prop="htPurpose" label-width="175px" style="text-align:left;">
+                                <el-form-item label="您练习瑜伽的目的是：" prop="htPurpose" label-width="212px" style="text-align:left;">
                                     <el-col :span="24">
                                         <el-checkbox-group v-model="health_survey.htPurpose" :min="1" :max="20" style="width: 752px;" @change="htPurposechange">
                                             <el-checkbox v-for="city in pose" :label="city" :key="city">{{city}}</el-checkbox>
@@ -270,8 +271,11 @@ export default {
         htHealth: [], //身体状况
         htHeaRmk: "", //备注
         htPurpose: [], //目的是
-        htPurRmk: "" //备注
+        htPurRmk: "", //备注
+        staffId:'',
+        hsid:''
       },
+      clubAndStaff:'',
       cities: cityOptions,
       pose: cityOptions2,
       PraTime: cityOptions3,
@@ -287,6 +291,9 @@ export default {
         htSex: [{ required: true, message: "请选择性别", trigger: "change" }]
       }
     };
+  },
+  beforeMount(){
+    this.clubAndStaff = JSON.parse(sessionStorage.getItem('selected-club'));
   },
   methods: {
     addhealthsurvey(formName) {
@@ -312,7 +319,9 @@ export default {
               htHealth: this.health_survey.htHealth, //健康状态
               htHeaRmk: this.health_survey.htHeaRmk, //健康状态 备注
               htPurpose: this.health_survey.htPurpose, //练习目的
-              htPurRmk: this.health_survey.htPurRmk //练习目的备注
+              htPurRmk: this.health_survey.htPurRmk,//练习目的备注
+              staffId:this.clubAndStaff.staffID,
+              hsid:this.clubAndStaff.clubID
             };
             requestLogin(
               "/CustomerFollowUp/addHealthSurvey",
@@ -346,22 +355,16 @@ export default {
       this.$refs[formName].resetFields();
     },
     sexchange(val) {
-      console.log(val);
     },
     Exercisecahnge(val) {
-      console.log(val);
     },
     htPraTimechange(val) {
-      console.log(val);
     },
     htExpendchange(val) {
-      console.log(val);
     },
     htHealthchange(val) {
-      console.log(val);
     },
     htPurposechange(val) {
-      console.log(val);
     }
   }
 };

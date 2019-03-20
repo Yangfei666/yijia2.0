@@ -82,7 +82,7 @@
               <span slot="label">周日
                 <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
               </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7' @regetData="getkcData"></Grouptimetable>
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7' @regetData="getkcData" v-on:listevent="listevent" :tianjia="tianjia"></Grouptimetable>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -150,6 +150,7 @@ export default {
         _this.getClub();
       })
       .catch(error => {});
+      this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
   },
   computed: {
     whichDay() {
@@ -182,6 +183,13 @@ export default {
     }
   },
   methods: {
+    tianjia:function(){
+      },
+    listevent(data){
+      this.startTimes = data.startTime;
+      this.endTimes = data.endTime;
+      this.whichDays = data.whichDay;
+    },
     //获取团课课程表数据
     async getGroup() {
       let _this = this;
@@ -238,9 +246,8 @@ export default {
       let _this = this;
       requestLogin("/getCurTableBaseInfo", {}, "post")
         .then(function(res) {
-          let { classroom, coach, subject } = res;
+          let { classroom, subject } = res;
           _this.classroom = classroom;
-          _this.coach = coach;
           _this.subject = subject;
         })
         .catch(error => {
@@ -254,6 +261,7 @@ export default {
           }
         });
     },
+
     //获取门店
     getClub() {
       let _this = this;

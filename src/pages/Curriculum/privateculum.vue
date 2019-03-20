@@ -59,7 +59,7 @@
                 <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
               </span>
             </el-tab-pane>
-            <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList" v-if="hackReset"></Culum>
+            <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList" v-if="hackReset" v-on:listcentevent="listcentevent" :yuyue="yuyue"></Culum>
           </el-tabs>
         </div>
       </div>
@@ -77,14 +77,18 @@ export default {
   data() {
     return {
       num: 1,
+      huisuoid:'',
       hackReset: true,
+      startTimes:'',
+      endTimes:"",
+      whichDays:"",
       activeName: "Monday", //选择的周几
       courseTotal: {}, //全部课程
       courseDaily: {}, //每日课程
       SystemSetup: {}, //会所设置
       week: {}, // 当前数据是哪一周的
       coachList: [], //本会所教练
-      dateValue: "" // 时间值-哪一周
+      dateValue: "", // 时间值-哪一周
     };
   },
   computed: {
@@ -113,24 +117,42 @@ export default {
     let day = this.getFirstDayOfWeek(new Date());
     let FirstDay = this.GetDateStr(0, day);
     this.getPrivateTable(FirstDay);
-    setTimeout(this.getCoachList(), 500);
+    this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
   },
   methods: {
+    yuyue:function(){
+      this.getCoachList();
+      },
+    listcentevent(data){
+      this.startTimes = data.startTime;
+      this.endTimes = data.endTime;
+      this.whichDays = data.whichDay;
+    },
     // 改变时间
     changeWeek() {
       this.getPrivateTable(this.Monday);
     },
     // 获取教练列表
     getCoachList() {
-      request("/getCurTableCoach", {}, "get")
+      var coachlist = {
+        kcStime:this.whichDays,
+        Stime:this.startTimes,
+        Etime:this.endTimes,
+        hsid:this.huisuoid
+      };
+      request("/getCoachListByDateAndTime",coachlist, "post")
         .then(data => {
           this.coachList = data;
         })
         .catch(error => {
-          this.$message({
-            message: "对不起,教练信息加载失败!",
-            type: "error"
-          });
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     //获取课表数据
@@ -154,10 +176,14 @@ export default {
           this.courseDaily = this.courseTotal[this.activeName];
         })
         .catch(error => {
-          this.$message({
-            message: "对不起,教练信息加载失败",
-            type: "error"
-          });
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
         });
     },
     //得到当前年月日yyyy-MM-dd

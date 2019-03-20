@@ -60,7 +60,8 @@ export default {
     courseDaily: [Object, Array],
     SystemSetup: Object,
     whichDay: String,
-    coachList: Array
+    coachList: Array,
+    yuyue:{}
   },
   watch: {
     whichDay(newValue, oldValue) {
@@ -131,6 +132,8 @@ export default {
     reservationPage() {
       if (this.startTime != "" && this.endTime != "" && this.classroom != "") {
         this.dialogFormVisible = true;
+        this.$emit("listcentevent",{startTime:this.startTime,endTime:this.endTime,whichDay:this.whichDay});
+        this.yuyue();
       } else {
         this.$message({
           message: "请先选择上课教室和时间",

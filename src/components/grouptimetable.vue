@@ -26,13 +26,6 @@
                         </el-select>
                       </el-col>
                     </el-form-item>
-                    <el-form-item label="教练:" prop="train" :label-width="formLabelWidth">
-                      <el-col :span="22">
-                        <el-select v-model="ruleForm.train" placeholder="请选择" style="width:100%" @change="Selectchange3">
-                          <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                        </el-select>
-                      </el-col>
-                    </el-form-item>
                     <el-form-item label="教室:" prop="room" :label-width="formLabelWidth">
                       <el-col :span="22">
                         <el-select v-model="ruleForm.room" placeholder="请选择" style="width:100%" @change="Selectchange4">
@@ -50,6 +43,13 @@
                       <el-col :span="22">
                         <el-time-picker v-model="ruleForm.attendtime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
                         <el-time-picker v-model="ruleForm.endtime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item label="教练:" prop="train" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                        <el-select v-model="ruleForm.train" placeholder="请选择" style="width:100%" @change="Selectchange3" @focus="Selectclick">
+                          <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                        </el-select>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
@@ -100,13 +100,6 @@
                           </el-select>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="教练:" prop="JLIDs" :label-width="formLabelWidth">
-                        <el-col :span="22">
-                          <el-select v-model="currentSelectRow.JLID" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange3">
-                            <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                          </el-select>
-                        </el-col>
-                      </el-form-item>
                       <el-form-item label="教室:" prop="kcPlace" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-select v-model="currentSelectRow.kcPlace" placeholder="请选择" style="width:100%" @change="Selectchange4">
@@ -122,8 +115,15 @@
                       </el-form-item>
                       <el-form-item label="上课时间:" prop="Stime" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-time-picker v-model="currentSelectRow.Stime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间"></el-time-picker>
-                          <el-time-picker v-model="currentSelectRow.Etime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间"></el-time-picker>
+                          <el-time-picker v-model="currentSelectRow.Stime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="开始时间" @change="timepicker"></el-time-picker>
+                          <el-time-picker v-model="currentSelectRow.Etime" value-format="HH:mm" format="HH:mm" :picker-options="{start: '05:00',step: '00:05',end:'24:00'}" style="width:49%" placeholder="结束时间" @change="timepicker"></el-time-picker>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="教练:" prop="JLIDs" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-select v-model="currentSelectRow.JLIDs" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange3" @focus="Selectclick2">
+                            <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                          </el-select>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="容纳人数:" prop="RenShu" :label-width="formLabelWidth">
@@ -265,16 +265,17 @@ import * as validate from "@/validate/Login";
 export default {
   name: "grouptimetable",
   inject: ["reload"],
-  props: [
-    "floorGoods",
-    "weekDay",
-    "classrooms",
-    "subjects",
-    "coachs",
-    "clubs",
-    "clubIndex",
-    "isSelfClub"
-  ],
+  props: {
+    floorGoods:[Object, Array],
+    weekDay:Number,
+    classrooms:Array,
+    subjects:Array,
+    coachs:Array,
+    clubs:[Object, Array],
+    clubIndex:Number,
+    isSelfClub:Boolean,
+    tianjia:{}
+  },
   data() {
     return {
       kechengname: "",
@@ -407,6 +408,9 @@ export default {
       this.mendian = this.clubs;
     }
   },
+  created(){
+      this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
+    },
   methods: {
     radiochange(row) {},
     handleSizeChange(size) {
@@ -429,6 +433,7 @@ export default {
       //先选择列表
       if (this.currentSelectRow) {
         this.dialogFormVisible3 = true;
+        this.rolegourp3();
       } else {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
@@ -548,6 +553,9 @@ export default {
           return false;
         }
       });
+    },
+    timepicker(val){
+      this.currentSelectRow = {...this.currentSelectRow, JLIDs:'请选择'};
     },
     //修改课程
     editForm(formName) {
@@ -741,6 +749,62 @@ export default {
         }
       });
     },
+    rolegourp2() {
+      let _this = this;
+      let rolegourp2 = {
+        kcStime:_this.kcStime,
+        Stime:_this.ruleForm.attendtime,
+        Etime:_this.ruleForm.endtime,
+        hsid:_this.huisuoid
+      };
+      requestLogin("/getCoachListByDateAndTime", rolegourp2, "post")
+        .then(function(res) {
+          _this.jiaolian = res;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
+    rolegourp3() {
+      let _this = this;
+      let rolegourp3 = {
+        kcStime:_this.kcStime,
+        Stime:_this.currentSelectRow.Stime,
+        Etime:_this.currentSelectRow.Etime,
+        hsid:_this.huisuoid
+      };
+      requestLogin("/getCoachListByDateAndTime", rolegourp3, "post")
+        .then(function(res) {
+          _this.jiaolian = res;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
+    Selectclick(){
+      if(this.ruleForm.attendtime != "" && this.ruleForm.endtime != ""){
+        this.rolegourp2();
+      }
+    },
+    Selectclick2(){
+      if(this.currentSelectRow.Stime != "" && this.currentSelectRow.Etime != ""){
+        this.rolegourp3();
+      }
+    },
     Selectchange4(val) {},
     Selectchange5(val) {},
     optionchange(val) {
@@ -759,7 +823,6 @@ export default {
       }
     },
     ceshihcange(val) {
-      console.log(val);
     }
   }
 };

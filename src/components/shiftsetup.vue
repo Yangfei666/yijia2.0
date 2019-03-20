@@ -52,7 +52,7 @@
                         <el-form-item label="所属岗位:" prop="classes" :label-width="formLabelWidth">
                         <el-col :span="22">
                             <el-select v-model="currentSelectRow.type" placeholder="请选择" style="width:100%" @change="Selectchange3">
-                            <el-option v-for="item in classify" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="item in classify" :key="item.id" :label="item.name" :value="item.name"></el-option>
                             </el-select>
                         </el-col>
                         </el-form-item>
@@ -217,14 +217,15 @@ export default {
     editForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$confirm("确认提交吗？", "提示").then(() => {
+         this.$confirm("确认提交吗？", "提示").then(() => {
             let loginParams = {
               name: this.currentSelectRow.name, //班次名称
-              type: this.name, //所属岗位
+              type: this.currentSelectRow.type, //所属岗位
               startTime: this.currentSelectRow.startTime, //开始时间
               endTime: this.currentSelectRow.endTime, //结束时间
             };
-            requestLogin(
+            let temp  = this.currentSelectRow.type
+           requestLogin(
               "/shift/" + this.currentSelectRow.id,
               loginParams,
               "put"
@@ -238,7 +239,7 @@ export default {
                  for (var i = 0; i < this.tableData.length; i++) {
                   if (this.tableData[i].id == this.currentSelectRow.id) {
                     this.tableData[i].name = this.currentSelectRow.name; //班次名称
-                    this.tableData[i].type = this.name; //所属岗位
+                    this.tableData[i].type = temp; //所属岗位
                     this.tableData[i].startTime = this.currentSelectRow.startTime; //开始时间
                     this.tableData[i].endTime = this.currentSelectRow.endTime; //结束时间
                   }
