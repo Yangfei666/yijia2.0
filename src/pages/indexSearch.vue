@@ -127,9 +127,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .conteinr{
-  }
-
+  // .conteinr{}
   @media (max-width:440px){
     .input-clubName{
       min-width:90vw;
