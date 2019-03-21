@@ -8,17 +8,17 @@
     <div class="search-wrapper">
       <el-card class="search-card" v-if="showSearch">
         <div slot="header"><span>选择会籍顾问</span></div>
-        <el-table :data="staffTableData" style="width: 100%;" height="40vh" @row-click="handleSelectStaffRow">
-          <el-table-column prop="" label="头像">
+        <el-table :data="staffTableData" style="width: 100%;" height="40vh" :header-cell-style="{background:'#fafafa'}" @row-click="handleSelectStaffRow">
+          <el-table-column prop="" label="头像" align="center">
             <template slot-scope="scope">
               <div class="staff-photo-wrapper"><img :src="scope.row.Photo" :alt="scope.row.YGXX_NAME"/></div>
             </template>
           </el-table-column>
-          <el-table-column prop="YGXX_NAME" label="姓名"></el-table-column>
-          <el-table-column prop="YGXX_SEX" label="性别"></el-table-column>
-          <el-table-column align="right">
-            <template slot-scope="scope">
-              <el-button size="mini">选择TA</el-button>
+          <el-table-column prop="YGXX_NAME" align="center" label="姓名"></el-table-column>
+          <el-table-column prop="YGXX_SEX" align="center" label="性别"></el-table-column>
+          <el-table-column align="center" label="操作">
+            <template>
+              <el-button size="small">选择TA</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -104,7 +104,6 @@
         var clubLists = await this.searchClub(this.searchClubValue);
         var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
         results = results.map(item => ({...item, value: item.Hsxx_Name_jch}))
-
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
           cb(results);
@@ -191,7 +190,7 @@
 
   .input-clubName{
     position:fixed;
-    top:20%;
+    top:17%;
     left:50%;
     right:50%;
     transform:translate(-50%, -50%);
@@ -211,8 +210,9 @@
       display:none;
     }
     .staff-photo-wrapper{
-      height:100px;
-      width:100px;
+      height:80px;
+      width:80px;
+      margin: 0 auto;
       img{
         border-radius:50%;
         height:100%;
