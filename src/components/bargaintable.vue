@@ -124,14 +124,14 @@
         <el-col :span="24">
           <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @select="selectClick" @row-click="rowClick">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>            
-            <el-table-column prop="itName" align="left" label="姓名" fixed width="120px"></el-table-column>
-            <el-table-column prop="itTel" align="left" label="手机号" width="150px"></el-table-column>
-            <el-table-column prop="itHjgwName" align="left" label="会籍" width="120px"></el-table-column>
-            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="150px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式" width="160px"></el-table-column>
+            <el-table-column prop="itName" align="left" label="姓名" fixed width="140px"></el-table-column>
+            <el-table-column prop="itTel" align="left" label="手机号" width="170px"></el-table-column>
+            <el-table-column prop="itHjgwName" align="left" label="会籍" width="140px"></el-table-column>
+            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="170px"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式" width="180px"></el-table-column>
             <el-table-column prop="itPrice" align="left" label="金额" width="130px"></el-table-column>
-            <el-table-column prop="itSuc" align="left" label="成交状态" width="120px"></el-table-column>
-            <el-table-column prop="itRemark" align="left" label="备注" width="150px"></el-table-column>
+            <el-table-column prop="itSuc" align="left" label="成交状态" width="140px"></el-table-column>
+            <el-table-column prop="itRemark" align="left" label="备注" width="140px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right" width="270px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.itHealth == 1">认领</el-button>

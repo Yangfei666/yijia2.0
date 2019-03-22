@@ -139,15 +139,15 @@
         <el-col :span="24">
           <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
-            <el-table-column prop="HYName" align="left" label="姓名" fixed width="120px"></el-table-column>
-            <el-table-column prop="MotoTel" align="left" label="手机号" width="140px"></el-table-column>
-            <el-table-column prop="CardNO" align="left" label="卡号" width="150px"></el-table-column>
-            <el-table-column prop="CTName" align="left" label="卡种" width="170px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="110px"></el-table-column>
-            <el-table-column prop="eTime" align="left" label="到期时间" width="140px"></el-table-column>
-            <el-table-column prop="SYCS" align="left" label="剩余次数" width="110px"></el-table-column>
-            <el-table-column prop="SYJE" align="left" label="剩余金额" width="110px"></el-table-column>
-            <el-table-column prop="State" align="left" label="卡状态" width="110px"></el-table-column>
+            <el-table-column prop="HYName" align="left" label="姓名" fixed width="140px"></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="170px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡种" width="190px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="130px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" width="160px"></el-table-column>
+            <el-table-column prop="SYCS" align="left" label="剩余次数"></el-table-column>
+            <el-table-column prop="SYJE" align="left" label="剩余金额"></el-table-column>
+            <el-table-column prop="State" align="left" label="卡状态"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>

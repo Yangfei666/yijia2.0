@@ -117,15 +117,15 @@
         <el-col :span="24">
           <el-table :row-class-name='tableRowClassName' id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" @select="selectClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
-            <el-table-column prop="exName" align="left" label="姓名" fixed width="120px"></el-table-column>
-            <el-table-column prop="exTel" align="left" label="手机号" width="150px"></el-table-column>
-            <el-table-column prop="tkName" align="left" label="劵种" width="170px"></el-table-column>
-            <el-table-column prop="mode" align="left" label="付款方式" width="160px"></el-table-column>
-            <el-table-column prop="price" align="left" label="金额" width="130px"></el-table-column>
-            <el-table-column prop="exHjgwName" align="left" label="会籍" width="120px"></el-table-column>
-            <el-table-column prop="exRegister" align="left" label="登记日期" width="150px"></el-table-column>
-            <el-table-column prop="exSuc" align="left" label="成交状态" width="120px"></el-table-column>
-            <el-table-column prop="exReason" align="left" label="未成交原因" width="150px"></el-table-column>
+            <el-table-column prop="exName" align="left" label="姓名" fixed width="140px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="170px"></el-table-column>
+            <el-table-column prop="tkName" align="left" label="劵种" width="190px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
+            <el-table-column prop="price" align="left" label="金额" width="150px"></el-table-column>
+            <el-table-column prop="exHjgwName" align="left" label="会籍" width="140px"></el-table-column>
+            <el-table-column prop="exRegister" align="left" label="登记日期" width="170px"></el-table-column>
+            <el-table-column prop="exSuc" align="left" label="成交状态"></el-table-column>
+            <el-table-column prop="exReason" align="left" label="未成交原因" width="170px"></el-table-column>
             <el-table-column prop="cz" align="left" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.exHealth == 1">认领</el-button>
