@@ -46,7 +46,7 @@ axios.interceptors.response.use(function (response) {
     }
       // if (error.response.data.errorCode == 10001) {
       //   Message.error({
-      //     message: '对不起,权限不够!',
+      //     message: '对不起,权限不够!!!',
       //     type: 'error',
       //   });
       // }
