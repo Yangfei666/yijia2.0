@@ -83,9 +83,9 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="5" class="from-date3" style="float:right">
-                                <el-form-item label="备注：" prop="htPurRmk" label-width="70px">
+                                <el-form-item label="备注：" prop="htExeRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htPurRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model="health_survey.htExeRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -263,7 +263,7 @@ export default {
         htIsExercise: "", //是否坚持体育
         htExeName: "", //何种体育项目
         htExeTime: "", //练习多长时间
-        htPurRmk: "", //备注
+        htExeRmk: "", //备注
         htPraTime:[], //在何时练习瑜伽
         htPraRmk: "", //备注
         htExpend: "", //投资多少
