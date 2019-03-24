@@ -42,47 +42,26 @@
             </el-select>
           </div>
           <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-            <el-tab-pane name="Monday">
-              <span slot="label">周一
-                <b style="font-size:12px">({{this.getsubstr('Monday')}})</b>
-              </span>
+            <el-tab-pane name="Monday" :label="'周一('+getsubstr('Monday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='1' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Tuesday">
-              <span slot="label">周二
-                <b style="font-size:12px">({{this.getsubstr('Tuesday')}})</b>
-              </span>
+            <el-tab-pane name="Tuesday" :label="'周二('+getsubstr('Tuesday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='2' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Wednesday">
-              <span slot="label">周三
-                <b style="font-size:12px">({{this.getsubstr('Wednesday')}})</b>
-              </span>
+            <el-tab-pane name="Wednesday" :label="'周三('+getsubstr('Wednesday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='3' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Thursday">
-              <span slot="label">周四
-                <b style="font-size:12px">({{this.getsubstr('Thursday')}})</b>
-              </span>
+            <el-tab-pane name="Thursday" :label="'周四('+getsubstr('Thursday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='4' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Friday">
-              <span slot="label">周五
-                <b style="font-size:12px">({{this.getsubstr('Friday')}})</b>
-              </span>
+            <el-tab-pane name="Friday" :label="'周五('+getsubstr('Friday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='5' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Saturday">
-              <span slot="label">周六
-                <b style="font-size:12px">({{this.getsubstr('Saturday')}})</b>
-              </span>
+            <el-tab-pane name="Saturday" :label="'周六('+getsubstr('Saturday')+')'">
               <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='6' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
-            <el-tab-pane name="Sunday">
-              <span slot="label">周日
-                <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
-              </span>
-              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7' @regetData="getkcData" v-on:listevent="listevent" :tianjia="tianjia"></Grouptimetable>
+            <el-tab-pane name="Sunday" :label="'周日('+getsubstr('Sunday')+')'">
+              <Grouptimetable :floorGoods='tdlist' :classrooms="classroom" :coachs="coach" :subjects="subject" :clubIndex="selectClubIndex" :isSelfClub="isSelfClub" :clubs="club" :weekDay='7' @regetData="getkcData"></Grouptimetable>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -183,13 +162,13 @@ export default {
     }
   },
   methods: {
-    tianjia:function(){
-      },
-    listevent(data){
-      this.startTimes = data.startTime;
-      this.endTimes = data.endTime;
-      this.whichDays = data.whichDay;
-    },
+    // tianjia:function(){
+    //   },
+    // listevent(data){
+    //   this.startTimes = data.startTime;
+    //   this.endTimes = data.endTime;
+    //   this.whichDays = data.whichDay;
+    // },
     //获取团课课程表数据
     async getGroup() {
       let _this = this;

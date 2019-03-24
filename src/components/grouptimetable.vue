@@ -265,17 +265,16 @@ import * as validate from "@/validate/Login";
 export default {
   name: "grouptimetable",
   inject: ["reload"],
-  props: {
-    floorGoods:[Object, Array],
-    weekDay:Number,
-    classrooms:Array,
-    subjects:Array,
-    coachs:Array,
-    clubs:[Object, Array],
-    clubIndex:Number,
-    isSelfClub:Boolean,
-    tianjia:{}
-  },
+  props: [
+    "floorGoods",
+    "weekDay",
+    "classrooms",
+    "subjects",
+    "coachs",
+    "clubs",
+    "clubIndex",
+    "isSelfClub",
+  ],
   data() {
     return {
       kechengname: "",

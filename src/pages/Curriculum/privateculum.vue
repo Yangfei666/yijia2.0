@@ -24,40 +24,19 @@
             <el-date-picker v-model="dateValue" @change="changeWeek" :clearable="false" type="week" format="yyyy 第 WW 周" placeholder="选择周" :firstDayOfWeek="1" style="margin-top:-3px;width:153px"></el-date-picker>
           </div>
           <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-            <el-tab-pane name="Monday">
-              <span slot="label">周一
-                <b style="font-size:12px">({{this.getsubstr('Monday')}})</b>
-              </span>
+            <el-tab-pane name="Monday" :label="'周一('+getsubstr('Monday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Tuesday">
-              <span slot="label">周二
-                <b style="font-size:12px">({{this.getsubstr('Tuesday')}})</b>
-              </span>
+            <el-tab-pane name="Tuesday" :label="'周二('+getsubstr('Tuesday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Wednesday">
-              <span slot="label">周三
-                <b style="font-size:12px">({{this.getsubstr('Wednesday')}})</b>
-              </span>
+            <el-tab-pane name="Wednesday" :label="'周三('+getsubstr('Wednesday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Thursday">
-              <span slot="label">周四
-                <b style="font-size:12px">({{this.getsubstr('Thursday')}})</b>
-              </span>
+            <el-tab-pane name="Thursday" :label="'周四('+getsubstr('Thursday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Friday">
-              <span slot="label">周五
-                <b style="font-size:12px">({{this.getsubstr('Friday')}})</b>
-              </span>
+            <el-tab-pane name="Friday" :label="'周五('+getsubstr('Friday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Saturday">
-              <span slot="label">周六
-                <b style="font-size:12px">({{this.getsubstr('Saturday')}})</b>
-              </span>
+            <el-tab-pane name="Saturday" :label="'周六('+getsubstr('Saturday')+')'">
             </el-tab-pane>
-            <el-tab-pane name="Sunday">
-              <span slot="label">周日
-                <b style="font-size:12px">({{this.getsubstr('Sunday')}})</b>
-              </span>
+            <el-tab-pane name="Sunday" :label="'周日('+getsubstr('Sunday')+')'">
             </el-tab-pane>
             <Culum :courseDaily="courseDaily" :SystemSetup="SystemSetup" :whichDay="whichDay" :coachList="coachList" v-if="hackReset" v-on:listcentevent="listcentevent" :yuyue="yuyue"></Culum>
           </el-tabs>
