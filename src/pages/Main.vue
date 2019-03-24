@@ -39,7 +39,7 @@
       <div class="main-table">
         <el-table highlight-current-row :data="experience" style="width: 100%" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick">
           <el-table-column align="left" fixed label="头像">
-            <template slot-scope="scope">
+            <template>
               <img src="../assets/tiyan.png" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
           </el-table-column>
@@ -90,6 +90,9 @@
               </div>
               <div v-if="scope.row.isTrue == '已取消'">
                 <el-button type="text" size="small" disabled style="color:#333">已取消</el-button>
+              </div>
+               <div v-if="scope.row.isTrue == '失约'">
+                <el-button type="text" size="small" disabled style="color:red">失约</el-button>
               </div>
               <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>

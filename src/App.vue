@@ -427,8 +427,8 @@ body {
 }
 /*滚动条*/
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
 }
 ::-webkit-scrollbar-thumb {
   background: #ccc;
@@ -440,7 +440,7 @@ body {
 }
 .el-table .el-table__body-wrapper::-webkit-scrollbar {
   width: 10px;
-  height: 13px;
+  height: 14px;
 }
 .el-table .el-table__body-wrapper::-webkit-scrollbar-thumb {
   background-color: #56e79e; /*#56e79e*/
