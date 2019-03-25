@@ -367,7 +367,7 @@ export default {
           margin-top: 4%;
         }
         .successbut {
-          width: 17%;
+          // width: 17%;
           height: 35px;
           margin-top: 15px;
           padding:10px;
