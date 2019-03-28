@@ -84,6 +84,8 @@ const Information2 = resolve => require(['@/components/information2'], resolve)/
 
 const Leave = resolve => require(['@/components/leave'], resolve)//请假销假操作
 
+const Memberment = resolve => require(['@/components/memberment'], resolve)//入会协议
+
 const Unhook = resolve => require(['@/components/unhook'], resolve)//解挂--挂失--补卡操作
 
 const Change = resolve => require(['@/components/change'], resolve)//换会籍
@@ -297,6 +299,7 @@ let router = new Router({
                         },
                         { path: '/Customer/membershiphome/information', component: Information },//综合信息
                         { path: '/Customer/membershiphome/leave', component: Leave },//请假销假操作
+                        { path: '/Customer/membershiphome/memberment', component: Memberment },//入会协议
                         { path: '/Customer/membershiphome/unhook', component: Unhook },//解挂--补卡--挂失
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍
                         { path: '/Customer/membershiphome/operationnote', component: Operationnote },//操作记录

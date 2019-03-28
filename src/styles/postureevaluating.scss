@@ -640,7 +640,7 @@
         }
     }
 }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
     .health{
         width: 97%;
         height: 100%!important;
@@ -849,6 +849,434 @@
                 }
                 .el-textarea{
                     font-size: 14px!important;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+    .health{
+        width: 97%;
+        height: 100%!important;
+        display: inline-block!important;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%!important;
+            width: 95%;
+            display: inline-block!important;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-one{
+                height: 500px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 500px;
+                    line-height: 500px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                    .right-shang{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .shang1{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 15px!important;
+                                color: #000;
+                            }
+                        }
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                            width: 215px!important;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 15px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    
+                    .wrap{
+                        height: 110px;
+                        .shang-left{
+                        width: 100%;
+                        height: 110px;
+                        line-height: 110px;
+                        border-right: 0.5px solid #e8e8e8;
+                        border-bottom: 0.5px solid #e8e8e8;
+                     }
+                     .right-shang2{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 15px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    }
+                    
+                }
+            }
+            .health-two{
+                height: 277px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 277px;
+                    line-height: 277px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                    border-top: 0.3px solid #e8e8e8;
+                    border-bottom: 0.3px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                    .right-shang{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .shang1{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 15px!important;
+                                color: #000;
+                            }
+                        }
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                            width: 215px!important;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 15px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    .wrap{
+                        height: 110px;
+                        .shang-left{
+                        width: 100%;
+                        height: 110px;
+                        line-height: 110px;
+                        border-right: 0.5px solid #e8e8e8;
+                        border-bottom: 0.5px solid #e8e8e8;
+                     }
+                    }
+                    
+                }
+            }
+            .health-three{
+                height: 110px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 110px;
+                    line-height: 110px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                    border-top: 0.5px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                     .el-textarea.el-textarea__inner{
+                        height: 110px !important;
+                        opacity: 0.6;
+                    }
+                }
+                .el-textarea{
+                    font-size: 15px!important;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+    .health{
+        width: 97%;
+        height: 100%!important;
+        display: inline-block!important;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .health-main{
+            border: 1px solid #e8e8e8;
+            height: 100%!important;
+            width: 95%;
+            display: inline-block!important;
+            margin: 20px auto;
+            background: #fafafa;
+            .health-one{
+                height: 500px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 500px;
+                    line-height: 500px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                    .right-shang{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .shang1{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 17px!important;
+                                color: #000;
+                            }
+                        }
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                            width: 215px!important;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 17px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    
+                    .wrap{
+                        height: 110px;
+                        .shang-left{
+                        width: 100%;
+                        height: 110px;
+                        line-height: 110px;
+                        border-right: 0.5px solid #e8e8e8;
+                        border-bottom: 0.5px solid #e8e8e8;
+                     }
+                     .right-shang2{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 17px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    }
+                    
+                }
+            }
+            .health-two{
+                height: 277px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 277px;
+                    line-height: 277px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                    border-top: 0.3px solid #e8e8e8;
+                    border-bottom: 0.3px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                    .right-shang{
+                        height: 55px;
+                        border-bottom: 0.5px solid #e8e8e8;
+                        display: flex;
+                        .shang1{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 17px!important;
+                                color: #000;
+                            }
+                        }
+                        .bb{
+                            text-align: left;
+                            text-indent: 50px;
+                            width: 215px!important;
+                        }
+                        .aa{
+                            text-align: left;
+                            text-indent: 9px;
+                        }
+                         .cc{
+                            text-align: left;
+                            text-indent: 15px;
+                        }
+                        .dd{
+                            text-indent: -17px;
+                        }
+                        .gg{
+                            text-indent: -5px;
+                        }
+                        .shang2{
+                            height: 55px;
+                            line-height: 55px;
+                            span{
+                                font-size: 17px!important;
+                                color: #262626;
+                            }
+                            
+                        }
+                    }
+                    .wrap{
+                        height: 110px;
+                        .shang-left{
+                        width: 100%;
+                        height: 110px;
+                        line-height: 110px;
+                        border-right: 0.5px solid #e8e8e8;
+                        border-bottom: 0.5px solid #e8e8e8;
+                     }
+                    }
+                    
+                }
+            }
+            .health-three{
+                height: 110px;
+                overflow: hidden;
+                .one-left{
+                    width: 100%;
+                    height: 110px;
+                    line-height: 110px;
+                    float: left;
+                    border-right: 0.5px solid #e8e8e8;
+                    border-top: 0.5px solid #e8e8e8;
+                }
+                .one-right{
+                    width: 100%;
+                    height: 100%;
+                    float: right;
+                     .el-textarea.el-textarea__inner{
+                        height: 110px !important;
+                        opacity: 0.6;
+                    }
+                }
+                .el-textarea{
+                    font-size: 17px!important;
                 }
             }
         }

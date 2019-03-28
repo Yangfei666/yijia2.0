@@ -48,8 +48,8 @@
           <el-table-column align="left" prop="experience_customers.exTel" label="手机号"></el-table-column>
           <el-table-column align="left" prop="customer_voucher.experience_voucher.tkName" label="体验券"></el-table-column>
           <el-table-column align="left" prop="experience_customers.exHjgwName" label="会籍顾问"></el-table-column>
-          <el-table-column align="left" prop="customer_voucher.mode" label="付款方式"></el-table-column>
-          <el-table-column align="left" label="操作" fixed="right">
+          <el-table-column align="left" prop="customer_voucher.mode" label="付款方式" width="150px"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right" width="150px">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
                 <el-button type="text" size="small" @click="clickEnter2('体验客户', scope.row.experience_customers.id)">进场</el-button>

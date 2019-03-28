@@ -146,6 +146,17 @@
       margin-left: 30px !important;
   }
   @media screen and (min-width: 768px)and (max-width: 992px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:8% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -201,10 +212,12 @@
     }
     .el-date-editor{
         font-size: 12px!important;
+        width: 135px !important;
     }
     .el-select{
         font-size: 12px!important;
         height:35px!important;
+        width: 120px !important;
     }
     .weber-span {
         font-size: 18px!important;
@@ -223,6 +236,17 @@
       }
   }
   @media screen and (min-width: 992px)and (max-width: 1280px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:10% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -231,7 +255,7 @@
         justify-content: flex-start;
         .add {
             border: 1px solid #00bc71;
-            width: 11%;
+            width: 12% !important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -258,7 +282,7 @@
         }
         .add2{
             border: 1px solid #ff2366;
-            width: 11%;
+            width: 12% !important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -278,10 +302,12 @@
     }
     .el-date-editor{
         font-size: 13px!important;
+        width: 150px !important;
     }
     .el-select{
         font-size: 13px!important;
         height:35px!important;
+        width: 150px !important;
     }
     .weber-span {
         font-size: 18px!important;
@@ -300,6 +326,17 @@
       }
   }
   @media screen and (min-width: 1280px)and (max-width: 1440px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:10% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -355,10 +392,12 @@
     }
     .el-date-editor{
         font-size: 13px!important;
+        width: 170px !important;
     }
     .el-select{
         font-size: 13px!important;
         height:35px!important;
+        width: 170px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -377,6 +416,17 @@
       }
   }
   @media screen and (min-width: 1440px)and (max-width: 1680px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:0% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -432,10 +482,13 @@
     }
     .el-date-editor{
         font-size: 14px!important;
+        width: 152px !important;
+        margin-top: -1px !important;
     }
     .el-select{
         font-size: 14px!important;
         height:35px!important;
+        width: 140px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -454,6 +507,17 @@
       }
   }
   @media screen and (min-width: 1680px)and (max-width:1920px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:0% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -509,7 +573,7 @@
     }
     .el-date-editor{
         font-size: 14px!important;
-        width: 160px;
+        width: 160px !important;
     }
     .el-range-editor{
         width: 220px;
@@ -517,7 +581,7 @@
     .el-select{
         font-size: 14px!important;
         height:35px!important;
-        width: 160px;
+        width: 160px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -536,6 +600,17 @@
       }
   }
   @media screen and (min-width: 1920px)and (max-width: 2048px){
+    .group-right{
+        width: 50%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top:0% !important;
+    }
     .practice-center {
         height: 60px;
         .purple {
@@ -591,7 +666,7 @@
     }
     .el-date-editor{
         font-size: 14px!important;
-        width: 210px;
+        width: 210px !important;
     }
     .el-range-editor{
         font-size: 14px!important;
@@ -600,7 +675,7 @@
     .el-select{
         font-size: 14px!important;
         height:35px!important;
-        width: 210px;
+        width: 210px !important;
     }
     .weber-span {
         font-size: 20px!important;

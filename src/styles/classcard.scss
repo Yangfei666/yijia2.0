@@ -41,10 +41,10 @@
                 }
               }
             .el-range-editor.el-input__inner{
-                width: 250px!important;
+                width: 240px!important;
             }
             .el-select{
-                width: 250px!important;
+                width: 240px!important;
             }
           }
         }
@@ -93,10 +93,10 @@
                 }
               }
             .el-range-editor.el-input__inner{
-                width: 170px!important;
+                width: 180px!important;
             }
             .el-select{
-                width: 145px!important;
+                width: 124px!important;
             }
           }
         }
@@ -148,13 +148,13 @@
                 width: 200px!important;
             }
             .el-select{
-                width: 200px!important;
+                width: 185px!important;
             }
           }
         }
       }
 }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
     .memberhome {
         width: 97%;
         height: 100%;
@@ -200,61 +200,113 @@
                 width: 250px!important;
             }
             .el-select{
-                width: 250px!important;
+                width: 235px!important;
+            }
+          }
+        }
+      }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+    .memberhome {
+        width: 97%;
+        height: 100%;
+        display: inline-block;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        .class-main {
+          height: 100%;
+          position: relative;
+          .infor-but {
+            position: absolute;
+            top: 0px;
+            z-index: 2;
+            color: #262626;
+            right: 1%;
+            .goback {
+              font-size: 16px;
+              border: none;
+              background: #fff;
+            }
+          }
+        .infor-but:hover{
+            color: #00bc71;
+        }
+          .class-form{
+              height: 100%;
+              overflow: hidden;
+              .from-class{
+                  height: 50px;
+                  float: left;
+                  .el-button--primary{
+                    height: 35px;
+                    line-height: 1px;
+                }
+                .el-button+.el-button{
+                    height: 35px;
+                    line-height: 1px;
+                }
+              }
+            .el-range-editor.el-input__inner{
+                width: 345px!important;
+            }
+            .el-select{
+                width: 300px!important;
             }
           }
         }
       }
 }
 @media screen and (min-width: 1920px)and (max-width: 2048px){
-    .memberhome {
-        width: 97%;
+  .memberhome {
+      width: 97%;
+      height: 100%;
+      display: inline-block;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      .class-main {
         height: 100%;
-        display: inline-block;
-        margin: 20px auto;
-        background: #fff;
-        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
-        border-radius: 4px;
-        .class-main {
-          height: 100%;
-          position: relative;
-          .infor-but {
-            position: absolute;
-            top: 0px;
-            z-index: 2;
-            color: #262626;
-            right: 1%;
-            .goback {
-              font-size: 16px;
-              border: none;
-              background: #fff;
-            }
+        position: relative;
+        .infor-but {
+          position: absolute;
+          top: 0px;
+          z-index: 2;
+          color: #262626;
+          right: 1%;
+          .goback {
+            font-size: 18px !important;
+            border: none;
+            background: #fff;
           }
-        .infor-but:hover{
-            color: #00bc71;
         }
-          .class-form{
-              height: 100%;
-              overflow: hidden;
-              .from-class{
-                  height: 50px;
-                  float: left;
-                  .el-button--primary{
-                    height: 35px;
-                    line-height: 1px;
-                }
-                .el-button+.el-button{
-                    height: 35px;
-                    line-height: 1px;
-                }
+      .infor-but:hover{
+          color: #00bc71;
+      }
+        .class-form{
+            height: 100%;
+            overflow: hidden;
+            .from-class{
+                height: 50px;
+                float: left;
+                .el-button--primary{
+                  height: 35px;
+                  line-height: 1px;
               }
-            .el-range-editor.el-input__inner{
-                width: 360px!important;
+              .el-button+.el-button{
+                  height: 35px;
+                  line-height: 1px;
+              }
             }
-            .el-select{
-                width: 350px!important;
-            }
+          .el-range-editor.el-input__inner{
+              width: 380px!important;
+          }
+          .el-select{
+              width: 370px!important;
           }
         }
       }
+    }
 }

@@ -120,7 +120,7 @@
             <div class="head_img">
               <Fileupload2 ref="fileUpload" :imageUrl="imageUrl"></Fileupload2>
             </div>
-            <el-button type="success" class="successbut" plain @click="changeUserIcon">更换头像</el-button>
+            <el-button type="success" class="successbut" plain @click="changeUserIcon">更换</el-button>
           </el-col>
         </div>
       </el-col>

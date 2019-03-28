@@ -360,3 +360,108 @@
   .el-tabs__nav{
       margin-left: 30px !important;
   }
+  @media screen and (min-width: 768px)and (max-width: 992px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 13% !important;
+    }
+    .el-date-editor{
+        font-size: 12px!important;
+        width: 150px !important;
+    }
+  }
+  @media screen and (min-width: 992px)and (max-width: 1280px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 13% !important;
+    }
+    .el-date-editor{
+        font-size: 14px!important;
+        width: 155px !important;
+    }
+  }
+  @media screen and (min-width: 1280px)and (max-width: 1440px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 0% !important;
+    }
+    .el-date-editor{
+        font-size: 14px!important;
+        width: 155px !important;
+    }
+  }
+  @media screen and (min-width: 1440px)and (max-width: 1680px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 0% !important;
+    }
+    .el-date-editor{
+        font-size: 14px!important;
+        width: 160px !important;
+        margin-top: -1px !important;
+    }
+  }
+  @media screen and (min-width: 1680px)and (max-width: 1920px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 0% !important;
+    }
+    .el-date-editor{
+        font-size: 14px!important;
+        width: 190px !important;
+        margin-top: -1px !important;
+    }
+  }
+  @media screen and (min-width: 1920px)and (max-width: 2048px){
+    .group-right{
+        width: 49%;
+        position: absolute;
+        right: 1%;
+        height: 45px;
+        line-height: 45px;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        top: 0% !important;
+    }
+    .el-date-editor{
+        font-size: 14px!important;
+        width: 200px !important;
+        margin-top: -1px !important;
+    }
+  }

@@ -127,12 +127,17 @@
             <el-table-column prop="itName" align="left" label="姓名" fixed width="140px"></el-table-column>
             <el-table-column prop="itTel" align="left" label="手机号" width="170px"></el-table-column>
             <el-table-column prop="itHjgwName" align="left" label="会籍" width="140px"></el-table-column>
-            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="170px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式" width="180px"></el-table-column>
-            <el-table-column prop="itPrice" align="left" label="金额" width="130px"></el-table-column>
-            <el-table-column prop="itSuc" align="left" label="成交状态" width="140px"></el-table-column>
-            <el-table-column prop="itRemark" align="left" label="备注" width="140px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right" width="270px">
+            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="150px"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式"></el-table-column>
+            <el-table-column prop="itPrice" align="left" label="金额"></el-table-column>
+            <el-table-column prop="itSuc" align="center" label="成交状态"></el-table-column>
+            <el-table-column prop="itSuc" align="center" label="未跟进天数" width="150px">
+              <template slot-scope="scope">
+                <span>{{dateDiff(scope.row.RecordTime)}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="itRemark" align="left" label="备注"></el-table-column>
+            <el-table-column prop="cz" align="center" label="操作" fixed="right" width="250px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.itHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -309,6 +314,12 @@ export default {
     }, 1000);
   },
   methods: {
+     dateDiff(sDate1) {
+			 	var date2 = new Date();
+			 	var date1 = new Date(Date.parse(sDate1.replace(/-/g,   "/")));
+			 	var iDays = parseInt(Math.abs(date2.getTime()- date1.getTime()) /1000/60/60/24); 
+         return iDays;
+			 },
     tableRowClassName({row, rowIndex}){
     },
      getRowKeys(row) {

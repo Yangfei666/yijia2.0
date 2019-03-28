@@ -124,9 +124,14 @@
             <el-table-column prop="price" align="left" label="金额" width="150px"></el-table-column>
             <el-table-column prop="exHjgwName" align="left" label="会籍" width="140px"></el-table-column>
             <el-table-column prop="exRegister" align="left" label="登记日期" width="170px"></el-table-column>
-            <el-table-column prop="exSuc" align="left" label="成交状态"></el-table-column>
+            <el-table-column prop="exSuc" align="center" label="成交状态"></el-table-column>
+            <el-table-column prop="exSuc" align="center" label="未跟进天数"  width="150px">
+              <template slot-scope="scope">
+                <span>{{dateDiff(scope.row.RecordTime)}}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="exReason" align="left" label="未成交原因" width="170px"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right">
+            <el-table-column prop="cz" align="center" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.exHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -266,6 +271,12 @@ export default {
     }, 1000);
   },
   methods: {
+    dateDiff(sDate1) {
+			 	var date2 = new Date();
+			 	var date1 = new Date(Date.parse(sDate1.replace(/-/g,   "/")));
+			 	var iDays = parseInt(Math.abs(date2.getTime()- date1.getTime()) /1000/60/60/24); 
+         return iDays;
+			 },
     tableRowClassName({row, rowIndex}){
     },
     getRowKeys(row) {

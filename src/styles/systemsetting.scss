@@ -54,6 +54,7 @@
               width: 100%;
               .from-date {
                 display: flex;
+                margin-left: -7px !important;
                 .el-form-item {
                   margin-bottom: 10px;
                   margin-top: 10px;
@@ -84,7 +85,7 @@
                     margin-bottom: 10px;
                     margin-top: 10px;
                     .el-input{
-                        width: 130px !important;
+                        width: 85px !important;
                     }
                   }
                 }

@@ -6,7 +6,7 @@
         <div class="infor-but" v-on:click="back">
           <el-button class="goback el-icon-arrow-left">返回</el-button>
         </div>
-        <el-tabs v-model="activeName" @tab-click="handleClick" type="card" v-show="membership_card.State !== '挂失'">
+        <el-tabs v-model="activeName" @tab-click="handleClick" type="card" v-show="membership_card.State != '挂失'">
           <el-tab-pane label="挂失操作" name="unhook">
             <template>
               <el-col :span="24">
@@ -18,7 +18,7 @@
             </template>
           </el-tab-pane>
         </el-tabs>
-        <el-tabs v-model="activeName2" @tab-click="handleClick" type="card" v-show="membership_card.State === '挂失'">
+        <el-tabs v-model="activeName2" @tab-click="handleClick" type="card" v-show="membership_card.State == '挂失'">
           <el-tab-pane label="解挂操作" name="first">
             <template>
               <el-col :span="24">
@@ -29,7 +29,7 @@
               </el-col>
             </template>
           </el-tab-pane>
-          <el-tab-pane label="补卡操作" name="second" v-if="membership_card.State === '挂失'">
+          <el-tab-pane label="补卡操作" name="second" v-if="membership_card.State == '挂失'">
             <template>
               <el-col :span="24">
                 <div class="health-from">
@@ -122,7 +122,11 @@ export default {
       let _this = this;
       requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
         .then(function(res) {
-          _this.membership_card = res.membership_card[0];
+          for(var i = 0; i< res.membership_card.length;i++){
+            if(res.membership_card[i].State=="挂失"){
+                _this.membership_card = res.membership_card[i];
+            }          
+          }
         })
         .catch(error => {
           if (error.res) {

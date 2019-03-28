@@ -73,6 +73,7 @@
           margin-top: 1%!important;
           .purple {
             height: 80px;
+            width: 380px !important;
             display: flex;
             justify-content: flex-start;
             .add {
@@ -82,7 +83,7 @@
               border-radius: 4px;
               line-height: 2px;
               margin-top: 20px;
-              margin-left: 20px;
+              margin-left: 10px !important;
               p {
                 color: #00bc71;
                 font-family: PingFang-SC-Regular;
@@ -215,6 +216,7 @@
             height: 80px;
             display: flex;
             justify-content: flex-start;
+            width: 440px !important;
             .add {
               border: 1px solid #00bc71;
               width: 26%!important;
@@ -222,7 +224,7 @@
               border-radius: 4px;
               line-height: 2px;
               margin-top: 20px;
-              margin-left: 20px;
+              margin-left: 10px !important;
               p {
                 color: #00bc71;
                 font-family: PingFang-SC-Regular;
@@ -299,24 +301,24 @@
             }
             .el-range-editor{
                 height: 37px;
-                width: 200px !important;
+                width: 230px !important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 200px !important;
+                  width: 230px !important;
               }
               .el-input__inner {
                 height: 37px;
                 padding-right: 0px !important;
-                width:135px !important;
+                width:200px !important;
               }
               .el-input {
                 height: 37px;
-                width:135px !important;
+                width:200px !important;
               }
               .el-select{
                 height: 37px;
-                width: 175px !important;
+                width: 230px !important;
               }
           }
           .search-form2{
@@ -326,11 +328,11 @@
             .el-input__inner {
               height: 37px;
               padding-right: 0px !important;
-              width: 85px !important;
+              width: 100px !important;
             }
             .el-input {
               height: 37px;
-              width: 85px !important;
+              width: 100px !important;
             }
           }
           .corry {
@@ -353,6 +355,7 @@
           margin-top: 1%!important;
           .purple {
             height: 80px;
+            width: 505px !important;
             display: flex;
             justify-content: flex-start;
             .add {
@@ -362,7 +365,7 @@
               border-radius: 4px;
               line-height: 2px;
               margin-top: 20px;
-              margin-left: 20px;
+              margin-left: 17px !important;
               p {
                 color: #00bc71;
                 font-family: PingFang-SC-Regular;
@@ -439,24 +442,24 @@
             }
             .el-range-editor{
                 height: 37px;
-                width: 220px !important;
+                width: 200px !important;
               }
               .el-range-editor.el-input__inner{
                   font-size: 12px!important;
-                  width: 220px !important;
+                  width: 200px !important;
               }
               .el-input__inner {
                 height: 37px;
                 padding-right: 0px !important;
-                width: 200px !important;
+                width: 175px !important;
               }
               .el-input {
                 height: 37px;
-                width: 200px !important;
+                width: 175px !important;
               }
               .el-select{
                 height: 37px;
-                width: 200px !important;
+                width:175px !important;
               }
           }
           .search-form2{
@@ -493,6 +496,7 @@
           margin-top: 1%!important;
           .purple {
             height: 80px;
+            width: 584px !important;
             display: flex;
             justify-content: flex-start;
             .add {
@@ -502,7 +506,7 @@
               border-radius: 4px;
               line-height: 4px!important;
               margin-top: 20px;
-              margin-left: 20px;
+              margin-left: 24px !important;
               p {
                 color: #00bc71;
                 font-family: PingFang-SC-Regular;
@@ -633,6 +637,7 @@
         margin-top: 1%!important;
         .purple {
           height: 80px;
+          width: 700px !important;
           display: flex;
           justify-content: flex-start;
           .add {
@@ -642,7 +647,7 @@
             border-radius: 4px;
             line-height: 4px!important;
             margin-top: 20px;
-            margin-left: 20px;
+            margin-left: 25px !important;
             p {
               color: #00bc71;
               font-family: PingFang-SC-Regular;
@@ -774,6 +779,7 @@
         .purple {
           height: 80px;
           display: flex;
+          width: 815px !important;
           justify-content: flex-start;
           .add {
             border: 1px solid #00bc71;

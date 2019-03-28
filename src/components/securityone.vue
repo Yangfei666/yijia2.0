@@ -31,7 +31,7 @@
       <div class="box4"></div>
       <el-col :span="13" class="one-right">
         <el-col :span="12">
-          <div :id="chartId" :style="{width: '300px', height: '300px'}"></div>
+          <div :id="chartId" class="chartone" :style="{width: '300px', height: '300px'}"></div>
         </el-col>
         <el-col :span="12" class="chart-bottom">
           <el-col :span="12" class="chart-left">

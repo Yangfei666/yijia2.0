@@ -145,10 +145,15 @@
             <el-table-column prop="CTName" align="left" label="卡种" width="190px"></el-table-column>
             <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="130px"></el-table-column>
             <el-table-column prop="eTime" align="left" label="到期时间" width="160px"></el-table-column>
-            <el-table-column prop="SYCS" align="left" label="剩余次数"></el-table-column>
-            <el-table-column prop="SYJE" align="left" label="剩余金额"></el-table-column>
-            <el-table-column prop="State" align="left" label="卡状态"></el-table-column>
-            <el-table-column prop="cz" align="left" label="操作" fixed="right">
+            <el-table-column prop="SYCS" align="center" label="剩余次数"></el-table-column>
+            <el-table-column prop="SYJE" align="center" label="剩余金额"></el-table-column>
+            <el-table-column prop="State" align="center" label="卡状态"></el-table-column>
+            <el-table-column prop="State" align="center" label="未跟进天数" width="150px">
+              <template slot-scope="scope">
+                <span>{{dateDiff(scope.row.hyRecordTime)}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="cz" align="center" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -296,6 +301,12 @@ export default {
     }
   },
   methods: {
+     dateDiff(sDate1) {
+			 	var date2 = new Date();
+			 	var date1 = new Date(Date.parse(sDate1.replace(/-/g,   "/")));
+			 	var iDays = parseInt(Math.abs(date2.getTime()- date1.getTime()) /1000/60/60/24); 
+         return iDays;
+			 },
     tableRowClassName({row, rowIndex}){
     },
     getRowKeys(row) {

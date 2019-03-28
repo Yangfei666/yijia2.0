@@ -126,13 +126,18 @@
         <el-col :span="24">
           <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed ></el-table-column>
-            <el-table-column prop="prName" align="left" label="姓名"></el-table-column>
-            <el-table-column prop="prTel" align="left" label="手机号"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍"></el-table-column>
+            <el-table-column prop="prName" align="left" label="姓名" fixed></el-table-column>
+            <el-table-column prop="prTel" align="left" label="手机号" width="150px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="center" label="会籍"></el-table-column>
             <el-table-column prop="prDate" align="left" label="登记日期"></el-table-column>
-            <el-table-column prop="prQuality" align="left" label="质量"></el-table-column>
-            <el-table-column prop="prSuc" align="left" label="成交状态"></el-table-column>
-            <el-table-column align="left" label="操作" fixed="right" width="280">
+            <el-table-column prop="prQuality" align="center" label="质量"></el-table-column>
+            <el-table-column prop="prSuc" align="center" label="成交状态"></el-table-column>
+            <el-table-column prop="prSuc" align="center" label="未跟进天数" width="150px">
+              <template slot-scope="scope">
+                <span>{{dateDiff(scope.row.RecordTime)}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="left" label="操作" fixed="right" width="250px">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index, scope.row)" type="text" size="small" v-if="scope.row.prHealth == 1">认领</el-button>
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
@@ -315,6 +320,12 @@ export default {
     }
   },
   methods: {
+     dateDiff(sDate1) {
+			 	var date2 = new Date();
+			 	var date1 = new Date(Date.parse(sDate1.replace(/-/g,   "/")));
+			 	var iDays = parseInt(Math.abs(date2.getTime()- date1.getTime()) /1000/60/60/24); 
+         return iDays;
+			 },
     tableRowClassName({row, rowIndex}){
     },
     getRowKeys(row) {

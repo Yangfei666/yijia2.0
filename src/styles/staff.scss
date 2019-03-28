@@ -3,11 +3,12 @@
     height: 80px;
     .purple {
       height: 80px;
+      width: 340px !important;
       display: flex;
       justify-content: flex-end;
       .add {
         border: 1px solid #00bc71;
-        width: 25%!important;
+        width: 30%!important;
         height: 35px;
         border-radius: 4px;
         line-height: 0px;
@@ -16,7 +17,7 @@
         .p {
           color: #00bc71;
           font-family: PingFang-SC-Regular;
-          font-size: 12px!important;
+          font-size: 14px!important;
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0px;
@@ -25,7 +26,7 @@
         .add-p {
            color: #00bc71;
           font-family: PingFang-SC-Regular;
-          font-size: 12px!important;
+          font-size: 14px!important;
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0px;
@@ -34,7 +35,7 @@
       }
       .add2{
         border: 1px solid #ff2366;
-        width: 25%!important;
+        width: 30%!important;
         height: 35px;
         border-radius: 4px;
         line-height: 0px;
@@ -43,7 +44,7 @@
         .p {
           color: #ff2366;
           font-family: PingFang-SC-Regular;
-          font-size: 12px!important;
+          font-size: 14px!important;
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0px;
@@ -56,7 +57,7 @@
       display: flex;
       justify-content: flex-start;
       .search {
-        width: 50%!important;
+        width: 58%!important;
         border: 1px solid #e8e8e8;
         height: 32px;
         display: flex;
@@ -100,11 +101,12 @@
         height: 80px;
         .purple {
           height: 80px;
+          width: 100% !important;
           display: flex;
           justify-content: flex-end;
           .add {
             border: 1px solid #00bc71;
-            width: 25%!important;
+            width: 30%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -131,7 +133,7 @@
           }
           .add2{
             border: 1px solid #ff2366;
-            width: 25%!important;
+            width: 30%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -153,7 +155,7 @@
           display: flex;
           justify-content: flex-start;
           .search {
-            width: 50%!important;
+            width: 54%!important;
             border: 1px solid #e8e8e8;
             height: 32px;
             display: flex;
@@ -196,11 +198,12 @@
             height: 80px;
             .purple {
               height: 80px;
+              width: 100% !important;
               display: flex;
               justify-content: flex-end;
               .add {
                 border: 1px solid #00bc71;
-                width: 20%!important;
+                width: 30%!important;
                 height: 35px;
                 border-radius: 4px;
                 line-height: 0px;
@@ -227,7 +230,7 @@
               }
               .add2{
                 border: 1px solid #ff2366;
-                width: 20%!important;
+                width: 30%!important;
                 height: 35px;
                 border-radius: 4px;
                 line-height: 0px;
@@ -285,16 +288,17 @@
             }
           }
         }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
     .practice-center {
         height: 80px;
         .purple {
             height: 80px;
             display: flex;
+            width: 100% !important;
             justify-content: flex-end;
             .add {
             border: 1px solid #00bc71;
-            width: 25%!important;
+            width: 30%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -321,7 +325,7 @@
             }
             .add2{
             border: 1px solid #ff2366;
-            width: 25%!important;
+            width: 30%!important;
             height: 35px;
             border-radius: 4px;
             line-height: 0px;
@@ -343,7 +347,7 @@
             display: flex;
             justify-content: flex-end!important;
             .search {
-            width: 45%!important;
+            width: 50%!important;
             border: 1px solid #e8e8e8;
             height: 32px;
             display: flex;
@@ -380,16 +384,17 @@
         }
         }
     }
-    @media screen and (min-width: 1920px)and (max-width: 2048px){
+    @media screen and (min-width: 1680px)and (max-width:1920px){
       .practice-center {
           height: 80px;
           .purple {
               height: 80px;
+              width: 100% !important;
               display: flex;
               justify-content: flex-end;
               .add {
               border: 1px solid #00bc71;
-              width: 23%!important;
+              width: 27%!important;
               height: 35px;
               border-radius: 4px;
               line-height: 0px;
@@ -416,7 +421,7 @@
               }
               .add2{
               border: 1px solid #ff2366;
-              width: 23%!important;
+              width: 27%!important;
               height: 35px;
               border-radius: 4px;
               line-height: 0px;
@@ -438,7 +443,7 @@
               display: flex;
               justify-content: flex-end!important;
               .search {
-              width: 45%!important;
+              width: 50%!important;
               border: 1px solid #e8e8e8;
               height: 32px;
               display: flex;
@@ -475,3 +480,99 @@
           }
           }
       }
+      @media screen and (min-width: 1920px)and (max-width:2048px){
+        .practice-center {
+            height: 80px;
+            .purple {
+                height: 80px;
+                width: 100% !important;
+                display: flex;
+                justify-content: flex-end;
+                .add {
+                border: 1px solid #00bc71;
+                width: 27%!important;
+                height: 35px;
+                border-radius: 4px;
+                line-height: 0px;
+                margin-top: 20px;
+                margin-left: 20px;
+                .p {
+                    color: #00bc71;
+                    font-family: PingFang-SC-Regular;
+                    font-size: 16px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    line-height: 9px;
+                }
+                .add-p {
+                    color: #00bc71;
+                    font-family: PingFang-SC-Regular;
+                    font-size: 16px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    line-height: 9px;
+                }
+                }
+                .add2{
+                border: 1px solid #ff2366;
+                width: 27%!important;
+                height: 35px;
+                border-radius: 4px;
+                line-height: 0px;
+                margin-top: 20px;
+                margin-left: 20px;
+                .p {
+                    color: #ff2366;
+                    font-family: PingFang-SC-Regular;
+                    font-size: 16px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    line-height: 9px;
+                }
+                }
+            }
+            .purple2 {
+                height: 80px;
+                display: flex;
+                justify-content: flex-end!important;
+                .search {
+                width: 48%!important;
+                border: 1px solid #e8e8e8;
+                height: 32px;
+                display: flex;
+                border-radius: 16px;
+                margin-top: 20px;
+                margin-left: 20px!important;
+                .search-input {
+                    width: 100%;
+                    border-radius: 16px;
+                    border: none;
+                    text-indent: 10px;
+                    color: #8c8c8c;
+                    font-size: 14px!important;
+                }
+                .search-icon {
+                    margin-top: 8px;
+                    margin-right: 13px;
+                }
+                }
+                .purple-name{
+                    margin-top: 17px;
+                    .el-select{
+                      width: 225px!important;
+                    }
+                }
+                .purple-but{
+                    margin-top: 17px;
+                    .el-button--primary{
+                        height: 35px;
+                        width: 90px!important;
+                        line-height: 11px;
+                    }
+                }
+            }
+            }
+        }

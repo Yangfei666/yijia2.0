@@ -129,23 +129,23 @@
                   <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
-              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="100px"></el-table-column>
-              <el-table-column prop="YGXX_HOMETEL" align="left" label="手机号" width="120px"></el-table-column>
+              <el-table-column prop="YGXX_NAME" align="left" label="员工姓名" fixed width="140px"></el-table-column>
+              <el-table-column prop="YGXX_HOMETEL" align="left" label="手机号" width="160px"></el-table-column>
               <el-table-column prop="YGXX_SEX" align="left" label="性别" width="100px"></el-table-column>
               <el-table-column prop="YGXX_STATE" align="left" label="状态" width="100px"></el-table-column>
-              <el-table-column prop="strRole" align="left" label="角色" width="280px"></el-table-column>
-              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="180px"></el-table-column>
+              <el-table-column prop="strRole" align="left" label="角色" width="300px"></el-table-column>
+              <el-table-column prop="ygAddTime" align="left" label="添加时间" width="200px"></el-table-column>
               <el-table-column prop="ygIdentity" align="left" label="身份证" width="180px"></el-table-column>
-              <el-table-column prop="ygIntro" align="left" label="简介" width="180px"></el-table-column>
-              <el-table-column align="left" label="操作" fixed="right" width="110px">
+              <el-table-column prop="ygIntro" align="left" label="简介"></el-table-column>
+              <!-- <el-table-column align="left" label="操作" fixed="right" width="110px">
                 <template slot-scope="scope">
                   <el-button @click="dialogFormVisible3 = true" type="success" plain v-if="scope.row.strRole != null" :disabled="scope.row.strRole !=null ? scope.row.strRole.indexOf('会籍顾问') == -1 : false" size="small">客户转出
                   </el-button>
                   <el-button type="success" plain size="small" v-else disabled>客户转出</el-button>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
             </el-table>
-            <el-dialog title="转出客户到新会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
+            <!-- <el-dialog title="转出客户到新会籍" :append-to-body="true" :visible.sync="dialogFormVisible3">
               <el-form :model="ruleForm2" ref="ruleForm2" label-width="100px">
                 <el-form-item label="新会籍:" prop="adviser" :label-width="formLabelWidth">
                   <el-col :span="22">
@@ -160,7 +160,7 @@
                   </el-col>
                 </el-form-item>
               </el-form>
-            </el-dialog>
+            </el-dialog> -->
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>

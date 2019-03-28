@@ -825,4 +825,616 @@ export default {
     left: -1%;
   }
 }
+@media screen and (min-width: 768px)and (max-width: 992px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left: 0px !important;
+      top: 75px !important;
+      width: 300px !important;
+      height: 200px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 35px !important;
+      top: 72px !important;
+      width: 300px !important;
+      height: 200px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 0px !important;
+      top: 75px !important;
+      width: 300px !important;
+      height: 200px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right: 35px !important;
+      top: 72px !important;
+      width: 300px !important;
+      height: 200px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 130px !important;
+}
+.el-date-editor.el-input{
+width: 106px !important;
+}
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 48px !important;
+      top: 72px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right:48px !important;
+      top: 72px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 170px !important;
+}
+.el-date-editor.el-input{
+width: 110px !important;
+}
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 77px !important;
+      top: 72px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right:77px !important;
+      top: 72px !important;
+      width: 350px !important;
+      height: 235px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 170px !important;
+}
+.el-date-editor.el-input{
+width: 110px !important;
+}
+}
+@media screen and (min-width: 1440px)and (max-width: 1680px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 450px !important;
+      height: 280px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 77px !important;
+      top: 72px !important;
+      width: 450px !important;
+      height: 280px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 450px !important;
+      height: 280px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right:77px !important;
+      top: 72px !important;
+      width: 450px !important;
+      height: 280px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 220px !important;
+}
+.el-date-editor.el-input{
+width: 155px !important;
+}
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 510px !important;
+      height: 300px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 77px !important;
+      top: 72px !important;
+      width: 510px !important;
+      height: 300px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 20px !important;
+      top: 75px !important;
+      width: 510px !important;
+      height: 300px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right:77px !important;
+      top: 72px !important;
+      width: 510px !important;
+      height: 300px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 220px !important;
+}
+.el-date-editor.el-input{
+width: 155px !important;
+}
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+  .Totalachievement {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart11 {
+      position: absolute;
+      left:50px !important;
+      top: 55px !important;
+      width: 560px !important;
+      height: 315px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart22 {
+      position: absolute;
+      right: 150px !important;
+      top: 55px !important;
+      width: 560px !important;
+      height: 315px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+.Totalachievement2 {
+  width: 97%;
+  height: 370px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  display: flex;
+  position: relative;
+  .Total-head {
+    height: 100%;
+    #myChart33 {
+      position: absolute;
+      left: 50px !important;
+      top: 55px !important;
+      width: 560px !important;
+      height: 315px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+    #myChart44 {
+      position: absolute;
+      right:150px !important;
+      top: 55px !important;
+      width: 560px !important;
+      height: 315px !important;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+      border-width: 0px;
+    }
+  }
+  .box4 {
+    width: 1px;
+    height: 50%;
+    background: #e8e8e8;
+    float: left;
+    position: relative;
+    top: 23%;
+    border-radius: 5px;
+    left: -1%;
+  }
+}
+ .el-select{
+    width: 230px !important;
+}
+.el-date-editor.el-input{
+width: 160px !important;
+}
+}
 </style>

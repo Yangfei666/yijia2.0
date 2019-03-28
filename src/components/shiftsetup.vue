@@ -82,11 +82,10 @@
         <el-row>
           <el-col :span="24">
             <el-table ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-              <el-table-column align="left" fixed label="" width="50"></el-table-column>
-              <el-table-column prop="name" align="left" label="班次"></el-table-column>
-              <el-table-column prop="type" align="left" label="所属岗位"></el-table-column>
-              <el-table-column prop="startTime" align="left" label="上班时间"></el-table-column>
-              <el-table-column prop="endTime" align="left" label="下班时间"></el-table-column>
+              <el-table-column prop="name" align="center" label="班次"></el-table-column>
+              <el-table-column prop="type" align="center" label="所属岗位"></el-table-column>
+              <el-table-column prop="startTime" align="center" label="上班时间"></el-table-column>
+              <el-table-column prop="endTime" align="center" label="下班时间"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">

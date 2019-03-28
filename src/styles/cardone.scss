@@ -34,8 +34,9 @@
             }
             .carddate{
                height: 60px;
+               width: 150px !important;
               line-height: 15px;
-              margin: 3% 6% auto!important;
+              margin: 3% 0% auto!important;
               text-align: left;
               padding-left: 4%!important;
               .date1{
@@ -51,6 +52,30 @@
                 font-weight: normal;
                 font-stretch: normal;
                 color: #fff;
+              }
+            }
+            .cardimg {
+              position: absolute;
+              right: 3% !important;
+              top: 40%;
+              width: 31%;
+              height: 12%;
+              img {
+                width: 100%;
+                height: 100%;
+                display: block;
+              }
+            }
+            .cardimg2 {
+              position: absolute;
+              right: 2%;
+              top: 33%;
+              width: 17.5%;
+              height: 25%;
+              img {
+                width: 100%;
+                height: 100%;
+                display: block;
               }
             }
             .cardfoot{
@@ -113,6 +138,28 @@
         .one-right{
           height: 300px;
           display: flex;
+          .chartone{
+            position: relative;
+            overflow: hidden;
+            width:  170px !important;
+            height:  170px !important;
+            padding: 0px;
+            margin: 0px;
+            border-width: 0px;
+            margin-top: 66px !important;
+            canvas{
+              position: absolute;
+              left: 0px;
+              top: 67px !important;
+              width: 170px !important;
+              height: 170px !important;
+              user-select: none;
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+              padding: 0px;
+              margin: 0px;
+              border-width: 0px;
+            }
+          }
           .chart-bottom{
             display: inline-block;
             .chart-left{
@@ -158,11 +205,12 @@
                     }
                     p{
                       font-family: PingFang-SC-Regular;
-                      font-size: 24px!important;
+                      font-size: 14px!important;
                       font-weight: normal;
                       font-stretch: normal;
                       letter-spacing: 0px;
                       color: #272727;
+                      display: flex;
                       .ci{
                         font-family: PingFang-SC-Medium;
                         font-size: 12px!important;
@@ -202,6 +250,24 @@
           }
           .oper-main{
               display: flex;
+              .operdiv {
+                background: #fafafa;
+                height: 30px;
+                line-height: 30px;
+                margin-top: 13px;
+                margin-left: 10px;
+                border-radius: 4px;
+                color: #595959;
+                font-size: 13px !important;
+                padding: 0px 11px !important;
+                border: none;
+              }
+              .operdiv.active {
+                background: #facc14;
+                font-size: 13px !important;
+                border-radius: 4px;
+                color: #595959;
+              }
               .oper-left{
                 background: #fafafa;
                 border-radius: 4px;
@@ -281,6 +347,30 @@
             color: #fff;
           }
         }
+        .cardimg {
+          position: absolute;
+          right: 3% !important;
+          top: 40%;
+          width: 31%;
+          height: 12%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+        .cardimg2 {
+          position: absolute;
+          right: 2%;
+          top: 33%;
+          width: 17.5%;
+          height: 25%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
         .cardfoot{
            height: 70px;
           margin: 7% 6% auto!important;
@@ -341,6 +431,28 @@
     .one-right{
       height: 300px;
       display: flex;
+      .chartone{
+        position: relative;
+        overflow: hidden;
+        width:  200px !important;
+        height:  200px !important;
+        padding: 0px;
+        margin: 0px;
+        border-width: 0px;
+        margin-top: 56px !important;
+        canvas{
+          position: absolute;
+          left: 0px;
+          top: 56px !important;
+          width: 200px !important;
+          height: 200px !important;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          padding: 0px;
+          margin: 0px;
+          border-width: 0px;
+        }
+      }
       .chart-bottom{
         display: inline-block;
         .chart-left{
@@ -360,7 +472,7 @@
           }
           .chart-span{
                 font-family: PingFang-SC-Light;
-                font-size: 12px!important;
+                font-size: 14px!important;
                 font-weight: normal;
                 font-stretch: normal;
                 line-height: 33px;
@@ -377,7 +489,7 @@
                 margin-top: 20px;
                 span{
                   font-family: PingFang-SC-Light;
-                  font-size: 12px!important;
+                  font-size: 14px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
@@ -386,14 +498,15 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 24px!important;
+                  font-size: 16px !important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
-                  color: #272727;
+                  color: #272727; 
+                  display: flex !important;
                   .ci{
                     font-family: PingFang-SC-Medium;
-                    font-size: 12px!important;
+                    font-size: 14px!important;
                     font-weight: normal;
                     font-stretch: normal;
                     letter-spacing: 0px;
@@ -430,6 +543,24 @@
       }
       .oper-main{
           display: flex;
+          .operdiv {
+            background: #fafafa;
+            height: 30px;
+            line-height: 30px;
+            margin-top: 13px;
+            margin-left: 10px;
+            border-radius: 4px;
+            color: #595959;
+            font-size: 15px !important;
+            padding: 0px 13px !important;
+            border: none;
+          }
+          .operdiv.active {
+            background: #facc14;
+            font-size: 15px !important;
+            border-radius: 4px;
+            color: #595959;
+          }
           .oper-left{
             background: #fafafa;
             border-radius: 4px;
@@ -509,6 +640,30 @@
             color: #fff;
           }
         }
+        .cardimg {
+          position: absolute;
+          right: 8% !important;
+          top: 40%;
+          width: 31%;
+          height: 12%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+        .cardimg2 {
+          position: absolute;
+          right: 2%;
+          top: 33%;
+          width: 17.5%;
+          height: 25%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
         .cardfoot{
            height: 70px;
           margin: 7% 6% auto!important;
@@ -569,6 +724,28 @@
     .one-right{
       height: 300px;
       display: flex;
+      .chartone{
+        position: relative;
+        overflow: hidden;
+        width:  237px !important;
+        height:  237px !important;
+        padding: 0px;
+        margin: 0px;
+        border-width: 0px;
+        margin-top: 34px !important;
+        canvas{
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          width: 237px !important;
+          height: 237px !important;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          padding: 0px;
+          margin: 0px;
+          border-width: 0px;
+        }
+      }
       .chart-bottom{
         display: inline-block;
         .chart-left{
@@ -659,6 +836,24 @@
       }
       .oper-main{
           display: flex;
+          .operdiv {
+            background: #fafafa;
+            height: 30px;
+            line-height: 30px;
+            margin-top: 13px;
+            margin-left: 10px;
+            border-radius: 4px;
+            color: #595959;
+            font-size: 15px !important;
+            padding: 0px 15px !important;
+            border: none;
+          }
+          .operdiv.active {
+            background: #facc14;
+            font-size: 15px !important;
+            border-radius: 4px;
+            color: #595959;
+          }
           .oper-left{
             background: #fafafa;
             border-radius: 4px;
@@ -683,7 +878,7 @@
       }
   }
 }
-@media screen and (min-width: 1440px)and (max-width: 1920px){
+@media screen and (min-width: 1440px)and (max-width: 1680px){
   .cardone{
     height: 300px;
     margin: 0 auto;
@@ -798,6 +993,28 @@
     .one-right{
       height: 300px;
       display: flex;
+      .chartone{
+        position: relative;
+        overflow: hidden;
+        width:  265px !important;
+        height:  265px !important;
+        padding: 0px;
+        margin: 0px;
+        border-width: 0px;
+        margin-top: 20px !important;
+        canvas{
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          width: 265px !important;
+          height: 265px !important;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          padding: 0px;
+          margin: 0px;
+          border-width: 0px;
+        }
+      }
       .chart-bottom{
         display: inline-block;
         .chart-left{
@@ -912,7 +1129,7 @@
       }
   }
 }
-@media screen and (min-width: 1920px)and (max-width: 2048px){
+@media screen and (min-width: 1680px)and (max-width: 1920px){
   .cardone{
     height: 300px;
     margin: 0 auto;
@@ -965,6 +1182,30 @@
             font-weight: normal;
             font-stretch: normal;
             color: #fff;
+          }
+        }
+        .cardimg {
+          position: absolute;
+          right: 10% !important;
+          top: 40%;
+          width: 31%;
+          height: 12%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+        .cardimg2 {
+          position: absolute;
+          right: 2%;
+          top: 33%;
+          width: 17.5%;
+          height: 25%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
           }
         }
         .cardfoot{
@@ -1027,6 +1268,29 @@
     .one-right{
       height: 300px;
       display: flex;
+      .chartone{
+        position: relative;
+        overflow: hidden;
+        width:  300px !important;
+        height:  300px !important;
+        padding: 0px;
+        margin: 0px;
+        border-width: 0px;
+        margin-top: 0px !important;
+        margin-left: 18px !important;
+        canvas{
+          position: absolute;
+          left: 0px;
+          top: -18px !important;
+          width: 300px !important;
+          height: 300px !important;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          padding: 0px;
+          margin: 0px;
+          border-width: 0px;
+        }
+      }
       .chart-bottom{
         display: inline-block;
         .chart-left{
@@ -1114,6 +1378,318 @@
             font-stretch: normal;
             letter-spacing: 0px;
             color: #262626;
+      }
+      .operdiv {
+        background: #fafafa;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 13px;
+        margin-left: 10px;
+        border-radius: 4px;
+        color: #595959;
+        font-size: 16px !important;
+        padding: 0px 20px !important;
+        border: none;
+      }
+      .operdiv.active {
+        background: #facc14;
+        font-size: 16px !important;
+        border-radius: 4px;
+        color: #595959;
+      }
+      .oper-main{
+          display: flex;
+          .oper-left{
+            background: #fafafa;
+            border-radius: 4px;
+            color: #595959;
+            margin-left: 25px!important;
+            font-size: 16px!important;
+            .link{
+                  text-decoration: none;
+                  border-radius: 4px;
+                  font-size: 16px!important;
+                  background: #fafafa;
+                  color: #595959;
+                  padding: 5px 14px!important;
+              }
+              .router-link-active{
+                  background: #facc14;
+                  font-size: 16px!important;
+                  border-radius: 4px;
+                  color: #595959;
+              }
+          }
+      }
+  }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+  .cardone{
+    height: 300px;
+    margin: 0 auto;
+    .one-left{
+      height: 300px;
+      .card-left{
+        width: 80%!important;
+        height: 85%!important;
+        background-color: #161d24;
+        border-radius: 10px;
+        margin: 2% 9% auto!important;
+        .cardseed{
+          margin: 3% 4% auto!important;
+          display: flex;
+          justify-content: space-between;
+          height: 50px;
+          line-height: 40px;
+          border-bottom: 2px solid #fff;
+          .seed1{
+            font-family: PingFang-SC-Medium;
+            font-size: 20px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            color: #fff;
+          }
+          .seed2{
+            font-family: PingFang-SC-Medium;
+            font-size:20px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            color: #fff;
+          }
+        }
+        .carddate{
+           height: 60px;
+          line-height: 15px;
+          margin: 2% 6% auto!important;
+          text-align: left;
+          padding-left: 4%!important;
+          .date1{
+            font-family: PingFang-SC-Medium;
+            font-size: 18px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            color: #fff;
+          }
+          .date2{
+            font-family: PingFang-SC-Medium;
+            font-size: 18px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            color: #fff;
+          }
+        }
+        .cardimg {
+          position: absolute;
+          right: 10% !important;
+          top: 40%;
+          width: 31%;
+          height: 12%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+        .cardimg2 {
+          position: absolute;
+          right: 2%;
+          top: 33%;
+          width: 17.5%;
+          height: 25%;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+        .cardfoot{
+           height: 70px;
+          margin: 6% 7% auto!important;
+          display: flex;
+          justify-content: space-between;
+          .cardplace{
+            display: grid;
+            text-align: left;
+            margin-top: 0px!important;
+            .place1{
+              color: #e6e6e6;
+              font-family: PingFang-SC-Medium;
+              font-size: 18px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              padding-left: 4%;
+            }
+            .place2{
+              color: #ffffff;
+              font-family: PingFang-SC-Medium;
+              font-size: 20px!important;
+              font-weight: normal;
+              font-stretch: normal;
+              padding-left: 4%;
+            }
+          }
+          .cardstatus{
+            display: grid;
+            text-align: center;
+            .status1{
+              color: #e6e6e6;
+              font-family: PingFang-SC-Medium;
+            font-size: 18px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            }
+            .status2{
+              color: #ffffff;
+              font-family: PingFang-SC-Medium;
+            font-size: 20px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            }
+          }
+        }
+      }
+    }
+    .box4{
+        width: 2px;
+        height: 50%;
+        background: #e8e8e8;
+        float: left;
+        position: relative;
+        top: 25%!important;
+        border-radius: 5px;
+        left: 0%!important;
+    }
+    .one-right{
+      height: 300px;
+      display: flex;
+      .chartone{
+        position: relative;
+        overflow: hidden;
+        width:  350px !important;
+        height:  350px !important;
+        padding: 0px;
+        margin: 0px;
+        border-width: 0px;
+        margin-top: -34px !important;
+        margin-left: 18px !important;
+        canvas{
+          position: absolute;
+          left: 0px;
+          top: 0px !important;
+          width: 350px !important;
+          height: 350px !important;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          padding: 0px;
+          margin: 0px;
+          border-width: 0px;
+        }
+      }
+      .chart-bottom{
+        display: inline-block;
+        .chart-left{
+          height: 40px;
+          margin-top: 85px;
+          .box{
+            width: 15px!important;
+            height: 5px;
+            background: #56e79e;
+            display: inline-block;
+          }
+          .box2{
+            width: 15px!important;
+            height: 5px;
+            background: #161D24;
+            display: inline-block;
+          }
+          .chart-span{
+                font-family: PingFang-SC-Light;
+                font-size: 17px!important;
+                font-weight: normal;
+                font-stretch: normal;
+                line-height: 33px;
+                letter-spacing: 0px;
+                color: #262626;
+          }
+        }
+        .chart-top{
+              height: 85px;
+              display: inline-flex;
+              width: 100%;
+              line-height:15px;
+              .box-top{
+                margin-top: 20px;
+                span{
+                  font-family: PingFang-SC-Light;
+                  font-size: 17px!important;
+                  font-weight: normal;
+                  font-stretch: normal;
+                  letter-spacing: 0px;
+                  color: #b3b3b3;
+                  margin-left: 7px!important;
+                }
+                p{
+                  font-family: PingFang-SC-Regular;
+                  font-size: 30px!important;
+                  font-weight: normal;
+                  font-stretch: normal;
+                  letter-spacing: 0px;
+                  color: #272727;
+                  .ci{
+                    font-family: PingFang-SC-Medium;
+                    font-size: 16px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                  }
+                }
+              }
+              .box3{
+                  width:2px;
+                  height: 50%;
+                  background: #e8e8e8;
+                  float: right;
+                  position: relative;
+                  top:35%;
+                  border-radius: 5px;
+                  padding-left: 1px;
+              }
+           }
+      }
+    }
+  }
+  .operate{
+      height: 30px;
+      display: flex;
+      line-height: 30px;
+      padding-left: 25px!important;
+      .oper{
+            padding-left: 1px!important;
+            font-family: PingFang-SC-Regular;
+            font-size: 14px!important;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #262626;
+      }
+      .operdiv {
+        background: #fafafa;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 13px;
+        margin-left: 10px;
+        border-radius: 4px;
+        color: #595959;
+        font-size: 18px !important;
+        padding: 0px 23px !important;
+        border: none;
+      }
+      .operdiv.active {
+        background: #facc14;
+        font-size: 18px !important;
+        border-radius: 4px;
+        color: #595959;
       }
       .oper-main{
           display: flex;

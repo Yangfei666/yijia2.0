@@ -134,19 +134,19 @@ export default {
       justify-content: flex-end;
       .right-span {
         font-family: PingFang-SC-Regular;
-        font-size: 12px!important;
+        font-size: 14px!important;
         font-weight: normal;
         font-stretch: normal;
         color: #595959;
         margin-right: 7px!important;
         .link{
             text-decoration: none;
-            font-size: 12px!important;
+            font-size: 14px!important;
             color: #595959;
         }
         .router-link-active{
         color: #00bc71;
-        font-size: 12px!important;
+        font-size: 14px!important;
          }
       }
       .border {
@@ -188,19 +188,19 @@ export default {
       justify-content: flex-end;
       .right-span {
         font-family: PingFang-SC-Regular;
-        font-size: 14px!important;
+        font-size: 15px!important;
         font-weight: normal;
         font-stretch: normal;
         color: #595959;
         margin-right: 7px!important;
         .link{
             text-decoration: none;
-            font-size: 14px!important;
+            font-size: 15px!important;
             color: #595959;
         }
         .router-link-active{
         color: #00bc71;
-        font-size: 14px!important;
+        font-size: 15px!important;
          }
       }
       .border {

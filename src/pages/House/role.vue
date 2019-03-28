@@ -81,7 +81,7 @@
               </el-table-column>
               <el-table-column prop="name" align="left" label="角色名称"></el-table-column>
               <el-table-column prop="type" align="left" label="类型"></el-table-column>
-              <el-table-column fixed="right" label="操作" align="left">
+              <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                   <el-button @click="deleteRole(scope.row)" type="danger" plain :disabled="tableData[scope.$index].type === '默认角色'" size="small">删除
                   </el-button>
