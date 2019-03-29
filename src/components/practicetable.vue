@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="体验劵种:">
               <el-col :span="24">
-                <el-input v-model="formInline.user" placeholder="请输入" clearable style="width:170px;"></el-input>
+                <el-autocomplete v-model="formInline.user" :trigger-on-focus="false" placeholder="请输入" clearable style="width:170px;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
               </el-col>
             </el-form-item>
           </div>
@@ -271,6 +271,27 @@ export default {
     }, 1000);
   },
   methods: {
+    async searchClub(name) {
+        this.clubLists = await requestLogin(`/CustomerFollowUp/searchCustomerCardList`, {name: name,sort:'2'}, 'post')
+        return this.clubLists
+      },
+    async querySearchAsync(queryString, cb) {
+        var clubLists = await this.searchClub(this.formInline.user);
+        var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
+        results = results.map(item => ({...item, value: item.tkName}))
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          cb(results);
+        }, 100);
+      },
+      createStateFilter(queryString) {
+        return (state) => {
+          return state.tkName
+        };
+      },
+      handleSelect(item) {
+          console.log(item);
+        },
     dateDiff(sDate1) {
 			 	var date2 = new Date();
 			 	var date1 = new Date(Date.parse(sDate1.replace(/-/g,   "/")));
@@ -352,7 +373,7 @@ export default {
         };
       }
       requestLogin(
-        "/setExperienceCustomer/searchExperienceCustomers/1/" +
+        "/setExperienceCustomer/searchExperienceCustomers/1" +
           _this.formInline.adviser,
         params,
         "post"
@@ -373,11 +394,13 @@ export default {
         })
         .catch(error => {
           _this.loading = false;
-          if (error) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
@@ -390,11 +413,14 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
+          _this.loading = false;
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },

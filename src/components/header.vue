@@ -84,13 +84,15 @@ export default {
           _this.user = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     // 切换门店
     changeValue() {
@@ -127,11 +129,13 @@ export default {
             _this.$router.push("/login");
           })
           .catch(error => {
-            if (error.response) {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
               this.$message({
-                message: "对不起,退出失败",
+                message: msg,
                 type: "error"
               });
+              return;
             }
           });
       });

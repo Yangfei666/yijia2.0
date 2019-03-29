@@ -14,7 +14,7 @@
           </el-col>
           <el-col :span="23" class="weber">
             <el-col :span="1" class="weber-img">
-              <img :src="club.Photo" />
+              <img :src="club.urlPic" />
             </el-col>
             <el-col :span="8" class="weber-left">
               <div class="weber-span">{{club.HYName}}·{{club.Sex}}
@@ -27,10 +27,10 @@
               </div>
             </el-col>
             <el-col :span="14" class="weber-right">
-              <!-- <div class="right-span">
+              <div class="right-span">
                 <router-link :to="{path:'/Customer/membershiphome/memberment',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">入会协议</router-link>
               </div>
-              <div class="border"></div> -->
+              <div class="border"></div>
               <div class="right-span">
                 <router-link :to="{path:'/Customer/membershiphome/leave',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">请假/销假</router-link>
               </div>

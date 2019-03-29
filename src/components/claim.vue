@@ -71,11 +71,13 @@ export default {
       })
       .catch(error => {
         _this.loading = false;
-        if (error.res) {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
           this.$message({
-            message: "获取数据失败",
+            message: msg,
             type: "error"
           });
+          return;
         }
       });
   },

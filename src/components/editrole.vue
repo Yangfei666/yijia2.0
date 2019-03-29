@@ -99,13 +99,15 @@ export default {
           _this.roleInfo();
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //获取角色详情
     roleInfo() {
@@ -117,13 +119,15 @@ export default {
           _this.detailRoleInfo(res);
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //处理已编辑选项
     detailRoleInfo({ id, name, power } = {}) {

@@ -229,13 +229,15 @@ export default {
           }
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //获取表格页面
     getTableData() {
@@ -257,14 +259,16 @@ export default {
           _this.tableData2 = privateList;
         })
         .catch(error => {
-          _this.loading = false;
-          if (error) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+           _this.loading = false;
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
       if (null != this.tableData || null != this.tableData2) {
         _this.tableData.map((item, index) => {
           item.kcName = item.curriculum_table.curriculum_subject.kcName;

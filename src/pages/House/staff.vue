@@ -253,11 +253,13 @@ export default {
         }
       })
       .catch(error => {
-        if (error.res) {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
           this.$message({
-            message: "获取数据失败",
+            message: msg,
             type: "error"
           });
+          return;
         }
       });
     _this.gethuiji();
@@ -301,12 +303,14 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     //添加员工角色大队
@@ -321,12 +325,14 @@ export default {
           _this.brigades = brigades;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     bigsVal(id) {

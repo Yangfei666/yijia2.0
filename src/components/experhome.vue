@@ -159,13 +159,15 @@ export default {
           _this.TabsValue = String(_this.header[0].id);
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //获取体验券
     getVouchers() {
@@ -175,13 +177,15 @@ export default {
           _this.tkName = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     Selectchange(val) {
        let obj2 = {};

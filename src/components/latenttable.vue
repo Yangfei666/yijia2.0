@@ -421,13 +421,15 @@ export default {
         })
         .catch(error => {
           _this.loading = false;
-          if (error) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     search() {
       this.tableData = this.tableData2;
@@ -445,12 +447,14 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     //表格导出

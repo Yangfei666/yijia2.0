@@ -17,7 +17,7 @@
             </el-form-item>
             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-input v-model="currentSelectRow.itTel" maxlength="11" placeholder="请输入"></el-input>
+            <el-input v-model="currentSelectRow.itTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
             </el-col>
         </el-form-item>
         <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -53,6 +53,22 @@ export default {
     };
   },
   methods: {
+    testUser(){
+      let _this = this;
+    requestLogin("/searchInfoByTel/"+_this.currentSelectRow.itTel, {}, "get")
+      .then(function(res) {
+      })
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
+    },
     //修改定金客户资料
     submitForm(formName) {
       let _this = this;

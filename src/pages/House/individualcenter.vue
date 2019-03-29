@@ -385,12 +385,14 @@ export default {
           _this.tableData = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     }, 1000);
     //获取私教禁用时间
@@ -402,12 +404,14 @@ export default {
           _this.tableData2 = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     }, 1500);
     var roleInfoList = JSON.parse(sessionStorage.getItem("userInfo")).role;
@@ -432,12 +436,14 @@ export default {
           _this.imageUrl = Photo;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     rolepd(name) {

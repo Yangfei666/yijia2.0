@@ -426,14 +426,16 @@ export default {
           _this.tableData2 = res;
         })
         .catch(error => {
-          _this.loading = false;
-          if (error) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+           _this.loading = false;
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //获取会籍顾问列表
     getCustomer() {
@@ -444,13 +446,15 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取会籍顾问数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     search() {
       this.tableData = this.tableData2;

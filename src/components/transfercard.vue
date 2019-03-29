@@ -202,12 +202,14 @@ export default {
           _this.membershipcard = res.membership_card;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     //获取会籍顾问
@@ -219,12 +221,14 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     //添加新会员

@@ -17,7 +17,7 @@
                 </el-form-item>
                 <el-form-item label="电话:" prop="MotoTel" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.MotoTel" placeholder="请输入"></el-input>
+                    <el-input v-model="ruleForm.MotoTel" placeholder="请输入" @blur.prevent="testUser"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="微信:" prop="hyWeChat" :label-width="formLabelWidth">
@@ -201,17 +201,35 @@ export default {
           _this.club = res;
           let { membership_card } = res;
           relationCard = membership_card.relationCard;
-          let { Photo } = res;
-          _this.imageUrl = Photo;
+          let { urlPic } = res;
+          _this.imageUrl = urlPic;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+    },
+    testUser(){
+      let _this = this;
+    requestLogin("/searchInfoByTel/"+_this.ruleForm.MotoTel, {}, "get")
+      .then(function(res) {
+      })
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
     },
     submitForm(formName) {
       this.$confirm("确认提交吗？", "提示").then(() => {

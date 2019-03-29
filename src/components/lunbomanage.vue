@@ -92,12 +92,14 @@ export default {
           _this.imagelist = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取图片数据失败",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
         });
     },
     //开始上传

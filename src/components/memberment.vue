@@ -4,7 +4,7 @@
     <div class="health">
       <el-col :span="24" class="infor-head">
         <div class="infor-title">
-          <span>入会协议上传图片</span>
+          <span>上传入会凭证</span>
         </div>
         <div class="infor-but" v-on:click="back">
           <el-button class="goback el-icon-arrow-left">返回</el-button>
@@ -13,19 +13,12 @@
       <el-col :span="24" class="practice-center">
         <div class="img-list">
           <div class="img-content" v-for="(item,key) in imagelist" :key="key">
-            <img :src="item.banPic">
-            <div class="name">
-              <div>{{ item.banIsFirst}}</div>
-              <el-button type="text" @click="handleFileName(item,key)" v-show="item.banIsFirst != '封面'">设为封面</el-button>
-            </div>
-            <!-- 删除icon -->
-            <div class="del" v-if="item.banIsFirst == '封面'">
-            </div>
-            <div class="del" v-else>
+            <img :src="item.urlPic">
+            <div class="del">
               <i @click="handleFileRemove(item,key)" class="el-icon-delete"></i>
             </div>
             <!-- 放大icon -->
-            <div class="layer" @click="handleFileEnlarge(item.banPic)">
+            <div class="layer" @click="handleFileEnlarge(item.urlPic)">
               <i class="el-icon-view"></i>
             </div>
           </div>
@@ -83,16 +76,18 @@ export default {
     //获取图片管理列表
     getUpload() {
       let _this = this;
-      requestLogin("/setBannerImg/" + _this.$route.query.HYID, {}, "get")
+      requestLogin("/setDesignateMember/showVoucherList/" + _this.$route.query.HYID, {}, "get")
         .then(res => {
           _this.imagelist = res;
         })
         .catch(error => {
-          if (error.res) {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
             this.$message({
-              message: "获取图片数据失败",
+              message: msg,
               type: "error"
             });
+            return;
           }
         });
     },
@@ -113,7 +108,7 @@ export default {
       this.file = content.file;
       let formData = new FormData();
       formData.append("file", this.file);
-      requestLogin("/setBannerImg/" + this.$route.query.HYID, formData, "post")
+      requestLogin("/setDesignateMember/saveVoucher/" + this.$route.query.HYID, formData, "post")
         .then(data => {
           this.$message({
             message: "上传成功",
@@ -162,37 +157,9 @@ export default {
         this.isEnlargeImage = !this.isEnlargeImage;
       }
     },
-    //设为封面
-    handleFileName(file, i) {
-      let that = this;
-      this.$confirm("确认设为这张为封面吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          requestLogin("/setBannerImg/" + file.id, {}, "put").then(response => {
-            this.$message({
-              message: "设置成功",
-              type: "success"
-            });
-            this.getUpload();
-          });
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
-    },
     //删除图片
     handleFileRemove(file, i) {
-      if (!file.banPic) {
+      if (!file.urlPic) {
         return false;
       }
       let that = this;
@@ -202,7 +169,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          requestLogin("/setBannerImg/" + file.id, {}, "delete").then(
+          requestLogin("/setDesignateMember/delVoucher/" + file.id, {}, "delete").then(
             response => {
               this.$message({
                 message: "删除成功",
@@ -277,7 +244,7 @@ export default {
         position: relative;
         display: inline-block;
         width: 200px;
-        height: 260px;
+        height: 230px;
         padding: 5px;
         margin: 5px 20px 20px 0;
         border: 1px solid #d1dbe5;
@@ -309,11 +276,11 @@ export default {
         }
         .del {
           position: absolute;
-          bottom: 10px;
-          right: 10px;
+          bottom: 8px;
+          right: 45%;
           color: #8492a6;
           cursor: pointer;
-          font-size: 18px;
+          font-size: 20px;
         }
         .layer {
           position: absolute;

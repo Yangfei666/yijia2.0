@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.prTel" maxlength="11" placeholder="请输入"></el-input>
+          <el-input v-model="currentSelectRow.prTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -107,6 +107,22 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    testUser(){
+      let _this = this;
+    requestLogin("/searchInfoByTel/"+_this.currentSelectRow.prTel, {}, "get")
+      .then(function(res) {
+      })
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
     },
     Selectchange(val){
     }

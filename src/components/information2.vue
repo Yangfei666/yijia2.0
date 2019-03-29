@@ -17,7 +17,7 @@
                 </el-form-item>
                 <el-form-item label="电话:" prop="exTel" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.exTel" maxlength="11" placeholder="请输入"></el-input>
+                    <el-input v-model="ruleForm.exTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="微信:" prop="exWeChat" :label-width="formLabelWidth">
@@ -107,13 +107,15 @@ export default {
           _this.club = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     back() {
       this.$router.push({
@@ -126,6 +128,22 @@ export default {
           exSex: this.$route.params.exSex,
           exWeChat:this.$route.params.exWeChat,
           exHjgwId:this.$route.params.exHjgwId
+        }
+      });
+    },
+    testUser(){
+      let _this = this;
+    requestLogin("/searchInfoByTel/"+_this.ruleForm.exTel, {}, "get")
+      .then(function(res) {
+      })
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
         }
       });
     },

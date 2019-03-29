@@ -17,7 +17,7 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
+          <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码" @blur.prevent="testUser"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
@@ -134,13 +134,31 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取会籍顾问数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+    },
+     testUser(){
+      let _this = this;
+    requestLogin("/searchInfoByTel/"+_this.ruleForm.tel, {}, "get")
+      .then(function(res) {
+      })
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
     },
     //获取体验券
     getVouchers() {
@@ -150,13 +168,15 @@ export default {
           _this.tkName = res;
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "获取体验券数据失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //添加体验客户
     submitForm(formName) {

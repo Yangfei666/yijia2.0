@@ -71,12 +71,14 @@ export default {
       .then(function(res) {
         _this.taste = res;
       })
-      .catch(error => {
-        if (error.res) {
+     .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
           this.$message({
-            message: "获取数据失败",
+            message: msg,
             type: "error"
           });
+          return;
         }
       });
   },
