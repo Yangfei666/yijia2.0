@@ -108,13 +108,15 @@ export default {
           // this.$router.go(0);
         })
         .catch(error => {
-          if (error.response) {
-            this.$message({
-              message: "对不起,切换门店失败",
-              type: "error"
-            });
-          }
-        });
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
     },
     //退出登录
     logout: function() {

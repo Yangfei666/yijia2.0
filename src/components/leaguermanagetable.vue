@@ -320,7 +320,6 @@ export default {
         };
       },
       handleSelect(item) {
-          console.log(item);
         },
      dateDiff(sDate1) {
 			 	var date2 = new Date();

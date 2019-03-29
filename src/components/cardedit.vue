@@ -323,12 +323,9 @@ export default {
     radiochange(val) {
     },
     getSelectItem(val) {
-      console.log(val);
     },
 
     handleCheckChange(val) {
-      console.log(this.currentSelectRow.CTdate);
-
     },
     handleCheckChange(val) {},
     resetForm(formName) {

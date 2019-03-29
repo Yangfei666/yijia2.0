@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     asfa(val){
-      console.log(val);
     },
     //启用禁用
     submitForm(formName) {

@@ -367,7 +367,6 @@ export default {
       this.currentRow = val;
     },
     xiaozu(val) {
-      console.log(val);
     },
     getCurrentRow(val) {},
     xiaozu(val) {},

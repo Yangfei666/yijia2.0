@@ -220,7 +220,7 @@ export default {
         var height = this.image.naturalHeight;
         var width = this.image.naturalWidth;
         if (height / width !== this.ratio) {
-          console.log("比例:" + height / width);
+          // console.log("比例:" + height / width);
         }
         this.draw();
       };

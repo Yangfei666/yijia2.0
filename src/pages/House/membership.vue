@@ -321,10 +321,8 @@ export default {
       this.currentSelectRow = row;
     },
     getCurrentRow(val) {
-      console.log(val);
     },
     getCurrentRow2(val) {
-      console.log(val);
     },
     closeEdit(isClose) {
       this.dialogFormVisible2 = isClose;
