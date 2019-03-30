@@ -22,7 +22,8 @@
                   <router-link :to="{path:'/Customer/membershiphome/information',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">[详情]</router-link>
                 </span>
               </div>
-              <div class="weber-p">会籍顾问:{{this.YGXX_NAME}}
+              <div class="weber-p">
+                会籍顾问:{{this.YGXX_NAME}}
                 <span class="weber-pp">电话:{{club.MotoTel}}</span>
               </div>
             </el-col>
@@ -261,7 +262,7 @@ export default {
         height: 25px;
         line-height: 25px;
         text-align: left;
-        margin-top: 6px;
+        margin-top: 0px;
         font-family: PingFang-SC-Regular;
         font-size: 16px;
         font-weight: normal;
@@ -353,7 +354,7 @@ export default {
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
    .weber {
-    margin: 20px 20px auto;
+    margin: 20px 12px auto !important;
     height: 72px;
     display: flex;
     line-height: 72px;
@@ -465,6 +466,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 13px !important;

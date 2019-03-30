@@ -133,7 +133,8 @@
             <el-table-column prop="itSuc" align="center" label="成交状态"></el-table-column>
             <el-table-column prop="itSuc" align="center" label="未跟进天数" width="150px">
               <template slot-scope="scope">
-                <span>{{dateDiff(scope.row.RecordTime)}}</span>
+                <span v-if="scope.row.RecordTime == '2018-01-01'">未跟进过</span>
+                <span v-else>{{dateDiff(scope.row.RecordTime)}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="itRemark" align="left" label="备注"></el-table-column>

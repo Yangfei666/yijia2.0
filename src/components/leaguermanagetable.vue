@@ -150,7 +150,8 @@
             <el-table-column prop="State" align="center" label="卡状态"></el-table-column>
             <el-table-column prop="State" align="center" label="未跟进天数" width="150px">
               <template slot-scope="scope">
-                <span>{{dateDiff(scope.row.hyRecordTime)}}</span>
+                <span v-if="scope.row.hyRecordTime == '2018-01-01'">未跟进过</span>
+                <span v-else>{{dateDiff(scope.row.hyRecordTime)}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="cz" align="center" label="操作" fixed="right">

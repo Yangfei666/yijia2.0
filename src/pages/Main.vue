@@ -45,11 +45,11 @@
           </el-table-column>
           <el-table-column align="left" prop="experience_customers.exName" label="客户姓名">
           </el-table-column>
-          <el-table-column align="left" prop="experience_customers.exTel" label="手机号"></el-table-column>
+          <el-table-column align="left" prop="experience_customers.exTel" label="手机号" width="180px"></el-table-column>
           <el-table-column align="left" prop="customer_voucher.experience_voucher.tkName" label="体验券"></el-table-column>
           <el-table-column align="left" prop="experience_customers.exHjgwName" label="会籍顾问"></el-table-column>
           <el-table-column align="left" prop="customer_voucher.mode" label="付款方式" width="150px"></el-table-column>
-          <el-table-column align="left" label="操作" fixed="right" width="150px">
+          <el-table-column align="left" label="操作" fixed="right" width="160px">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
                 <el-button type="text" size="small" @click="clickEnter2('体验客户', scope.row.experience_customers.id)">进场</el-button>
@@ -79,10 +79,10 @@
             </template>
           </el-table-column>
           <el-table-column align="left" prop="member_customers.HYName" label="客户姓名"></el-table-column>
-          <el-table-column align="left" prop="member_customers.MotoTel" label="手机号"></el-table-column>
-          <el-table-column align="left" prop="membership_card.CardNO" label="卡号"></el-table-column>
-          <el-table-column align="left" prop="member_customers.staff_info.YGXX_NAME" label="会籍顾问"></el-table-column>
-          <el-table-column align="left" label="操作" fixed="right">
+          <el-table-column align="left" prop="member_customers.MotoTel" label="手机号" width="190"></el-table-column>
+          <el-table-column align="left" prop="membership_card.CardNO" label="卡号" width="190"></el-table-column>
+          <el-table-column align="center" prop="member_customers.staff_info.YGXX_NAME" label="会籍顾问"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right" width="160px">
             <template slot-scope="scope">
               <div v-if="scope.row.isEnter == '未进场' && scope.row.isTrue == '未取消'">
                 <el-button type="text" size="small" @click="clickEnter('会员客户', scope.row.member_customers.HYID)">进场</el-button>
@@ -115,10 +115,10 @@
             </template>
           </el-table-column>
           <el-table-column align="left" prop="name1" label="安排教练"></el-table-column>
-          <el-table-column align="left" prop="tel" label="手机号"></el-table-column>
+          <el-table-column align="left" prop="tel" label="手机号" width="190"></el-table-column>
           <el-table-column align="left" prop="name2" label="上课教练"></el-table-column>
-          <el-table-column align="left" prop="classroom" label="教室"></el-table-column>
-          <el-table-column align="left" label="操作" fixed="right">
+          <el-table-column align="left" prop="classroom" label="教室" width="190"></el-table-column>
+          <el-table-column align="left" label="操作" fixed="right" width="110px">
             <template slot-scope="scope">
               <div v-if="scope.row.name1 == scope.row.name2">
                 <el-button type="text" size="small" @click="clickEnter('教练', 0)">进场</el-button>
