@@ -194,6 +194,14 @@
                   line-height:15px;
                   .box-top{
                     margin-top: 20px;
+                    .span{
+                      font-family: PingFang-SC-Medium;
+                        font-size: 10px!important;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        letter-spacing: 0px;
+                        color: #8c8c8c;
+                    }
                     span{
                       font-family: PingFang-SC-Light;
                       font-size: 12px!important;
@@ -329,9 +337,10 @@
         .carddate{
            height: 60px;
           line-height: 15px;
-          margin: 3% 6% auto!important;
+          margin: 3% 4% auto!important;
           text-align: left;
           padding-left: 4%!important;
+          width: 60% !important;
           .date1{
             font-family: PingFang-SC-Medium;
             font-size: 14px!important;
@@ -440,6 +449,7 @@
         margin: 0px;
         border-width: 0px;
         margin-top: 56px !important;
+        margin-left: 10px !important;
         canvas{
           position: absolute;
           left: 0px;
@@ -455,6 +465,7 @@
       }
       .chart-bottom{
         display: inline-block;
+        // width: 60% !important;
         .chart-left{
           height: 40px;
           margin-top: 85px;
@@ -487,9 +498,17 @@
               line-height:15px;
               .box-top{
                 margin-top: 20px;
+                .span{
+                  font-family: PingFang-SC-Medium;
+                    font-size: 12px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                }
                 span{
                   font-family: PingFang-SC-Light;
-                  font-size: 14px!important;
+                  font-size: 13px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
@@ -498,7 +517,7 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 16px !important;
+                  font-size: 14px !important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
@@ -733,6 +752,7 @@
         margin: 0px;
         border-width: 0px;
         margin-top: 34px !important;
+        margin-left: 20px !important;
         canvas{
           position: absolute;
           left: 0px;
@@ -780,6 +800,14 @@
               line-height:15px;
               .box-top{
                 margin-top: 20px;
+                .span{
+                  font-family: PingFang-SC-Medium;
+                    font-size: 14px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                }
                 span{
                   font-family: PingFang-SC-Light;
                   font-size: 14px!important;
@@ -791,14 +819,14 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 24px!important;
+                  font-size: 20px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
                   color: #272727;
                   .ci{
                     font-family: PingFang-SC-Medium;
-                    font-size: 12px!important;
+                    font-size: 14px!important;
                     font-weight: normal;
                     font-stretch: normal;
                     letter-spacing: 0px;
@@ -1002,6 +1030,7 @@
         margin: 0px;
         border-width: 0px;
         margin-top: 20px !important;
+        margin-left: 25px !important;
         canvas{
           position: absolute;
           left: 0px;
@@ -1049,6 +1078,14 @@
               line-height:15px;
               .box-top{
                 margin-top: 20px;
+                .span{
+                  font-family: PingFang-SC-Medium;
+                    font-size: 16px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                }
                 span{
                   font-family: PingFang-SC-Light;
                   font-size: 14px!important;
@@ -1060,14 +1097,14 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 24px!important;
+                  font-size: 22px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
                   color: #272727;
                   .ci{
                     font-family: PingFang-SC-Medium;
-                    font-size: 12px!important;
+                    font-size: 14px!important;
                     font-weight: normal;
                     font-stretch: normal;
                     letter-spacing: 0px;
@@ -1281,7 +1318,7 @@
         canvas{
           position: absolute;
           left: 0px;
-          top: -18px !important;
+          top: 0px !important;
           width: 300px !important;
           height: 300px !important;
           user-select: none;
@@ -1325,6 +1362,14 @@
               line-height:15px;
               .box-top{
                 margin-top: 20px;
+                .span{
+                  font-family: PingFang-SC-Medium;
+                    font-size: 18px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                }
                 span{
                   font-family: PingFang-SC-Light;
                   font-size: 17px!important;
@@ -1336,7 +1381,7 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 30px!important;
+                  font-size: 24px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
@@ -1423,7 +1468,7 @@
       }
   }
 }
-@media screen and (min-width: 1680px)and (max-width: 1920px){
+@media screen and (min-width: 1920px)and (max-width:2048px){
   .cardone{
     height: 300px;
     margin: 0 auto;
@@ -1571,7 +1616,7 @@
         margin: 0px;
         border-width: 0px;
         margin-top: -34px !important;
-        margin-left: 18px !important;
+        margin-left: 28px !important;
         canvas{
           position: absolute;
           left: 0px;
@@ -1619,6 +1664,14 @@
               line-height:15px;
               .box-top{
                 margin-top: 20px;
+                .span{
+                  font-family: PingFang-SC-Medium;
+                    font-size: 20px!important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #8c8c8c;
+                }
                 span{
                   font-family: PingFang-SC-Light;
                   font-size: 17px!important;
@@ -1630,14 +1683,14 @@
                 }
                 p{
                   font-family: PingFang-SC-Regular;
-                  font-size: 30px!important;
+                  font-size: 28px!important;
                   font-weight: normal;
                   font-stretch: normal;
                   letter-spacing: 0px;
                   color: #272727;
                   .ci{
                     font-family: PingFang-SC-Medium;
-                    font-size: 16px!important;
+                    font-size: 18px!important;
                     font-weight: normal;
                     font-stretch: normal;
                     letter-spacing: 0px;

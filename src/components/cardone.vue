@@ -53,38 +53,38 @@
           </el-col>
           <div class="chart-top">
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>总次数</span>
+              <div class="span">总次数</div>
               <p>{{membershipcards.card_type.Ctnum}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>总金额</span>
+              <div class="span">总金额</div>
               <p>{{membershipcards.card_type.CTjg}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>总天数</span>
+              <div class="span">总天数</div>
               <p>{{datedifference(membershipcards.sTime,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>已使用{{((membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">已使用{{((membershipcards.card_type.Ctnum-membershipcards.SYCS)/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</div>
               <p>{{membershipcards.card_type.Ctnum-membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>已使用{{((membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">已使用{{((membershipcards.card_type.CTjg-membershipcards.SYJE)/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</div>
               <p>{{membershipcards.card_type.CTjg-membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>已使用{{Number(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">已使用{{Number(datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</div>
               <p v-if="membershipcards.State == '未激活'">{{datedifference(membershipcards.sTime,new Date())== 0 ? 0 : ( datedifference(membershipcards.sTime,new Date()) > datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(membershipcards.sTime,new Date())+1 )}}
                 <span class="ci">天</span>
               </p>
@@ -94,19 +94,19 @@
             </el-col>
             <div class="box3"></div>
             <el-col class="box-top" v-if="membershipcards.card_type.ctType=='次数卡'">
-              <span>剩余{{(this.membershipcards.SYCS/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">剩余{{(this.membershipcards.SYCS/membershipcards.card_type.Ctnum).toFixed(2)*100 | numFilter}}%</div>
               <p>{{membershipcards.SYCS}}
                 <span class="ci">次</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else-if="membershipcards.card_type.ctType=='金额卡'">
-              <span>剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">剩余{{(membershipcards.SYJE/membershipcards.card_type.CTjg).toFixed(2)*100 | numFilter}}%</div>
               <p>{{membershipcards.SYJE}}
                 <span class="ci">元</span>
               </p>
             </el-col>
             <el-col class="box-top" v-else>
-              <span>剩余{{(Number(datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</span>
+              <div class="span">剩余{{(Number(datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime))/datedifference(membershipcards.sTime,membershipcards.eTime)).toFixed(2)*100 | numFilter}}%</div>
               <p>{{datedifference(new Date,membershipcards.eTime) >= datedifference(membershipcards.sTime,membershipcards.eTime) ? datedifference(membershipcards.sTime,membershipcards.eTime) : datedifference(new Date,membershipcards.eTime)}}
                 <span class="ci">天</span>
               </p>
@@ -521,6 +521,14 @@ export default {
         line-height: 15px;
         .box-top {
           margin-top: 20px;
+          .span{
+            font-family: PingFang-SC-Medium;
+              font-size: 14px;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0px;
+              color: #8c8c8c;
+          }
           span {
             font-family: PingFang-SC-Light;
             font-size: 14px;

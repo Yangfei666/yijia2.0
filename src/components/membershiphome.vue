@@ -60,7 +60,7 @@
                   </el-dialog>
                 </template>
               </div>
-              <div class="border"></div>
+              <!-- <div class="border"></div>
               <div class="right-span">
                 <el-button type="text" class="add-p link" @click="dialogFormVisible = true">换会籍</el-button>
                 <template>
@@ -68,7 +68,7 @@
                     <Change :potential="Potential"></Change>
                   </el-dialog>
                 </template>
-              </div>
+              </div> -->
               <div class="weber-top">
               <div class="right-span2">
                 <router-link :to="{path:'/Customer/membershiphome/operationnote',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">操作记录</router-link>
@@ -312,6 +312,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 16px;
@@ -527,6 +528,7 @@ export default {
     }
     .weber-left {
       display: inline-grid;
+      width:39% !important;
       .weber-span {
         font-size: 20px !important;
         font-weight: normal;
@@ -618,6 +620,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 14px !important;
@@ -768,7 +771,8 @@ export default {
       .weber-top {
       display: flex;
       justify-content: space-around;
-      position: absolute;
+      position: absolute !important;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 14px !important;
@@ -920,6 +924,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 14px !important;
@@ -1071,6 +1076,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 16px !important;
@@ -1222,6 +1228,7 @@ export default {
       display: flex;
       justify-content: space-around;
       position: absolute;
+      right: 10px !important;
       .right-span2 {
         font-family: PingFang-SC-Regular;
         font-size: 17px !important;
