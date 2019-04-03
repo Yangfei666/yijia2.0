@@ -18,6 +18,24 @@
               </el-col>
             </el-form-item>
           </div>
+          <div class="search-form" v-show="isShow && isAdviser">
+            <el-form-item label="所属会籍:">
+              <el-col :span="24">
+                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                  <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
+          <div class="search-form" v-show="isShow">
+            <el-form-item label="卡状态:">
+              <el-col :span="24">
+                <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange">
+                  <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-col>
+            </el-form-item>
+          </div>
           <div class="search-form2" v-show="isShow">
             <el-form-item label="剩余次数:">
               <el-col :span="12">
@@ -35,24 +53,6 @@
               </el-col>
               <el-col :span="1">
                 <el-input v-model="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
-              </el-col>
-            </el-form-item>
-          </div>
-          <div class="search-form" v-show="isShow && isAdviser">
-            <el-form-item label="所属会籍:">
-              <el-col :span="24">
-                <el-select v-model="formInline.adviser" placeholder="请选择" style="width:100%" @change="Selectchange2">
-                  <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
-                </el-select>
-              </el-col>
-            </el-form-item>
-          </div>
-          <div class="search-form" v-show="isShow">
-            <el-form-item label="卡状态:">
-              <el-col :span="24">
-                <el-select v-model="formInline.status" placeholder="请选择" style="width:200px" @change="Selectchange">
-                  <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
               </el-col>
             </el-form-item>
           </div>
@@ -411,7 +411,7 @@ export default {
         };
       }
       requestLogin(
-        "/setMemberCustomers/searchMemberCustomers/1" +
+        "/setMemberCustomers/searchMemberCustomers/1/" +
           _this.formInline.adviser,
         params,
         "post"
