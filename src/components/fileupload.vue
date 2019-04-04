@@ -5,9 +5,9 @@
       <input ref="input" type="file" accept="image/png,image/jpeg,image/gif" @change="change" v-show="!openCrop">
     </a>
     <div class="crop-container" v-show="openCrop">
-      <div class="crop-container__source" @mouseup="mouseup" @mousemove="mousemove">
+      <div class="crop-container__source" @mouseup="mouseup" @mousemove="mousemove" @touchmove="mousemove" @touchend="mouseup">
         <img class="crop-container__source__image" :src="imgSrc" ref="img"/>
-        <div class="crop-box" :style="cropBoxStyle" @mousedown="mousedown" ref="cropbox">
+        <div class="crop-box" :style="cropBoxStyle" @mousedown="mousedown" ref="cropbox" @touchstart="mousedown">
           <span class="crop-line-h"></span>
           <span class="crop-line-v"></span>
           <!-- border  -->
@@ -133,6 +133,22 @@ export default {
     }
   },
   methods: {
+    base64ToBlob(urlData) {
+      var arr = urlData.split(',');
+      var mime = arr[0].match(/:(.*?);/)[1] || 'image/png';
+      // 去掉url的头，并转化为byte
+      var bytes = window.atob(arr[1]);
+      // 处理异常,将ascii码小于0的转换为大于0
+      var ab = new ArrayBuffer(bytes.length);
+      // 生成视图（直接针对内存）：8位无符号整数，长度1个字节
+      var ia = new Uint8Array(ab);
+      for (var i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i);
+      }
+      return new Blob([ab], {
+        type: mime
+      });
+    },
     draw: function() {
       var { source, dest } = this.generateDrwaImageParam();
       var rate = this.$refs.img.naturalWidth / this.$refs.img.clientWidth;
@@ -157,9 +173,10 @@ export default {
       );
     },
     clip: function() {
-      this.destImg = this.$refs.canvas.toDataURL();
-      let formData = new FormData();
-      formData.append("file", dataURLtoFile(this.destImg, "xxx.png"));
+      let dataUrl = this.$refs.canvas.toDataURL();
+      let fileImg = this.base64ToBlob(dataUrl)
+      var formData= new FormData()
+      formData.append('file', fileImg,"image.jpg")
       requestLogin("/uploadStaffPhoto", formData, "post")
         .then(res => {
           this.$message({
@@ -178,17 +195,6 @@ export default {
             return;
           }
         });
-      function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(","),
-          mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]),
-          n = bstr.length,
-          u8arr = new Uint8Array(n);
-        while (n--) {
-          u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, { type: mime });
-      }
       this.closeCrop();
     },
     openFile: function() {
@@ -220,7 +226,7 @@ export default {
         var height = this.image.naturalHeight;
         var width = this.image.naturalWidth;
         if (height / width !== this.ratio) {
-          console.log("比例:" + height / width);
+          // console.log("比例:" + height / width);
         }
         this.draw();
       };
@@ -281,7 +287,6 @@ export default {
         }
       }
       dest.width = source.width;
-
       if (topOffset <= 0) {
         source.y = 0;
         dest.y = -topOffset;
@@ -312,8 +317,8 @@ export default {
     mousedown: function(e) {
       // 在鼠标按下之后到抬起之前都可以移动，按下只能是指定的元素，抬起是在crop-container__source内，或者移出crop-container__source则算做抬起
       this.isMousedown = true;
-      this.enterPoint.x = e.pageX;
-      this.enterPoint.y = e.pageY;
+      this.enterPoint.x = e.pageX || e.touches[0].clientX;
+      this.enterPoint.y = e.pageY || e.touches[0].clientY;
       this.target = e.target;
     },
     mouseup: function(e) {
@@ -326,8 +331,8 @@ export default {
     // TODO 支持指定不同比例的裁剪
     mousemove: function(e) {
       if (this.isMousedown) {
-        var px = e.pageX;
-        var py = e.pageY;
+        var px = e.pageX || e.touches[0].clientX;
+        var py = e.pageY || e.touches[0].clientY;
         var offsetX = px - this.enterPoint.x;
         var offsetY = py - this.enterPoint.y;
         if (
@@ -506,7 +511,6 @@ $height: 400px;
   * {
     box-sizing: border-box;
   }
-
   img,
   canvas {
     -webkit-user-select: none;
@@ -515,7 +519,6 @@ $height: 400px;
     -o-user-select: none;
     -webkit-user-drag: none;
   }
-
   .dest-image {
     display: block;
     height: 30%;
@@ -527,7 +530,6 @@ $height: 400px;
     left: 0;
     z-index: 2;
   }
-
   .file-upload-icon {
     display: inline-block;
     border: 1px solid #000000;
@@ -536,7 +538,6 @@ $height: 400px;
     cursor: pointer;
     height: 100%;
     width: 100%;
-
     &:before,
     &:after {
       content: "";
@@ -547,20 +548,17 @@ $height: 400px;
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
     &:before {
       width: 40%;
       height: 1px;
       background-color: #000000;
     }
-
     &:after {
       height: 40%;
       width: 1px;
       background-color: #000000;
     }
   }
-
   input {
     display: block;
     height: 100%;
@@ -571,7 +569,6 @@ $height: 400px;
     cursor: pointer;
   }
 }
-
 .crop-container {
   position: fixed;
   width: $height + ($height / 2) + 10 + 20 * 2;
@@ -584,14 +581,12 @@ $height: 400px;
   text-align: center;
   border-radius: 4px;
   z-index: 9999;
-
   &__source {
     height: $height;
     width: $height;
     float: left;
     margin-right: 10px;
     position: relative;
-
     // 原图背景变暗
     &:before {
       position: absolute;
@@ -602,7 +597,6 @@ $height: 400px;
       z-index: 2;
       background-color: rgba(0, 0, 0, 0.4);
     }
-
     &__image {
       user-select: none;
       position: relative;
@@ -612,19 +606,16 @@ $height: 400px;
       max-height: 100%;
       max-width: 100%;
     }
-
     .crop-box {
       position: absolute;
       z-index: 3;
       cursor: move;
       overflow: hidden;
-
       span {
         display: block;
         position: absolute;
         z-index: 999;
       }
-
       .crop-line-h {
         z-index: 997;
         width: 100%;
@@ -634,7 +625,6 @@ $height: 400px;
         border-bottom: 1px dashed #000000;
         border-top: 1px dashed #000000;
       }
-
       .crop-line-v {
         z-index: 997;
         height: 100%;
@@ -644,7 +634,6 @@ $height: 400px;
         border-left: 1px dashed #000000;
         border-right: 1px dashed #000000;
       }
-
       .crop-line-border-top {
         width: 100%;
         height: 8px;
@@ -653,7 +642,6 @@ $height: 400px;
         left: 0;
         cursor: n-resize;
       }
-
       .crop-line-border-right {
         width: 8px;
         height: 100%;
@@ -662,7 +650,6 @@ $height: 400px;
         border-right: 1px solid #000000;
         cursor: e-resize;
       }
-
       .crop-line-border-bottom {
         width: 100%;
         height: 8px;
@@ -671,7 +658,6 @@ $height: 400px;
         border-bottom: 1px solid #000000;
         cursor: s-resize;
       }
-
       .crop-line-border-left {
         width: 8px;
         height: 100%;
@@ -680,23 +666,19 @@ $height: 400px;
         border-left: 1px solid #000000;
         cursor: w-resize;
       }
-
       .crop-corner {
         z-index: 999;
         height: 10px;
         width: 10px;
         background-color: #000000;
-
         &__left-top {
           left: 0;
           cursor: nw-resize;
         }
-
         &__right-top {
           right: 0;
           cursor: ne-resize;
         }
-
         &__right-bottom {
           height: 20px;
           width: 20px;
@@ -704,14 +686,12 @@ $height: 400px;
           bottom: 0;
           cursor: se-resize;
         }
-
         &__left-bottom {
           left: 0;
           bottom: 0;
           cursor: sw-resize;
         }
       }
-
       .crop-inner-container {
         height: $height;
         width: $height;
@@ -721,7 +701,6 @@ $height: 400px;
         position: relative;
         z-index: 1;
       }
-
       &__mask {
         position: absolute;
         z-index: 998;
@@ -735,7 +714,6 @@ $height: 400px;
     }
   }
 }
-
 .crop-canvas {
   box-sizing: border-box;
   display: block;
@@ -744,7 +722,6 @@ $height: 400px;
   width: $height / 2;
   height: $height / 2;
 }
-
 .crop-btn {
   height: 50px;
   width: 200px;
@@ -757,32 +734,25 @@ $height: 400px;
   font-size: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
-
   &.crop-yes {
     bottom: 20px;
     background-color: #648fe7;
-
     &:hover {
       background-color: #64afff;
     }
-
     &:active {
       background-color: #64bfff;
     }
   }
-
   &.crop-cancel {
     bottom: 20px + 50 + 10;
     background-color: rgba(234, 24, 17, 1);
-
     &:hover {
       background-color: rgba(234, 24, 17, 0.8);
     }
-
     &:active {
       background-color: rgba(234, 24, 17, 1);
     }
   }
 }
 </style>
-
