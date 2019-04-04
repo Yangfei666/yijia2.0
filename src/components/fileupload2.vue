@@ -133,6 +133,24 @@ export default {
     }
   },
   methods: {
+    base64ToBlob(urlData) {
+      var arr = urlData.split(',');
+      var mime = arr[0].match(/:(.*?);/)[1] || 'image/png';
+      // 去掉url的头，并转化为byte
+      var bytes = window.atob(arr[1]);
+      // 处理异常,将ascii码小于0的转换为大于0
+      var ab = new ArrayBuffer(bytes.length);
+      // 生成视图（直接针对内存）：8位无符号整数，长度1个字节
+      var ia = new Uint8Array(ab);
+
+      for (var i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i);
+      }
+
+      return new Blob([ab], {
+        type: mime
+      });
+    },
     draw: function() {
       var { source, dest } = this.generateDrwaImageParam();
       var rate = this.$refs.img.naturalWidth / this.$refs.img.clientWidth;
@@ -157,9 +175,10 @@ export default {
       );
     },
     clip: function() {
-      this.destImg = this.$refs.canvas.toDataURL();
-      let formData = new FormData();
-      formData.append("file", dataURLtoFile(this.destImg, "xxx.png"));
+      let dataUrl = this.$refs.canvas.toDataURL();
+      let fileImg = this.base64ToBlob(dataUrl)
+      var formData= new FormData()
+      formData.append('file', fileImg,"image.jpg")
       requestLogin(
         "/setDesignateMember/editMemberIcon/" + this.$route.query.HYID,
         formData,
