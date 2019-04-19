@@ -65,3 +65,23 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
     responseType: responseType ? responseType : 'json'
   }).then(res => res.data);
 }
+
+export const requestDown = (url, params, method,filename, baseURL, responseType) => {
+  return axios({
+  method: method ? method : 'post', //方法
+  url: url, //地址
+  data: params, // 参数,
+  headers: { 'token': sessionStorage.getItem('access-token') },
+  // baseURL: baseURL === false ? '' : process.env.API_ROOT,
+  baseURL: baseURL === false ? '' : '/api',
+  responseType: responseType ? responseType : 'blob'
+  }).then(response => {
+  let url = window.URL.createObjectURL(response.data);
+  var a = document.createElement("a");
+  document.body.appendChild(a);
+  a.href = url;
+  a.download = filename;
+  a.click();
+  window.URL.revokeObjectURL(url);
+  });
+  }

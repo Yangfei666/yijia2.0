@@ -140,6 +140,17 @@
             </el-table-column>
           </el-table>
           <div class="block">
+            <el-button size="small" class="download" @click="download">下载模板</el-button>
+            <el-upload  style="display: inline-block;"
+                    ref="upload"
+                    action="#"    
+                    name="excel-file"
+                    :before-upload="beforeUpload"
+                    :file-list="fileList"
+                    :limit="1"
+                    :format ="['xlsx','xls']">
+                        <el-button size="small" class="batchimport">批量导入</el-button>
+                </el-upload>
             <el-button size="small" class="export" @click="exportExcel">导出</el-button>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
@@ -152,7 +163,7 @@
 <script>
 import Addpractice from "@/components/addpractice";
 import Change from "@/components/change";
-import { requestLogin } from "@/api/api";
+import { requestLogin , requestDown} from "@/api/api";
 import * as validate from "@/validate/Login";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
@@ -184,6 +195,7 @@ export default {
   },
   data() {
     return {
+      fileList:[],
       Potential: { potential: "setExperienceCustomer", id: "" },
       downIcon: true,
       loading: true,
@@ -272,6 +284,55 @@ export default {
     }, 1000);
   },
   methods: {
+     beforeUpload(file){
+        this.files = file;
+        const extension = file.name.split('.')[1] === 'xls'
+        const extension2 = file.name.split('.')[1] === 'xlsx'
+        const isLt5M = file.size / 1024 / 1024 < 5
+        if (!extension && !extension2) {
+            this.$message.warning('上传模板只能是 xls、xlsx格式!')
+            return
+        }
+        if (!isLt5M) {
+            this.$message.warning('上传模板大小不能超过 5MB!')
+            return
+        }
+        this.fileName = file.name;
+        setTimeout(() => {
+            this.submitUpload();
+        },500);
+        return false;
+    },  
+    // 上传excel
+      submitUpload() {
+          if(this.fileName == ""){
+              this.$message.warning('请选择要上传的文件！')
+              return false
+          }
+          let fileFormData = new FormData();
+          fileFormData.append('file', this.files, this.fileName);
+          requestLogin("/CustomerFollowUp/import/experience", fileFormData)
+          .then(res => {
+            let { errorCode, msg } = res;
+          if (errorCode == 0) {
+            this.$message({
+              message: msg,
+              type: "success"
+            });
+            this.reload();
+            return;
+          }
+          }).catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      },
     async searchClub(name) {
         this.clubLists = await requestLogin(`/CustomerFollowUp/searchCustomerCardList`, {name: name,sort:'2'}, 'post')
         return this.clubLists
@@ -541,6 +602,24 @@ export default {
         this.btnText = "展开";
       }
     },
+     //下载模板
+    download(){
+      let _this = this;
+      requestDown("/CustomerFollowUp/download/experience", {}, "get","experience.xlsx")
+        .then(function(res) {
+          requestDown(res.data);
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     //表格导出
     exportExcel() {
       let config = {
@@ -677,7 +756,7 @@ export default {
       float: right;
       margin-top: 10px;
       .el-pagination {
-        padding: 15px 5px;
+        padding: 20px 5px;
         float: right;
         margin-right: 40px;
         .el-pager li.active {
@@ -686,12 +765,30 @@ export default {
       }
       .export {
         height: 30px;
-        margin-top: 2%;
+        margin-top: 2.1%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00bc6a;
+        color: #00bc6a;
+        margin-left: 0%;
+      }
+      .download{
+        height: 30px;
+        margin-top: 2.1%;
         padding: 6px 13px;
         font-size: 14px;
         border: 1px solid #00bc6a;
         color: #00bc6a;
         margin-left: -5%;
+      }
+      .batchimport{
+        height: 30px;
+        margin-top: 2.1%;
+        padding: 6px 13px;
+        font-size: 14px;
+        border: 1px solid #00bc6a;
+        color: #00bc6a;
+        margin-left: 0%;
       }
     }
   }

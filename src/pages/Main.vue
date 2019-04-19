@@ -75,7 +75,7 @@
         <el-table highlight-current-row :data="leaguer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
           <el-table-column align="left" prop="img" fixed label="头像">
             <template slot-scope="scope">
-              <img :src="scope.row.member_customers.Photo" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <img :src="scope.row.member_customers.urlPic" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
             </template>
           </el-table-column>
           <el-table-column align="left" prop="member_customers.HYName" label="客户姓名"></el-table-column>

@@ -3,51 +3,64 @@
     <!--会员跟进记录-->
     <div class="taste-wapper">
       <el-row>
-        <div class="taste-list">
-          <el-col :span="24" class="taste-buttom">
-            <span>跟进记录:</span>
-          </el-col>
-          <el-col :span="24" class="taste-center">
-            <span @click="dialogFormVisible = true">
-              <i class="el-icon-plus"></i>添加跟进记录</span>
-            <template>
-              <el-dialog title="添加跟进记录" :append-to-body="true" :visible.sync="dialogFormVisible">
-                <!--添加跟进记录-->
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                  <el-form-item label="跟进内容:" prop="desc" :label-width="formLabelWidth">
-                    <el-col :span="22" class="from-date">
-                      <el-input type="textarea" v-model="ruleForm.desc" maxlength="100" @input="descInput" placeholder="请输入"></el-input>
-                      <span class="textarea">还可以输入{{remnant}}字</span>
+        <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
+            <el-tab-pane label="默认跟进记录" name="first">
+              <template v-if="activeName === 'first'">
+                  <div class="taste-list">
+                  <el-col :span="24" class="taste-center">
+                    <el-button type="text" @click="dialogFormVisible = true">
+                      <i class="el-icon-plus"></i>添加跟进记录</el-button>
+                    <template>
+                      <el-dialog title="添加跟进记录" :append-to-body="true" :visible.sync="dialogFormVisible">
+                        <!--添加跟进记录-->
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                          <el-form-item label="跟进内容:" prop="desc" :label-width="formLabelWidth">
+                            <el-col :span="22" class="from-date">
+                              <el-input type="textarea" v-model="ruleForm.desc" maxlength="100" @input="descInput" placeholder="请输入"></el-input>
+                              <span class="textarea">还可以输入{{remnant}}字</span>
+                            </el-col>
+                          </el-form-item>
+                          <el-form-item class="dialog-footer">
+                            <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                              <el-button @click="resetForm('ruleForm')">重置</el-button>
+                              <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
+                            </el-col>
+                          </el-form-item>
+                        </el-form>
+                      </el-dialog>
+                    </template>
+                  </el-col>
+                  <template>
+                    <el-col :span="24" class="taste-top" v-for="item in taste" :key="item.packetId">
+                      <div class="round"></div>
+                      <div class="data">{{item.reCreaTime}}</div>
+                      <div class="record">{{item.reContent}}</div>
                     </el-col>
-                  </el-form-item>
-                  <el-form-item class="dialog-footer">
-                    <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                      <el-button @click="resetForm('ruleForm')">重置</el-button>
-                      <el-button type="primary" @click="submitForm('ruleForm')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                    </el-col>
-                  </el-form-item>
-                </el-form>
-              </el-dialog>
-            </template>
-          </el-col>
-          <template>
-            <el-col :span="24" class="taste-top" v-for="item in taste" :key="item.packetId">
-              <div class="round"></div>
-              <div class="data">{{item.reCreaTime}}</div>
-              <div class="record">{{item.reContent}}</div>
-            </el-col>
-          </template>
-        </div>
+                  </template>
+                </div>
+              </template>
+            </el-tab-pane>
+            <el-tab-pane label="私教上课记录" name="second">
+                <template v-if="activeName === 'second'">
+                    <Privateinsiderup></Privateinsiderup>
+                </template>
+            </el-tab-pane>
+          </el-tabs>
       </el-row>
     </div>
   </div>
 </template>
 <script>
 import { requestLogin } from "@/api/api";
+import Privateinsiderup from "@/components/privateinsiderup";
 export default {
   inject: ["reload"],
+  components: {
+      Privateinsiderup
+    },
   data() {
     return {
+      activeName: 'first',
       addLoading: false,
       dialogFormVisible: false,
       formLabelWidth: "130px",
@@ -134,6 +147,8 @@ export default {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 100 - txtVal;
     },
+    handleClick(tab, event) {
+      },
   }
 };
 </script>
@@ -167,13 +182,11 @@ export default {
       font-weight: normal;
       font-stretch: normal;
       letter-spacing: 0px;
-      color: #262626;
-      height: 32px;
-      line-height: 32px;
-      color: #00bc71;
+      height: 35px;
+      line-height: 35px;
       border: 1px dashed #d0f2e5;
       border-radius: 16px;
-      margin-top: 15px;
+      margin-top: -5px;
       color: #00bc71;
       margin: 15px auto;
     }
@@ -241,13 +254,11 @@ export default {
         font-weight: normal;
         font-stretch: normal;
         letter-spacing: 0px;
-        color: #262626;
-        height: 32px;
-        line-height: 32px;
-        color: #00bc71;
+        height: 35px !important;
+        line-height: 35px !important;
         border: 1px dashed #d0f2e5;
         border-radius: 16px;
-        margin-top: 15px;
+        margin-top: -5px !important;
         color: #00bc71;
       }
       .taste-center:hover {
@@ -317,13 +328,11 @@ export default {
         font-weight: normal;
         font-stretch: normal;
         letter-spacing: 0px;
-        color: #262626;
-        height: 32px;
-        line-height: 32px;
-        color: #00bc71;
+        height: 35px !important;
+        line-height: 35px !important;
         border: 1px dashed #d0f2e5;
         border-radius: 16px;
-        margin-top: 15px;
+        margin-top: -5px !important;
         color: #00bc71;
       }
       .taste-center:hover {
@@ -389,17 +398,15 @@ export default {
       }
       .taste-center {
         font-family: PingFang-SC-Regular;
-        font-size: 16px !important;
+        font-size: 14px !important;
         font-weight: normal;
         font-stretch: normal;
         letter-spacing: 0px;
-        color: #262626;
-        height: 32px;
-        line-height: 32px;
-        color: #00bc71;
+        height: 35px !important;
+        line-height: 35px !important;
         border: 1px dashed #d0f2e5;
         border-radius: 16px;
-        margin-top: 15px;
+        margin-top: -5px !important;
         color: #00bc71;
       }
       .taste-center:hover {
@@ -442,7 +449,7 @@ export default {
     }
   }
 }
-@media screen and (min-width: 1440px) and (max-width: 1920px) {
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
   .taste-wapper {
     width: 97%;
     height: 100%;
@@ -465,17 +472,15 @@ export default {
       }
       .taste-center {
         font-family: PingFang-SC-Regular;
-        font-size: 16px !important;
+        font-size: 14px !important;
         font-weight: normal;
         font-stretch: normal;
         letter-spacing: 0px;
-        color: #262626;
-        height: 32px;
-        line-height: 32px;
-        color: #00bc71;
+        height: 35px !important;
+        line-height: 35px !important;
         border: 1px dashed #d0f2e5;
         border-radius: 16px;
-        margin-top: 15px;
+        margin-top: -5px !important;
         color: #00bc71;
       }
       .taste-center:hover {
@@ -508,6 +513,80 @@ export default {
           margin-left: 13px !important;
           font-family: PingFang-SC-Regular;
           font-size: 14px !important;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #595959;
+          text-align: left !important;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1680px) and (max-width: 1920px) {
+  .taste-wapper {
+    width: 97%;
+    height: 100%;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    .taste-list {
+      width: 97%;
+      height: 100%;
+      margin: 20px auto;
+      .taste-buttom {
+        font-family: PingFang-SC-Regular;
+        font-size: 16px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        text-align: left;
+      }
+      .taste-center {
+        font-family: PingFang-SC-Regular;
+        font-size: 16px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        height: 35px !important;
+        line-height: 35px !important;
+        border: 1px dashed #d0f2e5;
+        border-radius: 16px;
+        margin-top: -5px !important;
+        color: #00bc71;
+      }
+      .taste-center:hover {
+        border: 1px dashed #00bc71;
+      }
+      .taste-top {
+        margin: 15px auto !important;
+        border-radius: 16px;
+        background: #f2faf7;
+        display: flex;
+        height: 100% !important;
+        line-height: 32px;
+        .round {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          border: 1px solid #00bc71;
+          margin: 11px !important;
+        }
+        .data {
+          font-family: PingFang-SC-Regular;
+          font-size: 16px !important;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          color: #595959;
+          width: 10% !important;
+        }
+        .record {
+          margin-left: 13px !important;
+          font-family: PingFang-SC-Regular;
+          font-size: 16px !important;
           font-weight: normal;
           font-stretch: normal;
           letter-spacing: 0px;

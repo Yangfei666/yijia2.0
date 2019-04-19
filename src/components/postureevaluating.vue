@@ -4,7 +4,13 @@
         <div class="health">
             <el-col :span="24" class="infor-head">
                 <div class="infor-title">
-                    <span>体态评估表</span>
+                    <span>体态评估表<font style="color:#00bc71;padding-left: 5px;">[{{posture_assessment.createTime}}]</font></span>
+                </div>
+                <div class="infor-center">
+                  <el-select v-model="value" placeholder="请选择" @change="changeop">
+                    <el-option v-for="(item,index) in options" :key="item.id" :label="'第'+[index+1]+'期'" :value="item.id"></el-option>
+                  </el-select>
+                  <el-button type="primary" style="margin-left24px;line-height:6px;" class="el-icon-plus" @click="addtianjia">添加</el-button>
                 </div>
                 <div class="infor-but" v-on:click="back">
                     <el-button class="goback el-icon-arrow-left">返回</el-button>
@@ -270,15 +276,41 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      posture_assessment: {},
+      posture_assessment: {
+        poNeck:'',
+        poShoulder:'',
+        poThoracic:'',
+        poLumbar:'',
+        poPelvis:'',
+        poKnee:'',
+        poHeadInc:'',
+        poHeadRot:'',
+        poShrug:'',
+        poScapular:'',
+        poSpine:'',
+        poPelvisInc:'',
+        poPelvisRot:'',
+        poRemark:'',
+        createTime:''
+      },
       disabled: false,
-      show: true
+      show: true,
+      value: "",
+      options: [],
     };
   },
   mounted() {
     this.gethealth();
   },
   methods: {
+    changeop(val){
+      let _this = this;
+     for(var i=0;i<_this.options.length;i++){
+          if(val==_this.options[i].id){
+             _this.posture_assessment= _this.options[i];
+          }
+     }
+    },
     gethealth() {
       let _this = this;
       requestLogin(
@@ -290,22 +322,28 @@ export default {
         "get"
       )
         .then(function(res) {
-          if (res.posture_assessment == null) {
+          if (res[0]['createTime'] == "") {
             _this.disabled = false;
             _this.show = true;
+            _this.value='';
           } else {
-            _this.posture_assessment = res.posture_assessment;
+             let len=res.length-1;
+             _this.posture_assessment=res[len];
             _this.disabled = true;
             _this.show = false;
+            _this.options = res;
+            _this.value='第'+res.length+'期';
           }
         })
         .catch(error => {
-          if (error.res) {
-            this.$message({
-              message: "暂时没有数据可以展示",
-              type: "error"
-            });
-          }
+          let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
         });
     },
     addposture(formName) {
@@ -361,6 +399,8 @@ export default {
                 type: "success"
               });
               this.reload();
+              this.disabled = true;
+              this.show = false;
             })
             .catch(error => {
               let { response: { data: { errorCode, msg } } } = error;
@@ -375,9 +415,28 @@ export default {
         });
         }
     },
-    resetForm(formName) {
-      this.posture_assessment = "";
+    addtianjia(){
+        this.posture_assessment.poNeck = "";
+        this.posture_assessment.poShoulder = "";
+        this.posture_assessment.poThoracic = "";
+        this.posture_assessment.poLumbar = "";
+        this.posture_assessment.poPelvis = "";
+        this.posture_assessment.poKnee = "";
+        this.posture_assessment.poHeadInc = "";
+        this.posture_assessment.poHeadRot = "";
+        this.posture_assessment.poShrug = "";
+        this.posture_assessment.poScapular = "";
+        this.posture_assessment.poSpine = "";
+        this.posture_assessment.poPelvisInc = "";
+        this.posture_assessment.poPelvisRot = "";
+        this.posture_assessment.poRemark = "";
+        this.posture_assessment.createTime = "";
+        this.disabled = false;
+        this.show = true;
     },
+    // resetForm(formName) {
+    //   this.posture_assessment = "";
+    // },
     yinjingchange(val) {},
     back() {
       this.$router.go(-1); //返回上一层
