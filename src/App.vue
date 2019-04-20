@@ -42,6 +42,23 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+  .el-step__icon.is-text{
+     color: #00bc71 !important;
+     border-color: #00bc71 !important;
+  }
+  .el-step__description.is-wait{
+    color: #666666 !important;
+    font-size: 16px !important;
+  }
+  .el-step__line {
+    background-color: #fff !important;
+}
+.el-step.is-vertical .el-step__line{
+   width: 0.5px !important;
+    top: 0;
+    bottom: 0;
+    left: 11px;
+}
 .el-button:active {
   color: #00bc71;
   outline: 0;
@@ -221,7 +238,7 @@ body {
   transform: translate(-50%,-50%) scale(1.3);
 }
 .el-button--text {
-  color: #00bc71 !important;
+  color: #00bc71;
 }
 .el-input {
   height: 35px;

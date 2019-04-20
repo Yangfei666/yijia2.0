@@ -162,7 +162,7 @@
             </el-table-column>
           </el-table>
           <div class="block">
-            <el-button size="small" class="download" @click="download">下载模板</el-button>
+            <el-button size="small" class="download" @click="dialogVisible = true">下载模板</el-button>
             <el-upload  style="display: inline-block;"
                     ref="upload"
                     action="#"    
@@ -177,6 +177,30 @@
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
             </el-pagination>
           </div>
+          <el-dialog title="会员客户模版填写必读" :visible.sync="dialogVisible" :before-close="handleClose">
+            <el-card class="box-card">
+              <div style="height:640px;">
+                <el-steps direction="vertical">
+                  <el-step description="必须按照模填写客户资料,切记不可以更改模版的字段顺序,否则将导致导入失败或者资料导入错误"></el-step>
+                  <el-step description="带*部分为必填"></el-step>
+                  <el-step description="导入客户数据之前请确保系统已录入至少一个会籍顾问"></el-step>
+                  <el-step description="会籍顾问一栏填写的内容必须与系统一模一样(也就是说系统里录入会籍顾问是'张三',表格内填写的也必须是'张三',不可以是'张山'),这样系统将会自动将客户匹配给对应会籍顾问"></el-step>
+                  <el-step description="如果有部分客户的会籍顾问匹配不上,系统将会自动分配给系统内记录的第一个会籍顾问(系统打开'员工管理',看到的第一个会籍顾问)" style="padding-top:35px;"></el-step>
+                  <el-step description="性别一栏请填写'女'或者'男',填错一律默认'女'" style="padding-top:20px;"></el-step>
+                  <el-step description="导入客户数据之前请确保系统已录入全部的会员卡,否则一单模版文件中填写的会员卡系统内没有录入,会导致该客户的会员卡信息错误"></el-step>
+                  <el-step description="付款方式请填写[微信,支付宝,现金,银行卡,信用卡,手机银行转账]其中的一项,注意不要填错,否则一律默认'微信'" style="padding-top:20px;"></el-step>
+                  <el-step description="填写时间的内容必须年月日都写,如'2019-01-01','2019/1/1'等格式都可以" style="padding-top:20px;"></el-step>
+                  <el-step description="卡状态一栏请填写[正常,未激活,挂失,请假,过期,退卡,不通过]其中的意向,填错会导致客户卡状态不对,影响客户使用"></el-step>
+                  <el-step description="缴费金额一栏请填写客户实际缴费的数目" style="padding-top:20px;"></el-step>
+                </el-steps>
+              </div>
+            </el-card>
+            <div class="checkboxlook"><el-checkbox v-model="checked" @change="rememberlook" style="font-size:16px;">我已认真阅读并理解</el-checkbox></div>
+            <div class="dialog-footer2">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="download" :disabled="querenxiazai">下 载</el-button>
+            </div>
+          </el-dialog>
         </el-col>
       </el-row>
     </div>
@@ -216,6 +240,9 @@ export default {
   data() {
     return {
       fileList:[],
+      checked: false,
+      dialogVisible: false,
+      querenxiazai:true,
       downIcon: true,
       dialogFormVisible: false,
       dialogFormVisible7: false,
@@ -314,6 +341,20 @@ export default {
     }
   },
   methods: {
+    rememberlook(){
+      if(this.checked == false){
+        this.querenxiazai = true;
+      }else{
+        this.querenxiazai = false;
+      }
+    },
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
      beforeUpload(file){
         this.files = file;
         const extension = file.name.split('.')[1] === 'xls'
@@ -644,6 +685,9 @@ export default {
      //下载模板
     download(){
       let _this = this;
+      _this.dialogVisible = false;
+      _this.querenxiazai = true;
+      _this.checked = false;
       requestDown("/CustomerFollowUp/download/member", {}, "get","member.xlsx")
         .then(function(res) {
           requestDown(res.data);
@@ -681,6 +725,12 @@ export default {
 @import "@/styles/leaguertable.scss";
 .el-table .selected-row {
     background: #00bc71;
+  }
+  .box-card {
+    width: 100%;
+  }
+  .dialog-footer2{
+    margin-top:20px;
   }
 .practice-list {
   width: 97%;
@@ -839,6 +889,9 @@ export default {
         margin-left: 0%;
       }
     }
+    .checkboxlook{
+       padding-top: 20px;
+     }
   }
 }
 </style>
