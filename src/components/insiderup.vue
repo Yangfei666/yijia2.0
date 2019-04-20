@@ -8,7 +8,7 @@
               <template v-if="activeName === 'first'">
                   <div class="taste-list">
                   <el-col :span="24" class="taste-center">
-                    <el-button type="text" @click="dialogFormVisible = true">
+                    <el-button type="text" @click="dialogFormVisible = true" style="color:#00bc71;">
                       <i class="el-icon-plus"></i>添加跟进记录</el-button>
                     <template>
                       <el-dialog title="添加跟进记录" :append-to-body="true" :visible.sync="dialogFormVisible">
