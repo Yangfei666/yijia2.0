@@ -49,7 +49,7 @@
                                             <span>颈前引</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poNeck" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poNeck" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -62,7 +62,7 @@
                                             <span>圆肩</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poShoulder" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poShoulder" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -75,7 +75,7 @@
                                             <span>胸椎曲度(看驼背)</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poThoracic" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poThoracic" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -88,7 +88,7 @@
                                             <span>腰椎曲度(看肋骨外翻)</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poLumbar" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poLumbar" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -101,7 +101,7 @@
                                             <span>盆骨(看前倾后倾)</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poPelvis" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poPelvis" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -114,7 +114,7 @@
                                             <span>膝关节(看是否超伸)</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poKnee" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poKnee" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -130,7 +130,7 @@
                                         </el-col>
                                         <el-col :span="22" style="width:92%">
                                             <el-col :span="24" class="right-shang">
-                                                <el-col :span="5" class="shang2 bb">
+                                                <el-col :span="5" class="shang2 bb2">
                                                     <span>侧倾</span>
                                                 </el-col>
                                                 <el-col :span="19">
@@ -143,7 +143,7 @@
                                                 </el-col>
                                             </el-col>
                                             <el-col :span="24" class="right-shang">
-                                                <el-col :span="5" class="shang2 bb">
+                                                <el-col :span="5" class="shang2 bb2">
                                                     <span>旋转</span>
                                                 </el-col>
                                                 <el-col :span="19">
@@ -169,11 +169,11 @@
                             <el-col :span="22" style="width:94%">
                                 <div class="one-right">
                                     <el-col :span="24" class="right-shang">
-                                        <el-col :span="5" class="shang2 bb">
+                                        <el-col :span="5" class="shang2 bb2">
                                             <span>耸肩</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poShrug" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poShrug" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -182,11 +182,11 @@
                                         </el-col>
                                     </el-col>
                                     <el-col :span="24" class="right-shang">
-                                        <el-col :span="5" class="shang2 bb">
+                                        <el-col :span="5" class="shang2 bb2">
                                             <span>异状肩胛</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poScapular" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poScapular" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -195,11 +195,11 @@
                                         </el-col>
                                     </el-col>
                                     <el-col :span="24" class="right-shang">
-                                        <el-col :span="5" class="shang2 bb">
+                                        <el-col :span="5" class="shang2 bb2">
                                             <span>脊椎(C或S形)</span>
                                         </el-col>
                                         <el-col :span="19">
-                                            <el-radio-group v-model="posture_assessment.poSpine" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 10px;" @change="yinjingchange">
+                                            <el-radio-group v-model="posture_assessment.poSpine" style="display: flex;justify-content: space-around;padding-top: 20px;padding-left: 30px;" @change="yinjingchange">
                                                 <el-radio :label="1">&nbsp;</el-radio>
                                                 <el-radio :label="2">&nbsp;</el-radio>
                                                 <el-radio :label="3">&nbsp;</el-radio>
@@ -215,7 +215,7 @@
                                         </el-col>
                                         <el-col :span="22" style="width:92%">
                                             <el-col :span="24" class="right-shang">
-                                                <el-col :span="5" class="shang2 bb">
+                                                <el-col :span="5" class="shang2 bb3">
                                                     <span>侧倾</span>
                                                 </el-col>
                                                 <el-col :span="19">
@@ -228,7 +228,7 @@
                                                 </el-col>
                                             </el-col>
                                             <el-col :span="24" class="right-shang">
-                                                <el-col :span="5" class="shang2 bb">
+                                                <el-col :span="5" class="shang2 bb3">
                                                     <span>旋转</span>
                                                 </el-col>
                                                 <el-col :span="19">
@@ -520,6 +520,15 @@ export default {
             text-align: left;
             text-indent: 50px;
           }
+          .bb2 {
+            text-align: left;
+            text-indent: 50px;
+            width: 225px;
+          }
+          .bb3 {
+            text-align: left;
+            text-indent: 50px;
+          }
           .aa {
             text-align: left;
             text-indent: 9px;
@@ -618,6 +627,15 @@ export default {
           .bb {
             text-align: left;
             text-indent: 50px;
+          }
+          .bb2 {
+            text-align: left;
+            text-indent: 50px;
+          }
+          .bb3 {
+            text-align: left;
+            text-indent: 50px;
+            width: 225px;
           }
           .aa {
             text-align: left;

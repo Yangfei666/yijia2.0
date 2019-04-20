@@ -4,7 +4,7 @@
     <div class="taste-wapper">
       <el-row>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-            <el-tab-pane label="默认跟进记录" name="first">
+            <el-tab-pane label="跟进记录" name="first">
               <template v-if="activeName === 'first'">
                   <div class="taste-list">
                   <el-col :span="24" class="taste-center">

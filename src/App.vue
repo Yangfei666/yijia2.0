@@ -221,7 +221,7 @@ body {
   transform: translate(-50%,-50%) scale(1.3);
 }
 .el-button--text {
-  color: #00bc71;
+  color: #00bc71 !important;
 }
 .el-input {
   height: 35px;
