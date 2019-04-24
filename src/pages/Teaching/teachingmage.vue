@@ -129,11 +129,6 @@ export default {
             message: "修改成功",
             type: "success"
           });
-          for (var i = 0; i < _this.tableData.length; i++) {
-              if (_this.tableData[i].id == _this.currentSelectRow.id) {
-                _this.tableData[i].performance = _this.currentSelectRow.performance; //业绩
-              }
-            }
         })
         .catch(error => {
          _this.his = true;
