@@ -91,8 +91,8 @@
               <div v-if="scope.row.isTrue == '已取消'">
                 <el-button type="text" size="small" disabled style="color:#333">已取消</el-button>
               </div>
-               <div v-if="scope.row.isTrue == '失约'">
-                <el-button type="text" size="small" disabled style="color:red">失约</el-button>
+               <div v-if="scope.row.isTrue == '未上课'">
+                <el-button type="text" size="small" disabled style="color:red">未上课</el-button>
               </div>
               <div v-if="scope.row.isEnter == '已进场'">
                 <el-button type="text" size="small" disabled style="color:red">已进场</el-button>

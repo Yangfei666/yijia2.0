@@ -66,8 +66,8 @@
                                                     <div v-else-if="scope.row.isTrue == '已取消'">
                                                         <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
-                                                     <div v-else-if="scope.row.isTrue == '失约'">
-                                                        <el-button type="text" size="small" style="color:#FF002B">失约</el-button>
+                                                     <div v-else-if="scope.row.isTrue == '未上课'">
+                                                        <el-button type="text" size="small" style="color:#FF002B">未上课</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -142,8 +142,8 @@
                                                     <div v-else-if="scope.row.isTrue == '已取消'">
                                                         <el-button type="text" size="small" style="color:#D7690F">已取消</el-button>
                                                     </div>
-                                                     <div v-else-if="scope.row.isTrue == '失约'">
-                                                        <el-button type="text" size="small" style="color:#FF002B">失约</el-button>
+                                                     <div v-else-if="scope.row.isTrue == '未上课'">
+                                                        <el-button type="text" size="small" style="color:#FF002B">未上课</el-button>
                                                     </div>
                                                     <div v-else>
                                                         <el-button type="text" size="small" style="color:#FF002B">待完成</el-button>
@@ -271,7 +271,7 @@ export default {
         { value: "1", label: "取消预约" },
         { value: "2", label: "待上课" },
         { value: "3", label: "已完成" },
-        { value: "5", label:"失约"},
+        { value: "5", label:"未上课"},
         { value: "4", label: "全部" },
       ],
       status2: [

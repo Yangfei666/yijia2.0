@@ -66,6 +66,8 @@ const Instructorclassrecord = resolve => require(['@/pages/House/visualizationch
 
 const Individualcenter = resolve => require(['@/pages/House/individualcenter'], resolve)//个人中心
 
+const Teachingmage = resolve => require(['@/pages/Teaching/teachingmage'], resolve)//教培业绩
+
 const TasteFollow = resolve => require(['@/components/tastefollowup'], resolve)//体验客户跟进
 
 const MemberFollowup = resolve => require(['@/components/memberfollowup'], resolve)//会员客户管理---会员客户跟进
@@ -369,6 +371,16 @@ let router = new Router({
                     name: '404',
                     menuShow: false
                 }
+            ]
+        },
+        {
+            path:'/Teaching',
+            component: Home,
+            name:'教培管理',
+            menuShow:true,
+            iconCls:'iconfont icon-kechengguanli',
+            children: [
+                { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true },//教培业绩
             ]
         },
         {
