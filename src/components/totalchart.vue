@@ -109,7 +109,7 @@ export default {
         },
         legend: {
           x: "right",
-          data: ["团课业绩", "私教业绩"],
+          data: ["团课业绩", "私教业绩","教培业绩"],
           orient: "vertical",
           right: 5,
           top: 40,
@@ -174,6 +174,10 @@ export default {
               {
                 value: ach_achievementData.group,
                 name: "团课业绩"
+              },
+              {
+                value:ach_achievementData.staffPer,
+                name:"教培业绩"
               }
             ]
           }
@@ -269,7 +273,8 @@ export default {
     drawLine({ ach_timeAchievement }) {
       let allGroupTimeSum = ach_timeAchievement.group.reduce((pre,cur)=>pre+cur)
       let allPrivateTimeSum = ach_timeAchievement.private.reduce((pre,cur)=>pre+cur)
-      let subtext = `${this.dataDate}  总业绩: ${allPrivateTimeSum+allGroupTimeSum}`
+      let allperTimeSum = ach_timeAchievement.per.reduce((pre,cur)=>pre+cur)
+      let subtext = `${this.dataDate}  总业绩: ${allPrivateTimeSum+allGroupTimeSum+allperTimeSum}`
       //折线图
       let myChart3 = echarts.init(document.getElementById("myChart3"));
       myChart3.setOption({
@@ -344,6 +349,9 @@ export default {
         if (item === "group") {
           return "团课";
         }
+        if (item === "per") {
+          return "教培";
+        }
         return item;
       });
     },
@@ -358,6 +366,9 @@ export default {
           }
           if (item === "group") {
             temp.name = "团课";
+          }
+          if (item === "per") {
+            temp.name = "教培";
           }
           temp.data = object[item];
           temp.type = "line";

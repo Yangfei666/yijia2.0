@@ -126,6 +126,9 @@ const detailPie = legend => {
       if (item === "group") {
         return { name: "团课业绩", value: legend[item] };
       }
+      if (item === "staffPer") {
+        return { name: "教培业绩", value: legend[item] };
+      }
     })
     .filter(item => item);
 };
@@ -174,6 +177,9 @@ const detailBarData = (object, type = "bar") => {
       if (item === "group") {
         temp.name = "团课";
       }
+       if (item === "per") {
+        temp.name = "教培";
+      }
       temp.data = object[item];
       temp.type = type;
       temp.barGap = 0;
@@ -188,6 +194,9 @@ const detailLegend = legend => {
     }
     if (item === "group") {
       return "团课";
+    }
+    if (item === "per") {
+      return "教培";
     }
     // return item;
   });
