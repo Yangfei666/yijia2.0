@@ -156,6 +156,15 @@
         display: flex;
         justify-content: flex-end;
         top:10% !important;
+        .el-date-editor{
+            font-size: 12px!important;
+            width: 135px !important;
+        }
+        .el-select{
+            font-size: 12px!important;
+            height:35px!important;
+            width: 120px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -210,15 +219,7 @@
         }
         }
     }
-    .el-date-editor{
-        font-size: 12px!important;
-        width: 135px !important;
-    }
-    .el-select{
-        font-size: 12px!important;
-        height:35px!important;
-        width: 120px !important;
-    }
+
     .weber-span {
         font-size: 18px!important;
         font-weight: normal;
@@ -246,6 +247,15 @@
         display: flex;
         justify-content: flex-end;
         top:12% !important;
+        .el-date-editor{
+            font-size: 13px!important;
+            width: 130px !important;
+        }
+        .el-select{
+            font-size: 13px!important;
+            height:35px!important;
+            width: 130px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -299,15 +309,6 @@
             }
         }
         }
-    }
-    .el-date-editor{
-        font-size: 13px!important;
-        width: 130px !important;
-    }
-    .el-select{
-        font-size: 13px!important;
-        height:35px!important;
-        width: 130px !important;
     }
     .weber-span {
         font-size: 18px!important;
@@ -336,6 +337,15 @@
         display: flex;
         justify-content: flex-end;
         top:12% !important;
+        .el-date-editor{
+            font-size: 13px!important;
+            width: 170px !important;
+        }
+        .el-select{
+            font-size: 13px!important;
+            height:35px!important;
+            width: 175px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -389,15 +399,6 @@
             }
         }
         }
-    }
-    .el-date-editor{
-        font-size: 13px!important;
-        width: 170px !important;
-    }
-    .el-select{
-        font-size: 13px!important;
-        height:35px!important;
-        width: 175px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -426,6 +427,16 @@
         display: flex;
         justify-content: flex-end;
         top:0% !important;
+        .el-date-editor{
+            font-size: 14px!important;
+            width: 152px !important;
+            margin-top: -1px !important;
+        }
+        .el-select{
+            font-size: 14px!important;
+            height:35px!important;
+            width: 150px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -479,16 +490,6 @@
             }
         }
         }
-    }
-    .el-date-editor{
-        font-size: 14px!important;
-        width: 152px !important;
-        margin-top: -1px !important;
-    }
-    .el-select{
-        font-size: 14px!important;
-        height:35px!important;
-        width: 150px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -517,6 +518,18 @@
         display: flex;
         justify-content: flex-end;
         top:0% !important;
+        .el-date-editor{
+            font-size: 14px!important;
+            width: 180px !important;
+        }
+        .el-range-editor{
+            width: 220px;
+        }
+        .el-select{
+            font-size: 14px!important;
+            height:35px!important;
+            width: 180px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -570,18 +583,6 @@
             }
         }
         }
-    }
-    .el-date-editor{
-        font-size: 14px!important;
-        width: 180px !important;
-    }
-    .el-range-editor{
-        width: 220px;
-    }
-    .el-select{
-        font-size: 14px!important;
-        height:35px!important;
-        width: 180px !important;
     }
     .weber-span {
         font-size: 20px!important;
@@ -610,6 +611,19 @@
         display: flex;
         justify-content: flex-end;
         top:0% !important;
+        .el-date-editor{
+            font-size: 14px!important;
+            width: 210px !important;
+        }
+        .el-range-editor{
+            font-size: 14px!important;
+            width: 280px;
+        }
+        .el-select{
+            font-size: 14px!important;
+            height:35px!important;
+            width: 210px !important;
+        }
     }
     .practice-center {
         height: 60px;
@@ -663,19 +677,6 @@
             }
         }
         }
-    }
-    .el-date-editor{
-        font-size: 14px!important;
-        width: 210px !important;
-    }
-    .el-range-editor{
-        font-size: 14px!important;
-        width: 280px;
-    }
-    .el-select{
-        font-size: 14px!important;
-        height:35px!important;
-        width: 210px !important;
     }
     .weber-span {
         font-size: 20px!important;

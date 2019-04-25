@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="会员卡种:">
               <el-col :span="24">
-                <el-autocomplete v-model="formInline.membercard" :trigger-on-focus="false" placeholder="请输入" clearable style="width:170px;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
+                <el-autocomplete v-model.trim="formInline.membercard" :trigger-on-focus="false" placeholder="请输入" clearable style="width:170px;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
               </el-col>
             </el-form-item>
           </div>
@@ -39,20 +39,20 @@
           <div class="search-form2" v-show="isShow">
             <el-form-item label="剩余次数:">
               <el-col :span="12">
-                <el-input v-model="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
+                <el-input v-model.trim="formInline.numsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
               </el-col>
               <el-col :span="1">
-                <el-input v-model="formInline.numbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
+                <el-input v-model.trim="formInline.numbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
               </el-col>
             </el-form-item>
           </div>
           <div class="search-form2" v-show="isShow">
             <el-form-item label="剩余金额:">
               <el-col :span="12">
-                <el-input v-model="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
+                <el-input v-model.trim="formInline.fundsmall" placeholder="最小值" clearable style="width:100px;font-size:12px"></el-input>
               </el-col>
               <el-col :span="1">
-                <el-input v-model="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
+                <el-input v-model.trim="formInline.fundbig" placeholder="最大值" clearable style="width:100px;font-size:12px"></el-input>
               </el-col>
             </el-form-item>
           </div>
@@ -127,7 +127,7 @@
         <el-col :span="12">
           <div class="purple2">
             <el-col :span="10" class="search">
-              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话/卡号" />
+              <el-input class="search-input" maxlength="18" v-model.trim="searchVal" placeholder="搜索姓名/电话/卡号"/>
               <i class="search-icon el-icon-search" @click="search"></i>
             </el-col>
           </div>
@@ -823,6 +823,7 @@ export default {
       height: 80px;
       display: flex;
       justify-content: flex-end;
+      
       .search {
         width: 44%;
         border: 1px solid #e8e8e8;

@@ -121,7 +121,7 @@
                       </el-form-item>
                       <el-form-item label="教练:" prop="JLIDs" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.JLID" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange3" @focus="Selectclick2">
+                          <el-select v-model="currentSelectRow.JLIDs" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange6" @focus="Selectclick2">
                             <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                           </el-select>
                         </el-col>
@@ -346,6 +346,7 @@ export default {
       dialogFormVisible3: false,
       currentPage: 1,
       pagesize: 10,
+      JLIDs:"",
       kazhong: []
     };
   },
@@ -808,6 +809,14 @@ export default {
     },
     Selectchange4(val) {},
     Selectchange5(val) {},
+    Selectchange6(val) {
+      this.jiaolian.map((item, index) => {
+        if (val == item.YGXX_YGID_NEI) {
+          this.jiaolianname = item.YGXX_NAME;
+          this.currentSelectRow = Object.assign({},this.currentSelectRow,{JLIDs:item.YGXX_NAME,JLID:item.YGXX_YGID_NEI});
+        }
+      });
+    },
     optionchange(val) {
       this.searchname();
       if (this.ruleForm2.consumer == "experience") {
@@ -833,4 +842,5 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import "@/styles/group.scss";
+@import "@/styles/grouptimetable.scss";
 </style>
