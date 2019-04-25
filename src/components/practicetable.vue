@@ -7,7 +7,7 @@
           <div class="search-form">
             <el-form-item label="体验劵种:">
               <el-col :span="24">
-                <el-autocomplete v-model="formInline.user" :trigger-on-focus="false" placeholder="请输入" clearable style="width:170px;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
+                <el-autocomplete v-model.trim="formInline.user" :trigger-on-focus="false" placeholder="请输入" clearable style="width:170px;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
               </el-col>
             </el-form-item>
           </div>
@@ -62,7 +62,7 @@
     </el-row>
     <div class="practice-center">
       <el-row>
-        <el-col :span="12">
+        <el-col :span="14">
           <div class="purple">
             <div class="add">
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加体验客户</el-button>
@@ -102,10 +102,10 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="10">
           <div class="purple2">
             <el-col :span="10" class="search">
-              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+              <el-input id="input" maxlength="18" v-model.trim="searchVal" placeholder="搜索姓名/电话"></el-input>
               <i class="search-icon el-icon-search" @click="search"></i>
             </el-col>
           </div>
@@ -774,24 +774,18 @@ export default {
       display: flex;
       justify-content: flex-end;
       .search {
-        width: 44%;
-        border: 1px solid #e8e8e8;
-        height: 32px;
-        display: flex;
-        border-radius: 16px;
-        margin-top: 20px;
-        margin-right: 20px;
-        .search-input {
+        position: relative;
+        #input {
           width: 100%;
-          border-radius: 16px;
+          border-radius: 36px;
           border: none;
           text-indent: 10px;
           color: #8c8c8c;
           font-size: 14px;
         }
         .search-icon {
-          margin-top: 8px;
-          margin-right: 13px;
+          position: absolute;
+          right: 2%;
         }
       }
     }

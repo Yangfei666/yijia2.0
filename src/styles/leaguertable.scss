@@ -108,26 +108,25 @@
             display: flex;
             justify-content: flex-end;
             .search {
-              width: 50%!important;
-              border: 1px solid #e8e8e8;
-              height: 32px;
-              display: flex;
-              border-radius: 16px;
-              margin-top: 20px;
-              margin-right: 20px;
-              .search-input {
-                width: 100%;
-                border-radius: 16px;
-                border: none;
-                text-indent: 10px;
-                color: #8c8c8c;
-                font-size: 12px!important;
-              }
-              .search-icon {
-                margin-top: 8px;
-                margin-right: 13px;
-              }
-            }
+              position: relative !important;
+              width: 52% !important;
+              top: 19px !important;
+               #input {
+                 width: 100%;
+                 border-radius: 16px;
+                 border: none;
+                 text-indent: 10px;
+                 color: #8c8c8c;
+                 font-size: 14px;
+                 position: absolute !important;
+                 top: 20px !important;
+               }
+               .search-icon {
+                 position: absolute !important;
+                 right: 6% !important;
+                 bottom: 52px !important;
+               }
+             }
           }
         }
       }
@@ -249,26 +248,26 @@
             display: flex;
             justify-content: flex-end;
             .search {
-              width: 50%!important;
-              border: 1px solid #e8e8e8;
-              height: 32px;
-              display: flex;
-              border-radius: 16px;
-              margin-top: 20px;
-              margin-right: 20px;
-              .search-input {
-                width: 100%;
-                border-radius: 16px;
-                border: none;
-                text-indent: 10px;
-                color: #8c8c8c;
-                font-size: 13px!important;
-              }
-              .search-icon {
-                margin-top: 8px;
-                margin-right: 13px;
-              }
-            }
+              position: relative !important;
+              width: 52% !important;
+              top: 19px !important;
+              left: -8px !important;
+               #input {
+                 width: 100%;
+                 border-radius: 16px;
+                 border: none;
+                 text-indent: 10px;
+                 color: #8c8c8c;
+                 font-size: 14px;
+                 position: absolute !important;
+                 top: 20px !important;
+               }
+               .search-icon {
+                 position: absolute !important;
+                 right: 6% !important;
+                 bottom: 52px !important;
+               }
+             }
           }
         }
       }
@@ -390,26 +389,26 @@
         display: flex;
         justify-content: flex-end;
         .search {
-          width: 38%!important;
-          border: 1px solid #e8e8e8;
-          height: 32px;
-          display: flex;
-          border-radius: 16px;
-          margin-top: 20px;
-          margin-right: 20px;
-          .search-input {
-            width: 100%;
-            border-radius: 16px;
-            border: none;
-            text-indent: 10px;
-            color: #8c8c8c;
-            font-size: 14px!important;
-          }
-          .search-icon {
-            margin-top: 8px;
-            margin-right: 13px;
-          }
-        }
+          position: relative !important;
+          width: 52% !important;
+          top: 19px !important;
+          left: -8px !important;
+           #input {
+             width: 100%;
+             border-radius: 16px;
+             border: none;
+             text-indent: 10px;
+             color: #8c8c8c;
+             font-size: 16px !important;
+             position: absolute !important;
+             top: 20px !important;
+           }
+           .search-icon {
+             position: absolute !important;
+             right: 6% !important;
+             bottom: 52px !important;
+           }
+         }
       }
     }
   }
@@ -531,26 +530,26 @@
             display: flex;
             justify-content: flex-end;
             .search {
-              width: 38%!important;
-              border: 1px solid #e8e8e8;
-              height: 32px;
-              display: flex;
-              border-radius: 16px;
-              margin-top: 20px;
-              margin-right: 20px;
-              .search-input {
-                width: 100%;
-                border-radius: 16px;
-                border: none;
-                text-indent: 10px;
-                color: #8c8c8c;
-                font-size: 14px!important;
-              }
-              .search-icon {
-                margin-top: 8px;
-                margin-right: 13px;
-              }
-            }
+              position: relative !important;
+              width: 45% !important;
+              top: 19px !important;
+              left: -8px !important;
+               #input {
+                 width: 100%;
+                 border-radius: 16px;
+                 border: none;
+                 text-indent: 10px;
+                 color: #8c8c8c;
+                 font-size: 14px;
+                 position: absolute !important;
+                 top: 20px !important;
+               }
+               .search-icon {
+                 position: absolute !important;
+                 right: 6% !important;
+                 bottom: 52px !important;
+               }
+             }
           }
         }
       }
@@ -672,26 +671,26 @@
           display: flex;
           justify-content: flex-end;
           .search {
-            width: 38%!important;
-            border: 1px solid #e8e8e8;
-            height: 32px;
-            display: flex;
-            border-radius: 16px;
-            margin-top: 20px;
-            margin-right: 20px;
-            .search-input {
-              width: 100%;
-              border-radius: 16px;
-              border: none;
-              text-indent: 10px;
-              color: #8c8c8c;
-              font-size: 14px!important;
-            }
-            .search-icon {
-              margin-top: 8px;
-              margin-right: 13px;
-            }
-          }
+            position: relative !important;
+            width: 43% !important;
+            top: 19px !important;
+            left: -8px !important;
+             #input {
+               width: 100%;
+               border-radius: 16px;
+               border: none;
+               text-indent: 10px;
+               color: #8c8c8c;
+               font-size: 14px;
+               position: absolute !important;
+               top: 20px !important;
+             }
+             .search-icon {
+               position: absolute !important;
+               right: 6% !important;
+               bottom: 52px !important;
+             }
+           }
         }
       }
     }
@@ -813,26 +812,26 @@
           display: flex;
           justify-content: flex-end;
           .search {
-            width: 38%!important;
-            border: 1px solid #e8e8e8;
-            height: 32px;
-            display: flex;
-            border-radius: 16px;
-            margin-top: 20px;
-            margin-right: 20px;
-            .search-input {
-              width: 100%;
-              border-radius: 16px;
-              border: none;
-              text-indent: 10px;
-              color: #8c8c8c;
-              font-size: 15px!important;
-            }
-            .search-icon {
-              margin-top: 8px;
-              margin-right: 13px;
-            }
-          }
+            position: relative !important;
+            width: 43% !important;
+            top: 19px !important;
+            left: -8px !important;
+             #input {
+               width: 100%;
+               border-radius: 16px;
+               border: none;
+               text-indent: 10px;
+               color: #8c8c8c;
+               font-size: 14px;
+               position: absolute !important;
+               top: 20px !important;
+             }
+             .search-icon {
+               position: absolute !important;
+               right: 6% !important;
+               bottom: 52px !important;
+             }
+           }
         }
       }
     }

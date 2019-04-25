@@ -111,7 +111,7 @@
         <el-col :span="10">
           <div class="purple2">
             <el-col :span="10" class="search">
-              <input class="search-input" maxlength="18" v-model="searchVal" placeholder="搜索姓名/电话" />
+              <el-input id="input" maxlength="18" v-model.trim="searchVal" placeholder="搜索姓名/电话"></el-input>
               <i class="search-icon el-icon-search" @click="search"></i>
             </el-col>
           </div>
@@ -824,24 +824,18 @@ export default {
       display: flex;
       justify-content: flex-end;
       .search {
-        width: 44%;
-        border: 1px solid #e8e8e8;
-        height: 32px;
-        display: flex;
-        border-radius: 16px;
-        margin-top: 20px;
-        margin-right: 20px;
-        .search-input {
+        position: relative;
+        #input {
           width: 100%;
-          border-radius: 16px;
+          border-radius: 36px;
           border: none;
           text-indent: 10px;
           color: #8c8c8c;
           font-size: 14px;
         }
         .search-icon {
-          margin-top: 8px;
-          margin-right: 13px;
+          position: absolute;
+          right: 2%;
         }
       }
     }
