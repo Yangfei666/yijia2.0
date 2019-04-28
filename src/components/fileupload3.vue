@@ -74,6 +74,7 @@ export default {
   inject: ["reload"],
   data: function() {
     return {
+      file:'',
       openCrop: false,
       image: new Image(),
       imgSrc: null,
@@ -175,8 +176,9 @@ export default {
     clip: function() {
       let dataUrl = this.$refs.canvas.toDataURL();
       let fileImg = this.base64ToBlob(dataUrl)
-      // var formData= new FormData()
-      // formData.append('file', fileImg,"image.jpg")
+      var formData= new FormData()
+      formData.append('file', fileImg,"image.jpg")
+      this.$emit('sendBlobFile',{fileImg,formData, fileName:this.file.name})
       this.openCrop = false;
       function dataURLtoFile(dataurl, filename) {
         var arr = dataurl.split(","),
@@ -202,6 +204,7 @@ export default {
     },
     change: function() {
       var file = this.$refs.input.files[0];
+      this.file = file
       // 限制容量
       if (file && file.size <= this.limit * 1024) {
         var reader = new FileReader();
