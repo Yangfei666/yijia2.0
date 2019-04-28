@@ -110,6 +110,23 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
+      <el-form-item label="会员头像:" prop="memberimg" :label-width="formLabelWidth" v-show="this.memberIsNull != 1">
+        <el-col :span="22">
+            <Fileupload3 ref="fileUpload" :imageUrl="imageUrl"></Fileupload3>
+          <!-- <el-upload class="upload-demo" ref="fileUpload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true"> -->
+            <el-button size="small" type="primary" @click="changeUserIcon">上传头像</el-button>
+            <span class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
+          <!-- </el-upload> -->
+        </el-col>
+      </el-form-item>
+      <el-form-item label="入会协议:" prop="memberment" :label-width="formLabelWidth">
+        <el-col :span="22">
+          <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload2' list-type="picture" :auto-upload="true">
+            <el-button slot="trigger" size="small" type="primary">上传图片</el-button>
+            <span slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
+          </el-upload>
+        </el-col>
+      </el-form-item>
       <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22">
           <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
@@ -127,9 +144,13 @@
 <script>
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
+import Fileupload3 from "@/components/fileupload3";
 export default {
   name: "addmember",
   inject: ["reload"],
+  components: {
+    Fileupload3
+  },
   props:{
     huiyuanqufen: {
       type: Object,
@@ -157,11 +178,14 @@ export default {
     };
     return {
       fileList: [],
+      imageUrl: "",
       formLabelWidth: "130px",
       staff: [],
       cards: [],
       file: "",
+      file2:"",
       CTjg:"",
+      memberIsNull:"",
       ruleForm: {
         name: "", //姓名
         phone: "", //手机号
@@ -181,6 +205,8 @@ export default {
         mode: "", //付款方式
         seriesnumber: "", //IC卡序列号
         sensitize: "", //激活时间
+        memberimg:"",//会员头像
+        memberment:"",//入会协议
         desc:"",//办卡说明
       },
       rules: {
@@ -193,7 +219,9 @@ export default {
         card: [{ required: true,validator: validatecard, trigger: "blur" }],
         cardaffirm: [{required: true, validator: validatecardaffirm, trigger: "blur" }],
         sensitize: validate.sensitize,
-        price:validate.price
+        price:validate.price,
+        // memberimg:[{required: true, message: '请选择会员头像', trigger: 'blur'}],
+        // memberment:[{required:true, message: '请选择入会协议', trigger: 'blur'}]
       }
     };
   },
@@ -206,12 +234,30 @@ export default {
     this.ruleForm.adviser = this.huiyuanqufen.ygxxnameid;
   },
   methods: {
+    changeUserIcon() {
+      this.$refs.fileUpload.openFile();
+    },
+   uploadOverrun: function() {
+      this.$message({
+        type: "error",
+        message: "上传文件个数超出限制!最多上传1张图片!"
+      });
+    },
+     //上传头像
+    submitUpload: function(content) {
+      this.file = content.file;
+    },
+     //入会协议
+    submitUpload2: function(content) {
+      this.file2 = content.file;
+    },
     //获取会籍顾问和卡名称
     getCustomer() {
       let _this = this;
       let relationCard = [];
       requestLogin("/setMemberCustomers/create", {}, "get")
         .then(function(res) {
+          _this.memberIsNull = res.memberIsNull;
           let { cards, staff } = res;
           _this.staff = staff.staff_info;
           relationCard = cards.relationCard;
@@ -264,6 +310,8 @@ export default {
             formData.append("delay", this.ruleForm.sensitize); //激活时间选择
             formData.append("identity",this.huiyuanqufen.huiyuanqufen); //转换客户类别
             formData.append("oldId", this.huiyuanqufen.id); //原客户类别的id
+            formData.append("memberPic", this.file); //会员头像
+            formData.append("memberVoucher", this.file2); //入会协议
             requestLogin("/setMemberCustomers/newMember", formData, "post")
               .then(data => {
                 this.addLoading = false;

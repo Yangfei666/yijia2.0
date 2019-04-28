@@ -134,6 +134,7 @@
                                             <el-table-column prop="curriculum_table.staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
                                             <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                                             <el-table-column prop="name" align="left" label="约课方式"></el-table-column>
+                                            <el-table-column prop="deductNum" align="left" label="扣卡次数"></el-table-column>
                                             <el-table-column prop="status" align="left" label="上课状态" fixed="right">
                                                 <template slot-scope="scope">
                                                     <div v-if="scope.row.isEnter == '已进场'">

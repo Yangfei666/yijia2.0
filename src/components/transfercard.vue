@@ -75,6 +75,23 @@
                       <el-input v-model="ruleForm.contacttel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
                     </el-col>
                   </el-form-item>
+                   <el-form-item label="会员头像:" prop="memberimg" :label-width="formLabelWidth" v-show="this.memberIsNull == 1">
+                    <el-col :span="22">
+                        <Fileupload3 ref="fileUpload" :imageUrl="imageUrl"></Fileupload3>
+                      <!-- <el-upload class="upload-demo" ref="fileUpload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true"> -->
+                        <el-button size="small" type="primary" @click="changeUserIcon">上传头像</el-button>
+                        <span class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
+                      <!-- </el-upload> -->
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="入会协议:" prop="memberment" :label-width="formLabelWidth">
+                    <el-col :span="22">
+                      <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload2' list-type="picture" :auto-upload="true">
+                        <el-button slot="trigger" size="small" type="primary">上传图片</el-button>
+                        <span slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
+                      </el-upload>
+                    </el-col>
+                  </el-form-item>
                   <el-form-item class="dialog-footer">
                     <el-col :span="24" style="display: flex;justify-content: flex-end;">
                       <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -106,7 +123,7 @@
               <el-table-column prop="czyName" align="left" label="会籍"></el-table-column>
               <el-table-column fixed="right" align="left" label="操作">
                 <template slot-scope="scope">
-                  <el-button @click="deleteRow(scope.$index)" type="text" size="small">
+                  <el-button @click="deleteRow(scope.$index)" type="primary" size="small">
                     转卡
                   </el-button>
                 </template>
@@ -143,10 +160,14 @@
 <script>
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
+import Fileupload3 from "@/components/fileupload3";
 export default {
   name: "transfercard",
   inject: ["reload"],
   props: ["pathquery"],
+  components: {
+    Fileupload3
+  },
   data() {
     return {
       formInline: {
@@ -164,7 +185,9 @@ export default {
         vocation: "", //职业
         adviser: "", //会籍顾问
         contact: "", //紧急联系人
-        contacttel: "" //紧急联系人电话
+        contacttel: "", //紧急联系人电话
+        memberimg:"",//会员头像
+        memberment:"",//入会协议
       },
       rules: {
         name: validate.name,
@@ -186,7 +209,12 @@ export default {
       membershipcard: [],
       dialogFormVisible: false,
       dialogFormVisible2: false,
-      hyinfo: {}
+      hyinfo: {},
+      imageUrl: "",
+      file: "",
+      file2:"",
+      memberIsNull:"",
+      fileList: [],
     };
   },
   created() {
@@ -194,12 +222,30 @@ export default {
     this.getexperhome();
   },
   methods: {
+     changeUserIcon() {
+      this.$refs.fileUpload.openFile();
+    },
+   uploadOverrun: function() {
+      this.$message({
+        type: "error",
+        message: "上传文件个数超出限制!最多上传1张图片!"
+      });
+    },
+     //上传头像
+    submitUpload: function(content) {
+      this.file = content.file;
+    },
+     //入会协议
+    submitUpload2: function(content) {
+      this.file2 = content.file;
+    },
     //获取个人中心详情
     getexperhome() {
       let _this = this;
       requestLogin("/setMemberCustomers/" + _this.$route.query.HYID, {}, "get")
         .then(function(res) {
           _this.membershipcard = res.membership_card;
+          _this.memberIsNull = res.memberIsNull;
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;
@@ -237,22 +283,37 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
-            var loginParams = {
-              id: _this.ruleForm.adviser, //会籍顾问id
-              HYName: _this.ruleForm.name, //姓名
-              Sex: _this.ruleForm.sex, //性别
-              Birthday: _this.ruleForm.birthday, //生日
-              MotoTel: _this.ruleForm.phone, //电话
-              ZhiYe: _this.ruleForm.vocation, //职业
-              ZhengJianNO: _this.ruleForm.catenumber, //证件号
-              hyContacts: _this.ruleForm.contact, //紧急联系人
-              hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
-              hyWeChat: _this.ruleForm.wechat, //微信
-              identity: "newCustomer" //新会员
-            };
+            let formData = new FormData();
+            formData.append("id", _this.ruleForm.adviser); //会籍顾问id
+            formData.append("HYName", _this.ruleForm.name); //姓名
+            formData.append("Sex", _this.ruleForm.sex); //性别
+            formData.append("Birthday", _this.ruleForm.birthday); //生日
+            formData.append("MotoTel", _this.ruleForm.phone); //电话
+            formData.append("ZhiYe", _this.ruleForm.vocation); //职业
+            formData.append("ZhengJianNO", _this.ruleForm.catenumber); //证件号
+            formData.append("HomeAdd", _this.ruleForm.address); //地址
+            formData.append("hyContacts", _this.ruleForm.contact); //紧急联系人
+            formData.append("hyConTel", _this.ruleForm.contacttel); //紧急联系人电话
+            formData.append("hyWeChat", _this.ruleForm.wechat); //微信
+            formData.append("memberPic", _this.file); //会员头像
+            formData.append("memberVoucher", _this.file2); //入会协议
+            formData.append("identity", "newCustomer"); //新会员
+            // var loginParams = {
+            //   id: _this.ruleForm.adviser, //会籍顾问id
+            //   HYName: _this.ruleForm.name, //姓名
+            //   Sex: _this.ruleForm.sex, //性别
+            //   Birthday: _this.ruleForm.birthday, //生日
+            //   MotoTel: _this.ruleForm.phone, //电话
+            //   ZhiYe: _this.ruleForm.vocation, //职业
+            //   ZhengJianNO: _this.ruleForm.catenumber, //证件号
+            //   hyContacts: _this.ruleForm.contact, //紧急联系人
+            //   hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
+            //   hyWeChat: _this.ruleForm.wechat, //微信
+            //   identity: "newCustomer" //新会员
+            // };
             requestLogin(
               "/setMemberCustomers/onlyMemberInfo",
-              loginParams,
+              formData,
               "post"
             )
               .then(data => {

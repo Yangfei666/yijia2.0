@@ -8,7 +8,7 @@
               <el-button type="text" class="add-p" @click="reservationPage()">预约私教</el-button>
               <template>
                 <el-dialog title="预约私教" :append-to-body="true" :visible.sync="dialogFormVisible">
-                  <Personal :startTime="startTime" :endTime="endTime" :classroom="classroom" :whichDay="whichDay" :coachList="coachList" @success="success"></Personal>
+                  <Personal :startTime="startTime" :endTime="endTime" :classroom="classroom" :whichDay="whichDay" :SystemSetup="SystemSetup" :coachList="coachList" @success="success" :options="options"></Personal>
                 </el-dialog>
               </template>
             </div>
@@ -76,6 +76,14 @@ export default {
       startTime: "",
       endTime: "",
       classroom: "",
+      options:[{
+        value:"member",
+        label:"会员"
+      },
+      {
+        value:"experience",
+        label:"体验客户"
+      }],
       // firstClick: 0,
       // lastClick: 0
     };
@@ -96,6 +104,12 @@ export default {
     this.middleButtonStyle("");
   },
   methods: {
+    CompareDate23(t3, t4) {
+      var date = new Date();
+      var c = t3.split(":");
+      var d = t4.split(":");
+      return (date.setHours(c[0], c[1])-date.setHours(d[0], d[1]))/60000;
+    },
     // 预约成功
     success(obj) {
       this.dialogFormVisible = false;
@@ -134,6 +148,11 @@ export default {
         this.dialogFormVisible = true;
         this.$emit("listcentevent",{startTime:this.startTime,endTime:this.endTime,whichDay:this.whichDay});
         this.yuyue();
+         if(this.CompareDate23(this.endTime,this.startTime)>this.SystemSetup.onePrivateTime){
+            this.options=[{value: "member",label: "会员"}];
+          }else{
+            this.options=[{value: "member",label: "会员"},{value: "experience",label: "体验客户"}];
+          }
       } else {
         this.$message({
           message: "请先选择上课教室和时间",

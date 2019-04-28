@@ -83,7 +83,7 @@
                   </el-table-column>
                   <el-table-column prop="Stime" align="left" label="开始时间"></el-table-column>
                   <el-table-column prop="Etime" align="left" label="结束时间"></el-table-column>
-                  <el-table-column prop="kcIsPrivate" align="left" label="课程分类"></el-table-column>
+                  <el-table-column prop="private_curriculum_appointment.deductNum" align="left" label="扣卡次数"></el-table-column>
                   <el-table-column prop="staff_info.YGXX_NAME" align="left" label="教练"></el-table-column>
                   <el-table-column prop="hand" align="left" label="手牌"></el-table-column>
                   <el-table-column prop="kcStime" align="left" label="开课日期"></el-table-column>

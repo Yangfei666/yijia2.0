@@ -24,9 +24,8 @@
       </el-form-item>
       <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-select v-model="ruleForm.consumer" @change="getCardInfo()" placeholder="请选择" style="width:100%">
-            <el-option label="会员" value="member"></el-option>
-            <el-option label="体验客户" value="experience"></el-option>
+          <el-select v-model="ruleForm.consumer" @change="getCardInfo" placeholder="请选择" style="width:100%">
+             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
       </el-form-item>
@@ -63,7 +62,9 @@ export default {
     endTime: String,
     classroom: String,
     whichDay: String,
-    coachList: Array
+    coachList: Array,
+    SystemSetup: Object,
+    options: Array,
   },
   data() {
     return {
@@ -96,6 +97,11 @@ export default {
         ]
       }
     };
+  },
+  watch: {
+    options(val) {
+      this.options = this.options;
+    },
   },
   methods: {
     // 约课

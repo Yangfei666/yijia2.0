@@ -293,9 +293,9 @@
                             </el-col>
                             <el-col :span="24" class="from-date-border3">
                                 <el-col :span="12" class="from-date3">
-                                    <el-form-item label="客户至少提前多少时间取消预约(分钟)：" prop="punishTime" label-width="270px">
+                                    <el-form-item label="客户至少提前多少时间取消预约(分钟)：" prop="punishTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-input v-model="ruleForm.punishTime" style="width:450px" placeholder="默认120分钟,最大999"></el-input>
+                                            <el-input v-model="ruleForm.punishTime" style="width:250px" placeholder="默认120分钟,最大999"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
@@ -322,6 +322,25 @@
                                     <el-form-item label="普通会员卡预约天数：" prop="grade2" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model="ruleForm.grade2" style="width:250px" placeholder="默认2"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border">
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="单节私教时长：" prop="onePrivateTime" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model="ruleForm.onePrivateTime" style="width:250px" placeholder="默认60"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="会员头像是否必填：" prop="memberIsNull" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.memberIsNull" @change="chanegtext">
+                                                <el-radio :label="2">否</el-radio>
+                                                <el-radio :label="1">是</el-radio>
+                                            </el-radio-group>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
@@ -386,6 +405,8 @@ export default {
         locker:"",//是否自动分配储物柜
         grade1:"",//高级会员卡预约天数
         grade2:"",//普通会员卡预约天数
+        onePrivateTime:"",//单节私教时长
+        memberIsNull:"",//会员头像是否必填
       }
     };
   },
@@ -454,6 +475,8 @@ export default {
           locker:this.ruleForm.locker,//是否自动分配储物柜
           grade1:this.ruleForm.grade1,//高级会员卡预约天数
           grade2:this.ruleForm.grade2,//普通会员卡预约天数
+          onePrivateTime:this.ruleForm.onePrivateTime,//单节私教时长
+          memberIsNull:this.ruleForm.memberIsNull,//会员头像是否必填
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {
