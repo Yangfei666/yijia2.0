@@ -252,12 +252,12 @@ export default {
       this.blobImg = {}
     },
     setBlobImg(val){
-      let {fileImg, formData, fileName} = val
+      let {fileImg, formData, fileName, data2file} = val
       this.blobImg = {
         src:URL.createObjectURL(fileImg),
         name: fileName
       }
-      this.file = formData
+      this.file = data2file
     },
     changeUserIcon() {
       this.$refs.fileUpload.openFile();
