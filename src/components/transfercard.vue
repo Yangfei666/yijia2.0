@@ -77,11 +77,22 @@
                   </el-form-item>
                    <el-form-item label="会员头像:" prop="memberimg" :label-width="formLabelWidth" v-show="this.memberIsNull == 1">
                     <el-col :span="22">
-                        <Fileupload3 ref="fileUpload" :imageUrl="imageUrl"></Fileupload3>
-                      <!-- <el-upload class="upload-demo" ref="fileUpload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true"> -->
+                        <Fileupload3 ref="fileUpload" :imageUrl="imageUrl" @sendBlobFile="setBlobImg"></Fileupload3>
                         <el-button size="small" type="primary" @click="changeUserIcon">上传头像</el-button>
                         <span class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
-                      <!-- </el-upload> -->
+                        <ul v-if="blobImg.src" class="el-upload-list el-upload-list--picture">
+                          <li tabindex="0" class="el-upload-list__item is-ready">
+                            <img :src="blobImg.src" alt="" class="el-upload-list__item-thumbnail">
+                            <a class="el-upload-list__item-name">
+                              <i class="el-icon-document"></i>{{blobImg.name}}
+                            </a>
+                            <label class="el-upload-list__item-status-label">
+                              <i class="el-icon-upload-success el-icon-check"></i>
+                            </label>
+                            <i class="el-icon-close" @click="clearBlobImg"></i>
+                            <i class="el-icon-close-tip">按 delete 键可删除</i>
+                          </li>
+                        </ul>
                     </el-col>
                   </el-form-item>
                   <el-form-item label="入会协议:" prop="memberment" :label-width="formLabelWidth">
@@ -210,6 +221,7 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       hyinfo: {},
+      blobImg:{},
       imageUrl: "",
       file: "",
       file2:"",
@@ -231,9 +243,19 @@ export default {
         message: "上传文件个数超出限制!最多上传1张图片!"
       });
     },
-     //上传头像
-    submitUpload: function(content) {
-      this.file = content.file;
+    clearBlobImg(){
+      this.blobImg = {};
+    },
+    setBlobImg(val){
+      let {fileImg, formData, fileName, data2file} = val
+      this.blobImg = {
+        src:URL.createObjectURL(fileImg),
+        name: fileName
+      }
+      this.file = data2file
+    },
+    changeUserIcon() {
+      this.$refs.fileUpload.openFile();
     },
      //入会协议
     submitUpload2: function(content) {
@@ -298,19 +320,6 @@ export default {
             formData.append("memberPic", _this.file); //会员头像
             formData.append("memberVoucher", _this.file2); //入会协议
             formData.append("identity", "newCustomer"); //新会员
-            // var loginParams = {
-            //   id: _this.ruleForm.adviser, //会籍顾问id
-            //   HYName: _this.ruleForm.name, //姓名
-            //   Sex: _this.ruleForm.sex, //性别
-            //   Birthday: _this.ruleForm.birthday, //生日
-            //   MotoTel: _this.ruleForm.phone, //电话
-            //   ZhiYe: _this.ruleForm.vocation, //职业
-            //   ZhengJianNO: _this.ruleForm.catenumber, //证件号
-            //   hyContacts: _this.ruleForm.contact, //紧急联系人
-            //   hyConTel: _this.ruleForm.contacttel, //紧急联系人电话
-            //   hyWeChat: _this.ruleForm.wechat, //微信
-            //   identity: "newCustomer" //新会员
-            // };
             requestLogin(
               "/setMemberCustomers/onlyMemberInfo",
               formData,

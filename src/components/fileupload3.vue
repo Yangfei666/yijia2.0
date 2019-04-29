@@ -74,6 +74,7 @@ export default {
   inject: ["reload"],
   data: function() {
     return {
+      file:'',
       openCrop: false,
       image: new Image(),
       imgSrc: null,
@@ -172,11 +173,24 @@ export default {
         dest.height
       );
     },
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
+    },
     clip: function() {
       let dataUrl = this.$refs.canvas.toDataURL();
+      let data2file  =  this.dataURLtoFile(dataUrl, 'zz.jpg')
       let fileImg = this.base64ToBlob(dataUrl)
-      // var formData= new FormData()
-      // formData.append('file', fileImg,"image.jpg")
+      var formData= new FormData()
+      formData.append('file', fileImg,"image.jpg")
+      this.$emit('sendBlobFile',{fileImg,formData, fileName:this.file.name, data2file})
       this.openCrop = false;
       function dataURLtoFile(dataurl, filename) {
         var arr = dataurl.split(","),
@@ -202,6 +216,7 @@ export default {
     },
     change: function() {
       var file = this.$refs.input.files[0];
+      this.file = file
       // 限制容量
       if (file && file.size <= this.limit * 1024) {
         var reader = new FileReader();

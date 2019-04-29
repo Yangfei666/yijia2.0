@@ -110,13 +110,24 @@
           </el-radio-group>
         </el-col>
       </el-form-item>
-      <el-form-item label="会员头像:" prop="memberimg" :label-width="formLabelWidth" v-show="this.memberIsNull != 1">
+      <el-form-item label="会员头像:" prop="memberimg" :label-width="formLabelWidth" v-show="this.memberIsNull == 1">
         <el-col :span="22">
-            <Fileupload3 ref="fileUpload" :imageUrl="imageUrl"></Fileupload3>
-          <!-- <el-upload class="upload-demo" ref="fileUpload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload' list-type="picture" :auto-upload="true"> -->
+             <Fileupload3 ref="fileUpload" :imageUrl="imageUrl" @sendBlobFile="setBlobImg"></Fileupload3>
             <el-button size="small" type="primary" @click="changeUserIcon">上传头像</el-button>
             <span class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</span>
-          <!-- </el-upload> -->
+            <ul v-if="blobImg.src" class="el-upload-list el-upload-list--picture">
+              <li tabindex="0" class="el-upload-list__item is-ready">
+                <img :src="blobImg.src" alt="" class="el-upload-list__item-thumbnail">
+                <a class="el-upload-list__item-name">
+                  <i class="el-icon-document"></i>{{blobImg.name}}
+                </a>
+                <label class="el-upload-list__item-status-label">
+                  <i class="el-icon-upload-success el-icon-check"></i>
+                </label>
+                <i class="el-icon-close" @click="clearBlobImg"></i>
+                <i class="el-icon-close-tip">按 delete 键可删除</i>
+              </li>
+            </ul>
         </el-col>
       </el-form-item>
       <el-form-item label="入会协议:" prop="memberment" :label-width="formLabelWidth">
@@ -186,6 +197,7 @@ export default {
       file2:"",
       CTjg:"",
       memberIsNull:"",
+      blobImg:{},
       ruleForm: {
         name: "", //姓名
         phone: "", //手机号
@@ -234,6 +246,17 @@ export default {
     this.ruleForm.adviser = this.huiyuanqufen.ygxxnameid;
   },
   methods: {
+    clearBlobImg(){
+      this.blobImg = {};
+    },
+    setBlobImg(val){
+      let {fileImg, formData, fileName, data2file} = val
+      this.blobImg = {
+        src:URL.createObjectURL(fileImg),
+        name: fileName
+      }
+      this.file = data2file
+    },
     changeUserIcon() {
       this.$refs.fileUpload.openFile();
     },
@@ -242,10 +265,6 @@ export default {
         type: "error",
         message: "上传文件个数超出限制!最多上传1张图片!"
       });
-    },
-     //上传头像
-    submitUpload: function(content) {
-      this.file = content.file;
     },
      //入会协议
     submitUpload2: function(content) {
