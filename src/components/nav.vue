@@ -43,7 +43,7 @@
       <el-button type="text" class="two-p" @click="dialogFormVisible4 = true">添加潜在客户</el-button>
       <template>
         <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible4">
-          <Addlatent></Addlatent>
+          <Addlatent :qianzaiqufen='Qianzaiqufen'></Addlatent>
         </el-dialog>
       </template>
     </div>
@@ -67,9 +67,10 @@ export default {
       dialogFormVisible2: false,
       dialogFormVisible3: false,
       dialogFormVisible4: false,
-      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 },
-      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 },
-      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 }
+      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
+      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
+      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
+      Qianzaiqufen: { bh:0,isAuto: 2},
     };
   }
 };

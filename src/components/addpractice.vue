@@ -184,6 +184,9 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            if(_this.tiyanqufen.bh == ''){
+              _this.tiyanqufen.bh = 0;
+            }
             var loginParams = {
               exName: _this.ruleForm.name, //姓名
               exTel: _this.ruleForm.tel, //电话
@@ -195,7 +198,9 @@ export default {
               mode: _this.ruleForm.mode, //付款方式
               price: _this.ruleForm.prices, //价格
               identity: _this.tiyanqufen.tiyanqufen, //转换客户的身份
-              oldId: _this.tiyanqufen.id //原客户类别的id
+              oldId: _this.tiyanqufen.id, //原客户类别的id
+              isAuto: _this.tiyanqufen.isAuto, //自动认领
+              hid: _this.tiyanqufen.bh //编号
             };
             requestLogin("/setExperienceCustomer", loginParams, "post")
               .then(data => {

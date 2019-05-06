@@ -6,7 +6,6 @@
           <el-col :span="23" class="breadcrumb">
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>会所管理</el-breadcrumb-item>
               <el-breadcrumb-item>可视化数表</el-breadcrumb-item>
               <el-breadcrumb-item>会所业绩报表</el-breadcrumb-item>
             </el-breadcrumb>

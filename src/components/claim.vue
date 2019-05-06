@@ -19,13 +19,13 @@
               <el-row>
             <el-col :span="24">
                 <el-table fixed v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%">
-                    <el-table-column prop="htName" align="left" label="姓名"></el-table-column>
-                    <el-table-column prop="htTel" align="left" label="电话"></el-table-column>
-                    <el-table-column prop="htSex" align="left" label="性别"></el-table-column>
-                    <el-table-column prop="htBirthday" align="left" label="出生日期"></el-table-column>
-                    <el-table-column prop="htHeight" align="left" label="身高"></el-table-column>
-                    <el-table-column prop="htWeight" align="left" label="体重"></el-table-column>
-                    <el-table-column align="left" label="操作" fixed="right">
+                    <el-table-column prop="htName" align="center" label="姓名"></el-table-column>
+                    <el-table-column prop="htTel" align="center" label="电话"></el-table-column>
+                    <el-table-column prop="htSex" align="center" label="性别"></el-table-column>
+                    <el-table-column prop="htBirthday" align="center" label="出生日期"></el-table-column>
+                    <el-table-column prop="htHeight" align="center" label="身高"></el-table-column>
+                    <el-table-column prop="htWeight" align="center" label="体重"></el-table-column>
+                    <el-table-column align="center" label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-button type="text" size="small" @click="claim(scope.row)">认领</el-button>
                         </template>

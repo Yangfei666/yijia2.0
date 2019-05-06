@@ -95,7 +95,9 @@ export default {
         tel: this.$route.params.exTel,
         wechat: this.$route.params.exWeChat,
         ygxxnameid: this.$route.params.exHjgwId,
-        ygxxname: this.$route.params.exHjgwName
+        ygxxname: this.$route.params.exHjgwName,
+        bh:0,
+        isAuto:2
       },
       Dingjinqufen: {
         dingjinqufen: "experience",
@@ -105,7 +107,9 @@ export default {
         tel: this.$route.params.exTel,
         wechat: this.$route.params.exWeChat,
         ygxxnameid: this.$route.params.exHjgwId,
-        ygxxname: this.$route.params.exHjgwName
+        ygxxname: this.$route.params.exHjgwName,
+        bh:0,
+        isAuto:2
       },
       id: "",
       exHjgwName: "",

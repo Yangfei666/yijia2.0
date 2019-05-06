@@ -30,6 +30,8 @@ const Leaguermanage = resolve => require(['@/pages/Customer/leaguermanage'], res
 
 const Cardopenaudit = resolve => require(['@/pages/Customer/cardopenaudit'], resolve)//开卡审核
 
+const Pendingclaim = resolve => require(['@/pages/Customer/pendingclaim'], resolve)//待认领客户
+
 const CustomerPractice = resolve => require(['@/pages/Customer/practice'], resolve)//体验客户管理
 
 const CustomerBargain = resolve => require(['@/pages/Customer/bargain'], resolve)//定金客户管理
@@ -56,13 +58,13 @@ const Classroomsetting = resolve => require(['@/pages/House/classroomsetting'], 
 
 const Locker = resolve => require(['@/pages/House/locker'], resolve)//储物柜
 
-const Visualiza = resolve => require(['@/pages/House/visualiza'], resolve)//可视化数表
+// const Visualiza = resolve => require(['@/pages/visualiza'], resolve)//可视化数表
 
-const Visualization = resolve => require(['@/pages/House/visualizationchart/visualization'], resolve)//会所业绩图表
+const Visualization = resolve => require(['@/pages/Visualiza/visualization'], resolve)//会所业绩图表
 
-const Staffearningreport = resolve => require(['@/pages/House/visualizationchart/staffearningreport'], resolve)//员工业绩报表
+const Staffearningreport = resolve => require(['@/pages/Visualiza/staffearningreport'], resolve)//员工业绩报表
 
-const Instructorclassrecord = resolve => require(['@/pages/House/visualizationchart/instructorclassrecord'], resolve)//教练上课记录
+const Instructorclassrecord = resolve => require(['@/pages/Visualiza/instructorclassrecord'], resolve)//教练上课记录
 
 const Individualcenter = resolve => require(['@/pages/House/individualcenter'], resolve)//个人中心
 
@@ -205,6 +207,7 @@ let router = new Router({
                     ]
                 },
                 { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
+                { path: '/Customer/pendingclaim', component: Pendingclaim, name: '待认领客户', menuShow: true },//待认领客户
                 {
                     path: '/Customer/practice', component: CustomerPractice, name: '体验客户管理', menuShow: true, redirect: '/Customer/practice/practicetable',//体验客户管理
                     children: [
@@ -349,17 +352,6 @@ let router = new Router({
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
                 {
-                    path: '/House/visualizationchart',//可视化数表
-                    component: Visualiza,
-                    name: '可视化数表',
-                    menuShow: true,
-                    children: [
-                        { path: '/House/visualizationchart/visualization', component: Visualization, name: '会所业绩报表', menuShow: true },//会所业绩报表
-                        { path: '/House/visualizationchart/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
-                        { path: '/House/visualizationchart/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true },//教练上课记录
-                    ]
-                },
-                {
                     path: '/House/403', //403
                     component: Forbidden,
                     name: '403',
@@ -371,6 +363,18 @@ let router = new Router({
                     name: '404',
                     menuShow: false
                 }
+            ]
+        },
+        {
+            path:'/Visualiza',
+            component: Home,
+            name:'可视化数表',
+            menuShow:true,
+            iconCls:'iconfont icon-tubiao1',
+            children: [
+                { path: '/Visualiza/visualization', component: Visualization, name: '会所业绩报表', menuShow: true },//会所业绩报表
+                { path: '/Visualiza/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
+                { path: '/Visualiza/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true },//教练上课记录
             ]
         },
         {

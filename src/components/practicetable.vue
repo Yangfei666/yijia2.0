@@ -240,7 +240,7 @@ export default {
       rules:{
         changemembership:validate.adviser
       },
-      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 },
+      Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
       Customercategory: "experience",
       formInline: {
         user: "",

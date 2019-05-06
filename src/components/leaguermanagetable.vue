@@ -261,7 +261,7 @@ export default {
         changemembership: validate.adviser
       },
       Customercategory: "member",
-      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 },
+      Huiyuanqufen: { huiyuanqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
       formInline: {
         membercard: "",
         date: "",

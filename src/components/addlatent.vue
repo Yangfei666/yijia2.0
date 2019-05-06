@@ -59,6 +59,12 @@ import * as validate from "@/validate/Login";
 export default {
   name:'addlatent',
   inject: ["reload"],
+  props: {
+    qianzaiqufen: {
+      type: Object,
+      required: true
+    }
+  },
     data() {
      return {
         dialogFormVisible: false,
@@ -90,6 +96,7 @@ export default {
     },
     created:function(){
       this.getCustomer();
+      this.ruleForm.tel = this.qianzaiqufen.tel;
     },
     methods: {
     //获取会籍顾问列表
@@ -117,6 +124,9 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            if(this.qianzaiqufen.bh == ''){
+              this.qianzaiqufen.bh = 0;
+            }
             var loginParams = {
               prName: _this.ruleForm.name, //姓名
               prTel: _this.ruleForm.tel, //电话
@@ -125,6 +135,8 @@ export default {
               prBelog: _this.ruleForm.adviser, //会籍顾问id
               WeChat: _this.ruleForm.wechat, //微信号
               remark: _this.ruleForm.desc, //备注
+              isAuto: _this.qianzaiqufen.isAuto, //自动认领
+              hid: _this.qianzaiqufen.bh //编号
             };
             requestLogin("/setPotentialCustomer", loginParams, "post")
               .then(data => {

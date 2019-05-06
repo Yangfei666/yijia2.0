@@ -72,7 +72,7 @@
               <el-button type="text" class="add-p el-icon-plus" @click="dialogFormVisible = true">添加潜在客户</el-button>
               <template>
                 <el-dialog title="添加潜在客户" :append-to-body="true" :visible.sync="dialogFormVisible">
-                  <Addlatent></Addlatent>
+                  <Addlatent :qianzaiqufen='Qianzaiqufen'></Addlatent>
                 </el-dialog>
               </template>
             </div>
@@ -265,9 +265,10 @@ export default {
       currentPage: 1,
       pagesize: 10,
       radio: "",
-      Tiyanqufen: { tiyanqufen: "potential", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
-      Dingjinqufen: { dingjinqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
-      Huiyuanqufen: { huiyuanqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:""},
+      Tiyanqufen: { tiyanqufen: "potential", id: "",name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"",bh:0,isAuto:2},
+      Dingjinqufen: { dingjinqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"",bh:0,isAuto:2},
+      Huiyuanqufen: { huiyuanqufen: "potential", id: "" ,name:"",sex:"",tel:"",ygxxname:"",wechat:"",ygxxnameid:"",bh:0,isAuto:2},
+      Qianzaiqufen: { bh:0,isAuto: 2},
       Customercategory: "potential",
       dialogFormVisible3: false,
       dialogFormVisible4: false,

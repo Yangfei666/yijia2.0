@@ -308,6 +308,9 @@ export default {
             if(this.ruleForm.wechat == undefined){
               this.ruleForm.wechat = ''
             }
+            if(this.huiyuanqufen.bh == ''){
+              this.huiyuanqufen.bh = 0;
+            }
             let formData = new FormData();
             formData.append("id", this.ruleForm.adviser); //会籍顾问id
             formData.append("HYName", this.ruleForm.name); //姓名
@@ -331,6 +334,8 @@ export default {
             formData.append("oldId", this.huiyuanqufen.id); //原客户类别的id
             formData.append("memberPic", this.file); //会员头像
             formData.append("memberVoucher", this.file2); //入会协议
+            formData.append("isAuto", this.huiyuanqufen.isAuto); //自动认领
+            formData.append("hid", this.huiyuanqufen.bh); //编号
             requestLogin("/setMemberCustomers/newMember", formData, "post")
               .then(data => {
                 this.addLoading = false;

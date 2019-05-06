@@ -128,7 +128,7 @@
             <el-table-column prop="itTel" align="left" label="手机号" width="170px"></el-table-column>
             <el-table-column prop="itHjgwName" align="left" label="会籍" width="140px"></el-table-column>
             <el-table-column prop="itDepositTime" align="left" label="登记日期" width="150px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式"  width="150px"></el-table-column>
             <el-table-column prop="itPrice" align="left" label="金额"></el-table-column>
             <el-table-column prop="itSuc" align="center" label="成交状态"></el-table-column>
             <el-table-column prop="itSuc" align="center" label="未跟进天数" width="150px">
@@ -275,7 +275,7 @@ export default {
       radio: true,
       Customercategory: "deposit",
       Potential: { potential: "setDepositCustomer", id: "" },
-      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 },
+      Dingjinqufen: { dingjinqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
       Huiyuanqufen: {
         huiyuanqufen: "deposit",
         id: "",
@@ -284,7 +284,9 @@ export default {
         tel: "",
         ygxxname: "",
         wechat: "",
-        ygxxnameid: ""
+        ygxxnameid: "",
+        bh:0,
+        isAuto:2
       },
       formInline: {
         date: "",

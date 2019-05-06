@@ -46,7 +46,7 @@
       </el-form-item>
       <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+          <el-input v-model="ruleForm.price" placeholder="50-1000"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="支付凭证:" prop="file" :label-width="formLabelWidth">
@@ -172,6 +172,9 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
+            if(this.dingjinqufen.bh == ''){
+              this.dingjinqufen.bh = 0;
+            }
             let formData = new FormData();
             formData.append("name", this.ruleForm.name);//姓名
             formData.append("file", this.file);//上传凭证
@@ -185,6 +188,8 @@ export default {
             formData.append("weChat", this.ruleForm.wechat);//微信
             formData.append("identity",this.dingjinqufen.dingjinqufen);//转换客户的身份
             formData.append("oldId",this.dingjinqufen.id);//原客户类别的id
+            formData.append("isAuto", this.dingjinqufen.isAuto); //自动认领
+            formData.append("hid", this.dingjinqufen.bh); //编号
             requestLogin("/setDepositCustomer",formData,"post")
               .then(data => {
                 this.addLoading = false;

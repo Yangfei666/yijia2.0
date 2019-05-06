@@ -93,7 +93,7 @@ export default {
       let myChart2 = echarts.init(document.getElementById("myChart2"));
       let option = {
         title: {
-          text: "私教团课业绩占比图",
+          text: "业绩占比图",
           subtext: subtext1,
           x: "left",
           textStyle: {
@@ -279,7 +279,7 @@ export default {
       let myChart3 = echarts.init(document.getElementById("myChart3"));
       myChart3.setOption({
         title: {
-          text: "团课/私教业绩变化折线图",
+          text: "业绩变化折线图",
           subtext,
           textStyle: {
             color: "#595959",
