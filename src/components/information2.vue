@@ -12,17 +12,17 @@
               <el-form :model="ruleForm" label-width="100px">
                 <el-form-item label="姓名:" prop="exName" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.exName" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.exName" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="电话:" prop="exTel" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.exTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
+                    <el-input v-model.trim="ruleForm.exTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="微信:" prop="exWeChat" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.exWeChat" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.exWeChat" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="性别:" prop="exSex" label-width="130px">

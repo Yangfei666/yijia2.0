@@ -47,7 +47,7 @@
                     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" @submit.native.prevent>
                       <el-form-item label="IC卡序列号:" prop="seriesnumber" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.seriesnumber" placeholder=""></el-input>
+                          <el-input v-model.trim="ruleForm.seriesnumber" placeholder=""></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item class="dialog-footer">

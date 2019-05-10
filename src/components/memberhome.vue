@@ -10,7 +10,7 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
               <el-form-item label="客户编号:" prop="userid" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="this.$route.query.HYID" :disabled="true"></el-input>
+                  <el-input v-model.trim="this.$route.query.HYID" :disabled="true"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -22,7 +22,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="money" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="ruleForm.money" placeholder="0-100000元之间"></el-input>
+                  <el-input v-model.trim="ruleForm.money" placeholder="0-100000元之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="payment" :label-width="formLabelWidth">
@@ -69,7 +69,7 @@
               </el-form-item>
               <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
+                  <el-input type="textarea" v-model.trim="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item class="dialog-footer">

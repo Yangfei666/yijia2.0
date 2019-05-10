@@ -27,12 +27,12 @@
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                   <el-form-item label="课程科目:" prop="classname" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-input v-model="ruleForm.classname" placeholder="请输入"></el-input>
+                      <el-input v-model.trim="ruleForm.classname" placeholder="请输入"></el-input>
                     </el-col>
                   </el-form-item>
                   <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
                     <el-col :span="22">
-                      <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                      <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
                     </el-col>
                   </el-form-item>
                   <el-form-item label="热度:" prop="heat" :label-width="formLabelWidth">
@@ -87,7 +87,7 @@
             <el-col :span="23" class="purple-name">
               <el-form-item label="课程名称:">
                 <el-col :span="24">
-                  <el-input v-model="searchName" placeholder="请输入"></el-input>
+                  <el-input v-model.trim="searchName" placeholder="请输入"></el-input>
                 </el-col>
               </el-form-item>
             </el-col>

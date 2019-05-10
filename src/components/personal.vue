@@ -4,7 +4,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
       <el-form-item label="上课日期:" prop="attenddate" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="whichDay" disabled></el-input>
+          <el-input v-model.trim="whichDay" disabled></el-input>
         </el-col>
       </el-form-item>
       <el-form-item prop="attendtime" label="上课时间:" :label-width="formLabelWidth">
@@ -14,12 +14,12 @@
       </el-form-item>
       <el-form-item label="教室:" prop="room" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="classroom" disabled></el-input>
+          <el-input v-model.trim="classroom" disabled></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="姓名/电话:" prop="name" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.name" maxlength="11" placeholder="请输入"></el-input>
+          <el-input v-model.trim="ruleForm.name" maxlength="11" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">

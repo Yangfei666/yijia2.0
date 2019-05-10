@@ -4,17 +4,17 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
       <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
+          <el-input v-model.trim="ruleForm.name" placeholder="汉字、字母、数字和下划线及逗号句号组成、长度2-6"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="手机号:" prop="phone" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.phone" maxlength="11" placeholder="请输入11位手机号码" @blur.prevent="testUser"></el-input>
+          <el-input v-model.trim="ruleForm.phone" maxlength="11" placeholder="请输入11位手机号码" @blur.prevent="testUser"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
+          <el-input v-model.trim="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -32,17 +32,17 @@
       </el-form-item>
       <el-form-item label="证件号码:" prop="catenumber" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.catenumber" maxlength="18" placeholder="请输入18位身份证号码/护照均可"></el-input>
+          <el-input v-model.trim="ruleForm.catenumber" maxlength="18" placeholder="请输入18位身份证号码/护照均可"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="住址:" prop="address" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.address" placeholder="汉字、字母、数字和下划线及逗号句号组成 长度2-20"></el-input>
+          <el-input v-model.trim="ruleForm.address" placeholder="汉字、字母、数字和下划线及逗号句号组成 长度2-20"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="职业:" prop="vocation" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.vocation" placeholder="长度2-10"></el-input>
+          <el-input v-model.trim="ruleForm.vocation" placeholder="长度2-10"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
@@ -54,12 +54,12 @@
       </el-form-item>
       <el-form-item label="紧急联系人:" prop="contact" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.contact" placeholder="长度2-6"></el-input>
+          <el-input v-model.trim="ruleForm.contact" placeholder="长度2-6"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="紧急联系人电话:" prop="contacttel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.contacttel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
+          <el-input v-model.trim="ruleForm.contacttel" maxlength="11" placeholder="请输入11位手机号码"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
@@ -71,22 +71,22 @@
       </el-form-item>
             <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.price" placeholder="0-100000元之间"></el-input>
+          <el-input v-model.trim="ruleForm.price" placeholder="0-100000元之间"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="卡号:" prop="card" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.card" maxlength="12" placeholder="长度6-12位"></el-input>
+          <el-input v-model.trim="ruleForm.card" maxlength="12" placeholder="长度6-12位"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="卡号确认:" prop="cardaffirm" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.cardaffirm" maxlength="12" placeholder="长度6-12位"></el-input>
+          <el-input v-model.trim="ruleForm.cardaffirm" maxlength="12" placeholder="长度6-12位"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="IC卡序列号:" prop="seriesnumber" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.seriesnumber" maxlength="30" placeholder="数字或字母，长度6-30位"></el-input>
+          <el-input v-model.trim="ruleForm.seriesnumber" maxlength="30" placeholder="数字或字母，长度6-30位"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -140,7 +140,7 @@
       </el-form-item>
       <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
+          <el-input type="textarea" v-model.trim="ruleForm.desc" placeholder="请输入汉字,字母,数字, 30字以内"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">

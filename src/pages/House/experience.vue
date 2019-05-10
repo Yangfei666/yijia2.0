@@ -29,22 +29,22 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="体验券名称:" prop="experiencename" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.experiencename" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.experiencename" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="售价(元):" prop="price" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="总次数:" prop="number" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.number" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.number" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="有效期(天数):" prop="termvalidity" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.termvalidity" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.termvalidity" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">

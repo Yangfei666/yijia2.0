@@ -4,22 +4,22 @@
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
           <el-form-item label="体验券名称:" prop="tkName" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.tkName" placeholder="请输入"></el-input>
+                <el-input v-model.trim="currentSelectRow.tkName" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
              <el-form-item label="售价(元):" prop="tkPrice" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.tkPrice" placeholder="请输入"></el-input>
+                <el-input v-model.trim="currentSelectRow.tkPrice" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="总次数:" prop="frequency" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.frequency" placeholder="请输入"></el-input>
+                <el-input v-model.trim="currentSelectRow.frequency" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
              <el-form-item label="有效期(天数):" prop="vld" :label-width="formLabelWidth">
               <el-col :span="22">
-                <el-input v-model="currentSelectRow.vld" placeholder="请输入"></el-input>
+                <el-input v-model.trim="currentSelectRow.vld" placeholder="请输入"></el-input>
                 </el-col>
             </el-form-item>
              <el-form-item label="状态:" prop="tkState" :label-width="formLabelWidth">

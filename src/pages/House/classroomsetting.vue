@@ -29,7 +29,7 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="教室名称:" prop="classroom" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.classroom" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.classroom" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="教室类型:" prop="sign" :label-width="formLabelWidth">

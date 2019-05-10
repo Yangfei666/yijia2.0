@@ -23,8 +23,12 @@
           </el-col>
           <el-col :span="12">
             <div class="userinfo-inner">
-              <div style="margin-right:25px;margin-top:10px"><img :src="user.Photo" /></div>
-              <span class="name">{{user.YGXX_NAME}}</span>
+              <div style="margin-right:-7px;margin-top:12px"><img :src="user.Photo" /></div>
+              <router-link to="/House/feedback" style="text-decoration: none;color: #333;width: 55px;" @click.native="untreated">
+              <el-badge :value="todo" :max="99" class="item" v-if="todo>0"></el-badge>
+              <el-badge class="item" v-else></el-badge>
+              </router-link>
+                <span class="name">{{user.YGXX_NAME}}</span>
               <span class="tuichu">
                 <el-dropdown trigger="click">
                   <i class="el-icon-arrow-down el-icon-setting"></i>
@@ -55,6 +59,7 @@ export default {
     return {
       downIcon: true,
       collapsed: false,
+      todo:sessionStorage.getItem("untreated"),
       input21: "",
       applyimg: require("@/assets/apply.png"), //图片地址
       applyimg2: require("@/assets/classify.png"), //图片地址
@@ -75,6 +80,9 @@ export default {
   //     this.club.Hsxx_Hsid = clubID;
   //   })
   // },
+  beforeMount() {
+    this.todo = sessionStorage.getItem('untreated');
+  },
   methods: {
     //获取个人资料
     getUser() {
@@ -146,11 +154,18 @@ export default {
       this.downIcon = !this.downIcon;
       this.collapsed = !this.collapsed;
       this.$emit("changeCollapsed", this.collapsed);
+    },
+    untreated(){
+      this.todo = 0;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.item {
+  margin-top: -20px;
+  margin-right: 40px;
+}
 .header {
   height: 100%;
   .el-col-12 {

@@ -42,6 +42,25 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+.el-badge__content {
+    border-radius: 12px;
+    color: #FFF;
+    display: inline-block;
+    font-size: 11px;
+    height: 15px;
+    line-height: 16px;
+    padding: 0 6px;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid #FFF;
+}
+.el-badge__content.is-fixed {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    -webkit-transform: translateY(-50%) translateX(100%);
+    transform: translateY(-50%) translateX(100%);
+}
   .el-step__icon.is-text{
      color: #00bc71 !important;
      border-color: #00bc71 !important;

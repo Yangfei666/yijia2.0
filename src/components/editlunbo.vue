@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="标题:" prop="title" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.banTitle" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.banTitle" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="时间范围:" prop="timeframe" :label-width="formLabelWidth">
@@ -27,7 +27,7 @@
       </el-form-item>
       <el-form-item label="描述:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input type="textarea" v-model="currentSelectRow.banDes" placeholder="汉字、字母、数字和下划线及逗号句号, 长度50以内" style="width:100%"></el-input>
+          <el-input type="textarea" v-model.trim="currentSelectRow.banDes" placeholder="汉字、字母、数字和下划线及逗号句号, 长度50以内" style="width:100%"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">

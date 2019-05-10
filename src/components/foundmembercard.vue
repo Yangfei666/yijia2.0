@@ -4,7 +4,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
       <el-form-item label="卡名称:" prop="cardname" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.cardname" placeholder="请输入"></el-input>
+          <el-input v-model.trim="ruleForm.cardname" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="类型:" prop="type" :label-width="formLabelWidth">
@@ -34,17 +34,17 @@
       </el-form-item>
       <el-form-item label="售价:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+          <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="有效期:" prop="date" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.date" placeholder="请输入月数"></el-input>
+          <el-input v-model.trim="ruleForm.date" placeholder="请输入月数"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="次数:" prop="number" :label-width="formLabelWidth" v-if="ruleForm.type == 2">
         <el-col :span="22">
-          <el-input v-model="ruleForm.number" placeholder="大于0"></el-input>
+          <el-input v-model.trim="ruleForm.number" placeholder="大于0"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="一周次数限制:" prop="num" :label-width="formLabelWidth">

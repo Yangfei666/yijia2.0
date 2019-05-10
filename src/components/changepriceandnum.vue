@@ -24,14 +24,14 @@
               <el-col :span="16">
                 <el-form-item label="变更后的总次数:" prop="num">
                   <el-col :span="24">
-                    <el-input v-model="ruleForm.num" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.num" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
               </el-col>
               <el-col :span="16" class="from-date">
                   <el-col :span="24">
                 <el-form-item label="变更原因:" prop="desc">
-                    <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
+                    <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                     <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
                   </el-col>
@@ -49,14 +49,14 @@
               <el-col :span="16">
                 <el-form-item label="变更后的总金额:" prop="price">
                   <el-col :span="24">
-                    <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
               </el-col>
               <el-col :span="16" class="from-date">
                   <el-col :span="24">
                 <el-form-item label="变更原因:" prop="desc2">
-                    <el-input type="textarea" v-model="ruleForm.desc2" maxlength="50" @input="descInput" style="width:100%"></el-input>
+                    <el-input type="textarea" v-model.trim="ruleForm.desc2" maxlength="50" @input="descInput" style="width:100%"></el-input>
                     <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
                   </el-col>

@@ -95,7 +95,7 @@ import Addbargain from "@/components/addbargain";
 import Addpractice from "@/components/addpractice";
 import Addlatent from "@/components/addlatent";
 export default {
-  name: "cardopenaudit",
+  name: "pendingclaim",
   inject: ["reload"],
   components: {
     Addmember,

@@ -18,14 +18,14 @@
                             <el-col :span="8" class="from-date">
                                 <el-form-item label="姓名：" prop="htName">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htName" style="width:100%"></el-input>
+                                        <el-input v-model.trim="health_survey.htName" style="width:100%"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8" class="from-date">
                                 <el-form-item label="联系电话：" prop="htTel">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htTel" maxlength="11" style="width:100%"></el-input>
+                                        <el-input v-model.trim="health_survey.htTel" maxlength="11" style="width:100%"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -50,14 +50,14 @@
                             <el-col :span="8" class="from-date">
                                 <el-form-item label="身高 (CM)：" prop="htHeight">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htHeight" style="width:100%"></el-input>
+                                        <el-input v-model.trim="health_survey.htHeight" style="width:100%"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8" class="from-date">
                                 <el-form-item label="体重 (KG)：" prop="htWeight">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htWeight" style="width:100%"></el-input>
+                                        <el-input v-model.trim="health_survey.htWeight" style="width:100%"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -66,7 +66,7 @@
                             <el-col :span="24" class="from-date2">
                                 <el-form-item label="地址：" prop="htAddress">
                                     <el-col :span="10">
-                                        <el-input v-model="health_survey.htAddress" style="width:100%"></el-input>
+                                        <el-input v-model.trim="health_survey.htAddress" style="width:100%"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -85,7 +85,7 @@
                             <el-col :span="5" class="from-date3" style="float:right">
                                 <el-form-item label="备注：" prop="htExeRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htExeRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htExeRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -94,14 +94,14 @@
                             <el-col :span="10" class="from-date3" v-show="health_survey.htIsExercise == 1">
                                 <el-form-item label="何种体育项目：" prop="htExeName" label-width="185px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htExeName" style="width:140px;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htExeName" style="width:140px;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="10" class="from-date3" v-show="health_survey.htIsExercise == 1">
                                 <el-form-item label="练习了多长时间：" prop="htExeTime" label-width="185px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htExeTime" style="width:140px;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htExeTime" style="width:140px;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -119,7 +119,7 @@
                             <el-col :span="5" class="from-date3">
                                 <el-form-item label="备注：" prop="htPraRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htPraRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htPraRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -140,7 +140,7 @@
                             <el-col :span="5" class="from-date3">
                                 <el-form-item label="备注：" prop="htExpRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htExpRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htExpRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -158,7 +158,7 @@
                             <el-col :span="5" class="from-date3">
                                 <el-form-item label="备注：" prop="htHeaRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htHeaRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htHeaRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>
@@ -176,7 +176,7 @@
                             <el-col :span="5" class="from-date3">
                                 <el-form-item label="备注：" prop="htPurRmk" label-width="70px">
                                     <el-col :span="24">
-                                        <el-input v-model="health_survey.htPurRmk" style="width:100%;opacity: 0.6;"></el-input>
+                                        <el-input v-model.trim="health_survey.htPurRmk" style="width:100%;opacity: 0.6;"></el-input>
                                     </el-col>
                                 </el-form-item>
                             </el-col>

@@ -17,7 +17,7 @@
               <el-col :span="16">
                 <el-form-item label="旧卡折算:" prop="price">
                   <el-col :span="24">
-                    <el-input v-model="ruleForm.price" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
               </el-col>
@@ -47,7 +47,7 @@
               <el-col :span="16">
                 <el-form-item label="补交差价:" prop="price2">
                   <el-col :span="24">
-                    <el-input v-model="ruleForm.price2" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.price2" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
               </el-col>

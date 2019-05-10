@@ -12,11 +12,11 @@
             <el-input type="text" class="input" autofocus="autofocus" v-model.number="account.username" :disabled="disabled" maxlength="11" auto-complete="off" placeholder="用户名"></el-input>
           </el-form-item>
           <el-form-item prop="pwd" class="form-item">
-            <el-input type="password" class="input" auto-complete="off" v-model="account.pwd" :disabled="disabled" placeholder="密码"></el-input>
+            <el-input type="password" class="input" auto-complete="off" v-model.trim="account.pwd" :disabled="disabled" placeholder="密码"></el-input>
           </el-form-item>
           <el-form-item prop="verifycode" class="identifyform" v-if="!isAdmin">
             <div class="identifybox">
-              <el-input type="text" v-model="account.verifycode" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
+              <el-input type="text" v-model.trim="account.verifycode" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
               <el-col :span="24">
                 <img :src="img" alt="验证码" title="点击换一张" @click="getimg" />
               </el-col>
@@ -50,7 +50,7 @@
           </el-form-item>
           <el-form-item prop="verifycode3" class="identifyform" v-if="!isAdmin">
             <div class="identifybox">
-              <el-input type="text" v-model="account3.verifycode3" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
+              <el-input type="text" v-model.trim="account3.verifycode3" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
               <el-col :span="24">
                 <el-button v-show="sendAuthCode2" class="auth_text" @click="getAuthCode2">获取验证码</el-button>
                 <el-button v-show="!sendAuthCode2" class="auth_text">
@@ -59,7 +59,7 @@
             </div>
           </el-form-item>
           <el-form-item prop="pwd3" class="form-item" v-show="hide2">
-            <el-input type="password" class="input" auto-complete="off" v-model="account3.pwd3" :disabled="disabled" placeholder="设置密码"></el-input>
+            <el-input type="password" class="input" auto-complete="off" v-model.trim="account3.pwd3" :disabled="disabled" placeholder="设置密码"></el-input>
           </el-form-item>
           <el-form-item class="form-main" v-if="!isAdmin">
             <el-button v-waves style="width:100%;height:40px;" @click.native.prevent="handleResetting" :disabled="account3.tel3==''&&account3.verifycode3==''&&account3.pwd3==''" :loading="logining">重置</el-button>

@@ -4,7 +4,7 @@
     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
       <el-form-item label="姓名:" prop="YGXX_NAME" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.YGXX_NAME" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.YGXX_NAME" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="性别:" prop="YGXX_SEX" :label-width="formLabelWidth">
@@ -15,12 +15,12 @@
       </el-form-item>
       <el-form-item label="电话:" prop="YGXX_HOMETEL" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.YGXX_HOMETEL" maxlength="11" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.YGXX_HOMETEL" maxlength="11" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="身份证号:" prop="ygIdentity" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.ygIdentity" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.ygIdentity" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="分配角色:" prop="role" :label-width="formLabelWidth">
@@ -52,7 +52,7 @@
       </el-form-item>
       <el-form-item label="员工简介:" prop="ygIntro" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input type="textarea" v-model="currentSelectRow.ygIntro"></el-input>
+          <el-input type="textarea" v-model.trim="currentSelectRow.ygIntro"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">

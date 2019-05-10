@@ -4,7 +4,7 @@
     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
       <el-form-item label="卡名称:" prop="CTName" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.CTName"></el-input>
+          <el-input v-model.trim="currentSelectRow.CTName"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="类型:" prop="ctType" :label-width="formLabelWidth">
@@ -30,17 +30,17 @@
       </el-form-item>
       <el-form-item label="售价:" prop="CTjg" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.CTjg"></el-input>
+          <el-input v-model.trim="currentSelectRow.CTjg"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="有效期:" prop="CTvalidity" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.CTvalidity" placeholder="请输入数字"></el-input>
+          <el-input v-model.trim="currentSelectRow.CTvalidity" placeholder="请输入数字"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="次数:" prop="Ctnum" :label-width="formLabelWidth" v-show="currentSelectRow.ctType == '次数卡'">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.Ctnum"></el-input>
+          <el-input v-model.trim="currentSelectRow.Ctnum"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="一周次数限制:" prop="CTxDate_Val" :label-width="formLabelWidth">

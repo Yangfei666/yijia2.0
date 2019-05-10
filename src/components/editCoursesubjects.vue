@@ -4,12 +4,12 @@
     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
       <el-form-item label="课程科目:" prop="kcName" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.kcName" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.kcName" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.price" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.price" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="热度:" prop="kcHot" :label-width="formLabelWidth">

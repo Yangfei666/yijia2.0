@@ -61,7 +61,7 @@
                       <el-col :span="22" class="purple-name">
                         <el-form-item label="卡名称:">
                           <el-col :span="24">
-                            <el-input v-model="cardName" placeholder="请输入"></el-input>
+                            <el-input v-model.trim="cardName" placeholder="请输入"></el-input>
                           </el-col>
                         </el-form-item>
                       </el-col>
@@ -147,7 +147,7 @@
                       <el-col :span="22" class="purple-name">
                         <el-form-item label="卡名称:">
                           <el-col :span="24">
-                            <el-input v-model="cardName2" placeholder="请输入"></el-input>
+                            <el-input v-model.trim="cardName2" placeholder="请输入"></el-input>
                           </el-col>
                         </el-form-item>
                       </el-col>

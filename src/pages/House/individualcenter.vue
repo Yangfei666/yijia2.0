@@ -91,21 +91,21 @@
                   <el-col :span="16" class="center-two">
                     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
                       <el-form-item label="原密码:" prop="pass">
-                        <el-input :type="pwdType" v-model="ruleForm2.pass" placeholder="请输入6-18位数字或字母"></el-input>
+                        <el-input :type="pwdType" v-model.trim="ruleForm2.pass" placeholder="请输入6-18位数字或字母"></el-input>
                         <div class="eye" @click="showToggle">
                           <img :src="openeye" @click="changeType()" v-show="downIcon" />
                           <img :src="openeye2" @click="changeType()" v-show="!downIcon" />
                         </div>
                       </el-form-item>
                       <el-form-item label="新密码:" prop="passWord">
-                        <el-input :type="pwdType2" v-model="ruleForm2.passWord" placeholder="请输入6-18位数字或字母"></el-input>
+                        <el-input :type="pwdType2" v-model.trim="ruleForm2.passWord" placeholder="请输入6-18位数字或字母"></el-input>
                         <div class="closed" @click="showToggle2">
                           <img :src="openeye" @click="changeType2()" v-show="downIcon2" />
                           <img :src="openeye2" @click="changeType2()" v-show="!downIcon2" />
                         </div>
                       </el-form-item>
                       <el-form-item label="确认密码:" prop="checkPass">
-                        <el-input :type="pwdType3" v-model="ruleForm2.checkPass" placeholder="请输入6-18位数字或字母"></el-input>
+                        <el-input :type="pwdType3" v-model.trim="ruleForm2.checkPass" placeholder="请输入6-18位数字或字母"></el-input>
                         <div class="closed" @click="showToggle3">
                           <img :src="openeye" @click="changeType3()" v-show="downIcon3" />
                           <img :src="openeye2" @click="changeType3()" v-show="!downIcon3" />
@@ -131,42 +131,42 @@
                           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                             <el-form-item label="门店名称:" prop="roomname" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.roomname" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.roomname" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="门店别名:" prop="roombyname" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.roombyname" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.roombyname" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.tel" maxlength="11" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="邮编:" prop="zipcode" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.zipcode" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.zipcode" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="法人:" prop="corporation" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.corporation" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.corporation" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="传真:" prop="portraiture" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.portraiture" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.portraiture" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="城市:" prop="homecity" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.homecity" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.homecity" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item label="详细地址:" prop="detadaddress" :label-width="formLabelWidth">
                               <el-col :span="22">
-                                <el-input v-model="ruleForm.detadaddress" placeholder="请输入"></el-input>
+                                <el-input v-model.trim="ruleForm.detadaddress" placeholder="请输入"></el-input>
                               </el-col>
                             </el-form-item>
                             <el-form-item class="dialog-footer">

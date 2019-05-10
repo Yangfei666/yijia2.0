@@ -11,7 +11,7 @@
               <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="160px">
                 <el-form-item label="本次练习前身体状况:" prop="lianxiqian" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.lianxiqian" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.lianxiqian" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="生理期:" prop="Normalperiod" :label-width="formLabelWidth">
@@ -27,17 +27,17 @@
                     <el-checkbox-group v-model="ruleForm.limitdate">
                       <el-checkbox v-for="i in limit" :label="i" :key="i">{{i}}</el-checkbox>
                     </el-checkbox-group>
-                    <el-input placeholder="其他" v-model="ruleForm.keynote"></el-input>
+                    <el-input placeholder="其他" v-model.trim="ruleForm.keynote"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="练习后身体的状况:" prop="lianxihou" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.lianxihou" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.lianxihou" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="下次练习重点:" prop="xiaci" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.xiaci" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.xiaci" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item class="dialog-footer">

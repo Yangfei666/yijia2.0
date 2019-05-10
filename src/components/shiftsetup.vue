@@ -13,7 +13,7 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="班次名称:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.name" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.name" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="所属岗位:" prop="classes" :label-width="formLabelWidth">
@@ -46,7 +46,7 @@
                     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
                         <el-form-item label="班次名称:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
-                            <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+                            <el-input v-model.trim="currentSelectRow.name" placeholder="请输入"></el-input>
                         </el-col>
                         </el-form-item>
                         <el-form-item label="所属岗位:" prop="classes" :label-width="formLabelWidth">

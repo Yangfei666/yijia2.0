@@ -12,17 +12,17 @@
               <el-form :model="ruleForm" label-width="100px">
                 <el-form-item label="姓名:" prop="HYName" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.HYName" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.HYName" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="电话:" prop="MotoTel" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.MotoTel" placeholder="请输入" @blur.prevent="testUser"></el-input>
+                    <el-input v-model.trim="ruleForm.MotoTel" placeholder="请输入" @blur.prevent="testUser"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="微信:" prop="hyWeChat" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.hyWeChat" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.hyWeChat" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="性别:" prop="Sex" label-width="130px">
@@ -40,27 +40,27 @@
                 </el-form-item>
                 <el-form-item label="住址:" prop="HomeAdd" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.HomeAdd" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.HomeAdd" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="职业:" prop="ZhiYe" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.ZhiYe" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.ZhiYe" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="紧急联系人:" prop="hyContacts" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.hyContacts" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.hyContacts" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="紧急联系人电话:" prop="hyConTel" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.hyConTel" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.hyConTel" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item label="证件号码:" prop="ZhengJianNO" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.ZhengJianNO" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.ZhengJianNO" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item class="dialog-footer" style="margin-left:30px;">

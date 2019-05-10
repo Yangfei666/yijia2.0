@@ -16,7 +16,7 @@
               <el-col :span="16">
                 <el-form-item label="办卡说明:" prop="desc" :label-width="formLabelWidth">
                   <el-col :span="24">
-                    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                    <el-input type="textarea" v-model.trim="ruleForm.desc"></el-input>
                   </el-col>
                 </el-form-item>
               </el-col>

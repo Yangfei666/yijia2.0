@@ -4,7 +4,7 @@
         <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
         <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-input v-model="currentSelectRow.itName" placeholder="请输入"></el-input>
+            <el-input v-model.trim="currentSelectRow.itName" placeholder="请输入"></el-input>
             </el-col>
         </el-form-item>
          <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -17,17 +17,17 @@
             </el-form-item>
             <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-input v-model="currentSelectRow.itTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
+            <el-input v-model.trim="currentSelectRow.itTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
             </el-col>
         </el-form-item>
         <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-input v-model="currentSelectRow.itWeChat" placeholder="请输入"></el-input>
+            <el-input v-model.trim="currentSelectRow.itWeChat" placeholder="请输入"></el-input>
             </el-col>
         </el-form-item>
          <el-form-item label="备注:" prop="desc" :label-width="formLabelWidth">
           <el-col :span="22">
-            <el-input type="textarea" v-model="currentSelectRow.itRemark"></el-input>
+            <el-input type="textarea" v-model.trim="currentSelectRow.itRemark"></el-input>
             </el-col>
         </el-form-item>
          <el-form-item class="dialog-footer">

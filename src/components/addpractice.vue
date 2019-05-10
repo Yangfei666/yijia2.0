@@ -4,7 +4,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
       <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.name" placeholder="数字,字母,汉字,逗号句号 长度1-6"></el-input>
+          <el-input v-model.trim="ruleForm.name" placeholder="数字,字母,汉字,逗号句号 长度1-6"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -17,12 +17,12 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码" @blur.prevent="testUser"></el-input>
+          <el-input v-model.trim="ruleForm.tel" maxlength="11" placeholder="请输入11位手机号码" @blur.prevent="testUser"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
+          <el-input v-model.trim="ruleForm.wechat" placeholder="6-20个字母、数字、下划线和减号，必须以字母开头"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
@@ -41,7 +41,7 @@
       </el-form-item>
       <el-form-item label="金额:" prop="prices" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.prices" placeholder="请输入金额"></el-input>
+          <el-input v-model.trim="ruleForm.prices" placeholder="请输入金额"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -57,7 +57,7 @@
       </el-form-item>
       <el-form-item label="备注:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input type="textarea" v-model="ruleForm.desc" placeholder="汉字、字母、数字和下划线及逗号句号, 长度50以内"></el-input>
+          <el-input type="textarea" v-model.trim="ruleForm.desc" placeholder="汉字、字母、数字和下划线及逗号句号, 长度50以内"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">

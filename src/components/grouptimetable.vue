@@ -54,17 +54,17 @@
                     </el-form-item>
                     <el-form-item label="容纳人数:" prop="galleryful" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.galleryful" placeholder="请输入" style="width:100%"></el-input>
+                        <el-input v-model.trim="ruleForm.galleryful" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="难度:" prop="difficulty" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.difficulty" placeholder="请输入" style="width:100%"></el-input>
+                        <el-input v-model.trim="ruleForm.difficulty" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input v-model="ruleForm.price" placeholder="请输入" style="width:100%"></el-input>
+                        <el-input v-model.trim="ruleForm.price" placeholder="请输入" style="width:100%"></el-input>
                       </el-col>
                     </el-form-item>
                     <el-form-item class="dialog-footer">
@@ -128,17 +128,17 @@
                       </el-form-item>
                       <el-form-item label="容纳人数:" prop="RenShu" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="currentSelectRow.RenShu" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="currentSelectRow.RenShu" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="难度:" prop="kcDiff" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="currentSelectRow.kcDiff" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="currentSelectRow.kcDiff" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="价格:" prop="price" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="currentSelectRow.price" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="currentSelectRow.price" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item class="dialog-footer">
@@ -186,7 +186,7 @@
                       </el-form-item>
                       <el-form-item label="姓名/电话:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm2.name" placeholder="请输入" maxlength="11" @change="inputchange"></el-input>
+                          <el-input v-model.trim="ruleForm2.name" placeholder="请输入" maxlength="11" @change="inputchange"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="会员/体验客户:" prop="consumer" :label-width="formLabelWidth">

@@ -4,7 +4,7 @@
     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
       <el-form-item label="角色名称:" prop="name" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.name" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <!-- <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">

@@ -68,7 +68,13 @@ const Instructorclassrecord = resolve => require(['@/pages/Visualiza/instructorc
 
 const Individualcenter = resolve => require(['@/pages/House/individualcenter'], resolve)//个人中心
 
+const Feedback = resolve => require(['@/pages/House/feedback'], resolve)//客户反馈
+
 const Teachingmage = resolve => require(['@/pages/Teaching/teachingmage'], resolve)//教培业绩
+
+const Teachingcourse = resolve => require(['@/pages/Teaching/teachingcourse'], resolve)//教培课程
+
+const Classprogress = resolve => require(['@/components/classprogress'], resolve)//正在上课
 
 const TasteFollow = resolve => require(['@/components/tastefollowup'], resolve)//体验客户跟进
 
@@ -137,6 +143,8 @@ const Activate = resolve => require(['@/components/activate'], resolve)//激活
 const Claim = resolve => require(['@/components/claim'], resolve)//认领
 
 const Lunbomanage = resolve => require(['@/components/lunbomanage'], resolve)//图片管理
+
+const Viewall = resolve => require(['@/components/viewall'], resolve)//查看所有学员
 
 const Latenttable = resolve => require(['@/components/latenttable'], resolve)//潜在表格
 
@@ -351,6 +359,7 @@ let router = new Router({
                 { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
+                { path: '/House/feedback', component: Feedback, name: '客户反馈', menuShow: false },//客户反馈
                 {
                     path: '/House/403', //403
                     component: Forbidden,
@@ -385,6 +394,9 @@ let router = new Router({
             iconCls:'iconfont icon-kechengguanli',
             children: [
                 { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true },//教培业绩
+                { path: '/Teaching/teachingcourse', component: Teachingcourse, name: '教培课程', menuShow: true },//教培课程
+                { path: '/Teaching/teachingcourse/classprogress', component: Classprogress, name: '正在上课', menuShow: true },//正在上课
+                { path: '/Teaching/teachingcourse/classprogress/viewall', component: Viewall, name: '查看所有学员', menuShow: false },//查看所有学员
             ]
         },
         {

@@ -31,11 +31,11 @@
                                     <span style="padding-left:10px;">静态心率 Resting HeartRate</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" v-model="physical_energy_assessment.stHeartRate0" type="text" />
-                                    <el-input class="ating-ipt" v-model="physical_energy_assessment.stHeartRate1" type="text" />
-                                    <el-input class="ating-ipt" v-model="physical_energy_assessment.stHeartRate2" type="text" />
-                                    <el-input class="ating-ipt" v-model="physical_energy_assessment.stHeartRate3" type="text" />
-                                    <el-input class="ating-ipt" v-model="physical_energy_assessment.stHeartRate4" type="text" />
+                                    <el-input class="ating-ipt" v-model.trim="physical_energy_assessment.stHeartRate0" type="text" />
+                                    <el-input class="ating-ipt" v-model.trim="physical_energy_assessment.stHeartRate1" type="text" />
+                                    <el-input class="ating-ipt" v-model.trim="physical_energy_assessment.stHeartRate2" type="text" />
+                                    <el-input class="ating-ipt" v-model.trim="physical_energy_assessment.stHeartRate3" type="text" />
+                                    <el-input class="ating-ipt" v-model.trim="physical_energy_assessment.stHeartRate4" type="text" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -43,11 +43,11 @@
                                     <span style="padding-left:10px;">血压 Blood pressure (MMHG)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBlopre0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBlopre1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBlopre2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBlopre3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBlopre4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBlopre0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBlopre1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBlopre2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBlopre3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBlopre4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -55,11 +55,11 @@
                                     <span style="padding-left:10px;">身高 Height (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHeight0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHeight1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHeight2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHeight3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHeight4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHeight0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHeight1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHeight2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHeight3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHeight4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -67,11 +67,11 @@
                                     <span style="padding-left:10px;">体重 Weight (KG)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWeight0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWeight1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWeight2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWeight3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWeight4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWeight0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWeight1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWeight2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWeight3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWeight4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -79,11 +79,11 @@
                                     <span style="padding-left:10px;">颈围 Neck Circum (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stNeck0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stNeck1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stNeck2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stNeck3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stNeck4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stNeck0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stNeck1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stNeck2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stNeck3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stNeck4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -91,11 +91,11 @@
                                     <span style="padding-left:10px;">肩围 Shoulder Circum (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stShoulder0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stShoulder1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stShoulder2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stShoulder3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stShoulder4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stShoulder0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stShoulder1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stShoulder2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stShoulder3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stShoulder4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -103,11 +103,11 @@
                                     <span style="padding-left:10px;">胸围 Chest Circum (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stChest0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stChest1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stChest2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stChest3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stChest4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stChest0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stChest1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stChest2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stChest3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stChest4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -115,11 +115,11 @@
                                     <span style="padding-left:10px;">臂围 左/右 Arms Circum.L/R (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stArms0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stArms1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stArms2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stArms3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stArms4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stArms0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stArms1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stArms2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stArms3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stArms4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -127,11 +127,11 @@
                                     <span style="padding-left:10px;">腹围 Abdominal Circum (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdominal0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdominal1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdominal2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdominal3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdominal4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdominal0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdominal1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdominal2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdominal3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdominal4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -139,11 +139,11 @@
                                     <span style="padding-left:10px;">腰围 Waistline (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaistline0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaistline1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaistline2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaistline3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaistline4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaistline0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaistline1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaistline2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaistline3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaistline4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -151,11 +151,11 @@
                                     <span style="padding-left:10px;">臂围 Hipline (CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHipline0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHipline1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHipline2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHipline3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stHipline4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHipline0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHipline1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHipline2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHipline3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stHipline4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -163,11 +163,11 @@
                                     <span style="padding-left:10px;">大腿围左/右 Thigh Circum.L/R(CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stThigh0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stThigh1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stThigh2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stThigh3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stThigh4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stThigh0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stThigh1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stThigh2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stThigh3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stThigh4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -175,11 +175,11 @@
                                     <span style="padding-left:10px;">小腿围左/右Calves Circum.L/R(CM)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stCrus0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stCrus1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stCrus2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stCrus3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stCrus4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stCrus0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stCrus1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stCrus2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stCrus3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stCrus4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -187,11 +187,11 @@
                                     <span style="padding-left:10px;">体脂百分比 Body fat percentage(%)</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFatRate0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFatRate1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFatRate2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFatRate3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFatRate4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFatRate0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFatRate1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFatRate2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFatRate3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFatRate4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -199,11 +199,11 @@
                                     <span style="padding-left:10px;">腰臀比 Waist-hip rate </span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaist0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaist1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaist2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaist3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stWaist4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaist0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaist1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaist2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaist3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stWaist4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -211,11 +211,11 @@
                                     <span style="padding-left:10px;">BMI体质指数</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBmi0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBmi1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBmi2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBmi3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stBmi4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBmi0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBmi1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBmi2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBmi3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stBmi4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -223,11 +223,11 @@
                                     <span style="padding-left:10px;">基础代谢 Basal metabolic</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stMetabolism0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stMetabolism1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stMetabolism2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stMetabolism3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stMetabolism4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stMetabolism0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stMetabolism1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stMetabolism2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stMetabolism3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stMetabolism4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -235,11 +235,11 @@
                                     <span style="padding-left:10px;">柔韧性测试 Flexibility Test</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFlexibility0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFlexibility1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFlexibility2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFlexibility3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stFlexibility4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFlexibility0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFlexibility1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFlexibility2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFlexibility3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stFlexibility4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -247,11 +247,11 @@
                                     <span style="padding-left:10px;">肌肉耐力 Muscle Endurance</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdomen0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdomen1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdomen2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdomen3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAbdomen4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdomen0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdomen1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdomen2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdomen3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAbdomen4" />
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border">
@@ -259,11 +259,11 @@
                                     <span style="padding-left:10px;">教练建议 Professional advice</span>
                                 </el-col>
                                 <el-col :span="19" class="atingss">
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAdvice0" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAdvice1" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAdvice2" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAdvice3" />
-                                    <el-input class="ating-ipt" type="text" v-model="physical_energy_assessment.stAdvice4" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAdvice0" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAdvice1" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAdvice2" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAdvice3" />
+                                    <el-input class="ating-ipt" type="text" v-model.trim="physical_energy_assessment.stAdvice4" />
                                 </el-col>
                             </el-col>
                         </el-col>

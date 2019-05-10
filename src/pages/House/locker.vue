@@ -29,7 +29,7 @@
                                         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                                             <el-form-item label="储物柜编号:" prop="priorityid" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model="ruleForm.priorityid" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="ruleForm.priorityid" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="优先级:" prop="priority" :label-width="formLabelWidth">
@@ -44,7 +44,7 @@
                                             </el-form-item>
                                             <el-form-item label="VIP姓名:" prop="priorityname" :label-width="formLabelWidth" v-show="ruleForm.priority == 4">
                                                 <el-col :span="22">
-                                                    <el-input v-model="ruleForm.priorityname" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="ruleForm.priorityname" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -73,7 +73,7 @@
                                         <el-form :model="ruleForm2" ref="ruleForm2" label-width="100px">
                                             <el-form-item label="储物柜编号:" prop="name" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model="currentSelectRow.name" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="currentSelectRow.name" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="优先级:" prop="priority" :label-width="formLabelWidth">
@@ -88,7 +88,7 @@
                                             </el-form-item>
                                             <el-form-item label="VIP姓名:" prop="vipName" :label-width="formLabelWidth" v-show="currentSelectRow.priority == 'vip专用'">
                                                 <el-col :span="22">
-                                                    <el-input v-model="currentSelectRow.vipName" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="currentSelectRow.vipName" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -156,7 +156,7 @@ const radioDict = {
 }
 export default {
   inject: ["reload"],
-  name: "classroomsetting",
+  name: "locker",
   data() {
     return {
       formLabelWidth: "130px",

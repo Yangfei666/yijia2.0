@@ -16,7 +16,7 @@
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                   <el-form-item label="跟进内容:" prop="desc" :label-width="formLabelWidth">
                     <el-col :span="22" class="from-date">
-                      <el-input type="textarea" v-model="ruleForm.desc" maxlength="100" @input="descInput" placeholder="请输入"></el-input>
+                      <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="100" @input="descInput" placeholder="请输入"></el-input>
                        <span class="textarea">还可以输入{{remnant}}字</span>
                     </el-col>
                   </el-form-item>

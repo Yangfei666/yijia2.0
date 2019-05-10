@@ -11,7 +11,7 @@
               <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <el-form-item label="大队名称:" prop="bigname" :label-width="formLabelWidth">
                   <el-col :span="22">
-                    <el-input v-model="ruleForm.bigname" placeholder="请输入"></el-input>
+                    <el-input v-model.trim="ruleForm.bigname" placeholder="请输入"></el-input>
                   </el-col>
                 </el-form-item>
                 <el-form-item class="dialog-footer">
@@ -45,7 +45,7 @@
                 <el-tag :key="tag.index" v-for="tag in scope.row.club_info_group" closable :disable-transitions="false" @close="handleClose(scope.$index, tag)" style="margin-left:20px;">
                   {{tag.group}}
                 </el-tag>
-                <el-input class="input-new-tag" v-if="scope.$index === selectInputIndex" v-model="inputValue" ref="saveTagInput" size="small" :autofocus="true" @keyup.enter.native="handleInputConfirm(scope.$index)" @blur="handleInputConfirm(scope.$index)" style="width:87px;height:35px;">
+                <el-input class="input-new-tag" v-if="scope.$index === selectInputIndex" v-model.trim="inputValue" ref="saveTagInput" size="small" :autofocus="true" @keyup.enter.native="handleInputConfirm(scope.$index)" @blur="handleInputConfirm(scope.$index)" style="width:87px;height:35px;">
                 </el-input>
                 <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.$index,scope.row)">+添加新组
                 </el-button>

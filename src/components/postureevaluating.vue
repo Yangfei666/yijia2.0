@@ -253,7 +253,7 @@
                             </el-col>
                             <el-col :span="22" style="width:94%">
                                 <div class="one-right">
-                                    <el-input type="textarea" v-model="posture_assessment.poRemark" style="height:100%"></el-input>
+                                    <el-input type="textarea" v-model.trim="posture_assessment.poRemark" style="height:100%"></el-input>
                                 </div>
                             </el-col>
                         </div>

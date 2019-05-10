@@ -3,7 +3,7 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" @submit.native.prevent>
       <el-form-item label="" prop="" :label-width="formLabelWidth">
         <el-col :span="22" class="card__number">
-          <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo" v-model="cardID" placeholder="卡号/姓名/手机号" clearable></el-input>
+          <el-input ref="inputID" @blur="blur" @keyup.native.enter="enterResult()" @focus="focus" :autofocus="!showInfo" v-model.trim="cardID" placeholder="卡号/姓名/手机号" clearable></el-input>
           <el-button class="card__number_sure-btn" plain @click.native="sureCard">确定</el-button>
         </el-col>
         <el-col :span="22">
@@ -44,7 +44,7 @@
             <el-table-column align="left" prop="curriculum_table.kcPlace" label="教室"></el-table-column>
             <el-table-column align="left" label="手牌">
               <template slot-scope="scope">
-                <el-input v-model="handCardNumber" placeholder="请输入"></el-input>
+                <el-input v-model.trim="handCardNumber" placeholder="请输入"></el-input>
               </template>
             </el-table-column>
             <el-table-column align="left" label="操作" fixed="right">

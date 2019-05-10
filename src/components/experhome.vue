@@ -17,7 +17,7 @@
               </el-form-item>
               <el-form-item label="金额:" prop="price" :label-width="formLabelWidth">
                 <el-col :span="22">
-                  <el-input v-model="ruleForm.price" placeholder="0-1000之间"></el-input>
+                  <el-input v-model.trim="ruleForm.price" placeholder="0-1000之间"></el-input>
                 </el-col>
               </el-form-item>
               <el-form-item label="付款方式:" prop="mode" :label-width="formLabelWidth">
@@ -33,7 +33,7 @@
               </el-form-item>
               <el-form-item label="原因:" prop="desc" :label-width="formLabelWidth">
                 <el-col :span="22" class="from-date">
-                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
+                  <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="50" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-col>
               </el-form-item>

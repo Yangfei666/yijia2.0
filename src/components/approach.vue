@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item label="进场手牌:" prop="approach" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="ruleForm.approach" placeholder="请输入手牌号,不用则忽略"></el-input>
+          <el-input v-model.trim="ruleForm.approach" placeholder="请输入手牌号,不用则忽略"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item class="dialog-footer">

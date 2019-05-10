@@ -37,21 +37,21 @@
                     <el-col :span="20" class="from-date">
                       <el-col :span="24">
                         <el-form-item label="新的卡号：" prop="card">
-                          <el-input v-model="ruleForm.card" placeholder="请输入" style="width:100%"></el-input>
+                          <el-input v-model.trim="ruleForm.card" placeholder="请输入" style="width:100%"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
                       <el-col :span="24">
                         <el-form-item label="确认卡号：" prop="confirmcard">
-                          <el-input v-model="ruleForm.confirmcard" placeholder="请输入" style="width:100%"></el-input>
+                          <el-input v-model.trim="ruleForm.confirmcard" placeholder="请输入" style="width:100%"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-col>
                     <el-col :span="20" class="from-date">
                       <el-col :span="24">
                         <el-form-item label="IC卡序列号：" prop="seriesnumber">
-                          <el-input v-model="ruleForm.seriesnumber" placeholder="请输入" maxlength="30" style="width:100%"></el-input>
+                          <el-input v-model.trim="ruleForm.seriesnumber" placeholder="请输入" maxlength="30" style="width:100%"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-col>

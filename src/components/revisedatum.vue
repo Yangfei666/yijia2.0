@@ -4,7 +4,7 @@
     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
       <el-form-item label="姓名:" prop="name" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.prName" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.prName" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
@@ -15,12 +15,12 @@
       </el-form-item>
       <el-form-item label="电话:" prop="tel" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.prTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
+          <el-input v-model.trim="currentSelectRow.prTel" maxlength="11" placeholder="请输入" @blur.prevent="testUser"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="微信:" prop="wechat" :label-width="formLabelWidth">
         <el-col :span="22">
-          <el-input v-model="currentSelectRow.WeChat" placeholder="请输入"></el-input>
+          <el-input v-model.trim="currentSelectRow.WeChat" placeholder="请输入"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="客户质量:" prop="quality" :label-width="formLabelWidth">

@@ -37,7 +37,7 @@
               <el-table-column prop="performance" align="center" label="业绩">
                 <template slot-scope="scope">
                   <span v-if="edit_id !== scope.row.id || his == false">{{scope.row.performance}}</span>
-                  <el-input v-else size="small" v-model="scope.row.performance" placeholder="请输入"></el-input>
+                  <el-input v-else size="small" v-model.trim="scope.row.performance" placeholder="请输入"></el-input>
                 </template>
               </el-table-column>
               <el-table-column align="center" label="操作">

@@ -10,7 +10,7 @@
           </el-form-item>
           <el-form-item prop="verifycode2" class="identifyform" v-if="!isAdmin">
             <div class="identifybox">
-              <el-input type="text" v-model="account2.verifycode2" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
+              <el-input type="text" v-model.trim="account2.verifycode2" placeholder="输入验证码" class="identifyinput" style="width:98%"></el-input>
               <el-col :span="24">
                 <el-button v-show="sendAuthCode" class="auth_text" @click="getAuthCode">获取验证码</el-button>
                 <el-button v-show="!sendAuthCode" class="auth_text">
@@ -19,7 +19,7 @@
             </div>
           </el-form-item>
           <el-form-item prop="pwd2" class="form-item" v-show="hide">
-            <el-input type="password" class="input" auto-complete="off" v-model="account2.pwd2" :disabled="disabled" placeholder="设置密码"></el-input>
+            <el-input type="password" class="input" auto-complete="off" v-model.trim="account2.pwd2" :disabled="disabled" placeholder="设置密码"></el-input>
           </el-form-item>
           <el-form-item class="form-main" v-if="!isAdmin">
             <el-button v-waves style="width:100%;height:40px;" @click.native.prevent="handleRegister" :disabled="account2.tel2==''&&account2.verifycode2==''&&account2.pwd2==''" :loading="logining">注册</el-button>
@@ -28,12 +28,12 @@
             <el-button class="butt" @click="showcont2">点击登录</el-button>》</div>
           <transition name="slide-fade">
             <el-form-item prop="doorname" class="form-item" v-if="isAdmin">
-              <el-input class="input" auto-complete="off" v-model="account2.doorname" placeholder="会所名称"></el-input>
+              <el-input class="input" auto-complete="off" v-model.trim="account2.doorname" placeholder="会所名称"></el-input>
             </el-form-item>
           </transition>
           <transition name="slide-fade">
             <el-form-item prop="city" class="form-item" v-if="isAdmin">
-              <el-input class="input" auto-complete="off" v-model="account2.city" placeholder="所属城市"></el-input>
+              <el-input class="input" auto-complete="off" v-model.trim="account2.city" placeholder="所属城市"></el-input>
             </el-form-item>
           </transition>
           <el-form-item class="form-main" v-if="isAdmin">

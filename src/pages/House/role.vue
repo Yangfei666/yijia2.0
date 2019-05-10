@@ -29,7 +29,7 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="角色名称:" prop="rolename" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model="ruleForm.rolename" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.rolename" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item v-for="(items, index) in emptyOptions" :key="index" :prop="items.type" :label-width="formLabelWidth" style="margin-bottom:10px">

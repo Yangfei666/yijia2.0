@@ -16,7 +16,7 @@
             <el-col :span="17" class="from-date">
               <el-col :span="24">
                 <el-form-item label="不办卡原因：" prop="desc">
-                  <el-input type="textarea" v-model="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
+                  <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="50" @input="descInput" style="width:100%"></el-input>
                   <span class="textarea">还可以输入{{remnant}}字</span>
                 </el-form-item>
               </el-col>
