@@ -667,6 +667,7 @@ export default {
                 message: "删除成功",
                 type: "success"
               });
+              this.radio=false;
               for (var i = 0; i < this.tableData.length; i++) {
                 if (this.tableData[i].ID == this.currentSelectRow.ID) {
                   this.tableData.splice(i, 1);

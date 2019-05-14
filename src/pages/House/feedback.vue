@@ -117,9 +117,6 @@ export default {
   created() {
     this.gettabledata();
   },
-//   beforeUpdate() {
-//     sessionStorage.setItem("untreated",this.count);
-//   },
   methods: {
     //表格数据
     gettabledata() {

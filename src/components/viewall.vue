@@ -31,17 +31,20 @@
               <el-table-column prop="money" align="center" label="缴费"></el-table-column>
               <el-table-column prop="performance" align="center" label="身份证照片">
                  <template slot-scope="scope">
-                  <img :src="scope.row.identity_Photo" style="width: 55px;height: 55px">
+                   <el-tooltip content="点击图片可放大" placement="top">
+                    <img :src="scope.row.identity_Photo" style="width: 55px;height: 55px" @click="handleFileEnlarge(scope.row.identity_Photo)">
+                    </el-tooltip>
                 </template>
               </el-table-column>
               <el-table-column prop="performance" align="center" label="合同照片">
                 <template slot-scope="scope">
-                  <img :src="scope.row.contract_Photo" style="width: 55px;height: 55px">
+                  <el-tooltip content="点击图片可放大" placement="top">
+                  <img :src="scope.row.contract_Photo" style="width: 55px;height: 55px" @click="handleFileEnlarge2(scope.row.contract_Photo)">
+                  </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column align="left" label="操作" width="200px" fixed="right">
+              <el-table-column align="left" label="操作" width="150px" fixed="right">
                 <template slot-scope="scope">
-                  <el-button type="text" size="medium" @click="changeInfo2(scope.$index, scope.row)">详情</el-button>
                   <el-button type="text" size="medium" @click="dialogFormVisible1 = true">编辑</el-button>
                   <span v-if="scope.row.status=='退学'" style="margin-left: 10px;">
                   <el-button type="text" size="medium" @click="dialogFormVisible2 = true" style="color:#FF002B">已退学</el-button>
@@ -76,9 +79,9 @@
                             <el-radio label="男" value="2" v-model="currentSelectRow.sex"  @change="ChangeSex"></el-radio>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="归属教培:" prop="teachId" :label-width="formLabelWidth">
+                      <el-form-item label="归属教培:" prop="themes" :label-width="formLabelWidth">
                         <el-col :span="22">
-                           <el-input v-model.trim="this.$route.query.id" :disabled="true"></el-input>
+                          <el-input v-model.trim="this.themes" :disabled="true"></el-input>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="班次:" prop="shift" :label-width="formLabelWidth">
@@ -171,6 +174,18 @@
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper"  :total="tableData.length" ></el-pagination>
             </div>
+            <template>
+                <!--放大身份证图片-->
+                <el-dialog title="" :visible.sync="isEnlargeImage" :show-close='false' :modal-append-to-body="false">
+                  <img @click="isEnlargeImage = false" style="width:100%;" :src="enlargeImage">
+                </el-dialog>
+            </template>
+            <template>
+                <!--放大合同图片-->
+                <el-dialog title="" :visible.sync="isEnlargeImage2" :show-close='false' :modal-append-to-body="false">
+                  <img @click="isEnlargeImage2 = false" style="width:100%;" :src="enlargeImage2">
+                </el-dialog>
+            </template>
           </el-col>
         </el-row>
       </div>
@@ -199,8 +214,13 @@ export default {
       dialogFormVisible3:false,
       dialogFormVisible4:false,
       formLabelWidth: "130px",
+      isEnlargeImage: false, //放大图片
+      enlargeImage: "", //放大图片地址
+      isEnlargeImage2: false, //放大图片
+      enlargeImage2: "", //放大图片地址
       imageUrl: "",
       imageUrl2: "",
+      themes:"",
       file:"",
       file2:"",
       ruleForm: {
@@ -237,6 +257,19 @@ export default {
     this.gettabledata();
   },
   methods: {
+    //放大图片
+    handleFileEnlarge(_url) {
+      if (_url) {
+        this.enlargeImage = _url;
+        this.isEnlargeImage = !this.isEnlargeImage;
+      }
+    },
+    handleFileEnlarge2(_url2) {
+      if (_url2) {
+        this.enlargeImage2 = _url2;
+        this.isEnlargeImage2 = !this.isEnlargeImage2;
+      }
+    },
     uploadImg(file) {
       this.imgfile = file.raw;
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -444,8 +477,8 @@ export default {
       this.currentSelectRow = row;
       this.imageUrl = this.currentSelectRow.identity_Photo;
       this.imageUrl2 = this.currentSelectRow.contract_Photo;
+      this.themes = this.currentSelectRow.teach_info.theme;
     },
-    changeInfo2(){}
   }
 };
 </script>

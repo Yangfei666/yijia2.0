@@ -59,7 +59,7 @@ export default {
     return {
       downIcon: true,
       collapsed: false,
-      todo:sessionStorage.getItem("untreated"),
+      todo:JSON.parse(sessionStorage.getItem('untreated')),
       input21: "",
       applyimg: require("@/assets/apply.png"), //图片地址
       applyimg2: require("@/assets/classify.png"), //图片地址
@@ -80,8 +80,10 @@ export default {
   //     this.club.Hsxx_Hsid = clubID;
   //   })
   // },
-  beforeMount() {
-    this.todo = sessionStorage.getItem('untreated');
+  created() {
+    setTimeout(()=>{
+      this.todo = JSON.parse(sessionStorage.getItem('untreated'));
+    },500)
   },
   methods: {
     //获取个人资料

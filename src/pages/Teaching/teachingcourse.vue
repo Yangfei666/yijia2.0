@@ -91,7 +91,11 @@
               <el-table-column prop="theme" align="center" label="主题"></el-table-column>
               <el-table-column prop="startDay" align="center" label="开始日期"></el-table-column>
               <el-table-column prop="endDay" align="center" label="结束日期"></el-table-column>
-              <el-table-column prop="content" align="center" label="内容"></el-table-column>
+              <el-table-column prop="content" align="center" label="内容">
+                <template slot-scope="scope">
+                  <span class="info-content">{{scope.row.content}}</span>
+                </template>
+              </el-table-column>
               <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
                   <el-button type="text" size="medium" @click="changeInfo2(scope.$index, scope.row)">详情</el-button>
@@ -290,7 +294,8 @@ export default {
         path: "/Teaching/teachingcourse/classprogress",
         query: {
           id: this.currentSelectRow.id,
-          shibie:'shibie'
+          shibie:'shibie',
+          endDay:this.currentSelectRow.endDay
         }
       });
     }
@@ -406,6 +411,12 @@ export default {
           color: #00bc71;
         }
       }
+    }
+    .info-content{
+      width: 100%;    /*根据自己项目进行定义宽度*/
+      overflow: hidden;     /*设置超出的部分进行影藏*/
+      text-overflow: ellipsis;     /*设置超出部分使用省略号*/
+      white-space:nowrap ;    /*设置为单行*/
     }
   }
 }
