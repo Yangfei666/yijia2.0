@@ -13,9 +13,10 @@
                   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                     <el-form-item label="课程:" prop="course" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-select v-model="ruleForm.course" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                        <!-- <el-select v-model="ruleForm.course" placeholder="请选择" style="width:100%" @change="Selectchange2">
                           <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName" :value="item.kcno"></el-option>
-                        </el-select>
+                        </el-select> -->
+                        <el-autocomplete v-model.trim="ruleForm.course" :trigger-on-focus="false" placeholder="请输入" clearable style="width:100%;" :fetch-suggestions="querySearchAsync" @select="handleSelect"></el-autocomplete>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="课程底色:" prop="courseclassify" :label-width="formLabelWidth">
@@ -87,9 +88,10 @@
                     <el-form :model="currentSelectRow" ref="currentSelectRow" label-width="100px">
                       <el-form-item label="课程:" prop="kcName" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="currentSelectRow.KCNO" :placeholder="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
+                          <!-- <el-select v-model="currentSelectRow.KCNO" :placeholder="currentSelectRow.kcName" style="width:100%" @change="Selectchange2">
                             <el-option v-for="item in kecheng" :key="item.kcno" :label="item.kcName" :value="item.kcno"></el-option>
-                          </el-select>
+                          </el-select> -->
+                          <el-autocomplete v-model.trim="inputkcName" :placeholder="currentSelectRow.kcName" :trigger-on-focus="false" clearable style="width:100%;" :fetch-suggestions="querySearchAsync2" @select="handleSelect2"></el-autocomplete>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="课程底色:" prop="kcbSort" :label-width="formLabelWidth">
@@ -279,6 +281,7 @@ export default {
     return {
       kechengname: "",
       jiaolianname: "",
+      inputkcName:"",
       jiaoshi: [],
       kecheng: [],
       jiaolian: [],
@@ -313,7 +316,7 @@ export default {
         card: "" //卡种
       },
       rules: {
-        course: [{ required: true, message: "请选择课程", trigger: "change" }],
+        course: [{ required: true, message: "请输入课程", trigger: "blur" }],
         courseclassify: [
           { required: true, message: "请选择课程分类", trigger: "change" }
         ],
@@ -421,6 +424,46 @@ export default {
     },
     handleCurrentChange2(val, index) {
       this.currentRow = val;
+    },
+    async searchClub(name) {
+        this.clubLists = await requestLogin(`/searchCurSubByName`, {kcName: this.ruleForm.course}, 'post');
+        return this.clubLists
+      },
+    async querySearchAsync(queryString, cb) {
+        var clubLists = await this.searchClub(this.ruleForm.course);
+        var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
+        results = results.map(item => ({...item, value: item.kcName}))
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          cb(results);
+        }, 100);
+      },
+      createStateFilter(queryString) {
+        return (state) => {
+          return state.kcName
+        };
+      },
+      async searchClub2(name) {
+        this.clubLists = await requestLogin(`/searchCurSubByName`, {kcName: this.inputkcName}, 'post');
+        return this.clubLists
+      },
+    async querySearchAsync2(queryString, cb) {
+        var clubLists = await this.searchClub2(this.inputkcName);
+        var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
+        results = results.map(item => ({...item, value: item.kcName}))
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          cb(results);
+        }, 100);
+      },
+      createStateFilter(queryString) {
+        return (state) => {
+          return state.kcName
+        };
+      },
+    handleSelect(item) {
+    },
+    handleSelect2(item) {
     },
     getCurrentRow(val) {},
     rowClick(row, event, column) {
@@ -579,7 +622,7 @@ export default {
             }
             var formData = {
               kcStime: this.currentSelectRow.kcStime, //课程日期
-              KCNO: this.currentSelectRow.KCNO, //所选课程id
+              KCNO: this.inputkcName, //所选课程id
               kcbSort: kcbSortid, //灰底白底
               JLID: this.currentSelectRow.JLID, //教练id
               kcPlace: this.currentSelectRow.kcPlace, //教室
@@ -610,12 +653,8 @@ export default {
                 for (var i = 0; i < this.tableData.length; i++) {
                   if (this.tableData[i].ID == this.currentSelectRow.ID) {
                     this.tableData[i].kcbSort = this.currentSelectRow.kcbSort; //底色
-                    this.tableData[i].curriculum_subject.kcName =
-                      this.kechengname == ""
-                        ? this.tableData[i].curriculum_subject.kcName
-                        : this.kechengname; //课程名称
-                    this.tableData[i].staff_info.YGXX_NAME =
-                      this.jiaolianname == ""
+                    this.tableData[i].curriculum_subject.kcName = this.inputkcName;//课程名称
+                    this.tableData[i].staff_info.YGXX_NAME = this.jiaolianname == ""
                         ? this.tableData[i].staff_info.YGXX_NAME
                         : this.jiaolianname; //教练
                     this.tableData[i].Etime = this.currentSelectRow.Etime; //结束时间
@@ -711,7 +750,7 @@ export default {
                   type: "success"
                 });
                 this.dialogFormVisible = false;
-                formData.kcName = this.kechengname;
+                formData.kcName = this.ruleForm.course;
                 formData.JLIDs = this.jiaolianname;
                 formData.kcbSort = this.ruleForm.courseclassify;
                 if (this.ruleForm.courseclassify == "1") {

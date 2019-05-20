@@ -146,6 +146,12 @@ export default {
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 100 - txtVal;
+      if(this.ruleForm.desc.length < 10){
+         this.$message({
+            message: "输入字数不能少于10个字",
+            type: "warning"
+          });
+      }
     },
     handleClick(tab, event) {
       },

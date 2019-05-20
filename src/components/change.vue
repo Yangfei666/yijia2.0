@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="变更原因:" prop="desc" :label-width="formLabelWidth">
         <el-col :span="22" class="from-date">
-          <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="50" @input="descInput" style="min-height:96px;width:690px;height:69px"></el-input>
+          <el-input type="textarea" v-model.trim="ruleForm.desc" maxlength="50" @input="descInput" style="min-height:96px;width:100%;height:69px"></el-input>
           <span class="textarea">还可以输入{{remnant}}字</span>
         </el-col>
       </el-form-item>
@@ -130,6 +130,12 @@ export default {
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 50 - txtVal;
+      if(this.ruleForm.desc.length < 20){
+      this.$message({
+            message: "输入字数不能少于20个字",
+            type: "warning"
+          });
+      }
     },
     Selectchange2(val) {}
   }

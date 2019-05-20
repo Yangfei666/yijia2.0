@@ -17,7 +17,7 @@
       </div>
       <div class="cardInfo">
         <div class="cardInfo__photo">
-          <img :src="info.Photo" alt="photo" class="cardInfo__photo-img">
+          <img :src="info.urlPic" alt="photo" class="cardInfo__photo-img">
         </div>
         <div class="cardInfo__detail">
           <div class="cardInfo__detail_item">姓名：{{info.HYName}}</div>

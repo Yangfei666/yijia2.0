@@ -75,7 +75,9 @@
         <el-table highlight-current-row :data="leaguer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
           <el-table-column align="left" prop="img" fixed label="头像">
             <template slot-scope="scope">
-              <img :src="scope.row.member_customers.urlPic" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <el-tooltip content="点击图片可放大" placement="top">
+                  <img :src="scope.row.member_customers.urlPic" style="width: 36px;height:36px;border-radius:50%;" @click="handleFileEnlarge(scope.row.member_customers.urlPic)">
+              </el-tooltip>
             </template>
           </el-table-column>
           <el-table-column align="left" prop="member_customers.HYName" label="客户姓名"></el-table-column>
@@ -102,6 +104,12 @@
           </el-table-column>
         </el-table>
       </div>
+      <template>
+          <!--放大图片-->
+          <el-dialog title="" :visible.sync="isEnlargeImage" :show-close='false' :modal-append-to-body="false">
+            <img @click="isEnlargeImage = false" style="width:50%;" :src="enlargeImage">
+          </el-dialog>
+      </template>
     </div>
     <div class="main-list" v-show="enterStadium">
       <div class="customer">
@@ -111,7 +119,9 @@
         <el-table highlight-current-row :data="trainer" style="width: 100%" :header-cell-style="{background:'#fafafa'}">
           <el-table-column fixed align="left" label="头像">
             <template slot-scope="scope">
-              <img :src="scope.row.img" alt="头像" style="width: 36px;height:36px;border-radius:50%;">
+              <el-tooltip content="点击图片可放大" placement="top">
+                  <img :src="scope.row.img" style="width: 36px;height:36px;border-radius:50%;" @click="handleFileEnlarge2(scope.row.img)">
+              </el-tooltip>
             </template>
           </el-table-column>
           <el-table-column align="left" prop="name1" label="安排教练"></el-table-column>
@@ -130,6 +140,12 @@
           </el-table-column>
         </el-table>
       </div>
+      <template>
+          <!--放大图片-->
+          <el-dialog title="" :visible.sync="isEnlargeImage2" :show-close='false' :modal-append-to-body="false">
+            <img @click="isEnlargeImage2 = false" style="width:50%;" :src="enlargeImage2">
+          </el-dialog>
+      </template>
     </div>
     <!-- 进场输入框 -->
     <template>
@@ -154,6 +170,10 @@ export default {
   },
   data() {
     return {
+      isEnlargeImage: false, //放大图片
+      enlargeImage: "", //放大图片地址
+      isEnlargeImage2: false, //放大图片
+      enlargeImage2: "", //放大图片地址
       enterStadium: true, // 是否显示课程内容
       enterTitle: "团课会员进场", //进场输入框的标题
       dialogFormVisible: false,
@@ -258,6 +278,19 @@ export default {
     }
   },
   methods: {
+    //放大图片
+    handleFileEnlarge(_url) {
+      if (_url) {
+        this.enlargeImage = _url;
+        this.isEnlargeImage = !this.isEnlargeImage;
+      }
+    },
+    handleFileEnlarge2(_url2) {
+      if (_url2) {
+        this.enlargeImage2 = _url2;
+        this.isEnlargeImage2 = !this.isEnlargeImage2;
+      }
+    },
     rowClick(row, event, column) {
       this.currentSelectRow = row;
     },

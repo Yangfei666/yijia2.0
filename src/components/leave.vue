@@ -164,6 +164,12 @@ export default {
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 50 - txtVal;
+      if(this.ruleForm.desc.length < 20){
+          this.$message({
+                message: "输入字数不能少于20个字",
+                type: "warning"
+              });
+          }
     },
     back() {
       this.$router.push({
