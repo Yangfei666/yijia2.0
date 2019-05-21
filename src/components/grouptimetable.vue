@@ -350,6 +350,7 @@ export default {
       currentPage: 1,
       pagesize: 10,
       JLIDs:"",
+      inputName:"",
       kazhong: []
     };
   },
@@ -620,9 +621,14 @@ export default {
             ) {
               kcbSortid = "1";
             }
+            if(this.inputkcName == ""){
+              this.inputName = this.currentSelectRow.kcName;
+            }else{
+              this.inputName = this.inputkcName;
+            }
             var formData = {
               kcStime: this.currentSelectRow.kcStime, //课程日期
-              KCNO: this.inputkcName, //所选课程id
+              KCNO: this.inputName, //所选课程id
               kcbSort: kcbSortid, //灰底白底
               JLID: this.currentSelectRow.JLID, //教练id
               kcPlace: this.currentSelectRow.kcPlace, //教室
@@ -653,7 +659,7 @@ export default {
                 for (var i = 0; i < this.tableData.length; i++) {
                   if (this.tableData[i].ID == this.currentSelectRow.ID) {
                     this.tableData[i].kcbSort = this.currentSelectRow.kcbSort; //底色
-                    this.tableData[i].curriculum_subject.kcName = this.inputkcName;//课程名称
+                    this.tableData[i].curriculum_subject.kcName = this.inputName;//课程名称
                     this.tableData[i].staff_info.YGXX_NAME = this.jiaolianname == ""
                         ? this.tableData[i].staff_info.YGXX_NAME
                         : this.jiaolianname; //教练
