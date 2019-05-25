@@ -120,6 +120,8 @@ const Practiceup = resolve => require(['@/components/practiceup'], resolve)//体
 
 const Insiderup = resolve => require(['@/components/insiderup'], resolve)//会员跟进记录
 
+const Downschedule = resolve => require(['@/components/downschedule'], resolve)//下载课表
+
 const Healthsurvey = resolve => require(['@/components/healthsurvey'], resolve)//健康调查表
 
 const Staminaevaluating = resolve => require(['@/components/staminaevaluating'], resolve)//体能评估表
@@ -196,7 +198,8 @@ let router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-085shucezhongxin',
             children: [
-                { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true },//团课课程表
+                { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true},//团课课程表
+                { path: '/Curriculum/group/downschedule', component: Downschedule,name: '下载课表', menuShow: false  },//下载课表
                 { path: '/Curriculum/privateculum', component: CurriPrivateCulum, name: '私教课程表', menuShow: true },//私教课程表
                 { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true }//课程科目管理
             ]

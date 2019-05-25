@@ -279,6 +279,9 @@ export default {
               margin-top: 9%;
               margin-right: 7%;
             }
+            .name{
+              margin-right: 6% !important;
+            }
           }
         }
       }
@@ -317,6 +320,9 @@ export default {
               border-radius: 50%;
               margin-top: 7%;
               margin-right: 7%;
+            }
+            .name{
+              margin-right: 16% !important;
             }
           }
         }
@@ -357,6 +363,9 @@ export default {
               margin-top: 6%;
               margin-right: 7%;
             }
+            .name{
+              margin-right: 16% !important;
+            }
           }
         }
       }
@@ -395,6 +404,9 @@ export default {
               border-radius: 50%;
               margin-top: 4%;
               margin-right: 7%;
+            }
+            .name{
+              margin-right: 16% !important;
             }
           }
         }
@@ -440,7 +452,9 @@ export default {
             }
             .name {
               font-size: 18px !important;
+              margin-right: 16% !important;
             }
+            
           }
         }
       }

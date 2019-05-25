@@ -235,7 +235,6 @@
                 </el-radio>
               </template>
             </el-table-column>
-            <!---->
             <el-table-column prop="kcName" align="left" label="课程名称"></el-table-column>
             <el-table-column align="left" label="开课时间">
               <template slot-scope="scope">
@@ -351,7 +350,8 @@ export default {
       pagesize: 10,
       JLIDs:"",
       inputName:"",
-      kazhong: []
+      kazhong: [],
+      zhouyi:""
     };
   },
   watch: {
@@ -362,6 +362,7 @@ export default {
           case 1:
             this.tableData = val.list.Monday;
             this.kcStime = val.week.Monday;
+            this.zhouyi = val.week.Monday;
             break;
           case 2:
             this.tableData = val.list.Tuesday;
@@ -879,7 +880,7 @@ export default {
       }
     },
     ceshihcange(val) {
-    }
+    },
   }
 };
 </script>
@@ -889,4 +890,16 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/group.scss";
 @import "@/styles/grouptimetable.scss";
+.download{
+      height: 30px;
+      margin-top: 3.2%;
+      padding: 6px 13px;
+      font-size: 14px;
+      border: 1px solid #00bc6a;
+      color: #00bc6a;
+      margin-left: -5%;
+    }
+  .el-card{
+    margin-bottom: 10px;
+  }
 </style>

@@ -25,13 +25,16 @@
                 </el-col>
               </el-form>
             </div>
+            <div class="Downschedule">
+              <el-button size="small" type="text" class="download" @click="Downschedule">下载课表</el-button>
+            </div>
           </el-col>
         </div>
       </el-col>
     </el-row>
     <el-row>
-      <div class="group-main">
-        <div class="group-head">
+      <div class="group-main" >
+        <div class="group-head" ref="capture">
           <div class="group-right">
             <!-- <el-date-picker v-model="mondayDate" type="daterange" range-separator="至" :disabled="true"
                             style="width:230px;margin-top:4px"
@@ -71,8 +74,9 @@
 </template>
 <script>
 import Grouptimetable from "@/components/grouptimetable";
+import html2canvas from 'html2canvas';
 // import Bus from "@/common/eventBus";
-import { requestLogin } from "@/api/api";
+import { requestLogin ,requestUrlDown} from "@/api/api";
 let group = {
   copyTable(params) {
     return requestLogin("/copyCurTable", params, "post");
@@ -86,6 +90,7 @@ let group = {
 };
 export default {
   name: "group",
+  inject: ["reload"],
   components: {
     Grouptimetable,
     // Bus
@@ -119,7 +124,7 @@ export default {
       mondayDate: "",
       isSelfClub: false,
       copy_selectClubIndex: -1,
-      chooseClub: ""
+      chooseClub: "",
     };
   },
   created() {
@@ -378,7 +383,17 @@ export default {
     changeWeek(val) {
       this.changeClub(this.chooseClub);
       // this.changeClub(this.selectClubID);
-    }
+    },
+    //下载课表
+    Downschedule(){
+      this.$router.push({
+        path: "/Curriculum/group/downschedule",
+        query: {
+        zhouyi:this.Monday,
+        huisuoid:JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid
+        }
+      });
+    },
   }
 };
 </script>
