@@ -207,7 +207,7 @@ export default {
           let { response: { data: { errorCode, msg }}} = error;
           if (errorCode != 0) {
             this.$message({
-              message: msg,
+              message: '对不起,请先完成下载设置',
               type: "error"
             });
             return;
@@ -239,7 +239,7 @@ export default {
     },
     //预览
     preview(){
-      this.gettabledata();
+      window.location.reload();
     },
     //下载课程表图片
     downbtn(){
@@ -356,6 +356,7 @@ export default {
                   _this.gettabledata();
                 },100)
                 _this.reload();
+                window.location.reload();
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

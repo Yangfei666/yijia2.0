@@ -177,13 +177,13 @@
             <template>
                 <!--放大身份证图片-->
                 <el-dialog title="" :visible.sync="isEnlargeImage" :show-close='false' :modal-append-to-body="false">
-                  <img @click="isEnlargeImage = false" style="width:100%;" :src="enlargeImage">
+                  <img @click="isEnlargeImage = false" style="width:70%;" :src="enlargeImage">
                 </el-dialog>
             </template>
             <template>
                 <!--放大合同图片-->
                 <el-dialog title="" :visible.sync="isEnlargeImage2" :show-close='false' :modal-append-to-body="false">
-                  <img @click="isEnlargeImage2 = false" style="width:100%;" :src="enlargeImage2">
+                  <img @click="isEnlargeImage2 = false" style="width:70%;" :src="enlargeImage2">
                 </el-dialog>
             </template>
           </el-col>
