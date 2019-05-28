@@ -8,9 +8,9 @@
             <span class="seed2">ID:{{membershipcards.CardNO}}</span>
             <span class="seed1">{{membershipcards.mode}}:{{membershipcards.money}}元</span>
           </el-col>
-          <el-col :span="12" class="carddate">
-            <p class="date1">开卡时间:{{membershipcards.fkTime}}</p>
-            <p class="date2">到期时间:{{membershipcards.eTime}}</p>
+          <el-col :span="21" class="carddate">
+            <p class="date1">发卡时间:{{membershipcards.fkTime}}</p>
+            <p class="date2">有效期:{{membershipcards.sTime}}~{{membershipcards.eTime}}</p>
           </el-col>
           <el-col :span="12" class="cardimg">
             <img src="../assets/EPLUS.png">
@@ -407,7 +407,7 @@ export default {
       }
       .cardimg {
         position: absolute;
-        right: 16%;
+        right: 6%;
         top: 40%;
         width: 31%;
         height: 12%;
