@@ -99,8 +99,8 @@
               <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
                   <el-button type="text" size="medium" @click="changeInfo2(scope.$index, scope.row)">详情</el-button>
-                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true">编辑</el-button>
-                  <el-button type="text" size="medium" @click="delexper(scope.$index, scope.row)">删除</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true" :disabled="scope.row.disabledfe">编辑</el-button>
+                  <el-button type="text" size="medium" @click="delexper(scope.$index, scope.row)" :disabled="scope.row.disabledfe">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -128,6 +128,9 @@ export default {
       dialogFormVisible:false,
       dialogFormVisible2:false,
       pagesize: 10,
+      Maydate:"",
+      endDays:"",
+      disabledfe:false,
       tableData: [],
       ruleForm: {
         theme: "",
@@ -151,13 +154,24 @@ export default {
   },
   created() {
     this.gettabledata();
+    this.Maydate = this.getCurrentDateTime();
   },
   methods: {
+    getCurrentDateTime() {
+      return moment(new Date()).format("YYYY-MM-DD");
+    },
     //表格数据
     gettabledata() {
       let _this = this;
       requestLogin("/teachInfo", {}, "get")
-        .then(res => {
+        .then(res => {         
+          for(var i=0;i<res.length;i++){
+              if(res[i].endDay<_this.Maydate){
+                  res[i].disabledfe = true;
+              }else{
+                  res[i].disabledfe = false;
+              }
+          }
           _this.tableData = res;
         })
         .catch(error => {

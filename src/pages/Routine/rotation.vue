@@ -89,13 +89,12 @@
         <el-row>
           <el-col :span="24">
             <el-table ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-              <el-table-column align="left" label="" fixed width="10px"></el-table-column>
-              <el-table-column prop="banTitle" align="left" fixed label="标题"></el-table-column>
-              <el-table-column prop="banDes" align="left" label="描述"></el-table-column>
-              <el-table-column prop="banState" align="left" label="分类"></el-table-column>
-              <el-table-column prop="banStart" align="left" label="发布时间"></el-table-column>
-              <el-table-column prop="banEnd" align="left" label="结束时间"></el-table-column>
-              <el-table-column prop="banStatus" align="left" label="状态"></el-table-column>
+              <el-table-column prop="banTitle" align="center" fixed label="标题"></el-table-column>
+              <el-table-column prop="banDes" align="center" label="描述"></el-table-column>
+              <el-table-column prop="banState" align="center" label="分类"></el-table-column>
+              <el-table-column prop="banStart" align="center" label="发布时间"></el-table-column>
+              <el-table-column prop="banEnd" align="center" label="结束时间"></el-table-column>
+              <el-table-column prop="banStatus" align="center" label="状态"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">

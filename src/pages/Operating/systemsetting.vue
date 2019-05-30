@@ -273,9 +273,9 @@
                             </el-col>
                             <el-col :span="24" class="from-date-border4">
                                 <el-col :span="12" class="from-date">
-                                    <el-form-item label="是否开启惩罚：" prop="isPunish" :label-width="formLabelWidth">
+                                    <el-form-item label="是否开启惩罚：" prop="isPunishPc" :label-width="formLabelWidth">
                                         <el-col :span="24">
-                                            <el-radio-group v-model="ruleForm.isPunish" @change="chanegtext">
+                                            <el-radio-group v-model="ruleForm.isPunishPc" @change="chanegtext">
                                                 <el-radio :label="0">否</el-radio>
                                                 <el-radio :label="1">是</el-radio>
                                             </el-radio-group>
@@ -284,14 +284,14 @@
                                 </el-col>
                             </el-col>
                              <el-col :span="24" class="from-date-border4">
-                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                     <el-form-item label="每月免于惩罚的次数：" prop="punishCount" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.punishCount" style="width:250px" placeholder="默认3,最大9"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                     <el-form-item label="惩罚升级的次数：" prop="punishRscalation" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.punishRscalation" style="width:250px" placeholder="默认1"></el-input>
@@ -300,20 +300,20 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border5">
-                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunish == 1">
-                                    <el-form-item label="会员惩罚措施：" prop="punishNum" label-width="200px">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunishPc == 1">
+                                    <el-form-item label="会员惩罚措施：" prop="punishNumPc" label-width="200px">
                                         <el-col :span="24">
-                                            <el-radio-group v-model="ruleForm.punishNum" @change="chanegtext">
+                                            <el-radio-group v-model="ruleForm.punishNumPc" @change="chanegtext">
                                                 <el-radio :label="1">几天内不能上课</el-radio>
                                                 <el-radio :label="2">扣次数或金额或有效期</el-radio>
                                             </el-radio-group>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunish == 1">
-                                    <el-form-item label="惩罚升级的措施：" prop="numTwo" label-width="200px">
+                                <el-col :span="12" class="from-date" v-if="ruleForm.isPunishPc == 1">
+                                    <el-form-item label="惩罚升级的措施：" prop="numTwoPc" label-width="200px">
                                         <el-col :span="24">
-                                            <el-radio-group v-model="ruleForm.numTwo" @change="chanegtext">
+                                            <el-radio-group v-model="ruleForm.numTwoPc" @change="chanegtext">
                                                 <el-radio :label="1">几天内不能上课</el-radio>
                                                 <el-radio :label="2">扣次数或金额或有效期</el-radio>
                                             </el-radio-group>
@@ -322,28 +322,28 @@
                                 </el-col>
                             </el-col>
                             <el-col :span="24" class="from-date-border6">
-                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                    <el-form-item label="几天内不让上课：" prop="date" label-width="140px">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.date" style="width:250px" placeholder="默认7,最大9"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                     <el-form-item label="扣具体次数：" prop="num" label-width="140px">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.num" style="width:100%" placeholder="默认1"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                     <el-form-item label="扣具体金额(元)：" prop="price" label-width="140px">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.price" style="width:100%" placeholder="默认100"></el-input>
                                         </el-col>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunish == 1">
+                                <el-col :span="6" class="from-date" v-if="ruleForm.isPunishPc == 1">
                                     <el-form-item label="扣具体时间(天数)：" prop="time" label-width="140px">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.time" style="width:100%" placeholder="默认15"></el-input>
@@ -392,8 +392,8 @@ export default {
         punishTime: "", //客户至少提前多少时间取消预约
         punishCount: "", //每月免于惩罚的次数
         lengthOfTime: "", //私教课最大时长
-        punishNum: "", //会员惩罚措施编号
-        isPunish: "", //是否开启惩罚
+        punishNumPc: "", //会员惩罚措施编号
+        isPunishPc: "", //是否开启惩罚
         date: "", //日期
         num: "", //天数
         price: "", //价格
@@ -404,7 +404,7 @@ export default {
         apiLeagueTime: "", //客户端团课提前预约时间
         apiPersonalTime: "", //客户端私教提前预约时间
         punishRscalation: "", //惩罚升级的次数
-        numTwo: "", //惩罚升级的措施
+        numTwoPc: "", //惩罚升级的措施
         personalDate1: "", //信用1级约私教天数
         personalDate2: "", //信用2级约私教天数
         personalDate3: "", //信用3级约私教天数
@@ -462,8 +462,8 @@ export default {
           punishTime: this.ruleForm.punishTime, //客户至少提前多少时间取消预约
           punishCount: this.ruleForm.punishCount, //每月免于惩罚的次数
           lengthOfTime: this.ruleForm.lengthOfTime, //私教课最大时长
-          punishNum: this.ruleForm.punishNum, //会员惩罚措施编号
-          isPunish: this.ruleForm.isPunish, //是否开启惩罚
+          punishNum: this.ruleForm.punishNumPc, //会员惩罚措施编号
+          isPunish: this.ruleForm.isPunishPc, //是否开启惩罚
           date: this.ruleForm.date, //日期
           num: this.ruleForm.num, //天数
           price: this.ruleForm.price, // 价格
@@ -474,7 +474,7 @@ export default {
           apiLeagueTime: this.ruleForm.apiLeagueTime, //客户端团课提前预约时间
           apiPersonalTime: this.ruleForm.apiPersonalTime, //客户端私教提前预约时间
           punishRscalation: this.ruleForm.punishRscalation, //惩罚升级的次数
-          numTwo: this.ruleForm.numTwo, //惩罚升级的措施
+          numTwo: this.ruleForm.numTwoPc, //惩罚升级的措施
           personalDate1: this.ruleForm.personalDate1, //信用1级约私教天数
           personalDate2: this.ruleForm.personalDate2, //信用2级约私教天数
           personalDate3: this.ruleForm.personalDate3, //信用3级约私教天数

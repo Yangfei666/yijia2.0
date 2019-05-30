@@ -26,7 +26,7 @@
               <div style="margin-right:-7px;margin-top:12px"><img :src="user.Photo" /></div>
               <router-link to="/House/feedback" style="text-decoration: none;color: #333;width: 55px;" @click.native="untreated">
               <el-badge :value="todo" :max="99" class="item" v-if="todo>0"></el-badge>
-              <el-badge class="item" v-else></el-badge>
+              <el-badge class="item" is-dot v-else></el-badge>
               </router-link>
                 <span class="name">{{user.YGXX_NAME}}</span>
               <span class="tuichu">

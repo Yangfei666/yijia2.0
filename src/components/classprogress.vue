@@ -23,8 +23,8 @@
                   <el-col :span="20" style="height:50px">
                     <el-form-item label="当前教培:">
                       <el-col :span="24" v-if="this.$route.query.shibie == 'shibie'">
-                        <el-select v-model="form.train" placeholder="请选择" style="width:230px" @change="trainchange">
-                          <el-option v-for="item in Coach" :key="item.id" :label="item.theme" :value="item.id"></el-option>
+                        <el-select v-model="form.train" placeholder="请选择" style="width:230px" @change="trainchange2">
+                          <el-option v-for="item in Coach2" :key="item.id" :label="item.theme" :value="item.id"></el-option>
                         </el-select>
                       </el-col>
                        <el-col :span="24" v-else>
@@ -245,6 +245,7 @@ export default {
       },
       formLabelWidth: "130px",
       Coach: [],
+      Coach2:[],
       coachtheme:"",
       tableData: [],
       currentPage: 1,
@@ -287,6 +288,7 @@ export default {
     let FirstDay = this.GetDateStr(0, day);
     this.gettabledata(FirstDay);
     this.getCoachdata();
+    this.getCoachdata2();
     if(this.$route.query.shibie == 'shibie'){
       this.form.train = this.$route.query.id;
     }else{
@@ -323,6 +325,29 @@ export default {
           }
         });
     },
+    trainchange2(val){
+      let _this = this;
+      _this.jiaojiao = val;
+      let obj = {};
+        obj = this.Coach2.find((item)=>{ return item.id === val;});
+        _this.jiaojiaoname = obj.theme;
+      requestLogin("/setTeachCurInfo/showIndexById/"+val, {}, "get")
+        .then(res => {
+          Object.assign(_this.tdlist, res);
+          Object.assign(_this.week, res.week);
+          _this.dateValue = "";
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg }}} = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     //当前教培下拉
     getCoachdata() {
       let _this = this;
@@ -331,6 +356,28 @@ export default {
             _this.Coach = res.data;
             sessionStorage.setItem("coachid",res.data[0].id);
             sessionStorage.setItem("coachtheme",res.data[0].theme);
+            if(this.$route.query.endDay < this.Monday){
+              _this.form.train = JSON.parse(sessionStorage.getItem('coachtheme'));
+            }else{
+              _this.form.train2 = JSON.parse(sessionStorage.getItem('coachtheme'));
+            }
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg }}} = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
+    getCoachdata2() {
+      let _this = this;
+      requestLogin("/teachInfo", {}, "get")
+        .then(res => {
+            _this.Coach2 = res;
             if(this.$route.query.endDay < this.Monday){
               _this.form.train = JSON.parse(sessionStorage.getItem('coachtheme'));
             }else{
@@ -384,6 +431,9 @@ export default {
       let _this = this;
       if(_this.$route.query.shibie == 'shibie'){
         _this.idd = _this.$route.query.id;
+        if(_this.jiaojiao){
+        _this.idd = _this.jiaojiao;
+         }
       }else if(!_this.jiaojiao){
         _this.idd = JSON.parse(sessionStorage.getItem('coachid'));
       }else{
@@ -442,8 +492,8 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
-                _this.reload();
                 _this.resetForm(formName);
+                _this.dialogFormVisible1 = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -520,6 +570,9 @@ export default {
        let _this = this;
       if(_this.$route.query.shibie == 'shibie'){
         _this.idd = _this.$route.query.id;
+        if(_this.jiaojiao){
+        _this.idd = _this.jiaojiao;
+         }
       }else if(!_this.jiaojiao){
         _this.idd = JSON.parse(sessionStorage.getItem('coachid'));
       }else{
@@ -580,6 +633,9 @@ export default {
     viewall(){
       if(this.$route.query.shibie == 'shibie'){
         this.idd=this.$route.query.id;
+        if(this.jiaojiao){
+          this.idd = this.jiaojiao;
+         }
       }else if(!this.jiaojiao){
         this.idd= JSON.parse(sessionStorage.getItem('coachid'));
       }else{

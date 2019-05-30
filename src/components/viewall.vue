@@ -79,11 +79,11 @@
                             <el-radio label="男" value="2" v-model="currentSelectRow.sex"  @change="ChangeSex"></el-radio>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="归属教培:" prop="themes" :label-width="formLabelWidth">
+                      <!-- <el-form-item label="归属教培:" prop="themes" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-input v-model.trim="this.themes" :disabled="true"></el-input>
                         </el-col>
-                      </el-form-item>
+                      </el-form-item> -->
                       <el-form-item label="班次:" prop="shift" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-radio-group v-model="currentSelectRow.shift" @change="Changeshift">
@@ -281,7 +281,7 @@ export default {
     //表格数据
     gettabledata() {
       let _this = this;
-      requestLogin("/teachStudent", {}, "get")
+      requestLogin("/teachStudent/list/"+_this.$route.query.id, {}, "get")
         .then(res => {
           _this.tableData = res;
         })
