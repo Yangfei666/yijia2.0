@@ -145,6 +145,7 @@ export default {
       imageUrl: "",
       imageUrlss: "",
       urlsetup:"http://www.loelve.xyz",
+      // urlsetup:"https://api.yijiayoga.com",
       dataURL:"",
       blobImg:{},
       setup:"",
