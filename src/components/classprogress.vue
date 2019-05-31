@@ -3,11 +3,17 @@
     <el-row>
       <el-col :span="24">
         <div class="practice-main">
-          <el-col :span="23" class="breadcrumb">
+          <el-col :span="23" class="breadcrumb" v-if="this.$route.query.shibie == 'shibie'">
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>教培管理</el-breadcrumb-item>
-              <el-breadcrumb-item :to="{ path: '/Teaching/teachingcourse' }">教培课程</el-breadcrumb-item>
+              <el-breadcrumb-item>教培课程</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <el-col :span="23" class="breadcrumb" v-else>
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>教培管理</el-breadcrumb-item>
               <el-breadcrumb-item>正在上课</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
@@ -16,7 +22,8 @@
       <el-col :span="24">
         <div class="practice-head">
           <el-col :span="24" class="weber">
-            <span class="weber-span">正在上课</span>
+            <span class="weber-span" v-if="this.$route.query.shibie == 'shibie'">教培课程</span>
+            <span class="weber-span" v-else>正在上课</span>
             <div class="main-right">
               <div class="block3">
                 <el-form ref="form" :model="form" label-width="85px">
