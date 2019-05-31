@@ -306,7 +306,7 @@ export default {
       let _this = this;
       _this.jiaojiao = val;
       let obj = {};
-        obj = this.Coach.find((item)=>{ return item.id === val;});
+        obj = _this.Coach.find((item)=>{ return item.id === val;});
         _this.jiaojiaoname = obj.theme;
       requestLogin("/setTeachCurInfo/showIndexById/"+val, {}, "get")
         .then(res => {
@@ -329,7 +329,7 @@ export default {
       let _this = this;
       _this.jiaojiao = val;
       let obj = {};
-        obj = this.Coach2.find((item)=>{ return item.id === val;});
+        obj = _this.Coach2.find((item)=>{ return item.id === val;});
         _this.jiaojiaoname = obj.theme;
       requestLogin("/setTeachCurInfo/showIndexById/"+val, {}, "get")
         .then(res => {
@@ -356,11 +356,11 @@ export default {
             _this.Coach = res.data;
             sessionStorage.setItem("coachid",res.data[0].id);
             sessionStorage.setItem("coachtheme",res.data[0].theme);
-            if(this.$route.query.endDay < this.Monday){
-              _this.form.train = JSON.parse(sessionStorage.getItem('coachtheme'));
-            }else{
-              _this.form.train2 = JSON.parse(sessionStorage.getItem('coachtheme'));
-            }
+            // if(this.$route.query.endDay < this.Monday){
+            //   _this.form.train = JSON.parse(sessionStorage.getItem('coachtheme'));
+            // }else{
+            //   _this.form.train2 = JSON.parse(sessionStorage.getItem('coachtheme'));
+            // }
         })
         .catch(error => {
           let { response: { data: { errorCode, msg }}} = error;
@@ -378,11 +378,11 @@ export default {
       requestLogin("/teachInfo", {}, "get")
         .then(res => {
             _this.Coach2 = res;
-            if(this.$route.query.endDay < this.Monday){
-              _this.form.train = JSON.parse(sessionStorage.getItem('coachtheme'));
-            }else{
-              _this.form.train2 = JSON.parse(sessionStorage.getItem('coachtheme'));
-            }
+            // if(_this.$route.query.endDay < _this.Monday){
+            //   _this.form.train = _this.$route.query.id;
+            //   }else{
+            //     _this.form.train2 = JSON.parse(sessionStorage.getItem('coachid'));
+            //   }
         })
         .catch(error => {
           let { response: { data: { errorCode, msg }}} = error;
