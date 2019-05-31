@@ -30,7 +30,7 @@
                         </el-col>
                         <el-col :span="24" class="health-from">
                             <div class="health-from-div">
-                                <p class="el-icon-caret-right hong">会馆设置</p>
+                                <p class="el-icon-caret-right hei">会馆设置</p>
                                 <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所开馆时间：" prop="openTime" :label-width="formLabelWidth">
@@ -83,7 +83,7 @@
                             </el-col>
                             </div>
                             <div class="health-from-div">
-                                <p class="el-icon-caret-right lan">会员卡设置</p>
+                                <p class="el-icon-caret-right hei">会员卡设置</p>
                                 <el-col :span="24" class="from-date-border2">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会员卡激活时间(天数)：" prop="activation" :label-width="formLabelWidth">
@@ -111,7 +111,7 @@
                             </el-col>
                             </div>
                             <div class="health-from-div">
-                                <p class="el-icon-caret-right huang">课程设置</p>
+                                <p class="el-icon-caret-right hei">课程设置</p>
                                 <el-col :span="24" class="from-date-border3">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="提前进场时间(小时)：" prop="enterTime" :label-width="formLabelWidth">
@@ -130,7 +130,7 @@
                             </el-col>
                             </div>
                             <div class="health-from-div">
-                                <p class="el-icon-caret-right lv">预约及取消设置</p>
+                                <p class="el-icon-caret-right hei">预约及取消设置</p>
                                 <el-col :span="24" class="from-date-border4">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端团课提前预约(天数)：" prop="apiLeagueDate" :label-width="formLabelWidth">
@@ -610,21 +610,9 @@ export default {
             text-align: left;
             margin-left: 10px;
             display: -webkit-box;
-            .hong{
+            .hei{
                 text-align: left;
-                color: #FF0000;
-            }
-            .huang{
-                text-align: left;
-                color: blueviolet;
-            }
-            .lan{
-                text-align: left;
-                color: blue;
-            }
-            .lv{
-                text-align: left;
-                color: green;
+                color: #000;
             }
        .from-date-border {
             width: 100%;

@@ -5,7 +5,7 @@
     <el-col :span="24">
         <div class="purple">
         <div class="add">
-            <el-button type="text" class="p el-icon-plus" :disabled ='true' v-if="this.$route.query.shibie == 'shibie'">添加课程</el-button>
+            <el-button type="text" class="p el-icon-plus" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">添加课程</el-button>
             <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true" v-else>添加课程</el-button>
              <template>
                 <el-dialog title="添加课程" :append-to-body="true" :visible.sync="dialogFormVisible">
@@ -63,7 +63,7 @@
               </template>
         </div>
         <div class="add">
-            <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie'">编辑课程</el-button>
+            <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">编辑课程</el-button>
             <el-button type="text" class="p" @click="editlunbo" v-else>编辑课程</el-button>
              <template>
                 <el-dialog title="编辑课程" :append-to-body="true" :visible.sync="dialogFormVisible2">
@@ -120,7 +120,7 @@
               </template>
         </div>
         <div class="add2">
-            <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie'">删除课程</el-button>
+            <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">删除课程</el-button>
              <el-button type="text" class="p" @click="Delcourse" v-else>删除课程</el-button>
         </div>
         </div>
@@ -405,7 +405,12 @@ export default {
     },
     //添加课程
     submitForm(formName) {
-      if(!this.jiaojiao){
+      if(this.$route.query.shibie == 'shibie'){
+        this.shishi=this.$route.query.id;
+        if(this.jiaojiao){
+          this.shishi = this.jiaojiao;
+         }
+      }else if(!this.jiaojiao){
         this.shishi = JSON.parse(sessionStorage.getItem('coachid'));
       }else{
         this.shishi = this.jiaojiao;
@@ -463,7 +468,12 @@ export default {
     },
      //修改课程
     editForm(formName) {
-      if(!this.jiaojiao){
+     if(this.$route.query.shibie == 'shibie'){
+        this.shishi=this.$route.query.id;
+        if(this.jiaojiao){
+          this.shishi = this.jiaojiao;
+         }
+      }else if(!this.jiaojiao){
         this.shishi = JSON.parse(sessionStorage.getItem('coachid'));
       }else{
         this.shishi = this.jiaojiao;

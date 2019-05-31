@@ -27,13 +27,6 @@
                         </el-select>
                       </el-col>
                     </el-form-item>
-                    <el-form-item label="教室:" prop="room" :label-width="formLabelWidth">
-                      <el-col :span="22">
-                        <el-select v-model="ruleForm.room" placeholder="请选择" style="width:100%" @change="Selectchange4">
-                          <el-option v-for="item in jiaoshi" :key="item.name" :label="item.name" :value="item.name"></el-option>
-                        </el-select>
-                      </el-col>
-                    </el-form-item>
                     <el-form-item label="课程日期:" prop="attenddate" :label-width="formLabelWidth">
                       <el-col :span="22">
                         <el-date-picker v-model="this.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
@@ -50,6 +43,13 @@
                       <el-col :span="22">
                         <el-select v-model="ruleForm.train" placeholder="请选择" style="width:100%" @change="Selectchange3" @focus="Selectclick">
                           <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                        </el-select>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item label="教室:" prop="room" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                        <el-select v-model="ruleForm.room" placeholder="请选择" style="width:100%" @change="Selectchange4" @focus="Selectclick4">
+                          <el-option v-for="item in jiaoshi" :key="item" :label="item" :value="item"></el-option>
                         </el-select>
                       </el-col>
                     </el-form-item>
@@ -102,13 +102,6 @@
                           </el-select>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="教室:" prop="kcPlace" :label-width="formLabelWidth">
-                        <el-col :span="22">
-                          <el-select v-model="currentSelectRow.kcPlace" placeholder="请选择" style="width:100%" @change="Selectchange4">
-                            <el-option v-for="item in jiaoshi" :key="item.name" :label="item.name" :value="item.name"></el-option>
-                          </el-select>
-                        </el-col>
-                      </el-form-item>
                       <el-form-item label="课程日期:" prop="kcStime" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-date-picker v-model="currentSelectRow.kcStime" disabled value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" style="width:100%;">
@@ -125,6 +118,13 @@
                         <el-col :span="22">
                           <el-select v-model="currentSelectRow.JLIDs" :placeholder="currentSelectRow.JLIDs" style="width:100%" @change="Selectchange6" @focus="Selectclick2">
                             <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                          </el-select>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="教室:" prop="kcPlace" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-select v-model="currentSelectRow.kcPlace" placeholder="请选择" style="width:100%" @change="Selectchange4" @focus="Selectclick5">
+                            <el-option v-for="item in jiaoshi" :key="item" :label="item" :value="item"></el-option>
                           </el-select>
                         </el-col>
                       </el-form-item>
@@ -400,9 +400,9 @@ export default {
         }
       }
     },
-    classrooms(val) {
-      this.jiaoshi = this.classrooms;
-    },
+    // classrooms(val) {
+    //   this.jiaoshi = this.classrooms;
+    // },
     subjects(val) {
       this.kecheng = this.subjects;
     },
@@ -844,6 +844,52 @@ export default {
           }
         });
     },
+    rolegourp4() {
+      let _this = this;
+      let rolegourp4 = {
+        kcStime:_this.kcStime,
+        Stime:_this.ruleForm.attendtime,
+        Etime:_this.ruleForm.endtime,
+        hsid:_this.huisuoid
+      };
+      requestLogin("/getClassroomListByDateAndTime", rolegourp4, "post")
+        .then(function(res) {
+          _this.jiaoshi = res;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
+    rolegourp5() {
+      let _this = this;
+      let rolegourp5 = {
+        kcStime:_this.kcStime,
+        Stime:_this.currentSelectRow.Stime,
+        Etime:_this.currentSelectRow.Etime,
+        hsid:_this.huisuoid
+      };
+      requestLogin("/getClassroomListByDateAndTime", rolegourp5, "post")
+        .then(function(res) {
+          _this.jiaoshi = res;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     Selectclick(){
       if(this.ruleForm.attendtime != "" && this.ruleForm.endtime != ""){
         this.rolegourp2();
@@ -852,6 +898,16 @@ export default {
     Selectclick2(){
       if(this.currentSelectRow.Stime != "" && this.currentSelectRow.Etime != ""){
         this.rolegourp3();
+      }
+    },
+    Selectclick4(){
+      if(this.ruleForm.attendtime != "" && this.ruleForm.endtime != ""){
+        this.rolegourp4();
+      }
+    },
+     Selectclick5(){
+      if(this.currentSelectRow.Stime != "" && this.currentSelectRow.Etime != ""){
+        this.rolegourp5();
       }
     },
     Selectchange4(val) {},

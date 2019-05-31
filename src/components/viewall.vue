@@ -45,17 +45,17 @@
               </el-table-column>
               <el-table-column align="left" label="操作" width="150px" fixed="right">
                 <template slot-scope="scope">
-                  <el-button type="text" size="medium" @click="dialogFormVisible1 = true">编辑</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible1 = true" :disabled ='disableds'>编辑</el-button>
                   <span v-if="scope.row.status=='退学'" style="margin-left: 10px;">
-                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true" style="color:#FF002B">已退学</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true" style="color:#FF002B" :disabled ='disableds'>已退学</el-button>
                   </span>
                   <span v-else-if="scope.row.status == '请假'" style="margin-left: 10px;">
-                  <el-button type="text" size="medium" @click="absence(scope.$index, scope.row)" style="color:#D7690F">销假</el-button>
-                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true">退学</el-button>
+                  <el-button type="text" size="medium" @click="absence(scope.$index, scope.row)" style="color:#D7690F" :disabled ='disableds'>销假</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true" :disabled ='disableds'>退学</el-button>
                   </span>
                   <span v-else-if="scope.row.status == '正常'" style="margin-left: 10px;">
-                  <el-button type="text" size="medium" @click="dialogFormVisible3 = true">请假</el-button>
-                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true">退学</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible3 = true" :disabled ='disableds'>请假</el-button>
+                  <el-button type="text" size="medium" @click="dialogFormVisible2 = true" :disabled ='disableds'>退学</el-button>
                   </span>
                 </template>
               </el-table-column>
@@ -209,6 +209,7 @@ export default {
       currentSelectRow:{},
       pagesize: 10,
       tableData: [],
+      disableds:false,
       dialogFormVisible1:false,
       dialogFormVisible2:false,
       dialogFormVisible3:false,
@@ -220,6 +221,7 @@ export default {
       enlargeImage2: "", //放大图片地址
       imageUrl: "",
       imageUrl2: "",
+      idd:"",
       themes:"",
       file:"",
       file2:"",
@@ -255,6 +257,11 @@ export default {
   },
   created() {
     this.gettabledata();
+    if(this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate){
+      this.disableds = true;
+    }else{
+      this.disableds = false;
+    }
   },
   methods: {
     //放大图片
@@ -305,7 +312,7 @@ export default {
             formData.append("name", this.currentSelectRow.name); //姓名
             formData.append("tel", this.currentSelectRow.tel); //电话
             formData.append("sex", this.currentSelectRow.sex == '女'?1:2); //性别
-            formData.append("teachId", this.$route.query.id); //归属教培
+            formData.append("teachId",this.$route.query.id); //归属教培
             formData.append("shift", radioDict[this.currentSelectRow.shift]); //班次
             formData.append("money", this.currentSelectRow.money); //缴费
             formData.append("identity_Photo", this.file); //身份证

@@ -309,7 +309,8 @@ export default {
         query: {
           id: this.currentSelectRow.id,
           shibie:'shibie',
-          endDay:this.currentSelectRow.endDay
+          endDay:this.currentSelectRow.endDay,
+          daydate:this.Maydate
         }
       });
     }

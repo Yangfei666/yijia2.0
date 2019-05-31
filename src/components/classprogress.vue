@@ -38,7 +38,7 @@
               </div>
               <div class="block4">
                   <div class="add">
-                  <el-button type="text" class="p el-icon-plus" :disabled ='true' v-if="this.$route.query.shibie == 'shibie'">添加学员</el-button>
+                  <el-button type="text" class="p el-icon-plus" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">添加学员</el-button>
                   <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible1 = true" :disabled ='disabled' v-else>添加学员</el-button>
                   <template>
                     <el-dialog title="添加学员" :append-to-body="true" :visible.sync="dialogFormVisible1">
@@ -465,7 +465,12 @@ export default {
     //添加新学员
     submitForm(formName) {
       let _this = this;
-      if(!_this.jiaojiao){
+     if(_this.$route.query.shibie == 'shibie'){
+        _this.idd = _this.$route.query.id;
+        if(_this.jiaojiao){
+        _this.idd = _this.jiaojiao;
+         }
+      }else if(!_this.jiaojiao){
           _this.idd = JSON.parse(sessionStorage.getItem('coachid'));
         }else{
           _this.idd = _this.jiaojiao;
@@ -645,6 +650,9 @@ export default {
         path: "/Teaching/teachingcourse/classprogress/viewall",
         query: {
           id: this.idd,
+          shibie:this.$route.query.shibie,
+          endDay:this.$route.query.endDay,
+          daydate:this.$route.query.daydate,
         }
       });
     }
