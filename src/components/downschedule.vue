@@ -28,8 +28,7 @@
               <img :src="img"/>
             </div>
              <div class="downbtn">
-            <el-button type="text" size="small" class="download2" @click="downbtn">下载图片</el-button>
-            <el-button type="text" size="small" class="download2" @click="preview">预览</el-button>
+            <el-button type="text" size="small" class="download2" @click="downbtn" :disabled="xianshi">下载图片</el-button>
             </div>
             <template>
               <el-dialog title="下载设置" :append-to-body="true" :visible.sync="dialogFormVisible2">
@@ -38,7 +37,7 @@
                     <el-form-item label="会馆Logo:" prop="logo" :label-width="formLabelWidth">
                           <el-col :span="22" v-if="this.setup != null">
                                <Fileupload5 ref="fileUpload" :imageUrl="imageUrl" @sendBlobFile="setBlobImg" style="width:130px;height:130px"></Fileupload5>
-                                 <span class="el-upload__tip" style="color:red;font-size: 14px;">*(必填)只能上传png文件，且不超过500kb</span>
+                                 <span class="el-upload__tip" style="color:#DEB116;font-size: 14px;"><span style="color:red;font-size: 14px;">*(必填)</span>只能上传png文件，且不超过500kb</span>
                                 <ul v-if="blobImg.src" class="el-upload-list el-upload-list--picture">
                                 <li tabindex="0" class="el-upload-list__item is-ready">
                                   <img :src="blobImg.src" alt="" class="el-upload-list__item-thumbnail">
@@ -56,7 +55,7 @@
                           <el-col :span="22" v-else>
                               <Fileupload4 ref="fileUpload" :imageUrl="imageUrl" @sendBlobFile="setBlobImg"></Fileupload4>
                               <el-button size="small" type="primary" @click="changeUserIcon">上传图片</el-button>
-                              <span class="el-upload__tip" style="color:red;font-size: 14px;">*(必填)只能上传png文件，且不超过500kb</span>
+                              <span class="el-upload__tip" style="color:#DEB116;font-size: 14px;">*(必填)只能上传png文件，且不超过500kb</span>
                               <ul v-if="blobImg.src" class="el-upload-list el-upload-list--picture">
                                 <li tabindex="0" class="el-upload-list__item is-ready">
                                   <img :src="blobImg.src" alt="" class="el-upload-list__item-thumbnail">
@@ -89,24 +88,28 @@
                             <el-upload class="upload-demo" ref="upload" action=" " :on-change="uploadImg" :limit='1' :file-list="fileList" :on-exceed='uploadOverrun' :http-request='submitUpload2' :beforeUpload="beforeAvatarUpload" :auto-upload="true">
                               <img v-if="imageUrlss" :src="imageUrlss" class="avatar" style="width:130px;height:130px;">
                               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                              <span slot="tip" class="el-upload__tip" style="color:red;font-size: 14px;">只能上传jpg/jpeg/png文件，且不超过500kb</span>
+                              <div slot="tip" class="el-upload__tip" style="color:#DEB116;font-size: 14px;margin-top: -7px;">只能上传jpg/jpeg/png文件，且不超过4MB</div>
                             </el-upload>
                           </el-col>
                           <el-col :span="22" v-else>
                             <el-upload class="upload-demo" ref="upload" action=" " :on-change="uploadImg" :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload2' :beforeUpload="beforeAvatarUpload" list-type="picture" :auto-upload="true">
                               <el-button slot="trigger" size="small" type="primary">上传图片</el-button>
-                              <span slot="tip" class="el-upload__tip" style="color:red;font-size: 14px;">只能上传jpg/jpeg/png文件，且不超过500kb</span>
+                              <div slot="tip" class="el-upload__tip" style="color:#DEB116;font-size: 14px;margin-top: -7px;">只能上传jpg/jpeg/png文件，且不超过4MB</div>
                             </el-upload>
                           </el-col>
                         </el-form-item>
                     <el-form-item label="备注说明:" prop="remake" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input type="textarea" v-model.trim="ruleForm.remake" maxlength="1000" @input="descInput" placeholder="请输入汉字,字母,数字, 1000字以内"></el-input>
+                        <el-input type="textarea" style="position: relative;" v-model.trim="ruleForm.remake" maxlength="1000" @input="descInput" placeholder="请输入汉字,字母,数字, 1000字以内"></el-input>
+                        <span style="position: absolute;right: 10%;bottom: 24%;">{{remnant}}/1000</span>
+                        <div style="color:#DEB116;font-size: 14px;">每段话结尾请使用“;”来分隔</div>
                       </el-col>
                     </el-form-item>
                     <el-form-item label="特别提示:" prop="hot_tip" :label-width="formLabelWidth">
                       <el-col :span="22">
-                        <el-input type="textarea" v-model.trim="ruleForm.hot_tip" maxlength="300" @input="descInput2" placeholder="请输入汉字,字母,数字, 300字以内"></el-input>
+                        <el-input type="textarea" style="position: relative;" v-model.trim="ruleForm.hot_tip" maxlength="300" @input="descInput2" placeholder="请输入汉字,字母,数字, 300字以内"></el-input>
+                        <span style="position: absolute;right: 10%;bottom: 24%;">{{remnant2}}/300</span>
+                        <div style="color:#DEB116;font-size: 14px;">每段话结尾请使用“;”来分隔</div>
                       </el-col>
                     </el-form-item>
                   <el-form-item class="dialog-footer">
@@ -139,8 +142,7 @@ export default {
   },
   data() {
     return {
-      img: "http://www.loelve.xyz/pc/v1/download/courseTable",
-      // img : 'https://api.yijiayoga.com/pc/v1/download/courseTable',
+      img: "",
       pagesize: 10,
       imageUrl: "",
       imageUrlss: "",
@@ -151,10 +153,13 @@ export default {
       setup:"",
       dialogFormVisible2:false,
       formLabelWidth: "130px",
+      xianshi:false,
       chooseClub: "",
       fileList: [],
       file: "",
       setcolor:"",
+      remnant:0,
+      remnant2:0,
       file2:"",
       predefineColors:[
           'rgba(255, 69, 0, 1)',
@@ -182,12 +187,9 @@ export default {
     };
   },
   mounted(){
-    this.getimg();
+    this.gettabledata();
   },
   created(){
-    setTimeout(()=>{
-      this.gettabledata();
-    },1000)
     this.gettabledates();
   },
   methods: {
@@ -195,14 +197,17 @@ export default {
       this.imgfile = file.raw;
       this.imageUrlss = URL.createObjectURL(file.raw);
     },
-    getimg() {
-      this.img = this.img +'/'+this.$route.query.huisuoid + "/" + this.$route.query.zhouyi;
-    },
-    //表格数据
     gettabledata() {
-      let _this = this;
-      requestUrlDown("/download/courseTable/"+_this.$route.query.huisuoid +"/"+_this.$route.query.zhouyi, {}, "get")
+      requestUrlDown("/download/courseTable/"+this.$route.query.huisuoid +"/"+this.$route.query.zhouyi, {}, "get")
         .then(res => {
+          if(res.data != null){
+            var blob = new Blob([res.data],{type: 'application/octet-stream'});
+            let url = window.URL.createObjectURL(blob);
+            this.img = url;
+            this.xianshi = false;
+          }else{
+            this.xianshi = true;
+          }
         })
         .catch(error => {
           let { response: { data: { errorCode, msg }}} = error;
@@ -226,6 +231,8 @@ export default {
           _this.imageUrl = _this.urlsetup + _this.setup.logo;
           _this.ruleForm.remake = _this.setup.remake;
           _this.ruleForm.hot_tip = _this.setup.hot_tip;
+          _this.remnant = _this.setup.remake.length;
+          _this.remnant2 = _this.setup.hot_tip.length;
         })
         .catch(error => {
           let { response: { data: { errorCode, msg }}} = error;
@@ -238,36 +245,14 @@ export default {
           }
         });
     },
-    //预览
-    preview(){
-      window.location.reload();
-    },
     //下载课程表图片
-    downbtn(){
-      requestUrlDown("/download/courseTable/"+this.$route.query.huisuoid +"/"+this.$route.query.zhouyi, {}, "get")
-      .then((res)=>{
-          this.dialogFormVisible2 = false;
-          if(res){
-            var blob = new Blob([res.data],{type: 'application/octet-stream'});
-            let url = window.URL.createObjectURL(blob);
-            let link = document.createElement("a");
-            link.style.display = 'none';
-            link.href = url;
-            link.setAttribute('download','课程表图片.png')
-            document.body.appendChild(link);
-            link.click();
-          }
-      })
-      .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
+     downbtn(){
+        let link = document.createElement("a");
+        link.style.display = 'none';
+        link.href = this.img;
+        link.setAttribute('download','课程表图片.png')
+        document.body.appendChild(link);
+        link.click();
     },
      submitUpload2: function(content) {
       this.file2 = content.file;
@@ -295,12 +280,12 @@ export default {
         message: "上传文件个数超出限制!最多上传1张图片!"
       });
     },
-     beforeAvatarUpload(file) {                
+     beforeAvatarUpload(file) {
       var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                 
       const extension = testmsg === 'jpg'  
       const extension2 = testmsg === 'png'  
       const extension3 = testmsg === 'jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2  
+      const isLt2M = file.size / 1024 / 1024 < 4  
       if(!extension && !extension2 && !extension3) {  
           this.$message({  
               message: '上传图片只能是 jpg、png、jpeg格式!',  
@@ -309,12 +294,14 @@ export default {
       }  
       if(!isLt2M) {  
           this.$message({  
-              message: '上传图片大小不能超过 2MB!',  
+              message: '上传图片大小不能超过 4MB!',  
               type: 'warning'  
           });  
       }  return extension || extension2 || extension3 && isLt2M  
     },
     descInput() {
+      var txtVal = this.ruleForm.remake.length;
+      this.remnant = txtVal;
       if(this.ruleForm.remake.length > 1000){
          this.$message({
             message: "请输入1000以内的字",
@@ -323,6 +310,8 @@ export default {
       }
     },
     descInput2() {
+      var txtVal = this.ruleForm.hot_tip.length;
+      this.remnant2 = txtVal;
       if(this.ruleForm.hot_tip.length > 300){
          this.$message({
             message: "请输入300以内的字",
@@ -353,11 +342,7 @@ export default {
                   type: "success"
                 });
                 _this.dialogFormVisible2 = false;
-                setTimeout(()=>{
-                  _this.gettabledata();
-                },100)
                 _this.reload();
-                window.location.reload();
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -387,6 +372,7 @@ export default {
 @import "@/styles/dialog.scss";
 </style>
 <style lang="scss" scoped>
+
 .practice-main {
   height: 112px;
   background: #fff;
@@ -467,10 +453,10 @@ export default {
       }
     }
     .downimg{
-      height: 1000px;
       width: 100%;
+      height: 100%;
       img{
-        width: 98%;
+        width: 100%;
         height: 100%;
       }
     }

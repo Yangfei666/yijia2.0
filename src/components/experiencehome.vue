@@ -45,7 +45,7 @@
                   </el-dialog>
                 </template>
               </div>
-              <div class="border"></div>
+              <!-- <div class="border"></div>
               <div class="right-span">
                 <el-button type="text" class="link" @click="dialogFormVisible3 = true">换会籍</el-button>
                 <template>
@@ -57,6 +57,14 @@
               <div class="border"></div>
               <div class="right-span">
                 <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">上课记录</router-link>
+              </div> -->
+              <div class="weber-top">
+                <div class="right-span2">
+                <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">消费记录</router-link>
+              </div>
+              <div class="right-span2">
+                <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">上课记录</router-link>
+              </div>
               </div>
             </el-col>
           </el-col>
@@ -194,6 +202,7 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 16px;
@@ -225,6 +234,48 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 16px;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 16px;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }
@@ -271,6 +322,8 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
+      width:50% !important;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 14px !important;
@@ -302,6 +355,48 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 13px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 13px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 13px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }
@@ -348,6 +443,7 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 14px !important;
@@ -379,6 +475,48 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 14px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 14px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 14px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }
@@ -425,6 +563,7 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 15px !important;
@@ -456,10 +595,52 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute !important;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 14px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 14px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 14px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }
-@media screen and (min-width: 1440px) and (max-width: 1920px) {
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
   .weber {
     margin: 20px 20px auto;
     height: 72px;
@@ -502,6 +683,7 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 16px !important;
@@ -533,6 +715,168 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 14px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 14px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 14px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
+    }
+  }
+}
+@media screen and (min-width: 1680px) and (max-width: 1920px) {
+  .weber {
+    margin: 20px 20px auto;
+    height: 72px;
+    display: flex;
+    line-height: 72px;
+    justify-content: space-between;
+    .weber-left {
+      display: inline-grid;
+      .weber-span {
+        font-size: 20px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #262626;
+        font-family: PingFang-SC-Regular;
+        height: 35px;
+        line-height: 40px;
+        text-align: left;
+        img {
+          width: 15px !important;
+          height: 15px !important;
+          padding-left: 5px;
+        }
+      }
+      .weber-p {
+        height: 25px;
+        line-height: 25px;
+        text-align: left;
+        margin-top: 6px;
+        font-family: PingFang-SC-Regular;
+        font-size: 18px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #8c8c8c;
+        .weber-pp {
+          padding-left: 15px;
+        }
+      }
+    }
+    .weber-right {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      .right-span {
+        font-family: PingFang-SC-Regular;
+        font-size: 18px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #595959;
+        margin-right: 10px !important;
+        margin-top: 16px;
+        .link {
+          text-decoration: none;
+          font-size: 18px !important;
+          color: #595959;
+        }
+        .router-link-active {
+          color: #00bc71;
+          font-size: 18px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 16px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 16px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 16px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }
@@ -579,6 +923,7 @@ export default {
     .weber-right {
       display: flex;
       justify-content: flex-end;
+      position: relative;
       .right-span {
         font-family: PingFang-SC-Regular;
         font-size: 18px !important;
@@ -610,6 +955,48 @@ export default {
         border-radius: 5px;
         margin-right: 10px;
       }
+      .weber-top {
+      display: flex;
+      justify-content: space-around;
+      position: absolute;
+      right: 10px !important;
+      .right-span2 {
+        font-family: PingFang-SC-Regular;
+        font-size: 17px !important;
+        font-weight: normal;
+        font-stretch: normal;
+        color: #fff;
+        height: 30px;
+        border: 1px solid;
+        line-height: 30px;
+        border-radius: 6px;
+        width:90px;
+        background:#00bc71;
+        margin-left:10px;
+        .link {
+          text-decoration: none;
+          font-size: 17px !important;
+          color: #fff;
+        }
+        .router-link-active {
+          color: #fff;
+          font-size: 17px !important;
+        }
+      }
+      .is-active {
+        color: #00bc71;
+      }
+      .border {
+        width: 1px;
+        height: 25%;
+        background: #d9d9d9;
+        float: right;
+        position: relative;
+        top: 60%;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
     }
   }
 }

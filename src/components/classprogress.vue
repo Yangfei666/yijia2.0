@@ -155,50 +155,50 @@
           <el-tab-pane label="周末班" name="Weekendshift">
            <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
               <el-tab-pane :label="'周一('+getsubstr('Monday')+')'" name="Monday">
-                <Syllabus :floorGoods='tdlist' :weekDay='1' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='1' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周二('+getsubstr('Tuesday')+')'" name="Tuesday">
-                <Syllabus :floorGoods='tdlist' :weekDay='2' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='2' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周三('+getsubstr('Wednesday')+')'" name="Wednesday">
-                <Syllabus :floorGoods='tdlist' :weekDay='3' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='3' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周四('+getsubstr('Thursday')+')'" name="Thursday">
-                <Syllabus :floorGoods='tdlist' :weekDay='4' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='4' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周五('+getsubstr('Friday')+')'" name="Friday">
-                <Syllabus :floorGoods='tdlist' :weekDay='5' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='5' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周六('+getsubstr('Saturday')+')'" name="Saturday">
-                <Syllabus :floorGoods='tdlist' :weekDay='6' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='6' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周日('+getsubstr('Sunday')+')'" name="Sunday">
-                <Syllabus :floorGoods='tdlist' :weekDay='7' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodss='tdlist' :weekDay='7' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
             </el-tabs>
           </el-tab-pane>
           <el-tab-pane label="晚班" name="Eveningshift">
             <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
                <el-tab-pane :label="'周一('+getsubstr('Monday')+')'" name="Monday">
-                <Syllabus :floorGoods='tdlist' :weekDay='1' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='1' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周二('+getsubstr('Tuesday')+')'" name="Tuesday">
-                <Syllabus :floorGoods='tdlist' :weekDay='2' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='2' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周三('+getsubstr('Wednesday')+')'" name="Wednesday">
-                <Syllabus :floorGoods='tdlist' :weekDay='3' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='3' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周四('+getsubstr('Thursday')+')'" name="Thursday">
-                <Syllabus :floorGoods='tdlist' :weekDay='4' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='4' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周五('+getsubstr('Friday')+')'" name="Friday">
-                <Syllabus :floorGoods='tdlist' :weekDay='5' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='5' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周六('+getsubstr('Saturday')+')'" name="Saturday">
-                <Syllabus :floorGoods='tdlist' :weekDay='6' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='6' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
               <el-tab-pane :label="'周日('+getsubstr('Sunday')+')'" name="Sunday">
-                <Syllabus :floorGoods='tdlist' :weekDay='7' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
+                <Syllabus :floorGoodsss='tdlist' :weekDay='7' :whichDay="whichDay" :jiaojiao="jiaojiao" :jiaojiaoname="jiaojiaoname"></Syllabus>
               </el-tab-pane>
             </el-tabs>
           </el-tab-pane>
@@ -224,7 +224,7 @@ export default {
         train:"",
         train2:""
       },
-      tdlist: [],
+      tdlist:[],
       week: {},
       jiaojiao:'',
       jiaojiaoname:"",

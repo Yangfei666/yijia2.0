@@ -22,15 +22,15 @@
                         <el-col :span="24" class="outside">
                             <span class="outside-biao">系统设置</span>
                             <router-link to="">
-                            <span style="color:#00bc71;border-radius:20px;font-size:12px;width:45px;display:inline-block;border:1px solid;height:17px;line-height:19px" @click="editAll">编辑</span>
+                            <span style="color:#000;border-radius:20px;font-size:12px;width:45px;display:inline-block;border:1px solid;height:17px;line-height:19px" @click="editAll">编辑</span>
                             </router-link>
                         </el-col>
-                        <el-col :span="24">
+                        <!-- <el-col :span="24">
                             <div class="box"></div>
-                        </el-col>
+                        </el-col> -->
                         <el-col :span="24" class="health-from">
-                            <div class="health-from-div">
-                                <p class="el-icon-caret-right hei">会馆设置</p>
+                            <div class="health-from-div bai">
+                                <div class="hei">会馆设置</div>
                                 <el-col :span="24" class="from-date-border">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会所开馆时间：" prop="openTime" :label-width="formLabelWidth">
@@ -82,8 +82,8 @@
                                 </el-col>
                             </el-col>
                             </div>
-                            <div class="health-from-div">
-                                <p class="el-icon-caret-right hei">会员卡设置</p>
+                            <div class="health-from-div lan">
+                                <div class="hei">会员卡设置</div>
                                 <el-col :span="24" class="from-date-border2">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="会员卡激活时间(天数)：" prop="activation" :label-width="formLabelWidth">
@@ -110,8 +110,8 @@
                                 </el-col>
                             </el-col>
                             </div>
-                            <div class="health-from-div">
-                                <p class="el-icon-caret-right hei">课程设置</p>
+                            <div class="health-from-div bai">
+                                <div class="hei">课程设置</div>
                                 <el-col :span="24" class="from-date-border3">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="提前进场时间(小时)：" prop="enterTime" :label-width="formLabelWidth">
@@ -121,7 +121,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12" class="from-date">
-                                    <el-form-item label="单节私教时长(分钟)：" prop="onePrivateTime" label-width="290px">
+                                    <el-form-item label="单节私教预约时长(分钟)：" prop="onePrivateTime" :label-width="formLabelWidth">
                                         <el-col :span="24">
                                             <el-input v-model.trim="ruleForm.onePrivateTime" style="width:250px" placeholder="默认60"></el-input>
                                         </el-col>
@@ -129,8 +129,8 @@
                                 </el-col>
                             </el-col>
                             </div>
-                            <div class="health-from-div">
-                                <p class="el-icon-caret-right hei">预约及取消设置</p>
+                            <div class="health-from-div lan">
+                                <div class="hei">预约及取消设置</div>
                                 <el-col :span="24" class="from-date-border4">
                                 <el-col :span="12" class="from-date">
                                     <el-form-item label="客户端团课提前预约(天数)：" prop="apiLeagueDate" :label-width="formLabelWidth">
@@ -580,15 +580,18 @@ export default {
   .health-main {
     border: 1px solid #e8e8e8;
     height: 100%;
-    width: 90%;
+    width: 93%;
     margin: 20px auto;
     display: inline-block;
-    background: #f7fffc;
+    background: #fff;
     .outside {
-      margin-top: 20px;
+      margin-top: 0px;
+      height: 100px;
+      background: #E7F4EF;
       .outside-biao {
         font-size: 16px;
         color: #262626;
+        line-height: 100px;
         .outside-biao2 {
           font-size: 14px;
           color: #262626;
@@ -605,13 +608,24 @@ export default {
       background: linear-gradient(to right, #fff, #00bc71, #fff);
     }
     .health-from {
+        .bai{
+            background: #ffffff;
+        }
+        .lan{
+            background: #E7F4EF;
+            margin-top: 10px;
+        }
         .health-from-div{
             height: 100%;
+            width: 100%;
             text-align: left;
-            margin-left: 10px;
-            display: -webkit-box;
+            margin-left: 0px;
+            display: inline-block;
             .hei{
                 text-align: left;
+                height: 60px;
+                margin-left: 12px;
+                line-height: 70px;
                 color: #000;
             }
        .from-date-border {

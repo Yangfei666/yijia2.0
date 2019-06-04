@@ -197,7 +197,7 @@ body {
   border-bottom-color: #00bc71 !important;
 }
 .el-tabs__nav {
-  margin-left: 50px;
+  margin-left: 0px !important;
 }
 .el-tabs__item {
   line-height: 35px;

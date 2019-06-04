@@ -7,11 +7,11 @@
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>会所管理</el-breadcrumb-item>
-              <el-breadcrumb-item>教室设置</el-breadcrumb-item>
+              <el-breadcrumb-item>财产管理</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
           <el-col :span="23" class="weber">
-            <span class="weber-span">教室设置</span>
+            <span class="weber-span">财产管理</span>
           </el-col>
         </div>
       </el-col>
@@ -22,10 +22,10 @@
           <el-col :span="24">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加教室</el-button>
+                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加物品</el-button>
                 <template>
-                  <el-dialog title="添加教室" :append-to-body="true" :visible.sync="dialogFormVisible">
-                    <!--添加教室-->
+                  <el-dialog title="添加物品" :append-to-body="true" :visible.sync="dialogFormVisible">
+                    <!--添加物品-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                       <el-form-item label="教室名称:" prop="classroom" :label-width="formLabelWidth">
                         <el-col :span="22">
@@ -50,6 +50,9 @@
                   </el-dialog>
                 </template>
               </div>
+              <div class="add2">
+                <el-button type="text" class="p">删除物品</el-button>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -63,13 +66,12 @@
                   <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" align="left" label="教室名称"></el-table-column>
-              <el-table-column prop="sign" align="left" label="教室类型"></el-table-column>
-              <el-table-column align="left" label="操作">
-                <template slot-scope="scope">
-                  <el-button type="danger" plain size="small" @click="delexper(scope.$index)">删除</el-button>
-                </template>
-              </el-table-column>
+              <el-table-column prop="name" align="left" label="物品名称"></el-table-column>
+              <el-table-column prop="sign" align="left" label="类型"></el-table-column>
+              <el-table-column prop="sign" align="left" label="领用人"></el-table-column>
+              <el-table-column prop="sign" align="left" label="领用日期"></el-table-column>
+              <el-table-column prop="sign" align="left" label="登记人"></el-table-column>
+              <el-table-column prop="sign" align="left" label="备注"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -86,7 +88,7 @@ import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 export default {
   inject: ["reload"],
-  name: "classroomsetting",
+  name: "property",
   data() {
     return {
       formLabelWidth: "130px",
@@ -289,6 +291,24 @@ export default {
         }
         .add-p {
           color: #00bc71;
+          font-family: PingFang-SC-Regular;
+          font-size: 16px;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          line-height: 9px;
+        }
+      }
+      .add2 {
+        border: 1px solid #ff2366;
+        width: 20%;
+        height: 35px;
+        border-radius: 4px;
+        line-height: 0px;
+        margin-top: 20px;
+        margin-left: 20px;
+        .p {
+          color: #ff2366;
           font-family: PingFang-SC-Regular;
           font-size: 16px;
           font-weight: normal;

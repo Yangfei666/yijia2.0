@@ -24,7 +24,7 @@
           <el-col :span="12">
             <div class="userinfo-inner">
               <router-link to="/House/feedback" style="text-decoration: none;color: #333;display:flex;" @click.native="untreated">
-              <div style="margin-right:0px;margin-top:12px"><img :src="user.Photo" /></div>
+              <div style="margin-right:-4px;margin-top:12px"><img :src="user.Photo" /></div>
               <el-badge :value="todo" :max="99" class="item" v-if="todo>0"></el-badge>
               <el-badge class="item" is-dot v-else></el-badge>
               </router-link>

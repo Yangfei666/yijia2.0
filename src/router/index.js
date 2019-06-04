@@ -18,7 +18,7 @@ const Forbidden = resolve => require(['@/pages/House/403'], resolve)//403
 
 const NotFound = resolve => require(['@/pages/House/404'], resolve)//404
 
-const ServerError = resolve => require(['@/pages/500'], resolve)//500
+const ServerError = resolve => require(['@/pages/House/500'], resolve)//500
 
 const CurriGroup = resolve => require(['@/pages/Curriculum/group'], resolve)//团课课程表
 
@@ -43,6 +43,8 @@ const RoutineRotation = resolve => require(['@/pages/Routine/rotation'], resolve
 const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会所信息管理
 
 const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工管理
+
+const HouseProperty = resolve => require(['@/pages/House/property'], resolve)//财产管理
 
 const Systemsetting = resolve => require(['@/pages/Operating/systemsetting'], resolve)//系统设置
 
@@ -359,6 +361,7 @@ let router = new Router({
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
                 { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
+                { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
                 { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
@@ -374,7 +377,13 @@ let router = new Router({
                     component: NotFound,
                     name: '404',
                     menuShow: false
-                }
+                },
+                {
+                    path: '/House/500', //500
+                    component: ServerError,
+                    name: '500',
+                    menuShow: false
+                },
             ]
         },
         {
@@ -396,9 +405,9 @@ let router = new Router({
             menuShow:true,
             iconCls:'iconfont icon-kechengguanli',
             children: [
-                { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true },//教培业绩
-                { path: '/Teaching/teachingcourse', component: Teachingcourse, name: '教培课程', menuShow: true },//教培课程
                 { path: '/Teaching/teachingcourse/classprogress', component: Classprogress, name: '正在上课', menuShow: true },//正在上课
+                { path: '/Teaching/teachingcourse', component: Teachingcourse, name: '教培课程', menuShow: true },//教培课程
+                { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true },//教培业绩
                 { path: '/Teaching/teachingcourse/classprogress/viewall', component: Viewall, name: '查看所有学员', menuShow: false },//查看所有学员
             ]
         },
@@ -412,12 +421,6 @@ let router = new Router({
                 { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
             ]
-        },
-        {
-            path: '/500', //500
-            component: ServerError,
-            name: '500',
-            menuShow: false
         },
     ]
 })

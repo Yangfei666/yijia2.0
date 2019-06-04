@@ -380,7 +380,6 @@ export default {
       display: inline-block;
       margin-left: -9%;
       .hand-right {
-        height: 100%;
         .head_img {
           margin-top: 4%;
         }

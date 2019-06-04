@@ -121,8 +121,33 @@
         </div>
         <div class="add2">
             <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">删除课程</el-button>
-             <el-button type="text" class="p" @click="Delcourse" v-else>删除课程</el-button>
+            <el-button type="text" class="p" @click="Delcourse" v-else>删除课程</el-button>
         </div>
+        <div class="add">
+            <el-button type="text" class="p" :disabled ='true' v-if="this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate">上课登记</el-button>
+            <el-button type="text" class="p" @click="registration" v-else>上课登记</el-button>
+              <template>
+                <el-dialog title="上课登记" :append-to-body="true" :visible.sync="dialogFormVisible3">
+                  <!--上课登记-->
+                  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px">
+                    <el-form-item label="上课教练名称:" prop="name" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                       <el-select v-model="ruleForm2.name" placeholder="请选择" style="width:100%" @change="Selectclass" @focus="classclick">
+                          <el-option v-for="item in classation" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_NAME"></el-option>
+                        </el-select>
+                      </el-col>
+                    </el-form-item>
+                    <el-form-item class="dialog-footer">
+                      <el-col :span="24" style="display: flex;justify-content: flex-end;">
+                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                        <el-button type="primary" @click="submitForm2('ruleForm2')" style="background-color: #00BC71;border-color: #00BC71;">确定
+                        </el-button>
+                      </el-col>
+                    </el-form-item>
+                  </el-form>
+                </el-dialog>
+              </template>
+           </div>
         </div>
     </el-col>
     </el-row>
@@ -165,6 +190,8 @@ export default {
   inject: ["reload"],
   props: [
     "floorGoods",
+    "floorGoodss",
+    "floorGoodsss",
     "weekDay",
     "whichDay",
     "jiaojiao",
@@ -176,8 +203,10 @@ export default {
       formLabelWidth: "130px",
       dialogFormVisible: false,
       dialogFormVisible2: false,
+      dialogFormVisible3:false,
       loading: false,
       tableData: [],
+      classation:[],
       jiaolianming: "",
       jiaoshi: [],
       jiaolian: [],
@@ -210,6 +239,12 @@ export default {
           { required: true, message: "请选择结束时间", trigger: "change" }
         ],
       },
+      ruleForm2: {
+        name: "", //上课教练名称
+      },
+      rules2: {
+        name: [{ required: true, message: "请输入上课教练名称", trigger: "blur" }],
+      },
     };
   },
     watch: {
@@ -218,31 +253,117 @@ export default {
       handler(val, oldVal) {
         switch (this.weekDay) {
           case 1:
-            this.tableData = val.list.Monday;
+            this.tableData = val.shift1.Monday;
             this.kcStime = val.week.Monday;
             break;
           case 2:
-            this.tableData = val.list.Tuesday;
+            this.tableData = val.shift1.Tuesday;
             this.kcStime = val.week.Tuesday;
             break;
           case 3:
-            this.tableData = val.list.Wednesday;
+            this.tableData = val.shift1.Wednesday;
             this.kcStime = val.week.Wednesday;
             break;
           case 4:
-            this.tableData = val.list.Thursday;
+            this.tableData = val.shift1.Thursday;
             this.kcStime = val.week.Thursday;
             break;
           case 5:
-            this.tableData = val.list.Friday;
+            this.tableData = val.shift1.Friday;
             this.kcStime = val.week.Friday;
             break;
           case 6:
-            this.tableData = val.list.Saturday;
+            this.tableData = val.shift1.Saturday;
             this.kcStime = val.week.Saturday;
             break;
           case 7:
-            this.tableData = val.list.Sunday;
+            this.tableData = val.shift1.Sunday;
+            this.kcStime = val.week.Sunday;
+            break;
+        }
+        if (this.tableData != null) {
+            this.tableData.map((item, index) => {
+            item.theme = item.teach_info.theme;
+          });
+            this.tablelength = this.tableData.length;
+        } else {
+          this.tableData = [];
+        }
+      }
+    },
+    floorGoodss: {
+      deep: true,
+      handler(val, oldVal) {
+        switch (this.weekDay) {
+          case 1:
+            this.tableData = val.shift2.Monday;
+            this.kcStime = val.week.Monday;
+            break;
+          case 2:
+            this.tableData = val.shift2.Tuesday;
+            this.kcStime = val.week.Tuesday;
+            break;
+          case 3:
+            this.tableData = val.shift2.Wednesday;
+            this.kcStime = val.week.Wednesday;
+            break;
+          case 4:
+            this.tableData = val.shift2.Thursday;
+            this.kcStime = val.week.Thursday;
+            break;
+          case 5:
+            this.tableData = val.shift2.Friday;
+            this.kcStime = val.week.Friday;
+            break;
+          case 6:
+            this.tableData = val.shift2.Saturday;
+            this.kcStime = val.week.Saturday;
+            break;
+          case 7:
+            this.tableData = val.shift2.Sunday;
+            this.kcStime = val.week.Sunday;
+            break;
+        }
+        if (this.tableData != null) {
+            this.tableData.map((item, index) => {
+            item.theme = item.teach_info.theme;
+          });
+            this.tablelength = this.tableData.length;
+        } else {
+          this.tableData = [];
+        }
+      }
+    },
+    floorGoodsss: {
+      deep: true,
+      handler(val, oldVal) {
+        switch (this.weekDay) {
+          case 1:
+            this.tableData = val.shift3.Monday;
+            this.kcStime = val.week.Monday;
+            break;
+          case 2:
+            this.tableData = val.shift3.Tuesday;
+            this.kcStime = val.week.Tuesday;
+            break;
+          case 3:
+            this.tableData = val.shift3.Wednesday;
+            this.kcStime = val.week.Wednesday;
+            break;
+          case 4:
+            this.tableData = val.shift3.Thursday;
+            this.kcStime = val.week.Thursday;
+            break;
+          case 5:
+            this.tableData = val.shift3.Friday;
+            this.kcStime = val.week.Friday;
+            break;
+          case 6:
+            this.tableData = val.shift3.Saturday;
+            this.kcStime = val.week.Saturday;
+            break;
+          case 7:
+            this.tableData = val.shift3.Sunday;
             this.kcStime = val.week.Sunday;
             break;
         }
@@ -437,6 +558,9 @@ export default {
                 this.dialogFormVisible = false;
                 formData.day = this.kcStime;
                 formData.name = this.ruleForm.name;
+                formData.classroom = this.ruleForm.room;
+                formData.attendtime = this.ruleForm.attendtime;
+                formData.endtime = this.ruleForm.endtime;
                 for(var i=0;i<this.jiaolian.length;i++){
                     if(this.jiaolian[i].YGXX_YGID_NEI==this.ruleForm.train){
                          formData.doCoach = this.jiaolian[i].YGXX_NAME;
@@ -447,12 +571,43 @@ export default {
                          }
                     }
                 }
-                formData.classroom = this.ruleForm.room;
-                formData.attendtime = this.ruleForm.attendtime;
-                formData.endtime = this.ruleForm.endtime;
                 this.tableData.push(formData);
                 this.resetForm(formName);
                 this.ruleForm.endtime = '';
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({ message: msg, type: "error" });
+                }
+              });
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    //上课教练登记
+    submitForm2(formName) {
+        this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示").then(() => {
+            let formData = {
+              doCoach: this.ruleForm2.name, //上课教练名称
+            };
+            requestLogin("/setTeachCurInfo/doCoachTeachCurTable/"+this.currentSelectRow.id, formData, "post")
+              .then(data => {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+                this.dialogFormVisible3 = false;
+                for (var i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].id== this.currentSelectRow.id) {
+                    this.tableData[i].doCoach = this.ruleForm2.name; //名称
+                  }
+                }
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -555,6 +710,25 @@ export default {
         this.traindata2();
       }
     },
+    Selectclass(val){
+    },
+    classclick(){
+      let _this = this;
+      requestLogin("/getCurTableBaseInfo", {}, "post")
+        .then(res => {
+          _this.classation = res.coach;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg }}} = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -579,6 +753,13 @@ export default {
     editlunbo() {
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
+      } else {
+        this.$message({ message: "请先选择列表!", type: "warning" });
+      }
+    },
+    registration(){
+      if (this.currentSelectRow) {
+        this.dialogFormVisible3 = true;
       } else {
         this.$message({ message: "请先选择列表!", type: "warning" });
       }

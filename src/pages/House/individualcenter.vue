@@ -840,7 +840,6 @@ export default {
       }
     }
     .hand-right {
-      height: 100%;
       .head_img {
         margin-top: 4%;
       }
