@@ -15,6 +15,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css';
 import router from './router'
 import VueProgressBar from 'vue-progressbar'
+// import NProgress from 'nprogress' // 进度条
+// import 'nprogress/nprogress.css'
 import axios from 'axios';
 Vue.prototype.$axios = axios;
 Vue.use(ElementUI)
@@ -32,6 +34,9 @@ Vue.prototype.$store = new Vuex.Store({
     actions: {},
     mutations: {}
 });
+
+// NProgress.inc(0.2)
+// NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 router.beforeEach((to, from, next) => {
     if (to.path.startsWith('/login')) {

@@ -565,10 +565,16 @@ export default {
                     if(this.jiaolian[i].YGXX_YGID_NEI==this.ruleForm.train){
                          formData.doCoach = this.jiaolian[i].YGXX_NAME;
                          if(!this.jiaojiao){
-                            formData.theme = JSON.parse(sessionStorage.getItem('coachtheme'));
-                         }else{
+                            formData.theme = sessionStorage.getItem('coachtheme');
+                          }else{
                             formData.theme = this.jiaojiaoname;
-                         }
+                          }
+                      if(this.$route.query.shibie == 'shibie'){
+                          formData.theme = this.$route.query.theme;
+                          if(this.jiaojiao){
+                            formData.theme = this.jiaojiaoname;
+                          }
+                        }
                     }
                 }
                 this.tableData.push(formData);

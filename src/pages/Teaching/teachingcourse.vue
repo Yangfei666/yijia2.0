@@ -308,6 +308,7 @@ export default {
         path: "/Teaching/teachingcourse/classprogress",
         query: {
           id: this.currentSelectRow.id,
+          theme:this.currentSelectRow.theme,
           shibie:'shibie',
           endDay:this.currentSelectRow.endDay,
           daydate:this.Maydate
