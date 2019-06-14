@@ -83,6 +83,13 @@
                           <el-input v-model.trim="ruleForm.money" placeholder="0~99999之间的数字"></el-input>
                         </el-col>
                       </el-form-item>
+                      <el-form-item label="会籍顾问:" prop="adviser" :label-width="formLabelWidth">
+                      <el-col :span="22">
+                          <el-select v-model="ruleForm.adviser" placeholder="请选择" style="width:100%">
+                            <el-option v-for="item in staff" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                          </el-select>
+                        </el-col>
+                      </el-form-item>
                       <el-form-item label="身份证照片:" prop="identityPhoto" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-upload class="upload-demo" ref="upload" action=" " :file-list="fileList" :limit='1' :on-exceed='uploadOverrun' :http-request='submitUpload1' list-type="picture" :auto-upload="true">
@@ -227,6 +234,7 @@ export default {
       tdlist:[],
       week: {},
       jiaojiao:'',
+      staff:[],
       jiaojiaoname:"",
       activeName: "Fulldayshift",
       activeName2:"Monday",
@@ -238,6 +246,7 @@ export default {
         sex: "", //性别
         shift: "", //班次
         money: "", //缴费
+        adviser:"",//会籍顾问
         identityPhoto: "", //身份证照片
         contractphoto: "", //合同照片
       },
@@ -247,6 +256,7 @@ export default {
         tel: { required: true, message: '请输入学员电话', trigger: 'blur' },
         shift: { required: true, message: '请选择班次', trigger: 'change' },
         money: { required: true, message: '请输入缴费', trigger: 'blur' },
+        adviser: { required: true, message: '请选择会籍顾问', trigger: 'change' },
         // identityPhoto: { required: true, message: '请选择身份证照片'},
         // contractphoto: { required: true, message: '请选择合同照片', trigger: 'blur' },
       },
@@ -296,6 +306,7 @@ export default {
     this.gettabledata(FirstDay);
     this.getCoachdata();
     this.getCoachdata2();
+    this.adviserchange();
     if(this.$route.query.shibie == 'shibie'){
       this.form.train = this.$route.query.id;
     }else{
@@ -308,6 +319,23 @@ export default {
       if (dates != null) {
         return dates.substring(5);
       }
+    },
+    adviserchange(){
+      let _this = this;
+      requestLogin("/teachStudent/getAdviserList",{}, "get")
+        .then(res => {
+          _this.staff = res.staff_info;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg }}} = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
     },
     trainchange(val){
       let _this = this;
@@ -492,6 +520,7 @@ export default {
             formData.append("teachId", _this.idd); //归属教培
             formData.append("shift", _this.ruleForm.shift); //班次
             formData.append("money", _this.ruleForm.money); //班费
+            formData.append("hjgwId", _this.ruleForm.adviser); //会籍
             formData.append("identity_Photo", _this.file); //身份证照片
             formData.append("contract_Photo", _this.file2); //合同照片
             requestLogin(

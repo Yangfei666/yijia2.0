@@ -27,6 +27,7 @@
               <el-table-column prop="tel" align="center" label="学员电话" width="130px"></el-table-column>
               <el-table-column prop="sex" align="center" label="学员性别"></el-table-column>
               <el-table-column prop="teach_info.theme" align="center" label="归属教培"></el-table-column>
+              <el-table-column prop="hjgwName" align="center" label="会籍顾问"></el-table-column>
               <el-table-column prop="shift" align="center" label="班次"></el-table-column>
               <el-table-column prop="money" align="center" label="缴费"></el-table-column>
               <el-table-column prop="performance" align="center" label="身份证照片">
@@ -96,6 +97,13 @@
                       <el-form-item label="缴费:" prop="money" :label-width="formLabelWidth">
                         <el-col :span="22">
                           <el-input v-model.trim="currentSelectRow.money"></el-input>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="会籍顾问:" prop="hjgwName" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-select v-model="currentSelectRow.hjgwName" style="width:100%" @change="Selectchange2">
+                            <el-option v-for="item in jiaolian" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
+                          </el-select>
                         </el-col>
                       </el-form-item>
                       <el-form-item label="身份证照片:" prop="identity_Photo" :label-width="formLabelWidth">
@@ -210,6 +218,7 @@ export default {
       pagesize: 10,
       tableData: [],
       disableds:false,
+      jiaolian:[],
       dialogFormVisible1:false,
       dialogFormVisible2:false,
       dialogFormVisible3:false,
@@ -257,6 +266,7 @@ export default {
   },
   created() {
     this.gettabledata();
+    this.adviserchange();
     if(this.$route.query.shibie == 'shibie' && this.$route.query.endDay < this.$route.query.daydate){
       this.disableds = true;
     }else{
@@ -303,6 +313,30 @@ export default {
           }
         });
     },
+    Selectchange2(val){
+      let obj = {};
+      obj = this.jiaolian.find(item => {
+        return item.YGXX_YGID_NEI === val;
+      });
+      this.YGXX_YGID_NEI = obj.YGXX_YGID_NEI;
+    },
+    adviserchange(){
+      let _this = this;
+      requestLogin("/teachStudent/getAdviserList",{}, "get")
+        .then(res => {
+          _this.jiaolian = res.staff_info;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg }}} = error;
+          if (errorCode != 0) {
+            this.$message({
+              message: msg,
+              type: "error"
+            });
+            return;
+          }
+        });
+    },
     //修改学员
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -315,6 +349,7 @@ export default {
             formData.append("teachId",this.$route.query.id); //归属教培
             formData.append("shift", radioDict[this.currentSelectRow.shift]); //班次
             formData.append("money", this.currentSelectRow.money); //缴费
+            formData.append("hjgwId", this.currentSelectRow.hjgwName); //会籍
             formData.append("identity_Photo", this.file); //身份证
             formData.append("contract_Photo", this.file2); //合同
             requestLogin(
