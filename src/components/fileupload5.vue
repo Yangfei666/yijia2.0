@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="file-upload-container">
-    <img class="dest-image" :src="destImg||imageUrl" v-show="destImg!==null||imageUrl" @click="openFile"/>
+    <img class="dest-image5" :src="destImg||imageUrl" v-show="destImg!==null||imageUrl" @click="openFile"/>
     <a class="file-upload-icon" v-show="destImg === null&&imageUrl===''">
       <input ref="input" type="file" accept="image/png" @change="change" v-show="!openCrop">
     </a>
@@ -528,7 +528,7 @@ $height: 400px;
     -o-user-select: none;
     -webkit-user-drag: none;
   }
-  .dest-image {
+  .dest-image5 {
     display: block;
     height: 100% !important;
     width: 100% !important;
