@@ -44,7 +44,7 @@ const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会�
 
 const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工管理
 
-const HouseProperty = resolve => require(['@/pages/House/property'], resolve)//财产管理
+// const HouseProperty = resolve => require(['@/pages/House/property'], resolve)//财产管理
 
 const Systemsetting = resolve => require(['@/pages/Operating/systemsetting'], resolve)//系统设置
 
@@ -361,7 +361,7 @@ let router = new Router({
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
                 { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
-                { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
+                // { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
                 { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心

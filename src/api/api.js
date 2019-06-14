@@ -60,8 +60,8 @@ export const requestLogin = (url, params, method, baseURL, responseType) => {
     url: url, //地址
     data: params, // 参数,
     headers: { 'token': sessionStorage.getItem('access-token') },
-    // baseURL: baseURL === false ? '' : process.env.API_ROOT,
-    baseURL: baseURL === false ? '' : '/api',
+    baseURL: baseURL === false ? '' : process.env.API_ROOT,
+    // baseURL: baseURL === false ? '' : '/api',
     responseType: responseType ? responseType : 'json'
   }).then(res => res.data);
 }
@@ -72,8 +72,8 @@ export const requestDown = (url, params, method,filename, baseURL, responseType)
   url: url, //地址
   data: params, // 参数,
   headers: { 'token': sessionStorage.getItem('access-token') },
-  // baseURL: baseURL === false ? '' : process.env.API_ROOT,
-  baseURL: baseURL === false ? '' : '/api',
+  baseURL: baseURL === false ? '' : process.env.API_ROOT,
+  // baseURL: baseURL === false ? '' : '/api',
   responseType: responseType ? responseType : 'blob'
   }).then(response => {
   let url = window.URL.createObjectURL(response.data);
@@ -93,8 +93,8 @@ export const requestDown = (url, params, method,filename, baseURL, responseType)
     data: params, // 参数,
     timeout : "50000",
     headers: { 'token': sessionStorage.getItem('access-token') },
-    // baseURL: baseURL === false ? '' : process.env.API_ROOT,
-    baseURL: baseURL === false ? '' : '/api',
+    baseURL: baseURL === false ? '' : process.env.API_ROOT,
+    // baseURL: baseURL === false ? '' : '/api',
     responseType: responseType ? responseType : 'blob'
     }).then(response => response );
     }

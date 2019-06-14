@@ -520,15 +520,15 @@ $height: 400px;
     -webkit-user-drag: none;
   }
   .dest-image {
-    display: block !important;
+    display: block;
     height: 30% !important;
     width: 30% !important;
     border-radius: 50% !important;
-    position: relative !important;
-    z-index: 1 !important;
-    top: 0 !important;
-    left: 0 !important;
-    z-index: 2 !important;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    z-index: 2;
   }
   .file-upload-icon {
     display: inline-block;

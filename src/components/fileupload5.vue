@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="file-upload-container">
-    <img class="dest-image" :src="destImg||imageUrl" v-show="destImg!==null||imageUrl" @click="openFile" />
+    <img class="dest-image" :src="destImg||imageUrl" v-show="destImg!==null||imageUrl" @click="openFile" style="width:100%;height:100%;border-radius: 0;"/>
     <a class="file-upload-icon" v-show="destImg === null&&imageUrl===''">
       <input ref="input" type="file" accept="image/png" @change="change" v-show="!openCrop">
     </a>
