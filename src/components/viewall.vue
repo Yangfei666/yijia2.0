@@ -314,11 +314,11 @@ export default {
         });
     },
     Selectchange2(val){
-      let obj = {};
-      obj = this.jiaolian.find(item => {
-        return item.YGXX_YGID_NEI === val;
-      });
-      this.YGXX_YGID_NEI = obj.YGXX_YGID_NEI;
+      this.jiaolian.map((item, index) => {
+        if (val == item.YGXX_YGID_NEI) {
+          this.currentSelectRow.hjgwId = item.YGXX_YGID_NEI;
+        }
+      })
     },
     adviserchange(){
       let _this = this;
@@ -349,7 +349,7 @@ export default {
             formData.append("teachId",this.$route.query.id); //归属教培
             formData.append("shift", radioDict[this.currentSelectRow.shift]); //班次
             formData.append("money", this.currentSelectRow.money); //缴费
-            formData.append("hjgwId", this.currentSelectRow.hjgwName); //会籍
+            formData.append("hjgwId", this.currentSelectRow.hjgwId); //会籍
             formData.append("identity_Photo", this.file); //身份证
             formData.append("contract_Photo", this.file2); //合同
             requestLogin(
@@ -362,6 +362,16 @@ export default {
                   message: "修改成功",
                   type: "success"
                 });
+                for (var i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].id== this.currentSelectRow.id) {
+                    this.tableData[i].name = this.currentSelectRow.name; //名称
+                   for(var j=0;j<this.jiaolian.length;j++){
+                    if(this.jiaolian[j].YGXX_YGID_NEI==this.currentSelectRow.hjgwId){
+                         this.tableData[i].hjgwName = this.jiaolian[j].YGXX_NAME;
+                    }
+                   }
+                  }
+                }
                 this.reload();
               })
               .catch(error => {
