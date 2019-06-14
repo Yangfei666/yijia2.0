@@ -22,22 +22,29 @@
           <el-col :span="24">
             <div class="purple">
               <div class="add">
-                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加物品</el-button>
+                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加登记</el-button>
                 <template>
-                  <el-dialog title="添加物品" :append-to-body="true" :visible.sync="dialogFormVisible">
+                  <el-dialog title="添加登记" :append-to-body="true" :visible.sync="dialogFormVisible">
                     <!--添加物品-->
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                      <el-form-item label="教室名称:" prop="classroom" :label-width="formLabelWidth">
+                      <el-form-item label="物品名称:" prop="name" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-input v-model.trim="ruleForm.classroom" placeholder="请输入"></el-input>
+                          <el-input v-model.trim="ruleForm.name" maxlength="10" placeholder="请输入"></el-input>
                         </el-col>
                       </el-form-item>
-                      <el-form-item label="教室类型:" prop="sign" :label-width="formLabelWidth">
+                      <el-form-item label="领取人:" prop="receive" :label-width="formLabelWidth">
                         <el-col :span="22">
-                          <el-select v-model="ruleForm.sign" placeholder="请选择" style="width:100%">
-                            <el-option v-for="item in sign" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
+                          <el-select v-model="ruleForm.receive" placeholder="请选择" style="width:100%" @change="Selectchange2">
+                          <el-option v-for="item in staff_info" :key="item.YGXX_YGID_NEI" :label="item.YGXX_NAME" :value="item.YGXX_YGID_NEI"></el-option>
                           </el-select>
+                        </el-col>
+                      </el-form-item>
+                      <el-form-item label="财产类别:" prop="type" :label-width="formLabelWidth">
+                        <el-col :span="22">
+                          <el-radio-group v-model="ruleForm.type">
+                              <el-radio :label="1">实物</el-radio>
+                              <el-radio :label="2">虚拟</el-radio>
+                          </el-radio-group>
                         </el-col>
                       </el-form-item>
                       <el-form-item class="dialog-footer">
@@ -51,7 +58,7 @@
                 </template>
               </div>
               <div class="add2">
-                <el-button type="text" class="p">删除物品</el-button>
+                <el-button type="text" class="p" @click="delexper">删除登记</el-button>
               </div>
             </div>
           </el-col>
@@ -60,18 +67,17 @@
       <div class="practice-table">
         <el-row>
           <el-col :span="24">
-            <el-table v-loading="loading" ref="singleTable" @current-change="handleCurrentChange2" element-loading-text="拼命加载中..." fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
+            <el-table ref="singleTable" @current-change="handleCurrentChange2" fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
               <el-table-column align="center" prop="radio" fixed width="70px">
                 <template slot-scope="scope">
                   <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                 </template>
               </el-table-column>
               <el-table-column prop="name" align="left" label="物品名称"></el-table-column>
-              <el-table-column prop="sign" align="left" label="类型"></el-table-column>
-              <el-table-column prop="sign" align="left" label="领用人"></el-table-column>
-              <el-table-column prop="sign" align="left" label="领用日期"></el-table-column>
-              <el-table-column prop="sign" align="left" label="登记人"></el-table-column>
-              <el-table-column prop="sign" align="left" label="备注"></el-table-column>
+              <el-table-column prop="type" align="left" label="物品类型"></el-table-column>
+              <el-table-column prop="register_name" align="left" label="登记人"></el-table-column>
+              <el-table-column prop="receive_name" align="left" label="领用人"></el-table-column>
+              <el-table-column prop="register_day" align="left" label="领用日期"></el-table-column>
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
@@ -93,44 +99,35 @@ export default {
     return {
       formLabelWidth: "130px",
       currentSelectRow: "",
-      loading: true,
       radio: true,
       dialogFormVisible: false,
       currentPage: 1,
       pagesize: 10,
+      staff_info:[],
       ruleForm: {
-        classroom: "",
-        sign: ""
+        receive: "",
+        name: "",
+        type:""
       },
       rules: {
-        classroom: validate.classroom,
-        sign: validate.sign
+        receive: [{ required: true,message: '请选择领用人', trigger: "change" }],
+        type: [{ required: true,message: '请选择财产类别', trigger: "change" }],
+        name:[{ required: true,message: '请输入物品名称', trigger: "blur" }],
       },
       tableData: [],
-      sign: [
-        {
-          value: "1",
-          label: "团课教室"
-        },
-        {
-          value: "2",
-          label: "私教教室"
-        }
-      ]
     };
   },
   created: function() {
     this.getclassroom();
+    this.getreceive();
   },
   methods: {
     //获取教室数据
     getclassroom() {
       let _this = this;
-      _this.loading = true;
-      requestLogin("/setClassroom", {}, "get")
+      requestLogin("/property", {}, "get")
         .then(function(res) {
           _this.tableData = res;
-          _this.loading = false;
         })
         .catch(error => {
          let { response: { data: { errorCode, msg } } } = error;
@@ -142,6 +139,31 @@ export default {
           return;
         }
         });
+    },
+    //获取领取人
+    getreceive() {
+      let _this = this;
+      requestLogin("/property/create", {}, "get")
+        .then(function(res) {
+          _this.staff_info = res;
+        })
+        .catch(error => {
+         let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+        });
+    },
+    Selectchange2(val){
+      let obj = {};
+      obj = this.staff_info.find(item => {
+        return item.YGXX_YGID_NEI === val;
+      });
+      this.YGXX_NAME = obj.YGXX_NAME;
     },
     handleSizeChange(size) {
       this.pagesize = size;
@@ -155,22 +177,22 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
-            this.addLoading = true;
-            var loginParams = {
-              name: this.ruleForm.classroom,
-              sign: this.ruleForm.sign
+            let loginParams = {
+              name: this.ruleForm.name,
+              type: this.ruleForm.type,
+              receive_name:this.YGXX_NAME
             };
-            requestLogin("/setClassroom", loginParams, "post")
+            requestLogin("/property", loginParams, "post")
               .then(data => {
-                this.addLoading = false;
                 this.$message({
                   message: "添加成功",
                   type: "success"
                 });
-                this.reload();
+                this.getclassroom();
+                this.resetForm(formName);
+                this.dialogFormVisible = false;
               })
               .catch(error => {
-                this.addLoading = false;
                 let { response: { data: { errorCode, msg } } } = error;
                 if (errorCode != 0) {
                   this.$message({
@@ -198,7 +220,7 @@ export default {
     handleCurrentChange2(val, index) {
       this.currentRow = val;
     },
-    //删除教室
+    //删除登记
     delexper() {
       let _this = this;
       this.$confirm("确认删除该条记录吗？", "提示", {
@@ -206,18 +228,16 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        _this.loading = true;
-        requestLogin("/setClassroom/" + _this.currentSelectRow.ID, {}, "delete")
+        requestLogin("/property/" + _this.currentSelectRow.id, {}, "delete")
           .then(response => {
-            _this.loading = false;
             this.$message({
               message: "删除成功",
               type: "success"
             });
-            _this.reload();
+            _this.getclassroom();
+            _this.radio = false;
           })
           .catch(error => {
-            _this.loading = false;
             let { response: { data: { errorCode, msg } } } = error;
             if (errorCode != 0) {
               this.$message({

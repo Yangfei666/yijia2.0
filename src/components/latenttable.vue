@@ -145,7 +145,7 @@
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
-                <el-button type="text" size="small" @click="dialogFormVisible3 = true">消费记录</el-button>
+                <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
               </template>
             </el-table-column>
           </el-table>
