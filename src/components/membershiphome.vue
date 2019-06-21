@@ -70,9 +70,9 @@
                 </template>
               </div> -->
               <div class="weber-top">
-                <!-- <div class="right-span2">
-                <router-link :to="{path:'/Customer/membershiphome/operationnote',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">消费记录</router-link>
-              </div> -->
+                <div class="right-span2">
+                <router-link :to="{path:'/Customer/membershiphome/memberconsume',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">消费记录</router-link>
+              </div>
               <div class="right-span2">
                 <router-link :to="{path:'/Customer/membershiphome/operationnote',query:{HYID:this.HYID,YGXX_NAME:this.YGXX_NAME}}" class="link">操作记录</router-link>
               </div>

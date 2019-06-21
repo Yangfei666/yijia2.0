@@ -32,6 +32,8 @@ const Cardopenaudit = resolve => require(['@/pages/Customer/cardopenaudit'], res
 
 const Pendingclaim = resolve => require(['@/pages/Customer/pendingclaim'], resolve)//待认领客户
 
+const Customerinvitation = resolve => require(['@/pages/Customer/customerinvitation'], resolve)//客户邀约
+
 const CustomerPractice = resolve => require(['@/pages/Customer/practice'], resolve)//体验客户管理
 
 const CustomerBargain = resolve => require(['@/pages/Customer/bargain'], resolve)//定金客户管理
@@ -44,7 +46,7 @@ const RoutineClub = resolve => require(['@/pages/Routine/club'], resolve)//会�
 
 const HouseStaff = resolve => require(['@/pages/House/staff'], resolve)//员工管理
 
-// const HouseProperty = resolve => require(['@/pages/House/property'], resolve)//财产管理
+const HouseProperty = resolve => require(['@/pages/House/property'], resolve)//财产管理
 
 const Systemsetting = resolve => require(['@/pages/Operating/systemsetting'], resolve)//系统设置
 
@@ -110,6 +112,10 @@ const Classcard = resolve => require(['@/components/classcard'], resolve)//上�
 
 const Classcard2 = resolve => require(['@/components/classcard2'], resolve)//上课记录--会员
 
+const Memberconsume = resolve => require(['@/components/memberconsume'], resolve)//消费记录--会员
+
+const Experconsume = resolve => require(['@/components/experconsume'], resolve)//消费记录--体验
+
 const Memberhome = resolve => require(['@/components/memberhome'], resolve)//会员主页
 
 const Experhome = resolve => require(['@/components/experhome'], resolve)//体验客户主页
@@ -146,6 +152,8 @@ const Activate = resolve => require(['@/components/activate'], resolve)//激活
 
 const Claim = resolve => require(['@/components/claim'], resolve)//认领
 
+const Consume = resolve => require(['@/components/consume'], resolve)//消费记录
+
 const Lunbomanage = resolve => require(['@/components/lunbomanage'], resolve)//图片管理
 
 const Viewall = resolve => require(['@/components/viewall'], resolve)//查看所有学员
@@ -157,6 +165,16 @@ const Bargaintable = resolve => require(['@/components/bargaintable'], resolve)/
 const Practicetable = resolve => require(['@/components/practicetable'], resolve)//体验表格
 
 const Leaguermanagetable = resolve => require(['@/components/leaguermanagetable'], resolve)//会员表格
+
+const Goodlist = resolve => require(['@/pages/Goodmanage/goodlist'], resolve)//商品列表
+
+const Goodclassify = resolve => require(['@/pages/Goodmanage/goodclassify'], resolve)//商品分类
+   
+const Receiptrecord = resolve => require(['@/pages/Goodmanage/receiptrecord'], resolve)//出入库记录
+
+const Shoppingcart = resolve => require(['@/pages/Goodmanage/shoppingcart'], resolve)//购物车
+
+const Goodsorder = resolve => require(['@/pages/Goodmanage/goodsorder'], resolve)//商品订单
 
 Vue.use(Router)
 
@@ -221,6 +239,7 @@ let router = new Router({
                 },
                 { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
                 { path: '/Customer/pendingclaim', component: Pendingclaim, name: '待认领客户', menuShow: true },//待认领客户
+                { path: '/Customer/customerinvitation', component: Customerinvitation, name: '客户邀约', menuShow: true },//客户邀约
                 {
                     path: '/Customer/practice', component: CustomerPractice, name: '体验客户管理', menuShow: true, redirect: '/Customer/practice/practicetable',//体验客户管理
                     children: [
@@ -233,6 +252,7 @@ let router = new Router({
                     children: [
                         { path: '/Customer/bargain/bargaintable', component: Bargaintable },//定金表格
                         { path: '/Customer/bargain/claim', component: Claim },//认领
+                        { path: '/Customer/bargain/consume', component: Consume },//消费记录
                     ]
                 },
                 {
@@ -240,6 +260,7 @@ let router = new Router({
                     children: [
                         { path: '/Customer/latent/latenttable', component: Latenttable },//潜在表格
                         { path: '/Customer/latent/claim', component: Claim },//认领
+                        { path: '/Customer/latent/consume', component: Consume },//消费记录
                     ]
                 },
                 {
@@ -322,6 +343,7 @@ let router = new Router({
                         { path: '/Customer/membershiphome/change', component: Change },//换会籍
                         { path: '/Customer/membershiphome/operationnote', component: Operationnote },//操作记录
                         { path: '/Customer/membershiphome/classcard2', component: Classcard2 },//上课记录
+                        { path: '/Customer/membershiphome/memberconsume', component: Memberconsume },//消费记录
                     ]
                 },
                 {
@@ -336,6 +358,7 @@ let router = new Router({
                         { path: '/Customer/experiencehome/nocards/:id/:exHjgwName/:exName/:exTel/:exSex', component: Nocards, name: 'Nocards' },//不办卡
                         { path: '/Customer/experiencehome/change/:id/:exHjgwName/:exName/:exTel/:exSex', component: Change },//换会籍
                         { path: '/Customer/experiencehome/classcard/:id/:exHjgwName/:exName/:exTel/:exSex', component: Classcard, name: 'Classcard' },//上课记录
+                        { path: '/Customer/experiencehome/experconsume/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experconsume, name: 'experconsume' },//消费记录
                     ]
                 }
             ]
@@ -361,7 +384,7 @@ let router = new Router({
                 { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
                 { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
                 { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
-                // { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
+                { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
                 { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
                 { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
@@ -420,6 +443,20 @@ let router = new Router({
             children: [
                 { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
                 { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
+            ]
+        },
+        {
+            path: '/Goodmanage',
+            component: Home,
+            name: '商品管理',
+            menuShow: true,
+            iconCls: 'iconfont icon-dianpuguanli',
+            children: [
+                { path: '/Goodmanage/goodlist', component: Goodlist, name: '商品列表', menuShow: true },//商品列表
+                { path: '/Goodmanage/receiptrecord', component: Receiptrecord, name: '出入库记录', menuShow: true },//出入库记录
+                { path: '/Goodmanage/shoppingcart', component: Shoppingcart, name: '购物车', menuShow: true },//购物车
+                { path: '/Goodmanage/goodsorder', component: Goodsorder, name: '商品订单', menuShow: true },//商品订单
+                { path: '/Goodmanage/goodclassify', component: Goodclassify, name: '商品分类', menuShow: true },//商品分类
             ]
         },
     ]

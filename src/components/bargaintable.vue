@@ -144,7 +144,7 @@
                 <el-button type="text" size="small" v-else :disabled="true">已认领</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">办卡</el-button>
                 <el-button @click="dialogFormVisible4 = true" type="text" size="small">放弃定金</el-button>
-                <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
+                <el-button type="text" size="small" @click="consume(scope.$index, scope.row)">消费记录</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -669,6 +669,22 @@ export default {
       }
       this.$router.push({
         path: "/Customer/bargain/claim",
+        query: {
+          id: this.currentSelectRow.id,
+          name: this.currentSelectRow.itName,
+          tel: this.currentSelectRow.itTel,
+          customercategory: this.Customercategory
+        }
+      });
+    },
+    consume(index, row){
+      this.currentSelectRow = row;
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+      this.$router.push({
+        path: "/Customer/bargain/consume",
         query: {
           id: this.currentSelectRow.id,
           name: this.currentSelectRow.itName,

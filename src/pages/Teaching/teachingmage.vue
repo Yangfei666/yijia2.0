@@ -35,12 +35,12 @@
             <el-table ref="singleTable" tooltip-effect="dark"  border  @current-change="handleCurrentChange2"  element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick" >
               <el-table-column prop="name" align="center" label="姓名"></el-table-column>
               <el-table-column prop="performance" align="center" label="业绩">
-                <template slot-scope="scope">
+                <!-- <template slot-scope="scope">
                   <span v-if="edit_id !== scope.row.id || his == false">{{scope.row.performance}}</span>
                   <el-input v-else size="small" v-model.trim="scope.row.performance" placeholder="请输入"></el-input>
-                </template>
+                </template> -->
               </el-table-column>
-              <el-table-column align="center" label="操作">
+              <!-- <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
                 <div v-if="edit_id !== scope.row.id || his == false">
                   <el-button type="text" @click="editRow(scope.$index,scope.row)">编辑</el-button>
@@ -49,7 +49,7 @@
                   <el-button type="text" @click="conservation(scope.$index,scope.row)">保存</el-button>
                 </div>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
             </el-table>
             <div class="block">
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper"  :total="tableData.length" ></el-pagination>
@@ -89,10 +89,10 @@ export default {
     getCurrentDateTime() {
       return moment(new Date()).format("YYYY-MM-DD");
     },
-    editRow(index, row) {
-        this.his = true;
-        this.edit_id = row.id;
-    },
+    // editRow(index, row) {
+    //     this.his = true;
+    //     this.edit_id = row.id;
+    // },
     //表格数据
     gettabledata() {
       let _this = this;
@@ -115,33 +115,33 @@ export default {
       this.gettabledata();
     },
     //保存
-    conservation(){
-      let _this = this;
-      _this.his = !_this.his;
-      let editarrange = {
-        staffId: _this.currentSelectRow.id, //员工编号
-        date:_this.DefaultShow, //日期
-        performance:_this.currentSelectRow.performance, //业绩
-      };
-      requestLogin("/satffPerUpdate/"+_this.currentSelectRow.staffPerId, editarrange, "post")
-        .then(res => {
-          this.$message({
-            message: "修改成功",
-            type: "success"
-          });
-        })
-        .catch(error => {
-         _this.his = true;
-          let { response: {data: { errorCode, msg } }} = error;
-          if (errorCode != 0) {
-            this.$message({
-              message: msg,
-              type: "error"
-            });
-            return;
-          }
-        });
-    },
+    // conservation(){
+    //   let _this = this;
+    //   _this.his = !_this.his;
+    //   let editarrange = {
+    //     staffId: _this.currentSelectRow.id, //员工编号
+    //     date:_this.DefaultShow, //日期
+    //     performance:_this.currentSelectRow.performance, //业绩
+    //   };
+    //   requestLogin("/satffPerUpdate/"+_this.currentSelectRow.staffPerId, editarrange, "post")
+    //     .then(res => {
+    //       this.$message({
+    //         message: "修改成功",
+    //         type: "success"
+    //       });
+    //     })
+    //     .catch(error => {
+    //      _this.his = true;
+    //       let { response: {data: { errorCode, msg } }} = error;
+    //       if (errorCode != 0) {
+    //         this.$message({
+    //           message: msg,
+    //           type: "error"
+    //         });
+    //         return;
+    //       }
+    //     });
+    // },
     handleCurrentChange2(val, index) {
       this.currentRow = val;
     },

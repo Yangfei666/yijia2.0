@@ -1,0 +1,843 @@
+@media screen and (min-width: 768px)and (max-width: 992px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 200px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 80% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 992px)and (max-width: 1280px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 230px !important;
+          }
+          .el-select{
+            width: 230px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 84% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1280px)and (max-width: 1440px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 180px !important;
+          }
+          .el-select{
+            width: 180px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 84% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1440px)and (max-width: 1680px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 180px !important;
+          }
+          .el-select{
+            width: 180px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 75% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1680px)and (max-width: 1920px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 230px !important;
+          }
+          .el-select{
+            width: 230px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 72% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1920px)and (max-width: 2048px){
+    .practice-list {
+        width: 97%;
+        height: 100%;
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+     .class-form {
+        height: 100%;
+        overflow: hidden;
+        margin-top: 18px;
+        .from-class {
+          height: 50px;
+          float: left;
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-autocomplete{
+              width: 240px !important;
+          }
+          .el-select{
+            width: 240px !important;
+          }
+        }
+        .from-class2 {
+          .el-button--primary {
+            height: 35px;
+            line-height: 1px;
+          }
+          .el-button + .el-button {
+            height: 35px;
+            line-height: 1px;
+          }
+        }
+      }
+    .practice-center {
+      height: 80px;
+      .purple {
+        height: 80px;
+        display: flex;
+        justify-content: flex-start;
+        .add {
+          border: 1px solid #00bc71;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #00bc71;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+        .add2 {
+          border: 1px solid #ff2366;
+          width: 20%;
+          height: 35px;
+          border-radius: 4px;
+          line-height: 0px;
+          margin-top: 20px;
+          margin-left: 20px;
+          .p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+          .add-p {
+            color: #ff2366;
+            font-family: PingFang-SC-Regular;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            line-height: 9px;
+          }
+        }
+      }
+      .purple2 {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        .search {
+          width: 65% !important;
+          border: 1px solid #fff;
+          height: 36px;
+          display: flex;
+          border-radius: 16px;
+          margin-top: 20px;
+          margin-right: 14px;
+          .search-input {
+            width: 100%;
+            border-radius: 16px;
+            border: none;
+            text-indent: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+          }
+          .search-icon {
+            margin-top: 9px;
+            margin-right: 13px;
+          }
+        }
+        .purple-name {
+          margin-top: 17px;
+        }
+        .purple-but {
+          margin-top: 17px;
+          .el-button--primary {
+            height: 35px;
+            line-height: 11px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -61,6 +61,29 @@ body {
     -webkit-transform: translateY(-50%) translateX(100%);
     transform: translateY(-50%) translateX(100%);
 }
+.el-input-number__increase {
+    right: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #dcdfe6;
+    height: 33px !important;
+    top: 2px !important;
+    line-height: 33px !important;
+}
+.el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid #dcdfe6;
+    height: 33px !important;
+    top: 2px !important;
+    line-height: 33px !important;
+}
+.el-input-number__decrease.is-disabled, .el-input-number__increase.is-disabled {
+    color: #c0c4cc;
+    cursor: not-allowed;
+    height: 33px!important;
+    top: 2px!important;
+    line-height: 33px!important;
+}
   .el-step__icon.is-text{
      color: #00bc71 !important;
      border-color: #00bc71 !important;

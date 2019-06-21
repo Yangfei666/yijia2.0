@@ -145,7 +145,7 @@
                 <el-button @click.native.prevent="dialogFormVisible6 = true" type="text" size="small">体验</el-button>
                 <el-button @click.native.prevent="dialogFormVisible5 = true" type="text" size="small">定金</el-button>
                 <el-button type="text" size="small" @click="dialogFormVisible4 = true">办卡</el-button>
-                <el-button type="text" size="small" @click="dialogFormVisible3 = true">换会籍</el-button>
+                <el-button type="text" size="small" @click="consume(scope.$index, scope.row)">消费记录</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -695,6 +695,22 @@ export default {
       }
       this.$router.push({
         path: "/Customer/latent/claim",
+        query: {
+          id: this.currentSelectRow.id,
+          name: this.currentSelectRow.prName,
+          tel: this.currentSelectRow.prTel,
+          customercategory: this.Customercategory
+        }
+      });
+    },
+    consume(index, row){
+      this.currentSelectRow = row;
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+      this.$router.push({
+        path: "/Customer/latent/consume",
         query: {
           id: this.currentSelectRow.id,
           name: this.currentSelectRow.prName,

@@ -6,12 +6,12 @@
                     <el-col :span="23" class="breadcrumb">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/home/main' }">首页</el-breadcrumb-item>
-                            <el-breadcrumb-item>会所管理</el-breadcrumb-item>
-                            <el-breadcrumb-item>储物柜</el-breadcrumb-item>
+                            <el-breadcrumb-item>商品管理</el-breadcrumb-item>
+                            <el-breadcrumb-item>商品分类</el-breadcrumb-item>
                         </el-breadcrumb>
                     </el-col>
                     <el-col :span="23" class="weber">
-                        <span class="weber-span">储物柜</span>
+                        <span class="weber-span">商品分类</span>
                     </el-col>
                 </div>
             </el-col>
@@ -22,36 +22,21 @@
                     <el-col :span="24">
                         <div class="purple">
                             <div class="add">
-                                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加储物柜</el-button>
+                                <el-button type="text" class="p el-icon-plus" @click="dialogFormVisible = true">添加分类</el-button>
                                 <template>
-                                    <el-dialog title="添加储物柜" :append-to-body="true" :visible.sync="dialogFormVisible">
-                                        <!--添加储物柜-->
+                                    <el-dialog title="添加分类" :append-to-body="true" :visible.sync="dialogFormVisible">
+                                        <!--添加分类-->
                                         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                                            <el-form-item label="储物柜编号:" prop="priorityid" :label-width="formLabelWidth">
+                                            <el-form-item label="分类名称:" prop="classname" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model.trim="ruleForm.priorityid" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="ruleForm.classname" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item label="优先级:" prop="priority" :label-width="formLabelWidth">
+                                            <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-radio-group v-model="ruleForm.priority" @change="cahngesen">
-                                                        <el-radio :label="1">优先使用</el-radio>
-                                                        <el-radio :label="2">一般</el-radio>
-                                                        <el-radio :label="3">最后</el-radio>
-                                                        <el-radio :label="4">VIP专用柜</el-radio>
-                                                    </el-radio-group>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="VIP姓名:" prop="priorityname" :label-width="formLabelWidth" v-show="ruleForm.priority == 4">
-                                                <el-col :span="22">
-                                                    <el-input v-model.trim="ruleForm.priorityname" placeholder="请输入"></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
-                                                <el-col :span="22">
-                                                    <el-radio-group v-model="ruleForm.sex" @change="cahngesen">
-                                                        <el-radio :label="1">女</el-radio>
-                                                        <el-radio :label="2">男</el-radio>
+                                                    <el-radio-group v-model="ruleForm.status" @change="cahngesen">
+                                                        <el-radio :label="1">启用</el-radio>
+                                                        <el-radio :label="2">禁用</el-radio>
                                                     </el-radio-group>
                                                 </el-col>
                                             </el-form-item>
@@ -66,36 +51,21 @@
                                 </template>
                             </div>
                             <div class="add">
-                                <el-button type="text" class="p" @click="editpriority()">编辑储物柜</el-button>
+                                <el-button type="text" class="p" @click="editpriority()">编辑分类</el-button>
                                 <template>
-                                    <el-dialog title="编辑储物柜" :append-to-body="true" :visible.sync="dialogFormVisible2">
+                                    <el-dialog title="编辑分类" :append-to-body="true" :visible.sync="dialogFormVisible2">
                                         <!--编辑储物柜-->
                                         <el-form :model="ruleForm2" ref="ruleForm2" label-width="100px">
-                                            <el-form-item label="储物柜编号:" prop="name" :label-width="formLabelWidth">
+                                            <el-form-item label="分类名称:" prop="name" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model.trim="currentSelectRow.name" placeholder="请输入"></el-input>
+                                                    <el-input v-model.trim="currentSelectRow.name"></el-input>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item label="优先级:" prop="priority" :label-width="formLabelWidth">
+                                            <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-radio-group v-model="currentSelectRow.priority" @change="cahngesen">
-                                                        <el-radio label="优先使用" value="1"></el-radio>
-                                                        <el-radio label="一般" value="2"></el-radio>
-                                                        <el-radio label="最后" value="3"></el-radio>
-                                                        <el-radio label="vip专用" value="4"></el-radio>
-                                                    </el-radio-group>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="VIP姓名:" prop="vipName" :label-width="formLabelWidth" v-show="currentSelectRow.priority == 'vip专用'">
-                                                <el-col :span="22">
-                                                    <el-input v-model.trim="currentSelectRow.vipName" placeholder="请输入"></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="性别:" prop="sex" :label-width="formLabelWidth">
-                                                <el-col :span="22">
-                                                    <el-radio-group v-model="currentSelectRow.sex" @change="cahngesen">
-                                                        <el-radio label="女" value="1"></el-radio>
-                                                        <el-radio label="男" value="2"></el-radio>
+                                                    <el-radio-group v-model="currentSelectRow.status" @change="cahngesen">
+                                                        <el-radio label="启用" value="1"></el-radio>
+                                                        <el-radio label="禁用" value="2"></el-radio>
                                                     </el-radio-group>
                                                 </el-col>
                                             </el-form-item>
@@ -108,6 +78,9 @@
                                     </el-dialog>
                                 </template>
                             </div>
+                            <div class="add2">
+                                <el-button type="text" class="p" @click="deleteclassify">删除分类</el-button>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -116,22 +89,17 @@
                 <el-row>
                     <el-col :span="24">
                         <el-table ref="singleTable" @current-change="handleCurrentChange2" fixed highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" @row-click="rowClick">
-                            <el-table-column align="center" prop="radio" fixed width="70px">
+                            <el-table-column align="right" prop="radio" fixed width="30px">
                                 <template slot-scope="scope">
                                     <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.$index)">&nbsp;</el-radio>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="name" align="left" label="储物柜编号"></el-table-column>
-                            <el-table-column prop="priority" align="left" label="优先级"></el-table-column>
-                            <el-table-column prop="vipName" align="left" label="VIP姓名">
-                              <template slot-scope="scope">
-                                <span v-show="scope.row.priority == 'vip专用'">{{scope.row.vipName}}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column prop="sex" align="left" label="性别"></el-table-column>
-                            <el-table-column align="left" label="操作">
+                            <el-table-column prop="name" align="center" label="分类名称"></el-table-column>
+                            <el-table-column prop="status" align="center" label="状态"></el-table-column>
+                            <el-table-column align="center" label="操作">
                                 <template slot-scope="scope">
-                                    <el-button type="danger" plain size="small" @click="delexper(scope.$index)">删除</el-button>
+                                    <el-button v-if="scope.row.status == '启用'" type="danger" plain size="medium" @click="Enabledisabled(scope.$index)">禁用</el-button>
+                                    <el-button v-else plain type="success" size="medium" @click="Enabledisabled(scope.$index)">启用</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -149,14 +117,12 @@
 import { requestLogin } from "@/api/api";
 import * as validate from "@/validate/Login";
 const radioDict = {
-  "优先使用": 1,
-  "一般": 2,
-  "最后": 3,
-  "vip专用":4
+  "启用": 1,
+  "禁用": 2,
 }
 export default {
   inject: ["reload"],
-  name: "locker",
+  name: "goodclassify",
   data() {
     return {
       formLabelWidth: "130px",
@@ -167,21 +133,19 @@ export default {
       currentPage: 1,
       pagesize: 10,
       ruleForm: {
-        priorityid: "",
-        priority: "",
-        priorityname:"",
-        sex:""
+        classname: "",
+        status: "",
       },
-      ruleForm2: {
+      ruleForm2:{
         name: "",
-        priority:"",
-        vipName:"",
-        sex:""
+        status: "",
       },
       rules: {
-        priorityid: validate.priorityid,
-        priority: validate.priority,
-        sex:[{ required: true, message: '请选择性别', trigger: 'change' }],
+        classname: [
+            { required: true, message: '请输入分类名称', trigger: 'blur' },
+            { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
+          ],
+        status:[{ required: true, message: '请选择分类', trigger: 'change' }],
       },
       tableData: []
     };
@@ -189,27 +153,25 @@ export default {
   created: function() {
     this.getclassroom();
     this.ruleForm2.name = this.currentSelectRow.name;
-    this.ruleForm2.priority = this.currentSelectRow.priority;
-    this.ruleForm2.vipName = this.currentSelectRow.vipName;
-    this.ruleForm2.sex = this.currentSelectRow.sex;
+    this.ruleForm2.status = this.currentSelectRow.status;
   },
   methods: {
-    //获取储物柜数据
+    //获取商品分类表格数据
     getclassroom() {
       let _this = this;
-      requestLogin("/setLocker", {}, "get")
+      requestLogin("/setGoodsType", {}, "get")
         .then(function(res) {
           _this.tableData = res;
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;
-        if (errorCode != 0) {
-          this.$message({
-            message: msg,
-            type: "error"
-          });
-          return;
-        }
+            if (errorCode != 0) {
+            this.$message({
+                message: msg,
+                type: "error"
+            });
+            return;
+            }
         });
     },
     handleSizeChange(size) {
@@ -233,18 +195,17 @@ export default {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
-              name: this.ruleForm.priorityid,
-              priority: this.ruleForm.priority,
-              vipName:this.ruleForm.priorityname,
-              sex:this.ruleForm.sex,
+              name: this.ruleForm.classname,
+              status: this.ruleForm.status,
             };
-            requestLogin("/setLocker", loginParams, "post")
+            requestLogin("/setGoodsType", loginParams, "post")
               .then(data => {
                 this.$message({
                   message: "添加成功",
                   type: "success"
                 });
                 this.reload();
+                this.resetForm(formName);
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -269,17 +230,16 @@ export default {
           this.$confirm("确认提交吗？", "提示").then(() => {
             var loginParams = {
               name: this.currentSelectRow.name,
-              priority:radioDict[this.currentSelectRow.priority],
-              vipName:this.currentSelectRow.vipName,
-              sex:this.currentSelectRow.sex == '女' ? 1 : 2,
+              status:radioDict[this.currentSelectRow.status],
             };
-            requestLogin("/editLocker", loginParams, "put")
+            requestLogin("/setGoodsType/"+this.currentSelectRow.id, loginParams, "put")
               .then(data => {
                 this.$message({
                   message: "修改成功",
                   type: "success"
                 });
                 this.reload();
+                this.radio = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;
@@ -311,21 +271,50 @@ export default {
     handleCurrentChange2(val, index) {
       this.currentRow = val;
     },
-    //删除教室
-    delexper() {
+    //删除分类
+    deleteclassify() {
       let _this = this;
+      if (!_this.currentSelectRow) {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        return;
+      }
       this.$confirm("确认删除该条记录吗？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let loginParams = {
-          name: _this.currentSelectRow.name
-        };
-        requestLogin("/remLocker", loginParams, "delete")
+        requestLogin("/setGoodsType/"+_this.currentSelectRow.id, {}, "delete")
           .then(response => {
             this.$message({
               message: "删除成功",
+              type: "success"
+            });
+            _this.reload();
+          })
+          .catch(error => {
+            let { response: { data: { errorCode, msg } } } = error;
+            if (errorCode != 0) {
+              this.$message({
+                message: msg,
+                type: "error"
+              });
+              return;
+            }
+          });
+      });
+    },
+    //启用禁用
+    Enabledisabled() {
+      let _this = this;
+     this.$confirm("确认更改该条记录吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        requestLogin("/updateStatus/"+_this.currentSelectRow.id, {}, "get")
+          .then(response => {
+            this.$message({
+              message: "变更成功",
               type: "success"
             });
             _this.reload();
@@ -349,7 +338,6 @@ export default {
 @import "@/styles/dialog.scss";
 </style>
 <style lang="scss" scoped>
-@import "@/styles/experience.scss";
 .practice-main {
   height: 112px;
   background: #fff;
@@ -387,7 +375,7 @@ export default {
       justify-content: flex-start;
       .add {
         border: 1px solid #00bc71;
-        width: 20%;
+        width: 15%;
         height: 35px;
         border-radius: 4px;
         line-height: 0px;
@@ -404,6 +392,33 @@ export default {
         }
         .add-p {
           color: #00bc71;
+          font-family: PingFang-SC-Regular;
+          font-size: 16px;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          line-height: 9px;
+        }
+      }
+      .add2 {
+        border: 1px solid #ff2366;
+        width: 15%;
+        height: 35px;
+        border-radius: 4px;
+        line-height: 0px;
+        margin-top: 20px;
+        margin-left: 20px;
+        .p {
+          color: #ff2366;
+          font-family: PingFang-SC-Regular;
+          font-size: 16px;
+          font-weight: normal;
+          font-stretch: normal;
+          letter-spacing: 0px;
+          line-height: 9px;
+        }
+        .add-p {
+          color: #ff2366;
           font-family: PingFang-SC-Regular;
           font-size: 16px;
           font-weight: normal;

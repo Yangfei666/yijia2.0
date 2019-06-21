@@ -59,9 +59,9 @@
                 <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">上课记录</router-link>
               </div> -->
               <div class="weber-top">
-                <!-- <div class="right-span2">
-                <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">消费记录</router-link>
-              </div> -->
+                <div class="right-span2">
+                <router-link :to="{name:'experconsume',params:{id:this.id}}" class="link">消费记录</router-link>
+              </div>
               <div class="right-span2">
                 <router-link :to="{name:'Classcard',params:{id:this.id}}" class="link">上课记录</router-link>
               </div>
