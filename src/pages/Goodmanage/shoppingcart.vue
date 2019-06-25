@@ -128,13 +128,13 @@
                             </el-table-column>
                             <el-table-column align="center" label="操作">
                                 <template slot-scope="scope">
-                                    <el-button type="danger" plain size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button> 
+                                    <el-button type="danger" plain size="small" @click="handleDelete(scope.$index,scope.row,item)">删除</el-button> 
                                 </template>
                             </el-table-column>
                         </el-table>
                         <div class="block">
                             <div class="block-right">
-                                <span>总计：{{moneyTotal(item.data) | formatMoney}} 元</span>
+                                <span>总计：{{moneyTotal(item.data)}} 元</span>
                                 <div class="btn">
                                 <el-button type="text" class="p" @click="Settlement(item)">去结算</el-button>
                                 </div>
@@ -179,18 +179,15 @@ export default {
       cart:{},
       sels:[],
       nums:[],
+      idd:"",
       ruleForm:{
           classify:"",
           name:"",
           tel:""
       },
       rules: {
-        // name: [
-        //     { required: true, message: '请输入名称', trigger: 'blur' },
-        //     { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
-        //   ],
         classify:[{ required: true, message: '请选择分类', trigger: 'change' }],
-        tel:[{ required: true, message: '请输入电话', trigger: 'blur' }]
+        tel:[{ required: true, message: '请选择电话号码', trigger: 'blur' }],
       },
       count: 0,
     };
@@ -200,7 +197,6 @@ export default {
             return "￥ " + value.toFixed(2);//保留两位小数
         }
     },
-  // 通过computed计算
  computed: {
         //总价
       moneyTotal(){
@@ -218,9 +214,10 @@ export default {
         this.getgoodlist();
     },
   methods: {
+    //商品列表
       getgoodlist() {
-          let _this = this;
-       requestLogin("/setGoodsList", {}, "get")
+        let _this = this;
+       requestLogin("/setGoodsList/searchGoods", {}, "get")
         .then(function(res) {
           _this.gridData = res;
         })
@@ -243,12 +240,6 @@ export default {
       return row.id;
     },
     selsChange(sels) {
-      // this.sels=[];
-      // if(sels.length>0){
-      //     for(var i=0;i<sels.length;i++){
-      //      this.sels.push(sels[i].id);
-      //   }
-      // }
     },
      //放大图片
     handleFileEnlarge(_url) {
@@ -261,7 +252,7 @@ export default {
       this.cart=item;
       this.dialogTableVisible = true;
     },
-    //添加到购物车带参数fruit
+    //添加到购物车
     addToBasket(index,row){
         let basket = {
             id:row.id,
@@ -295,7 +286,7 @@ export default {
                     type: 'success',
                     message: '已加入购物车'
                 });
-        }
+              }
             }
         }  
     },
@@ -343,14 +334,23 @@ export default {
       }
     },
     //删除商品
-    handleDelete(index, row) {
+    handleDelete(index,row,goods) {
+      var _this=this; 
         this.$confirm('确定删除该商品？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          //删除数组中指定的元素
-          this.goods.data.splice(index, 1); //删除表格的数据
+          for(var i=0;i<_this.goodcart.length;i++){
+            if(_this.goodcart[i].yid==goods.yid){
+              for(var j=0;j<goods.data.length;j++){
+                 if(goods.data[j].id==row.id){
+                     _this.goodcart[i].data.splice(j,1);
+                     _this.multipleSelection;
+                 }
+              }           
+            }
+          }
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -362,25 +362,19 @@ export default {
           });          
         });
       },
-      //清空购物车
+    //清空购物车
     EmptyCart(goods){
-        if(goods.data== undefined){
-          this.$message({
-          type: 'warning',
-          message: '没有要清空的商品数据!'
-        });
-        }else{
-          for(var i=0;i<goods.data.length;i++){
-                this.nums.push(goods.data[i].num);
-                this.sels.push(goods.data[i].id);
-              } 
+       var _this=this; 
         this.$confirm('确定清空购物车？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          //删除数组中指定的元素
-          this.goods.data = []; //删除表格的数据
+         for(var i=0;i<_this.goodcart.length;i++){
+            if(_this.goodcart[i].yid==goods.yid){
+                _this.goodcart[i].data=[];          
+            }
+          }
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -391,7 +385,6 @@ export default {
             message: '已取消删除'
           });          
         });
-        }
     },
     //数量不能为空
     handleChange(value) {
@@ -466,7 +459,7 @@ export default {
           return state.tel
         };
       },
-      //去结算
+    //去结算
     Settlement(goods) {
         if(goods.data == undefined){
              this.$message({

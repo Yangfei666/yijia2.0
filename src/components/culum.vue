@@ -35,7 +35,7 @@
           <el-table-column label="时间" :width="timeDivLength">
             <template slot-scope="scope">
               <div v-for="(value,index) in scope.row.time" :key="index" style="width:80px;display:inline-block;">
-                <div :class="classStyle(value.staff, value.time)" @click="clickTimeButtom(value.time, scope.row.name, $event)">
+                <div :class="classStyle(value.staff, value.time, value.name)" @click="clickTimeButtom(value.time, scope.row.name, $event)">
                   {{value.time.substring(0,5)}}
                 </div>
                 <span style="font-size:12px;">{{value.staff}}·{{value.name}}</span>
@@ -434,7 +434,7 @@ export default {
       }
     },
     // 时间按钮样式
-    classStyle(str, time) {
+    classStyle(str, time, name) {
       let date = new Date();
       let y = date.getFullYear();
       let m =
@@ -451,6 +451,17 @@ export default {
         return "wer-div3";
       } else if (this.whichDay == today) {
         if (time > now) {
+          if(name&&name!=='团课'&& str === '' ){
+          // console.log(99,name,str,time)
+          return 'wer-div2';
+          }
+          if(name&&name!=='团课'&& str === null ){
+            // console.log(19,name,str,time)
+            return 'wer-div';
+            }
+          if(name&&name!=='团课'&&str&&str!==''){
+            return 'wer-div2'
+          }
           return str === ""
             ? "wer-div2"
             : str === null ? "wer-div" : "wer-div3";
@@ -458,7 +469,18 @@ export default {
           return "wer-div3";
         }
       } else {
-        return str === "" ? "wer-div2" : str == null ? "wer-div" : "wer-div3";
+        if(name&&name!=='团课'&& str === '' ){
+          // console.log(99,name,str,time)
+          return 'wer-div2';
+          }
+        if(name&&name!=='团课'&& str === null ){
+          // console.log(19,name,str,time)
+          return 'wer-div';
+          }
+        if(name&&name!=='团课'&&str&&str!==''){
+          return 'wer-div2'
+        }
+        return str === ""? "wer-div2" : str == null ? "wer-div" : "wer-div3";
       }
     }
   }

@@ -217,6 +217,7 @@
 <script>
 import { requestLogin } from "@/api/api";
 import Syllabus from "@/components/syllabus";
+import * as validate from "@/validate/Login";
 export default {
   name: "classprogress",
   inject: ["reload"],
@@ -253,7 +254,7 @@ export default {
       rules: {
         name: { required: true, message: '请输入学员姓名', trigger: 'blur' },
         sex: { required: true, message: '请选择学员性别', trigger: 'change' },
-        tel: { required: true, message: '请输入学员电话', trigger: 'blur' },
+        tel: validate.phone,
         shift: { required: true, message: '请选择班次', trigger: 'change' },
         money: { required: true, message: '请输入缴费', trigger: 'blur' },
         adviser: { required: true, message: '请选择会籍顾问', trigger: 'change' },

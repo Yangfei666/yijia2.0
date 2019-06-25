@@ -361,6 +361,62 @@
                                 </el-col>
                             </el-col>
                             </div>
+                            <div class="health-from-div bai">
+                                <div class="hei">客户设置</div>
+                                <el-col :span="24" class="from-date-border8">
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="是否开启集体邀约：" prop="collectiveInvitation" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.collectiveInvitation">
+                                                <el-radio :label="1">是</el-radio>
+                                                <el-radio :label="2">否</el-radio>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date">
+                                    <el-form-item label="是否查看跟进记录：" prop="views_followUp_recodes" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-radio-group v-model="ruleForm.views_followUp_recodes">
+                                                <el-radio :label="1">是</el-radio>
+                                                <el-radio :label="2">否</el-radio>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border9">
+                                <el-col :span="12" class="from-date" v-if="this.ruleForm.collectiveInvitation == 1">
+                                    <el-form-item label="" prop="customerType" label-width="120px">
+                                        <el-col :span="24">
+                                            <el-checkbox-group v-model="ruleForm.customerType">
+                                                <el-checkbox v-for="item in citiess" :label="item.id" :key="item.id">{{item.name}}</el-checkbox>
+                                            </el-checkbox-group>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12" class="from-date" v-if="this.ruleForm.collectiveInvitation == 1">
+                                    <el-form-item label="最多扫几轮：" prop="foreach" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <el-input v-model.trim="ruleForm.foreach" style="width:250px" placeholder="默认1,最大5"></el-input>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            <el-col :span="24" class="from-date-border10">
+                                <el-col :span="12" class="from-date" v-if="this.ruleForm.collectiveInvitation == 1">
+                                    <el-form-item label="全店邀约明细角色：" prop="views_role" :label-width="formLabelWidth">
+                                        <el-col :span="24">
+                                            <div class="radiogroup">
+                                            <el-checkbox-group v-model="ruleForm.views_role">
+                                                <el-checkbox v-for="city in cities" :label="city.name" :key="city.id">{{city.name}}</el-checkbox>
+                                            </el-checkbox-group>
+                                            </div>
+                                        </el-col>
+                                    </el-form-item>
+                                </el-col>
+                            </el-col>
+                            </div>
                         </el-col>
                     </div>
                     <el-col :span="24" class="from-date4" v-show="hide">
@@ -381,6 +437,8 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      cities:[],
+      citiess:[],
       disabled: false,
       hide: false,
       formLabelWidth: "220px",
@@ -423,6 +481,11 @@ export default {
         grade2:"",//普通会员卡预约天数
         onePrivateTime:"",//单节私教时长
         memberIsNull:"",//会员头像是否必填
+        collectiveInvitation:"",//是否开启集体邀约
+        customerType:[],//客户类型
+        views_followUp_recodes:"",//是否查看跟进记录
+        views_role:[],//全店邀约明细角色
+        foreach:"",//最多扫几轮
       }
     };
   },
@@ -439,6 +502,8 @@ export default {
             _this.hide = true;
           } else {
             _this.ruleForm = res;
+            _this.cities = res.role;
+            _this.citiess = res.customer;
             _this.disabled = true;
             _this.hide = false;
           }
@@ -493,6 +558,11 @@ export default {
           grade2:this.ruleForm.grade2,//普通会员卡预约天数
           onePrivateTime:this.ruleForm.onePrivateTime,//单节私教时长
           memberIsNull:this.ruleForm.memberIsNull,//会员头像是否必填
+          collectiveInvitation:this.ruleForm.collectiveInvitation,//是否开启集体邀约
+          customerType:this.ruleForm.customerType,//客户类型
+          views_followUp_recodes:this.ruleForm.views_followUp_recodes,//是否查看跟进记录
+          views_role:this.ruleForm.views_role,//全店邀约明细角色
+          foreach:this.ruleForm.foreach,//最多扫几轮
         };
         requestLogin("/setClubParams", loginParams, "post")
           .then(data => {
@@ -521,12 +591,18 @@ export default {
     editAll() {
       this.disabled = false;
       this.hide = true;
-    }
+    },
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/styles/systemsetting.scss";
+.el-checkbox + .el-checkbox {
+  margin-left: 0px;
+  }
+  .el-checkbox {
+  margin-right: 30px;
+  }
 .practice-main {
   height: 112px;
   background: #fff;
@@ -690,6 +766,42 @@ export default {
       }
       .from-date-border7 {
         width: 100%;
+        .from-date {
+          display: flex;
+          .el-form-item {
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+        }
+      }
+      .from-date-border8 {
+        width: 100%;
+        .from-date {
+          display: flex;
+          .el-form-item {
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+        }
+      }
+      .from-date-border9 {
+        width: 100%;
+        .from-date {
+          display: flex;
+          .el-form-item {
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+        }
+      }
+      .from-date-border10 {
+        width: 100%;
+        .radiogroup{
+            border: 1px solid #ccc;
+            height: 100%;
+            padding: 10px;
+            width: 300px;
+        }
         .from-date {
           display: flex;
           .el-form-item {

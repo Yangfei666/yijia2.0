@@ -30,34 +30,6 @@
                       </el-dialog>
                     </template>
                   </el-col>
-                  <el-col :span="24" class="taste-center">
-                    <el-button type="text" @click="dialogFormVisible2 = true" style="color:#00bc71;">
-                      <i class="el-icon-plus"></i>添加邀约</el-button>
-                      <template>
-                      <el-dialog title="添加邀约" :append-to-body="true" :visible.sync="dialogFormVisible2">
-                        <!--添加邀约-->
-                        <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm" label-width="100px">
-                          <el-form-item label="日期:" prop="kcStime" :label-width="formLabelWidth">
-                            <el-col :span="22">
-                              <el-date-picker type="date" placeholder="请选择" format="yyyy-MM-dd" v-model="ruleForm2.kcStime" style="width: 100%;"></el-date-picker>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item label="跟进内容:" prop="desc" :label-width="formLabelWidth">
-                            <el-col :span="22" class="from-date">
-                              <el-input type="textarea" v-model.trim="ruleForm2.desc" maxlength="100" @input="descInput2" placeholder="请输入"></el-input>
-                              <span class="textarea">还可以输入{{remnant}}字</span>
-                            </el-col>
-                          </el-form-item>
-                          <el-form-item class="dialog-footer">
-                            <el-col :span="24" style="display: flex;justify-content: flex-end;">
-                              <el-button @click="resetForm2('ruleForm2')">重置</el-button>
-                              <el-button type="primary" @click="addcustomer('ruleForm2')" :loading="addLoading" style="background-color: #00BC71;border-color: #00BC71;">确定</el-button>
-                            </el-col>
-                          </el-form-item>
-                        </el-form>
-                      </el-dialog>
-                    </template>
-                  </el-col>
                   <template>
                     <el-col :span="24" class="taste-top" v-for="item in taste" :key="item.packetId">
                       <div class="round"></div>
@@ -91,20 +63,11 @@ export default {
       activeName: 'first',
       addLoading: false,
       dialogFormVisible: false,
-      dialogFormVisible2: false,
       formLabelWidth: "130px",
       ruleForm: {
         desc: "" //跟进内容
       },
-      ruleForm2: {
-        kcStime:"",//日期
-        desc: "" //跟进内容
-      },
       rules: {
-        desc: [{ required: true, message: "请输入跟进内容", trigger: "blur" }]
-      },
-      rules2: {
-        kcStime:[{type:'date',required:true,message: "请选择日期", trigger: "change" }],
         desc: [{ required: true, message: "请输入跟进内容", trigger: "blur" }]
       },
       taste: [],
@@ -119,7 +82,7 @@ export default {
       "get"
     )
       .then(function(res) {
-        _this.taste = res;
+        _this.taste = res.record;
       })
      .catch(error => {
         let { response: { data: { errorCode, msg } } } = error;
@@ -135,6 +98,12 @@ export default {
   methods: {
     //添加跟进记录
     submitForm(formName) {
+      if(this.ruleForm.desc.length < 10){
+         this.$message({
+            message: "输入字数不能少于10个字",
+            type: "warning"
+          });
+      }else{
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示").then(() => {
@@ -175,52 +144,7 @@ export default {
           return false;
         }
       });
-    },
-    addcustomer(formName){
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$confirm("确认提交吗？", "提示").then(() => {
-            this.addLoading = true;
-            var loginParams = {
-              identity: "member", //客户类别
-              id: this.$route.query.id, //客户id
-              content: this.ruleForm.desc //内容
-            };
-            requestLogin(
-              "/CustomerFollowUp/addFollowUpRecord",
-              loginParams,
-              "post"
-            )
-              .then(data => {
-                this.addLoading = false;
-                this.$message({
-                  message: "添加成功",
-                  type: "success"
-                });
-                this.reload();
-                this.dialogFormVisible = false;
-                this.resetForm(formName);
-              })
-              .catch(error => {
-                this.addLoading = false;
-                let { response: { data: { errorCode, msg } } } = error;
-                if (errorCode != 0) {
-                  this.$message({
-                    message: msg,
-                    type: "error"
-                  });
-                  return;
-                }
-              });
-          });
-        } else {
-          return false;
-        }
-      });
-    },
-    resetForm2(formName) {
-      this.$refs[formName].resetFields();
-      this.remnant = 100;
+      }
     },
      resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -229,22 +153,6 @@ export default {
     descInput() {
       var txtVal = this.ruleForm.desc.length;
       this.remnant = 100 - txtVal;
-      if(this.ruleForm.desc.length < 10){
-         this.$message({
-            message: "输入字数不能少于10个字",
-            type: "warning"
-          });
-      }
-    },
-    descInput2() {
-      var txtVal = this.ruleForm2.desc.length;
-      this.remnant = 100 - txtVal;
-      if(this.ruleForm2.desc.length < 10){
-         this.$message({
-            message: "输入字数不能少于10个字",
-            type: "warning"
-          });
-      }
     },
     handleClick(tab, event) {
       },
@@ -288,7 +196,6 @@ export default {
       margin-top: -5px;
       color: #00bc71;
       margin: 15px auto;
-      width: 50%;
     }
     .taste-center:hover {
       border: 1px dashed #00bc71;
