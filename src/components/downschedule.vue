@@ -26,6 +26,7 @@
             </div>
             <div class="downimg">
               <img :src="img"/>
+              <div v-show="loading" class="loading">加载中...</div>
             </div>
              <div class="downbtn">
             <el-button type="text" size="small" class="download2" @click="downbtn" :disabled="xianshi">下载图片</el-button>
@@ -151,6 +152,7 @@ export default {
       dataURL:"",
       blobImg:{},
       setup:"",
+      loading: true,
       dialogFormVisible2:false,
       formLabelWidth: "130px",
       xianshi:false,
@@ -198,9 +200,11 @@ export default {
       this.imageUrlss = URL.createObjectURL(file.raw);
     },
     gettabledata() {
+      this.loading = true;
       requestUrlDown("/download/courseTable/"+this.$route.query.huisuoid +"/"+this.$route.query.zhouyi, {}, "get")
         .then(res => {
           if(res.data != null){
+            this.loading = false;
             var blob = new Blob([res.data],{type: 'application/octet-stream'});
             let url = window.URL.createObjectURL(blob);
             this.img = url;
@@ -210,6 +214,7 @@ export default {
           }
         })
         .catch(error => {
+          this.loading = false;
           let { response: { data: { errorCode, msg }}} = error;
           if (errorCode != 0) {
             this.$message({
