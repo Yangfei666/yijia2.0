@@ -23,13 +23,13 @@
                 <el-row>
                     <el-col :span="24">
                         <div class="purple">
-                            <div class="add">
+                            <div class="add" :class="(cur===0)?'active':''">
                                 <el-button type="text" class="p" @click="cur=0">待结算</el-button>
                             </div>
-                            <div class="add">
+                            <div class="add" :class="(cur===1)?'active':''">
                                 <el-button type="text" class="p" @click="cur=1">待取货</el-button>
                             </div>
-                            <div class="add">
+                            <div class="add" :class="(cur===2)?'active':''">
                                 <el-button type="text" class="p" @click="cur=2">已完成</el-button>
                             </div>
                         </div>
@@ -89,11 +89,13 @@
                                <div>
                                 <span>支付方式：</span>
                                 <el-radio-group v-model="item.mode">
-                                  <el-radio :label="1">店内到付</el-radio>
-                                  <el-radio :label="2">美团</el-radio>
-                                  <el-radio :label="3">大众点评</el-radio>
-                                  <el-radio :label="4">会籍顾问代收</el-radio>
-                                  <el-radio :label="5">储值卡</el-radio>
+                                  <el-radio :label="1">微信</el-radio>
+                                  <el-radio :label="2">支付宝</el-radio>
+                                  <el-radio :label="3">现金</el-radio>
+                                  <el-radio :label="4">银行卡</el-radio>
+                                  <el-radio :label="5">信用卡</el-radio>
+                                  <el-radio :label="6">手机银行转账</el-radio>
+                                  <el-radio :label="7">储值卡</el-radio>
                                 </el-radio-group>
                                 </div>
                                 <div class="btn">
@@ -350,96 +352,82 @@ export default {
     },
     //取消订单
     Cancelorder(goods){
-      for(var i=0;i<goods.data.length;i++){
+      this.$confirm("确认提交吗？", "提示").then(() => {
+            for(var i=0;i<goods.data.length;i++){
             this.sels.push(goods.data[i].oid);
-        }  
-        let canceparams ={
-          oid:this.sels,
-        }
-        this.$confirm('确定取消订单？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-        requestLogin("/setGoodsList/cancleOrder", canceparams, "post")
-        .then(function(res) {
-          this.$message({
-            type: 'success',
-            message: '取消成功!'
-          });
-          this.getgoodsorder();
-          this.reload();
-        })
-        .catch(error => {
-          this.sels = [];
-          let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
-            this.$message({
-                message: msg,
-                type: "error"
-            });
-            return;
+            }  
+            let canceparams ={
+              oid:this.sels,
             }
-        })
-      })
+            requestLogin("/setGoodsList/cancleOrder", canceparams, "post")
+              .then(data => {
+                 this.$message({
+                  type: 'success',
+                  message: '提交成功'
+                   });
+                   this.getgoodsorder();
+                   this.reload(); 
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
+          });
     },
     getDataId(oid) {
     },
     //退货
     goodsrejected(oid){
-        this.$confirm('确定退货吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-        requestLogin("/setGoodsList/returnOrder/"+oid, {}, "get")
-        .then(function(res) {
-          this.$message({
-            type: 'success',
-            message: '退货成功!'
+      this.$confirm("确认提交吗？", "提示").then(() => {
+            requestLogin("/setGoodsList/returnOrder/"+oid, {}, "get")
+              .then(data => {
+                 this.$message({
+                  type: 'success',
+                  message: '退货成功'
+                   });
+                   this.getorderList();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
           });
-          this.getorderList();
-          this.reload();
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
-            this.$message({
-                message: msg,
-                type: "error"
-            });
-            return;
-            }
-        })
-      })
     },
     //取货
     pickupgoods(index,row){
-      this.$confirm('确定取货吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-        requestLogin("/setGoodsList/claimOrder/"+row.oid,{}, "get")
-        .then(function(res) {
-          this.$message({
-            type: 'success',
-            message: '取货成功!'
+      this.$confirm("确认提交吗？", "提示").then(() => {
+            requestLogin("/setGoodsList/claimOrder/"+row.oid,{}, "get")
+              .then(data => {
+                 this.$message({
+                  type: 'success',
+                  message: '取货成功'
+                   });
+                   this.getListByPick();
+                   this.getorderList();
+              })
+              .catch(error => {
+                let { response: { data: { errorCode, msg } } } = error;
+                if (errorCode != 0) {
+                  this.$message({
+                    message: msg,
+                    type: "error"
+                  });
+                  return;
+                }
+              });
           });
-          this.getListByPick();
-          this.reload();
-        })
-        .catch(error => {
-          let { response: { data: { errorCode, msg } } } = error;
-            if (errorCode != 0) {
-            this.$message({
-                message: msg,
-                type: "error"
-            });
-            return;
-            }
-        })
-      })
     },
     //确认购买
     Settlement(goods) {
@@ -447,10 +435,10 @@ export default {
             this.nums.push(goods.data[i].num);
             this.sels.push(goods.data[i].oid);
         }  
-        if(goods.mode == undefined){
+        if(goods.mode == undefined || goods.privilegeprice == undefined){
           this.$message({
             type: 'warning',
-            message: '您还没有选择付款方式！'
+            message: '您还没有选择付款方式和输入优惠金额！'
               });
         }else{
           this.$confirm("确认提交吗？", "提示").then(() => {
@@ -517,6 +505,9 @@ export default {
 .show-more {
       margin-bottom: 20px;
       background: none;
+  }
+.active{
+      background-color: #F0F6F2;
   }
 .table{
     margin: 0 auto;
@@ -774,6 +765,9 @@ export default {
             .el-radio+.el-radio {
                   margin-left: 0px;
               }
+              .el-radio-group{
+                width: 266px !important; 
+              }
             span{
                 line-height: 50px;
             }
@@ -825,7 +819,7 @@ export default {
             margin-left: 16px !important;
             font-size: 14px !important;
             .el-input{
-              width: 100px !important;
+              width: 80px !important;
             }
         }
         .block-right3{
@@ -905,6 +899,9 @@ export default {
             margin: 0 auto;
             .el-radio+.el-radio {
                   margin-left: 10px !important;
+              }
+              .el-radio-group{
+                width: 545px !important; 
               }
             span{
                 line-height: 50px;
@@ -1038,6 +1035,9 @@ export default {
             .el-radio+.el-radio {
                   margin-left: 20px !important;
               }
+              .el-radio-group{
+                width: 625px !important; 
+              }
             span{
                 line-height: 50px;
             }
@@ -1169,6 +1169,9 @@ export default {
             margin: 0 auto;
             .el-radio+.el-radio {
                   margin-left: 30px !important;
+              }
+              .el-radio-group{
+                width: 720px !important; 
               }
             span{
                 line-height: 50px;
@@ -1302,6 +1305,9 @@ export default {
             .el-radio+.el-radio {
                   margin-left: 30px !important;
               }
+              .el-radio-group{
+                width: 740px !important; 
+              }
             span{
                 line-height: 50px;
             }
@@ -1433,6 +1439,9 @@ export default {
             margin: 0 auto;
             .el-radio+.el-radio {
                   margin-left: 30px !important;
+              }
+              .el-radio-group{
+                width: 740px !important; 
               }
             span{
                 line-height: 50px;

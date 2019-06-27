@@ -71,14 +71,14 @@
                                                     <el-input v-model.trim="ruleForm.name" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item label="进价:" prop="purprice" :label-width="formLabelWidth">
-                                                <el-col :span="22">
-                                                    <el-input v-model.trim="ruleForm.purprice" placeholder="请输入"></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="售价:" prop="price" :label-width="formLabelWidth">
+                                            <el-form-item label="进价:" prop="price" :label-width="formLabelWidth">
                                                 <el-col :span="22">
                                                     <el-input v-model.trim="ruleForm.price" placeholder="请输入"></el-input>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="售价:" prop="purprice" :label-width="formLabelWidth">
+                                                <el-col :span="22">
+                                                    <el-input v-model.trim="ruleForm.purprice" placeholder="请输入"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="分类:" prop="classfiy" :label-width="formLabelWidth">
@@ -105,7 +105,7 @@
                                             </el-form-item>
                                             <el-form-item label="详情:" prop="details" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model.trim="ruleForm.details" placeholder="请输入"></el-input>
+                                                    <el-input type="textarea" v-model.trim="ruleForm.details" placeholder="请输入汉字,字母,数字"></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
@@ -145,14 +145,14 @@
                                                     <el-input v-model.trim="currentSelectRow.name" placeholder=""></el-input>
                                                 </el-col>
                                             </el-form-item>
-                                            <el-form-item label="进价:" prop="sellPrice" :label-width="formLabelWidth">
-                                                <el-col :span="22">
-                                                    <el-input v-model.trim="currentSelectRow.sellPrice" placeholder=""></el-input>
-                                                </el-col>
-                                            </el-form-item>
-                                            <el-form-item label="售价:" prop="price" :label-width="formLabelWidth">
+                                            <el-form-item label="进价:" prop="price" :label-width="formLabelWidth">
                                                 <el-col :span="22">
                                                     <el-input v-model.trim="currentSelectRow.price" placeholder=""></el-input>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="售价:" prop="sellPrice" :label-width="formLabelWidth">
+                                                <el-col :span="22">
+                                                    <el-input v-model.trim="currentSelectRow.sellPrice" placeholder=""></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="分类:" prop="name2" :label-width="formLabelWidth">
@@ -179,7 +179,7 @@
                                             </el-form-item>
                                             <el-form-item label="详情:" prop="intro" :label-width="formLabelWidth">
                                                 <el-col :span="22">
-                                                    <el-input v-model.trim="currentSelectRow.intro" placeholder=""></el-input>
+                                                    <el-input type="textarea" v-model.trim="currentSelectRow.intro" placeholder=""></el-input>
                                                 </el-col>
                                             </el-form-item>
                                             <el-form-item label="状态:" prop="status" :label-width="formLabelWidth">
@@ -264,14 +264,14 @@
                             </div>
                         </div>
                     </el-col>
-                    <el-col :span="8">
+                    <!-- <el-col :span="8">
                         <div class="purple2">
                         <el-col :span="24" class="search">
                             <el-autocomplete class="search-input" v-model.trim="searchVal" :trigger-on-focus="false" :fetch-suggestions="querySearchAsync" placeholder="搜索商品名称" clearable @select="handleSelect"></el-autocomplete>
                             <el-button icon="el-icon-search" circle  @click="searchtable"></el-button>
                         </el-col>
                         </div>
-                    </el-col>
+                    </el-col> -->
                 </el-row>
             </div>
             <div class="practice-table">
@@ -370,7 +370,7 @@ export default {
       isEnlargeImage: false, //放大图片
       enlargeImage: "", //放大图片地址
       radio: true,
-      searchVal:"",
+      // searchVal:"",
       name2:"",
       dialogFormVisible: false,
       dialogFormVisible2: false,
@@ -455,11 +455,11 @@ export default {
     };
   },
   watch: {
-    searchVal(val) {
-      if (!val) {
-        this.tableData = this.tableData2;
-      }
-    },
+    // searchVal(val) {
+    //   if (!val) {
+    //     this.tableData = this.tableData2;
+    //   }
+    // },
     name(val) {
       if (!val) {
         this.tableData = this.tableData2;
@@ -503,7 +503,7 @@ export default {
     //获取商品列表数据
     getclassfiy() {
       let _this = this;
-      requestLogin("/setGoodsType", {}, "get")
+      requestLogin("/setGoodsList/searchGoodsType", {}, "get")
         .then(function(res) {
           _this.classfiys = res;
         })
@@ -846,39 +846,39 @@ export default {
           });  
       }  return extension || extension2 && isLt2M  
     } ,
-     handleSelect(item) {},
+    //  handleSelect(item) {},
      handleSelect2(item) {},
-     createStateFilter(queryString) {
-        return (state) => {
-          return state.name
-        };
-      },
+    //  createStateFilter(queryString) {
+    //     return (state) => {
+    //       return state.name
+    //     };
+    //   },
       createStateFilter2(queryString) {
         return (state) => {
           return state.name
         };
       },
       //查询表格
-      searchtable() {
-        this.tableData = this.tableData2;
-        this.tableData = this.tableData2.filter(
-          i =>
-          i.name.includes(this.searchVal)
-        );
-      },
-      async searchClub(name) {
-        this.clubLists = await requestLogin(`/setGoodsList/searchGoodsListBynName`, {name: name}, 'post')
-        return this.clubLists
-      },
-     async querySearchAsync(queryString, cb) {
-        var clubLists = await this.searchClub(this.searchVal);
-        var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
-        results = results.map(item => ({...item, value: item.name}))
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          cb(results);
-        }, 100);
-      },
+      // searchtable() {
+      //   this.tableData = this.tableData2;
+      //   this.tableData = this.tableData2.filter(
+      //     i =>
+      //     i.name.includes(this.searchVal)
+      //   );
+      // },
+    //   async searchClub(name) {
+    //     this.clubLists = await requestLogin(`/setGoodsList/searchGoodsListBynName`, {name: name}, 'post')
+    //     return this.clubLists
+    //   },
+    //  async querySearchAsync(queryString, cb) {
+    //     var clubLists = await this.searchClub(this.searchVal);
+    //     var results = queryString ? clubLists.filter(this.createStateFilter(queryString)) : clubLists;
+    //     results = results.map(item => ({...item, value: item.name}))
+    //     clearTimeout(this.timeout);
+    //     this.timeout = setTimeout(() => {
+    //       cb(results);
+    //     }, 100);
+    //   },
       async searchClub2(name) {
         this.clubLists2 = await requestLogin(`/setGoodsList/searchGoodsListBynName`, {name: name}, 'post')
         return this.clubLists2

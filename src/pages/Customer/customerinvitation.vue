@@ -23,7 +23,7 @@
                 <el-tab-pane label="待邀约客户" name="first" v-if="this.collectiveInvitation == 1">
                     <template>
                       <div class="cardopenstab">
-                        <div class="cardopen-table1">
+                        <div class="cardopen-table1" v-show="table">
                         <el-table :data="tableData1.slice((currentPage-1)*pagesize,currentPage*pagesize)" ref="singleTable" @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" border @row-click="rowClick" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
                         <el-table-column type="selection" :reserve-selection="true" width="50" align="center" fixed ></el-table-column>
                         <el-table-column prop="name" align="center" label="姓名" fixed></el-table-column>
@@ -37,9 +37,18 @@
                         </el-pagination>
                     </div>
                     </div>
+                    <div class="cardopen-table2" v-show="derupgenjin" v-if="this.taste.length > 0">
+                      <el-col :span="24" class="taste-top" v-for="item in taste" :key="item.packetId">
+                      <div class="round"></div>
+                      <div class="data">{{item.reCreaTime}}</div>
+                      <div class="record">{{item.reContent}}</div>
+                    </el-col>
+                    </div>
+                    <div v-else v-show="derupgenjin"  style="margin:6% auto;width: 88%;">
+                      暂无跟进记录~~
+                    </div>
                     <div class="cardopen-right">
                       <div class="right-button">
-                        <el-button type="text" @click="tobeinvited">全店待邀约客户</el-button>
                         <div class="user">
                           <el-select v-model="couponSelected" @change="getCouponSelected">
                             <el-option v-for="item in couponList" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -95,6 +104,12 @@
                           </el-dialog>
                         </template>
                         </div>
+                      <div class="right-button4">
+                        <el-button type="text" @click="insiderup">跟进记录</el-button>
+                      </div>
+                      <div class="right-button5">
+                        <el-button type="text" @click="tobeinvited">全店待邀约客户</el-button>
+                      </div>
                     </div>
                     </div>
                     </template>
@@ -180,6 +195,9 @@ export default {
       ids:"",
       nums:"",
       sels: [],
+      taste:[],
+      table:true,
+      derupgenjin:false,
       dialogFormVisible: false,
       dialogFormVisible2: false,
       formLabelWidth: "130px",
@@ -286,9 +304,29 @@ export default {
     //全店待邀约客户
     tobeinvited(){
       let _this = this;
+      _this.table = true;
+      _this.derupgenjin = false;
       requestLogin("/CustomerFollowUp/invitation/wait/2", {}, "get")
         .then(function(res) {
           _this.tableData1 = res.data;
+        })
+        .catch(error => {
+          let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+        });
+    },
+    //跟进记录
+    getTablederup() {
+      let _this = this;
+      requestLogin("/CustomerFollowUp/getFollowUpRecord/"+_this.identity+"/"+_this.genjinsels, {}, "get")
+        .then(function(res) {
+          _this.taste = res.record;
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;
@@ -327,7 +365,9 @@ export default {
                   message: "添加成功",
                   type: "success"
                 });
-                this.reload();
+                // this.reload();
+                this.getTableData2();
+                this.getTableData3();
                 this.dialogFormVisible = false;
                 this.resetForm(formName);
               })
@@ -375,7 +415,9 @@ export default {
                   message: "添加成功",
                   type: "success"
                 });
-                this.reload();
+                // this.reload();
+                this.getTableData2();
+                this.getTableData3();
                 this.dialogFormVisible2 = false;
                 this.resetForm2(formName);
               })
@@ -433,6 +475,8 @@ export default {
       this.currentSelectRow = this.tableData1.filter(item => item.cid===this.sels[0])[0];
       if (this.currentSelectRow) {
         this.dialogFormVisible = true;
+        this.table = true;
+        this.derupgenjin = false;
       } else {
         this.$message({ message: "请先选择数据!", type: "warning" });
       }
@@ -445,8 +489,26 @@ export default {
       this.currentSelectRow = this.tableData1.filter(item => item.cid===this.sels[0])[0];
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
+        this.table = true;
+        this.derupgenjin = false;
       } else {
         this.$message({ message: "请先选择数据!", type: "warning" });
+      }
+    },
+    insiderup(){
+      if(this.sels.length > 1){
+        this.$message({ message: "只能选择一条数据!", type: "warning" });
+        return;
+      }
+      this.currentSelectRow = this.tableData1.filter(item => item.cid===this.sels[0])[0];
+      if (this.currentSelectRow) {
+        this.derupgenjin = true;
+        this.table = false;
+        this.getTablederup();
+      } else {
+        this.$message({ message: "请先选择数据!", type: "warning" });
+        this.table = true;
+        this.derupgenjin = false;
       }
     },
     getRowKeys(row) {
@@ -461,12 +523,14 @@ export default {
       }
     },
     getCouponSelected(){
+        this.table = true;
         this.tableData1 = this.tableData4;
         this.tableData1 = this.tableData4.filter(
         i => i.identity.includes(this.couponSelected)
       );
         if(this.couponSelected == "1"){
           this.getTableData3();
+          this.table = true;
         }
     },
     resetForm2(formName) {
@@ -578,7 +642,7 @@ export default {
     display: flex;
     justify-content: space-between;
    .cardopen-table1{
-     width: 72%;
+     width: 88%;
   .block {
     float: right;
     margin-top: 10px;
@@ -591,6 +655,41 @@ export default {
       }
     }
   }
+  }
+  .cardopen-table2{
+     width: 88%;
+     .taste-top {
+      margin: 10px auto;
+      border-radius: 16px;
+      background: #f2faf7;
+      display: flex;
+      height: 32px;
+      line-height: 32px;
+      .round {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1px solid #00bc71;
+        margin: 10px;
+      }
+      .data {
+        font-family: PingFang-SC-Regular;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #595959;
+      }
+      .record {
+        margin-left: 30px;
+        font-family: PingFang-SC-Regular;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        color: #595959;
+      }
+    }
   }
   .cardopen-right{
     width: 27%;
@@ -636,163 +735,29 @@ export default {
         color: #555;
       }
     }
+    .right-button4{
+      text-align: right;
+      margin-top:10px;
+      .el-button{
+        box-shadow: #ebebeb 0px 0px 0px 1px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 140px;
+        color: #555;
+      }
+    }
+    .right-button5{
+      text-align: right;
+      margin-top:10px;
+      .el-button{
+        box-shadow: #ebebeb 0px 0px 0px 1px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 140px;
+        color: #555;
+      }
+    }
   }
   }
 }
-// @media screen and (min-width: 768px)and (max-width: 992px){
-//   .search {
-//       width: 30% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
-// @media screen and (min-width: 992px)and (max-width: 1280px){
-//   .search {
-//       width: 30% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
-// @media screen and (min-width: 1280px)and (max-width: 1440px){
-//   .search {
-//       width: 26% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
-// @media screen and (min-width: 1440px)and (max-width: 1680px){
-//   .search {
-//       width: 26% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
-// @media screen and (min-width: 1680px)and (max-width: 1920px){
-//   .search {
-//       width: 22% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
-// @media screen and (min-width: 1920px)and (max-width: 2048px){
-//   .search {
-//       width: 22% !important;
-//       border: 1px solid #e8e8e8;
-//       height: 30px;
-//       display: -webkit-box;
-//       display: -ms-flexbox;
-//       display: flex;
-//       border-radius: 16px;
-//       line-height: 30px;
-//       margin-right: 15px;
-//       .search-input {
-//         width: 100%;
-//         border-radius: 14px;
-//         border: none;
-//         text-indent: 10px;
-//         color: #8c8c8c;
-//         font-size: 14px;
-//         opacity: 1;
-//       }
-//       .search-icon {
-//         margin-top: 8px;
-//         margin-right: 13px;
-//       }
-//     }
-// }
 </style>

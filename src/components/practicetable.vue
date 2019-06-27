@@ -513,7 +513,6 @@ export default {
           _this.staff_info = staff_info;
         })
         .catch(error => {
-          _this.loading = false;
           let { response: { data: { errorCode, msg } } } = error;
           if (errorCode != 0) {
             this.$message({

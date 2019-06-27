@@ -52,6 +52,14 @@ router.beforeEach((to, from, next) => {
             next()
         }
     }
+    //  //判断是否需要缓存
+    //  if(to.path === '/Customer/leaguermanage/leaguermanagetable' && from.path === '/Customer/memberfollowup/insiderup'){
+    //     to.meta.keepAlive = true;  // 让 列表页 缓存，即不刷新
+    //     next();
+    //   }else {
+    //     to.meta.keepAlive = false;  // 让 列表页 即不缓存，刷新
+    //     next();
+    //   }
 })
 
 /* eslint-disable no-new */

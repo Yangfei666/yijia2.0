@@ -180,6 +180,13 @@ Vue.use(Router)
 
 let router = new Router({
     mode: 'history',
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+          return savedPosition
+        } else {
+          return { x: 0, y: 0 }
+        }
+      },
     routes: [
         {
             path: '/',
@@ -233,7 +240,7 @@ let router = new Router({
                 {
                     path: '/Customer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguermanage/leaguermanagetable',//会员管理
                     children: [
-                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable },//会员表格
+                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable},//会员表格
                         { path: '/Customer/leaguermanage/claim', component: Claim },//认领
                     ]
                 },
@@ -361,7 +368,10 @@ let router = new Router({
                         { path: '/Customer/experiencehome/experconsume/:id/:exHjgwName/:exName/:exTel/:exSex', component: Experconsume, name: 'experconsume' },//消费记录
                     ]
                 }
-            ]
+            ],
+            meta: {
+                isKeepAlive: true
+              }
         }, {
             path: '/Routine',
             component: Home,

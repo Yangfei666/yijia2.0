@@ -95,6 +95,13 @@ export default {
         }
       });
   },
+//   beforeRouteLeave (to, from, next){
+//     to.meta.keepAlive = true;
+//     if(this.reload){
+//     to.meta.keepAlive = false;
+//     }
+//     next();
+// },
   methods: {
     //添加跟进记录
     submitForm(formName) {

@@ -202,8 +202,8 @@ export default {
       moneyTotal(){
         return function (goods) {                
             let totalCost = 0;
-            for(var index in goods){
-                let single = goods[index];
+            for(var index in goods.data){
+                let single = goods.data[index];
                 totalCost += single.price * single.num;
             }
             return totalCost;
@@ -345,9 +345,9 @@ export default {
             if(_this.goodcart[i].yid==goods.yid){
               for(var j=0;j<goods.data.length;j++){
                  if(goods.data[j].id==row.id){
-                     _this.goodcart[i].data.splice(j,1);
-                     _this.multipleSelection;
+                     _this.goodcart[i].data.splice(j,1);                   
                  }
+                 _this.multipleSelection;
               }           
             }
           }
@@ -372,9 +372,10 @@ export default {
         }).then(() => {
          for(var i=0;i<_this.goodcart.length;i++){
             if(_this.goodcart[i].yid==goods.yid){
-                _this.goodcart[i].data=[];          
+                _this.goodcart[i].data.splice(0,_this.goodcart[i].data.length);      
             }
           }
+          _this.multipleSelection;
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -384,7 +385,7 @@ export default {
             type: 'info',
             message: '已取消删除'
           });          
-        });
+        });    
     },
     //数量不能为空
     handleChange(value) {

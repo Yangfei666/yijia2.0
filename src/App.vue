@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <!-- <keep-alive :include="['Leaguermanagetable']">
+      <router-view v-if="isRouterAlive"></router-view>
+    </keep-alive> -->
+    <!-- <router-view v-if="!$route.meta.keepAlive,isRouterAlive"></router-view> -->
     <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
