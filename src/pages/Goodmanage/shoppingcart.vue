@@ -134,7 +134,7 @@
                         </el-table>
                         <div class="block">
                             <div class="block-right">
-                                <span>总计：{{moneyTotal(item.data)}} 元</span>
+                                <span>总计：{{moneyTotal(item)}} 元</span>
                                 <div class="btn">
                                 <el-button type="text" class="p" @click="Settlement(item)">去结算</el-button>
                                 </div>
@@ -262,27 +262,27 @@ export default {
         }           
         for(var i=0;i<this.goodcart.length;i++){
             if(this.goodcart[i].yid==this.cart.yid){
-              if(this.goodcart[i].data!=undefined){
-            let result = this.goodcart[i].data.filter((basket) =>{
-                return basket.name === row.name && basket.price === row.price;
-            })
-            if(result != null && result.length>0){
-                result[0].num ++;
-                this.$message({
+               if(this.goodcart[i].data!=undefined){
+                   let result = this.goodcart[i].data.filter((basket) =>{
+                     return basket.name === row.name && basket.price === row.price;
+                   })
+               if(result != null && result.length>0){
+                  result[0].num ++;
+                  this.$message({
                     type: 'success',
                     message: '已加入购物车'
-                });
-            }else{
+                  });
+                }else{
+                  this.goodcart[i].data.push(basket);
+                  this.$message({
+                    type: 'success',
+                    message: '已加入购物车'
+                  });
+                }
+             }else{
+                this.goodcart[i].data=[];
                 this.goodcart[i].data.push(basket);
                 this.$message({
-                    type: 'success',
-                    message: '已加入购物车'
-                });
-            }
-        }else{
-            this.goodcart[i].data=[];
-            this.goodcart[i].data.push(basket);
-            this.$message({
                     type: 'success',
                     message: '已加入购物车'
                 });
