@@ -166,7 +166,7 @@
             <!--已完成-->
              <div style="height:100%" v-show="cur==2">
                <div v-if="this.orderList.length > 0">
-                 <div v-for="(item,index) in orderList" :key="index" @click="getDataId(item.oid)" v-show="index<num">
+                 <div v-for="(item,index) in orderList.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index" @click="getDataId(item.oid)" v-show="index<num">
                   <div class="practice-table">
                       <el-row>
                           <el-col :span="24">
@@ -213,13 +213,17 @@
                       </el-row>
                   </div>
                   </div>
+                  <div class="show-more">
+                  <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" background :page-sizes="[10, 20, 30, 40, 50, 100]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="this.orderList.length">
+                  </el-pagination>
+                  </div>
                </div>
                <div  v-else>
                 <p style="height:50px;">暂无已完成商品数据~</p>
                </div>
-               <div class="control" :class="{'show-more' : showMore}">
+               <!-- <div class="control" :class="{'show-more' : showMore}">
                 <el-button type="text" style="width: 7%;border: 1px solid #ccc;" @click="showMore" v-if="this.orderList != '' && this.orderList.length > 10">{{txt}}</el-button>
-            </div>
+            </div> -->
              </div>
         </div>
     </div>
@@ -248,7 +252,7 @@ export default {
       nums:[],
       sels:[],
       cur:0,
-      txt: '显示更多',
+      // txt: '显示更多',
       num: 10,
       isShow: true,
       goodsorder:[],
@@ -477,11 +481,11 @@ export default {
       this.currentSelectRow = row;
       this.radio = this.tableData.indexOf(row);
     },
-     showMore(){
-        this.isShow = !this.isShow;
-        this.num = this.isShow? 10: this.orderList.length;
-        this.txt = this.isShow?  '显示更多':'收起';
-      },
+    //  showMore(){
+    //     this.isShow = !this.isShow;
+    //     this.num = this.isShow? 10: this.orderList.length;
+    //     this.txt = this.isShow?  '显示更多':'收起';
+    //   },
     rowClick2(row, event, column) {
       this.radio = row.index;
       this.currentSelectRow = row;

@@ -123,7 +123,7 @@
                             </el-table-column>
                             <el-table-column prop="xiaoji" align="center" label="小计">
                                 <template slot-scope="scope">
-                                    <div>{{scope.row.price*scope.row.num | formatMoney}}</div>
+                                    <div>{{scope.row.price*scope.row.num}}</div>
                                 </template>
                             </el-table-column>
                             <el-table-column align="center" label="操作">
@@ -134,7 +134,7 @@
                         </el-table>
                         <div class="block">
                             <div class="block-right">
-                                <span>总计：{{moneyTotal(item)}} 元</span>
+                                <span>总计：{{moneyTotal(item)}}元</span>
                                 <div class="btn">
                                 <el-button type="text" class="p" @click="Settlement(item)">去结算</el-button>
                                 </div>
@@ -200,11 +200,11 @@ export default {
  computed: {
         //总价
       moneyTotal(){
-        return function (goods) {                
+        return function (goods) {        
             let totalCost = 0;
             for(var index in goods.data){
                 let single = goods.data[index];
-                totalCost += single.price * single.num;
+                totalCost += parseFloat(single.price) * parseFloat(single.num);
             }
             return totalCost;
         }
@@ -345,10 +345,9 @@ export default {
             if(_this.goodcart[i].yid==goods.yid){
               for(var j=0;j<goods.data.length;j++){
                  if(goods.data[j].id==row.id){
-                     _this.goodcart[i].data.splice(j,1);                   
-                 }
-                 _this.multipleSelection;
-              }           
+                     _this.goodcart[i].data.splice(j,1);          
+                 }  
+              }         
             }
           }
           this.$message({
@@ -372,10 +371,9 @@ export default {
         }).then(() => {
          for(var i=0;i<_this.goodcart.length;i++){
             if(_this.goodcart[i].yid==goods.yid){
-                _this.goodcart[i].data.splice(0,_this.goodcart[i].data.length);      
+                _this.goodcart[i].data.splice(0,_this.goodcart[i].data.length);    
             }
           }
-          _this.multipleSelection;
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -513,7 +511,9 @@ export default {
       this.currentSelectRow = row;
       //this.$refs.singleTable.toggleRowSelection(row);
     },
-    handleSelect(item) {},
+    handleSelect(item) {
+      this.ruleForm.tel = item.tel;
+    },
     handleSelect2(item) {},
     handleCurrentChange2(val, index) {
       this.currentRow = val;
