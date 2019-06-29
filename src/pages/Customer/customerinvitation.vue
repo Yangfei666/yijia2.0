@@ -135,7 +135,7 @@
                       <div class="right-button4">
                         <el-button type="text" @click="insiderup">跟进记录</el-button>
                       </div>
-                      <div class="right-button5" v-if="this.roless">
+                      <div class="right-button5" v-if="this.status == true && this.systemRole">
                         <el-button type="text" @click="tobeinvited">全店待邀约客户</el-button>
                       </div>
                     </div>
