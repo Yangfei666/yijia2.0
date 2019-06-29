@@ -117,7 +117,7 @@
                             <el-table-column align="center" label="数量">
                                 <template slot-scope="scope">
                                 <div style="height: 40px;">
-                                <el-input-number v-model="scope.row.num" @change="handleChange" v-on:input="handleBlur" :min="1" :max="1000" label="描述文字"></el-input-number>
+                                <el-input-number v-model="scope.row.num" @change="handleChange($event,index,scope.$index)" v-on:input="handleBlur" :min="1" :max="1000" label="描述文字"></el-input-number>
                                 </div>
                                 </template>
                             </el-table-column>
@@ -335,17 +335,18 @@ export default {
     },
     //删除商品
     handleDelete(index,row,goods) {
-      var _this=this; 
+     let _this=this; 
         this.$confirm('确定删除该商品？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          for(var i=0;i<_this.goodcart.length;i++){
+          for(let i=0;i<_this.goodcart.length;i++){
             if(_this.goodcart[i].yid==goods.yid){
-              for(var j=0;j<goods.data.length;j++){
+              for(let j=0;j<goods.data.length;j++){
                  if(goods.data[j].id==row.id){
-                     _this.goodcart[i].data.splice(j,1);          
+                     _this.goodcart[i].data.splice(j,1);
+                     _this.$set(_this.goodcart, i, _this.goodcart[i])        
                  }  
               }         
             }
@@ -363,15 +364,16 @@ export default {
       },
     //清空购物车
     EmptyCart(goods){
-       var _this=this; 
+       let _this=this; 
         this.$confirm('确定清空购物车？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-         for(var i=0;i<_this.goodcart.length;i++){
+         for(let i=0;i<_this.goodcart.length;i++){
             if(_this.goodcart[i].yid==goods.yid){
-                _this.goodcart[i].data.splice(0,_this.goodcart[i].data.length);    
+                _this.goodcart[i].data.splice(0,_this.goodcart[i].data.length); 
+                _this.$set(_this.goodcart, i, _this.goodcart[i])   
             }
           }
           this.$message({
@@ -386,7 +388,8 @@ export default {
         });    
     },
     //数量不能为空
-    handleChange(value) {
+    handleChange(value,index,row) {
+      this.$set(this.goodcart, index, this.goodcart[index] )
         this.handleSelectionChange(this.multipleSelection);
         if(this.input_number_value == undefined){
             this.$message({

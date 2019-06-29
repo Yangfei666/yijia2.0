@@ -459,6 +459,7 @@ export default {
                   message: '提交成功'
                    });
                    this.getgoodsorder();
+                   this.getListByPick();
               })
               .catch(error => {
                 this.sels = [];
