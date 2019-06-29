@@ -20,7 +20,35 @@
       <el-row>
         <el-col :span="24">
              <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-                <el-tab-pane label="待邀约客户" name="first" v-if="this.collectiveInvitation == 1">
+                <el-tab-pane label="我的邀约" name="second">
+                    <template>
+                        <div class="cardopen-table">
+                        <el-table :data="tableData2.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" border @row-click="rowClick2" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
+                        <el-table-column prop="name" align="center" label="姓名" fixed></el-table-column>
+                        <el-table-column prop="tel" align="center" label="联系方式" width="130"></el-table-column>
+                        <el-table-column prop="customer" align="center" label="客户类型"></el-table-column>
+                        <el-table-column prop="createDate" align="center" label="登记日期" width="160" sortable></el-table-column>
+                        <el-table-column prop="lastRecordDate" align="center" label="上次跟进时间" width="200" sortable></el-table-column>
+                        <el-table-column prop="RecordDate" align="center" label="邀约到店日期" width="160" sortable></el-table-column>
+                        <el-table-column prop="content" align="left" label="邀约内容" width="400"></el-table-column>
+                        <el-table-column prop="recordPerson" align="center" label="邀约人"></el-table-column>
+                        <el-table-column align="center" label="操作" fixed="right" width="180">
+                          <template slot-scope="scope">
+                            <el-button type="success" plain size="small" v-if="scope.row.status == '待赴约'" @click="invited(scope.row,3)">赴约</el-button>
+                            <el-button type="success" plain size="small" v-if="scope.row.status == '待赴约'" @click="invited(scope.row,2)">失约</el-button>
+                            <span v-if="scope.row.status == '已赴约'">已赴约</span>
+                            <span v-if="scope.row.status == '失约'">已失约</span>
+                          </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="block">
+                        <el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2" :current-page="currentPage2" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize2" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                        </el-pagination>
+                    </div>
+                    </div>
+                    </template>
+                </el-tab-pane>
+                <el-tab-pane label="待邀约客户" name="first" :disabled="first">
                     <template>
                       <div class="cardopenstab">
                         <div class="cardopen-table1" v-show="table">
@@ -107,42 +135,14 @@
                       <div class="right-button4">
                         <el-button type="text" @click="insiderup">跟进记录</el-button>
                       </div>
-                      <div class="right-button5">
+                      <div class="right-button5" v-if="this.roless">
                         <el-button type="text" @click="tobeinvited">全店待邀约客户</el-button>
                       </div>
                     </div>
                     </div>
                     </template>
                 </el-tab-pane>
-                <el-tab-pane label="我的邀约" name="second" v-if="this.roles == '会籍顾问'">
-                    <template>
-                        <div class="cardopen-table">
-                        <el-table :data="tableData2.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)" border @row-click="rowClick2" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
-                        <el-table-column prop="name" align="center" label="姓名" fixed></el-table-column>
-                        <el-table-column prop="tel" align="center" label="联系方式" width="130"></el-table-column>
-                        <el-table-column prop="customer" align="center" label="客户类型"></el-table-column>
-                        <el-table-column prop="createDate" align="center" label="登记日期" width="160" sortable></el-table-column>
-                        <el-table-column prop="lastRecordDate" align="center" label="上次跟进时间" width="200" sortable></el-table-column>
-                        <el-table-column prop="RecordDate" align="center" label="邀约到店日期" width="160" sortable></el-table-column>
-                        <el-table-column prop="content" align="left" label="邀约内容" width="400"></el-table-column>
-                        <el-table-column prop="recordPerson" align="center" label="邀约人"></el-table-column>
-                        <el-table-column align="center" label="操作" fixed="right" width="180">
-                          <template slot-scope="scope">
-                            <el-button type="success" plain size="small" v-if="scope.row.status == '待赴约'" @click="invited(scope.row,3)">赴约</el-button>
-                            <el-button type="success" plain size="small" v-if="scope.row.status == '待赴约'" @click="invited(scope.row,2)">失约</el-button>
-                            <span v-if="scope.row.status == '已赴约'">已赴约</span>
-                            <span v-if="scope.row.status == '失约'">已失约</span>
-                          </template>
-                        </el-table-column>
-                    </el-table>
-                    <div class="block">
-                        <el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2" :current-page="currentPage2" background :page-sizes="[10, 20, 30, 40,50,100]" :page-size="pagesize2" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
-                        </el-pagination>
-                    </div>
-                    </div>
-                    </template>
-                </el-tab-pane>
-                <el-tab-pane label="全店邀约" name="third" v-if="this.systemRole">
+                <el-tab-pane label="全店邀约" name="third" :disabled="third">
                     <template>
                         <div class="cardopen-table">
                         <el-table :data="tableData3.slice((currentPage3-1)*pagesize3,currentPage3*pagesize3)" border @row-click="rowClick3" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
@@ -197,11 +197,13 @@ export default {
       sels: [],
       taste:[],
       table:true,
+      first:false,
+      third:false,
       derupgenjin:false,
       dialogFormVisible: false,
       dialogFormVisible2: false,
       formLabelWidth: "130px",
-      activeName: 'first',
+      activeName: 'second',
       ruleForm: {
         desc: "" //跟进内容
       },
@@ -224,7 +226,9 @@ export default {
         { value: "deposit", label: "定金" }
         ],
       couponSelected: '',
+      status:"",
       roles:"",
+      roless:"",
       collectiveInvitation:"",
       systemRole:""
     };
@@ -238,8 +242,8 @@ export default {
   },
   created: function() {
     this.getTableData();
-    this.getTableData2();
-    this.getTableData3();
+    // this.getTableData2();
+    // this.getTableData3();
     this.couponSelected = this.couponList[0].value;
   },
   methods: {
@@ -249,7 +253,18 @@ export default {
       requestLogin("/CustomerFollowUp/invitation/my", {}, "get")
         .then(function(res) {
           _this.tableData2 = res.data;
+          _this.status = res.status;
           _this.roles = res.role;
+          _this.systemRole = res.systemRole;
+          if(res.status == true && res.role.indexOf("会籍顾问")){
+            _this.getTableData3();
+          }
+          if(res.status == true && res.systemRole){
+            _this.getTableData2();
+          }
+          if(res.status == false && res.systemRole){
+            _this.first = true;
+          }
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;
@@ -268,7 +283,7 @@ export default {
       requestLogin("/CustomerFollowUp/invitation/whole", {}, "get")
         .then(function(res) {
           _this.tableData3 = res.data;
-          _this.systemRole =res.systemRole;
+          // _this.systemRole =res.systemRole;
         })
         .catch(error => {
           let { response: { data: { errorCode, msg } } } = error;
@@ -287,7 +302,8 @@ export default {
       requestLogin("/CustomerFollowUp/invitation/wait", {}, "get")
         .then(function(res) {
           _this.tableData1 = res.data;
-          _this.collectiveInvitation = res.collectiveInvitation;
+          // _this.collectiveInvitation = res.collectiveInvitation;
+          _this.roless = res.roles;
            _this.tableData4 = res.data;
         })
         .catch(error => {
