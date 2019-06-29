@@ -256,7 +256,7 @@ export default {
           _this.status = res.status;
           _this.roles = res.role;
           _this.systemRole = res.systemRole;
-          if(res.status == true && res.role.indexOf("会籍顾问")){
+          if(res.status == true && res.role.indexOf("会籍顾问") > -1){
             _this.getTableData3();
           }
           if(res.status == true && res.systemRole){

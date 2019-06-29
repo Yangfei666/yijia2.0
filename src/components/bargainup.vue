@@ -81,6 +81,7 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       formLabelWidth: "130px",
+      customerType:"",
       ruleForm: {
         desc: "" //跟进内容
       },
@@ -102,13 +103,14 @@ export default {
   created: function() {
     let _this = this;
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/deposit/" + this.$route.query.id,
+      "/CustomerFollowUp/getFollowUpRecord/deposit/" + _this.$route.query.id,
       {},
       "get"
     )
       .then(function(res) {
         _this.taste = res.record;
-        if(res.collectiveInvitation == 1){
+        _this.customerType = res.customerType;
+        if(res.collectiveInvitation == 1 && res.customerType.indexOf("3") > -1){
           _this.disabled = true;
         }else{
           _this.disabled = false;

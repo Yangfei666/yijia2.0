@@ -82,6 +82,7 @@ export default {
       dialogFormVisible: false,
       dialogFormVisible2: false,
       formLabelWidth: "130px",
+      customerType:"",
       ruleForm: {
         desc: "" //跟进内容
       },
@@ -101,15 +102,21 @@ export default {
     };
   },
   created: function() {
-    let _this = this;
+    this.follow();
+  },
+  methods: {
+    //跟进记录
+    follow(){
+      let _this = this;
     requestLogin(
-      "/CustomerFollowUp/getFollowUpRecord/experience/" + this.$route.query.id,
+      "/CustomerFollowUp/getFollowUpRecord/experience/" + _this.$route.query.id,
       {},
       "get"
     )
       .then(function(res) {
         _this.taste = res.record;
-        if(res.collectiveInvitation == 1){
+        _this.customerType = res.customerType;
+        if(res.collectiveInvitation == 1 && res.customerType.indexOf("1") > -1){
           _this.disabled = true;
         }else{
           _this.disabled = false;
@@ -125,8 +132,7 @@ export default {
           return;
         }
       });
-  },
-  methods: {
+    },
     //添加跟进记录
     submitForm(formName) {
       if(this.ruleForm.desc.length < 10){
