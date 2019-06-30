@@ -135,14 +135,14 @@
                       <div class="right-button4">
                         <el-button type="text" @click="insiderup">跟进记录</el-button>
                       </div>
-                      <div class="right-button5" v-if="this.status == true && this.systemRole">
+                      <div class="right-button5" v-if="this.roless">
                         <el-button type="text" @click="tobeinvited">全店待邀约客户</el-button>
                       </div>
                     </div>
                     </div>
                     </template>
                 </el-tab-pane>
-                <el-tab-pane label="全店邀约" name="third" :disabled="third">
+                <el-tab-pane label="全店邀约" name="third" :disabled="third" v-if="quandian">
                     <template>
                         <div class="cardopen-table">
                         <el-table :data="tableData3.slice((currentPage3-1)*pagesize3,currentPage3*pagesize3)" border @row-click="rowClick3" :default-sort="{order: 'descending'}" highlight-current-row :header-cell-style="{background:'#fafafa'}" style="width: 100%">
@@ -192,6 +192,7 @@ export default {
       pagesize3: 10,
       identity:"",
       genjinsels:"",
+      quandian:false,
       ids:"",
       nums:"",
       sels: [],
@@ -242,8 +243,6 @@ export default {
   },
   created: function() {
     this.getTableData();
-    // this.getTableData2();
-    // this.getTableData3();
     this.couponSelected = this.couponList[0].value;
   },
   methods: {
@@ -256,7 +255,7 @@ export default {
           _this.status = res.status;
           _this.roles = res.role;
           _this.systemRole = res.systemRole;
-          if(res.status == true && res.role.indexOf("会籍顾问") > -1){
+          if(res.status == true && res.role.indexOf("会籍顾问") != -1){
             _this.getTableData3();
           }
           if(res.status == true && res.systemRole){
@@ -264,6 +263,16 @@ export default {
           }
           if(res.status == false && res.systemRole){
             _this.first = true;
+          }
+          _this.roles = res.role.split(",");
+          _this.systemRole = res.systemRole.split(",");
+          for(var i = 0; i < _this.systemRole.length;i++){
+            for(var j =0; j < _this.roles.length;j++){
+              if(_this.systemRole[i] == _this.roles[j]){
+                _this.quandian = true;
+                break;
+              }
+            }
           }
         })
         .catch(error => {
