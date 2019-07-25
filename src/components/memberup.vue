@@ -131,7 +131,7 @@ export default {
   methods: {
     //添加跟进记录
     submitForm(formName) {
-      if(this.ruleForm2.desc.length < 10){
+      if(this.ruleForm.desc.length < 10){
          this.$message({
             message: "输入字数不能少于10个字",
             type: "warning"
@@ -181,7 +181,7 @@ export default {
     },
     //添加邀约
     addcustomer(formName){
-      if(this.ruleForm.desc.length < 10){
+      if(this.ruleForm2.desc.length < 10){
          this.$message({
             message: "输入字数不能少于10个字",
             type: "warning"
