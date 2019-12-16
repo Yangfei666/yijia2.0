@@ -178,13 +178,19 @@ const Goodsorder = resolve => require(['@/pages/Goodmanage/goodsorder'], resolve
 
 Vue.use(Router)
 
-let router = new Router({
+const router = new Router({
     mode: 'history',
-    scrollBehavior (to, from, savedPosition) {
+      scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
           return savedPosition
         } else {
-          return { x: 0, y: 0 }
+          if (from.meta.keepAlive) {
+            from.meta.savedPosition = document.body.scrollTop;
+          }
+          return {
+            x: 0,
+            y: to.meta.savedPosition || 0
+          }
         }
       },
     routes: [
@@ -240,8 +246,8 @@ let router = new Router({
                 {
                     path: '/Customer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguermanage/leaguermanagetable',//会员管理
                     children: [
-                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable},//会员表格
-                        { path: '/Customer/leaguermanage/claim', component: Claim },//认领
+                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable, meta: {keepAlive: true,scollTopPosition: 0}},//会员表格
+                        { path: '/Customer/leaguermanage/claim', component: Claim},//认领
                     ]
                 },
                 { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
@@ -250,14 +256,14 @@ let router = new Router({
                 {
                     path: '/Customer/practice', component: CustomerPractice, name: '体验客户管理', menuShow: true, redirect: '/Customer/practice/practicetable',//体验客户管理
                     children: [
-                        { path: '/Customer/practice/practicetable', component: Practicetable },//体验表格
+                        { path: '/Customer/practice/practicetable', component: Practicetable ,meta: {keepAlive: true,scollTopPosition: 0}},//体验表格
                         { path: '/Customer/practice/claim', component: Claim },//认领
                     ]
                 },
                 {
                     path: '/Customer/bargain', component: CustomerBargain, name: '定金客户管理', menuShow: true, redirect: '/Customer/bargain/bargaintable',//定金客户管理
                     children: [
-                        { path: '/Customer/bargain/bargaintable', component: Bargaintable },//定金表格
+                        { path: '/Customer/bargain/bargaintable', component: Bargaintable ,meta: {keepAlive: true,scollTopPosition: 0} },//定金表格
                         { path: '/Customer/bargain/claim', component: Claim },//认领
                         { path: '/Customer/bargain/consume', component: Consume },//消费记录
                     ]
@@ -265,7 +271,7 @@ let router = new Router({
                 {
                     path: '/Customer/latent', component: CustomerLatent, name: '潜在客户管理', menuShow: true, redirect: '/Customer/latent/latenttable',//潜在客户管理
                     children: [
-                        { path: '/Customer/latent/latenttable', component: Latenttable },//潜在表格
+                        { path: '/Customer/latent/latenttable', component: Latenttable ,meta: {keepAlive: true,scollTopPosition: 0}},//潜在表格
                         { path: '/Customer/latent/claim', component: Claim },//认领
                         { path: '/Customer/latent/consume', component: Consume },//消费记录
                     ]
@@ -471,5 +477,35 @@ let router = new Router({
         },
     ]
 })
+router.beforeEach((to, from, next) => {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+    window.scrollTo(0, 0)
+    next();
+  })
+router.beforeRouteEnter = (to, from, next) => {
+    next(vm => {
+          if (from.path === "/Customer/leaguermanage/leaguermanagetable" && 
+              from.path === "/Customer/practice/practicetable" && 
+              from.path === "/Customer/practice/bargaintable" && 
+              from.path === "/Customer/practice/latenttable") {
+              document.querySelector('scroll-content').scrollTop = to.meta.scollTopPosition;
+          }
+    });
+}
+// 列表页面的 beforeRouteLeave 钩子函数
+router.beforeRouteLeave = (to, from, next) => {
+    if (from.meta.keepAlive) {
+        from.meta.scollTopPosition = document.querySelector('scroll-content').scrollTop;
+    }
+    next();
+  }
+router.afterEach((to, from) => {
+    let scrollContent = document.querySelector('.scroll-content');
+    if (scrollContent) {
+      scrollContent.scrollTop = 0;
+      scrollContent.scrollLeft = 0;
+    }
+  })
 
 export default router

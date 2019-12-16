@@ -130,7 +130,7 @@ export default {
       dialogVisible: true,
       checked: false,
       // img : 'https://api.yijiayoga.com/pc/v1.Login/getVerification',
-      img: "http://www.loelve.xyz/pc/v1.Login/getVerification",
+      img: "http://testapi.yijiayoga.com/pc/v1.Login/getVerification",
       num: 0,
       account: {
         username: "",
