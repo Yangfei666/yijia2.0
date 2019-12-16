@@ -375,9 +375,6 @@ const router = new Router({
                     ]
                 }
             ],
-            meta: {
-                isKeepAlive: true
-              }
         }, {
             path: '/Routine',
             component: Home,
