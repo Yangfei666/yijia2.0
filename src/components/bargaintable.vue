@@ -353,7 +353,7 @@ export default {
   },
   activated(){
     let _this = this;
-    this.getTableData(true);
+    // this.getTableData(true);
     setTimeout(function() {
       _this.getCustomer();
     }, 1000);
