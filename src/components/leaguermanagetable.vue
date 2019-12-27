@@ -68,6 +68,7 @@
           <div class="search-form">
             <el-form-item label-width="40px">
               <el-col :span="24">
+
                 <el-button type="primary" @click="getTableData(false)">查询</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-col>
@@ -328,6 +329,9 @@ export default {
       _this.getCustomer();
     }, 1000);
   },
+  beforeMount() {
+    this.initFilters()
+  },
   computed: {
     isAdviser() {
       let user = JSON.parse(sessionStorage.getItem("userInfo"));
@@ -341,6 +345,40 @@ export default {
     }
   },
   methods: {
+    initFilters() {
+      const {
+      page = 1,
+      cardType = "",
+      cardStatus = "",
+      remainderStart = "",
+      remainderEnd = "",
+      remainSumStart = "",
+      remainSumEnd = "",
+      followUpTime = "",
+      expiryTimeStart = "",
+      expiryTimeEnd =  "", 
+      name = "",
+      tel = "",
+      cardNo = "",
+      changemembership = ""} = JSON.parse(sessionStorage.getItem('manage_table_filter') || '{}' )
+      this.ruleForm.changemembership = changemembership
+      this.currentPage = parseInt(page)
+
+      this.HYName = name
+      this.MotoTel = tel
+      this.CardNO = cardNo
+      const params = {
+        membercard: cardType,
+        status: cardStatus,
+        numsmall: remainderStart,
+        numbig: remainderEnd,
+        fundsmall: remainSumStart,
+        fundbig: remainSumEnd,
+        follow: followUpTime,
+        date: [expiryTimeStart, expiryTimeEnd]
+      }
+      this.formInline = params
+    },
     rememberlook(){
       if(this.checked == false){
         this.querenxiazai = true;
@@ -619,6 +657,7 @@ export default {
         });
         return;
       }
+      sessionStorage.setItem('manage_table_filter', JSON.stringify(this.getFilterQueryParams()))
       this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[0])[0]
       this.$router.push({
         path: "/Customer/membershiphome/memberhome",
@@ -629,6 +668,29 @@ export default {
           MotoTel: this.currentSelectRow.MotoTel
         }
       });
+    },
+    getFilterQueryParams(params = {}) {
+
+      params = {
+        ...params,
+        ...{
+          page = this.currentPage,
+          cardType = "",
+          cardStatus = "",
+          remainderStart = "",
+          remainderEnd = "",
+          remainSumStart = "",
+          remainSumEnd = "",
+          followUpTime = "",
+          expiryTimeStart = "",
+          expiryTimeEnd =  "", 
+          name = "",
+          tel = "",
+          cardNo = "",
+          changemembership = ""
+        }
+      }
+      return params
     },
     Selectchange(val) {},
     handleCurrentChange2(val, index) {

@@ -246,7 +246,9 @@ const router = new Router({
                 {
                     path: '/Customer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguermanage/leaguermanagetable',//会员管理
                     children: [
-                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable, meta: {keepAlive: true,scollTopPosition: 0}},//会员表格
+                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable,
+                        //  meta: {keepAlive: true,scollTopPosition: 0}
+                        },//会员表格
                         { path: '/Customer/leaguermanage/claim', component: Claim},//认领
                     ]
                 },
