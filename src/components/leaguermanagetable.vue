@@ -139,14 +139,12 @@
         <el-col :span="24">
           <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @select="selectClick" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row v-loading="loading" element-loading-text="拼命加载中..." @row-click="rowClick" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" style="width: 100%">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
-            <el-table-column prop="HYName" align="left" label="姓名" fixed width="140px"></el-table-column>
-            <el-table-column prop="MotoTel" align="left" label="手机号" width="180px"></el-table-column>
-            <el-table-column prop="CardNO" align="left" label="卡号" width="170px"></el-table-column>
-            <el-table-column prop="CTName" align="left" label="卡种" width="190px"></el-table-column>
-            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="130px"></el-table-column>
-            <el-table-column prop="eTime" align="left" label="到期时间" width="160px"></el-table-column>
-            <el-table-column prop="SYCS" align="center" label="剩余次数"></el-table-column>
-            <el-table-column prop="SYJE" align="center" label="剩余金额"></el-table-column>
+            <el-table-column prop="HYName" align="left" label="姓名" fixed width="130px"></el-table-column>
+            <el-table-column prop="MotoTel" align="left" label="手机号" width="170px"></el-table-column>
+            <el-table-column prop="CardNO" align="left" label="卡号" width="160px"></el-table-column>
+            <el-table-column prop="CTName" align="left" label="卡种" width="170px"></el-table-column>
+            <el-table-column prop="YGXX_NAME" align="left" label="会籍" width="110px"></el-table-column>
+            <el-table-column prop="eTime" align="left" label="到期时间" width="120px"></el-table-column>
             <el-table-column prop="State" align="center" label="卡状态"></el-table-column>
             <el-table-column prop="State" align="center" label="未跟进天数" width="150px">
               <template slot-scope="scope">
@@ -154,6 +152,8 @@
                 <span v-else>{{dateDiff(scope.row.hyRecordTime)}}</span>
               </template>
             </el-table-column>
+            <el-table-column prop="SYCS" align="center" label="剩余次数"></el-table-column>
+            <el-table-column prop="SYJE" align="center" label="剩余金额"></el-table-column>
             <el-table-column prop="cz" align="center" label="操作" fixed="right">
               <template slot-scope="scope">
                 <el-button @click="go(scope.$index,scope.row)" type="text" size="small" v-if="scope.row.hyHealth == 1">认领</el-button>
@@ -327,6 +327,14 @@ export default {
     setTimeout(function() {
       _this.getCustomer();
     }, 1000);
+  },
+  activated(){
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
+    this.dialogFormVisible = false;
   },
   computed: {
     isAdviser() {
@@ -585,8 +593,9 @@ export default {
     },
     func2() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({
@@ -595,7 +604,7 @@ export default {
         });
         return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[this.sels.length-1])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/memberfollowup/insiderup",
@@ -609,8 +618,9 @@ export default {
     //会员主页
     zhuye() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({
@@ -619,7 +629,7 @@ export default {
         });
         return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.HYID===this.sels[this.sels.length-1])[0]
       this.$router.push({
         path: "/Customer/membershiphome/memberhome",
         query: {

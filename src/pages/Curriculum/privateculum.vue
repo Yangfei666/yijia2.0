@@ -98,6 +98,12 @@ export default {
     this.getPrivateTable(FirstDay);
     this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
   },
+  activated(){
+    let day = this.getFirstDayOfWeek(new Date());
+    let FirstDay = this.GetDateStr(0, day);
+    this.getPrivateTable(FirstDay);
+    this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
+  },
   methods: {
     yuyue:function(){
       this.getCoachList();

@@ -87,6 +87,10 @@ export default {
   created: function() {
     this.getClubGroup();
   },
+  activated(){
+    this.getClubGroup();
+    this.dialogFormVisible=false;
+  },
   methods: {
     //获取大队小组数据
     getClubGroup() {

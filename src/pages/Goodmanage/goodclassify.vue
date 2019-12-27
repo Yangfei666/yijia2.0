@@ -155,6 +155,13 @@ export default {
     this.ruleForm2.name = this.currentSelectRow.name;
     this.ruleForm2.status = this.currentSelectRow.status;
   },
+  activated () {
+    this.getclassroom();
+    this.ruleForm2.name = this.currentSelectRow.name;
+    this.ruleForm2.status = this.currentSelectRow.status;
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     //获取商品分类表格数据
     getclassroom() {

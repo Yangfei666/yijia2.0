@@ -134,6 +134,13 @@ export default {
   created: function() {
     this.getTableData();
   },
+  activated(){
+    this.getTableData();
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible3 = false;
+    this.dialogFormVisible4 = false;
+  },
   methods: {
     //获取表格数据
     getTableData() {

@@ -136,6 +136,15 @@ export default {
       .catch(error => {});
       this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
   },
+  activated(){
+    let _this = this;
+    Promise.all([this.getUserInfo(), this.rolegourp(), this.getGroup()])
+      .then(res => {
+        _this.getClub();
+      })
+      .catch(error => {});
+      this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
+  },
   computed: {
     whichDay() {
       //选择了哪一天

@@ -130,7 +130,7 @@
             <el-table-column prop="prTel" align="left" label="手机号" width="150px"></el-table-column>
             <el-table-column prop="YGXX_NAME" align="center" label="会籍"></el-table-column>
             <el-table-column prop="prDate" align="left" label="登记日期"></el-table-column>
-            <el-table-column prop="prQuality" align="center" label="质量"></el-table-column>
+            <el-table-column prop="prQuality" align="center" label="质量" width="130px"></el-table-column>
             <el-table-column prop="prSuc" align="center" label="成交状态"></el-table-column>
             <el-table-column prop="prSuc" align="center" label="未跟进天数" width="150px">
               <template slot-scope="scope">
@@ -318,6 +318,18 @@ export default {
     setTimeout(function() {
       _this.getCustomer();
     }, 1500);
+  },
+  activated(){
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1500);
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible4 = false;
+    this.dialogFormVisible5 = false;
+    this.dialogFormVisible6 = false;
   },
   computed: {
     isAdviser () {
@@ -617,8 +629,9 @@ export default {
     //跟进记录
     func() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({
@@ -627,7 +640,7 @@ export default {
         });
         return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/potentialfollowup/memberup",
@@ -722,10 +735,11 @@ export default {
     changeInfo() {
       //先选择列表
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {

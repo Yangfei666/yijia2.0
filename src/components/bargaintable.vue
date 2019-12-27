@@ -124,11 +124,11 @@
         <el-col :span="24">
           <el-table id="rebateSetTable" :row-class-name='tableRowClassName' @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." highlight-current-row :header-cell-style="{background:'#fafafa'}" :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" @select="selectClick" @row-click="rowClick">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>            
-            <el-table-column prop="itName" align="left" label="姓名" fixed width="140px"></el-table-column>
-            <el-table-column prop="itTel" align="left" label="手机号" width="170px"></el-table-column>
-            <el-table-column prop="itHjgwName" align="left" label="会籍" width="140px"></el-table-column>
-            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="150px"></el-table-column>
-            <el-table-column prop="itPayment" align="left" label="付款方式"  width="150px"></el-table-column>
+            <el-table-column prop="itName" align="left" label="姓名" fixed width="130px"></el-table-column>
+            <el-table-column prop="itTel" align="left" label="手机号" width="160px"></el-table-column>
+            <el-table-column prop="itHjgwName" align="left" label="会籍" width="130px"></el-table-column>
+            <el-table-column prop="itDepositTime" align="left" label="登记日期" width="140px"></el-table-column>
+            <el-table-column prop="itPayment" align="left" label="付款方式"  width="140px"></el-table-column>
             <el-table-column prop="itPrice" align="left" label="金额"></el-table-column>
             <el-table-column prop="itSuc" align="center" label="成交状态"></el-table-column>
             <el-table-column prop="itSuc" align="center" label="未跟进天数" width="150px">
@@ -351,6 +351,16 @@ export default {
       _this.getCustomer();
     }, 1000);
   },
+  activated(){
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible5 = false;
+  },
   methods: {
     rememberlook(){
       if(this.checked == false){
@@ -566,8 +576,9 @@ export default {
     },
     func2() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({
@@ -576,7 +587,7 @@ export default {
         });
         return;
       }
-       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/depositfollowup/bargainup",
@@ -696,10 +707,11 @@ export default {
     //先选择列表
     changeInfo() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
-       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+       this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       if (this.currentSelectRow) {
         this.dialogFormVisible2 = true;
       } else {
@@ -709,10 +721,11 @@ export default {
     //放大图片
     changeInfo2() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       if (this.currentSelectRow) {
         this.isEnlargeImage = true;
         this.enlargeImage = this.currentSelectRow.voucher;

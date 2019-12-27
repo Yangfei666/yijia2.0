@@ -120,6 +120,10 @@ export default {
   created: function() {
     this.getclassroom();
   },
+  activated () {
+     this.getclassroom();
+     this.dialogFormVisible = false;
+  },
   methods: {
     //获取教室数据
     getclassroom() {

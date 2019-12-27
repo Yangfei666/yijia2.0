@@ -82,6 +82,9 @@ export default {
   created() {
     this.gettabledata();
   },
+  activated () {
+     this.gettabledata();
+  },
   mounted() {
     this.DefaultShow = this.getCurrentDateTime();
   },

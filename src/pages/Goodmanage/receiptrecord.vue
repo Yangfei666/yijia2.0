@@ -116,6 +116,9 @@ export default {
   created: function() {
     this.getclassroom();
   },
+  activated () {
+     this.getclassroom();
+  },
   methods: {
     //获取表格数据
     getclassroom() {

@@ -17,7 +17,7 @@
     </el-col>
 </el-row>
 <router-view></router-view>
-    </div>
+  </div>
 </template>
 <script>
 import Leaguermanagetable from "@/components/leaguermanagetable";

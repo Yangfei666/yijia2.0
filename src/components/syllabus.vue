@@ -381,6 +381,12 @@ export default {
     created(){
       this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
     },
+    activated () {
+      this.huisuoid = JSON.parse(sessionStorage.getItem("club")).Hsxx_Hsid;
+      this.dialogFormVisible = false;
+      this.dialogFormVisible2 = false;
+      this.dialogFormVisible3 = false;
+    },
   methods: {
     //删除课程
     Delcourse() {

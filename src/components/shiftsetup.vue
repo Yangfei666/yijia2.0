@@ -139,6 +139,14 @@ export default {
       this.Rotationselect();
     }, 1000);
   },
+  activated () {
+    this.gettabledata();
+    setTimeout(() => {
+      this.Rotationselect();
+    }, 1000);
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     //所属岗位下拉框
     Rotationselect() {

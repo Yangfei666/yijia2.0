@@ -180,6 +180,10 @@ export default {
   created: function() {
     this.getbiaoge();
   },
+  activated(){
+    this.getbiaoge();
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     getbiaoge() {
       //表格列表数据

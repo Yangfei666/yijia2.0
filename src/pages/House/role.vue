@@ -168,6 +168,11 @@ export default {
   created() {
     this.getRoleLists();
   },
+  activated(){
+    this.getRoleLists();
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     getRoleLists() {
       //表格列表数据

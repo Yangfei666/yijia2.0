@@ -492,6 +492,9 @@ export default {
   created() {
     this.gethealth();
   },
+  activated () {
+      this.gethealth();
+  },
   methods: {
     gethealth() {
       let _this = this;

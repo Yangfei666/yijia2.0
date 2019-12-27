@@ -213,6 +213,10 @@ export default {
     created(){
         this.getgoodlist();
     },
+    activated () {
+      this.getgoodlist();
+      this.dialogFormVisible = false;
+    },
   methods: {
     //商品列表
       getgoodlist() {

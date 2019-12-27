@@ -80,6 +80,9 @@ export default {
   created: function() {
     this.getTableData();
   },
+  activated(){
+    this.getTableData();
+  },
   methods: {
     //获取表格数据
     getTableData() {

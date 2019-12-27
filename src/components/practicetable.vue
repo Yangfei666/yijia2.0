@@ -118,12 +118,12 @@
           <el-table :row-class-name='tableRowClassName' id="rebateSetTable" @selection-change="selsChange" :row-key="getRowKeys" ref="singleTable" @current-change="handleCurrentChange2" highlight-current-row :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :header-cell-style="{background:'#fafafa'}" @row-click="rowClick" @select="selectClick" v-loading="loading" element-loading-text="拼命加载中..." style="width: 100%">
             <el-table-column type="selection" :reserve-selection="true" width="40" align="center" fixed></el-table-column>
             <el-table-column prop="exName" align="left" label="姓名" fixed width="140px"></el-table-column>
-            <el-table-column prop="exTel" align="left" label="手机号" width="170px"></el-table-column>
-            <el-table-column prop="tkName" align="left" label="劵种" width="190px"></el-table-column>
-            <el-table-column prop="mode" align="left" label="付款方式" width="180px"></el-table-column>
-            <el-table-column prop="price" align="left" label="金额" width="150px"></el-table-column>
-            <el-table-column prop="exHjgwName" align="left" label="会籍" width="140px"></el-table-column>
-            <el-table-column prop="exRegister" align="left" label="登记日期" width="170px"></el-table-column>
+            <el-table-column prop="exTel" align="left" label="手机号" width="160px"></el-table-column>
+            <el-table-column prop="tkName" align="left" label="劵种" width="180px"></el-table-column>
+            <el-table-column prop="mode" align="left" label="付款方式" width="170px"></el-table-column>
+            <el-table-column prop="price" align="left" label="金额" width="140px"></el-table-column>
+            <el-table-column prop="exHjgwName" align="left" label="会籍" width="130px"></el-table-column>
+            <el-table-column prop="exRegister" align="left" label="登记日期" width="140px"></el-table-column>
             <el-table-column prop="exSuc" align="center" label="成交状态"></el-table-column>
             <el-table-column prop="exSuc" align="center" label="未跟进天数"  width="150px">
               <template slot-scope="scope">
@@ -307,6 +307,14 @@ export default {
     setTimeout(function() {
       _this.getCustomer();
     }, 1000);
+  },
+  activated(){
+    let _this = this;
+    this.getTableData(true);
+    setTimeout(function() {
+      _this.getCustomer();
+    }, 1000);
+    this.dialogFormVisible = false;
   },
   methods: {
     rememberlook(){
@@ -590,14 +598,15 @@ export default {
     },
     taste() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({ message: "请先选择数据!", type: "warning" });
         return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       //跟进跳转
       this.$router.push({
         path: "/Customer/tastefollowup/practiceup",
@@ -610,14 +619,15 @@ export default {
     },
     exper() {
       if(this.sels.length > 1){
-        this.$message({ message: "只能选择一条数据!", type: "warning" });
-        return;
+        // this.$message({ message: "只能选择一条数据!", type: "warning" });
+        this.sels[this.sels.length-1];
+        // return;
       }
       if (!this.currentSelectRow) {
         this.$message({ message: "请先选择数据!", type: "warning" });
         return;
       }
-      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[0])[0]
+      this.currentSelectRow = this.tableData.filter(item => item.id===this.sels[this.sels.length-1])[0]
       this.$router.push({
         name: "Experhome",
         params: {

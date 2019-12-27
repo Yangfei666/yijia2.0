@@ -238,6 +238,33 @@ export default {
       }
     }
   },
+  activated () {
+    let _this = this;
+    _this.loading = true;
+    requestLogin("/setStaffInfo", {}, "get")
+      .then(res => {
+        _this.loading = false;
+        _this.tableData = res;
+        _this.tableData2 = res;
+        _this.rolegourp();
+        for (var i = 0; i < _this.tableData.length; i++) {
+          _this.tableData[i].strRole = _this.transformRole(_this.tableData[i]);
+        }
+      })
+      .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
+    _this.gethuiji();
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   mounted: function() {
     //表格列表数据
     let _this = this;

@@ -86,6 +86,11 @@ export default {
     _this.getChartDate();
     this.value4 = this.getCurrentDateTime();
   },
+  activated () {
+    let _this = this;
+    _this.getChartDate();
+    this.value4 = this.getCurrentDateTime();
+  },
   methods: {
     getCurrentDateTime() {
       return moment(new Date()).format("YYYY-MM");

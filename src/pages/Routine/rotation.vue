@@ -152,6 +152,14 @@ export default {
       this.Rotationselect();
     }, 1000);
   },
+  activated(){
+    this.gettabledata();
+    setTimeout(() => {
+      this.Rotationselect();
+    }, 1000);
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible = false;
+  },
   methods: {
     //轮播图下拉框
     Rotationselect() {

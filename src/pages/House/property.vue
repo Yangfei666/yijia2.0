@@ -121,6 +121,11 @@ export default {
     this.getclassroom();
     this.getreceive();
   },
+  activated () {
+    this.getclassroom();
+    this.getreceive();
+    this.this.dialogFormVisible = false;
+  },
   methods: {
     //获取教室数据
     getclassroom() {

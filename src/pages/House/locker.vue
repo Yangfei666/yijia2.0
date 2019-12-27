@@ -193,6 +193,15 @@ export default {
     this.ruleForm2.vipName = this.currentSelectRow.vipName;
     this.ruleForm2.sex = this.currentSelectRow.sex;
   },
+  activated () {
+    this.getclassroom();
+    this.ruleForm2.name = this.currentSelectRow.name;
+    this.ruleForm2.priority = this.currentSelectRow.priority;
+    this.ruleForm2.vipName = this.currentSelectRow.vipName;
+    this.ruleForm2.sex = this.currentSelectRow.sex;
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     //获取储物柜数据
     getclassroom() {

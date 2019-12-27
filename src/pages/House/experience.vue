@@ -174,6 +174,27 @@ export default {
         }
       });
   },
+  activated () {
+    let _this = this;
+    _this.loading = true;
+    requestLogin("/setExperienceVoucher", {}, "get")
+      .then(function(res) {
+        _this.tableData = res;
+        _this.loading = false;
+      })
+      .catch(error => {
+        let { response: { data: { errorCode, msg } } } = error;
+        if (errorCode != 0) {
+          this.$message({
+            message: msg,
+            type: "error"
+          });
+          return;
+        }
+      });
+      this.dialogFormVisible = false;
+      this.dialogFormVisible2 = false;
+  },
   methods: {
     radiochange(row) {},
     handleSizeChange(size) {

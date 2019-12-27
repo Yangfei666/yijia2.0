@@ -480,6 +480,16 @@ export default {
     this.getclassroom();
     this.getclassfiy();
   },
+  activated () {
+    this.getclassroom();
+    this.getclassfiy();
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible3 = false;
+    this.dialogFormVisible4 = false;
+    this.dialogFormVisible5 = false;
+    this.dialogFormVisible6 = false;
+  },
   methods: {
     //获取商品列表数据
     getclassroom() {

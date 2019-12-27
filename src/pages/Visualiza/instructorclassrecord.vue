@@ -131,6 +131,12 @@ export default {
     }, 500);
     this.value4 = this.getCurrentDateTime();
   },
+  activated () {
+    setTimeout(() => {
+      this.getstaffdate();
+    }, 500);
+    this.value4 = this.getCurrentDateTime();
+  },
   methods: {
     getCurrentDateTime() {
       return moment(new Date()).format("YYYY-MM");

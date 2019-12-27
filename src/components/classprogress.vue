@@ -314,6 +314,20 @@ export default {
       this.form.train2 = JSON.parse(sessionStorage.getItem('coachid'));
     }
   },
+  activated () {
+    let day = this.getFirstDayOfWeek(new Date());
+    let FirstDay = this.GetDateStr(0, day);
+    this.gettabledata(FirstDay);
+    this.getCoachdata();
+    this.getCoachdata2();
+    this.adviserchange();
+    this.dialogFormVisible1 = false;
+    if(this.$route.query.shibie == 'shibie'){
+      this.form.train = this.$route.query.id;
+    }else{
+      this.form.train2 = JSON.parse(sessionStorage.getItem('coachid'));
+    }
+  },
   methods: {
      getsubstr(name) {
       var dates = this.week[name];

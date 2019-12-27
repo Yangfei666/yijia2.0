@@ -86,8 +86,8 @@ export default {
                   message: "提交成功",
                   type: "success"
                 });
-                _this.reload();
-                _this.dialogFormVisible = false;
+                this.reload();
+                this.dialogFormVisible = false;
               })
               .catch(error => {
                 let { response: { data: { errorCode, msg } } } = error;

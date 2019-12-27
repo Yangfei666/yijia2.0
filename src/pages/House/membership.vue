@@ -251,6 +251,13 @@ export default {
     //表格列表数据
     this.gettableData();
   },
+  activated () {
+     this.gettableData();
+     this.dialogFormVisible = false;
+     this.dialogFormVisible2 = false;
+     this.dialogFormVisible4 = false;
+     this.dialogFormVisible5 = false;
+  },
   methods: {
     getkcData() {
       this.gettableData();

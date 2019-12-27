@@ -314,6 +314,9 @@ export default {
   created() {
     this.value4 = this.getCurrentDateTime();
   },
+  activated () {
+    this.value4 = this.getCurrentDateTime();
+  },
   methods: {
     getCurrentDateTime() {
       return moment(new Date()).format("YYYY-MM");

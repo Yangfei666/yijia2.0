@@ -295,6 +295,11 @@ export default {
         this.getListByPick();
         this.getorderList();
     },
+    activated () {
+      this.getgoodsorder();
+      this.getListByPick();
+      this.getorderList();
+    },
   methods: {
     //待结算
       getgoodsorder() {

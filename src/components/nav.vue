@@ -72,6 +72,12 @@ export default {
       Tiyanqufen: { tiyanqufen: "newCustomer", id: 1 ,bh:0,isAuto:2},
       Qianzaiqufen: { bh:0,isAuto: 2},
     };
+  },
+  activated () {
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+    this.dialogFormVisible3 = false;
+    this.dialogFormVisible4 = false;
   }
 };
 </script>

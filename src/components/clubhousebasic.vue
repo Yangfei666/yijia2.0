@@ -205,6 +205,10 @@ export default {
   created: function() {
     this.getClub();
   },
+  activated(){
+    this.getClub();
+    this.dialogFormVisible = false;
+  },
   methods: {
     //获取会所信息
     getClub() {

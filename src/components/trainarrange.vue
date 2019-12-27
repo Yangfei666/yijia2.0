@@ -139,6 +139,12 @@ export default {
       this.Rotationselect();
     }, 1000);
   },
+  activated () {
+    this.gettabledata();
+    setTimeout(() => {
+      this.Rotationselect();
+    }, 1000);
+  },
     computed: {
     //周一
     Monday() {

@@ -261,6 +261,11 @@ export default {
     let today = this.GetDateStr(0);
     this.getCourseList(today);
   },
+  activated(){
+    let today = this.GetDateStr(0);
+    this.getCourseList(today);
+    this.dialogFormVisible = false;
+  },
   watch: {
     activeName(newValue, oldValue) {
       if (newValue == "league") {

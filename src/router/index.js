@@ -180,17 +180,24 @@ Vue.use(Router)
 
 const router = new Router({
     mode: 'history',
-      scrollBehavior(to, from, savedPosition) {
+    //   scrollBehavior(to, from, savedPosition) {
+    //     if (savedPosition) {
+    //       return savedPosition
+    //     } else {
+    //       if (from.meta.keepAlive) {
+    //         from.meta.savedPosition = document.body.scrollTop;
+    //       }
+    //       return {
+    //         x: 0,
+    //         y: to.meta.savedPosition || 0
+    //       }
+    //     }
+    //   },
+    scrollBehavior (to, from, savedPosition) {
         if (savedPosition) {
           return savedPosition
         } else {
-          if (from.meta.keepAlive) {
-            from.meta.savedPosition = document.body.scrollTop;
-          }
-          return {
-            x: 0,
-            y: to.meta.savedPosition || 0
-          }
+          return { x: 0, y: 0 }
         }
       },
     routes: [
@@ -222,7 +229,7 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-bijibendiannao',
             children: [
-                { path: '/home/main', component: Main, name: '首页', menuShow: true }//首页
+                { path: '/home/main', component: Main, name: '首页', menuShow: true,meta: {keepAlive: true} }//首页
             ]
         }, {
             path: '/Curriculum',
@@ -231,10 +238,10 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-085shucezhongxin',
             children: [
-                { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true},//团课课程表
+                { path: '/Curriculum/group', component: CurriGroup, name: '团课课程表', menuShow: true,meta: {keepAlive: true}},//团课课程表
                 { path: '/Curriculum/group/downschedule', component: Downschedule,name: '下载课表', menuShow: false  },//下载课表
-                { path: '/Curriculum/privateculum', component: CurriPrivateCulum, name: '私教课程表', menuShow: true },//私教课程表
-                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true }//课程科目管理
+                { path: '/Curriculum/privateculum', component: CurriPrivateCulum, name: '私教课程表', menuShow: true ,meta: {keepAlive: true}},//私教课程表
+                { path: '/Curriculum/course', component: CurriCourse, name: '课程科目管理', menuShow: true ,meta: {keepAlive: true}}//课程科目管理
             ]
         }, {
             path: '/Customer',
@@ -246,24 +253,24 @@ const router = new Router({
                 {
                     path: '/Customer/leaguermanage', component: Leaguermanage, name: '会员管理', menuShow: true, redirect: '/Customer/leaguermanage/leaguermanagetable',//会员管理
                     children: [
-                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable, meta: {keepAlive: true,scollTopPosition: 0}},//会员表格
+                        { path: '/Customer/leaguermanage/leaguermanagetable', component: Leaguermanagetable,meta: {keepAlive: true}},//会员表格
                         { path: '/Customer/leaguermanage/claim', component: Claim},//认领
                     ]
                 },
-                { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true },//开卡审核
-                { path: '/Customer/pendingclaim', component: Pendingclaim, name: '待认领客户', menuShow: true },//待认领客户
-                { path: '/Customer/customerinvitation', component: Customerinvitation, name: '客户邀约', menuShow: true },//客户邀约
+                { path: '/Customer/cardopenaudit', component: Cardopenaudit, name: '开卡审核', menuShow: true,meta: {keepAlive: true} },//开卡审核
+                { path: '/Customer/pendingclaim', component: Pendingclaim, name: '待认领客户', menuShow: true,meta: {keepAlive: true} },//待认领客户
+                { path: '/Customer/customerinvitation', component: Customerinvitation, name: '客户邀约', menuShow: true,meta: {keepAlive: true} },//客户邀约
                 {
                     path: '/Customer/practice', component: CustomerPractice, name: '体验客户管理', menuShow: true, redirect: '/Customer/practice/practicetable',//体验客户管理
                     children: [
-                        { path: '/Customer/practice/practicetable', component: Practicetable ,meta: {keepAlive: true,scollTopPosition: 0}},//体验表格
+                        { path: '/Customer/practice/practicetable', component: Practicetable,meta: {keepAlive: true}},//体验表格
                         { path: '/Customer/practice/claim', component: Claim },//认领
                     ]
                 },
                 {
                     path: '/Customer/bargain', component: CustomerBargain, name: '定金客户管理', menuShow: true, redirect: '/Customer/bargain/bargaintable',//定金客户管理
                     children: [
-                        { path: '/Customer/bargain/bargaintable', component: Bargaintable ,meta: {keepAlive: true,scollTopPosition: 0} },//定金表格
+                        { path: '/Customer/bargain/bargaintable', component: Bargaintable,meta: {keepAlive: true}},//定金表格
                         { path: '/Customer/bargain/claim', component: Claim },//认领
                         { path: '/Customer/bargain/consume', component: Consume },//消费记录
                     ]
@@ -271,7 +278,7 @@ const router = new Router({
                 {
                     path: '/Customer/latent', component: CustomerLatent, name: '潜在客户管理', menuShow: true, redirect: '/Customer/latent/latenttable',//潜在客户管理
                     children: [
-                        { path: '/Customer/latent/latenttable', component: Latenttable ,meta: {keepAlive: true,scollTopPosition: 0}},//潜在表格
+                        { path: '/Customer/latent/latenttable', component: Latenttable ,meta: {keepAlive: true}},//潜在表格
                         { path: '/Customer/latent/claim', component: Claim },//认领
                         { path: '/Customer/latent/consume', component: Consume },//消费记录
                     ]
@@ -382,8 +389,8 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-lianjie',
             children: [
-                { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true },//轮播图管理
-                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true },//会所信息管理
+                { path: '/Routine/rotation', component: RoutineRotation, name: '轮播图管理', menuShow: true,meta: {keepAlive: true}},//轮播图管理
+                { path: '/Routine/club', component: RoutineClub, name: '会所信息管理', menuShow: true,meta: {keepAlive: true}},//会所信息管理
                 { path: '/Routine/rotation/lunbomanage', component: Lunbomanage, name: '图片管理', menuShow: false }//图片管理
             ]
         }, {
@@ -393,13 +400,13 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-shouye',
             children: [
-                { path: '/House/staff', component: HouseStaff, name: '员工管理', menuShow: true },//员工管理
-                { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true },//角色权限管理
-                { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true },//体验券设置
-                { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true },//会员卡管理
-                { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true },//财产管理
-                { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true },//储物柜
-                { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true },//教室设置
+                { path: '/House/staff', component: HouseStaff, name: '员工管理', menuShow: true,meta: {keepAlive: true} },//员工管理
+                { path: '/House/role', component: HouseRole, name: '角色权限管理', menuShow: true,meta: {keepAlive: true} },//角色权限管理
+                { path: '/House/experience', component: HouseExperience, name: '体验券设置', menuShow: true,meta: {keepAlive: true} },//体验券设置
+                { path: '/House/membership', component: HouseMembership, name: '会员卡管理', menuShow: true,meta: {keepAlive: true} },//会员卡管理
+                { path: '/House/property', component: HouseProperty, name: '财产管理', menuShow: true,meta: {keepAlive: true} },//财产管理
+                { path: '/House/locker', component: Locker, name: '储物柜', menuShow: true ,meta: {keepAlive: true}},//储物柜
+                { path: '/House/classroomsetting', component: Classroomsetting, name: '教室设置', menuShow: true,meta: {keepAlive: true} },//教室设置
                 { path: '/House/individualcenter', component: Individualcenter, name: '个人中心', menuShow: false },//个人中心
                 { path: '/House/feedback', component: Feedback, name: '客户反馈', menuShow: false },//客户反馈
                 {
@@ -429,9 +436,9 @@ const router = new Router({
             menuShow:true,
             iconCls:'iconfont icon-tubiao1',
             children: [
-                { path: '/Visualiza/visualization', component: Visualization, name: '会所业绩报表', menuShow: true },//会所业绩报表
-                { path: '/Visualiza/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true },//员工业绩报表
-                { path: '/Visualiza/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true },//教练上课记录
+                { path: '/Visualiza/visualization', component: Visualization, name: '会所业绩报表', menuShow: true ,meta: {keepAlive: true}},//会所业绩报表
+                { path: '/Visualiza/staffearningreport', component: Staffearningreport, name: '员工业绩报表', menuShow: true,meta: {keepAlive: true} },//员工业绩报表
+                { path: '/Visualiza/instructorclassrecord', component: Instructorclassrecord, name: '教练上课记录', menuShow: true,meta: {keepAlive: true} },//教练上课记录
             ]
         },
         {
@@ -441,9 +448,9 @@ const router = new Router({
             menuShow:true,
             iconCls:'iconfont icon-kechengguanli',
             children: [
-                { path: '/Teaching/teachingcourse/classprogress', component: Classprogress, name: '正在上课', menuShow: true },//正在上课
-                { path: '/Teaching/teachingcourse', component: Teachingcourse, name: '教培课程', menuShow: true },//教培课程
-                { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true },//教培业绩
+                { path: '/Teaching/teachingcourse/classprogress', component: Classprogress, name: '正在上课', menuShow: true,meta: {keepAlive: true} },//正在上课
+                { path: '/Teaching/teachingcourse', component: Teachingcourse, name: '教培课程', menuShow: true,meta: {keepAlive: true} },//教培课程
+                { path: '/Teaching/teachingmage', component: Teachingmage, name: '教培业绩', menuShow: true ,meta: {keepAlive: true}},//教培业绩
                 { path: '/Teaching/teachingcourse/classprogress/viewall', component: Viewall, name: '查看所有学员', menuShow: false },//查看所有学员
             ]
         },
@@ -454,8 +461,8 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-heguiguanli',
             children: [
-                { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true },//系统设置
-                { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true },//排班管理
+                { path: '/Operating/systemsetting', component: Systemsetting, name: '系统设置', menuShow: true,meta: {keepAlive: true} },//系统设置
+                { path: '/Operating/arrangemage', component: Arrangemage, name: '排班管理', menuShow: true ,meta: {keepAlive: true}},//排班管理
             ]
         },
         {
@@ -465,44 +472,44 @@ const router = new Router({
             menuShow: true,
             iconCls: 'iconfont icon-dianpuguanli',
             children: [
-                { path: '/Goodmanage/goodlist', component: Goodlist, name: '商品列表', menuShow: true },//商品列表
-                { path: '/Goodmanage/receiptrecord', component: Receiptrecord, name: '出入库记录', menuShow: true },//出入库记录
-                { path: '/Goodmanage/shoppingcart', component: Shoppingcart, name: '购物车', menuShow: true },//购物车
-                { path: '/Goodmanage/goodsorder', component: Goodsorder, name: '商品订单', menuShow: true },//商品订单
-                { path: '/Goodmanage/goodclassify', component: Goodclassify, name: '商品分类', menuShow: true },//商品分类
+                { path: '/Goodmanage/goodlist', component: Goodlist, name: '商品列表', menuShow: true ,meta: {keepAlive: true}},//商品列表
+                { path: '/Goodmanage/receiptrecord', component: Receiptrecord, name: '出入库记录', menuShow: true,meta: {keepAlive: true} },//出入库记录
+                { path: '/Goodmanage/shoppingcart', component: Shoppingcart, name: '购物车', menuShow: true,meta: {keepAlive: true} },//购物车
+                { path: '/Goodmanage/goodsorder', component: Goodsorder, name: '商品订单', menuShow: true,meta: {keepAlive: true} },//商品订单
+                { path: '/Goodmanage/goodclassify', component: Goodclassify, name: '商品分类', menuShow: true ,meta: {keepAlive: true}},//商品分类
             ]
         },
     ]
 })
-router.beforeEach((to, from, next) => {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
-    window.scrollTo(0, 0)
-    next();
-  })
-router.beforeRouteEnter = (to, from, next) => {
-    next(vm => {
-          if (from.path === "/Customer/leaguermanage/leaguermanagetable" && 
-              from.path === "/Customer/practice/practicetable" && 
-              from.path === "/Customer/practice/bargaintable" && 
-              from.path === "/Customer/practice/latenttable") {
-              document.querySelector('scroll-content').scrollTop = to.meta.scollTopPosition;
-          }
-    });
-}
+// router.beforeEach((to, from, next) => {
+//     document.body.scrollTop = 0
+//     document.documentElement.scrollTop = 0
+//     window.scrollTo(0, 0)
+//     next();
+//   })
+// router.beforeRouteEnter = (to, from, next) => {
+//     next(vm => {
+//           if (from.path === "/Customer/leaguermanage/leaguermanagetable" && 
+//               from.path === "/Customer/practice/practicetable" && 
+//               from.path === "/Customer/practice/bargaintable" && 
+//               from.path === "/Customer/practice/latenttable") {
+//               document.querySelector('scroll-content').scrollTop = to.meta.scollTopPosition;
+//           }
+//     });
+// }
 // 列表页面的 beforeRouteLeave 钩子函数
-router.beforeRouteLeave = (to, from, next) => {
-    if (from.meta.keepAlive) {
-        from.meta.scollTopPosition = document.querySelector('scroll-content').scrollTop;
-    }
-    next();
-  }
-router.afterEach((to, from) => {
-    let scrollContent = document.querySelector('.scroll-content');
-    if (scrollContent) {
-      scrollContent.scrollTop = 0;
-      scrollContent.scrollLeft = 0;
-    }
-  })
+// router.beforeRouteLeave = (to, from, next) => {
+//     if (from.meta.keepAlive) {
+//         from.meta.scollTopPosition = document.querySelector('scroll-content').scrollTop;
+//     }
+//     next();
+//   }
+// router.afterEach((to, from) => {
+//     let scrollContent = document.querySelector('.scroll-content');
+//     if (scrollContent) {
+//       scrollContent.scrollTop = 0;
+//       scrollContent.scrollLeft = 0;
+//     }
+//   })
 
 export default router

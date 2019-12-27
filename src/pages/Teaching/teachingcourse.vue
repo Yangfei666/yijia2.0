@@ -156,6 +156,12 @@ export default {
     this.gettabledata();
     this.Maydate = this.getCurrentDateTime();
   },
+  activated () {
+    this.gettabledata();
+    this.Maydate = this.getCurrentDateTime();
+    this.dialogFormVisible = false;
+    this.dialogFormVisible2 = false;
+  },
   methods: {
     getCurrentDateTime() {
       return moment(new Date()).format("YYYY-MM-DD");

@@ -245,6 +245,10 @@ export default {
     this.getTableData();
     this.couponSelected = this.couponList[0].value;
   },
+  activated(){
+    this.getTableData();
+    this.couponSelected = this.couponList[0].value;
+  },
   methods: {
     //我的邀约表格数据
     getTableData() {
